@@ -1,0 +1,7 @@
+* @seek-oss/indirect
+
+# Configured by Renovate
+backend/package.json
+backend/yarn.lock
+frontend/package.json
+frontend/yarn.lock
