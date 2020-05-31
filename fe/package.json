@@ -8,7 +8,7 @@
     "react-dom": "16.13.1",
     "sku": "10.3.5"
   },
-  "name": "@seek/wingman",
+  "name": "@seek/wingman-fe",
   "peerDependencies": {
     "braid-design-system": ">= 28",
     "react": ">= 16 < 17"
