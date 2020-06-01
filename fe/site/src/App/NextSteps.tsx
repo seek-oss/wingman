@@ -11,7 +11,7 @@ import {
 } from 'braid-design-system';
 import React, { Fragment } from 'react';
 
-export default () => (
+export const NextSteps = () => (
   <Fragment>
     <Box background="brand" paddingY="xxlarge" paddingX="gutter">
       <Stack space="medium">

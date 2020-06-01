@@ -13,3 +13,10 @@ const server = app.listen(port, () => {
 
   console.debug('listening on', address.port);
 });
+
+export const stopServer = () =>
+  new Promise((resolve, reject) =>
+    server.close((err) =>
+      typeof err === 'undefined' ? resolve() : reject(err),
+    ),
+  );
