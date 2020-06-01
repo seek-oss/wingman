@@ -21,6 +21,8 @@
   "private": true,
   "scripts": {
     "build": "tsc",
+    "format": "prettier --write .",
+    "lint": "prettier --check .",
     "start": "ts-node-dev --respawn server/src/app",
     "test": "jest"
   },

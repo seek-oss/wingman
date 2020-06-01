@@ -1,12 +1,10 @@
 {
-  "devDependencies": {
-    "prettier": "2.0.5"
-  },
   "private": true,
   "scripts": {
     "be": "yarn workspace @seek/wingman-be",
     "fe": "yarn workspace @seek/wingman-fe",
-    "format": "prettier --write ."
+    "format": "yarn workspaces run format",
+    "lint": "yarn workspaces run lint"
   },
   "workspaces": [
     "be",

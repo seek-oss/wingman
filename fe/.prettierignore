@@ -1,4 +1,6 @@
-# sku generates a non-compliant file
+# sku generates non-compliant files
+.eslintrc
+.prettierrc
 tsconfig.json
 
 # managed by sku
