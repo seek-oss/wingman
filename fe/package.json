@@ -4,10 +4,15 @@
     "@types/react": "16.9.35",
     "@types/react-dom": "16.9.8",
     "braid-design-system": "28.1.0",
+    "classnames": "2.2.6",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "sku": "10.3.5"
   },
+  "files": [
+    "lib"
+  ],
+  "main": "lib/components/index.ts",
   "name": "@seek/wingman-fe",
   "peerDependencies": {
     "braid-design-system": ">= 28",
@@ -15,12 +20,12 @@
   },
   "private": true,
   "scripts": {
-    "start": "sku start",
-    "test": "sku test",
     "build": "sku build",
-    "serve": "sku serve",
+    "format": "sku format",
     "lint": "sku lint",
-    "format": "sku format"
+    "serve": "sku serve",
+    "start": "sku start",
+    "test": "sku test"
   },
   "version": "0.1.0"
 }
