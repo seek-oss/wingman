@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+    "outDir": "dist",
+    "target": "ES2019"
+  },
+  "extends": "tsconfig-seek",
+  "include": ["**/*.ts"]
+}

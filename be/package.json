@@ -1,0 +1,28 @@
+{
+  "devDependencies": {
+    "@types/koa": "2.11.3",
+    "jest": "26.0.1",
+    "koa": "2.12.0",
+    "prettier": "2.0.5",
+    "ts-jest": "26.1.0",
+    "ts-node": "8.10.2",
+    "ts-node-dev": "1.0.0-pre.44",
+    "tsconfig-seek": "1.0.2",
+    "typescript": "3.9.3"
+  },
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.ts",
+  "name": "@seek/wingman-be",
+  "peerDependencies": {
+    "koa": ">= 2.12 < 3"
+  },
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node-dev --respawn server/src/app",
+    "test": "jest"
+  },
+  "version": "0.1.0"
+}
