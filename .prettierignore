@@ -1,6 +1,3 @@
-# sku generates a non-compliant file
-tsconfig.json
-
 # managed by sku
 *.less.d.ts
 coverage/

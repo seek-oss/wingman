@@ -1,11 +1,13 @@
-# sku generates a non-compliant file
-tsconfig.json
+node_modules/
 
 # managed by sku
-*.less.d.ts
+.eslintrc
+.prettierrc
 coverage/
 dist-playroom/
 dist-storybook/
 dist/
 report/
+tsconfig.json
 # end managed by sku
+!be/tsconfig.json
