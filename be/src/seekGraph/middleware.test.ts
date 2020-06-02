@@ -1,25 +1,18 @@
-import { Server } from 'http';
-
 import { AuthenticationError } from 'apollo-server-koa';
 import Koa from 'koa';
 import nock from 'nock';
-import request from 'supertest';
 
+import { SEEK_API_BASE_URL, SEEK_API_PATH } from '../constants';
 import { INTROSPECTION_RESPONSE } from '../testing/graphql';
+import { createAgent } from '../testing/http';
 
-import { SEEK_API_BASE_URL, SEEK_API_PATH } from './constants';
 import { createSeekGraphMiddleware } from './middleware';
 import { SeekGraphContext } from './types';
 
 describe('createSeekGraphMiddleware', () => {
-  const app = new Koa();
-
   const getPartnerToken = jest.fn();
 
-  let server: Server;
-  let agent: request.SuperTest<request.Test>;
-
-  beforeAll(async () => {
+  const agent = createAgent(async () => {
     nock(SEEK_API_BASE_URL)
       .post(SEEK_API_PATH)
       .matchHeader('user-agent', 'abc/1.2.3')
@@ -32,16 +25,14 @@ describe('createSeekGraphMiddleware', () => {
       userAgent: 'abc/1.2.3',
     });
 
-    app.use(seekGraphMiddleware);
-
-    await new Promise((resolve) => (server = app.listen(resolve)));
-
-    agent = request.agent(server);
+    return new Koa().use(seekGraphMiddleware);
   });
+
+  beforeAll(agent.setup);
 
   afterEach(jest.clearAllMocks);
 
-  afterAll(() => server.close());
+  afterAll(agent.teardown);
 
   it('propagates an authorised request to the SEEK API', async () => {
     const graphqlResponse = { data: { _query: 'such wow' } };
@@ -56,7 +47,7 @@ describe('createSeekGraphMiddleware', () => {
       .matchHeader('user-agent', 'abc/1.2.3')
       .reply(200, graphqlResponse);
 
-    const response = await agent
+    const response = await agent()
       .post('/custom')
       .set('aUtHoRiZaTiOn', 'in')
       .send({ query: '{ _query }' })
@@ -72,7 +63,7 @@ describe('createSeekGraphMiddleware', () => {
 
     getPartnerToken.mockRejectedValue(new AuthenticationError(message));
 
-    const response = await agent
+    const response = await agent()
       .post('/custom')
       .send({ query: '{ _query }' })
       .expect(200);

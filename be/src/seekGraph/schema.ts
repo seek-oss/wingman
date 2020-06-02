@@ -3,7 +3,8 @@ import { introspectSchema, wrapSchema } from '@graphql-tools/wrap';
 import { GraphQLSchema, print } from 'graphql';
 import fetch from 'node-fetch';
 
-import { SEEK_API_URL } from './constants';
+import { SEEK_API_URL } from '../constants';
+
 import { SeekGraphContext, SeekGraphMiddlewareOptions } from './types';
 
 type Options = Pick<

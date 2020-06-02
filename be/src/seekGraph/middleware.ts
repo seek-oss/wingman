@@ -18,7 +18,10 @@ export const createSeekGraphMiddleware = async ({
   path,
   userAgent,
 }: SeekGraphMiddlewareOptions): Promise<Middleware> => {
-  const schema = await createSchema({ getPartnerToken, userAgent });
+  const schema = await createSchema({
+    getPartnerToken,
+    userAgent,
+  });
 
   const server = new ApolloServer({
     context: createContext,
