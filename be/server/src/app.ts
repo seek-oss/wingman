@@ -11,6 +11,7 @@ const port = undefined;
 const server = app.listen(port, () => {
   const address = server.address() as AddressInfo;
 
+  /* eslint-disable-next-line no-console */
   console.debug('listening on', address.port);
 });
 

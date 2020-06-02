@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "incremental": true,
-    "outDir": "dist",
+    "outDir": "lib",
     "target": "ES2019"
   },
   "extends": "tsconfig-seek",
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", ".eslintrc.js", "jest.config.js"]
 }
