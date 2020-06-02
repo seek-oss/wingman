@@ -58,7 +58,7 @@ describe('createSeekGraphMiddleware', () => {
 
     const response = await agent
       .post('/custom')
-      .set('authorization', 'in')
+      .set('aUtHoRiZaTiOn', 'in')
       .send({ query: '{ _query }' })
       .expect(200);
 
