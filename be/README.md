@@ -7,7 +7,7 @@
 ```typescript
 import {
   AuthenticationError,
-  SeekGraphMiddlewareOptions,
+  GetPartnerToken,
   createSeekGraphMiddleware,
 } from 'wingman-be';
 
