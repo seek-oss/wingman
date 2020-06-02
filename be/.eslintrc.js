@@ -6,6 +6,18 @@ module.exports = {
   parserOptions: {
     project: './tsconfig.json',
   },
+  overrides: [
+    {
+      // Allow `any` in our tests until Jest types are fixed up
+      files: '**/*.test.ts',
+      rules: {
+        '@typescript-eslint/no-unsafe-assignment': 'off',
+        '@typescript-eslint/no-unsafe-member-access': 'off',
+        '@typescript-eslint/no-unsafe-call': 'off',
+        '@typescript-eslint/no-unsafe-return': 'off',
+      },
+    },
+  ],
   rules: {
     '@typescript-eslint/array-type': ['error', { default: 'array-simple' }],
     '@typescript-eslint/explicit-module-boundary-types': 'off',

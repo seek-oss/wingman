@@ -83,7 +83,6 @@ describe('createSeekGraphMiddleware', () => {
       },
       errors: [
         expect.objectContaining({
-          /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */
           extensions: expect.objectContaining({
             code: 'UNAUTHENTICATED',
           }),
