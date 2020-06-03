@@ -1,11 +1,10 @@
 import {
   Actions,
-  Alert,
   Button,
   Card,
   Heading,
   Stack,
-  Text,
+  useToast,
 } from 'braid-design-system';
 import React, { useState } from 'react';
 
@@ -27,18 +26,14 @@ const HARDCODED_WEBHOOK_PAYLOAD = {
 const HARDCODED_WEBHOOK_ENDPOINT = 'abc-123';
 
 export const Webhook = () => {
-  const [loading, setLoading] = useState(false);
+  const showToast = useToast();
 
-  const [response, setResponse] = useState<{
-    message: string;
-    tone: 'critical' | 'positive';
-  }>();
+  const [loading, setLoading] = useState(false);
 
   const onClick = async (event: React.MouseEvent) => {
     event.preventDefault();
 
     setLoading(true);
-    setResponse(undefined);
 
     try {
       const message = await postPartnerWebhook(
@@ -46,12 +41,12 @@ export const Webhook = () => {
         HARDCODED_WEBHOOK_ENDPOINT,
       );
 
-      setResponse({
+      showToast({
         message,
         tone: 'positive',
       });
     } catch (err) {
-      setResponse({
+      showToast({
         message: String(err),
         tone: 'critical',
       });
@@ -71,10 +66,6 @@ export const Webhook = () => {
               Send
             </Button>
           </Actions>
-
-          <Alert tone={response?.tone ?? 'info'}>
-            <Text>{response?.message ?? 'Waiting...'}</Text>
-          </Alert>
         </Stack>
       </Stack>
     </Card>

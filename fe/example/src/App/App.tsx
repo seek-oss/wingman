@@ -1,6 +1,10 @@
 import 'braid-design-system/reset';
 
-import { BraidLoadableProvider, Stack } from 'braid-design-system';
+import {
+  BraidLoadableProvider,
+  Stack,
+  ToastProvider,
+} from 'braid-design-system';
 import React from 'react';
 
 import { Header } from './Header';
@@ -12,10 +16,12 @@ interface AppProps {
 
 export const App = ({ site }: AppProps) => (
   <BraidLoadableProvider themeName={site}>
-    <Stack space={['none', 'none', 'large']}>
-      <Header />
+    <ToastProvider>
+      <Stack space={['none', 'none', 'large']}>
+        <Header />
 
-      <HomePage />
-    </Stack>
+        <HomePage />
+      </Stack>
+    </ToastProvider>
   </BraidLoadableProvider>
 );
