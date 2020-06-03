@@ -1,11 +1,11 @@
-import React, { ReactChild } from 'react';
+import React, { ReactNode } from 'react';
 
 import { TextLinkButton } from '..';
 
 import { download } from './download';
 
 interface Props {
-  children: ReactChild;
+  children: ReactNode;
   href: string;
 }
 
