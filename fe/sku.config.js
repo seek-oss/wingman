@@ -1,7 +1,7 @@
 module.exports = {
-  clientEntry: 'site/src/client.tsx',
-  renderEntry: 'site/src/render.tsx',
-  srcPaths: ['lib', 'site/src'],
+  clientEntry: 'example/src/client.tsx',
+  renderEntry: 'example/src/render.tsx',
+  srcPaths: ['example/src', 'lib'],
 
   publicPath: '/',
   sites: [{ name: 'seekUnifiedBeta', host: 'dev.seekunifiedbeta.com' }],
