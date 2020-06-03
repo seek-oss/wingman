@@ -29,19 +29,29 @@ describe('createSeekAttachmentMiddleware', () => {
 
   afterAll(agent.teardown);
 
-  const attachmentUrl = (origin: string) =>
-    `/attachment?url=${encodeURIComponent(`${origin}/custom`)}`;
+  const validAttachmentPath =
+    '/anz/applications/abcDEF123/attachments/abcDEF123';
+
+  const attachmentUrl = ({
+    origin = SEEK_API_BASE_URL,
+    path = validAttachmentPath,
+  }: {
+    origin?: string;
+    path?: string;
+  } = {}) => `/attachment?url=${encodeURIComponent(`${origin}${path}`)}`;
 
   it('proxies a 200 response with headers', async () => {
-    nock(SEEK_API_BASE_URL).get('/custom').reply(200, Buffer.from('# My CV'), {
-      'content-disposition': 'attachment; filename="cv.md"',
-      'content-length': '7',
-      'content-type': 'text/markdown; charset=utf-8',
-      'last-modified': 'Tue, 01 Oct 2019 01:02:03 GMT',
-    });
+    nock(SEEK_API_BASE_URL)
+      .get(validAttachmentPath)
+      .reply(200, Buffer.from('# My CV'), {
+        'content-disposition': 'attachment; filename="cv.md"',
+        'content-length': '7',
+        'content-type': 'text/markdown; charset=utf-8',
+        'last-modified': 'Tue, 01 Oct 2019 01:02:03 GMT',
+      });
 
     const response = await agent()
-      .get(attachmentUrl(SEEK_API_BASE_URL))
+      .get(attachmentUrl())
       .set('aUtHoRiZaTiOn', 'in')
       .expect(200, '# My CV');
 
@@ -54,10 +64,12 @@ describe('createSeekAttachmentMiddleware', () => {
   });
 
   it('proxies a 200 response without headers', async () => {
-    nock(SEEK_API_BASE_URL).get('/custom').reply(200, Buffer.from('# My CV'));
+    nock(SEEK_API_BASE_URL)
+      .get(validAttachmentPath)
+      .reply(200, Buffer.from('# My CV'));
 
     const response = await agent()
-      .get(attachmentUrl(SEEK_API_BASE_URL))
+      .get(attachmentUrl())
       .set('aUtHoRiZaTiOn', 'in')
       .expect(200)
       .expect(Buffer.from('# My CV'));
@@ -69,10 +81,12 @@ describe('createSeekAttachmentMiddleware', () => {
   });
 
   it('proxies a 500 response', () => {
-    nock(SEEK_API_BASE_URL).get('/custom').reply(500, 'External Server Error');
+    nock(SEEK_API_BASE_URL)
+      .get(validAttachmentPath)
+      .reply(500, 'External Server Error');
 
     return agent()
-      .get(attachmentUrl(SEEK_API_BASE_URL))
+      .get(attachmentUrl())
       .set('aUtHoRiZaTiOn', 'in')
       .expect(500)
       .expect(Buffer.from('External Server Error'));
@@ -80,9 +94,21 @@ describe('createSeekAttachmentMiddleware', () => {
 
   it('blocks an SSRF attempt', () =>
     agent()
-      .get(attachmentUrl('https://haveibeenpwned.com'))
+      .get(attachmentUrl({ origin: 'https://haveibeenpwned.com' }))
       .set('aUtHoRiZaTiOn', 'in')
-      .expect(400, "Query parameter 'url' must point to the SEEK API"));
+      .expect(
+        400,
+        "Query parameter 'url' must point to a SEEK API attachment",
+      ));
+
+  it('blocks escalation to another route', () =>
+    agent()
+      .get(attachmentUrl({ path: '/graphql' }))
+      .set('aUtHoRiZaTiOn', 'in')
+      .expect(
+        400,
+        "Query parameter 'url' must point to a SEEK API attachment",
+      ));
 
   it('blocks a request with the wrong query parameter', () =>
     agent()
@@ -94,7 +120,7 @@ describe('createSeekAttachmentMiddleware', () => {
     getPartnerToken.mockRejectedValue(new Error('Help me'));
 
     return agent()
-      .get(attachmentUrl(SEEK_API_BASE_URL))
+      .get(attachmentUrl())
       .set('Authorization', 'Email insecure@example.com')
       .expect(401, 'Help me');
   });

@@ -7,6 +7,9 @@ import { GetPartnerToken } from '../getPartnerToken';
 import { filterHeaders } from './headers';
 import { SeekAttachmentEvent, SeekAttachmentMiddlewareOptions } from './types';
 
+// Third parties shouldn’t depend on this.
+const SEEK_API_ATTACHMENT_PATH = /^\/anz\/applications\/[a-z0-9]+\/attachments\/[a-z0-9]+$/i;
+
 const wrapRetriever = async (
   ctx: Context,
   getPartnerToken: GetPartnerToken,
@@ -32,13 +35,24 @@ const parseUrlParameter = (ctx: Context) => {
     return ctx.throw(400, "Query parameter 'url' must be a string");
   }
 
-  const { origin } = new URL(url);
+  const { origin, pathname } = new URL(url);
 
-  if (origin !== SEEK_API_BASE_URL) {
-    return ctx.throw(400, "Query parameter 'url' must point to the SEEK API");
+  // Third parties shouldn’t use this method in production as it doesn’t check
+  // that the hirer is authorised to access the attachment and it won’t cover
+  // future attachment paths. Instead, the server should receive a request to
+  // download a given attachment type for a candidate, check that the hirer has
+  // access to said candidate, then retrieve the attachment from the SEEK API.
+  // The URL should be sourced from a GraphQL query rather than user input.
+  if (
+    !(origin === SEEK_API_BASE_URL && SEEK_API_ATTACHMENT_PATH.test(pathname))
+  ) {
+    return ctx.throw(
+      400,
+      "Query parameter 'url' must point to a SEEK API attachment",
+    );
   }
 
-  return url;
+  return `${origin}${pathname}`;
 };
 
 export const createSeekAttachmentMiddleware = ({
