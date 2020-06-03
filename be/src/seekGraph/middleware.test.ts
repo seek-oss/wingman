@@ -5,27 +5,25 @@ import nock from 'nock';
 import { SEEK_API_BASE_URL, SEEK_API_PATH } from '../constants';
 import { INTROSPECTION_RESPONSE } from '../testing/graphql';
 import { createAgent } from '../testing/http';
+import { getPartnerToken } from '../testing/mock';
 
 import { createSeekGraphMiddleware } from './middleware';
-import { SeekGraphContext } from './types';
 
 describe('createSeekGraphMiddleware', () => {
-  const getPartnerToken = jest.fn();
-
   const agent = createAgent(async () => {
     nock(SEEK_API_BASE_URL)
       .post(SEEK_API_PATH)
       .matchHeader('user-agent', 'abc/1.2.3')
       .reply(200, INTROSPECTION_RESPONSE);
 
-    const seekGraphMiddleware = await createSeekGraphMiddleware({
+    const middleware = await createSeekGraphMiddleware({
       debug: false,
       getPartnerToken,
       path: '/custom',
       userAgent: 'abc/1.2.3',
     });
 
-    return new Koa().use(seekGraphMiddleware);
+    return new Koa().use(middleware);
   });
 
   beforeAll(agent.setup);
@@ -37,8 +35,8 @@ describe('createSeekGraphMiddleware', () => {
   it('propagates an authorised request to the SEEK API', async () => {
     const graphqlResponse = { data: { _query: 'such wow' } };
 
-    getPartnerToken.mockImplementation((ctx: SeekGraphContext) =>
-      Promise.resolve(ctx.authorization === 'in' ? 'out' : undefined),
+    getPartnerToken.mockImplementation((ctx) =>
+      Promise.resolve(ctx.authorization === 'in' ? 'out' : ''),
     );
 
     nock(SEEK_API_BASE_URL)

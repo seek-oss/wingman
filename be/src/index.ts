@@ -5,5 +5,8 @@ export {
   UserInputError,
 } from 'apollo-server-koa';
 
+export { GetPartnerToken } from './getPartnerToken';
+export { createSeekAttachmentMiddleware } from './seekAttachment/middleware';
+export { SeekAttachmentMiddlewareOptions } from './seekAttachment/types';
 export { createSeekGraphMiddleware } from './seekGraph/middleware';
-export { GetPartnerToken, SeekGraphMiddlewareOptions } from './seekGraph/types';
+export { SeekGraphMiddlewareOptions } from './seekGraph/types';

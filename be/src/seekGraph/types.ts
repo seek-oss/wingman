@@ -1,14 +1,4 @@
-/**
- * Function that verifies that the incoming request is authorised to act on
- * behalf of a partner and provides a partner token in response.
- */
-export type GetPartnerToken = (
-  context: SeekGraphContext,
-) => Promise<string | undefined>;
-
-export interface SeekGraphContext {
-  authorization?: string;
-}
+import { GetPartnerToken } from '../getPartnerToken';
 
 export interface SeekGraphMiddlewareOptions {
   debug: boolean;
