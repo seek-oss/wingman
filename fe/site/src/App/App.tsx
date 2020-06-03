@@ -12,7 +12,7 @@ interface AppProps {
 
 export const App = ({ site }: AppProps) => (
   <BraidLoadableProvider themeName={site}>
-    <Stack space={['none', 'large']}>
+    <Stack space={['none', 'none', 'large']}>
       <Header />
 
       <HomePage />

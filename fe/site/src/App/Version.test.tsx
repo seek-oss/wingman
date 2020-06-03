@@ -4,20 +4,24 @@ import React from 'react';
 
 import * as seekGraph from '../api/seekGraph';
 
-import { HomePage } from './HomePage';
+import { Version } from './Version';
 
-describe('HomePage', () => {
-  it('mentions a resume', () => {
+describe('Version', () => {
+  it('loads in version information', () => {
     jest
       .spyOn(seekGraph, 'querySeekGraph')
       .mockResolvedValue({ version: 'SUPER_UNIQUE_VERSION' });
 
     const { queryByText } = render(
       <BraidTestProvider>
-        <HomePage />
+        <Version />
       </BraidTestProvider>,
     );
 
-    return waitFor(() => expect(queryByText(/resume/i)).toBeDefined());
+    expect(queryByText(/SUPER_UNIQUE_VERSION/)).toBeNull();
+
+    return waitFor(() =>
+      expect(queryByText(/SUPER_UNIQUE_VERSION/)).toBeDefined(),
+    );
   });
 });
