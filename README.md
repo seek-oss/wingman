@@ -34,12 +34,12 @@ Internally, we maintain a private implementation to [dogfood] additions and chan
 
 ```shell
 ├── be
-│   ├── server
+│   ├── example
 │   ├── src
 │   └── ...
 ├── fe
+│   ├── example
 │   ├── lib
-│   ├── site
 │   └── ...
 ├── ...
 └── README.md <- you are here

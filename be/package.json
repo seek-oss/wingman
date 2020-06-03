@@ -41,7 +41,7 @@
     "build": "tsc",
     "format": "eslint --fix . && prettier --write .",
     "lint": "eslint . && prettier --check .",
-    "start": "ts-node-dev --respawn server/src/localServer",
+    "start": "ts-node-dev --respawn example/src/localServer",
     "test": "jest"
   },
   "version": "0.1.0"
