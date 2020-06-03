@@ -10,9 +10,18 @@ module.exports = {
 
   dangerouslySetESLintConfig: (skuEslintConfig) => ({
     ...skuEslintConfig,
+
     rules: {
       ...skuEslintConfig.rules,
+
       '@typescript-eslint/explicit-module-boundary-types': 'off',
+
+      'sort-imports': [
+        'error',
+        {
+          ignoreDeclarationSort: true,
+        },
+      ],
     },
   }),
 };
