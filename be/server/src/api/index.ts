@@ -17,7 +17,8 @@ export const createMiddleware = async (): Promise<Middleware> => {
 
   const router = new Router().use('/attachment', attachmentRouter.routes());
 
-  return compose([
+  // TODO: fix incompatibility with @koa/router context
+  return compose<any>([
     seekGraphMiddleware,
     router.allowedMethods(),
     router.routes(),
