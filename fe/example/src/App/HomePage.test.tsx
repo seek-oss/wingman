@@ -1,5 +1,5 @@
 import { render, waitFor } from '@testing-library/react';
-import { BraidTestProvider } from 'braid-design-system';
+import { BraidTestProvider, ToastProvider } from 'braid-design-system';
 import React from 'react';
 
 import * as seekGraph from '../api/seekGraph';
@@ -14,7 +14,9 @@ describe('HomePage', () => {
 
     const { queryByText } = render(
       <BraidTestProvider>
-        <HomePage />
+        <ToastProvider>
+          <HomePage />
+        </ToastProvider>
       </BraidTestProvider>,
     );
 
