@@ -5,7 +5,9 @@ import compose from 'koa-compose';
 import { createSeekGraphMiddleware } from '../../../src';
 import { USER_AGENT, getPartnerToken } from '../config';
 
-import { attachmentRouter } from './attachment';
+import { seekAttachmentMiddleware } from './attachment';
+import { corsMiddleware } from './cors';
+import { partnerWebhookMiddleware } from './webhook';
 
 export const createMiddleware = async (): Promise<Middleware> => {
   const seekGraphMiddleware = await createSeekGraphMiddleware({
@@ -15,11 +17,15 @@ export const createMiddleware = async (): Promise<Middleware> => {
     userAgent: USER_AGENT,
   });
 
-  const router = new Router().use('/attachment', attachmentRouter.routes());
+  const router = new Router()
+    .use('/attachment', seekAttachmentMiddleware)
+    .use('/webhook/:endpoint', partnerWebhookMiddleware);
 
   // TODO: fix incompatibility with @koa/router context
   return compose<any>([
     seekGraphMiddleware,
+
+    corsMiddleware,
     router.allowedMethods(),
     router.routes(),
   ]);

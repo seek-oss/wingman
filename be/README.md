@@ -37,7 +37,56 @@ Content-Type: application/json
 }
 ```
 
+### /webhook
+
+```http
+POST http://localhost:9090/webhook/abc HTTP/1.1
+Content-Type: application/json
+
+{
+  "events": [
+    {
+      "createDateTime": "foo",
+      "id": "foo",
+      "type": "CandidateApplicationCreated",
+      "candidateApplicationProfileId": "foo",
+      "candidateId": "foo"
+    }
+  ],
+  "subscriptionId": "foo"
+}
+```
+
+```http
+HTTP/1.1 204 OK
+```
+
 ## Node.js API
+
+## `createPartnerWebhookMiddleware`
+
+```typescript
+import { GetSigningSecret, createPartnerWebhookMiddleware } from 'wingman-be';
+
+const getSigningSecret: GetSigningSecret = (subscriptionId) => {
+  switch (subscriptionId) {
+    case 'fully seekret':
+      return getSigningSecretFromSecretStore();
+    case 'risky business':
+      return null;
+    default:
+      throw new Error('Invalid request');
+  }
+};
+
+const createApp = () => {
+  const middleware = createSeekAttachmentMiddleware({
+    getSigningSecret,
+  });
+
+  return new Koa().use(middleware);
+};
+```
 
 ### `createSeekAttachmentMiddleware`
 
