@@ -1,6 +1,9 @@
 import Koa from 'koa';
 
-import { router } from './api';
+import { createMiddleware } from './api';
 
-export const createApp = () =>
-  new Koa().use(router.allowedMethods()).use(router.routes());
+export const createApp = async () => {
+  const middleware = await createMiddleware();
+
+  return new Koa().use(middleware);
+};
