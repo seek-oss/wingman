@@ -7,4 +7,12 @@ module.exports = {
   sites: [{ name: 'seekUnifiedBeta', host: 'dev.seekunifiedbeta.com' }],
 
   orderImports: true,
+
+  dangerouslySetESLintConfig: (skuEslintConfig) => ({
+    ...skuEslintConfig,
+    rules: {
+      ...skuEslintConfig.rules,
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
+    },
+  }),
 };
