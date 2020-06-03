@@ -1,5 +1,4 @@
-import { stopServer } from './app';
-
 describe('app', () => {
-  it('can be stopped', () => expect(stopServer()).resolves.toBeUndefined());
+  it('exports createApp', () =>
+    expect(import('./app')).resolves.toHaveProperty('createApp'));
 });

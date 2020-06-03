@@ -9,7 +9,10 @@
     "runtypes": "^4.2.0"
   },
   "devDependencies": {
+    "@koa/cors": "3.1.0",
+    "@koa/router": "9.0.1",
     "@types/koa": "2.11.3",
+    "@types/koa__router": "8.0.2",
     "@types/supertest": "2.0.9",
     "eslint": "7.1.0",
     "eslint-config-seek": "7.0.1",
@@ -37,7 +40,7 @@
     "build": "tsc",
     "format": "eslint --fix . && prettier --write .",
     "lint": "eslint . && prettier --check .",
-    "start": "ts-node-dev --respawn server/src/app",
+    "start": "ts-node-dev --respawn server/src/localServer",
     "test": "jest"
   },
   "version": "0.1.0"

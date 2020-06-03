@@ -8,7 +8,7 @@ import { filterHeaders } from './headers';
 import { SeekAttachmentEvent, SeekAttachmentMiddlewareOptions } from './types';
 
 // Third parties shouldn’t depend on this.
-const SEEK_API_ATTACHMENT_PATH = /^\/anz\/applications\/[a-z0-9]+\/attachments\/[a-z0-9]+$/i;
+const SEEK_API_ATTACHMENT_PATH = /^\/(anz|anzPublicTest)\/applications\/[a-z0-9]+\/attachments\/[a-z0-9]+$/i;
 
 const wrapRetriever = async (
   ctx: Context,
