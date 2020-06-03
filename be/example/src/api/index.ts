@@ -18,8 +18,8 @@ export const createMiddleware = async (): Promise<Middleware> => {
   });
 
   const router = new Router()
-    .use('/attachment', seekAttachmentMiddleware)
-    .use('/webhook/:endpoint', partnerWebhookMiddleware);
+    .get('/attachment', seekAttachmentMiddleware)
+    .post('/webhook/:endpoint', partnerWebhookMiddleware);
 
   // TODO: fix incompatibility with @koa/router context
   return compose<any>([
