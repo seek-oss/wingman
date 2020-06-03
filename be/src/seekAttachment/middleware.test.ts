@@ -32,7 +32,7 @@ describe('createSeekAttachmentMiddleware', () => {
   const attachmentUrl = (origin: string) =>
     `/attachment?url=${encodeURIComponent(`${origin}/custom`)}`;
 
-  it('proxies a 200 response', async () => {
+  it('proxies a 200 response with headers', async () => {
     nock(SEEK_API_BASE_URL).get('/custom').reply(200, Buffer.from('# My CV'), {
       'content-disposition': 'attachment; filename="cv.md"',
       'content-length': '7',
@@ -47,8 +47,24 @@ describe('createSeekAttachmentMiddleware', () => {
 
     expect(response.header).toMatchObject({
       'content-disposition': 'attachment; filename="cv.md"',
+      'content-length': '7',
       'content-type': 'text/markdown; charset=utf-8',
       'last-modified': 'Tue, 01 Oct 2019 01:02:03 GMT',
+    });
+  });
+
+  it('proxies a 200 response without headers', async () => {
+    nock(SEEK_API_BASE_URL).get('/custom').reply(200, Buffer.from('# My CV'));
+
+    const response = await agent()
+      .get(attachmentUrl(SEEK_API_BASE_URL))
+      .set('aUtHoRiZaTiOn', 'in')
+      .expect(200)
+      .expect(Buffer.from('# My CV'));
+
+    expect(response.header).toMatchObject({
+      'content-disposition': 'attachment',
+      'content-type': 'application/octet-stream',
     });
   });
 
