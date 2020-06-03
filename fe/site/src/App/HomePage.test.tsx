@@ -2,16 +2,16 @@ import { render } from '@testing-library/react';
 import { BraidTestProvider } from 'braid-design-system';
 import React from 'react';
 
-import { NextSteps } from './NextSteps';
+import { HomePage } from './HomePage';
 
-describe('NextSteps', () => {
-  it('should praise me 😌', () => {
+describe('HomePage', () => {
+  it('mentions a resume', () => {
     const { getByText } = render(
       <BraidTestProvider>
-        <NextSteps />
+        <HomePage />
       </BraidTestProvider>,
     );
 
-    expect(getByText(/congratulations/i)).toBeDefined();
+    expect(getByText(/resume/i)).toBeDefined();
   });
 });
