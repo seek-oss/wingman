@@ -48,7 +48,7 @@ Internally, we maintain a private implementation to [dogfood] additions and chan
 Wingman is developed in a monorepo.
 This makes it easier for us to release changes across the frontend and backend.
 
-The frontend and backend contain components (under [/be/src](/be/src) and [/fe/lib](/fe/lib) respectively) that are packaged and published to npm.
+The frontend and backend contain components (under [/fe/lib](/fe/lib) and [/be/src](/be/src) respectively) that are packaged and published to npm.
 This allows us to share code between the public implementation of Wingman in this repo and SEEK’s own private implementation.
 
 ### Disclaimers
