@@ -1,23 +1,6 @@
-import { AddressInfo } from 'net';
-
 import Koa from 'koa';
 
-const app = new Koa().use((ctx) => {
-  ctx.body = 'Hello world!';
-});
+import { router } from './api';
 
-const port = undefined;
-
-const server = app.listen(port, () => {
-  const address = server.address() as AddressInfo;
-
-  /* eslint-disable-next-line no-console */
-  console.debug('listening on', address.port);
-});
-
-export const stopServer = () =>
-  new Promise((resolve, reject) =>
-    server.close((err) =>
-      typeof err === 'undefined' ? resolve() : reject(err),
-    ),
-  );
+export const createApp = () =>
+  new Koa().use(router.allowedMethods()).use(router.routes());
