@@ -3,6 +3,7 @@ import React from 'react';
 
 import { Attachments } from './Attachments';
 import { Version } from './Version';
+import { Webhook } from './Webhook';
 
 export const HomePage = () => (
   <ContentBlock>
@@ -14,6 +15,12 @@ export const HomePage = () => (
       </Hidden>
 
       <Version />
+
+      <Hidden above="tablet">
+        <Divider />
+      </Hidden>
+
+      <Webhook />
     </Stack>
   </ContentBlock>
 );
