@@ -1,5 +1,42 @@
 # 🛩 Wingman B.E.
 
+## Example API
+
+### /attachment
+
+```http
+GET http://localhost:9090/attachment?url=xxx HTTP/1.1
+```
+
+```http
+HTTP/1.1 200 OK
+Content-Type: text/plain
+
+# My CV
+```
+
+### /seek-graphql
+
+```http
+POST http://localhost:9090/seek-graphql HTTP/1.1
+Content-Type: application/json
+
+{
+  "query": "{ version }"
+}
+```
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "data": {
+    "version": "123"
+  }
+}
+```
+
 ## Node.js API
 
 ### `createSeekAttachmentMiddleware`

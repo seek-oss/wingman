@@ -7,7 +7,7 @@ import { PORT } from './config';
 let server: Server | undefined;
 
 const serve = async () => {
-  const app = createApp();
+  const app = await createApp();
 
   await new Promise((resolve) => (server = app.listen(PORT, resolve)));
 
