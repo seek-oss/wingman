@@ -12,7 +12,9 @@
     "react-dom": "16.13.1",
     "sku": "10.3.5"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "license": "MIT",
   "main": "lib/components/index.ts",
   "name": "wingman-fe",
@@ -25,10 +27,9 @@
     "build": "sku build",
     "format": "sku format",
     "lint": "sku lint",
-    "release": "changeset publish",
     "serve": "sku serve",
     "start": "sku start",
     "test": "sku test"
   },
-  "version": "0.2.0"
+  "version": "0.0.0"
 }
