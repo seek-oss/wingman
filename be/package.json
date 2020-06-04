@@ -45,5 +45,5 @@
     "test": "jest"
   },
   "typings": "lib/index.d.ts",
-  "version": "0.0.0"
+  "version": "0.1.0"
 }
