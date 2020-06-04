@@ -8,9 +8,9 @@
     "fe": "yarn workspace wingman-fe",
     "format": "yarn workspaces run format",
     "lint": "yarn workspaces run lint",
+    "stage": "changeset version && yarn format",
     "release": "yarn be build && changeset publish",
-    "test": "yarn workspaces run test",
-    "version": "changeset version && yarn format"
+    "test": "yarn workspaces run test"
   },
   "workspaces": [
     "be",

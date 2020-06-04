@@ -31,7 +31,7 @@ jobs:
         uses: changesets/action@master
         with:
           publish: yarn release
-          version: yarn version
+          version: yarn stage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.SEEK_OSS_CI_NPM_TOKEN }}
