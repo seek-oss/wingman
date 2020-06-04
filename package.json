@@ -15,5 +15,6 @@
   "workspaces": [
     "be",
     "fe"
-  ]
+  ],
+  "version": "0.0.0"
 }
