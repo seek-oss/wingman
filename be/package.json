@@ -44,5 +44,6 @@
     "start": "ts-node-dev --respawn example/src/localServer",
     "test": "jest"
   },
+  "typings": "lib/index.d.ts",
   "version": "0.0.0"
 }
