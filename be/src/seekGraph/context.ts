@@ -2,7 +2,7 @@
 
 import * as t from 'runtypes';
 
-import { GetPartnerTokenRequest } from '../getPartnerToken';
+import { RetrieveRequest } from '../getPartnerToken';
 
 const IncomingContext = t.Record({
   ctx: t.Record({
@@ -16,7 +16,7 @@ const IncomingContext = t.Record({
 
 type IncomingContext = t.Static<typeof IncomingContext>;
 
-export const createContext = (context: unknown): GetPartnerTokenRequest => {
+export const createContext = (context: unknown): RetrieveRequest => {
   const result = IncomingContext.validate(context);
 
   return {

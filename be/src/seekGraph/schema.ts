@@ -4,7 +4,7 @@ import { GraphQLSchema, print } from 'graphql';
 import fetch from 'node-fetch';
 
 import { SEEK_API_URL } from '../constants';
-import { GetPartnerTokenRequest } from '../getPartnerToken';
+import { RetrieveRequest } from '../getPartnerToken';
 
 import { SeekGraphMiddlewareOptions } from './types';
 
@@ -22,7 +22,7 @@ const createExecutor = ({
   const partnerToken =
     typeof context === 'undefined'
       ? undefined
-      : await getPartnerToken(context as GetPartnerTokenRequest);
+      : await getPartnerToken(context as RetrieveRequest);
 
   const authHeaders: Record<string, string> =
     typeof partnerToken === 'undefined'

@@ -2,31 +2,13 @@ import { Context, Middleware } from 'koa';
 import fetch from 'node-fetch';
 
 import { SEEK_API_BASE_URL } from '../constants';
-import { GetPartnerToken } from '../getPartnerToken';
+import { wrapRetriever } from '../getPartnerToken';
 
 import { filterHeaders } from './headers';
 import { SeekAttachmentEvent, SeekAttachmentMiddlewareOptions } from './types';
 
 // Third parties shouldn’t depend on this.
 const SEEK_API_ATTACHMENT_PATH = /^\/(anz|anzPublicTest)\/applications\/[a-z0-9]+\/attachments\/[a-z0-9]+$/i;
-
-const wrapRetriever = async (
-  ctx: Context,
-  getPartnerToken: GetPartnerToken,
-) => {
-  const request = {
-    authorization: ctx.get('Authorization') || undefined,
-  };
-
-  try {
-    return await getPartnerToken(request);
-  } catch (err) {
-    // This is a bit of a hack. Consider either exposing the full Koa context to
-    // `getPartnerToken`, or standardising error behaviour so that we don’t
-    // handle unexpected errors and expose internal workings to the client.
-    return ctx.throw(401, err);
-  }
-};
 
 const parseUrlParameter = (ctx: Context) => {
   const { url } = ctx.query as Record<string, unknown>;
