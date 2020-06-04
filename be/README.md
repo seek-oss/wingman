@@ -1,11 +1,16 @@
 # 🛩 Wingman B.E.
 
+[![npm package](https://img.shields.io/npm/v/wingman-be)](https://www.npmjs.com/package/wingman-be)
+
 ## Example API
 
 ### /attachment
 
+Stream a SEEK API attachment to the Wingman F.E.
+
 ```http
 GET http://localhost:9090/attachment?url=xxx HTTP/1.1
+Authorization: ...
 ```
 
 ```http
@@ -17,8 +22,11 @@ Content-Type: text/plain
 
 ### /seek-graphql
 
+Proxy requests from the Wingman F.E. to the SEEK API’s GraphQL endpoint.
+
 ```http
 POST http://localhost:9090/seek-graphql HTTP/1.1
+Authorization: ...
 Content-Type: application/json
 
 {
@@ -39,9 +47,12 @@ Content-Type: application/json
 
 ### /webhook
 
+Handle incoming webhooks from the SEEK API.
+
 ```http
 POST http://localhost:9090/webhook/abc HTTP/1.1
 Content-Type: application/json
+Seek-Signature: ...
 
 {
   "events": [
@@ -80,7 +91,7 @@ const getSigningSecret: GetSigningSecret = (subscriptionId) => {
 };
 
 const createApp = () => {
-  const middleware = createSeekAttachmentMiddleware({
+  const middleware = createPartnerWebhookMiddleware({
     getSigningSecret,
   });
 
