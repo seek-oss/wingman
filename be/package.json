@@ -49,5 +49,5 @@
     "start": "ts-node-dev --respawn example/src/localServer",
     "test": "jest"
   },
-  "version": "0.1.0"
+  "version": "0.2.0"
 }
