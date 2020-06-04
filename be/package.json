@@ -30,18 +30,22 @@
     "typescript": "3.9.3"
   },
   "files": [
-    "lib"
+    "lib/**/*.d.ts",
+    "lib/**/*.js",
+    "lib/**/*.js.map"
   ],
+  "license": "MIT",
   "main": "lib/index.ts",
-  "name": "@seek/wingman-be",
+  "name": "wingman-be",
   "peerDependencies": {
     "koa": ">= 2.12 < 3"
   },
   "private": true,
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --project tsconfig.build.json",
     "format": "eslint --fix . && prettier --write .",
     "lint": "eslint . && prettier --check .",
+    "release": "yarn build && changeset publish",
     "start": "ts-node-dev --respawn example/src/localServer",
     "test": "jest"
   },

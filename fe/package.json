@@ -15,8 +15,9 @@
   "files": [
     "lib"
   ],
+  "license": "MIT",
   "main": "lib/components/index.ts",
-  "name": "@seek/wingman-fe",
+  "name": "wingman-fe",
   "peerDependencies": {
     "braid-design-system": ">= 28",
     "react": ">= 16 < 17"
@@ -26,6 +27,7 @@
     "build": "sku build",
     "format": "sku format",
     "lint": "sku lint",
+    "release": "changeset publish",
     "serve": "sku serve",
     "start": "sku start",
     "test": "sku test"

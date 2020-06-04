@@ -1,10 +1,15 @@
 {
+  "devDependencies": {
+    "@changesets/cli": "^2.8.0",
+    "@changesets/get-github-info": "^0.4.3"
+  },
   "private": true,
   "scripts": {
     "be": "yarn workspace @seek/wingman-be",
     "fe": "yarn workspace @seek/wingman-fe",
     "format": "yarn workspaces run format",
     "lint": "yarn workspaces run lint",
+    "release": "yarn workspaces run release",
     "test": "yarn workspaces run test"
   },
   "workspaces": [
