@@ -37,10 +37,6 @@
   "license": "MIT",
   "main": "lib/index.ts",
   "name": "wingman-be",
-  "peerDependencies": {
-    "koa": ">= 2.12 < 3"
-  },
-  "private": true,
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "format": "eslint --fix . && prettier --write .",
@@ -48,5 +44,6 @@
     "start": "ts-node-dev --respawn example/src/localServer",
     "test": "jest"
   },
-  "version": "0.1.0"
+  "typings": "lib/index.d.ts",
+  "version": "0.0.0"
 }
