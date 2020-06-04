@@ -9,7 +9,8 @@
     "format": "yarn workspaces run format",
     "lint": "yarn workspaces run lint",
     "release": "yarn be build && changeset publish",
-    "test": "yarn workspaces run test"
+    "test": "yarn workspaces run test",
+    "version": "changeset version && yarn format"
   },
   "workspaces": [
     "be",

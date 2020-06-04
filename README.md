@@ -1,5 +1,6 @@
 # 🛩 Wingman
 
+![GitHub Release](https://github.com/seek-oss/wingman/workflows/Release/badge.svg?branch=master)
 ![GitHub Validate](https://github.com/seek-oss/wingman/workflows/Validate/badge.svg?branch=master)
 
 Reference implementation of a SEEK-integrated recruitment system.
