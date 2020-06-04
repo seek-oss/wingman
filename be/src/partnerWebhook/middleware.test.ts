@@ -8,7 +8,7 @@ import {
   SIGNED_WEBHOOK_SUBSCRIPTION_ID,
   UNSIGNED_WEBHOOK_BODY,
   UNSIGNED_WEBHOOK_SUBSCRIPTION_ID,
-} from '../testing/data';
+} from '../testing/data/webhooks';
 import { createAgent } from '../testing/http';
 import { getSigningSecret } from '../testing/mock';
 
