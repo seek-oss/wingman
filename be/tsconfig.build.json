@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "removeComments": false
+  },
+  "exclude": ["**/__mocks__/**/*", "**/*.test.ts", "src/testing/**/*"],
+  "extends": "./tsconfig.json",
+  "include": ["src/**/*"]
+}
