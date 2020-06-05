@@ -1,5 +1,5 @@
 ---
-'wingman-fe': major
+'wingman-fe': minor
 ---
 
-feat: add storybook with Example component structure
+Adds storybook with Example component structure
