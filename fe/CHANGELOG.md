@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.4.0
+
+### Minor Changes
+
+- 4581e81: Bundles SEEK types directly within fe/lib
+
 ## 0.3.0
 
 ### Minor Changes

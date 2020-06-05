@@ -33,5 +33,5 @@
     "storybook:build": "sku build-storybook",
     "storybook:deploy": "storybook-to-ghpages --existing-output-dir=dist-storybook"
   },
-  "version": "0.3.0"
+  "version": "0.4.0"
 }
