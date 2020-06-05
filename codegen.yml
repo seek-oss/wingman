@@ -1,0 +1,20 @@
+generates:
+  ./types/seek.graphql.ts:
+    schema: ${SEEK_SCHEMA_PATH:https://graphql.seek.com/graphql}
+    plugins:
+      - typescript
+  ./types/seekFragmentTypes.ts:
+    schema: ${SEEK_SCHEMA_PATH:https://graphql.seek.com/graphql}
+    plugins:
+      - fragment-matcher
+    config:
+      module: es2015
+
+config:
+  scalars:
+    DateTime: string
+    Date: string
+    HistoryDate: string
+  declarationKind: 'interface'
+  namingConvention:
+    transformUnderscore: true

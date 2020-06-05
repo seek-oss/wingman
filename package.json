@@ -10,11 +10,17 @@
     "lint": "yarn workspaces run lint",
     "stage": "changeset version && yarn format",
     "release": "yarn be build && changeset publish",
-    "test": "yarn workspaces run test"
+    "test": "yarn workspaces run test",
+    "codegen": "graphql-codegen --config codegen.yml"
   },
   "workspaces": [
     "be",
     "fe"
   ],
-  "version": "0.0.0"
+  "version": "0.0.0",
+  "devDependencies": {
+    "@graphql-codegen/cli": "^1.15.1",
+    "@graphql-codegen/fragment-matcher": "^1.15.1",
+    "@graphql-codegen/typescript": "^1.15.1"
+  }
 }
