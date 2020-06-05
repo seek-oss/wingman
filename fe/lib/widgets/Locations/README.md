@@ -2,7 +2,7 @@
 
 Locations includes the following widgets:
 
-- `LocationSuggest`: A Location autocomplete component that can match on full words and substrings resolving a SEEK location. Returns a Location object identifier on select.
+- `LocationSuggest`: A Location autocomplete component that can match on full words and substrings resolving a SEEK location. Returns a Location object identifier on location selection.
 
 ## Installation
 
@@ -57,7 +57,7 @@ const client = new ApolloClient({
 import React, { useState } from 'react';
 import { LocationSuggest } from 'wingman-fe';
 
-// client set-up as per rpevious example
+// client set-up as per the previous example
 
 const LocationForm = () => {
   const [location, setLocation] = useState();
@@ -80,13 +80,13 @@ const LocationForm = () => {
 import { useForm } from 'react-hook-form';
 import { LocationSuggest } from 'wingman-fe';
 
-// client set-up as per rpevious example
+// client set-up as per the previous example
 
 const LocationForm = () => {
   const { register, setValue, handleSubmit } = useForm();
 
   const handleLocationSubmit = formData => {
-    // Logic here
+    // submit logic here
   };
 
   return (
