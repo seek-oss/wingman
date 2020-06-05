@@ -1,8 +1,13 @@
 {
   "dependencies": {
+    "@apollo/react-hooks": "^3.1.5",
     "@types/uuid": "^8.0.0",
     "@types/yup": "^0.29.2",
+    "apollo-boost": "^0.4.9",
+    "autosuggest-highlight": "^3.1.1",
     "content-disposition": "^0.5.3",
+    "graphql": "^15.0.0",
+    "graphql-tools": "^6.0.7",
     "react-hook-form": "^5.7.2",
     "runtypes": "^4.2.0",
     "yup": "^0.29.1",
