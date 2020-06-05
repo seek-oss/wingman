@@ -17,7 +17,7 @@
     "lib"
   ],
   "license": "MIT",
-  "main": "lib/components/index.ts",
+  "main": "lib/index.ts",
   "name": "wingman-fe",
   "peerDependencies": {
     "braid-design-system": ">= 28",
