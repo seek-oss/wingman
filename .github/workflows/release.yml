@@ -39,4 +39,4 @@ jobs:
       - name: Publish Storybook
         run: yarn fe storybook:deploy -- --ci --host-token-env-variable=GITHUB_TOKEN
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
