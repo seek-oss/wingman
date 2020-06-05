@@ -20,6 +20,25 @@ Content-Type: text/plain
 # My CV
 ```
 
+### /browser-token
+
+Provide a hirer-scoped browser token to the Wingman F.E.
+
+```http
+POST http://localhost:9090/browser-token HTTP/1.1
+Authorization: ...
+```
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "authorization": "Bearer ey...",
+  "expiry": "1970-01-01T00:00:00.000Z"
+}
+```
+
 ### /seek-graphql
 
 Proxy requests from the Wingman F.E. to the SEEK API’s GraphQL endpoint.
@@ -73,6 +92,37 @@ HTTP/1.1 204 OK
 ```
 
 ## Node.js API
+
+## `createBrowserTokenMiddleware`
+
+```typescript
+import { GetPartnerToken, createBrowserTokenMiddleware } from 'wingman-be';
+
+const getPartnerToken: GetPartnerToken<{
+  hirerId: string;
+  partnerToken: string;
+}> = async (request) => {
+  if (request.authorization !== 'SUPER_SECRET') {
+    throw new Error('oh no!');
+  }
+
+  const partnerToken = await getPartnerTokenFromSecretStore();
+
+  return {
+    hirerId: 'seekAnzPublicTest:organization:seek:93WyyF1h',
+    partnerToken,
+  };
+};
+
+const createApp = () => {
+  const middleware = createBrowserTokenMiddleware({
+    getPartnerToken,
+    userAgent: 'my-service/1.2.3',
+  });
+
+  return new Koa().use(middleware);
+};
+```
 
 ## `createPartnerWebhookMiddleware`
 
