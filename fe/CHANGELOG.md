@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.3.0
+
+### Minor Changes
+
+- b307e2f: Exports SEEK graphql types for consumer use
+
 ## 0.2.0
 
 ### Minor Changes
