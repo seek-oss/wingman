@@ -1,9 +1,9 @@
 generates:
-  ./types/seek.graphql.ts:
+  ./fe/lib/types/seek.graphql.ts:
     schema: ${SEEK_SCHEMA_PATH:https://graphql.seek.com/graphql}
     plugins:
       - typescript
-  ./types/seekFragmentTypes.ts:
+  ./fe/lib/types/seekFragmentTypes.ts:
     schema: ${SEEK_SCHEMA_PATH:https://graphql.seek.com/graphql}
     plugins:
       - fragment-matcher
