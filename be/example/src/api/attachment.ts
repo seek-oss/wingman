@@ -1,4 +1,5 @@
-import { createSeekAttachmentMiddleware } from '../../../src';
+import { createSeekAttachmentMiddleware } from 'src';
+
 import { USER_AGENT, getPartnerToken } from '../config';
 
 export const seekAttachmentMiddleware = createSeekAttachmentMiddleware({

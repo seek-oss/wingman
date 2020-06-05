@@ -14,23 +14,14 @@
   "devDependencies": {
     "@koa/cors": "3.1.0",
     "@koa/router": "9.0.1",
+    "@seek/skuba-dive": "1.0.2",
     "@types/koa": "2.11.3",
     "@types/koa__router": "8.0.2",
     "@types/lru-cache": "5.1.0",
     "@types/supertest": "2.0.9",
-    "eslint": "7.1.0",
-    "eslint-config-seek": "7.0.1",
     "eslint-plugin-jest": "23.13.2",
-    "jest": "26.0.1",
     "nock": "12.0.3",
-    "prettier": "2.0.5",
-    "skuba": "3.4.1",
-    "supertest": "4.0.2",
-    "ts-jest": "26.1.0",
-    "ts-node": "8.10.2",
-    "ts-node-dev": "1.0.0-pre.44",
-    "tsconfig-seek": "1.0.2",
-    "typescript": "3.9.3"
+    "supertest": "4.0.2"
   },
   "files": [
     "lib/**/*.d.ts",
@@ -41,11 +32,16 @@
   "main": "lib/index.ts",
   "name": "wingman-be",
   "scripts": {
-    "build": "tsc --project tsconfig.build.json",
-    "format": "eslint --fix . && prettier --write .",
-    "lint": "eslint . && prettier --check .",
-    "start": "ts-node-dev --respawn example/src/localServer",
-    "test": "jest"
+    "build": "skuba build",
+    "format": "skuba format",
+    "lint": "skuba lint",
+    "start": "ENVIRONMENT=local skuba start",
+    "test": "skuba test"
+  },
+  "skuba": {
+    "entryPoint": "example/src/app.ts",
+    "template": null,
+    "version": "3.4.1"
   },
   "typings": "lib/index.d.ts",
   "version": "0.1.1"

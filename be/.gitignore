@@ -10,14 +10,16 @@ tmp/
 
 .DS_Store
 .npmrc
+*.tsbuildinfo
 npm-debug.log
+package-lock.json
 yarn-error.log
 
-/lib/
-
 # managed by sku
-*.less.d.ts
+.eslintrc
+.prettierrc
 dist-playroom/
 dist-storybook/
 report/
+tsconfig.json
 # end managed by sku

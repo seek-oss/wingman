@@ -1,9 +1,11 @@
 {
   "compilerOptions": {
-    "incremental": true,
+    "baseUrl": ".",
     "outDir": "lib",
-    "target": "ES2019"
+    "paths": {
+      "src": ["src"]
+    }
   },
-  "extends": "tsconfig-seek",
-  "include": ["**/*.ts", ".eslintrc.js", "jest.config.js"]
+  "exclude": ["lib/**/*"],
+  "extends": "skuba/config/tsconfig.json"
 }

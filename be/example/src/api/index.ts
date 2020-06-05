@@ -2,7 +2,8 @@ import Router from '@koa/router';
 import { Middleware } from 'koa';
 import compose from 'koa-compose';
 
-import { createSeekGraphMiddleware } from '../../../src';
+import { createSeekGraphMiddleware } from 'src';
+
 import { USER_AGENT, getPartnerToken } from '../config';
 
 import { seekAttachmentMiddleware } from './attachment';
