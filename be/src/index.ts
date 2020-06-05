@@ -5,6 +5,8 @@ export {
   UserInputError,
 } from 'apollo-server-koa';
 
+export { createBrowserTokenMiddleware } from './browserToken/middleware';
+export { BrowserTokenMiddlewareOptions } from './browserToken/types';
 export { GetPartnerToken } from './getPartnerToken';
 export { createPartnerWebhookMiddleware } from './partnerWebhook/middleware';
 export {
