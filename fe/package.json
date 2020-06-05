@@ -3,6 +3,7 @@
     "content-disposition": "^0.5.3"
   },
   "devDependencies": {
+    "@storybook/storybook-deployer": "^2.8.6",
     "@testing-library/react": "10.0.4",
     "@types/react": "16.9.35",
     "@types/react-dom": "16.9.8",
@@ -10,9 +11,12 @@
     "classnames": "2.2.6",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "sku": "10.3.5"
+    "sku": "10.3.5",
+    "storybook-readme": "^5.0.8"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "license": "MIT",
   "main": "lib/components/index.ts",
   "name": "wingman-fe",
@@ -27,7 +31,10 @@
     "lint": "sku lint",
     "serve": "sku serve",
     "start": "sku start",
-    "test": "sku test"
+    "test": "sku test",
+    "storybook:start": "sku storybook",
+    "storybook:build": "sku build-storybook",
+    "storybook:deploy": "deploy-storybook"
   },
   "version": "0.1.0"
 }
