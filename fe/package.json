@@ -33,7 +33,7 @@
     "test": "sku test",
     "storybook:start": "sku storybook",
     "storybook:build": "sku build-storybook",
-    "storybook:deploy": "deploy-storybook"
+    "storybook:deploy": "storybook-to-ghpages"
   },
   "version": "0.1.0"
 }
