@@ -2,7 +2,7 @@
   "dependencies": {
     "@graphql-tools/delegate": "^6.0.5",
     "@graphql-tools/wrap": "^6.0.5",
-    "apollo-server-koa": "^2.14.1",
+    "apollo-server-koa": "^2.14.2",
     "graphql": "^15.0.0",
     "koa": "^2.12.0",
     "koa-bodyparser": "^4.3.0",
