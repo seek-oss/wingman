@@ -7,6 +7,7 @@ import { USER_AGENT, getPartnerToken } from '../config';
 
 import { seekAttachmentMiddleware } from './attachment';
 import { corsMiddleware } from './cors';
+import { rootMiddleware } from './root';
 import { partnerWebhookMiddleware } from './webhook';
 
 export const createMiddleware = async (): Promise<Middleware> => {
@@ -23,6 +24,8 @@ export const createMiddleware = async (): Promise<Middleware> => {
 
   // TODO: fix incompatibility with @koa/router context
   return compose<any>([
+    rootMiddleware,
+
     seekGraphMiddleware,
 
     corsMiddleware,
