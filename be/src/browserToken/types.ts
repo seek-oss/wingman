@@ -1,10 +1,22 @@
 /* eslint-disable new-cap */
 
+import { Context } from 'koa';
 import * as t from 'runtypes';
 
 import { GetPartnerToken } from '../getPartnerToken';
 
+export type BrowserTokenEvent =
+  | {
+      type: 'CACHED';
+      expiry: string;
+    }
+  | {
+      type: 'RETRIEVED';
+      expiry: string;
+    };
+
 export interface BrowserTokenMiddlewareOptions {
+  callback?: (ctx: Context, event: BrowserTokenEvent) => void | Promise<void>;
   getPartnerToken: GetPartnerToken<{ hirerId: string; partnerToken: string }>;
   userAgent: string;
 }

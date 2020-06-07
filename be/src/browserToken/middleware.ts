@@ -4,10 +4,11 @@ import compose from 'koa-compose';
 import LRU from 'lru-cache';
 import fetch from 'node-fetch';
 
-import { SEEK_BROWSER_TOKEN_URL } from '../constants';
+import { SEEK_BROWSER_TOKEN_PLAYGROUND_URL } from '../constants';
 import { wrapRetriever } from '../getPartnerToken';
 
 import {
+  BrowserTokenEvent,
   BrowserTokenMiddlewareOptions,
   BrowserTokenRequest,
   BrowserTokenResponse,
@@ -20,6 +21,7 @@ const tokenCache = new LRU<string, BrowserTokenResponse>();
 export const resetTokenCache = () => tokenCache.reset();
 
 const _createBrowserTokenMiddleware = ({
+  callback,
   getPartnerToken,
   userAgent,
 }: BrowserTokenMiddlewareOptions): Middleware =>
@@ -40,6 +42,13 @@ const _createBrowserTokenMiddleware = ({
     const cachedToken = tokenCache.get(hirerId);
 
     if (typeof cachedToken !== 'undefined') {
+      const event: BrowserTokenEvent = {
+        type: 'CACHED',
+        expiry: cachedToken.expiry,
+      };
+
+      await callback?.(ctx, event);
+
       ctx.body = cachedToken;
 
       return;
@@ -52,21 +61,26 @@ const _createBrowserTokenMiddleware = ({
       userId: hirerId,
     };
 
-    const response = await fetch(SEEK_BROWSER_TOKEN_URL, {
+    const response = await fetch(SEEK_BROWSER_TOKEN_PLAYGROUND_URL, {
       body: JSON.stringify(seekApiRequest),
       headers: {
         Authorization: `Bearer ${partnerToken}`,
+        'Content-Type': 'application/json',
         'User-Agent': userAgent,
       },
       method: 'POST',
     });
+
+    if (response.status !== 200) {
+      return ctx.throw(500, 'Unexpected status from browser token endpoint');
+    }
 
     const responseBody = (await response.json()) as unknown;
 
     const responseResult = SeekApiBrowserTokenResponse.validate(responseBody);
 
     if (!responseResult.success) {
-      return ctx.throw(500, 'Unexpected response from browser token endpoint');
+      return ctx.throw(500, 'Unexpected body from browser token endpoint');
     }
 
     const expiresInMs = responseResult.value.expires_in * 1000;
@@ -78,6 +92,13 @@ const _createBrowserTokenMiddleware = ({
 
     // Write off the token at its half life. This is a bit mean.
     tokenCache.set(hirerId, freshToken, expiresInMs / 2);
+
+    const event: BrowserTokenEvent = {
+      type: 'RETRIEVED',
+      expiry: freshToken.expiry,
+    };
+
+    await callback?.(ctx, event);
 
     ctx.body = freshToken;
 
