@@ -1,7 +1,6 @@
-import { BE_SEEK_GRAPH_URL } from './constants';
+import { isObject } from 'lib/validation';
 
-const isRecord = (value: unknown): value is Record<PropertyKey, unknown> =>
-  typeof value === 'object' && value !== null;
+import { BE_SEEK_GRAPH_URL } from './constants';
 
 export const querySeekGraph = async (query: string) => {
   const response = await fetch(BE_SEEK_GRAPH_URL, {
@@ -14,9 +13,9 @@ export const querySeekGraph = async (query: string) => {
     method: 'POST',
   });
 
-  const responseBody: unknown = await response.json();
+  const responseBody = (await response.json()) as unknown;
 
-  if (!(isRecord(responseBody) && isRecord(responseBody.data))) {
+  if (!(isObject(responseBody) && isObject(responseBody.data))) {
     throw Error('unexpected response from GraphQL server');
   }
 
