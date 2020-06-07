@@ -2,7 +2,10 @@ import Koa from 'koa';
 import nock from 'nock';
 import * as fetchModule from 'node-fetch';
 
-import { SEEK_API_BASE_URL, SEEK_BROWSER_TOKEN_PATH } from '../constants';
+import {
+  SEEK_BROWSER_TOKEN_PATH,
+  SEEK_BROWSER_TOKEN_PLAYGROUND_BASE_URL,
+} from '../constants';
 import { RetrieveRequest } from '../getPartnerToken';
 import { createAgent } from '../testing/http';
 import { errorHandler } from '../testing/koa';
@@ -53,7 +56,7 @@ describe('createBrowserTokenMiddleware', () => {
   afterAll(agent.teardown);
 
   it('issues a browser token for a valid request', async () => {
-    nock(SEEK_API_BASE_URL)
+    nock(SEEK_BROWSER_TOKEN_PLAYGROUND_BASE_URL)
       .post(SEEK_BROWSER_TOKEN_PATH)
       .matchHeader('user-agent', 'abc/1.2.3')
       .reply(200, VALID_BROWSER_TOKEN_RESPONSE);
@@ -73,7 +76,7 @@ describe('createBrowserTokenMiddleware', () => {
   it('caches a browser token', async () => {
     const fetchSpy = jest.spyOn(fetchModule, 'default');
 
-    nock(SEEK_API_BASE_URL)
+    nock(SEEK_BROWSER_TOKEN_PLAYGROUND_BASE_URL)
       .post(SEEK_BROWSER_TOKEN_PATH)
       .matchHeader('user-agent', 'abc/1.2.3')
       .reply(200, VALID_BROWSER_TOKEN_RESPONSE);
@@ -111,7 +114,7 @@ describe('createBrowserTokenMiddleware', () => {
 
   it('fails on invalid response from the SEEK API', () => {
     nock.cleanAll();
-    nock(SEEK_API_BASE_URL)
+    nock(SEEK_BROWSER_TOKEN_PLAYGROUND_BASE_URL)
       .post(SEEK_BROWSER_TOKEN_PATH)
       .matchHeader('user-agent', 'abc/1.2.3')
       .reply(200, INVALID_BROWSER_TOKEN_RESPONSE);

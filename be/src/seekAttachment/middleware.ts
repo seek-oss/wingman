@@ -61,15 +61,11 @@ export const createSeekAttachmentMiddleware = ({
 
     ctx.status = response.status;
 
-    if (typeof callback === 'undefined') {
-      return;
-    }
-
     const event: SeekAttachmentEvent = {
       type: 'RETRIEVED',
       status: response.status,
       url,
     };
 
-    return callback(ctx, event);
+    return callback?.(ctx, event);
   };
