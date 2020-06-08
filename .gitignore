@@ -1,8 +1,6 @@
-
 node_modules/
 
 /be/lib/
-
 
 # managed by sku
 .eslintrc
