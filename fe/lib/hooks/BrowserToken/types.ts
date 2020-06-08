@@ -1,3 +1,5 @@
+/* eslint-disable new-cap */
+
 import * as t from 'runtypes';
 
 export type BrowserTokenResponse = t.Static<typeof BrowserTokenResponse>;

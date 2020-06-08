@@ -58,7 +58,7 @@ export const createGetAuthorization = (baseUrl: string): GetAuthorization => {
 
   const cache = new Map<string, Promise<CacheItem>>();
 
-  return async scope => {
+  return async (scope) => {
     const cachedPromise = cache.get(scope);
 
     if (typeof cachedPromise !== 'undefined') {
@@ -70,7 +70,7 @@ export const createGetAuthorization = (baseUrl: string): GetAuthorization => {
     }
 
     const freshPromise = getAuthorizationWithExpiry(baseUrl, scope).catch(
-      err => {
+      (err) => {
         // Do not cache failed retrievals
         cache.delete(scope);
 

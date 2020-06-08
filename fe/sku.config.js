@@ -16,6 +16,7 @@ module.exports = {
 
       '@typescript-eslint/explicit-module-boundary-types': 'off',
 
+      'no-use-before-define': 'off',
       'sort-imports': [
         'error',
         {
