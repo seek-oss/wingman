@@ -13,10 +13,22 @@ import {
   BrowserTokenRequest,
   BrowserTokenResponse,
   SeekApiBrowserTokenRequest,
-  SeekApiBrowserTokenResponse,
 } from './types';
 
-const tokenCache = new LRU<string, BrowserTokenResponse>();
+interface CacheItem {
+  expiry: string;
+  response: BrowserTokenResponse;
+}
+
+interface CacheKey {
+  hirerId: string;
+  scope: string;
+}
+
+const tokenCache = new LRU<string, CacheItem>();
+
+const cacheKey = ({ hirerId, scope }: CacheKey) =>
+  JSON.stringify({ hirerId, scope });
 
 export const resetTokenCache = () => tokenCache.reset();
 
@@ -39,17 +51,26 @@ const _createBrowserTokenMiddleware = ({
 
     const { hirerId, partnerToken } = await wrapRetriever(ctx, getPartnerToken);
 
-    const cachedToken = tokenCache.get(hirerId);
+    const cachedItem = tokenCache.get(cacheKey({ hirerId, scope }));
 
-    if (typeof cachedToken !== 'undefined') {
+    if (typeof cachedItem !== 'undefined') {
       const event: BrowserTokenEvent = {
         type: 'CACHED',
-        expiry: cachedToken.expiry,
+        expiry: cachedItem.expiry,
       };
 
       await callback?.(ctx, event);
 
-      ctx.body = cachedToken;
+      const response: BrowserTokenResponse = {
+        ...cachedItem.response,
+
+        // Recalculate expiry whenever we pull an item out of the cache.
+        expires_in: Math.floor(
+          (Date.parse(cachedItem.expiry) - Date.now()) / 1000,
+        ),
+      };
+
+      ctx.body = response;
 
       return;
     }
@@ -61,7 +82,7 @@ const _createBrowserTokenMiddleware = ({
       userId: hirerId,
     };
 
-    const response = await fetch(SEEK_BROWSER_TOKEN_PLAYGROUND_URL, {
+    const fetchResponse = await fetch(SEEK_BROWSER_TOKEN_PLAYGROUND_URL, {
       body: JSON.stringify(seekApiRequest),
       headers: {
         Authorization: `Bearer ${partnerToken}`,
@@ -71,36 +92,40 @@ const _createBrowserTokenMiddleware = ({
       method: 'POST',
     });
 
-    if (response.status !== 200) {
+    if (fetchResponse.status !== 200) {
       return ctx.throw(500, 'Unexpected status from browser token endpoint');
     }
 
-    const responseBody = (await response.json()) as unknown;
+    const fetchResponseJson = (await fetchResponse.json()) as unknown;
 
-    const responseResult = SeekApiBrowserTokenResponse.validate(responseBody);
+    const result = BrowserTokenResponse.validate(fetchResponseJson);
 
-    if (!responseResult.success) {
+    if (!result.success) {
       return ctx.throw(500, 'Unexpected body from browser token endpoint');
     }
 
-    const expiresInMs = responseResult.value.expires_in * 1000;
+    const response: BrowserTokenResponse = result.value;
 
-    const freshToken: BrowserTokenResponse = {
-      authorization: `Bearer ${responseResult.value.access_token}`,
-      expiry: new Date(Date.now() + expiresInMs).toISOString(),
+    const expiresInMs = response.expires_in * 1000;
+
+    const expiry = new Date(Date.now() + expiresInMs).toISOString();
+
+    const freshItem: CacheItem = {
+      expiry,
+      response,
     };
 
     // Write off the token at its half life. This is a bit mean.
-    tokenCache.set(hirerId, freshToken, expiresInMs / 2);
+    tokenCache.set(cacheKey({ hirerId, scope }), freshItem, expiresInMs / 2);
 
     const event: BrowserTokenEvent = {
       type: 'RETRIEVED',
-      expiry: freshToken.expiry,
+      expiry,
     };
 
     await callback?.(ctx, event);
 
-    ctx.body = freshToken;
+    ctx.body = response;
 
     return;
   };

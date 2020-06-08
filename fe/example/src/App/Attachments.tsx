@@ -13,13 +13,7 @@ const HARDCODED_RESUME_LINK =
   'https://graphql.seek.com/anzPublicTest/applications/SekKH8b26jdv2rV1oLjC9M/attachments/resume';
 
 export const Attachments = () => {
-  const getBrowserToken = useBrowserToken();
-
-  const getAuthorization = async () => {
-    const browserToken = await getBrowserToken(DOWNLOAD_ATTACHMENT_SCOPE);
-
-    return browserToken.authorization;
-  };
+  const getAuthorization = useBrowserToken();
 
   return (
     <Card>
@@ -29,7 +23,9 @@ export const Attachments = () => {
         <BulletList>
           <Bullet>
             <DownloadLink
-              getAuthorization={getAuthorization}
+              getAuthorization={() =>
+                getAuthorization(DOWNLOAD_ATTACHMENT_SCOPE)
+              }
               href={HARDCODED_COVER_LETTER_LINK}
             >
               Cover letter
@@ -38,7 +34,9 @@ export const Attachments = () => {
 
           <Bullet>
             <DownloadLink
-              getAuthorization={getAuthorization}
+              getAuthorization={() =>
+                getAuthorization(DOWNLOAD_ATTACHMENT_SCOPE)
+              }
               href={HARDCODED_RESUME_LINK}
             >
               Resume

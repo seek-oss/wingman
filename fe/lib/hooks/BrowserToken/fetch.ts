@@ -1,6 +1,4 @@
-import { hasStringProp } from '../../validation';
-
-import { BrowserToken, GetBrowserToken } from './types';
+import { BrowserTokenResponse, GetAuthorization } from './types';
 
 interface BrowserTokenRequest {
   scope: string;
@@ -9,7 +7,7 @@ interface BrowserTokenRequest {
 const fetchNewBrowserToken = async (
   baseUrl: string,
   scope: string,
-): Promise<BrowserToken> => {
+): Promise<BrowserTokenResponse> => {
   const request: BrowserTokenRequest = {
     scope,
   };
@@ -30,35 +28,60 @@ const fetchNewBrowserToken = async (
 
   const body = (await response.json()) as unknown;
 
-  if (!hasStringProp(body, 'authorization') || !hasStringProp(body, 'expiry')) {
+  const result = BrowserTokenResponse.validate(body);
+
+  if (!result.success) {
     throw Error('Browser token endpoint returned unexpected body');
   }
 
-  return body;
+  return result.value;
 };
 
-export const createGetBrowserToken = (baseUrl: string): GetBrowserToken => {
-  let cachedPromise: Promise<BrowserToken> | undefined;
+const getAuthorizationWithExpiry = async (baseUrl: string, scope: string) => {
+  const response = await fetchNewBrowserToken(baseUrl, scope);
 
-  return async (scope) => {
+  const expiry = Date.now() + response.expires_in * 1000;
+
+  return {
+    authorization: `Bearer ${response.access_token}`,
+
+    // Expire cached token once there is a minute left
+    expired: () => expiry - Date.now() < 60 * 1000,
+  };
+};
+
+export const createGetAuthorization = (baseUrl: string): GetAuthorization => {
+  interface CacheItem {
+    authorization: string;
+    expired(): boolean;
+  }
+
+  const cache = new Map<string, Promise<CacheItem>>();
+
+  return async scope => {
+    const cachedPromise = cache.get(scope);
+
     if (typeof cachedPromise !== 'undefined') {
-      const browserToken = await cachedPromise;
+      const response = await cachedPromise;
 
-      // Use cached browser token until a minute before expiry
-      if (Date.parse(browserToken.expiry) - Date.now() > 60 * 1000) {
-        return browserToken;
+      if (!response.expired()) {
+        return response.authorization;
       }
     }
 
-    const freshPromise = fetchNewBrowserToken(baseUrl, scope);
+    const freshPromise = getAuthorizationWithExpiry(baseUrl, scope).catch(
+      err => {
+        // Do not cache failed retrievals
+        cache.delete(scope);
 
-    // Reset cache on promise rejection
-    cachedPromise = freshPromise.catch((err) => {
-      cachedPromise = undefined;
+        throw err;
+      },
+    );
 
-      throw err;
-    });
+    cache.set(scope, freshPromise);
 
-    return freshPromise;
+    const response = await freshPromise;
+
+    return response.authorization;
   };
 };

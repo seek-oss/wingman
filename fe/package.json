@@ -1,6 +1,7 @@
 {
   "dependencies": {
-    "content-disposition": "^0.5.3"
+    "content-disposition": "^0.5.3",
+    "runtypes": "^4.2.0"
   },
   "devDependencies": {
     "@storybook/storybook-deployer": "^2.8.6",
@@ -13,7 +14,9 @@
     "react-dom": "16.13.1",
     "sku": "10.3.5"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "license": "MIT",
   "main": "lib/index.ts",
   "name": "wingman-fe",
