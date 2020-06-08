@@ -6,6 +6,7 @@ module.exports = {
   publicPath: '/',
   sites: [{ name: 'seekUnifiedBeta', host: 'dev.seekunifiedbeta.com' }],
 
+  compilePackages: ['scoobie'],
   orderImports: true,
 
   dangerouslySetESLintConfig: (skuEslintConfig) => ({
