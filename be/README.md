@@ -2,6 +2,10 @@
 
 [![npm package](https://img.shields.io/npm/v/wingman-be)](https://www.npmjs.com/package/wingman-be)
 
+```shell
+yarn add wingman-be
+```
+
 ## Example API
 
 ### /attachment

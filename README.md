@@ -24,8 +24,8 @@ Reference implementation of a SEEK-integrated recruitment system.
 Wingman is a mock recruitment system that integrates with the [SEEK API] to post job ads and screen applicants.
 It comprises:
 
-- A frontend React application
-- A backend Node.js GraphQL server
+- [A frontend React application](/fe)
+- [A backend Node.js GraphQL server](/be)
 
 Wingman serves as a practical reference for third-party developers integrating with the SEEK API,
 and complements the detailed documentation on our [developer site].
