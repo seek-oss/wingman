@@ -6,9 +6,9 @@ import { useDebounce } from 'lib/hooks/useDebounce';
 import { Location, LocationSuggestion } from 'lib/types/seek.graphql';
 import React, { forwardRef, useEffect, useState } from 'react';
 
-import { LOCATION_SUGGEST } from '../';
-
 import LocationSuggestInput from './LocationSuggestInput';
+
+import { LOCATION_SUGGEST } from '.';
 
 interface Props extends Omit<FieldProps, 'value'> {
   client: ApolloClient<Record<string, unknown>>;
