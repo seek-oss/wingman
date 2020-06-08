@@ -45,6 +45,7 @@ module.exports = {
     'jest/prefer-todo': 'error',
     'jest/valid-title': 'error',
 
+    'no-use-before-define': 'off',
     'sort-imports': [
       'error',
       {

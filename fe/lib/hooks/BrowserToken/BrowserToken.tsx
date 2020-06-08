@@ -1,9 +1,9 @@
 import React, { ReactNode, useContext } from 'react';
 
-import { createGetBrowserToken } from './fetch';
-import { GetBrowserToken } from './types';
+import { createGetAuthorization } from './fetch';
+import { GetAuthorization } from './types';
 
-const ctx = React.createContext<GetBrowserToken | undefined>(undefined);
+const ctx = React.createContext<GetAuthorization | undefined>(undefined);
 
 interface BrowserTokenProviderProps {
   baseUrl: string;
@@ -14,17 +14,17 @@ export const BrowserTokenProvider = ({
   baseUrl,
   children,
 }: BrowserTokenProviderProps) => {
-  const getBrowserToken = createGetBrowserToken(baseUrl);
+  const getAuthorization = createGetAuthorization(baseUrl);
 
-  return <ctx.Provider value={getBrowserToken}>{children}</ctx.Provider>;
+  return <ctx.Provider value={getAuthorization}>{children}</ctx.Provider>;
 };
 
-export const useBrowserToken = (): GetBrowserToken => {
-  const getBrowserToken = useContext(ctx);
+export const useBrowserToken = (): GetAuthorization => {
+  const getAuthorization = useContext(ctx);
 
-  if (typeof getBrowserToken === 'undefined') {
+  if (typeof getAuthorization === 'undefined') {
     throw Error('useBrowserToken requires a parent BrowserTokenProvider');
   }
 
-  return getBrowserToken;
+  return getAuthorization;
 };

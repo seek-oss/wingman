@@ -10,7 +10,6 @@ import { RetrieveRequest } from '../getPartnerToken';
 import { createAgent } from '../testing/http';
 import { errorHandler } from '../testing/koa';
 import {
-  DATE_ISO_REGEX,
   INVALID_BROWSER_TOKEN_RESPONSE,
   VALID_BROWSER_TOKEN_RESPONSE,
   VALID_HIRER_ID,
@@ -55,11 +54,37 @@ describe('createBrowserTokenMiddleware', () => {
 
   afterAll(agent.teardown);
 
-  it('issues a browser token for a valid request', async () => {
+  it('issues a browser token for a valid request', () => {
     nock(SEEK_BROWSER_TOKEN_PLAYGROUND_BASE_URL)
       .post(SEEK_BROWSER_TOKEN_PATH)
       .matchHeader('user-agent', 'abc/1.2.3')
       .reply(200, VALID_BROWSER_TOKEN_RESPONSE);
+
+    return agent()
+      .post('/')
+      .set('aUtHoRiZaTiOn', 'in')
+      .send({ scope: 'arbitrary' })
+      .expect(200, VALID_BROWSER_TOKEN_RESPONSE);
+  });
+
+  it('caches a browser token by scope', async () => {
+    const fetchSpy = jest.spyOn(fetchModule, 'default');
+
+    nock(SEEK_BROWSER_TOKEN_PLAYGROUND_BASE_URL)
+      .post(SEEK_BROWSER_TOKEN_PATH)
+      .matchHeader('user-agent', 'abc/1.2.3')
+      .reply(200, VALID_BROWSER_TOKEN_RESPONSE)
+      .post(SEEK_BROWSER_TOKEN_PATH)
+      .matchHeader('user-agent', 'abc/1.2.3')
+      .reply(200, VALID_BROWSER_TOKEN_RESPONSE);
+
+    await agent()
+      .post('/')
+      .set('aUtHoRiZaTiOn', 'in')
+      .send({ scope: 'arbitrary' })
+      .expect(200, VALID_BROWSER_TOKEN_RESPONSE);
+
+    expect(fetchSpy).toBeCalledTimes(1);
 
     const response = await agent()
       .post('/')
@@ -68,34 +93,19 @@ describe('createBrowserTokenMiddleware', () => {
       .expect(200);
 
     expect(response.body).toEqual({
-      authorization: `Bearer ${VALID_BROWSER_TOKEN_RESPONSE.access_token}`,
-      expiry: expect.stringMatching(DATE_ISO_REGEX),
+      ...VALID_BROWSER_TOKEN_RESPONSE,
+      expires_in: expect.any(Number),
     });
-  });
-
-  it('caches a browser token', async () => {
-    const fetchSpy = jest.spyOn(fetchModule, 'default');
-
-    nock(SEEK_BROWSER_TOKEN_PLAYGROUND_BASE_URL)
-      .post(SEEK_BROWSER_TOKEN_PATH)
-      .matchHeader('user-agent', 'abc/1.2.3')
-      .reply(200, VALID_BROWSER_TOKEN_RESPONSE);
-
-    await agent()
-      .post('/')
-      .set('aUtHoRiZaTiOn', 'in')
-      .send({ scope: 'arbitrary' })
-      .expect(200);
 
     expect(fetchSpy).toBeCalledTimes(1);
 
     await agent()
       .post('/')
       .set('aUtHoRiZaTiOn', 'in')
-      .send({ scope: 'arbitrary' })
+      .send({ scope: 'intentional' })
       .expect(200);
 
-    expect(fetchSpy).toBeCalledTimes(1);
+    expect(fetchSpy).toBeCalledTimes(2);
   });
 
   it('blocks an invalid request', () =>
@@ -113,7 +123,6 @@ describe('createBrowserTokenMiddleware', () => {
       .expect(401, 'Nice try'));
 
   it('fails on invalid response from the SEEK API', () => {
-    nock.cleanAll();
     nock(SEEK_BROWSER_TOKEN_PLAYGROUND_BASE_URL)
       .post(SEEK_BROWSER_TOKEN_PATH)
       .matchHeader('user-agent', 'abc/1.2.3')
