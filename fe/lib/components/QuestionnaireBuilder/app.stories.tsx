@@ -6,8 +6,8 @@ import { storiesOf } from 'sku/@storybook/react';
 
 import { QuestionnaireBuilder } from './QuestionnaireBuilder/QuestionnaireBuilder';
 
-storiesOf('App', module)
-  .add('seekAnz', () => <QuestionnaireBuilder />)
+storiesOf('QuestionnaireBuilder', module)
+  .add('Builder', () => <QuestionnaireBuilder />)
   .addDecorator((story) => (
     <BraidLoadableProvider themeName="seekAnz">
       <Box paddingX="gutter" paddingY="large">

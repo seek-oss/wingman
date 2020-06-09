@@ -35,8 +35,8 @@ const sampleQuestions: FormComponent[] = [
   },
 ];
 
-storiesOf('GraphqlQueryRenderer', module)
-  .add('basic', () => (
+storiesOf('QuestionnaireBuilder', module)
+  .add('GraphqlQueryRenderer', () => (
     <GraphqlQueryRenderer
       components={sampleQuestions}
       hirerId="Test:hirer:id"
