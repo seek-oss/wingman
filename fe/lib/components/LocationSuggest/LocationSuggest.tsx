@@ -4,7 +4,7 @@ import { FieldMessage } from 'braid-design-system';
 import { FieldProps } from 'braid-design-system/lib/components/private/Field/Field';
 import React, { forwardRef, useEffect, useState } from 'react';
 
-import { useDebounce } from 'lib/hooks/';
+import { useDebounce } from 'use-debounce';
 import { Location, LocationSuggestion } from 'lib/types/seek.graphql';
 
 import LocationSuggestInput from './LocationSuggestInput';
@@ -49,7 +49,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       LocationSuggestion[]
     >();
 
-    const debounceLocationSuggestInput = useDebounce(
+    const [debounceLocationSuggestInput] = useDebounce(
       locationSuggestInput,
       debounceDelay,
     );
