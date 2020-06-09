@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.5.0
+
+### Minor Changes
+
+- f3b6f7d: Adds LocationSuggest component
+
 ## 0.4.0
 
 ### Minor Changes

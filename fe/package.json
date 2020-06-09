@@ -29,9 +29,7 @@
     "scoobie": "3.1.3",
     "sku": "10.3.5"
   },
-  "files": [
-    "lib"
-  ],
+  "files": ["lib"],
   "license": "MIT",
   "main": "lib/index.ts",
   "name": "wingman-fe",
@@ -52,5 +50,5 @@
     "storybook:build": "sku build-storybook",
     "storybook:deploy": "storybook-to-ghpages --existing-output-dir=dist-storybook"
   },
-  "version": "0.4.0"
+  "version": "0.5.0"
 }
