@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.6.0
+
+### Minor Changes
+
+- 8a6a69d: Remove enforced typing on client (ApolloClient) for LocationSuggest
+
 ## 0.5.0
 
 ### Minor Changes
