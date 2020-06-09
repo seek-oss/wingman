@@ -35,14 +35,14 @@ const sampleQuestions: FormComponent[] = [
   },
 ];
 
-storiesOf('GraphqlQueryRenderer', module)
-  .add('basic', () => (
+storiesOf('QuestionnaireBuilder', module)
+  .add('GraphqlQueryRenderer', () => (
     <GraphqlQueryRenderer
       components={sampleQuestions}
       hirerId="Test:hirer:id"
     />
   ))
-  .addDecorator((story) => (
+  .addDecorator(story => (
     <BraidLoadableProvider themeName="seekAnz">
       <Box paddingX="gutter" paddingY="large">
         {story()}
