@@ -29,6 +29,28 @@
     ts-invariant "^0.4.4"
     tslib "^1.10.0"
 
+"@apollo/react-components@^3.1.5":
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/@apollo/react-components/-/react-components-3.1.5.tgz#040d2f35ce4947747efe16f76d59dcbd797ffdaf"
+  integrity sha512-c82VyUuE9VBnJB7bnX+3dmwpIPMhyjMwyoSLyQWPHxz8jK4ak30XszJtqFf4eC4hwvvLYa+Ou6X73Q8V8e2/jg==
+  dependencies:
+    "@apollo/react-common" "^3.1.4"
+    "@apollo/react-hooks" "^3.1.5"
+    prop-types "^15.7.2"
+    ts-invariant "^0.4.4"
+    tslib "^1.10.0"
+
+"@apollo/react-hoc@^3.1.5":
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/@apollo/react-hoc/-/react-hoc-3.1.5.tgz#6552d2fb4aafc59fdc8f4e353358b98b89cfab6f"
+  integrity sha512-jlZ2pvEnRevLa54H563BU0/xrYSgWQ72GksarxUzCHQW85nmn9wQln0kLBX7Ua7SBt9WgiuYQXQVechaaCulfQ==
+  dependencies:
+    "@apollo/react-common" "^3.1.4"
+    "@apollo/react-components" "^3.1.5"
+    hoist-non-react-statics "^3.3.0"
+    ts-invariant "^0.4.4"
+    tslib "^1.10.0"
+
 "@apollo/react-hooks@^3.1.5":
   version "3.1.5"
   resolved "https://registry.yarnpkg.com/@apollo/react-hooks/-/react-hooks-3.1.5.tgz#7e710be52461255ae7fc0b3b9c2ece64299c10e6"
@@ -37,6 +59,15 @@
     "@apollo/react-common" "^3.1.4"
     "@wry/equality" "^0.1.9"
     ts-invariant "^0.4.4"
+    tslib "^1.10.0"
+
+"@apollo/react-ssr@^3.1.5":
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/@apollo/react-ssr/-/react-ssr-3.1.5.tgz#53703cd493afcde567acc6d5512cab03dafce6de"
+  integrity sha512-wuLPkKlctNn3u8EU8rlECyktpOUCeekFfb0KhIKknpGY6Lza2Qu0bThx7D9MIbVEzhKadNNrzLcpk0Y8/5UuWg==
+  dependencies:
+    "@apollo/react-common" "^3.1.4"
+    "@apollo/react-hooks" "^3.1.5"
     tslib "^1.10.0"
 
 "@apollographql/apollo-tools@^0.4.3":
@@ -13036,6 +13067,11 @@ mkdirp@^0.5.1, mkdirp@^0.5.3, mkdirp@~0.5.1:
   dependencies:
     minimist "^1.2.5"
 
+mock-apollo-client@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/mock-apollo-client/-/mock-apollo-client-0.4.0.tgz#556a6090b1816dbf07e51093b652aca84aee979e"
+  integrity sha512-cHznpkX8uUClkWWJMpgdDWzEgjacM85xt69S9gPLrssM8Vahas0QmEJkFUycrRQyBkaqxvRe58Bg3a5pOvj2zA==
+
 moment@^2.18.1:
   version "2.26.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.26.0.tgz#5e1f82c6bafca6e83e808b30c8705eed0dcbd39a"
@@ -15086,6 +15122,17 @@ re-resizable@^6.1.1:
   integrity sha512-E8WOtM8RfcGv4kOdasdR10jw8IU45j5jVift/rSA6AZMnaBRxJdt6YAkPHFv/04vsMNNvNu3G8vlyNOsVwqPpA==
   dependencies:
     fast-memoize "^2.5.1"
+
+react-apollo@^3.1.5:
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/react-apollo/-/react-apollo-3.1.5.tgz#36692d393c47e7ccc37f0a885c7cc5a8b4961c91"
+  integrity sha512-xOxMqxORps+WHrUYbjVHPliviomefOpu5Sh35oO3osuOyPTxvrljdfTLGCggMhcXBsDljtS5Oy4g+ijWg3D4JQ==
+  dependencies:
+    "@apollo/react-common" "^3.1.4"
+    "@apollo/react-components" "^3.1.5"
+    "@apollo/react-hoc" "^3.1.5"
+    "@apollo/react-hooks" "^3.1.5"
+    "@apollo/react-ssr" "^3.1.5"
 
 react-clientside-effect@^1.2.2:
   version "1.2.2"

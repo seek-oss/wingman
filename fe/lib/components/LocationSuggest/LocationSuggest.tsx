@@ -7,11 +7,10 @@ import { Location, LocationSuggestion } from 'lib/types/seek.graphql';
 import React, { forwardRef, useEffect, useState } from 'react';
 
 import LocationSuggestInput from './LocationSuggestInput';
-
-import { LOCATION_SUGGEST } from '.';
+import { LOCATION_SUGGEST } from './queries';
 
 interface Props extends Omit<FieldProps, 'value'> {
-  client: ApolloClient<Record<string, unknown>>;
+  client?: ApolloClient<Record<string, unknown>>;
   debounceDelay?: number;
   first?: number;
   usageTypeCode?: string;
@@ -39,7 +38,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       getLocationSuggest,
       { data: suggestData, error: suggestError },
     ] = useLazyQuery(LOCATION_SUGGEST, {
-      client,
+      ...(client && { client }),
       fetchPolicy: 'no-cache',
     });
 
@@ -89,6 +88,8 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
         setLocationSuggestResults(suggestData.locationSuggestions);
       }
     }, [suggestData]);
+
+    console.log(suggestData);
 
     return (
       <>

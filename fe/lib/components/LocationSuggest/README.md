@@ -18,11 +18,11 @@ The Location suggest widget abstracts the `locationSuggestions` query on SEEK AP
 
 Required
 
-- `client`: An ApolloClient instance.
 - `schemeId`: The scheme for the location dataset to query.
 
 Optional:
 
+- `client`: An `ApolloClient` instance. By default locationSuggest uses the client passed down via context, but a different client can be passed in.
 - `usageTypeCode`: The context that the location suggestions will be used for. Defaults to `PositionPosting`.
 - `hirerId`: The hirer identifier for relevant locations result.
 - `first`: A non-negative limit to the number of locations to return.
@@ -36,6 +36,15 @@ Extends:
 ### Usage
 
 #### Default usage
+
+```javascript
+import { LocationSuggest } from 'wingman-fe';
+
+// Higher component in tree wraps children in apollo provider
+<LocationSuggest schemeId="seekAnz" />;
+```
+
+#### Default usage with Apollo Client
 
 ```javascript
 import { ApolloClient } from 'apollo-client';
