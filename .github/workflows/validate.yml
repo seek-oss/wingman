@@ -1,6 +1,8 @@
 name: Validate
 
-on: push
+on:
+  - pull_request
+  - push
 
 jobs:
   validate:
@@ -19,7 +21,7 @@ jobs:
           node-version: 12.x
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile --ignore-optional --non-interactive
+        run: yarn install --frozen-lockfile
 
       - name: Lint
         run: yarn lint
