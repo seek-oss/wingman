@@ -12,7 +12,7 @@ storiesOf('Example', module)
   .add('Custom message', () => (
     <Example message={`${text('message', 'Hello There.')}`} />
   ))
-  .addDecorator(story => (
+  .addDecorator((story) => (
     <BraidLoadableProvider themeName="seekUnifiedBeta">
       <Box paddingX="gutter" paddingY="large">
         {story()}
