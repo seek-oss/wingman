@@ -14,7 +14,9 @@ import { Location, LocationSuggestion } from 'lib/types/seek.graphql';
 import LocationSuggestInput from './LocationSuggestInput';
 import { LOCATION_SUGGEST } from './queries';
 
-interface Props extends Omit<ComponentPropsWithRef<typeof TextField>, 'value'> {
+interface FieldProps extends ComponentPropsWithRef<typeof TextField> {}
+
+interface Props extends Omit<FieldProps, 'value' | 'onChange'> {
   client?: ApolloClient<Record<string, unknown>>;
   debounceDelay?: number;
   first?: number;
