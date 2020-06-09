@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.7.0
+
+### Minor Changes
+
+- 95268da: Fixes type resolution error in consumers. Now resolves SEEK types via relative path
+
 ## 0.6.0
 
 ### Minor Changes
