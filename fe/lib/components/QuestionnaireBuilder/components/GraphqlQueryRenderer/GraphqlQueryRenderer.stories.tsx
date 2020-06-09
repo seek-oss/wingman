@@ -43,7 +43,7 @@ storiesOf('QuestionnaireBuilder', module)
     />
   ))
   .addDecorator((story) => (
-    <BraidLoadableProvider themeName="seekAnz">
+    <BraidLoadableProvider themeName="seekUnifiedBeta">
       <Box paddingX="gutter" paddingY="large">
         {story()}
       </Box>
