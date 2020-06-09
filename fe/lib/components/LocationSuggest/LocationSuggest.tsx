@@ -90,8 +90,6 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       }
     }, [suggestData]);
 
-    console.log(suggestData);
-
     return (
       <>
         <LocationSuggestInput
