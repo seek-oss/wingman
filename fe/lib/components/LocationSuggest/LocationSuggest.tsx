@@ -17,7 +17,7 @@ import { LOCATION_SUGGEST } from './queries';
 interface FieldProps extends ComponentPropsWithRef<typeof TextField> {}
 
 interface Props extends Omit<FieldProps, 'value' | 'onChange'> {
-  client?: ApolloClient<Record<string, unknown>>;
+  client?: ApolloClient<unknown>;
   debounceDelay?: number;
   first?: number;
   usageTypeCode?: string;
