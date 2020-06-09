@@ -1,8 +1,6 @@
-# Locations
+# LocationSuggest
 
-Locations includes the following widgets:
-
-- `LocationSuggest`: A Location autocomplete component that can match on full words and substrings resolving a SEEK location. Returns a Location object identifier on location selection.
+A Location autocomplete component that can match on full words and substrings resolving a SEEK location. Returns a Location with object identifier on location selection.
 
 ## Installation
 
