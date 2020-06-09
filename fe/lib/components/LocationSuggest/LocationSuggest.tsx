@@ -1,8 +1,12 @@
 import { useLazyQuery } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-client';
-import { FieldMessage } from 'braid-design-system';
-import { FieldProps } from 'braid-design-system/lib/components/private/Field/Field';
-import React, { forwardRef, useEffect, useState } from 'react';
+import { FieldMessage, TextField } from 'braid-design-system';
+import React, {
+  ComponentPropsWithRef,
+  forwardRef,
+  useEffect,
+  useState,
+} from 'react';
 import { useDebounce } from 'use-debounce';
 
 import { Location, LocationSuggestion } from 'lib/types/seek.graphql';
@@ -10,7 +14,7 @@ import { Location, LocationSuggestion } from 'lib/types/seek.graphql';
 import LocationSuggestInput from './LocationSuggestInput';
 import { LOCATION_SUGGEST } from './queries';
 
-interface Props extends Omit<FieldProps, 'value'> {
+interface Props extends Omit<ComponentPropsWithRef<typeof TextField>, 'value'> {
   client?: ApolloClient<Record<string, unknown>>;
   debounceDelay?: number;
   first?: number;
