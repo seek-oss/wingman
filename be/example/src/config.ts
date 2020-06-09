@@ -4,6 +4,7 @@ export const FE_ORIGIN = 'http://dev.seekunifiedbeta.com:8080';
 
 export const USER_AGENT = 'wingman/local';
 
+// https://developer.seek.com/graphql/playground#hirers
 const HARDCODED_HIRER_ID = 'seekAnzPublicTest:organization:seek:93WyyF1h';
 
 /**

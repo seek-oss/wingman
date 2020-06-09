@@ -5,7 +5,6 @@ import compose from 'koa-compose';
 import { createSeekGraphMiddleware } from '../../../src';
 import { USER_AGENT, getPartnerToken } from '../config';
 
-import { seekAttachmentMiddleware } from './attachment';
 import { browserTokenMiddleware } from './browserToken';
 import { corsMiddleware } from './cors';
 import { rootMiddleware } from './root';
@@ -20,7 +19,6 @@ export const createMiddleware = async (): Promise<Middleware> => {
   });
 
   const router = new Router()
-    .get('/attachment', seekAttachmentMiddleware)
     .post('/browser-token', browserTokenMiddleware)
     .post('/webhook/:endpoint', partnerWebhookMiddleware);
 
