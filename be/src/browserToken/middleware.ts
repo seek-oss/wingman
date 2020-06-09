@@ -4,7 +4,7 @@ import compose from 'koa-compose';
 import LRU from 'lru-cache';
 import fetch from 'node-fetch';
 
-import { SEEK_BROWSER_TOKEN_PLAYGROUND_URL } from '../constants';
+import { SEEK_BROWSER_TOKEN_URL } from '../constants';
 import { wrapRetriever } from '../getPartnerToken';
 
 import {
@@ -82,7 +82,7 @@ const _createBrowserTokenMiddleware = ({
       userId: hirerId,
     };
 
-    const fetchResponse = await fetch(SEEK_BROWSER_TOKEN_PLAYGROUND_URL, {
+    const fetchResponse = await fetch(SEEK_BROWSER_TOKEN_URL, {
       body: JSON.stringify(seekApiRequest),
       headers: {
         Authorization: `Bearer ${partnerToken}`,
