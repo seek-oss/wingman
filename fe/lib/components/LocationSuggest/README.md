@@ -22,7 +22,7 @@ Optional:
 
 - `client`: An `ApolloClient` instance. By default locationSuggest uses the client passed down via context, but a different client can be passed in.
 - `usageTypeCode`: The context that the location suggestions will be used for. Defaults to `PositionPosting`.
-- `hirerId`: The hirer identifier for relevant locations result.
+- `hirerId`: The hirer identifier; enables tailored suggestions.
 - `first`: A non-negative limit to the number of locations to return.
 - `debounceDelay`: The delay in milliseconds between location suggest calls to reduce overhead. Defaults to `250`.
 - `onSelect`: Callback function that is supplied a [SEEK location](https://developer.seek.com/schema/#definition-Location) on auto suggest selection.
