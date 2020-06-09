@@ -1,0 +1,1 @@
+export { LocationSuggest } from './LocationSuggest';
