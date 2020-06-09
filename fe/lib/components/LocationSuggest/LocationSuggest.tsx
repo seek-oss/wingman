@@ -3,8 +3,8 @@ import ApolloClient from 'apollo-client';
 import { FieldMessage } from 'braid-design-system';
 import { FieldProps } from 'braid-design-system/lib/components/private/Field/Field';
 import React, { forwardRef, useEffect, useState } from 'react';
-
 import { useDebounce } from 'use-debounce';
+
 import { Location, LocationSuggestion } from 'lib/types/seek.graphql';
 
 import LocationSuggestInput from './LocationSuggestInput';
@@ -43,7 +43,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       fetchPolicy: 'no-cache',
     });
 
-    const [selectedLocationId, setselectedLocationId] = useState('');
+    const [selectedLocationId, setSelectedLocationId] = useState('');
     const [locationSuggestInput, setLocationSuggestInput] = useState('');
     const [locationSuggestResults, setLocationSuggestResults] = useState<
       LocationSuggestion[]
@@ -59,7 +59,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
         onSelect(selectedLocation);
       }
       if (selectedLocation?.id?.value) {
-        setselectedLocationId(selectedLocation.id.value);
+        setSelectedLocationId(selectedLocation.id.value);
       }
     };
 
@@ -94,7 +94,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       <>
         <LocationSuggestInput
           onSelect={handleSuggestSelect}
-          onClear={() => setselectedLocationId('')}
+          onClear={() => setSelectedLocationId('')}
           onChange={setLocationSuggestInput}
           locationSuggestions={locationSuggestResults}
           {...restProps}
