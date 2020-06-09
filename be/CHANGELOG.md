@@ -1,5 +1,11 @@
 # wingman-be
 
+## 0.1.3
+
+### Patch Changes
+
+- 5738714: Point back to graphql.seek.com for browser tokens
+
 ## 0.1.2
 
 ### Patch Changes
