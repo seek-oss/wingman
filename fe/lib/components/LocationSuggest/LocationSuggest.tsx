@@ -2,7 +2,7 @@ import { useLazyQuery } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-client';
 import { FieldMessage } from 'braid-design-system';
 import { FieldProps } from 'braid-design-system/lib/components/private/Field/Field';
-import { useDebounce } from 'lib/hooks/useDebounce';
+import { useDebounce } from 'lib/hooks/';
 import { Location, LocationSuggestion } from 'lib/types/seek.graphql';
 import React, { forwardRef, useEffect, useState } from 'react';
 
