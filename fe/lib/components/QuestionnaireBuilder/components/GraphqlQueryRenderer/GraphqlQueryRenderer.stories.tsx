@@ -42,7 +42,7 @@ storiesOf('QuestionnaireBuilder', module)
       hirerId="Test:hirer:id"
     />
   ))
-  .addDecorator(story => (
+  .addDecorator((story) => (
     <BraidLoadableProvider themeName="seekAnz">
       <Box paddingX="gutter" paddingY="large">
         {story()}
