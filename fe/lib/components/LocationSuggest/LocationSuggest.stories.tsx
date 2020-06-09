@@ -20,7 +20,7 @@ storiesOf('Locations', module)
   .add('Locations Suggest', () => (
     <LocationSuggest id="locationSuggest" schemeId="seekAnz" />
   ))
-  .addDecorator(story => (
+  .addDecorator((story) => (
     <ApolloProvider client={mockClient}>
       <BraidLoadableProvider themeName="seekAnz">
         <Box paddingX="gutter" paddingY="large">

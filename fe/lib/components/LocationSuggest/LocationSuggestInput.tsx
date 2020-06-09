@@ -1,7 +1,8 @@
 import matchHighlights from 'autosuggest-highlight/match';
 import { Autosuggest, IconSearch } from 'braid-design-system';
-import { Location, LocationSuggestion } from 'lib/types/seek.graphql';
 import React, { useState } from 'react';
+
+import { Location, LocationSuggestion } from 'lib/types/seek.graphql';
 
 interface Suggestion {
   text: string;
@@ -51,7 +52,7 @@ const LocationSuggestInput = ({
 
   const mappedSuggestions = mapLocationsToSuggestions(locationSuggestions);
 
-  const highlightedSuggestions = mappedSuggestions.map(suggestion => ({
+  const highlightedSuggestions = mappedSuggestions.map((suggestion) => ({
     ...suggestion,
     highlights: createHighlights(suggestion.text, locationSuggest.text),
   }));
@@ -63,7 +64,7 @@ const LocationSuggestInput = ({
 
   const handleSelect = (selectedValue: string) => {
     const selectedLocation = locationSuggestions?.find(
-      locationSuggestion =>
+      (locationSuggestion) =>
         locationSuggestion.location.id.value === selectedValue,
     )?.location;
     onSelect(selectedLocation);

@@ -92,7 +92,7 @@ import { LocationSuggest } from 'wingman-fe';
 const LocationForm = () => {
   const { register, setValue, handleSubmit } = useForm();
 
-  const handleLocationSubmit = formData => {
+  const handleLocationSubmit = (formData) => {
     // submit logic here
   };
 
