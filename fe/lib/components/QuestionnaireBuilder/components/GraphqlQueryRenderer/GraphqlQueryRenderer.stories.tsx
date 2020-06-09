@@ -42,8 +42,8 @@ storiesOf('QuestionnaireBuilder', module)
       hirerId="Test:hirer:id"
     />
   ))
-  .addDecorator((story) => (
-    <BraidLoadableProvider themeName="seekAnz">
+  .addDecorator(story => (
+    <BraidLoadableProvider themeName="seekUnifiedBeta">
       <Box paddingX="gutter" paddingY="large">
         {story()}
       </Box>

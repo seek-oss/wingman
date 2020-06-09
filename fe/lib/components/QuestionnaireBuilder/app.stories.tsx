@@ -8,8 +8,8 @@ import { QuestionnaireBuilder } from './QuestionnaireBuilder/QuestionnaireBuilde
 
 storiesOf('QuestionnaireBuilder', module)
   .add('Builder', () => <QuestionnaireBuilder />)
-  .addDecorator((story) => (
-    <BraidLoadableProvider themeName="seekAnz">
+  .addDecorator(story => (
+    <BraidLoadableProvider themeName="seekUnifiedBeta">
       <Box paddingX="gutter" paddingY="large">
         {story()}
       </Box>
