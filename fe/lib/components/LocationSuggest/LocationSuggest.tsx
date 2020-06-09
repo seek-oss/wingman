@@ -9,7 +9,7 @@ import React, {
 } from 'react';
 import { useDebounce } from 'use-debounce';
 
-import { Location, LocationSuggestion } from 'lib/types/seek.graphql';
+import { Location, LocationSuggestion } from '../../types/seek.graphql';
 
 import LocationSuggestInput from './LocationSuggestInput';
 import { LOCATION_SUGGEST } from './queries';

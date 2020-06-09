@@ -2,7 +2,7 @@ import matchHighlights from 'autosuggest-highlight/match';
 import { Autosuggest, IconSearch } from 'braid-design-system';
 import React, { useState } from 'react';
 
-import { Location, LocationSuggestion } from 'lib/types/seek.graphql';
+import { Location, LocationSuggestion } from '../../types/seek.graphql';
 
 interface Suggestion {
   text: string;
