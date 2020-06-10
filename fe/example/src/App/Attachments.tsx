@@ -6,11 +6,11 @@ import { useBrowserToken } from 'lib/hooks';
 
 import { DOWNLOAD_ATTACHMENT_SCOPE } from '../api/browserToken';
 
+// https://developer.seek.com/graphql/playground#candidate-application-profiles
 const HARDCODED_COVER_LETTER_LINK =
-  'https://graphql.seek.com/anzPublicTest/applications/SekKH8b26jdv2rV1oLjC9M/attachments/coverLetter';
-
+  'https://graphql.seek.com/anzPublicTest/applications/4QM5fWQbdekL9gPtPZrzex/attachments/coverLetter';
 const HARDCODED_RESUME_LINK =
-  'https://graphql.seek.com/anzPublicTest/applications/SekKH8b26jdv2rV1oLjC9M/attachments/resume';
+  'https://graphql.seek.com/anzPublicTest/applications/4QM5fWQbdekL9gPtPZrzex/attachments/resume';
 
 export const Attachments = () => {
   const getAuthorization = useBrowserToken();
