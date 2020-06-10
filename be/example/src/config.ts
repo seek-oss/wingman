@@ -4,6 +4,9 @@ export const FE_ORIGIN = 'http://dev.seekunifiedbeta.com:8080';
 
 export const USER_AGENT = 'wingman/local';
 
+// https://developer.seek.com/graphql/playground#hirers
+const HARDCODED_HIRER_ID = 'seekAnzPublicTest:organization:seek:93WyyF1h';
+
 /**
  * Take care when handling your token; it’s easy for environment variables to be
  * accessed by other processes, accidentally logged, or persisted to shell
@@ -12,6 +15,15 @@ export const USER_AGENT = 'wingman/local';
  */
 export const getPartnerToken = () =>
   Promise.resolve(process.env.DANGEROUS_PLAYGROUND_TOKEN ?? '');
+
+export const getPartnerTokenWithHardcodedHirerId = async () => {
+  const partnerToken = await getPartnerToken();
+
+  return {
+    hirerId: HARDCODED_HIRER_ID,
+    partnerToken,
+  };
+};
 
 /**
  * This ignores signature verification for all incoming webhooks! Don’t do this

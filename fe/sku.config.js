@@ -6,6 +6,7 @@ module.exports = {
   publicPath: '/',
   sites: [{ name: 'seekUnifiedBeta', host: 'dev.seekunifiedbeta.com' }],
 
+  compilePackages: ['scoobie'],
   orderImports: true,
 
   dangerouslySetESLintConfig: (skuEslintConfig) => ({
@@ -16,6 +17,7 @@ module.exports = {
 
       '@typescript-eslint/explicit-module-boundary-types': 'off',
 
+      'no-use-before-define': 'off',
       'sort-imports': [
         'error',
         {

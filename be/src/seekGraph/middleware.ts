@@ -30,6 +30,7 @@ export const createSeekGraphMiddleware = async ({
     debug,
     playground: debug,
     schema,
+    subscriptions: false,
   });
 
   return server.getMiddleware({ path });

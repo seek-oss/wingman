@@ -2,33 +2,48 @@ import { Bullet, BulletList, Card, Heading, Stack } from 'braid-design-system';
 import React from 'react';
 
 import { DownloadLink } from 'lib/components/private';
+import { useBrowserToken } from 'lib/hooks';
 
-import { proxyDownloadLink } from '../api/download';
+import { DOWNLOAD_ATTACHMENT_SCOPE } from '../api/browserToken';
 
+// https://developer.seek.com/graphql/playground#candidate-application-profiles
 const HARDCODED_COVER_LETTER_LINK =
-  'https://graphql.seek.com/anzPublicTest/applications/SekKH8b26jdv2rV1oLjC9M/attachments/coverLetter';
-
+  'https://graphql.seek.com/anzPublicTest/applications/4QM5fWQbdekL9gPtPZrzex/attachments/coverLetter';
 const HARDCODED_RESUME_LINK =
-  'https://graphql.seek.com/anzPublicTest/applications/SekKH8b26jdv2rV1oLjC9M/attachments/resume';
+  'https://graphql.seek.com/anzPublicTest/applications/4QM5fWQbdekL9gPtPZrzex/attachments/resume';
 
-export const Attachments = () => (
-  <Card>
-    <Stack dividers space="large">
-      <Heading level="3">Attachments</Heading>
+export const Attachments = () => {
+  const getAuthorization = useBrowserToken();
 
-      <BulletList>
-        <Bullet>
-          <DownloadLink href={proxyDownloadLink(HARDCODED_COVER_LETTER_LINK)}>
-            Cover letter
-          </DownloadLink>
-        </Bullet>
+  return (
+    <Card>
+      <Stack dividers space="large">
+        <Heading level="3">Attachments</Heading>
 
-        <Bullet>
-          <DownloadLink href={proxyDownloadLink(HARDCODED_RESUME_LINK)}>
-            Resume
-          </DownloadLink>
-        </Bullet>
-      </BulletList>
-    </Stack>
-  </Card>
-);
+        <BulletList>
+          <Bullet>
+            <DownloadLink
+              getAuthorization={() =>
+                getAuthorization(DOWNLOAD_ATTACHMENT_SCOPE)
+              }
+              href={HARDCODED_COVER_LETTER_LINK}
+            >
+              Cover letter
+            </DownloadLink>
+          </Bullet>
+
+          <Bullet>
+            <DownloadLink
+              getAuthorization={() =>
+                getAuthorization(DOWNLOAD_ATTACHMENT_SCOPE)
+              }
+              href={HARDCODED_RESUME_LINK}
+            >
+              Resume
+            </DownloadLink>
+          </Bullet>
+        </BulletList>
+      </Stack>
+    </Card>
+  );
+};

@@ -53,16 +53,14 @@ const _createPartnerWebhookMiddleware = ({
             secret,
           });
 
-    if (typeof callback !== 'undefined') {
-      const event: PartnerWebhookEvent = {
-        type: 'RECEIVED',
-        body,
-        signature,
-        valid,
-      };
+    const event: PartnerWebhookEvent = {
+      type: 'RECEIVED',
+      body,
+      signature,
+      valid,
+    };
 
-      await callback(ctx, event);
-    }
+    await callback?.(ctx, event);
 
     if (!valid) {
       return ctx.throw(400, 'Invalid request');

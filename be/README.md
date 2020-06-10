@@ -2,23 +2,11 @@
 
 [![npm package](https://img.shields.io/npm/v/wingman-be)](https://www.npmjs.com/package/wingman-be)
 
+```shell
+yarn add wingman-be
+```
+
 ## Example API
-
-### /attachment
-
-Stream a SEEK API attachment to the Wingman F.E.
-
-```http
-GET http://localhost:9090/attachment?url=xxx HTTP/1.1
-Authorization: ...
-```
-
-```http
-HTTP/1.1 200 OK
-Content-Type: text/plain
-
-# My CV
-```
 
 ### /browser-token
 
@@ -143,29 +131,6 @@ const getSigningSecret: GetSigningSecret = (subscriptionId) => {
 const createApp = () => {
   const middleware = createPartnerWebhookMiddleware({
     getSigningSecret,
-  });
-
-  return new Koa().use(middleware);
-};
-```
-
-### `createSeekAttachmentMiddleware`
-
-```typescript
-import { GetPartnerToken, createSeekAttachmentMiddleware } from 'wingman-be';
-
-const getPartnerToken: GetPartnerToken = (request) => {
-  if (request.authorization !== 'SUPER_SECRET') {
-    throw new Error('oh no!');
-  }
-
-  return getPartnerTokenFromSecretStore();
-};
-
-const createApp = () => {
-  const middleware = createSeekAttachmentMiddleware({
-    getPartnerToken,
-    userAgent: 'my-service/1.2.3',
   });
 
   return new Koa().use(middleware);

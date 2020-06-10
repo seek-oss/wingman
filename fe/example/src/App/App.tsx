@@ -7,6 +7,10 @@ import {
 } from 'braid-design-system';
 import React from 'react';
 
+import { BrowserTokenProvider } from 'lib/hooks';
+
+import { BE_BASE_URL } from '../api/constants';
+
 import { Header } from './Header';
 import { HomePage } from './HomePage';
 
@@ -17,11 +21,13 @@ interface AppProps {
 export const App = ({ site }: AppProps) => (
   <BraidLoadableProvider themeName={site}>
     <ToastProvider>
-      <Stack space={['none', 'none', 'large']}>
-        <Header />
+      <BrowserTokenProvider baseUrl={BE_BASE_URL}>
+        <Stack space={['none', 'none', 'large']}>
+          <Header />
 
-        <HomePage />
-      </Stack>
+          <HomePage />
+        </Stack>
+      </BrowserTokenProvider>
     </ToastProvider>
   </BraidLoadableProvider>
 );

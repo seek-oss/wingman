@@ -6,10 +6,11 @@ import { download } from './download';
 
 interface Props {
   children: ReactNode;
+  getAuthorization: () => Promise<string>;
   href: string;
 }
 
-export const DownloadLink = ({ children, href }: Props) => {
+export const DownloadLink = ({ children, getAuthorization, href }: Props) => {
   const [downloading, setDownloading] = React.useState(false);
 
   const handleClick = async (event: React.MouseEvent) => {
@@ -22,7 +23,12 @@ export const DownloadLink = ({ children, href }: Props) => {
     setDownloading(true);
 
     try {
-      await download({ headers: {}, url: href });
+      await download({
+        headers: {
+          Authorization: await getAuthorization(),
+        },
+        url: href,
+      });
     } finally {
       setDownloading(false);
     }

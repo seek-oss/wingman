@@ -1,5 +1,26 @@
 # wingman-be
 
+## 0.1.3
+
+### Patch Changes
+
+- 5738714: Point back to graphql.seek.com for browser tokens
+
+## 0.1.2
+
+### Patch Changes
+
+- b516115: Disable Apollo Server subscriptions
+- 11137b6: **BREAKING:** Handle browser tokens better
+
+  - Pass through OAuth access token format in backend
+  - Cache tokens by scope
+
+- aef0405: Apply fixes to browser token middleware
+
+  The middleware now points to the browser token playground URL,
+  and accepts a `callback` for debugging/logging.
+
 ## 0.1.1
 
 ### Patch Changes
