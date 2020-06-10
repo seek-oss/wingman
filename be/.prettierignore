@@ -16,10 +16,3 @@ yarn-error.log
 # Gantry resource files support non-standard template syntax
 gantry*.yaml
 gantry*.yml
-
-# managed by sku
-*.less.d.ts
-dist-playroom/
-dist-storybook/
-report/
-# end managed by sku

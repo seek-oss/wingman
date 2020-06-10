@@ -23,6 +23,6 @@
     "@graphql-codegen/fragment-matcher": "^1.15.1",
     "@graphql-codegen/typescript": "^1.15.1",
     "graphql": "^15.0.0",
-    "skuba": "3.4.1"
+    "skuba": "3.5.1"
   }
 }

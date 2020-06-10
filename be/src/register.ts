@@ -1,1 +1,1 @@
-import '@seek/skuba-dive/register';
+import 'skuba-dive/register';

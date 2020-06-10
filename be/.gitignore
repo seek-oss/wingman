@@ -14,12 +14,3 @@ tmp/
 npm-debug.log
 package-lock.json
 yarn-error.log
-
-# managed by sku
-.eslintrc
-.prettierrc
-dist-playroom/
-dist-storybook/
-report/
-tsconfig.json
-# end managed by sku

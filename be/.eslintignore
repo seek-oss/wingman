@@ -14,10 +14,3 @@ npm-debug.log
 yarn-error.log
 
 /lib/
-
-# managed by sku
-*.less.d.ts
-dist-playroom/
-dist-storybook/
-report/
-# end managed by sku
