@@ -88,7 +88,7 @@ import { JobCategorySelect } from 'wingman-fe';
 const JobCategoryForm = () => {
   const { register, handleSubmit } = useForm();
 
-  const handleFormSubmit = formData => {
+  const handleFormSubmit = (formData) => {
     // submit logic here
   };
 
