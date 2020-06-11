@@ -48,48 +48,46 @@ const JobCategorySelectInput = ({
   }, [selectedChildCategoryId, childCategories]);
 
   return (
-    <Stack space="medium">
-      <Columns space="small">
-        <Column>
+    <Columns space="small">
+      <Column>
+        <Dropdown
+          id="jobCategoriesSelect"
+          label="Job category"
+          placeholder="Please select a job category"
+          onChange={(event) =>
+            setSelectedParentCategoryId(event.currentTarget.value)
+          }
+          value={selectedParentCategoryId}
+          {...restProps}
+        >
+          {jobCategories.map(({ name, id }) => (
+            <option key={id.value} value={id.value}>
+              {name}
+            </option>
+          ))}
+        </Dropdown>
+      </Column>
+      <Column>
+        {childCategories && (
           <Dropdown
-            id="jobCategoriesSelect"
-            label="Job category"
-            placeholder="Please select a job category"
+            id="subJobCategoriesSelect"
+            label="Sub category"
+            placeholder="Please select a sub category"
             onChange={(event) =>
-              setSelectedParentCategoryId(event.currentTarget.value)
+              setSelectedChildCategoryId(event.currentTarget.value)
             }
-            value={selectedParentCategoryId}
+            value={selectedChildCategoryId}
             {...restProps}
           >
-            {jobCategories.map(({ name, id }) => (
+            {childCategories.map(({ name, id }) => (
               <option key={id.value} value={id.value}>
                 {name}
               </option>
             ))}
           </Dropdown>
-        </Column>
-        <Column>
-          {childCategories && (
-            <Dropdown
-              id="subJobCategoriesSelect"
-              label="Sub category"
-              placeholder="Please select a sub category"
-              onChange={(event) =>
-                setSelectedChildCategoryId(event.currentTarget.value)
-              }
-              value={selectedChildCategoryId}
-              {...restProps}
-            >
-              {childCategories.map(({ name, id }) => (
-                <option key={id.value} value={id.value}>
-                  {name}
-                </option>
-              ))}
-            </Dropdown>
-          )}
-        </Column>
-      </Columns>
-    </Stack>
+        )}
+      </Column>
+    </Columns>
   );
 };
 
