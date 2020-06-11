@@ -47,13 +47,11 @@ export const JOB_CATEGORY_SUGGESTION = gql`
   query(
     $positionProfile: JobCategorySuggestionPositionProfileInput!
     $schemeId: String!
-    $hirerId: String
     $first: Int
   ) {
     jobCategorySuggestions(
       positionProfile: $positionProfile
       schemeId: $schemeId
-      hirerId: $hirerId
       first: $first
     ) {
       jobCategory {
