@@ -20,7 +20,7 @@ storiesOf('JobCategories', module)
   .add('Job Category Select', () => (
     <JobCategorySelect id="jobCategories" schemeId="seekAnz" />
   ))
-  .addDecorator(story => (
+  .addDecorator((story) => (
     <ApolloProvider client={mockClient}>
       <BraidLoadableProvider themeName="seekUnifiedBeta">
         <Box paddingX="gutter" paddingY="large">

@@ -55,7 +55,7 @@ const JobCategorySelectInput = ({
             id="jobCategoriesSelect"
             label="Job category"
             placeholder="Please select a job category"
-            onChange={event =>
+            onChange={(event) =>
               setSelectedParentCategoryId(event.currentTarget.value)
             }
             value={selectedParentCategoryId}
@@ -74,7 +74,7 @@ const JobCategorySelectInput = ({
               id="subJobCategoriesSelect"
               label="Sub category"
               placeholder="Please select a sub category"
-              onChange={event =>
+              onChange={(event) =>
                 setSelectedChildCategoryId(event.currentTarget.value)
               }
               value={selectedChildCategoryId}
