@@ -22,7 +22,7 @@ Required
 Optional:
 
 - `client`: An `ApolloClient` instance. By default JobCategorySelect uses the client passed down via context, but a different client can be passed in.
-- `onSelect`: Callback function that is supplied a [SEEK JobCategory](https://developer.seek.com/schema/#definition-JobCategory) on job category select.
+- `onSelect`: Callback function that is supplied a [SEEK JobCategory](https://developer.seek.com/schema/#definition-JobCategory) on job category selection.
 
 Extends:
 
