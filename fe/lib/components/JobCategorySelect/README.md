@@ -16,7 +16,7 @@ The JobCategorySelect widget abstracts the `jobCategories` query on SEEK API and
 
 Required
 
-- `schemeId`: The scheme for the location dataset to query.
+- `schemeId`: The scheme for the job category dataset to query.
 
 Optional:
 
@@ -88,7 +88,7 @@ import { JobCategorySelect } from 'wingman-fe';
 const JobCategoryForm = () => {
   const { register, handleSubmit } = useForm();
 
-  const handleFormSubmit = (formData) => {
+  const handleFormSubmit = formData => {
     // submit logic here
   };
 
