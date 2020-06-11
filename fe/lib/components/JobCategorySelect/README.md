@@ -11,7 +11,8 @@ $ yarn add wingman-fe
 
 ## Job Category Select Widget
 
-The JobCategorySelect widget abstracts the `jobCategories` query on SEEK API and provides a select input that returns a SEEK JobCategory. Read more about underlying [`jobCategories` query](https://developer.seek.com/schema/#operation-jobCategories).
+The JobCategorySelect widget abstracts the `jobCategories` query on SEEK API and provides a select input that returns a SEEK JobCategory.
+Read more about underlying [`jobCategories` query](https://developer.seek.com/schema/#operation-jobCategories).
 
 ### Properties
 
