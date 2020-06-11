@@ -1,4 +1,4 @@
-import { Column, Columns, Dropdown, Stack } from 'braid-design-system';
+import { Column, Columns, Dropdown } from 'braid-design-system';
 import React, { useEffect, useState } from 'react';
 
 import { JobCategory } from '../../types/seek.graphql';
