@@ -1,4 +1,5 @@
-import { createPartnerWebhookMiddleware } from '../../../src';
+import { createPartnerWebhookMiddleware } from 'src';
+
 import { getSigningSecret } from '../config';
 
 export const partnerWebhookMiddleware = createPartnerWebhookMiddleware({

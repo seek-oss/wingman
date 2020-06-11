@@ -13,4 +13,6 @@ tmp/
 npm-debug.log
 yarn-error.log
 
-/lib/
+# Gantry resource files support non-standard template syntax
+gantry*.yaml
+gantry*.yml

@@ -1,9 +1,12 @@
+import '../../src/register';
+
 import Koa from 'koa';
 
-import { createMiddleware } from './api';
+import { middleware } from './api';
+import { PORT } from './config';
 
-export const createApp = async () => {
-  const middleware = await createMiddleware();
+const app = new Koa().use(middleware);
 
-  return new Koa().use(middleware);
-};
+export = Object.assign(app, {
+  port: PORT,
+});

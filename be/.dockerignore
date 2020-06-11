@@ -12,5 +12,3 @@ tmp/
 .npmrc
 npm-debug.log
 yarn-error.log
-
-/lib/

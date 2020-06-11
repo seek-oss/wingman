@@ -3,7 +3,12 @@
     "declaration": true,
     "removeComments": false
   },
-  "exclude": ["**/__mocks__/**/*", "**/*.test.ts", "src/testing/**/*"],
+  "exclude": [
+    "**/__mocks__/**/*",
+    "**/*.test.ts",
+    "src/testing/**/*",
+    "src/register.ts"
+  ],
   "extends": "./tsconfig.json",
   "include": ["src/**/*"]
 }
