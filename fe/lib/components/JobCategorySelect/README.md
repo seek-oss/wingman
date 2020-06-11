@@ -1,6 +1,7 @@
 # JobCategorySelect
 
-A JobCategory select component that provides a full list of parent and child job categories for SEEK. Returns a JobCategory (parent or child) with object identifier on category select.
+A JobCategory select component that provides a full list of parent and child job categories for SEEK.
+Returns a JobCategory (parent or child) with object identifier on category selection.
 
 ## Installation
 
