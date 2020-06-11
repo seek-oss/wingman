@@ -36,14 +36,14 @@ export const JobCategorySelect = forwardRef<HTMLInputElement, Props>(
       },
     });
 
-    const [selectedJobCategoryId, setselectedJobCategoryId] = useState('');
+    const [selectedJobCategoryId, setSelectedJobCategoryId] = useState('');
 
     const handleJobCategoriesSelect = (selectedJobCategory: JobCategory) => {
       if (onSelect) {
         onSelect(selectedJobCategory);
       }
       if (selectedJobCategory?.id?.value) {
-        setselectedJobCategoryId(selectedJobCategory.id.value);
+        setSelectedJobCategoryId(selectedJobCategory.id.value);
       }
     };
 
