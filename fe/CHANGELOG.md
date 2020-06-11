@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.8.0
+
+### Minor Changes
+
+- bcb0b8d: Add Job Category Select component
+
 ## 0.7.0
 
 ### Minor Changes
