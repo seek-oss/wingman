@@ -11,7 +11,7 @@ const createApp = () => {
   return new Koa().use(async (ctx, next) => {
     const middleware = await (cache ?? (cache = createMiddleware()));
 
-    return middleware(ctx, next);
+    return middleware(ctx, next) as unknown;
   });
 };
 
