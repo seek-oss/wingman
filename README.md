@@ -130,6 +130,7 @@ yarn fe start
 Wingman is built on a bunch of other stuff that we’ve open sourced:
 
 - [Braid], a ~~component library~~ design system
+- [Koala], a collection of Koa add-ons
 - [Scoobie], a Braid component library
 - [sku](https://github.com/seek-oss/sku), a frontend development toolkit
 - [skuba], a backend development toolkit
@@ -137,6 +138,7 @@ Wingman is built on a bunch of other stuff that we’ve open sourced:
 [braid]: https://github.com/seek-oss/braid-design-system
 [developer site]: https://developer.seek.com
 [dogfood]: https://en.wikipedia.org/wiki/Eating_your_own_dog_food
+[koala]: https://github.com/seek-oss/koala
 [raise an issue]: https://github.com/seek-oss/wingman/issues/new/choose
 [scoobie]: https://github.com/seek-oss/scoobie
 [seek api]: https://developer.seek.com/introduction

@@ -9,7 +9,8 @@
     "koa-compose": "^4.1.0",
     "lru-cache": "^5.1.1",
     "node-fetch": "^2.6.0",
-    "runtypes": "^4.2.0"
+    "runtypes": "^4.2.0",
+    "seek-koala": "^4.1.0"
   },
   "devDependencies": {
     "@koa/cors": "3.1.0",
