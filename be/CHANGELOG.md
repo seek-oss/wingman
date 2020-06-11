@@ -1,5 +1,14 @@
 # wingman-be
 
+## 0.2.0
+
+### Minor Changes
+
+- 5bc3a0d: **BREAKING:** Remove `createSeekAttachmentMiddleware`
+
+  This has been superseded by the browser token flow.
+  See `createBrowserTokenMiddleware` and the associated [/fe/example](/fe/example) code.
+
 ## 0.1.3
 
 ### Patch Changes
