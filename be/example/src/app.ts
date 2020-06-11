@@ -1,32 +1,22 @@
 import '../../src/register';
 
-import { RequestListener } from 'http';
-
-import Koa from 'koa';
+import Koa, { Middleware } from 'koa';
 
 import { createMiddleware } from './api';
 import { PORT } from './config';
 
-const createApp = async () => {
-  const middleware = await createMiddleware();
+const createApp = () => {
+  let cache: Promise<Middleware> | undefined;
 
-  return new Koa().use(middleware);
-};
+  return new Koa().use(async (ctx, next) => {
+    const middleware = await (cache ?? (cache = createMiddleware()));
 
-const wrapAsyncApp = (appPromise: Promise<Koa>) => {
-  const callbackPromise = appPromise.then((app) => app.callback());
-
-  return {
-    callback: (): RequestListener => (req, res) =>
-      callbackPromise.then((callback) => callback(req, res)),
-
-    listen: (port?: number, listeningListener?: () => void) =>
-      appPromise.then((app) => app.listen(port, listeningListener)),
-
-    port: PORT,
-  };
+    return middleware(ctx, next);
+  });
 };
 
 const app = createApp();
 
-export = wrapAsyncApp(app);
+export = Object.assign(app, {
+  port: PORT,
+});
