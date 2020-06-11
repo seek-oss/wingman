@@ -1,0 +1,1 @@
+export { findCategory } from './findCategory';
