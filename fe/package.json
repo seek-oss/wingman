@@ -1,4 +1,7 @@
 {
+  "bugs": {
+    "url": "https://github.com/seek-oss/wingman/issues"
+  },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.5",
     "@types/uuid": "^8.0.0",
@@ -29,7 +32,10 @@
     "scoobie": "3.1.3",
     "sku": "10.3.5"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
+  "homepage": "https://github.com/seek-oss/wingman#readme",
   "license": "MIT",
   "main": "lib/index.ts",
   "name": "wingman-fe",
@@ -38,6 +44,11 @@
     "classnames": ">= 2 < 3",
     "react": ">= 16 < 17",
     "scoobie": ">= 3.1.3 < 4"
+  },
+  "repository": {
+    "directory": "fe",
+    "type": "git",
+    "url": "git+https://github.com/seek-oss/wingman.git"
   },
   "scripts": {
     "build": "sku build",
