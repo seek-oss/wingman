@@ -1,7 +1,9 @@
 # 🛩 Wingman
 
-![GitHub Release](https://github.com/seek-oss/wingman/workflows/Release/badge.svg?branch=master)
-![GitHub Validate](https://github.com/seek-oss/wingman/workflows/Validate/badge.svg?branch=master)
+[![GitHub Release](https://github.com/seek-oss/wingman/workflows/Release/badge.svg?branch=master)](https://github.com/seek-oss/wingman/actions?query=workflow%3ARelease)
+[![GitHub Validate](https://github.com/seek-oss/wingman/workflows/Validate/badge.svg?branch=master)](https://github.com/seek-oss/wingman/actions?query=workflow%3AValidate)
+[![Node.js version](https://img.shields.io/badge/node-%3E%3D%2012-brightgreen)](https://nodejs.org/en/)
+[![Powered by skuba](https://img.shields.io/badge/🤿%20skuba-powered-009DC4)](https://github.com/seek-oss/skuba)
 
 Reference implementation of a SEEK-integrated recruitment system.
 
