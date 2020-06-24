@@ -4,8 +4,8 @@ import React, { forwardRef, useState } from 'react';
 import {
   JobCategory,
   JobCategorySuggestionChoice,
-} from 'lib/types/seek.graphql';
-import { flattenResourceByKey } from 'lib/utils';
+} from '../../types/seek.graphql';
+import { flattenResourceByKey } from '../../utils';
 
 interface Props {
   choices: JobCategorySuggestionChoice[];
