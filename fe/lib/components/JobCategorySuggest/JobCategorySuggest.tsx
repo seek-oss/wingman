@@ -7,7 +7,7 @@ import { useDebounce } from 'use-debounce';
 import {
   JobCategorySuggestionChoice,
   JobCategorySuggestionPositionProfileInput,
-} from 'lib/types/seek.graphql';
+} from '../../types/seek.graphql';
 
 import JobCategorySuggestChoices from './JobCategorySuggestChoices';
 import { JOB_CATEGORY_SUGGESTION } from './queries';
