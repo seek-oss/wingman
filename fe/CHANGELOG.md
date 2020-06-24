@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.9.1
+
+### Patch Changes
+
+- 3113dd2: JobCategorySuggest: Resolve module imports using relative paths to fix consumer errors
+
 ## 0.9.0
 
 ### Minor Changes
