@@ -25,7 +25,7 @@ storiesOf('JobCategories', module)
       }}
     />
   ))
-  .addDecorator(story => (
+  .addDecorator((story) => (
     <ApolloProvider client={mockClient}>
       <BraidLoadableProvider themeName="seekUnifiedBeta">
         <Box paddingX="gutter" paddingY="large">

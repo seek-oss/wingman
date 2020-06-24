@@ -1,12 +1,13 @@
 import { useLazyQuery } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-client';
 import { FieldMessage, Loader, Stack, Text } from 'braid-design-system';
+import React, { forwardRef, useEffect } from 'react';
+import { useDebounce } from 'use-debounce';
+
 import {
   JobCategorySuggestionChoice,
   JobCategorySuggestionPositionProfileInput,
 } from 'lib/types/seek.graphql';
-import React, { forwardRef, useEffect } from 'react';
-import { useDebounce } from 'use-debounce';
 
 import JobCategorySuggestChoices from './JobCategorySuggestChoices';
 import { JOB_CATEGORY_SUGGESTION } from './queries';

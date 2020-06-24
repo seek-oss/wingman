@@ -1,10 +1,11 @@
 import { Radio, Stack, Strong, Text } from 'braid-design-system';
+import React, { forwardRef, useState } from 'react';
+
 import {
   JobCategory,
   JobCategorySuggestionChoice,
 } from 'lib/types/seek.graphql';
 import { flattenResourceByKey } from 'lib/utils';
-import React, { forwardRef, useState } from 'react';
 
 interface Props {
   choices: JobCategorySuggestionChoice[];

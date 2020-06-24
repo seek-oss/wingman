@@ -1,53 +1,51 @@
-
-      export interface IntrospectionResultData {
-        __schema: {
-          types: {
-            kind: string;
-            name: string;
-            possibleTypes: {
-              name: string;
-            }[];
-          }[];
-        };
-      }
-      const result: IntrospectionResultData = {
-  "__schema": {
-    "types": [
+export interface IntrospectionResultData {
+  __schema: {
+    types: {
+      kind: string;
+      name: string;
+      possibleTypes: {
+        name: string;
+      }[];
+    }[];
+  };
+}
+const result: IntrospectionResultData = {
+  __schema: {
+    types: [
       {
-        "kind": "INTERFACE",
-        "name": "ApplicationQuestionnaireComponent",
-        "possibleTypes": [
+        kind: 'INTERFACE',
+        name: 'ApplicationQuestionnaireComponent',
+        possibleTypes: [
           {
-            "name": "ApplicationQuestion"
+            name: 'ApplicationQuestion',
           },
           {
-            "name": "ApplicationPrivacyConsent"
-          }
-        ]
+            name: 'ApplicationPrivacyConsent',
+          },
+        ],
       },
       {
-        "kind": "INTERFACE",
-        "name": "ApplicationQuestionnaireComponentResponse",
-        "possibleTypes": [
+        kind: 'INTERFACE',
+        name: 'ApplicationQuestionnaireComponentResponse',
+        possibleTypes: [
           {
-            "name": "ApplicationQuestionResponse"
+            name: 'ApplicationQuestionResponse',
           },
           {
-            "name": "ApplicationPrivacyConsentResponse"
-          }
-        ]
+            name: 'ApplicationPrivacyConsentResponse',
+          },
+        ],
       },
       {
-        "kind": "INTERFACE",
-        "name": "Event",
-        "possibleTypes": [
+        kind: 'INTERFACE',
+        name: 'Event',
+        possibleTypes: [
           {
-            "name": "CandidateApplicationCreatedEvent"
-          }
-        ]
-      }
-    ]
-  }
+            name: 'CandidateApplicationCreatedEvent',
+          },
+        ],
+      },
+    ],
+  },
 };
-      export default result;
-    
+export default result;
