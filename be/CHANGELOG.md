@@ -1,5 +1,11 @@
 # wingman-be
 
+## 0.2.1
+
+### Patch Changes
+
+- fda1d1e: Add repository info to package.json files
+
 ## 0.2.0
 
 ### Minor Changes

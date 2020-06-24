@@ -1,5 +1,17 @@
 # wingman-fe
 
+## 0.9.0
+
+### Minor Changes
+
+- dd07791: Adds JobCategorySuggest component
+
+  - Abstracts the `jobCategorySuggestions` query on SEEK API and provides a list of suggested job categories for a position profile input.
+
+### Patch Changes
+
+- fda1d1e: Add repository info to package.json files
+
 ## 0.8.0
 
 ### Minor Changes
