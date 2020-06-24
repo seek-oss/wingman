@@ -54,6 +54,14 @@ export interface Query {
     Array<SeekAnzAdProduct>
   >;
   /**
+   * Ad products available when updating an advertisement.
+   *
+   * Use this query when you don't have the live advertisement identifier.
+   */
+  seekAnzHirerAdvertisementModificationProductsAlt?: Maybe<
+    Array<SeekAnzAdProduct>
+  >;
+  /**
    * The job category for the given `id`.
    *
    * This query accepts browser tokens that include the `query:ontologies` scope.
@@ -153,6 +161,10 @@ export interface Query {
    * It starts from the earliest known event if no pagination arguments are provided.
    */
   events: EventsConnection;
+  /** A page of advertisement brandings associated with the specified `hirerId`. */
+  advertisementBrandings: AdvertisementBrandingsConnection;
+  /** The advertisement branding for the given `id`. */
+  advertisementBranding?: Maybe<AdvertisementBranding>;
 }
 
 /** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
@@ -186,6 +198,13 @@ export interface QuerySeekAnzHirerAdvertisementCreationProductsArgs {
 
 /** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
 export interface QuerySeekAnzHirerAdvertisementModificationProductsArgs {
+  hirerId: Scalars['String'];
+  advertisementId: Scalars['String'];
+  draftAdvertisement: SeekAnzAdProductAdvertisementDraftInput;
+}
+
+/** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
+export interface QuerySeekAnzHirerAdvertisementModificationProductsAltArgs {
   hirerId: Scalars['String'];
   advertisement: SeekAnzAdProductAdvertisementInput;
   draftAdvertisement: SeekAnzAdProductAdvertisementDraftInput;
@@ -320,6 +339,20 @@ export interface QueryEventsArgs {
   schemeId: Scalars['String'];
 }
 
+/** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
+export interface QueryAdvertisementBrandingsArgs {
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  hirerId: Scalars['String'];
+}
+
+/** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
+export interface QueryAdvertisementBrandingArgs {
+  id: Scalars['String'];
+}
+
 /** The schema's entry-point for mutations. This acts as the public, top-level API from which all mutation queries must start. */
 export interface Mutation {
   __typename?: 'Mutation';
@@ -349,6 +382,15 @@ export interface Mutation {
   deletePositionOpening?: Maybe<DeletePositionOpeningPayload>;
   /** Creates a new position profile for an opening and posts it. */
   postPositionProfileForOpening: PostPositionProfileForOpeningPayload;
+  /**
+   * Updates an existing posted position profile.
+   *
+   * The position profile's existing fields will be replaced with the provided input fields.
+   * This will update the position's live job ad under its current URL.
+   */
+  updatePostedPositionProfile: UpdatePostedPositionProfilePayload;
+  /** Posts a live job ad for a new position. */
+  postPosition: PostPositionPayload;
   /** Creates a new unposted position profile for an opening. */
   createUnpostedPositionProfileForOpening: CreateUnpostedPositionProfileForOpeningPayload;
   /** Updates an existing unposted position profile. */
@@ -384,6 +426,16 @@ export interface MutationDeletePositionOpeningArgs {
 /** The schema's entry-point for mutations. This acts as the public, top-level API from which all mutation queries must start. */
 export interface MutationPostPositionProfileForOpeningArgs {
   input: PostPositionProfileForOpeningInput;
+}
+
+/** The schema's entry-point for mutations. This acts as the public, top-level API from which all mutation queries must start. */
+export interface MutationUpdatePostedPositionProfileArgs {
+  input: UpdatePostedPositionProfileInput;
+}
+
+/** The schema's entry-point for mutations. This acts as the public, top-level API from which all mutation queries must start. */
+export interface MutationPostPositionArgs {
+  input: PostPositionInput;
 }
 
 /** The schema's entry-point for mutations. This acts as the public, top-level API from which all mutation queries must start. */
@@ -933,8 +985,6 @@ export interface AdProduct {
   enabled: Scalars['Boolean'];
   /** How the ad product would be paid. */
   checkoutEstimate: AdProductCheckoutEstimate;
-  /** Fields which are not safe to consume as they are likely to change without notice. */
-  unstable: AdProductUnstable;
   /** Disclosures related to the ad product. */
   disclosures: Array<Disclosure>;
   /** Information messages */
@@ -1010,13 +1060,6 @@ export enum AdProductContractConsumptionType {
   SameAdtypePlusInvoice = 'SAME_ADTYPE_PLUS_INVOICE',
 }
 
-/** Advertisement product fields which are not safe to consume as they are likely to change without notice. */
-export interface AdProductUnstable {
-  __typename?: 'AdProductUnstable';
-  /** Flag indicating whether the advertisement product should be recommended. */
-  isRecommended: Scalars['Boolean'];
-}
-
 /** A disclosure shown to the hirer for the current ad product. */
 export interface Disclosure {
   __typename?: 'Disclosure';
@@ -1057,8 +1100,6 @@ export interface SeekAnzAdProduct {
   enabledIndicator: Scalars['Boolean'];
   /** How the ad product would be paid. */
   checkoutEstimate: SeekAnzAdProductCheckoutEstimate;
-  /** Fields which are not safe to consume as they are likely to change without notice. */
-  unstable: SeekAnzAdProductUnstable;
   /** Messages that may be shown to hirer. */
   messages: Array<SeekAnzAdProductMessage>;
 }
@@ -1144,13 +1185,6 @@ export interface SeekAnzAdProductAdvertisementDraftInput {
   positionLocationId?: Maybe<Scalars['String']>;
 }
 
-/** Advertisement product fields which are not safe to consume as they are likely to change without notice. */
-export interface SeekAnzAdProductUnstable {
-  __typename?: 'SeekAnzAdProductUnstable';
-  /** Indicates whether the advertisement product should be recommended. */
-  recommendedIndicator: Scalars['Boolean'];
-}
-
 /** A message shown to the hirer for the current ad product. */
 export interface SeekAnzAdProductMessage {
   __typename?: 'SeekAnzAdProductMessage';
@@ -1232,6 +1266,79 @@ export interface SpecifiedPersonInput {
   roleCode?: Maybe<Scalars['String']>;
 }
 
+/** A method of applying to a position. */
+export interface ApplicationMethodInput {
+  /**
+   * A URL of an external application form.
+   *
+   * When this is provided, SEEK's native apply form will be disabled and the candidate will be redirected to the supplied URL.
+   */
+  applicationUri: WebUrlInput;
+}
+
+/** The details of the posted position profile to be closed. */
+export interface ClosePostedPositionProfileInput {
+  /** The unique identifier for the posted position profile. */
+  id: Scalars['String'];
+}
+
+/** A collection of information about where and how to post a job ad. */
+export interface CreatePostingInstructionInput {
+  /**
+   * A SEEK ANZ advertisement type code.
+   *
+   * Currently, three codes are defined:
+   *
+   * - `Classic` indicates a Classic advertisement.
+   * - `StandOut` indicates a StandOut advertisement.
+   * - `Premium` indicates a Premium advertisement.
+   *
+   * Scheme requirements:
+   *
+   * - For the `seekAnz` scheme, this field is required.
+   * - For other schemes, set this to `null`.
+   */
+  seekAnzAdvertisementType?: Maybe<Scalars['String']>;
+  /** The end date of the posting. */
+  end?: Maybe<Scalars['DateTime']>;
+  /**
+   * An identifier to ensure that multiple ads are not created on retries.
+   *
+   * The identifier should be unique in the partner system for each position profile created.
+   * The same identifier must be provided when retrying after create failures.
+   */
+  idempotencyId: Scalars['String'];
+  /**
+   * An array of methods for applying to the position.
+   *
+   * If no methods are provided, SEEK's native apply form will be used to receive candidate applications.
+   * Native applications will raise a `CandidateApplicationCreated` event that points to a `CandidateProfile` object.
+   *
+   * Scheme requirements:
+   *
+   * - For the `seekAnz` scheme, this field is limited to a single element. Requests with more than 1 element will fail.
+   */
+  applicationMethods?: Maybe<Array<ApplicationMethodInput>>;
+}
+
+/** A formatted description of the position profile. */
+export interface PositionFormattedDescriptionInput {
+  /**
+   * The description type.
+   *
+   * Currently, four description identifiers are defined:
+   * 1. `AdvertisementDetails` is the detailed description of the position that appears on the job ad.
+   * 2. `ContactDetails` is a free-text description of a contact person for the position.
+   *    The use of this field is discouraged in SEEK ANZ but it is still used by certain advertisement templates.
+   * 3. `SearchBulletPoint` is a highlight or selling point of the position that appears in search results.
+   *    SEEK ANZ allows up to three search bullet points for Premium or StandOut ad products.
+   * 4. `SearchSummary` is a short description that appears in search results.
+   */
+  descriptionId: Scalars['String'];
+  /** The HTML content of the description. */
+  content: Scalars['String'];
+}
+
 /** The details of the position opening to be created. */
 export interface CreatePositionOpeningInput {
   /** The party that owns the position opening. */
@@ -1270,6 +1377,94 @@ export interface PostingRequesterInput {
   roleCode: Scalars['String'];
   /** Specific contact people for the position opening at the party. */
   personContacts: Array<SpecifiedPersonInput>;
+}
+
+/** The information required to post a job ad for a newly created position. */
+export interface PostPositionInput {
+  /** The details of the position opening to be created. */
+  positionOpening: CreatePositionOpeningInput;
+  /** A profile of a position opening. */
+  positionProfile: PostPositionPositionProfileInput;
+}
+
+export interface PostPositionPositionProfileInput {
+  /** A short phrase describing the position as it would be listed on a business card or in a company directory. */
+  positionTitle: Scalars['String'];
+  /**
+   * An array of identifiers for the organizations that have the position.
+   *
+   * Scheme requirements:
+   *
+   * - The `seekAnz` scheme requires exactly one element.
+   */
+  positionOrganizations: Array<Scalars['String']>;
+  /** An optional hirer-provided opaque job reference. */
+  seekHirerJobReference?: Maybe<Scalars['String']>;
+  /** An array of formatted position profile descriptions. */
+  positionFormattedDescriptions: Array<PositionFormattedDescriptionInput>;
+  /**
+   * An array of codes for the offered schedules for the position.
+   *
+   * Currently, two codes are defined:
+   *
+   * - `FullTime` indicates a full-time schedule.
+   * - `PartTime` indicates a part-time schedule.
+   *
+   * For the `seekAnz` scheme, this field is not supported and should be set to `null`.
+   */
+  positionScheduleTypeCodes?: Maybe<Array<Scalars['String']>>;
+  /** The salary or compensation offered for the position. */
+  offeredRemunerationPackage: RemunerationPackageInput;
+  /**
+   * A SEEK ANZ work type code.
+   *
+   * For positions in `seekAnz` scheme, this field is used instead of `positionScheduleTypeCodes`.
+   *
+   * Currently, four work type codes are defined:
+   *
+   * - `FullTime` indicates a full-time position.
+   * - `PartTime` indicates a part-time position.
+   * - `ContractTemp` indicates a fixed-length contract position.
+   * - `Casual` indicates a casual position.
+   *
+   * Scheme requirements:
+   *
+   * - Required for the `seekAnz` scheme when `postingInstructions` are provided.
+   * - Set to `null` for other schemes.
+   */
+  seekAnzWorkTypeCode?: Maybe<Scalars['String']>;
+  /**
+   * An array of `JobCategory` identifiers.
+   *
+   * Scheme requirements:
+   *
+   * - The `seekAnz` scheme requires exactly one element.
+   */
+  jobCategories: Array<Scalars['String']>;
+  /**
+   * An array of `Location` identifiers.
+   *
+   * Scheme requirements:
+   *
+   * - The `seekAnz` scheme requires exactly one element.
+   */
+  positionLocation: Array<Scalars['String']>;
+  /**
+   * The identifier of the questionnaire with the set of questions to present to candidates during an application.
+   *
+   * The questionnaire responses will be available as `seekQuestionnaireSubmission` on the application's `CandidateProfile`.
+   */
+  seekApplicationQuestionnaireId?: Maybe<Scalars['String']>;
+  /** The video to render within the advertisement. */
+  seekVideo?: Maybe<SeekVideoInput>;
+  /**
+   * The instructions related to posting the job ad.
+   *
+   * Scheme requirements:
+   *
+   * - The `seekAnz` scheme requires exactly one element.
+   */
+  postingInstructions: Array<CreatePostingInstructionInput>;
 }
 
 /**
@@ -1356,157 +1551,7 @@ export interface PostPositionProfileForOpeningInput {
    *
    * - The `seekAnz` scheme requires exactly one element.
    */
-  postingInstructions: Array<PostingInstructionInput>;
-}
-
-/** A formatted description of the position profile. */
-export interface PositionFormattedDescriptionInput {
-  /**
-   * The description type.
-   *
-   * Currently, four description identifiers are defined:
-   * 1. `AdvertisementDetails` is the detailed description of the position that appears on the job ad.
-   * 2. `ContactDetails` is a free-text description of a contact person for the position.
-   *    The use of this field is discouraged in SEEK ANZ but it is still used by certain advertisement templates.
-   * 3. `SearchBulletPoint` is a highlight or selling point of the position that appears in search results.
-   *    SEEK ANZ allows up to three search bullet points for Premium or StandOut ad products.
-   * 4. `SearchSummary` is a short description that appears in search results.
-   */
-  descriptionId: Scalars['String'];
-  /** The HTML content of the description. */
-  content: Scalars['String'];
-}
-
-/** A collection of information about where and how to post a job ad. */
-export interface PostingInstructionInput {
-  /**
-   * A SEEK ANZ advertisement type code.
-   *
-   * Currently, three codes are defined:
-   *
-   * - `Classic` indicates a Classic advertisement.
-   * - `StandOut` indicates a StandOut advertisement.
-   * - `Premium` indicates a Premium advertisement.
-   *
-   * Scheme requirements:
-   *
-   * - For the `seekAnz` scheme, this field is required.
-   * - For other schemes, set this to `null`.
-   */
-  seekAnzAdvertisementType?: Maybe<Scalars['String']>;
-  /** The end date of the posting. */
-  end?: Maybe<Scalars['DateTime']>;
-  /**
-   * An identifier to ensure that multiple ads are not created on retries.
-   *
-   * The identifier should be unique in the partner system for each position profile created.
-   * The same identifier must be provided when retrying after create failures.
-   */
-  idempotencyId: Scalars['String'];
-  /**
-   * An array of methods for applying to the position.
-   *
-   * If no methods are provided, SEEK's native apply form will be used to receive candidate applications.
-   * Native applications will raise a `CandidateApplicationCreated` event that points to a `CandidateProfile` object.
-   *
-   * Scheme requirements:
-   *
-   * - For the `seekAnz` scheme, this field is limited to a single element. Requests with more than 1 element will fail.
-   */
-  applicationMethods?: Maybe<Array<ApplicationMethodInput>>;
-}
-
-/** The values to replace on a posted position profile. */
-export interface UpdatePostedPositionProfileInput {
-  /** The identifier of the posted position profile to update. */
-  positionProfileId: Scalars['String'];
-  /** A short phrase describing the position as it would be listed on a business card or in a company directory. */
-  positionTitle: Scalars['String'];
-  /**
-   * An array of identifiers for the organizations that have the position.
-   *
-   * Scheme requirements:
-   *
-   * - The `seekAnz` scheme requires exactly one element.
-   */
-  positionOrganizations: Array<Scalars['String']>;
-  /** An optional hirer-provided opaque job reference. */
-  seekHirerJobReference?: Maybe<Scalars['String']>;
-  /** An array of formatted position profile descriptions. */
-  positionFormattedDescriptions: Array<PositionFormattedDescriptionInput>;
-  /**
-   * An array of codes for the offered schedules for the position.
-   *
-   * Currently, two codes are defined:
-   *
-   * - `FullTime` indicates a full-time schedule.
-   * - `PartTime` indicates a part-time schedule.
-   *
-   * For the `seekAnz` scheme, this field is not supported and should be set to `null`.
-   */
-  positionScheduleTypeCodes?: Maybe<Array<Scalars['String']>>;
-  /** The salary or compensation offered for the position. */
-  offeredRemunerationPackage: RemunerationPackageInput;
-  /**
-   * A SEEK ANZ work type code.
-   *
-   * For positions in `seekAnz` scheme, this field is used instead of `positionScheduleTypeCodes`.
-   *
-   * Currently, four work type codes are defined:
-   *
-   * - `FullTime` indicates a full-time position.
-   * - `PartTime` indicates a part-time position.
-   * - `ContractTemp` indicates a fixed-length contract position.
-   * - `Casual` indicates a casual position.
-   *
-   * Scheme requirements:
-   *
-   * - Required for the `seekAnz` scheme when `postingInstructions` are provided.
-   * - Set to `null` for other schemes.
-   */
-  seekAnzWorkTypeCode?: Maybe<Scalars['String']>;
-  /**
-   * An array of `JobCategory` identifiers.
-   *
-   * Scheme requirements:
-   *
-   * - The `seekAnz` scheme requires exactly one element.
-   */
-  jobCategories: Array<Scalars['String']>;
-  /**
-   * An array of `Location` identifiers.
-   *
-   * Scheme requirements:
-   *
-   * - The `seekAnz` scheme requires exactly one element.
-   */
-  positionLocation: Array<Scalars['String']>;
-  /**
-   * The identifier of the questionnaire with the set of questions to present to candidates during an application.
-   *
-   * The questionnaire responses will be available as `seekQuestionnaireSubmission` on the application's `CandidateProfile`.
-   *
-   * Scheme requirements:
-   *
-   * - For the `seekAnz` scheme, this field is ignored.
-   */
-  seekApplicationQuestionnaireId?: Maybe<Scalars['String']>;
-  /** The video to render within the advertisement. */
-  seekVideo?: Maybe<SeekVideoInput>;
-  /**
-   * The instructions related to posting the job ad.
-   *
-   * Scheme requirements:
-   *
-   * - The `seekAnz` scheme requires exactly one element.
-   */
-  postingInstructions: Array<PostingInstructionInput>;
-}
-
-/** The details of the posted position profile to be closed. */
-export interface ClosePostedPositionProfileInput {
-  /** The unique identifier for the posted position profile. */
-  id: Scalars['String'];
+  postingInstructions: Array<CreatePostingInstructionInput>;
 }
 
 /** The salary or compensation for a position. */
@@ -1635,6 +1680,125 @@ export interface DeleteUnpostedPositionProfileInput {
   id: Scalars['String'];
 }
 
+/** The values to replace on a posted position profile. */
+export interface UpdatePostedPositionProfileInput {
+  /** The identifier of the posted position profile to update. */
+  positionProfileId: Scalars['String'];
+  /** A short phrase describing the position as it would be listed on a business card or in a company directory. */
+  positionTitle: Scalars['String'];
+  /**
+   * An array of identifiers for the organizations that have the position.
+   *
+   * Scheme requirements:
+   *
+   * - The `seekAnz` scheme requires exactly one element.
+   */
+  positionOrganizations: Array<Scalars['String']>;
+  /** An optional hirer-provided opaque job reference. */
+  seekHirerJobReference?: Maybe<Scalars['String']>;
+  /** An array of formatted position profile descriptions. */
+  positionFormattedDescriptions: Array<PositionFormattedDescriptionInput>;
+  /**
+   * An array of codes for the offered schedules for the position.
+   *
+   * Currently, two codes are defined:
+   *
+   * - `FullTime` indicates a full-time schedule.
+   * - `PartTime` indicates a part-time schedule.
+   *
+   * For the `seekAnz` scheme, this field is not supported and should be set to `null`.
+   */
+  positionScheduleTypeCodes?: Maybe<Array<Scalars['String']>>;
+  /** The salary or compensation offered for the position. */
+  offeredRemunerationPackage: RemunerationPackageInput;
+  /**
+   * A SEEK ANZ work type code.
+   *
+   * For positions in `seekAnz` scheme, this field is used instead of `positionScheduleTypeCodes`.
+   *
+   * Currently, four work type codes are defined:
+   *
+   * - `FullTime` indicates a full-time position.
+   * - `PartTime` indicates a part-time position.
+   * - `ContractTemp` indicates a fixed-length contract position.
+   * - `Casual` indicates a casual position.
+   *
+   * Scheme requirements:
+   *
+   * - Required for the `seekAnz` scheme when `postingInstructions` are provided.
+   * - Set to `null` for other schemes.
+   */
+  seekAnzWorkTypeCode?: Maybe<Scalars['String']>;
+  /**
+   * An array of `JobCategory` identifiers.
+   *
+   * Scheme requirements:
+   *
+   * - The `seekAnz` scheme requires exactly one element.
+   */
+  jobCategories: Array<Scalars['String']>;
+  /**
+   * An array of `Location` identifiers.
+   *
+   * Scheme requirements:
+   *
+   * - The `seekAnz` scheme requires exactly one element.
+   */
+  positionLocation: Array<Scalars['String']>;
+  /**
+   * The identifier of the questionnaire with the set of questions to present to candidates during an application.
+   *
+   * The questionnaire responses will be available as `seekQuestionnaireSubmission` on the application's `CandidateProfile`.
+   *
+   * Scheme requirements:
+   *
+   * - For the `seekAnz` scheme, this field is ignored.
+   */
+  seekApplicationQuestionnaireId?: Maybe<Scalars['String']>;
+  /** The video to render within the advertisement. */
+  seekVideo?: Maybe<SeekVideoInput>;
+  /**
+   * The instructions related to posting the job ad.
+   *
+   * Scheme requirements:
+   *
+   * - The `seekAnz` scheme requires exactly one element.
+   */
+  postingInstructions: Array<UpdatePostingInstructionInput>;
+}
+
+/** A collection of information about where and how to post a job ad. */
+export interface UpdatePostingInstructionInput {
+  /**
+   * A SEEK ANZ advertisement type code.
+   *
+   * Currently, three codes are defined:
+   *
+   * - `Classic` indicates a Classic advertisement.
+   * - `StandOut` indicates a StandOut advertisement.
+   * - `Premium` indicates a Premium advertisement.
+   *
+   * Scheme requirements:
+   *
+   * - For the `seekAnz` scheme, this field is required.
+   * - For other schemes, set this to `null`.
+   */
+  seekAnzAdvertisementType?: Maybe<Scalars['String']>;
+  /** The end date of the posting. */
+  end?: Maybe<Scalars['DateTime']>;
+  /**
+   * An array of methods for applying to the position.
+   *
+   * If no methods are provided, SEEK's native apply form will be used to receive candidate applications.
+   * Native applications will raise a `CandidateApplicationCreated` event that points to a `CandidateProfile` object.
+   *
+   * Scheme requirements:
+   *
+   * - For the `seekAnz` scheme, this field is limited to a single element. Requests with more than 1 element will fail.
+   */
+  applicationMethods?: Maybe<Array<ApplicationMethodInput>>;
+}
+
 /** A collection of information about the video to display alongside advertisement details. */
 export interface SeekVideoInput {
   /**
@@ -1654,16 +1818,6 @@ export interface SeekVideoInput {
    * - `Below` indicates the video will render below the advertisement details.
    */
   seekAnzPositionCode?: Maybe<Scalars['String']>;
-}
-
-/** A method of applying to a position. */
-export interface ApplicationMethodInput {
-  /**
-   * A URL of an external application form.
-   *
-   * When this is provided, SEEK's native apply form will be disabled and the candidate will be redirected to the supplied URL.
-   */
-  applicationUri: WebUrlInput;
 }
 
 /**
@@ -1710,6 +1864,12 @@ export interface JobCategorySuggestionPositionProfileInput {
   positionTitle: Scalars['String'];
   /** An array of location identifiers of the position. */
   positionLocation?: Maybe<Array<Scalars['String']>>;
+  /**
+   * An array of identifiers for the organizations that have the position.
+   *
+   * Information such as the organization's domicile can be used to refine the returned suggestions.
+   */
+  positionOrganizations?: Maybe<Array<Scalars['String']>>;
   /**
    * The descriptions for the position profile.
    *
@@ -1767,13 +1927,6 @@ export interface CreatePositionOpeningPayload {
   positionOpening: PositionOpening;
 }
 
-/** The output parameter for the `updatePositionOpeningPersonContacts` mutation. */
-export interface UpdatePositionOpeningPersonContactsPayload {
-  __typename?: 'UpdatePositionOpeningPersonContactsPayload';
-  /** The details of the updated position opening. */
-  positionOpening: PositionOpening;
-}
-
 /** The output parameter for the `postPositionProfileForOpening` mutation. */
 export interface PostPositionProfileForOpeningPayload {
   __typename?: 'PostPositionProfileForOpeningPayload';
@@ -1785,6 +1938,57 @@ export interface PostPositionProfileForOpeningPositionProfilePayload {
   __typename?: 'PostPositionProfileForOpening_PositionProfilePayload';
   /** The identifier for the created position profile. */
   id: ObjectIdentifier;
+}
+
+/** The output parameter for the `postPosition` mutation. */
+export interface PostPositionPayload {
+  __typename?: 'PostPositionPayload';
+  /** Attributes of the newly created position opening. */
+  positionOpening: PostPositionPositionOpeningPayload;
+  /** Attributes of the newly created position profile. */
+  positionProfile: PostPositionPositionProfilePayload;
+}
+
+export interface PostPositionPositionOpeningPayload {
+  __typename?: 'PostPosition_PositionOpeningPayload';
+  /**
+   * The identifier for the created position opening.
+   *
+   * Scheme restrictions:
+   *
+   * - The `seekAnz` scheme creates the position opening asynchronously.
+   *   This identifier will initially reference an missing object;
+   *   the object should be created within a few minutes.
+   */
+  documentId: ObjectIdentifier;
+}
+
+export interface PostPositionPositionProfilePayload {
+  __typename?: 'PostPosition_PositionProfilePayload';
+  /**
+   * The identifier for the created position profile.
+   *
+   * Scheme restrictions:
+   *
+   * - The `seekAnz` scheme creates the position profile asynchronously.
+   *   This identifier will initially reference an missing object;
+   *   the object should be created within a few minutes.
+   */
+  id: ObjectIdentifier;
+}
+
+/** The output parameter for the `createUnpostedPositionProfileForOpening` mutation. */
+export interface CreateUnpostedPositionProfileForOpeningPayload {
+  __typename?: 'CreateUnpostedPositionProfileForOpeningPayload';
+  /** Attributes of the newly created unposted position profile. */
+  unpostedPositionProfile: PositionProfile;
+}
+
+/** The output parameter for the `updatePositionOpeningPersonContacts` mutation. */
+export interface UpdatePositionOpeningPersonContactsPayload {
+  __typename?: 'UpdatePositionOpeningPersonContactsPayload';
+  /** The details of the updated position opening. */
+  positionOpening: PositionOpening;
 }
 
 /** The output of the `updatePostedPositionProfile` mutation. */
@@ -1799,13 +2003,6 @@ export interface ClosePostedPositionProfilePayload {
   __typename?: 'ClosePostedPositionProfilePayload';
   /** The identifier of the closed posted position profile. */
   id: ObjectIdentifier;
-}
-
-/** The output parameter for the `createUnpostedPositionProfileForOpening` mutation. */
-export interface CreateUnpostedPositionProfileForOpeningPayload {
-  __typename?: 'CreateUnpostedPositionProfileForOpeningPayload';
-  /** Attributes of the newly created unposted position profile. */
-  unpostedPositionProfile: PositionProfile;
 }
 
 /** The output parameter for the `updateUnpostedPositionProfile` mutation. */
@@ -2099,8 +2296,6 @@ export interface SeekVideo {
 /** Information about a person not specific to a candidate profile. */
 export interface CandidatePerson {
   __typename?: 'CandidatePerson';
-  /** An opaque identifier for the person. */
-  id: ObjectIdentifier;
   /** The person's name. */
   name: PersonName;
   /** Methods of communication with the person. */
@@ -2354,6 +2549,13 @@ export interface CreateWebhookSubscriptionSubscriptionInput {
    * See the relevant `Event` implementation for a list of supported schemes.
    */
   schemeId: Scalars['String'];
+  /**
+   * The optional hirer ID to receive events from.
+   *
+   * By default webhook subscriptions will send events from all hirers the partner has access to.
+   * Providing a hirer ID will filter events to the specified hirer.
+   */
+  hirerId?: Maybe<Scalars['String']>;
   /** The subscriber-owned URL where events will be sent to. */
   url: Scalars['String'];
   /**
@@ -2418,6 +2620,13 @@ export interface WebhookSubscription {
    * See the relevant `Event` implementation for a list of supported schemes.
    */
   schemeId: Scalars['String'];
+  /**
+   * The optional hirer ID to receive events from.
+   *
+   * By default webhook subscriptions will send events from all hirers the partner has access to.
+   * A non-null `hirerId` indicates that this subscription is filtered to a single hirer.
+   */
+  hirerId?: Maybe<ObjectIdentifier>;
   /** The subscriber-owned URL where events are sent to. */
   url: Scalars['String'];
   /**
@@ -2545,11 +2754,17 @@ export interface WebhookSubscriptionsFilterInput {
    */
   beforeDateTime?: Maybe<Scalars['DateTime']>;
   /**
-   * The types of webhook subscriptions to retrieve.
+   * The event types of webhook subscriptions to retrieve.
    *
    * See the relevant `WebhookSubscription` implementation for a list of supported event types.
    */
   eventTypeCodes?: Maybe<Array<Scalars['String']>>;
+  /**
+   * The hirer IDs of the hirer-filtered webhook subscriptions to retrieve.
+   *
+   * If this is not provided then both hirer-filtered and unfiltered subscriptions will be returned.
+   */
+  hirerIds?: Maybe<Array<Scalars['String']>>;
 }
 
 /** A page of events from a stream. */
