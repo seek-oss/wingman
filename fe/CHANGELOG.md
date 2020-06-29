@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.10.0
+
+### Minor Changes
+
+- fdcf4d7: Enable `name`, `message` and `tone` to be passed in as props for JobCategorySuggest
+
 ## 0.9.1
 
 ### Patch Changes
