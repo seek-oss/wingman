@@ -1,5 +1,5 @@
 import { Radio, Stack, Strong, Text } from 'braid-design-system';
-import React, { forwardRef, useState } from 'react';
+import React, { ComponentProps, forwardRef, useState } from 'react';
 
 import {
   JobCategory,
@@ -11,6 +11,7 @@ interface Props {
   choices: JobCategorySuggestionChoice[];
   onSelect?: (jobCategorySuggestionChoice: JobCategorySuggestionChoice) => void;
   showConfidence?: boolean;
+  tone: ComponentProps<typeof Radio>['tone'];
 }
 
 const getJobCategoryName = (jobCategory: JobCategory): string =>
@@ -20,7 +21,10 @@ const getJobCategoryName = (jobCategory: JobCategory): string =>
     .join(' > ');
 
 const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
-  ({ choices, onSelect, showConfidence = false }, forwardedRef) => {
+  (
+    { choices, onSelect, showConfidence = false, ...restProps },
+    forwardedRef,
+  ) => {
     const [selectedJobCategory, setSelectedJobCategory] = useState<
       JobCategory
     >();
@@ -46,10 +50,10 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
               checked={id.value === selectedJobCategory?.id.value}
               onChange={() => handleChoiceSelect(choice)}
               value={id.value}
-              name="jobCategorySuggestion"
               id={id.value}
               label={getJobCategoryName(jobCategory)}
               ref={forwardedRef}
+              {...restProps}
             >
               {showConfidence && (
                 <Text tone="secondary" size="small">

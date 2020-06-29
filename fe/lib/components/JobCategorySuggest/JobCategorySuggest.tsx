@@ -1,7 +1,7 @@
 import { useLazyQuery } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-client';
-import { FieldMessage, Loader, Stack, Text } from 'braid-design-system';
-import React, { forwardRef, useEffect } from 'react';
+import { FieldMessage, Loader, Radio, Stack, Text } from 'braid-design-system';
+import React, { ComponentPropsWithRef, forwardRef, useEffect } from 'react';
 import { useDebounce } from 'use-debounce';
 
 import {
@@ -12,7 +12,11 @@ import {
 import JobCategorySuggestChoices from './JobCategorySuggestChoices';
 import { JOB_CATEGORY_SUGGESTION } from './queries';
 
-interface Props {
+interface RadioProps extends ComponentPropsWithRef<typeof Radio> {}
+interface FieldMessageProps
+  extends Omit<ComponentPropsWithRef<typeof FieldMessage>, 'tone' | 'id'> {}
+
+interface Props extends Partial<RadioProps>, FieldMessageProps {
   client?: ApolloClient<unknown>;
   schemeId: string;
   debounceDelay?: number;
@@ -30,6 +34,9 @@ export const JobCategorySuggest = forwardRef<HTMLInputElement, Props>(
       positionProfile,
       debounceDelay = 250,
       showConfidence,
+      message = '',
+      tone,
+      ...restProps
     },
     forwardedRef,
   ) => {
@@ -73,9 +80,16 @@ export const JobCategorySuggest = forwardRef<HTMLInputElement, Props>(
               ref={forwardedRef}
               onSelect={onSelect}
               showConfidence={showConfidence}
+              tone={tone}
+              {...restProps}
             />
           )
         )}
+        <FieldMessage
+          message={message}
+          id="jobCategorySuggestMessage"
+          tone={tone}
+        />
         {suggestError && (
           <FieldMessage
             id="suggestError"

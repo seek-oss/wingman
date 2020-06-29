@@ -4,6 +4,7 @@ import { Box, BraidLoadableProvider } from 'braid-design-system';
 import { createMockClient } from 'mock-apollo-client';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
+import { select, text } from 'sku/@storybook/addon-knobs';
 import { storiesOf } from 'sku/@storybook/react';
 
 import { JobCategorySuggest } from './JobCategorySuggest';
@@ -23,6 +24,8 @@ storiesOf('JobCategories', module)
       positionProfile={{
         positionTitle: `Senior Developer`,
       }}
+      message={text('message', 'Select a job category')}
+      tone={select('tone', ['neutral', 'critical'], undefined)}
     />
   ))
   .addDecorator((story) => (
