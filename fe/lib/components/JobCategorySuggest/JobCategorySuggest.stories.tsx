@@ -28,7 +28,7 @@ storiesOf('JobCategories', module)
       tone={select('tone', ['neutral', 'critical'], undefined)}
     />
   ))
-  .addDecorator(story => (
+  .addDecorator((story) => (
     <ApolloProvider client={mockClient}>
       <BraidLoadableProvider themeName="seekUnifiedBeta">
         <Box paddingX="gutter" paddingY="large">
