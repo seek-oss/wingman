@@ -11,7 +11,7 @@ interface Props {
   choices: JobCategorySuggestionChoice[];
   onSelect?: (jobCategorySuggestionChoice: JobCategorySuggestionChoice) => void;
   showConfidence?: boolean;
-  tone: ComponentProps<typeof Radio>['tone'];
+  tone?: ComponentProps<typeof Radio>['tone'];
 }
 
 const getJobCategoryName = (jobCategory: JobCategory): string =>
