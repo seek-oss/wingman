@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.10.1
+
+### Patch Changes
+
+- 6c8578e: JobCategorySuggest: `tone` and `message` props are now optional
+
 ## 0.10.0
 
 ### Minor Changes
