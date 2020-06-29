@@ -1,5 +1,5 @@
 import { Radio, Stack, Strong, Text } from 'braid-design-system';
-import React, { ComponentPropsWithRef, forwardRef, useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 
 import {
   JobCategory,
@@ -7,9 +7,7 @@ import {
 } from '../../types/seek.graphql';
 import { flattenResourceByKey } from '../../utils';
 
-interface Tone extends Pick<ComponentPropsWithRef<typeof Radio>, 'tone'> {}
-
-interface Props extends Tone {
+interface Props {
   choices: JobCategorySuggestionChoice[];
   onSelect?: (jobCategorySuggestionChoice: JobCategorySuggestionChoice) => void;
   showConfidence?: boolean;
@@ -23,7 +21,7 @@ const getJobCategoryName = (jobCategory: JobCategory): string =>
 
 const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
   (
-    { choices, onSelect, showConfidence = false, tone, ...restProps },
+    { choices, onSelect, showConfidence = false, ...restProps },
     forwardedRef,
   ) => {
     const [selectedJobCategory, setSelectedJobCategory] = useState<
@@ -54,7 +52,6 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
               id={id.value}
               label={getJobCategoryName(jobCategory)}
               ref={forwardedRef}
-              tone={tone}
               {...restProps}
             >
               {showConfidence && (
