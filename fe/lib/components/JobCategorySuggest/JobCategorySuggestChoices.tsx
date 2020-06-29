@@ -1,5 +1,5 @@
 import { Radio, Stack, Strong, Text } from 'braid-design-system';
-import React, { forwardRef, useState } from 'react';
+import React, { ComponentPropsWithRef, forwardRef, useState } from 'react';
 
 import {
   JobCategory,
@@ -7,7 +7,9 @@ import {
 } from '../../types/seek.graphql';
 import { flattenResourceByKey } from '../../utils';
 
-interface Props {
+interface Tone extends Pick<ComponentPropsWithRef<typeof Radio>, 'tone'> {}
+
+interface Props extends Tone {
   choices: JobCategorySuggestionChoice[];
   onSelect?: (jobCategorySuggestionChoice: JobCategorySuggestionChoice) => void;
   showConfidence?: boolean;
