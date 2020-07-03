@@ -16,6 +16,7 @@ Reference implementation of a SEEK-integrated recruitment system.
   - [Run](#run)
 - [Meta](#meta)
   - [Related SEEK OSS](#related-seek-oss)
+- [Contributing](https://github.com/seek-oss/wingman/blob/master/CONTRIBUTING.md)
 
 ## Design
 
