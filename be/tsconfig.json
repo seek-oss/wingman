@@ -6,6 +6,6 @@
       "src": ["src"]
     }
   },
-  "exclude": ["lib/**/*"],
+  "exclude": ["lib*/**/*"],
   "extends": "skuba/config/tsconfig.json"
 }
