@@ -1,16 +1,11 @@
+# managed by skuba
 .idea/
 .serverless/
 .vscode/
-coverage/
-dist/
-lib/
-node_modules/
-node_modules_bak/
-tmp/
+node_modules*/
 
-.DS_Store
-.npmrc
-npm-debug.log
-yarn-error.log
-
-/lib/
+/coverage*/
+/dist*/
+/lib*/
+/tmp*/
+# end managed by skuba
