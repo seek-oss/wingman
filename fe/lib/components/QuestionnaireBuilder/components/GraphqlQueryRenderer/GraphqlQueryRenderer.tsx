@@ -59,7 +59,7 @@ export const convertComponentsToMutationVariables = (
   hirerId: string,
 ): MutationVariables => {
   const questionnaireComponents: MutationQuestionnaireComponents[] = components.map(
-    (component) =>
+    component =>
       component.componentTypeCode === 'Question'
         ? {
             componentTypeCode: 'Question',
@@ -86,7 +86,11 @@ export const convertComponentsToMutationVariables = (
 
 const renderVariablesPane = (components: FormComponent[], hirerId: string) => {
   if (components.length > 0 && hirerId) {
-    const variables = convertComponentsToMutationVariables(components, hirerId);
+    const { variables } = convertComponentsToMutationVariables(
+      components,
+      hirerId,
+    );
+
     const variablesString = JSON.stringify(variables, null, 2);
 
     return (
