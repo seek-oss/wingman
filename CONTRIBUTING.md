@@ -53,8 +53,8 @@ This lets us evaluate whether the feature fits the direction of the project and 
 
 ### Prerequisites
 
-We depend on upstream tooling like [sku] and [skuba] that are predominantly tested on macOS and Linux.
-If you’re on Windows, we recommend the [Windows Subsystem for Linux].
+We depend on upstream tooling like **[sku]** and **[skuba]** that are predominantly tested on macOS and Linux.
+If you're on Windows, we recommend the [Windows Subsystem for Linux].
 
 First, some JavaScript tooling:
 
@@ -142,7 +142,7 @@ yarn fe start
 We use [Changesets] to manage package releases.
 You'll see a 🦋 bot gliding around pull requests.
 
-You should write a changeset for your change if makes a visible change to the public Wingman interface,
+You should write a changeset if you are changing the public Wingman interface,
 which includes:
 
 - Package code under [be/src](/be/src) and [fe/lib](/fe/lib)
@@ -173,7 +173,7 @@ Feel free to manually edit this file to include more details about your change.
 
 ### Publishing a release
 
-Once a pull request with a changeset has been merged,
+When a pull request with a changeset is merged,
 our CI workflow will create a new `Version Packages` PR.
 The changesets are used to infer the next semantic version and to update the changelogs.
 
