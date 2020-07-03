@@ -1,5 +1,35 @@
 # wingman-fe
 
+## 0.10.1
+
+### Patch Changes
+
+- 6c8578e: JobCategorySuggest: `tone` and `message` props are now optional
+
+## 0.10.0
+
+### Minor Changes
+
+- fdcf4d7: Enable `name`, `message` and `tone` to be passed in as props for JobCategorySuggest
+
+## 0.9.1
+
+### Patch Changes
+
+- 3113dd2: JobCategorySuggest: Resolve module imports using relative paths to fix consumer errors
+
+## 0.9.0
+
+### Minor Changes
+
+- dd07791: Adds JobCategorySuggest component
+
+  - Abstracts the `jobCategorySuggestions` query on SEEK API and provides a list of suggested job categories for a position profile input.
+
+### Patch Changes
+
+- fda1d1e: Add repository info to package.json files
+
 ## 0.8.0
 
 ### Minor Changes

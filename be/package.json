@@ -1,4 +1,7 @@
 {
+  "bugs": {
+    "url": "https://github.com/seek-oss/wingman/issues"
+  },
   "dependencies": {
     "@graphql-tools/delegate": "^6.0.5",
     "@graphql-tools/wrap": "^6.0.5",
@@ -29,9 +32,15 @@
     "lib/**/*.js",
     "lib/**/*.js.map"
   ],
+  "homepage": "https://github.com/seek-oss/wingman#readme",
   "license": "MIT",
   "main": "lib/index.ts",
   "name": "wingman-be",
+  "repository": {
+    "directory": "be",
+    "type": "git",
+    "url": "git+https://github.com/seek-oss/wingman.git"
+  },
   "scripts": {
     "build": "skuba build",
     "format": "skuba format",
@@ -45,5 +54,5 @@
     "version": "3.4.1"
   },
   "typings": "lib/index.d.ts",
-  "version": "0.2.0"
+  "version": "0.2.1"
 }

@@ -25,10 +25,21 @@ const NESTED_JOB_CATEGORY_ATTRIBUTES = gql`
   ${JOB_CATEGORY_ATTRIBUTES}
 `;
 
-export const JOB_CATEGORIES = gql`
-  query($schemeId: String!) {
-    jobCategories(schemeId: $schemeId) {
-      ...nestedJobCategoryAttributes
+export const JOB_CATEGORY_SUGGESTION = gql`
+  query(
+    $positionProfile: JobCategorySuggestionPositionProfileInput!
+    $schemeId: String!
+    $first: Int
+  ) {
+    jobCategorySuggestions(
+      positionProfile: $positionProfile
+      schemeId: $schemeId
+      first: $first
+    ) {
+      jobCategory {
+        ...nestedJobCategoryAttributes
+      }
+      confidence
     }
   }
   ${NESTED_JOB_CATEGORY_ATTRIBUTES}
