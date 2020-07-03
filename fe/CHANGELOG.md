@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.10.2
+
+### Patch Changes
+
+- 63ea27f: Fix questionnaire builder mutation variables
+
 ## 0.10.1
 
 ### Patch Changes
