@@ -40,7 +40,7 @@ See the [README design section] for more details on the repository structure.
 
 [Submit an issue] if you have a question, feature request or bug report.
 
-If you work at SEEK, [#indirect-apply] is your friend.
+If you work at SEEK, [#indirect] is your friend.
 
 ### I want to contribute a change
 
@@ -162,9 +162,9 @@ yarn changeset
 
 The Changesets CLI is interactive and follows [semantic versioning]:
 
-- Major `1.X.X`: backwards-incompatible modification
-- Minor `X.1.X`: new, backwards-compatible functionality
-- Patch `X.X.1`: fixes or tweaks to existing functionality
+- Patch release `0.0.X`: fixes or tweaks to existing functionality
+- Minor release `0.X.0`: new, backwards-compatible functionality
+- Major release `X.0.0`: backwards-incompatible modification
 
 The Changesets CLI will generate a Markdown file under [.changeset](/.changeset),
 which you should include in your pull request.
@@ -213,7 +213,7 @@ git commit --message 'Publish v4.0.0-beta.2'
 git push --set-upstream origin beta
 ```
 
-[#indirect-apply]: https://seekchat.slack.com/channels/indirect-apply
+[#indirect]: https://seekchat.slack.com/channels/indirect
 [changesets]: https://github.com/atlassian/changesets
 [create a pull request]: https://github.com/seek-oss/wingman/compare
 [developer site]: https://developer.seek.com
