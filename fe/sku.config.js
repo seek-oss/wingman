@@ -4,6 +4,20 @@ module.exports = {
   srcPaths: ['example/src', 'lib'],
 
   publicPath: '/',
+  routes: [
+    '/',
+    '/accounts',
+    '/admin',
+    '/candidates/$id',
+    '/candidates',
+    '/candidates/new',
+    '/notifications',
+    '/positions/$id',
+    '/positions',
+    '/positions/branding',
+    '/positions/new',
+    '/positions/questions',
+  ],
   sites: [{ name: 'seekUnifiedBeta', host: 'dev.seekunifiedbeta.com' }],
 
   compilePackages: ['scoobie'],

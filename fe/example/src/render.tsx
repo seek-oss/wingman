@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/server';
+import { StaticRouter } from 'react-router-dom';
 import { Render } from 'sku';
 
 import { App } from './App/App';
@@ -10,10 +11,12 @@ interface RenderContext {
 }
 
 const skuRender: Render<RenderContext> = {
-  renderApp: ({ SkuProvider, site }) => {
+  renderApp: ({ SkuProvider, route, site }) => {
     const appHtml = ReactDOM.renderToString(
       <SkuProvider>
-        <App site={site} />
+        <StaticRouter location={route}>
+          <App site={site} />
+        </StaticRouter>
       </SkuProvider>,
     );
 
