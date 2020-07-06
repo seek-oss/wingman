@@ -1,9 +1,11 @@
-import { globalStyle } from 'sku/treat';
+import { style } from 'sku/treat';
 
-globalStyle('body', {
+export const fillViewportHeight = style({
   height: '100vh',
 });
 
-globalStyle('#app, #app > div, #app > div > div', {
-  height: 'inherit',
-});
+export const rightBorder = style((theme) => ({
+  borderRightColor: theme.border.color.standard,
+  borderRightStyle: 'solid',
+  borderRightWidth: theme.border.width.standard,
+}));

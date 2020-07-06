@@ -11,7 +11,7 @@ import React from 'react';
 import { Header } from '../components/Header';
 
 export const OopsPage = () => (
-  <Stack space="none">
+  <Stack dividers space="none">
     <Header>
       <ContentBlock width="large">
         <Heading level="3">Oops!</Heading>
