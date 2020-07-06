@@ -22,9 +22,6 @@ export interface Position {
   stage: Stage;
   contact: string;
   lastUpdate: Date;
-
-  // TOOD: required for Table
-  [key: string]: unknown;
 }
 
 export const POSITIONS: Position[] = faker.custom
