@@ -22,7 +22,7 @@
     "@graphql-codegen/cli": "1.15.1",
     "@graphql-codegen/fragment-matcher": "1.15.1",
     "@graphql-codegen/typescript": "1.15.1",
-    "graphql": "15.0.0",
+    "graphql": "15.3.0",
     "skuba": "3.7.3"
   }
 }
