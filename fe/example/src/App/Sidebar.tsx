@@ -87,9 +87,7 @@ export const Sidebar = () => {
               <SidebarLink to="/admin">
                 <IconSecurity /> Admin
               </SidebarLink>
-            ) : (
-              undefined
-            )}
+            ) : undefined}
           </Box>
         </Stack>
       </Stack>

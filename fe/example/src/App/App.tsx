@@ -9,7 +9,6 @@ import { BrowserTokenProvider } from 'lib/hooks';
 
 import { BE_BASE_URL } from '../api/constants';
 import { UserProvider } from '../hooks/user';
-
 import { OopsPage } from '../pages/Oops';
 
 import { Sidebar } from './Sidebar';
