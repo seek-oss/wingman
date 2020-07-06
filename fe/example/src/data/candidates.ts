@@ -34,7 +34,7 @@ interface Role {
 
 type Source = typeof SOURCES[number];
 
-const SOURCES = ['internal', 'SEEK application'] as const;
+const SOURCES = ['Internal', 'SEEK application'] as const;
 
 export const CANDIDATES: Candidate[] = POSITIONS.map((position) =>
   faker.custom.generate<Candidate>(() => {
