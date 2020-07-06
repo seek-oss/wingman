@@ -22,7 +22,7 @@
     "@types/koa__router": "8.0.2",
     "@types/lru-cache": "5.1.0",
     "@types/supertest": "2.0.10",
-    "nock": "12.0.3",
+    "nock": "13.0.2",
     "skuba-dive": "1.1.0",
     "supertest": "4.0.2"
   },
