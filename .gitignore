@@ -5,6 +5,7 @@ node_modules/
 # managed by sku
 .eslintrc
 .prettierrc
+.ssl
 coverage/
 dist-playroom/
 dist-storybook/
