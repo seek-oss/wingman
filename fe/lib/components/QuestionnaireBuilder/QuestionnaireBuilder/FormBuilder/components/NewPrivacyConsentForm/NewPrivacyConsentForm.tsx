@@ -1,3 +1,4 @@
+import { yupResolver } from '@hookform/resolvers';
 import {
   Actions,
   Box,
@@ -44,7 +45,7 @@ export default ({
   const { dispatch } = useContext(StateContext);
 
   const { control, handleSubmit, errors } = useForm<FormValues>({
-    validationSchema: schema,
+    resolver: yupResolver(schema),
   });
 
   const saveThisPrivacyConsent = (formData: FormValues) => {
@@ -70,24 +71,32 @@ export default ({
             </Heading>
           </Box>
           <Controller
-            as={TextField}
+            render={(formProps) => (
+              <TextField
+                id="url"
+                label="URL"
+                message={errors.url?.message}
+                tone={errors.url ? 'critical' : undefined}
+                {...formProps}
+              />
+            )}
             control={control}
-            id="url"
             name="url"
             value=""
             defaultValue={initialValues.privacyPolicyUrl.url}
-            label="URL"
-            message={errors.url?.message}
-            tone={errors.url ? 'critical' : undefined}
           />
           <Controller
-            as={TextField}
+            render={(formProps) => (
+              <TextField
+                id="description"
+                label="Description"
+                message={errors.description?.message}
+                tone={errors.description ? 'critical' : undefined}
+                {...formProps}
+              />
+            )}
             control={control}
-            id="description"
             name="description"
-            label="Description"
-            message={errors.description?.message}
-            tone={errors.description ? 'critical' : undefined}
             value=""
             defaultValue={
               initialValues.descriptionHtml ||
