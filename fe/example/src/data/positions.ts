@@ -1,9 +1,9 @@
 import { faker } from './faker';
-import { USERS } from './users';
+import { USERS, User } from './users';
 
-type Stage = typeof STAGES[number];
+export type Stage = typeof STAGES[number];
 
-const STAGES = [
+export const STAGES = [
   'Open',
   'Inbox',
   'Interview',
@@ -20,18 +20,20 @@ export interface Position {
     total: number;
   };
   stage: Stage;
-  contact: string;
+  contact: User;
   lastUpdate: Date;
 }
 
 export const POSITIONS: Position[] = faker.custom
   .generate<Position>(() => {
-    const newCandidates = faker.random.number({ max: 20, min: 0 });
+    const totalCandidates = faker.random.number(5)
+      ? faker.random.number({
+          max: 200,
+          min: 1,
+        })
+      : 0;
 
-    const totalCandidates = faker.random.number({
-      max: 200,
-      min: newCandidates,
-    });
+    const newCandidates = faker.random.number({ max: totalCandidates, min: 0 });
 
     return {
       id: `wingman:position:${faker.random.uuid()}`,
@@ -41,8 +43,16 @@ export const POSITIONS: Position[] = faker.custom
         total: totalCandidates,
       },
       stage: faker.random.arrayElement(STAGES),
-      contact: faker.random.arrayElement(USERS).formattedName,
+      contact: faker.random.arrayElement(USERS),
       lastUpdate: faker.date.recent(30),
     };
   }, 25)
   .sort((a, b) => b.lastUpdate.getTime() - a.lastUpdate.getTime());
+
+export const POSITION_BY_ID = POSITIONS.reduce<
+  Record<string, Position | undefined>
+>((acc, position) => {
+  acc[position.id] = position;
+
+  return acc;
+}, {});
