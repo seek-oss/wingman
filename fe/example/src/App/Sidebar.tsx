@@ -8,7 +8,6 @@ import {
   IconImage,
   IconPeople,
   IconSecurity,
-  IconSend,
   IconShare,
   IconWorkExperience,
   Stack,
@@ -18,82 +17,78 @@ import React, { ReactNode } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useStyles } from 'sku/react-treat';
 
-import { useUser } from '../hooks/user';
+import { ClientOnly } from '../components/ClientOnly';
 
 import * as styleRefs from './Sidebar.treat';
 
-export const Sidebar = () => {
-  const [user] = useUser();
+export const Sidebar = () => (
+  <Box height="full">
+    <Stack dividers space="none">
+      <Box padding="gutter">
+        <Heading level="3">🛩</Heading>
+      </Box>
 
-  return (
-    <Box height="full">
       <Stack dividers space="none">
-        <Box padding="gutter">
-          <Heading level="3">🛩</Heading>
+        <Box paddingY="gutter">
+          <SidebarLink to="/">
+            <IconHome /> Home
+          </SidebarLink>
         </Box>
 
-        <Stack dividers space="none">
-          <Box paddingY="gutter">
-            <SidebarLink to="/">
-              <IconHome /> Home
-            </SidebarLink>
+        <Box paddingY="gutter">
+          <SidebarLink to="/positions">
+            <IconWorkExperience /> Positions
+          </SidebarLink>
+          <SidebarLink size="small" to="/positions/new">
+            <IconAdd /> New
+          </SidebarLink>
+          <SidebarLink size="small" to="/positions/brandings">
+            <IconImage /> Brandings
+          </SidebarLink>
+          <SidebarLink size="small" to="/positions/questionnaires">
+            <IconDocument /> Questionnaires
+          </SidebarLink>
+        </Box>
 
-            <SidebarLink to="/notifications">
-              <IconSend /> Notifications
-            </SidebarLink>
-          </Box>
+        <Box paddingY="gutter">
+          <SidebarLink to="/candidates">
+            <IconPeople /> Candidates
+          </SidebarLink>
+        </Box>
 
-          <Box paddingY="gutter">
-            <SidebarLink to="/positions">
-              <IconWorkExperience /> Positions
-            </SidebarLink>
-            <SidebarLink size="small" to="/positions/new">
-              <IconAdd /> New
-            </SidebarLink>
-            <SidebarLink size="small" to="/positions/branding">
-              <IconImage /> Branding
-            </SidebarLink>
-            <SidebarLink size="small" to="/positions/questions">
-              <IconDocument /> Questions
-            </SidebarLink>
-          </Box>
+        <Box paddingY="gutter">
+          <SidebarLink to="/accounts">
+            <IconShare /> Switch account
+          </SidebarLink>
+        </Box>
 
-          <Box paddingY="gutter">
-            <SidebarLink to="/candidates">
-              <IconPeople /> Candidates
-            </SidebarLink>
-            <SidebarLink size="small" to="/candidates/new">
-              <IconAdd /> New
-            </SidebarLink>
-          </Box>
-
-          <Box paddingY="gutter">
-            <SidebarLink to="/accounts">
-              <IconShare /> Switch account
-            </SidebarLink>
-          </Box>
-
-          <Box paddingY="gutter">
-            <Box padding="gutter">
-              <Checkbox
-                checked={user.devTools}
-                id="devTools"
-                label="Dev tools"
-                // TODO: support mutation of user
-                onChange={() => undefined}
-              />
+        <ClientOnly>
+          {({ preferences, setPreferences }) => (
+            <Box paddingY="gutter">
+              <Box padding="gutter">
+                <Checkbox
+                  checked={preferences.devTools}
+                  id="devTools"
+                  label="Dev tools"
+                  onChange={() =>
+                    setPreferences({
+                      devTools: !preferences.devTools,
+                    })
+                  }
+                />
+              </Box>
+              {preferences.devTools ? (
+                <SidebarLink to="/admin">
+                  <IconSecurity /> Admin
+                </SidebarLink>
+              ) : undefined}
             </Box>
-            {user.devTools ? (
-              <SidebarLink to="/admin">
-                <IconSecurity /> Admin
-              </SidebarLink>
-            ) : undefined}
-          </Box>
-        </Stack>
+          )}
+        </ClientOnly>
       </Stack>
-    </Box>
-  );
-};
+    </Stack>
+  </Box>
+);
 
 const SidebarLink = ({
   children,

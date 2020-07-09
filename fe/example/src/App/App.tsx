@@ -8,7 +8,6 @@ import { useStyles } from 'sku/react-treat';
 import { BrowserTokenProvider } from 'lib/hooks';
 
 import { BE_BASE_URL } from '../api/constants';
-import { UserProvider } from '../hooks/user';
 import { OopsPage } from '../pages/Oops';
 
 import { Sidebar } from './Sidebar';
@@ -47,11 +46,9 @@ const Content = () => {
 export const App = ({ site }: AppProps) => (
   <BraidLoadableProvider themeName={site}>
     <ToastProvider>
-      <UserProvider>
-        <BrowserTokenProvider baseUrl={BE_BASE_URL}>
-          <Content />
-        </BrowserTokenProvider>
-      </UserProvider>
+      <BrowserTokenProvider baseUrl={BE_BASE_URL}>
+        <Content />
+      </BrowserTokenProvider>
     </ToastProvider>
   </BraidLoadableProvider>
 );
