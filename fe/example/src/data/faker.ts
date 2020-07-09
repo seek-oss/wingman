@@ -3,7 +3,10 @@ import baseFaker from 'faker';
 baseFaker.seed(100);
 
 const custom = {
-  generate: <T>(generator: () => T, num: number | { max: number }): T[] => {
+  generate: <T>(
+    generator: () => T,
+    num: number | { max?: number; min?: number },
+  ): T[] => {
     const count = typeof num === 'number' ? num : baseFaker.random.number(num);
 
     return [...new Array(count)].map(() => generator());
@@ -18,6 +21,11 @@ const custom = {
 
     return shuffled.slice(0, count);
   },
+
+  titleCase: (words: string) =>
+    words
+      .split(' ')
+      .map((word) => `${word[0]?.toLocaleUpperCase() ?? ''}${word.slice(1)}`),
 };
 
 export const faker = Object.assign(baseFaker, {

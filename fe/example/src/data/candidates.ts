@@ -2,39 +2,58 @@ import { faker } from './faker';
 import { POSITIONS, Position } from './positions';
 import { Qualification, generateQualification } from './qualifications';
 import { SKILLS, Skill } from './skills';
+import { USERS, User } from './users';
 
 export interface Candidate {
   id: string;
   formattedName: string;
   source: Source;
 
-  // TODO: support multiple positions
-  position: Pick<Position, 'id'>;
+  positions: Array<Pick<Position, 'id'>>;
 
   attachments: Attachment[];
   qualifications: Qualification[];
   roles: Role[];
   skills: Skill[];
+
+  notes: Note[];
 }
 
-interface Attachment {
+export interface Attachment {
+  id: string;
   filename: string;
-  type: string;
+  type: AttachmentType;
   url: string;
 }
 
-interface Role {
+export interface Note {
+  author: User;
+  text: string;
+  date: Date;
+}
+
+export interface Role {
   company: string;
   title: string;
+  highlights: string;
 
   // TODO: represent as month-year
   startDate: Date;
   endDate?: Date;
 }
 
+type AttachmentType = typeof ATTACHMENT_TYPES[number];
+
+const ATTACHMENT_TYPES = ['Resume', 'Cover letter'] as const;
+
 type Source = typeof SOURCES[number];
 
 const SOURCES = ['Internal', 'SEEK application'] as const;
+
+const generateAttachmentFilename = () =>
+  faker.system.commonFileName(
+    faker.random.arrayElement(['png', 'jpeg', 'pdf', 'doc', 'docx', 'rtf']),
+  );
 
 export const CANDIDATES: Candidate[] = POSITIONS.map((position) =>
   faker.custom.generate<Candidate>(() => {
@@ -44,8 +63,10 @@ export const CANDIDATES: Candidate[] = POSITIONS.map((position) =>
       ? `${firstName} ${faker.name.lastName()}`
       : firstName;
 
+    const id = `wingman:candidate:${faker.random.uuid()}`;
+
     return {
-      id: `wingman:candidate:${faker.random.uuid()}`,
+      id,
       formattedName,
 
       // Inflate our self-importance
@@ -53,11 +74,27 @@ export const CANDIDATES: Candidate[] = POSITIONS.map((position) =>
         ? 'SEEK application'
         : faker.random.arrayElement(SOURCES),
 
-      position: {
-        id: position.id,
-      },
+      // TODO: seed candidates across multiple positions
+      positions: [
+        {
+          id: position.id,
+        },
+      ],
 
-      attachments: faker.random.arrayElement([]),
+      attachments: faker.custom.sample<Attachment>([
+        {
+          id: `${id}:attachment:cover-letter`,
+          filename: generateAttachmentFilename(),
+          type: 'Cover letter',
+          url: '#',
+        },
+        {
+          id: `${id}:attachment:resume`,
+          filename: generateAttachmentFilename(),
+          type: 'Resume',
+          url: '#',
+        },
+      ]),
       roles: faker.custom
         .generate<Role>(
           () => {
@@ -69,6 +106,9 @@ export const CANDIDATES: Candidate[] = POSITIONS.map((position) =>
             return {
               company: faker.company.companyName(),
               title: faker.name.jobTitle(),
+              highlights: faker.lorem.paragraphs(
+                faker.random.number({ max: 3, min: 1 }),
+              ),
               startDate,
               endDate,
             };
@@ -87,6 +127,20 @@ export const CANDIDATES: Candidate[] = POSITIONS.map((position) =>
       skills: faker.custom
         .sample(SKILLS, 10)
         .sort((a, b) => a.name.localeCompare(b.name)),
+
+      notes: faker.custom
+        .generate<Note>(
+          () => ({
+            author: faker.random.arrayElement(USERS),
+            text: faker.lorem.paragraphs(
+              faker.random.number({ max: 3, min: 1 }),
+            ),
+            // TODO: candidate uploaded date
+            date: faker.date.between(new Date(), faker.custom.latestDate),
+          }),
+          { max: 5 },
+        )
+        .sort((a, b) => b.date.getTime() - a.date.getTime()),
     };
   }, position.candidates.total),
 )
@@ -103,7 +157,9 @@ export const CANDIDATE_BY_ID = CANDIDATES.reduce<
 
 export const CANDIDATES_BY_POSITION_ID = CANDIDATES.reduce(
   (acc, candidate) => {
-    acc[candidate.position.id].push(candidate);
+    for (const position of candidate.positions) {
+      acc[position.id].push(candidate);
+    }
 
     return acc;
   },
