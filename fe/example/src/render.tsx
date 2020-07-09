@@ -4,6 +4,7 @@ import { StaticRouter } from 'react-router-dom';
 import { Render } from 'sku';
 
 import { App } from './App/App';
+import { UserProvider } from './hooks/user';
 import { ClientContext } from './types';
 
 interface RenderContext {
@@ -14,9 +15,11 @@ const skuRender: Render<RenderContext> = {
   renderApp: ({ SkuProvider, route, site }) => {
     const appHtml = ReactDOM.renderToString(
       <SkuProvider>
-        <StaticRouter location={route}>
-          <App site={site} />
-        </StaticRouter>
+        <UserProvider server={true}>
+          <StaticRouter location={route}>
+            <App site={site} />
+          </StaticRouter>
+        </UserProvider>
       </SkuProvider>,
     );
 
