@@ -36,9 +36,7 @@
     "scoobie": "3.4.2",
     "sku": "10.4.0"
   },
-  "files": [
-    "lib"
-  ],
+  "files": ["lib"],
   "homepage": "https://github.com/seek-oss/wingman#readme",
   "license": "MIT",
   "main": "lib/index.ts",
@@ -65,5 +63,5 @@
     "storybook:build": "sku build-storybook",
     "storybook:deploy": "storybook-to-ghpages --existing-output-dir=dist-storybook"
   },
-  "version": "0.10.2"
+  "version": "0.11.0"
 }
