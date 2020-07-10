@@ -57,9 +57,9 @@ const validateComponents = (components: FormComponent[]) => {
 export const convertComponentsToMutationVariables = (
   components: FormComponent[],
   hirerId: string,
-): MutationVariables => {
+): QuestionnaireCreateInput => {
   const questionnaireComponents: MutationQuestionnaireComponents[] = components.map(
-    component =>
+    (component) =>
       component.componentTypeCode === 'Question'
         ? {
             componentTypeCode: 'Question',

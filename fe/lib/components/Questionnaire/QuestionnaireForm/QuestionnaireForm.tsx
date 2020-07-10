@@ -46,7 +46,7 @@ const renderQuestion = (
           key={component.value}
           value={state[component.value]}
           setValue={createUpdateFieldAction<string>(component.value, dispatch)}
-          choices={component.responseChoice.map(choice => choice.text)}
+          choices={component.responseChoice.map((choice) => choice.text)}
           id={component.value}
           title={`${index + 1}. ${component.questionHtml}`}
         />
@@ -60,7 +60,7 @@ const renderQuestion = (
             component.value,
             dispatch,
           )}
-          options={component.responseChoice.map(choice => choice.text)}
+          options={component.responseChoice.map((choice) => choice.text)}
           id={component.value}
           title={`${index + 1}. ${component.questionHtml}`}
         />

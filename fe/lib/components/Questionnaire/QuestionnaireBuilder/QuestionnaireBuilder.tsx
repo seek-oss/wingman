@@ -14,7 +14,7 @@ import React, { useEffect, useState } from 'react';
 import { QuestionnaireForm } from '../QuestionnaireForm/QuestionnaireForm';
 import {
   GraphqlQueryRenderer,
-  MutationVariables,
+  QuestionnaireCreateInput,
   convertComponentsToMutationVariables,
 } from '../components/GraphqlQueryRenderer/GraphqlQueryRenderer';
 import { FormComponent } from '../questionTypes';
@@ -23,7 +23,7 @@ import { FormBuilder } from './FormBuilder/FormBuilder';
 
 interface QuestionnaireBuilderProps {
   hirerId?: string;
-  onChange?: (mutationVariables: MutationVariables) => void;
+  onChange?: (mutationVariables: QuestionnaireCreateInput) => void;
 }
 
 export const QuestionnaireBuilder = ({
