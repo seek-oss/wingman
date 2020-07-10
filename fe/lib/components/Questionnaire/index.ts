@@ -1,10 +1,10 @@
 export { QuestionnaireBuilder } from './QuestionnaireBuilder/QuestionnaireBuilder';
 
 export { FormBuilder } from './QuestionnaireBuilder/FormBuilder/FormBuilder';
-export { FormRenderer } from './QuestionnaireBuilder/FormRenderer/FormRenderer';
+export { QuestionnaireForm } from './QuestionnaireForm/QuestionnaireForm';
 export {
   GraphqlQueryRenderer,
-  MutationVariables,
+  QuestionnaireCreateInput,
 } from './components/GraphqlQueryRenderer/GraphqlQueryRenderer';
 
 export {
