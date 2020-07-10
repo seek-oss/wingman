@@ -1,13 +1,15 @@
 import { Stack } from 'braid-design-system';
 import React, { useReducer } from 'react';
 
+import { ApplicationQuestionnaireComponent } from '../../../types/seek.graphql';
+import { mapApplicationQuestionnaireToFormComponent } from '../mapping';
 import {
   FormComponent,
   FreeTextQuestion,
   PrivacyConsent,
   Question,
   SelectionQuestion,
-} from '../../questionTypes';
+} from '../questionTypes';
 
 import FreeText from './components/FreeText';
 import MultiSelect from './components/MultiSelect';
@@ -19,9 +21,15 @@ import {
   formStateReducer,
 } from './state/formRendererState';
 
-interface RenderSchemaProps {
-  formComponents: FormComponent[];
-}
+type RenderSchemaProps =
+  | {
+      type: 'Form';
+      components: FormComponent[];
+    }
+  | {
+      type: 'ApplicationQuestionnaire';
+      components: ApplicationQuestionnaireComponent[];
+    };
 
 const renderQuestion = (
   component: FreeTextQuestion | SelectionQuestion,
@@ -38,7 +46,7 @@ const renderQuestion = (
           key={component.value}
           value={state[component.value]}
           setValue={createUpdateFieldAction<string>(component.value, dispatch)}
-          choices={component.responseChoice.map((choice) => choice.text)}
+          choices={component.responseChoice.map(choice => choice.text)}
           id={component.value}
           title={`${index + 1}. ${component.questionHtml}`}
         />
@@ -52,7 +60,7 @@ const renderQuestion = (
             component.value,
             dispatch,
           )}
-          options={component.responseChoice.map((choice) => choice.text)}
+          options={component.responseChoice.map(choice => choice.text)}
           id={component.value}
           title={`${index + 1}. ${component.questionHtml}`}
         />
@@ -77,7 +85,12 @@ const renderPrivacyConsent = (component: PrivacyConsent) => (
   />
 );
 
-export const FormRenderer = ({ formComponents }: RenderSchemaProps) => {
+export const QuestionnaireForm = (props: RenderSchemaProps) => {
+  const formComponents =
+    props.type !== 'Form'
+      ? mapApplicationQuestionnaireToFormComponent(props.components)
+      : props.components;
+
   const [state, dispatch] = useReducer(formStateReducer, {});
 
   const questions = formComponents

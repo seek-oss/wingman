@@ -1,7 +1,7 @@
 import { Card, Checkbox, Stack, Text, TextLink } from 'braid-design-system';
 import React, { useState } from 'react';
 
-import { PrivacyConsent } from '../../../questionTypes';
+import { PrivacyConsent } from '../../questionTypes';
 
 interface PrivacyConsentRendererProps {
   privacy: PrivacyConsent;

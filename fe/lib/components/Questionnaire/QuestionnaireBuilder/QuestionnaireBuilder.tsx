@@ -11,6 +11,7 @@ import {
 } from 'braid-design-system';
 import React, { useEffect, useState } from 'react';
 
+import { QuestionnaireForm } from '../QuestionnaireForm/QuestionnaireForm';
 import {
   GraphqlQueryRenderer,
   MutationVariables,
@@ -19,7 +20,6 @@ import {
 import { FormComponent } from '../questionTypes';
 
 import { FormBuilder } from './FormBuilder/FormBuilder';
-import { FormRenderer } from './FormRenderer/FormRenderer';
 
 interface QuestionnaireBuilderProps {
   hirerId?: string;
@@ -54,7 +54,7 @@ export const QuestionnaireBuilder = ({
 
           <Column>
             <Stack space="medium">
-              <FormRenderer formComponents={formBuilderState} />
+              <QuestionnaireForm components={formBuilderState} type="Form" />
             </Stack>
           </Column>
         </Columns>

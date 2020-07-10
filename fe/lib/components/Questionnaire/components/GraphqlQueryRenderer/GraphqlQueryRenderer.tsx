@@ -15,7 +15,7 @@ type MutationQuestionnaireComponents =
       privacyConsent: PrivacyConsent;
     };
 
-export interface MutationVariables {
+export interface QuestionnaireCreateInput {
   variables: {
     input: {
       applicationQuestionnaire: {
@@ -59,7 +59,7 @@ export const convertComponentsToMutationVariables = (
   hirerId: string,
 ): MutationVariables => {
   const questionnaireComponents: MutationQuestionnaireComponents[] = components.map(
-    (component) =>
+    component =>
       component.componentTypeCode === 'Question'
         ? {
             componentTypeCode: 'Question',
