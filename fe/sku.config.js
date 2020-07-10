@@ -16,7 +16,7 @@ module.exports = {
     '/positions/new',
     '/positions/questionnaires',
   ],
-  sites: [{ name: 'seekUnifiedBeta', host: 'dev.seekunifiedbeta.com' }],
+  sites: [{ name: 'apac', host: 'dev.seek.com' }],
 
   compilePackages: ['scoobie'],
   orderImports: true,
