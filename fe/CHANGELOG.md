@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.11.0
+
+### Minor Changes
+
+- 7595986: Export questionnaire builder components
+
 ## 0.10.2
 
 ### Patch Changes
