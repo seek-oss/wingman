@@ -9,7 +9,7 @@ import { QuestionnaireBuilder } from './QuestionnaireBuilder/QuestionnaireBuilde
 storiesOf('QuestionnaireBuilder', module)
   .add('Builder', () => <QuestionnaireBuilder />)
   .addDecorator((story) => (
-    <BraidLoadableProvider themeName="seekUnifiedBeta">
+    <BraidLoadableProvider themeName="apac">
       <Box paddingX="gutter" paddingY="large">
         {story()}
       </Box>

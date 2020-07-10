@@ -22,7 +22,7 @@ storiesOf('Locations', module)
   ))
   .addDecorator((story) => (
     <ApolloProvider client={mockClient}>
-      <BraidLoadableProvider themeName="seekUnifiedBeta">
+      <BraidLoadableProvider themeName="apac">
         <Box paddingX="gutter" paddingY="large">
           {story()}
         </Box>
