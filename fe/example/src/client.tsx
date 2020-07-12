@@ -6,10 +6,10 @@ import { App } from './App/App';
 import { UserProvider } from './hooks/user';
 import { ClientContext } from './types';
 
-export default ({ site }: ClientContext) => {
+export default ({ basename, site }: ClientContext) => {
   hydrate(
     <UserProvider server={false}>
-      <BrowserRouter>
+      <BrowserRouter basename={basename}>
         <App site={site} />
       </BrowserRouter>
     </UserProvider>,

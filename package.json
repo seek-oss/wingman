@@ -11,7 +11,8 @@
     "stage": "changeset version && yarn format",
     "release": "yarn be build && changeset publish",
     "test": "yarn workspaces run test",
-    "codegen": "graphql-codegen --config codegen.yml"
+    "codegen": "graphql-codegen --config codegen.yml",
+    "deploy": "scripts/deploy"
   },
   "workspaces": [
     "be",

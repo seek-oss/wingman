@@ -8,15 +8,20 @@ import { UserProvider } from './hooks/user';
 import { ClientContext } from './types';
 
 interface RenderContext {
-  appHtml: string;
+  basename: string;
+  html: string;
 }
 
 const skuRender: Render<RenderContext> = {
   renderApp: ({ SkuProvider, route, site }) => {
-    const appHtml = ReactDOM.renderToString(
+    const isGitHubPages = Boolean(process.env.IS_GITHUB_PAGES);
+
+    const basename = isGitHubPages ? 'wingman' : '';
+
+    const html = ReactDOM.renderToString(
       <SkuProvider>
         <UserProvider server={true}>
-          <StaticRouter location={route}>
+          <StaticRouter basename={basename} location={route}>
             <App site={site} />
           </StaticRouter>
         </UserProvider>
@@ -24,11 +29,13 @@ const skuRender: Render<RenderContext> = {
     );
 
     return {
-      appHtml,
+      basename,
+      html,
     };
   },
 
-  provideClientContext: ({ site }): ClientContext => ({
+  provideClientContext: ({ app, site }): ClientContext => ({
+    basename: app.basename,
     site,
   }),
 
@@ -41,7 +48,7 @@ const skuRender: Render<RenderContext> = {
         ${headTags}
       </head>
       <body>
-        <div id="app">${app.appHtml}</div>
+        <div id="app">${app.html}</div>
         ${bodyTags}
       </body>
     </html>

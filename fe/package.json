@@ -19,7 +19,6 @@
     "yup": "^0.29.1"
   },
   "devDependencies": {
-    "@storybook/storybook-deployer": "2.8.6",
     "@testing-library/react": "10.4.4",
     "@types/faker": "4.1.12",
     "@types/react": "16.9.41",
@@ -54,14 +53,13 @@
   },
   "scripts": {
     "build": "sku build",
+    "build-storybook": "sku build-storybook",
     "format": "sku format",
     "lint": "sku lint",
     "serve": "sku serve",
     "start": "sku start",
-    "test": "sku test",
-    "storybook:start": "sku storybook",
-    "storybook:build": "sku build-storybook",
-    "storybook:deploy": "storybook-to-ghpages --existing-output-dir=dist-storybook"
+    "start-storybook": "sku storybook",
+    "test": "sku test"
   },
   "version": "0.11.0"
 }

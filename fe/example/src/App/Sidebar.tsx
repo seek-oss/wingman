@@ -4,22 +4,93 @@ import {
   Heading,
   IconAdd,
   IconDocument,
+  IconEducation,
   IconHome,
   IconImage,
+  IconNewWindow,
   IconPeople,
   IconSecurity,
   IconShare,
+  IconSocialGitHub,
   IconWorkExperience,
+  Link,
   Stack,
   Text,
 } from 'braid-design-system';
-import React, { ReactNode } from 'react';
+import React, { Fragment, ReactNode } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useStyles } from 'sku/react-treat';
 
 import { ClientOnly } from '../components/ClientOnly';
 
 import * as styleRefs from './Sidebar.treat';
+
+interface LinkProps {
+  children: ReactNode;
+  to: string;
+}
+
+const ExternalLink = ({ children, to }: LinkProps) => {
+  const styles = useStyles(styleRefs);
+
+  return (
+    <Link className={styles.link} href={to} rel="noreferrer" target="_blank">
+      {children}
+    </Link>
+  );
+};
+
+const InternalLink = ({ children, to }: LinkProps) => {
+  const styles = useStyles(styleRefs);
+
+  return (
+    <NavLink
+      activeClassName={styles.activeLink}
+      className={styles.link}
+      exact
+      to={to}
+    >
+      {children}
+    </NavLink>
+  );
+};
+
+interface SidebarLinkProps {
+  children: ReactNode;
+  size?: 'small';
+  to: string;
+}
+
+const SidebarLink = ({ children, size, to }: SidebarLinkProps) => {
+  const styles = useStyles(styleRefs);
+
+  // Very naive switch, but we shouldn't be using other protocols
+  const isExternal = to.startsWith('https://');
+
+  const LinkWrapper = isExternal ? ExternalLink : InternalLink;
+
+  return (
+    <LinkWrapper to={to}>
+      <Box
+        className={styles.linkContainer}
+        paddingX="gutter"
+        paddingY={size ?? 'gutter'}
+      >
+        <Text size={size} tone="link">
+          {children}
+          {isExternal ? (
+            <Fragment>
+              {' '}
+              <IconNewWindow />
+            </Fragment>
+          ) : (
+            ''
+          )}
+        </Text>
+      </Box>
+    </LinkWrapper>
+  );
+};
 
 export const Sidebar = () => (
   <Box height="full">
@@ -78,9 +149,19 @@ export const Sidebar = () => (
                 />
               </Box>
               {preferences.devTools ? (
-                <SidebarLink to="/admin">
-                  <IconSecurity /> Admin
-                </SidebarLink>
+                <Fragment>
+                  <SidebarLink to="/admin">
+                    <IconSecurity /> Admin
+                  </SidebarLink>
+
+                  <SidebarLink to="https://seek-oss.github.io/wingman/storybook/index.html">
+                    <IconEducation /> Storybook
+                  </SidebarLink>
+
+                  <SidebarLink to="https://github.com/seek-oss/wingman">
+                    <IconSocialGitHub /> Source code
+                  </SidebarLink>
+                </Fragment>
               ) : undefined}
             </Box>
           )}
@@ -89,34 +170,3 @@ export const Sidebar = () => (
     </Stack>
   </Box>
 );
-
-const SidebarLink = ({
-  children,
-  size,
-  to,
-}: {
-  children: ReactNode;
-  size?: 'small';
-  to: string;
-}) => {
-  const styles = useStyles(styleRefs);
-
-  return (
-    <NavLink
-      activeClassName={styles.activeLink}
-      className={styles.link}
-      exact
-      to={to}
-    >
-      <Box
-        className={styles.linkContainer}
-        paddingX="gutter"
-        paddingY={size ?? 'gutter'}
-      >
-        <Text size={size} tone="link">
-          {children}
-        </Text>
-      </Box>
-    </NavLink>
-  );
-};

@@ -1,9 +1,11 @@
-module.exports = {
-  clientEntry: 'example/src/client.tsx',
-  renderEntry: 'example/src/render.tsx',
-  srcPaths: ['example/src', 'lib'],
+const isGitHubPages = Boolean(process.env.IS_GITHUB_PAGES);
 
-  publicPath: '/',
+module.exports = {
+  clientEntry: './example/src/client.tsx',
+  renderEntry: './example/src/render.tsx',
+  srcPaths: ['./example/src', './lib'],
+
+  publicPath: isGitHubPages ? '/wingman/static/' : '/',
   routes: [
     '/',
     '/accounts',
