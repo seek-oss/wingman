@@ -2,6 +2,8 @@ node_modules/
 
 /be/lib/
 
+.DS_Store
+
 # managed by sku
 .eslintrc
 .prettierrc

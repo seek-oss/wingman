@@ -1,0 +1,50 @@
+#!/bin/sh
+
+set -e
+
+echo '=> Building...'
+
+rm -rf dist
+
+yarn concurrently 'yarn fe build' 'yarn fe build-storybook'
+
+echo '=> Packaging...'
+
+mkdir -p dist
+
+mv fe/dist/ dist/static/
+
+mv dist/static/apac/* dist/
+
+mv fe/dist-storybook/ dist/storybook/
+
+cd dist
+
+git init
+
+git add --all
+
+git \
+-c 'user.email=<>' \
+-c 'user.name=Wingman' \
+commit \
+--author 'Wingman <>' \
+--message 'Deploy to GitHub Pages' \
+--quiet
+
+echo '=> Deploying...'
+
+{
+  GIT_URL="git@github.com:seek-oss/wingman.git"
+
+  if [ "${IS_GITHUB_PAGES:-}" = 'true' ]; then
+    GIT_URL="https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/seek-oss/wingman.git"
+  fi
+
+  git push --force --quiet "${GIT_URL}" 'master:gh-pages'
+}
+
+cd ..
+rm -rf dist
+
+echo "=> Deployed: https://seek-oss.github.io/wingman"

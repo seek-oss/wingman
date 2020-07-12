@@ -2,7 +2,7 @@ import 'braid-design-system/reset';
 
 import { Box, BraidLoadableProvider, ToastProvider } from 'braid-design-system';
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import { useStyles } from 'sku/react-treat';
 
 import { BrowserTokenProvider } from 'lib/hooks';
@@ -34,6 +34,10 @@ const Content = () => {
 
       <Box flexGrow={1} overflow="auto">
         <Switch>
+          <Route path="/storybook">
+            <Redirect to="https://seek-oss.github.io/wingman/storybook/index.html" />
+          </Route>
+
           <Route path="*">
             <OopsPage />
           </Route>
