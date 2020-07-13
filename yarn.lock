@@ -3265,14 +3265,13 @@
     dom-accessibility-api "^0.4.5"
     pretty-format "^25.5.0"
 
-"@testing-library/react@10.4.4":
-  version "10.4.4"
-  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-10.4.4.tgz#f05edf827df288c6c7b19fe96fff2b33cddbb809"
-  integrity sha512-SKDQ2jBdg9UQQYQragkvXOzNp4hnCdOvXyZ52rg+OXiiumVxkAutdvvRzBF4PrbvMQ27Z6gx0GVo2YQ1Mcip8g==
+"@testing-library/react@10.4.6":
+  version "10.4.6"
+  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-10.4.6.tgz#70a7cac35ac8256c22a8cb0c4779e0efefd218c6"
+  integrity sha512-pVcm8v0HxCEzrtasbC2bdhWM0P5X9o8a/xfBugC97uVVTmhVeGHj+5CdE1JYi/i2K+mCyeq5YqzHLW/gB+K12w==
   dependencies:
     "@babel/runtime" "^7.10.3"
     "@testing-library/dom" "^7.17.1"
-    semver "^7.3.2"
 
 "@tootallnate/once@1":
   version "1.1.2"
@@ -16213,10 +16212,10 @@ pnp-webpack-plugin@1.5.0:
   dependencies:
     ts-pnp "^1.1.2"
 
-polished@^3.0.3, polished@^3.3.1:
-  version "3.6.4"
-  resolved "https://registry.yarnpkg.com/polished/-/polished-3.6.4.tgz#cec6bc0fbffc5d6ce5799c85bcc1bca5e63f1dee"
-  integrity sha512-21moJXCm/7EvjeKQz5w89QDDKNPCoimc83CqwZZGJluFdMXsFlMQl9lPA/OMRkoceZ19kU0anKlMgZmY7LJSJw==
+polished@^3.0.3, polished@^3.3.1, polished@^3.6.5:
+  version "3.6.5"
+  resolved "https://registry.yarnpkg.com/polished/-/polished-3.6.5.tgz#dbefdde64c675935ec55119fe2a2ab627ca82e9c"
+  integrity sha512-VwhC9MlhW7O5dg/z7k32dabcAFW1VI2+7fSe8cE/kXcfL7mVdoa5UxciYGW2sJU78ldDLT6+ROEKIZKFNTnUXQ==
   dependencies:
     "@babel/runtime" "^7.9.2"
 
@@ -18326,10 +18325,10 @@ schema-utils@^2.0.1, schema-utils@^2.5.0, schema-utils@^2.6.5, schema-utils@^2.6
     ajv "^6.12.2"
     ajv-keywords "^3.4.1"
 
-scoobie@3.4.2:
-  version "3.4.2"
-  resolved "https://registry.yarnpkg.com/scoobie/-/scoobie-3.4.2.tgz#de8c4eea8a511218c0ab6c5226488b894e06a1e4"
-  integrity sha512-AhBvIZ/1CQ1ZMOu5MNY4gv2opapXTlpNUP9Su4WVHl5E7JHrz0/L8WOwqadKBzo1m0/5pUlZpbZStUTdj3T+Eg==
+scoobie@3.5.2:
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/scoobie/-/scoobie-3.5.2.tgz#2a82c688c567aa783a463e6f707b5c779e5cbce3"
+  integrity sha512-28uX0DnTRFTCfNuq1dGB/aODO0YFlLQQdBF8F0hAqBSrWQguFmMl8LRGa1oSlLGgLoAXfNC7yoRHRedB/a4Etg==
   dependencies:
     "@mdx-js/loader" "^1.5.8"
     "@mdx-js/react" "^1.5.8"
@@ -18337,6 +18336,7 @@ scoobie@3.4.2:
     "@types/react-router-hash-link" "^1.2.1"
     "@types/react-syntax-highlighter" "^11.0.4"
     find-up "^4.1.0"
+    polished "^3.6.5"
     react-router-hash-link "^1.2.2"
     react-syntax-highlighter "^12.2.1"
     remark-slug "^6.0.0"
