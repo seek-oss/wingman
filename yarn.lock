@@ -18841,10 +18841,10 @@ skuba-dive@1.1.0:
     module-alias "^2.2.2"
     source-map-support "^0.5.16"
 
-skuba@3.7.4:
-  version "3.7.4"
-  resolved "https://registry.yarnpkg.com/skuba/-/skuba-3.7.4.tgz#5e8021068598cc33f9b0b6d5fc6bf6b75336b3e6"
-  integrity sha512-n/DObWnm6AmEWZ3OREX83+KtIYHT5Hh/vh1udj5NeB3mISKxCpwe5piEKheMUEsjIY71siYrpdvKPIlP+o86gg==
+skuba@3.7.5:
+  version "3.7.5"
+  resolved "https://registry.yarnpkg.com/skuba/-/skuba-3.7.5.tgz#1bbe37d67f9a2a8aac332fcd4796c6a8370bd1f9"
+  integrity sha512-3cwCCIaat1zPvkJpZcoxuqcluul8KjHOaKctve2h1SZrXPIdxRR4x9k62ZkPKWpRowvbG/hnbTWV4typCt+y1A==
   dependencies:
     "@babel/cli" "^7.10.3"
     "@babel/core" "^7.10.3"
