@@ -16,6 +16,7 @@ export interface Ad {
   bulletPoint2: string;
   bulletPoint3: string;
   questionnaire: string;
+  status: 'Live' | 'Expired' | 'Draft';
 }
 
 const LOCATION = [
@@ -96,6 +97,7 @@ export const ADS: Ad[] = POSITIONS.map((position) =>
       bulletPoint2: faker.company.bsBuzz(),
       bulletPoint3: faker.company.bsBuzz(),
       questionnaire: '',
+      status: faker.random.arrayElement(['Live', 'Draft', 'Expired']),
     }),
     { max: 3, min: 0 },
   ),
