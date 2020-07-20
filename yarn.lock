@@ -3265,10 +3265,10 @@
     dom-accessibility-api "^0.4.5"
     pretty-format "^25.5.0"
 
-"@testing-library/react@10.4.6":
-  version "10.4.6"
-  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-10.4.6.tgz#70a7cac35ac8256c22a8cb0c4779e0efefd218c6"
-  integrity sha512-pVcm8v0HxCEzrtasbC2bdhWM0P5X9o8a/xfBugC97uVVTmhVeGHj+5CdE1JYi/i2K+mCyeq5YqzHLW/gB+K12w==
+"@testing-library/react@10.4.7":
+  version "10.4.7"
+  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-10.4.7.tgz#fc14847fb70a5e93576b8f7f0d1490ead02a9061"
+  integrity sha512-hUYbum3X2f1ZKusKfPaooKNYqE/GtPiQ+D2HJaJ4pkxeNJQFVUEvAvEh9+3QuLdBeTWkDMNY5NSijc5+pGdM4Q==
   dependencies:
     "@babel/runtime" "^7.10.3"
     "@testing-library/dom" "^7.17.1"
@@ -7559,10 +7559,10 @@ data-urls@^2.0.0:
     whatwg-mimetype "^2.3.0"
     whatwg-url "^8.0.0"
 
-date-fns@2.14.0, date-fns@^2.0.1:
-  version "2.14.0"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.14.0.tgz#359a87a265bb34ef2e38f93ecf63ac453f9bc7ba"
-  integrity sha512-1zD+68jhFgDIM0rF05rcwYO8cExdNqxjq4xP1QKM60Q45mnO6zaMWB4tOzrIr4M4GSLntsKeE4c9Bdl2jhL/yw==
+date-fns@2.15.0, date-fns@^2.0.1:
+  version "2.15.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.15.0.tgz#424de6b3778e4e69d3ff27046ec136af58ae5d5f"
+  integrity sha512-ZCPzAMJZn3rNUvvQIMlXhDr4A+Ar07eLeGsGREoWU19a3Pqf5oYa+ccd+B3F6XVtQY6HANMFdOQ8A+ipFnvJdQ==
 
 date-fns@^1.27.2:
   version "1.30.1"
@@ -17315,10 +17315,10 @@ react-router-dom@5.2.0:
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
 
-react-router-hash-link@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/react-router-hash-link/-/react-router-hash-link-1.2.2.tgz#7a0ad5e925d49596d19554de8bc6c554ce4f8099"
-  integrity sha512-LBthLVHdqPeKDVt3+cFRhy15Z7veikOvdKRZRfyBR2vjqIE7rxn+tKLjb6DOmLm6JpoQVemVDnxQ35RVnEHdQA==
+react-router-hash-link@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-router-hash-link/-/react-router-hash-link-2.0.0.tgz#c0baade5cb0957f4c6da4519f7992c825f1b3b35"
+  integrity sha512-vAiiHUhPcT5NYwKutvbAgHR2HXoESkTyaeXQaW1cmVwZujhmHEfaXRh28uS52jQaja/S+Xrc0aFizfljY7rvAw==
   dependencies:
     prop-types "^15.6.0"
 
@@ -18328,19 +18328,20 @@ schema-utils@^2.0.1, schema-utils@^2.5.0, schema-utils@^2.6.5, schema-utils@^2.6
     ajv "^6.12.2"
     ajv-keywords "^3.4.1"
 
-scoobie@3.5.2:
-  version "3.5.2"
-  resolved "https://registry.yarnpkg.com/scoobie/-/scoobie-3.5.2.tgz#2a82c688c567aa783a463e6f707b5c779e5cbce3"
-  integrity sha512-28uX0DnTRFTCfNuq1dGB/aODO0YFlLQQdBF8F0hAqBSrWQguFmMl8LRGa1oSlLGgLoAXfNC7yoRHRedB/a4Etg==
+scoobie@3.8.0:
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/scoobie/-/scoobie-3.8.0.tgz#45e19affe2b00ef8592eacdfa2abcff78ef04e2f"
+  integrity sha512-pWLRjOeEURizSlVdmmd5fLJM6WzQOxky+4Q49Gw3brtommSThz6DVbltR9MMrYw8OJ5Q+soMI/tx2hXQ6beyEA==
   dependencies:
     "@mdx-js/loader" "^1.5.8"
     "@mdx-js/react" "^1.5.8"
     "@types/mdx-js__react" "^1.5.1"
     "@types/react-router-hash-link" "^1.2.1"
     "@types/react-syntax-highlighter" "^11.0.4"
+    classnames "^2.2.6"
     find-up "^4.1.0"
     polished "^3.6.5"
-    react-router-hash-link "^1.2.2"
+    react-router-hash-link "^2.0.0"
     react-syntax-highlighter "^12.2.1"
     remark-slug "^6.0.0"
     unist-util-visit "^2.0.2"
