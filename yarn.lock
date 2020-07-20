@@ -18396,10 +18396,10 @@ schema-utils@^2.0.1, schema-utils@^2.5.0, schema-utils@^2.6.5, schema-utils@^2.6
     ajv "^6.12.2"
     ajv-keywords "^3.4.1"
 
-scoobie@3.8.0:
-  version "3.8.0"
-  resolved "https://registry.yarnpkg.com/scoobie/-/scoobie-3.8.0.tgz#45e19affe2b00ef8592eacdfa2abcff78ef04e2f"
-  integrity sha512-pWLRjOeEURizSlVdmmd5fLJM6WzQOxky+4Q49Gw3brtommSThz6DVbltR9MMrYw8OJ5Q+soMI/tx2hXQ6beyEA==
+scoobie@3.8.1:
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/scoobie/-/scoobie-3.8.1.tgz#09730a743755c4a0e069405afad2b66f1f36e506"
+  integrity sha512-OgBvhfXpvtwLkT4Q/Bo+UzNOzd8HZniTyJvx0d2qipaqZSP1taeJoWulPc4Gqfcr/Ni2jcMn+metTrSKtTYGqQ==
   dependencies:
     "@mdx-js/loader" "^1.5.8"
     "@mdx-js/react" "^1.5.8"
@@ -18561,6 +18561,11 @@ serialize-javascript@^3.0.0:
   integrity sha512-JIJT1DGiWmIKhzRsG91aS6Ze4sFUrYbltlkg2onR5OrnNM02Kl/hnY/T4FN2omvyeBbQmMJv+K4cPOpGzOTFBg==
   dependencies:
     randombytes "^2.1.0"
+
+serialize-query-params@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/serialize-query-params/-/serialize-query-params-1.2.1.tgz#b849d0c004fb6958eabae114e24eb55aa8a50429"
+  integrity sha512-dycN0Cx4cXXIc3E3IaejBHlFWRRO0m/CzIkS41MhjQLwuvRobY1LHgdzPAfUj9sFeSnCmlMQM7iwVdyuhz2PIQ==
 
 serve-favicon@^2.5.0:
   version "2.5.0"
@@ -20984,6 +20989,13 @@ use-debounce@^3.3.0, use-debounce@^3.4.2:
   version "3.4.2"
   resolved "https://registry.yarnpkg.com/use-debounce/-/use-debounce-3.4.2.tgz#f4333cca59504244b916159600427bf977ec4c46"
   integrity sha512-rW44wZaFPh3XiwUzGBA0JRuklpbfKO/szU/5CYD2Q/erLmCem63lJ650p3a+NJE6S+g0rulKtBOfa/3rw/GN+Q==
+
+use-query-params@1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/use-query-params/-/use-query-params-1.1.6.tgz#3e36cb45f22c4eea90c6cdc604e115af2fe4a950"
+  integrity sha512-zd58jSb0Yb6Io+hg47gXH0z1Zh8gp2CDRCw4ZzwlPBnODBO1CegX2c38Tca+RtZbjJsTtzWA+098uxDtLMEpYA==
+  dependencies:
+    serialize-query-params "^1.2.1"
 
 use-sidecar@^1.0.1:
   version "1.0.2"
