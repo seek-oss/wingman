@@ -19,20 +19,20 @@
     "yup": "^0.29.1"
   },
   "devDependencies": {
-    "@testing-library/react": "10.4.6",
+    "@testing-library/react": "10.4.7",
     "@types/faker": "4.1.12",
     "@types/react": "16.9.43",
     "@types/react-dom": "16.9.8",
     "braid-design-system": "28.11.0",
     "classnames": "2.2.6",
-    "date-fns": "2.14.0",
+    "date-fns": "2.15.0",
     "faker": "4.1.0",
     "graphql-tools": "6.0.12",
     "mock-apollo-client": "0.4.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-router-dom": "5.2.0",
-    "scoobie": "3.5.2",
+    "scoobie": "3.8.0",
     "sku": "10.4.1"
   },
   "files": ["lib"],
