@@ -1,103 +1,69 @@
+import {
+  FormComponent,
+  FreeTextQuestion,
+  PrivacyConsent,
+  SelectionQuestion,
+} from 'lib';
+
 import { faker } from './faker';
 
 export interface Questionnaire {
   id: string;
   name: string;
-  components: Component[];
+  components: FormComponent[];
 }
-
-type Component =
-  | FreeTextQuestion
-  | MultiSelectQuestion
-  | SingleSelectQuestion
-  | PrivacyConsent;
 
 type ComponentType = typeof COMPONENT_TYPES[number];
 
 const COMPONENT_TYPES = [
-  'FreeTextQuestion',
-  'MultiSelectQuestion',
-  'SingleSelectQuestion',
+  'FreeText',
+  'MultiSelect',
+  'SingleSelect',
   'PrivacyConsent',
 ] as const;
 
-interface ComponentBase {
-  label: string;
-  type: ComponentType;
-}
-
-interface FreeTextQuestion extends ComponentBase {
-  type: 'FreeTextQuestion';
-}
-
-interface MultiSelectQuestion extends ComponentBase {
-  type: 'MultiSelectQuestion';
-
-  responses: Response[];
-}
-
-interface SingleSelectQuestion extends ComponentBase {
-  type: 'SingleSelectQuestion';
-
-  responses: Response[];
-}
-
-interface PrivacyConsent extends ComponentBase {
-  type: 'PrivacyConsent';
-
-  url: string;
-}
-
-interface Response {
-  preferred?: boolean;
-  label: string;
-}
-
-const componentGenerators: Record<ComponentType, () => Component> = {
-  FreeTextQuestion: (): FreeTextQuestion => ({
-    label: faker.lorem.sentence(),
-    type: 'FreeTextQuestion',
+const componentGenerators: Record<ComponentType, () => FormComponent> = {
+  FreeText: (): FreeTextQuestion => ({
+    value: faker.lorem.sentence(),
+    questionHtml: faker.lorem.sentence(),
+    responseTypeCode: 'FreeText',
+    componentTypeCode: 'Question',
   }),
 
-  MultiSelectQuestion: (): MultiSelectQuestion => {
-    const usePreferred = faker.random.boolean();
+  MultiSelect: (): SelectionQuestion => ({
+    value: faker.lorem.sentence(),
+    responseTypeCode: 'MultiSelect',
+    questionHtml: faker.lorem.sentence(),
+    componentTypeCode: 'Question',
+    responseChoice: faker.custom.generate(
+      () => ({
+        text: faker.lorem.sentence(),
+        value: faker.lorem.sentence(),
+        preferredIndicator: faker.random.boolean(),
+      }),
+      { max: 5, min: 2 },
+    ),
+  }),
 
-    return {
-      label: faker.lorem.sentence(),
-      type: 'MultiSelectQuestion',
-
-      responses: faker.custom.generate<Response>(
-        () => ({
-          label: faker.lorem.sentence(),
-          preferred: usePreferred ? faker.random.boolean() : undefined,
-        }),
-        { max: 5, min: 2 },
-      ),
-    };
-  },
-
-  SingleSelectQuestion: (): SingleSelectQuestion => {
-    const usePreferred = faker.random.boolean();
-
-    return {
-      label: faker.lorem.sentence(),
-      type: 'SingleSelectQuestion',
-
-      responses: faker.custom.generate<Response>(
-        () => ({
-          label: faker.lorem.sentence(),
-          preferred: usePreferred ? faker.random.boolean() : undefined,
-        }),
-        { max: 5, min: 2 },
-      ),
-    };
-  },
+  SingleSelect: (): SelectionQuestion => ({
+    value: faker.lorem.sentence(),
+    responseTypeCode: 'SingleSelect',
+    questionHtml: faker.lorem.sentence(),
+    componentTypeCode: 'Question',
+    responseChoice: faker.custom.generate(
+      () => ({
+        text: faker.lorem.sentence(),
+        value: faker.lorem.sentence(),
+        preferredIndicator: faker.random.boolean(),
+      }),
+      { max: 5, min: 2 },
+    ),
+  }),
 
   PrivacyConsent: (): PrivacyConsent => ({
-    label: faker.lorem.sentence(),
-    type: 'PrivacyConsent',
-
-    url: faker.internet.url(),
+    value: faker.lorem.sentence(),
+    privacyPolicyUrl: { url: faker.internet.url() },
+    componentTypeCode: 'PrivacyConsent',
   }),
 };
 
