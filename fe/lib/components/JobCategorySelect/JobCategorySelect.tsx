@@ -7,7 +7,12 @@ import {
   Stack,
   Text,
 } from 'braid-design-system';
-import React, { ComponentPropsWithRef, forwardRef, useState } from 'react';
+import React, {
+  ComponentPropsWithRef,
+  Fragment,
+  forwardRef,
+  useState,
+} from 'react';
 
 import { JobCategory } from '../../types/seek.graphql';
 
@@ -48,7 +53,7 @@ export const JobCategorySelect = forwardRef<HTMLInputElement, Props>(
     };
 
     return (
-      <>
+      <Fragment>
         {categoriesLoading ? (
           <Stack space="medium">
             <Text>Loading all categories</Text>
@@ -77,7 +82,7 @@ export const JobCategorySelect = forwardRef<HTMLInputElement, Props>(
             tone="critical"
           />
         )}
-      </>
+      </Fragment>
     );
   },
 );
