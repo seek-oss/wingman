@@ -25,12 +25,12 @@ import { Header } from '../../components/Header';
 import { CANDIDATE_BY_ID, Candidate } from '../../data/candidates';
 import { POSITION_BY_ID } from '../../data/positions';
 import { useClient } from '../../hooks/user';
-import { CandidateNotes } from '../../pages/Candidates/Detail/Notes';
-import { CandidateProfile } from '../../pages/Candidates/Detail/Profile';
 import { pluralise } from '../../utils/text';
 import { PositionList } from '../../widgets/PositionList';
 
 import { CandidateAttachment } from './Detail/Attachment';
+import { CandidateNotes } from './Detail/Notes';
+import { CandidateProfile } from './Detail/Profile';
 
 const CandidateDetails = () => {
   const { id } = useParams();
