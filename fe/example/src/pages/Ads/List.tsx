@@ -66,6 +66,7 @@ export const AdList = ({ ads }: Props) => {
                   <Heading level="4">Edit ad</Heading>
                 </Card>
 
+                {/* TODO: avoid sharing the same local storage state */}
                 <NewAdForm initial={ad} />
 
                 <Card>
@@ -151,6 +152,7 @@ export const AdList = ({ ads }: Props) => {
               <Heading level="4">New ad</Heading>
             </Card>
 
+            {/* TODO: avoid sharing the same local storage state */}
             <NewAdForm />
 
             <Card>
