@@ -77,10 +77,17 @@ const CandidateDetails = () => {
     (attachment) => attachment.type === 'Resume',
   );
 
-  const positions = candidate.positions.map(
-    // Questionable assumption of referential integrity
-    (position) => POSITION_BY_ID[position.id]!,
-  );
+  const positions = candidate.positions.map(({ id: positionId }) => {
+    const position = POSITION_BY_ID[positionId];
+
+    if (!position) {
+      throw Error(
+        `Couldn't find position ${positionId} associated with candidate ${candidate.id}! This indicates an inconsistency in our data.`,
+      );
+    }
+
+    return position;
+  });
 
   const tabs = [
     <Tab key="profile">
