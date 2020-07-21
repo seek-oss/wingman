@@ -4,24 +4,27 @@ import React from 'react';
 
 import { BrowserTokenProvider } from 'lib/hooks';
 
-import * as seekGraph from '../api/seekGraph';
+import * as seekGraph from '../../api/seekGraph';
+import { UserProvider } from '../../hooks/user';
 
-import { HomePage } from './HomePage';
+import { AdminPage } from './Admin';
 
-describe('HomePage', () => {
+describe('AdminPage', () => {
   it('mentions a resume', () => {
     jest
       .spyOn(seekGraph, 'querySeekGraph')
       .mockResolvedValue({ version: 'SUPER_UNIQUE_VERSION' });
 
     const { queryByText } = render(
-      <BraidTestProvider>
-        <ToastProvider>
-          <BrowserTokenProvider baseUrl="https://example.com">
-            <HomePage />
-          </BrowserTokenProvider>
-        </ToastProvider>
-      </BraidTestProvider>,
+      <UserProvider server={false}>
+        <BraidTestProvider>
+          <ToastProvider>
+            <BrowserTokenProvider baseUrl="https://example.com">
+              <AdminPage />
+            </BrowserTokenProvider>
+          </ToastProvider>
+        </BraidTestProvider>
+      </UserProvider>,
     );
 
     return waitFor(() => expect(queryByText(/resume/i)).toBeDefined());

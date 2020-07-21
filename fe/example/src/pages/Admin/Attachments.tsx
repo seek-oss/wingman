@@ -4,7 +4,7 @@ import React from 'react';
 import { DownloadLink } from 'lib/components/private';
 import { useBrowserToken } from 'lib/hooks';
 
-import { DOWNLOAD_ATTACHMENT_SCOPE } from '../api/browserToken';
+import { DOWNLOAD_ATTACHMENT_SCOPE } from '../../api/browserToken';
 
 // https://developer.seek.com/graphql/playground#candidate-application-profiles
 const HARDCODED_COVER_LETTER_LINK =

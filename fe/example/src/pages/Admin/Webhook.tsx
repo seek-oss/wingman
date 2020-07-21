@@ -8,7 +8,7 @@ import {
 } from 'braid-design-system';
 import React, { useState } from 'react';
 
-import { postPartnerWebhook } from '../api/partnerWebhook';
+import { postPartnerWebhook } from '../../api/partnerWebhook';
 
 const HARDCODED_WEBHOOK_PAYLOAD = {
   events: [

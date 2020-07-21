@@ -1,7 +1,7 @@
 import { Card, Heading, Loader, Stack, Text } from 'braid-design-system';
 import React, { useEffect, useState } from 'react';
 
-import { querySeekGraph } from '../api/seekGraph';
+import { querySeekGraph } from '../../api/seekGraph';
 
 const retrieveVersion = async (callback: (version: string) => void) => {
   const { version } = await querySeekGraph('{ version }');
