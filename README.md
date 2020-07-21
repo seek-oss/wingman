@@ -97,7 +97,7 @@ It is cut down in several aspects:
 
   A third-party recruitment system is expected to limit privileges to the currently logged-in hirer.
 
-[ad selection]: https://developer.seek.com/use-cases/ad-selection#about-the-ad-selection-panel
+[ad selection]: https://developer.seek.com/use-cases/posting/ad-selection
 
 ## Usage
 
