@@ -11,7 +11,7 @@ import {
   Strong,
   Text,
 } from 'braid-design-system';
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 
 import { SearchField } from '../components/SearchField';
 import { Table, TableColumn } from '../components/Table';
@@ -42,9 +42,9 @@ const COLUMNS: Array<TableColumn<Candidate>> = [
               {(() => {
                 if (index === 0) {
                   return (
-                    <>
+                    <Fragment>
                       <Strong>{role.title}</Strong>, {role.company}
-                    </>
+                    </Fragment>
                   );
                 }
 
@@ -75,10 +75,10 @@ const COLUMNS: Array<TableColumn<Candidate>> = [
               {(() => {
                 if (index === 0) {
                   return (
-                    <>
+                    <Fragment>
                       <Strong>{qualification.name}</Strong>,{' '}
                       {qualification.issuer}
-                    </>
+                    </Fragment>
                   );
                 }
 

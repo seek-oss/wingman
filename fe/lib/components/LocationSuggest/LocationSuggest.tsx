@@ -3,6 +3,7 @@ import ApolloClient from 'apollo-client';
 import { FieldMessage, TextField } from 'braid-design-system';
 import React, {
   ComponentPropsWithRef,
+  Fragment,
   forwardRef,
   useEffect,
   useState,
@@ -97,7 +98,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
     }, [suggestData]);
 
     return (
-      <>
+      <Fragment>
         <LocationSuggestInput
           onSelect={handleSuggestSelect}
           onClear={() => setSelectedLocationId('')}
@@ -119,7 +120,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
             tone="critical"
           />
         )}
-      </>
+      </Fragment>
     );
   },
 );
