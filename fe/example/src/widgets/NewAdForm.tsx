@@ -138,35 +138,37 @@ export const NewAdForm = ({ initial }: Props) => {
           value={fields.summary}
         />
 
-        <Columns space="gutter">
-          <Column>
-            <TextField
-              id="bulletPoint1"
-              label="Bullet point 1"
-              onClear={clearField('bulletPoint1')}
-              onChange={setField('bulletPoint1')}
-              value={fields.bulletPoint1}
-            />
-          </Column>
-          <Column>
-            <TextField
-              id="bulletPoint2"
-              label="Bullet point 2"
-              onClear={clearField('bulletPoint2')}
-              onChange={setField('bulletPoint2')}
-              value={fields.bulletPoint2}
-            />
-          </Column>
-          <Column>
-            <TextField
-              id="bulletPoint3"
-              label="Bullet point 3"
-              onClear={clearField('bulletPoint3')}
-              onChange={setField('bulletPoint3')}
-              value={fields.bulletPoint3}
-            />
-          </Column>
-        </Columns>
+        {fields.adProduct === 'StandOut' || fields.adProduct === 'Premium' ? (
+          <Columns collapseBelow="tablet" space="gutter">
+            <Column>
+              <TextField
+                id="bulletPoint1"
+                label="Bullet point 1"
+                onClear={clearField('bulletPoint1')}
+                onChange={setField('bulletPoint1')}
+                value={fields.bulletPoint1}
+              />
+            </Column>
+            <Column>
+              <TextField
+                id="bulletPoint2"
+                label="Bullet point 2"
+                onClear={clearField('bulletPoint2')}
+                onChange={setField('bulletPoint2')}
+                value={fields.bulletPoint2}
+              />
+            </Column>
+            <Column>
+              <TextField
+                id="bulletPoint3"
+                label="Bullet point 3"
+                onClear={clearField('bulletPoint3')}
+                onChange={setField('bulletPoint3')}
+                value={fields.bulletPoint3}
+              />
+            </Column>
+          </Columns>
+        ) : undefined}
 
         <Stack space="xsmall">
           <FieldLabel htmlFor={false} label="Branding" />
