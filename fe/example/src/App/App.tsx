@@ -21,17 +21,12 @@ const Content = () => {
   const styles = useStyles(styleRefs);
 
   return (
-    <Box className={styles.fillViewportHeight} display="flex">
-      <Box
-        background="card"
-        className={styles.rightBorder}
-        flexShrink={0}
-        overflow="auto"
-      >
+    <Box display="flex">
+      <Box background="card" className={styles.rightBorder} flexShrink={0}>
         <Sidebar />
       </Box>
 
-      <Box flexGrow={1} overflow="auto">
+      <Box flexGrow={1}>
         <Router />
       </Box>
     </Box>
