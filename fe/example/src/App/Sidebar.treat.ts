@@ -1,5 +1,7 @@
 import { style } from 'sku/treat';
 
+import { useMenuWidth } from '../styles';
+
 export const activeLink = style({});
 
 export const link = style({
@@ -23,4 +25,17 @@ export const linkContainer = style((theme) => ({
       transform: 'translateY(1px)',
     },
   },
+}));
+
+export const sidebar = style((theme) => ({
+  height: '100vh',
+  width: useMenuWidth(theme),
+
+  top: 0,
+
+  position: 'sticky',
+
+  WebkitOverflowScrolling: 'touch',
+  overflowY: 'auto',
+  overscrollBehaviorY: 'contain',
 }));
