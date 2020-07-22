@@ -1,4 +1,11 @@
-import { Box, FieldLabel, Radio, Stack, Text } from 'braid-design-system';
+import {
+  Box,
+  FieldLabel,
+  Radio,
+  Stack,
+  Text,
+  Tiles,
+} from 'braid-design-system';
 import React, { useState } from 'react';
 import { useStyles } from 'sku/react-treat';
 
@@ -24,7 +31,7 @@ export const AdProductSelect = ({ onChange }: Props) => {
     <Stack space="xsmall">
       <FieldLabel htmlFor={false} label="Ad product" />
 
-      <Box className={styles.fillHeight} display="flex">
+      <Tiles columns={[1, 3]} space={['xsmall', 'gutter']}>
         {AD_PRODUCTS.map((product) => (
           <Box
             background={
@@ -34,6 +41,7 @@ export const AdProductSelect = ({ onChange }: Props) => {
             className={styles.productCard}
             cursor="pointer"
             flexGrow={1}
+            height="full"
             key={product.name}
             onClick={() => changeProduct(product.name)}
             padding="gutter"
@@ -50,7 +58,7 @@ export const AdProductSelect = ({ onChange }: Props) => {
             </Stack>
           </Box>
         ))}
-      </Box>
+      </Tiles>
     </Stack>
   );
 };
