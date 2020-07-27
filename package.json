@@ -20,9 +20,9 @@
   ],
   "version": "0.0.0",
   "devDependencies": {
-    "@graphql-codegen/cli": "1.17.0",
-    "@graphql-codegen/fragment-matcher": "1.17.0",
-    "@graphql-codegen/typescript": "1.17.0",
+    "@graphql-codegen/cli": "1.17.6",
+    "@graphql-codegen/fragment-matcher": "1.17.6",
+    "@graphql-codegen/typescript": "1.17.6",
     "graphql": "15.3.0",
     "skuba": "3.7.6"
   }
