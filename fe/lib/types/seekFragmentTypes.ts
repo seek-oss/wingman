@@ -43,6 +43,12 @@ const result: IntrospectionResultData = {
           {
             name: 'CandidateApplicationCreatedEvent',
           },
+          {
+            name: 'PositionProfilePostedEvent',
+          },
+          {
+            name: 'CandidateProfilePurchasedEvent',
+          },
         ],
       },
     ],
