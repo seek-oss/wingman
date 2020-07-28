@@ -10,10 +10,14 @@ import React, {
 } from 'react';
 import { useDebounce } from 'use-debounce';
 
-import { Location, LocationSuggestion } from '../../types/seek.graphql';
+import {
+  GeoLocationInput,
+  Location,
+  LocationSuggestion,
+} from '../../types/seek.graphql';
 
 import LocationSuggestInput from './LocationSuggestInput';
-import { LOCATION_SUGGEST } from './queries';
+import { LOCATION_SUGGEST, NEAREST_LOCATIONS } from './queries';
 
 interface FieldProps extends ComponentPropsWithRef<typeof TextField> {}
 
@@ -50,12 +54,25 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       fetchPolicy: 'no-cache',
     });
 
+    const [
+      nearestLocations,
+      {
+        data: nearestLocationsData,
+        error: nearestLocationsError,
+        loading: nearestLocationsLoading,
+      },
+    ] = useLazyQuery(NEAREST_LOCATIONS, {
+      ...(client && { client }),
+      fetchPolicy: 'no-cache',
+    });
+
     const [selectedLocationId, setSelectedLocationId] = useState('');
     const [locationSuggestInput, setLocationSuggestInput] = useState('');
     const [locationSuggestResults, setLocationSuggestResults] = useState<
       LocationSuggestion[]
     >();
 
+    const [placeholder, setPlaceholder] = useState('');
     const [debounceLocationSuggestInput] = useDebounce(
       locationSuggestInput,
       debounceDelay,
@@ -68,6 +85,24 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       if (selectedLocation?.id?.value) {
         setSelectedLocationId(selectedLocation.id.value);
       }
+    };
+
+    const handleDetectLocationClicked = (input: GeoLocationInput | Error) => {
+      if (input instanceof Error) {
+        return (
+          <FieldMessage
+            id="nearestLocationsError"
+            message={input.message}
+            tone="critical"
+          />
+        );
+      }
+      nearestLocations({
+        variables: {
+          schemeId,
+          geoLocation: input,
+        },
+      });
     };
 
     useEffect(() => {
@@ -97,13 +132,34 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       }
     }, [suggestData]);
 
+    useEffect(() => {
+      if (nearestLocationsData) {
+        // The closest SEEK location returned for the geolocation input
+        const closestLocation = nearestLocationsData.nearestLocations[0];
+
+        const {
+          contextualName,
+          id: { value },
+        } = closestLocation;
+
+        setPlaceholder(contextualName);
+        setSelectedLocationId(value);
+      }
+    }, [nearestLocationsData]);
+
     return (
       <Fragment>
         <LocationSuggestInput
+          isLoading={nearestLocationsLoading}
           onSelect={handleSuggestSelect}
-          onClear={() => setSelectedLocationId('')}
+          onDetectLocation={handleDetectLocationClicked}
+          onClear={() => {
+            setSelectedLocationId('');
+            setPlaceholder('');
+          }}
           onChange={setLocationSuggestInput}
           locationSuggestions={locationSuggestResults}
+          placeholder={placeholder}
           {...restProps}
         />
         <input
@@ -117,6 +173,13 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
           <FieldMessage
             id="suggestError"
             message="Error fetching location, please try again"
+            tone="critical"
+          />
+        )}
+        {nearestLocationsError && (
+          <FieldMessage
+            id="nearestLocationsError"
+            message="Error getting locations using current location, please try again"
             tone="critical"
           />
         )}

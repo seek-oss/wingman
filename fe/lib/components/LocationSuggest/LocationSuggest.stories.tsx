@@ -8,12 +8,16 @@ import { storiesOf } from 'sku/@storybook/react';
 
 import { LocationSuggest } from './LocationSuggest';
 import { mockLocationSuggest } from './__fixtures__/locationSuggest';
-import { LOCATION_SUGGEST } from './queries';
+import { mockNearestLocations } from './__fixtures__/nearestLocations';
+import { LOCATION_SUGGEST, NEAREST_LOCATIONS } from './queries';
 
 const mockClient = createMockClient();
 
 mockClient.setRequestHandler(LOCATION_SUGGEST, () =>
   Promise.resolve({ data: mockLocationSuggest }),
+);
+mockClient.setRequestHandler(NEAREST_LOCATIONS, () =>
+  Promise.resolve({ data: mockNearestLocations }),
 );
 
 storiesOf('Locations', module)
