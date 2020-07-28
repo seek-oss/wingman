@@ -23,6 +23,7 @@ storiesOf('JobCategories', module)
       schemeId="seekAnz"
       positionProfile={{
         positionTitle: `Senior Developer`,
+        positionLocation: ['seekAnzPublicTest:location:seek:2FqwWaaMV'],
       }}
       message={text('message', 'Select a job category')}
       tone={select('tone', ['neutral', 'critical'], undefined)}
