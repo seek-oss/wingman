@@ -69,7 +69,7 @@ const LocationSuggestInput = ({
 
   const mappedSuggestions = mapLocationsToSuggestions(locationSuggestions);
 
-  const highlightedSuggestions = mappedSuggestions.map(suggestion => ({
+  const highlightedSuggestions = mappedSuggestions.map((suggestion) => ({
     ...suggestion,
     highlights: createHighlights(suggestion.text, locationSuggest.text),
   }));
@@ -81,7 +81,7 @@ const LocationSuggestInput = ({
 
   const handleSelect = (selectedValue: string) => {
     const selectedLocation = locationSuggestions?.find(
-      locationSuggestion =>
+      (locationSuggestion) =>
         locationSuggestion.location.id.value === selectedValue,
     )?.location;
     onSelect(selectedLocation);
@@ -102,7 +102,7 @@ const LocationSuggestInput = ({
   const handleDetectLocationClicked = () => {
     if (navigator.geolocation) {
       setLocationSuggest(initialLocationSuggest);
-      navigator.geolocation.getCurrentPosition(position =>
+      navigator.geolocation.getCurrentPosition((position) =>
         onDetectLocation({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
