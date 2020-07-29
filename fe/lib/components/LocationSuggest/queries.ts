@@ -64,3 +64,12 @@ export const LOCATION_SUGGEST = gql`
   }
   ${NESTED_LOCATION_ATTRIBUTES}
 `;
+
+export const NEAREST_LOCATIONS = gql`
+  query($input: QueryNearestLocationsArgs!) {
+    nearestLocations(input: $input) {
+      ...nestedLocationAttributes
+    }
+  }
+  ${NESTED_LOCATION_ATTRIBUTES}
+`;

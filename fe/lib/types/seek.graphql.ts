@@ -1,4 +1,5 @@
 export type Maybe<T> = T | null;
+export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
 export interface Scalars {
   ID: string;
@@ -32,11 +33,6 @@ export interface Query {
    * This query accepts browser tokens that include the `query:application-questionnaires` scope.
    */
   applicationQuestionnaire?: Maybe<ApplicationQuestionnaire>;
-  /**
-   * An application questionnaire with the given `id`.
-   * @deprecated Use `applicationQuestionnaire`.
-   */
-  questionnaire?: Maybe<ApplicationQuestionnaire>;
   /**
    * Ad products available when creating an advertisement.
    * @deprecated Use `seekAnzHirerAdvertisementCreationProducts`.
@@ -92,6 +88,12 @@ export interface Query {
    */
   locationSuggestions?: Maybe<Array<LocationSuggestion>>;
   /**
+   * An array of locations relevant to the provided geolocation ordered by distance.
+   *
+   * This query accepts browser tokens that include the `query:ontologies` scope.
+   */
+  nearestLocations?: Maybe<Array<Location>>;
+  /**
    * The hiring organization for the given `id`.
    *
    * This query accepts browser tokens that include the `query:organizations` scope.
@@ -103,6 +105,10 @@ export interface Query {
    * This query accepts browser tokens that include the `query:organizations` scope.
    */
   seekAnzAdvertiser?: Maybe<HiringOrganization>;
+  /** A page of advertisement brandings associated with the specified `hirerId`. */
+  advertisementBrandings: AdvertisementBrandingsConnection;
+  /** The advertisement branding for the given `id`. */
+  advertisementBranding?: Maybe<AdvertisementBranding>;
   /** A position opening with the given `id`. */
   positionOpening?: Maybe<PositionOpening>;
   /** A position profile with its position opening, given the position profile `id`. */
@@ -161,19 +167,10 @@ export interface Query {
    * It starts from the earliest known event if no pagination arguments are provided.
    */
   events: EventsConnection;
-  /** A page of advertisement brandings associated with the specified `hirerId`. */
-  advertisementBrandings: AdvertisementBrandingsConnection;
-  /** The advertisement branding for the given `id`. */
-  advertisementBranding?: Maybe<AdvertisementBranding>;
 }
 
 /** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
 export interface QueryApplicationQuestionnaireArgs {
-  id: Scalars['String'];
-}
-
-/** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
-export interface QueryQuestionnaireArgs {
   id: Scalars['String'];
 }
 
@@ -243,6 +240,13 @@ export interface QueryLocationSuggestionsArgs {
 }
 
 /** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
+export interface QueryNearestLocationsArgs {
+  schemeId: Scalars['String'];
+  geoLocation: GeoLocationInput;
+  first?: Maybe<Scalars['Int']>;
+}
+
+/** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
 export interface QueryHiringOrganizationArgs {
   id: Scalars['String'];
 }
@@ -250,6 +254,20 @@ export interface QueryHiringOrganizationArgs {
 /** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
 export interface QuerySeekAnzAdvertiserArgs {
   id: Scalars['Int'];
+}
+
+/** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
+export interface QueryAdvertisementBrandingsArgs {
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  hirerId: Scalars['String'];
+}
+
+/** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
+export interface QueryAdvertisementBrandingArgs {
+  id: Scalars['String'];
 }
 
 /** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
@@ -272,6 +290,7 @@ export interface QueryPositionOpeningsArgs {
   hirerId: Scalars['String'];
   after?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
+  filter?: Maybe<PositionOpeningsFilterInput>;
 }
 
 /** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
@@ -339,20 +358,6 @@ export interface QueryEventsArgs {
   schemeId: Scalars['String'];
 }
 
-/** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
-export interface QueryAdvertisementBrandingsArgs {
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  hirerId: Scalars['String'];
-}
-
-/** The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start. */
-export interface QueryAdvertisementBrandingArgs {
-  id: Scalars['String'];
-}
-
 /** The schema's entry-point for mutations. This acts as the public, top-level API from which all mutation queries must start. */
 export interface Mutation {
   __typename?: 'Mutation';
@@ -375,6 +380,13 @@ export interface Mutation {
     UpdatePositionOpeningPersonContactsPayload
   >;
   /**
+   * Update the status of a position opening.
+   *
+   * This status is provided to help hirers manage position openings.
+   * The SEEK API does not use the position opening's status itself.
+   */
+  updatePositionOpeningStatus?: Maybe<UpdatePositionOpeningStatusPayload>;
+  /**
    * Deletes an empty position opening.
    *
    * Each position profile that belongs to a position opening must be deleted before the position opening can be deleted.
@@ -388,7 +400,14 @@ export interface Mutation {
    * The position profile's existing fields will be replaced with the provided input fields.
    * This will update the position's live job ad under its current URL.
    */
-  updatePostedPositionProfile: UpdatePostedPositionProfilePayload;
+  updatePostedPositionProfile?: Maybe<UpdatePostedPositionProfilePayload>;
+  /**
+   * Closes an existing posted position profile.
+   *
+   * The job ad will be removed from the job board and no refund will be issued.
+   * The `PositionProfile` and its associated candidate applications will be available for 6 months after its close date.
+   */
+  closePostedPositionProfile?: Maybe<ClosePostedPositionProfilePayload>;
   /** Posts a live job ad for a new position. */
   postPosition: PostPositionPayload;
   /** Creates a new unposted position profile for an opening. */
@@ -399,6 +418,18 @@ export interface Mutation {
   deleteUnpostedPositionProfile?: Maybe<DeleteUnpostedPositionProfilePayload>;
   /** Creates a new webhook subscription. */
   createWebhookSubscription: CreateWebhookSubscriptionPayload;
+  /**
+   * Updates an existing webhook subscription's delivery configuration.
+   *
+   * This modifies fields related to the URL, payload & signature of an existing webhook subscription.
+   * Changes may take up to half an hour to take effect.
+   *
+   * The fields that determine which events are to be delivered are immutable.
+   * A new webhook subscription should be created for such cases.
+   */
+  updateWebhookSubscriptionDeliveryConfiguration?: Maybe<
+    UpdateWebhookSubscriptionDeliveryConfigurationPayload
+  >;
   /** Deletes an existing webhook subscription. */
   deleteWebhookSubscription?: Maybe<DeleteWebhookSubscriptionPayload>;
 }
@@ -419,6 +450,11 @@ export interface MutationUpdatePositionOpeningPersonContactsArgs {
 }
 
 /** The schema's entry-point for mutations. This acts as the public, top-level API from which all mutation queries must start. */
+export interface MutationUpdatePositionOpeningStatusArgs {
+  input: UpdatePositionOpeningStatusInput;
+}
+
+/** The schema's entry-point for mutations. This acts as the public, top-level API from which all mutation queries must start. */
 export interface MutationDeletePositionOpeningArgs {
   input: DeletePositionOpeningInput;
 }
@@ -431,6 +467,11 @@ export interface MutationPostPositionProfileForOpeningArgs {
 /** The schema's entry-point for mutations. This acts as the public, top-level API from which all mutation queries must start. */
 export interface MutationUpdatePostedPositionProfileArgs {
   input: UpdatePostedPositionProfileInput;
+}
+
+/** The schema's entry-point for mutations. This acts as the public, top-level API from which all mutation queries must start. */
+export interface MutationClosePostedPositionProfileArgs {
+  input: ClosePostedPositionProfileInput;
 }
 
 /** The schema's entry-point for mutations. This acts as the public, top-level API from which all mutation queries must start. */
@@ -456,6 +497,11 @@ export interface MutationDeleteUnpostedPositionProfileArgs {
 /** The schema's entry-point for mutations. This acts as the public, top-level API from which all mutation queries must start. */
 export interface MutationCreateWebhookSubscriptionArgs {
   input: CreateWebhookSubscriptionInput;
+}
+
+/** The schema's entry-point for mutations. This acts as the public, top-level API from which all mutation queries must start. */
+export interface MutationUpdateWebhookSubscriptionDeliveryConfigurationArgs {
+  input: UpdateWebhookSubscriptionDeliveryConfigurationInput;
 }
 
 /** The schema's entry-point for mutations. This acts as the public, top-level API from which all mutation queries must start. */
@@ -542,6 +588,11 @@ export interface ObjectIdentifier {
   value: Scalars['String'];
 }
 
+/**
+ * A monetary amount expressed as an integer in a specified minor currency unit.
+ *
+ * This is used to avoid floating point rounding errors when expressing prices & funds.
+ */
 export interface Money {
   __typename?: 'Money';
   /**
@@ -702,11 +753,7 @@ export interface ApplicationQuestionChoice {
   __typename?: 'ApplicationQuestionChoice';
   /** An opaque identifier for the question choice. */
   id: ObjectIdentifier;
-  /**
-   * Text of the choice displayed to the candidate.
-   *
-   * This is plain text; all HTML will be escaped.
-   */
+  /** Text of the choice displayed to the candidate. */
   text: Scalars['String'];
   /**
    * A partner provided unique reference ID to the question choice.
@@ -892,11 +939,7 @@ export interface ApplicationQuestionInput {
 
 /** A possible response to an `ApplicationQuestion`. */
 export interface ApplicationQuestionChoiceInput {
-  /**
-   * Text of the choice displayed to the candidate.
-   *
-   * This is plain text; all HTML will be escaped.
-   */
+  /** Text of the choice displayed to the candidate. */
   text: Scalars['String'];
   /**
    * A unique ID for this choice.
@@ -1200,6 +1243,11 @@ export interface SeekAnzAdProductMessage {
   content: Scalars['String'];
 }
 
+/**
+ * A monetary amount expressed as an integer in a specified minor currency unit.
+ *
+ * This is used to avoid floating point rounding errors when expressing prices & funds.
+ */
 export interface CurrencyMinorUnit {
   __typename?: 'CurrencyMinorUnit';
   /**
@@ -1276,10 +1324,16 @@ export interface ApplicationMethodInput {
   applicationUri: WebUrlInput;
 }
 
-/** The details of the posted position profile to be closed. */
+/** The input parameter for the `closePostedPositionProfile` mutation. */
 export interface ClosePostedPositionProfileInput {
+  /** The details of the position profile to be closed. */
+  positionProfile: ClosePostedPositionProfilePositionProfileInput;
+}
+
+/** The details of the position profile to be closed. */
+export interface ClosePostedPositionProfilePositionProfileInput {
   /** The unique identifier for the posted position profile. */
-  id: Scalars['String'];
+  profileId: Scalars['String'];
 }
 
 /** A collection of information about where and how to post a job ad. */
@@ -1299,7 +1353,14 @@ export interface CreatePostingInstructionInput {
    * - For other schemes, set this to `null`.
    */
   seekAnzAdvertisementType?: Maybe<Scalars['String']>;
-  /** The end date of the posting. */
+  /**
+   * The end date of the posting.
+   *
+   * Scheme requirements:
+   *
+   * - For the `seekAnz` scheme this must be no more than 30 days in the future.
+   *   If the end date is not specified it will default to the maximum period of 30 days.
+   */
   end?: Maybe<Scalars['DateTime']>;
   /**
    * An identifier to ensure that multiple ads are not created on retries.
@@ -1319,6 +1380,8 @@ export interface CreatePostingInstructionInput {
    * - For the `seekAnz` scheme, this field is limited to a single element. Requests with more than 1 element will fail.
    */
   applicationMethods?: Maybe<Array<ApplicationMethodInput>>;
+  /** The identifier of the branding to apply to the posted job ad. */
+  brandingId?: Maybe<Scalars['String']>;
 }
 
 /** A formatted description of the position profile. */
@@ -1333,30 +1396,84 @@ export interface PositionFormattedDescriptionInput {
    * 3. `SearchBulletPoint` is a highlight or selling point of the position that appears in search results.
    *    SEEK ANZ allows up to three search bullet points for Premium or StandOut ad products.
    * 4. `SearchSummary` is a short description that appears in search results.
+   *
+   * Scheme requirements:
+   *
+   * - The `seekAnz` scheme requires `AdvertisementDetails` and `SearchSummary` to be included and non-empty.
    */
   descriptionId: Scalars['String'];
   /** The HTML content of the description. */
   content: Scalars['String'];
 }
 
-/** The details of the position opening to be created. */
+/** The input parameter for the `createPositionOpening` mutation. */
 export interface CreatePositionOpeningInput {
-  /** The party that owns the position opening. */
-  postingRequester: PostingRequesterInput;
+  /** The details of the position opening to be created. */
+  positionOpening: CreatePositionOpeningPositionOpeningInput;
 }
 
-/** The details of the person contacts in the position opening to be updated. */
+/** The details of the position opening to be created. */
+export interface CreatePositionOpeningPositionOpeningInput {
+  /** The party that owns the position opening. */
+  postingRequester: PostingRequesterInput;
+  /**
+   * The status of the position opening.
+   *
+   * Defaults to `Active` if no value is provided.
+   *
+   * Currently three codes are defined:
+   * - `Incomplete` indicates the position opening is in draft.
+   * - `Active` indicates the position opening is open.
+   * - `Closed` indicates the position opening has been closed.
+   */
+  statusCode?: Maybe<Scalars['String']>;
+}
+
+/** The input parameter for the `updatePositionOpeningPersonContacts` mutation. */
 export interface UpdatePositionOpeningPersonContactsInput {
+  /** The details of the position opening to be updated. */
+  positionOpening: UpdatePositionOpeningPersonContactsPositionOpeningInput;
+}
+
+/** The details of the position opening to be updated. */
+export interface UpdatePositionOpeningPersonContactsPositionOpeningInput {
   /** The unique identifier for the position opening to update. */
   documentId: Scalars['String'];
   /** Specific contact people for the position opening at the party. */
   personContacts: Array<SpecifiedPersonInput>;
 }
 
-/** The details of the position opening to be deleted. */
+/** The input parameter for the `updatePositionOpeningStatus` mutation. */
+export interface UpdatePositionOpeningStatusInput {
+  /** The details of the position opening to be updated. */
+  positionOpening: UpdatePositionOpeningStatusPositionOpeningInput;
+}
+
+/** The details of the position opening to have its status updated. */
+export interface UpdatePositionOpeningStatusPositionOpeningInput {
+  /** The unique identifier for the position opening to update. */
+  documentId: Scalars['String'];
+  /**
+   * The status of the position opening.
+   *
+   * Currently three codes are defined:
+   * - `Incomplete` indicates the position opening is in a draft state.
+   * - `Active` indicates the position opening is open.
+   * - `Closed` indicates the position opening has been closed.
+   */
+  statusCode: Scalars['String'];
+}
+
+/** The input parameter for the `deletePositionOpening` mutation. */
 export interface DeletePositionOpeningInput {
+  /** The details of the position opening to be deleted. */
+  positionOpening: DeletePositionOpeningPositionOpeningInput;
+}
+
+/** The details of the position opening to be deleted. */
+export interface DeletePositionOpeningPositionOpeningInput {
   /** The unique identifier for the position opening. */
-  id: Scalars['String'];
+  documentId: Scalars['String'];
 }
 
 /**
@@ -1382,7 +1499,7 @@ export interface PostingRequesterInput {
 /** The information required to post a job ad for a newly created position. */
 export interface PostPositionInput {
   /** The details of the position opening to be created. */
-  positionOpening: CreatePositionOpeningInput;
+  positionOpening: CreatePositionOpeningPositionOpeningInput;
   /** A profile of a position opening. */
   positionProfile: PostPositionPositionProfileInput;
 }
@@ -1467,12 +1584,22 @@ export interface PostPositionPositionProfileInput {
   postingInstructions: Array<CreatePostingInstructionInput>;
 }
 
+/** The input parameter for the `postPositionProfileForOpening` mutation. */
+export interface PostPositionProfileForOpeningInput {
+  /**
+   * A profile for posting a job ad against an existing position opening.
+   *
+   * This contains information of how a position opening is presented on a given channel or job board.
+   */
+  positionProfile: PostPositionProfileForOpeningPositionProfileInput;
+}
+
 /**
  * A profile for posting a job ad against an existing position opening.
  *
  * This contains information of how a position opening is presented on a given channel or job board.
  */
-export interface PostPositionProfileForOpeningInput {
+export interface PostPositionProfileForOpeningPositionProfileInput {
   /** The identifier of the position opening that this position profile belongs to. */
   positionOpeningId: Scalars['String'];
   /** A short phrase describing the position as it would be listed on a business card or in a company directory. */
@@ -1616,8 +1743,14 @@ export interface RemunerationAmountInput {
   currency: Scalars['String'];
 }
 
-/** An unposted profile of a position opening to create. */
+/** The input parameter for the `createUnpostedPositionProfile` mutation. */
 export interface CreateUnpostedPositionProfileForOpeningInput {
+  /** An unposted profile of a position opening to create. */
+  positionProfile: CreateUnpostedPositionProfileForOpeningPositionProfileInput;
+}
+
+/** An unposted profile of a position opening to create. */
+export interface CreateUnpostedPositionProfileForOpeningPositionProfileInput {
   /** The identifier of the position opening that this position profile belongs to. */
   positionOpeningId: Scalars['String'];
   /** A short phrase describing the position as it would be listed on a business card or in a company directory. */
@@ -1626,6 +1759,8 @@ export interface CreateUnpostedPositionProfileForOpeningInput {
   positionOrganizations: Array<Scalars['String']>;
   /** An optional hirer-provided opaque job reference. */
   seekHirerJobReference?: Maybe<Scalars['String']>;
+  /** An optional agency-provided opaque job reference. */
+  seekAgencyJobReference?: Maybe<Scalars['String']>;
   /** An array of formatted position profile descriptions. */
   positionFormattedDescriptions: Array<PositionFormattedDescriptionInput>;
   /**
@@ -1645,16 +1780,24 @@ export interface CreateUnpostedPositionProfileForOpeningInput {
   positionLocation: Array<Scalars['String']>;
 }
 
-/** An unposted profile of a position opening to update. */
+/** The input parameter for the `updateUnpostedPositionProfile` mutation. */
 export interface UpdateUnpostedPositionProfileInput {
+  /** An unposted profile of a position opening to update. */
+  positionProfile: UpdateUnpostedPositionProfilePositionProfileInput;
+}
+
+/** An unposted profile of a position opening to update. */
+export interface UpdateUnpostedPositionProfilePositionProfileInput {
   /** The identifier of the unposted position profile to update. */
-  positionProfileId: Scalars['String'];
+  profileId: Scalars['String'];
   /** A short phrase describing the position as it would be listed on a business card or in a company directory. */
   positionTitle: Scalars['String'];
   /** An array of identifiers for the organizations that have the position. */
   positionOrganizations: Array<Scalars['String']>;
   /** An optional hirer-provided opaque job reference. */
   seekHirerJobReference?: Maybe<Scalars['String']>;
+  /** An optional agency-provided opaque job reference. */
+  seekAgencyJobReference?: Maybe<Scalars['String']>;
   /** An array of formatted position profile descriptions. */
   positionFormattedDescriptions: Array<PositionFormattedDescriptionInput>;
   /**
@@ -1674,16 +1817,28 @@ export interface UpdateUnpostedPositionProfileInput {
   positionLocation: Array<Scalars['String']>;
 }
 
-/** The details of the unposted position profile to be deleted. */
+/** The input parameter for the `deleteUnpostedPositionProfile` mutation. */
 export interface DeleteUnpostedPositionProfileInput {
+  /** The details of the unposted position profile to be deleted. */
+  positionProfile: DeleteUnpostedPositionProfilePositionProfileInput;
+}
+
+/** The details of the unposted position profile to be deleted. */
+export interface DeleteUnpostedPositionProfilePositionProfileInput {
   /** The unique identifier for the unposted position profile. */
-  id: Scalars['String'];
+  profileId: Scalars['String'];
+}
+
+/** The input parameter for the `updatePostedPositionProfile` mutation. */
+export interface UpdatePostedPositionProfileInput {
+  /** The values to replace on a posted position profile. */
+  positionProfile: UpdatePostedPositionProfilePositionProfileInput;
 }
 
 /** The values to replace on a posted position profile. */
-export interface UpdatePostedPositionProfileInput {
+export interface UpdatePostedPositionProfilePositionProfileInput {
   /** The identifier of the posted position profile to update. */
-  positionProfileId: Scalars['String'];
+  profileId: Scalars['String'];
   /** A short phrase describing the position as it would be listed on a business card or in a company directory. */
   positionTitle: Scalars['String'];
   /**
@@ -1797,6 +1952,8 @@ export interface UpdatePostingInstructionInput {
    * - For the `seekAnz` scheme, this field is limited to a single element. Requests with more than 1 element will fail.
    */
   applicationMethods?: Maybe<Array<ApplicationMethodInput>>;
+  /** The identifier of the branding to apply to the posted job ad. */
+  brandingId?: Maybe<Scalars['String']>;
 }
 
 /** A collection of information about the video to display alongside advertisement details. */
@@ -1863,7 +2020,7 @@ export interface JobCategorySuggestionPositionProfileInput {
   /** The position title. */
   positionTitle: Scalars['String'];
   /** An array of location identifiers of the position. */
-  positionLocation?: Maybe<Array<Scalars['String']>>;
+  positionLocation: Array<Scalars['String']>;
   /**
    * An array of identifiers for the organizations that have the position.
    *
@@ -1904,6 +2061,14 @@ export interface LocationSuggestion {
   location: Location;
 }
 
+/** A geographical coordinate. */
+export interface GeoLocationInput {
+  /** The latitude of the geographical location. */
+  latitude: Scalars['Float'];
+  /** The longitude of the geographical location. */
+  longitude: Scalars['Float'];
+}
+
 /** An organization hiring for an open position. */
 export interface HiringOrganization {
   __typename?: 'HiringOrganization';
@@ -1918,6 +2083,66 @@ export interface HiringOrganization {
    * For organizations in other schemes this will be `null`.
    */
   seekAnzAdvertiserId?: Maybe<Scalars['Int']>;
+}
+
+/**
+ * Advertisement branding.
+ *
+ * This can be associated with one or more `PositionProfile`s when they are created.
+ */
+export interface AdvertisementBranding {
+  __typename?: 'AdvertisementBranding';
+  /** An opaque identifier for advertisement branding. */
+  id: ObjectIdentifier;
+  /** The advertisement branding name. */
+  name: Scalars['String'];
+  /** A list of images associated with the advertisement branding. */
+  images: Array<AdvertisementBrandingImage>;
+  /** The organization that has the advertisement branding. */
+  hirer: HiringOrganization;
+}
+
+/** A visual representation of advertisement branding. */
+export interface AdvertisementBrandingImage {
+  __typename?: 'AdvertisementBrandingImage';
+  /**
+   * The type of advertisement branding image.
+   *
+   * Currently, only one code is defined:
+   * - `OriginalLogo` indicates the original advertisement branding logo image from which other logo images are derived.
+   */
+  typeCode: Scalars['String'];
+  /**
+   * The URL of the advertisement branding image.
+   *
+   * This can be retrieved to visually identify an advertisement branding in a partner system.
+   */
+  url: Scalars['String'];
+}
+
+/** A page of advertisement brandings for a hirer. */
+export interface AdvertisementBrandingsConnection {
+  __typename?: 'AdvertisementBrandingsConnection';
+  /**
+   * The page of advertisement brandings and their corresponding cursors.
+   *
+   * This list may be empty.
+   */
+  edges: Array<AdvertisementBrandingEdge>;
+  /** The pagination metadata for this page of advertisement brandings. */
+  pageInfo: PageInfo;
+}
+
+export interface AdvertisementBrandingEdge {
+  __typename?: 'AdvertisementBrandingEdge';
+  /**
+   * The opaque cursor to advertisement branding.
+   *
+   * This can be used as a subsequent pagination argument.
+   */
+  cursor: Scalars['String'];
+  /** The actual advertisement branding. */
+  node: AdvertisementBranding;
 }
 
 /** The output parameter for the `createPositionOpening` mutation. */
@@ -1937,7 +2162,7 @@ export interface PostPositionProfileForOpeningPayload {
 export interface PostPositionProfileForOpeningPositionProfilePayload {
   __typename?: 'PostPositionProfileForOpening_PositionProfilePayload';
   /** The identifier for the created position profile. */
-  id: ObjectIdentifier;
+  profileId: ObjectIdentifier;
 }
 
 /** The output parameter for the `postPosition` mutation. */
@@ -1974,7 +2199,14 @@ export interface PostPositionPositionProfilePayload {
    *   This identifier will initially reference an missing object;
    *   the object should be created within a few minutes.
    */
-  id: ObjectIdentifier;
+  profileId: ObjectIdentifier;
+}
+
+/** The output parameter for the `UpdatePositionOpeningStatus` mutation. */
+export interface UpdatePositionOpeningStatusPayload {
+  __typename?: 'UpdatePositionOpeningStatusPayload';
+  /** The details of the updated position opening. */
+  positionOpening: PositionOpening;
 }
 
 /** The output parameter for the `createUnpostedPositionProfileForOpening` mutation. */
@@ -2052,9 +2284,22 @@ export interface PositionOpeningConnection {
   pageInfo: PageInfo;
 }
 
-/** A job or position opening within an organization. */
+/**
+ * A job requisition or position opening within an organization.
+ *
+ * This is a container object that groups multiple `PositionProfile`s together along with their owner.
+ */
 export interface PositionOpening {
   __typename?: 'PositionOpening';
+  /**
+   * The status of the position opening.
+   *
+   * Currently three codes are defined:
+   * - `Incomplete` indicates the position opening is in a draft state.
+   * - `Active` indicates the position opening is open.
+   * - `Closed` indicates the position opening has been closed.
+   */
+  statusCode: Scalars['String'];
   /** An opaque identifier for the position opening. */
   documentId: ObjectIdentifier;
   /**
@@ -2066,7 +2311,7 @@ export interface PositionOpening {
   /**
    * An array of profiles for the position opening.
    *
-   * Each profile represents a posted job advertisement or an unposted internal requisition associated with this opening.
+   * Each profile represents a posted job ad or an unposted internal requisition associated with this opening.
    */
   positionProfiles: Array<PositionProfile>;
 }
@@ -2114,8 +2359,10 @@ export interface PositionProfile {
   positionOrganizations: Array<HiringOrganization>;
   /** An optional hirer-provided opaque job reference. */
   seekHirerJobReference?: Maybe<Scalars['String']>;
+  /** An optional agency-provided opaque job reference. */
+  seekAgencyJobReference?: Maybe<Scalars['String']>;
   /**
-   * The public web URL of the posted job advertisement.
+   * The public web URL of the posted job ad.
    *
    * This will be `null` for unposted position profiles.
    */
@@ -2264,6 +2511,14 @@ export interface PostingInstruction {
    * Native applications will raise a `CandidateApplicationCreated` event that points to a `CandidateProfile` object.
    */
   applicationMethods: Array<ApplicationMethod>;
+  /**
+   * The identifier of the branding applied to the posted job ad.
+   *
+   * This is included for HR-JSON compatibility; GraphQL users should use the `branding` nested object instead.
+   */
+  brandingId?: Maybe<Scalars['String']>;
+  /** The branding applied to the posted job ad. */
+  branding?: Maybe<AdvertisementBranding>;
 }
 
 /** A method of applying to a position. */
@@ -2291,6 +2546,23 @@ export interface SeekVideo {
    * - `Below` indicates the video will render below the advertisement details.
    */
   seekAnzPositionCode?: Maybe<Scalars['String']>;
+}
+
+/**
+ * The criteria to filter position openings by.
+ *
+ * These are `PositionOpening`-specific extensions on top of the standard pagination arguments `after` and `first`.
+ */
+export interface PositionOpeningsFilterInput {
+  /**
+   * Optionally filter results to only include position openings with the specified status code.
+   *
+   * Currently three codes are defined:
+   * - `Incomplete` indicates the position opening is in a draft state.
+   * - `Active` indicates the position opening is open.
+   * - `Closed` indicates the position opening has been closed.
+   */
+  statusCode?: Maybe<Scalars['String']>;
 }
 
 /** Information about a person not specific to a candidate profile. */
@@ -2351,7 +2623,7 @@ export interface AssociatedPositionOpening {
   /** The position opening this candidate applied for. */
   positionOpening: PositionOpening;
   /**
-   * The public web URL of the posted job advertisement.
+   * The public web URL of the posted job ad.
    *
    * This will be `null` for unposted position profiles.
    */
@@ -2380,19 +2652,34 @@ export interface Attachment {
    */
   url: Scalars['String'];
   /**
-   * An array of human-readable descriptions of the attachment.
+   * An array of human readable descriptions of the attachment.
    *
-   * To programmatically distinguish attachment types `seekRole` should be
-   * used.
+   * Resumes & cover letters can be programmatically identified using the  `seekRoleCode` field.
    */
   descriptions: Array<Scalars['String']>;
-  /** The role of the attachment within a profile. */
-  seekRole: SeekAttachmentRole;
+  /**
+   * The role of the attachment within a profile.
+   *
+   * Currently, two codes are defined:
+   *
+   * - `Resume` is used for a candidate's resume or CV.
+   * - `CoverLetter` is used for a candidate's cover letter for a specific position.
+   *
+   * Additional documents will have a `null` role code.
+   * They can be distinguished by their free text `descriptions`.
+   */
+  seekRoleCode?: Maybe<Scalars['String']>;
+  /**
+   * The role of the attachment within a profile.
+   * @deprecated Use seekRoleCode
+   */
+  seekRole?: Maybe<SeekAttachmentRole>;
 }
 
 /** Basic information to identify and reference a specific organization. */
 export interface Organization {
   __typename?: 'Organization';
+  /** The human readable name of the organization. */
   name: Scalars['String'];
 }
 
@@ -2401,18 +2688,22 @@ export interface PositionHistory {
   __typename?: 'PositionHistory';
   /**
    * The start date of the position.
+   *
    * This may only contain the year and month, e.g. `2019-01`.
    */
   start: Scalars['HistoryDate'];
   /**
    * The end date of the position if known.
-   * This may only contain the year and month, e.g. `2019-01`.
+   *
+   * This may only contain the year and month, e.g. `2020-01`.
    */
   end?: Maybe<Scalars['HistoryDate']>;
   /** Indicates whether the person is still working at the organization, if known. */
   current?: Maybe<Scalars['Boolean']>;
   /** The title that the person held for this position. */
   title: Scalars['String'];
+  /** An array of descriptions of the person's responsibilities, skills and achievements in the position. */
+  descriptions: Array<Scalars['String']>;
 }
 
 /** The details of a person's employment, work, or relevant experience. */
@@ -2422,6 +2713,44 @@ export interface EmployerHistory {
   organization: Organization;
   /** The set of positions that the person held. */
   positionHistories: Array<PositionHistory>;
+}
+
+/** The details of a student's degree. */
+export interface EducationDegree {
+  __typename?: 'EducationDegree';
+  /** The name of the degree. */
+  name: Scalars['String'];
+  /**
+   * The granted status of the degree.
+   *
+   * Currently, two statuses are defined:
+   * - `InProgress` indicates the student is still completing the degree.
+   * - `Granted` indicates the degree has been granted to the student.
+   */
+  degreeGrantedStatus: Scalars['String'];
+  /**
+   * The date the degree was granted or is expected to be granted.
+   *
+   * This may only contain a year and optional month, e.g. `2020` or `2020-06`.
+   * If the date isn't known this will be `null`.
+   */
+  date?: Maybe<Scalars['HistoryDate']>;
+}
+
+/** The details documenting a person's attendance at an educational institution. */
+export interface EducationAttendance {
+  __typename?: 'EducationAttendance';
+  /** The institution the person attended. */
+  institution: Organization;
+  /** The degrees which were awarded or in process at the institution. */
+  educationDegrees: Array<EducationDegree>;
+}
+
+/** A skill or competency asserted by the candidate. */
+export interface PersonCompetency {
+  __typename?: 'PersonCompetency';
+  /** The human readable name of the competency. */
+  competencyName: Scalars['String'];
 }
 
 /** Structured information about a candidate related to a particular application. */
@@ -2449,6 +2778,10 @@ export interface CandidateProfile {
   attachments: Array<Attachment>;
   /** The employment history of the candidate. */
   employment: Array<EmployerHistory>;
+  /** The education history of the candidate. */
+  education: Array<EducationAttendance>;
+  /** The skills or competencies of the candidate. */
+  qualifications: Array<PersonCompetency>;
   /** The completed candidate submission for the position profile's questionnaire. */
   seekQuestionnaireSubmission?: Maybe<ApplicationQuestionnaireSubmission>;
 }
@@ -2511,6 +2844,11 @@ export interface WebhookAttemptsConnection {
   pageInfo: PageInfo;
 }
 
+/**
+ * The criteria to filter webhook attempts by.
+ *
+ * These are `WebhookAttempt`-specific extensions on top of the standard pagination arguments `before`, `after`, `first` and `last`.
+ */
 export interface WebhookAttemptsFilterInput {
   /**
    * The creation date & time that resulting webhook attempts must succeed.
@@ -2556,6 +2894,46 @@ export interface CreateWebhookSubscriptionSubscriptionInput {
    * Providing a hirer ID will filter events to the specified hirer.
    */
   hirerId?: Maybe<Scalars['String']>;
+  /** The subscriber-owned URL where events will be sent to. */
+  url: Scalars['String'];
+  /**
+   * The maximum number of events that will be sent in each HTTP request.
+   *
+   * This number must be between 1 and 10 inclusive. Defaults to 10.
+   */
+  maxEventsPerAttempt?: Maybe<Scalars['Int']>;
+  /**
+   * The algorithm for signing webhooks.
+   *
+   * Currently, two codes are defined:
+   *
+   * - `None` indicates no signature will be attached.
+   * - `SeekHmacSha512` indicates a HMAC SHA-512 hex digest will be attached to
+   *   each request as a `Seek-Signature` header.
+   *
+   * A webhook's signature can be used to validate that the request originated
+   * from SEEK.
+   *
+   * Use a constant-time algorithm to validate the signature. Regular comparison
+   * methods like the `==` operator are susceptible to timing attacks.
+   */
+  signingAlgorithmCode: Scalars['String'];
+  /**
+   * The secret for signing webhooks.
+   *
+   * This must be specified if `signingAlgorithmCode` is not `None`. It is
+   * used as the key to generate a message authentication code for each request.
+   *
+   * The secret should be a random string with high entropy that is not reused
+   * for any other purpose.
+   */
+  secret?: Maybe<Scalars['String']>;
+}
+
+/** The details of the webhook subscription delivery configuration to be updated. */
+export interface UpdateWebhookSubscriptionDeliveryConfigurationSubscriptionInput {
+  /** The unique identifier for the subscription. */
+  id: Scalars['String'];
   /** The subscriber-owned URL where events will be sent to. */
   url: Scalars['String'];
   /**
@@ -2691,6 +3069,19 @@ export interface CreateWebhookSubscriptionInput {
 export interface CreateWebhookSubscriptionPayload {
   __typename?: 'CreateWebhookSubscriptionPayload';
   /** The details of the created webhook subscription. */
+  webhookSubscription: WebhookSubscription;
+}
+
+/** The input parameter for the `updateWebhookSubscriptionDeliveryConfiguration` mutation. */
+export interface UpdateWebhookSubscriptionDeliveryConfigurationInput {
+  /** The details of the webhook subscription to be updated. */
+  webhookSubscription: UpdateWebhookSubscriptionDeliveryConfigurationSubscriptionInput;
+}
+
+/** The output parameter for the `updateWebhookSubscriptionDeliveryConfiguration` mutation. */
+export interface UpdateWebhookSubscriptionDeliveryConfigurationPayload {
+  __typename?: 'UpdateWebhookSubscriptionDeliveryConfigurationPayload';
+  /** The details of the updated webhook subscription. */
   webhookSubscription: WebhookSubscription;
 }
 
@@ -2924,6 +3315,102 @@ export interface CandidateApplicationCreatedEventWebhookAttemptsArgs {
 }
 
 /**
+ * The event signaling that a `PositionProfile` has been posted.
+ *
+ * Corresponding events for the `updatePostedPositionProfile` and `closePostedPositionProfile` mutations are not currently available.
+ */
+export interface PositionProfilePostedEvent extends Event {
+  __typename?: 'PositionProfilePostedEvent';
+  /** The unique identifier of the event. */
+  id: ObjectIdentifier;
+  /**
+   * The data source for the event.
+   *
+   * The following schemes are supported for this event type:
+   *
+   * - seekAnz
+   */
+  schemeId: Scalars['String'];
+  /** The type of event, i.e. `PositionProfilePosted`. */
+  typeCode: Scalars['String'];
+  /**
+   * The date & time the `PositionProfile` was considered as successfully posted inside of SEEK's internal systems.
+   *
+   * This field has weak ordering guarantees, so it should not be used as a pagination argument.
+   */
+  createDateTime: Scalars['DateTime'];
+  /** The identifier for the `PositionProfile` that was posted. */
+  positionProfileId: Scalars['String'];
+  /**
+   * The `PositionProfile` that was posted.
+   *
+   * This may return null if the `PositionProfile` has been closed for an extended period of time.
+   */
+  positionProfile?: Maybe<PositionProfile>;
+  /**
+   * A page of webhook attempts for the current event matching the specified criteria.
+   *
+   * The result list is returned in ascending creation date & time order.
+   * It starts from the earliest known attempt if no pagination arguments are provided.
+   */
+  webhookAttempts: WebhookAttemptsConnection;
+}
+
+/**
+ * The event signaling that a `PositionProfile` has been posted.
+ *
+ * Corresponding events for the `updatePostedPositionProfile` and `closePostedPositionProfile` mutations are not currently available.
+ */
+export interface PositionProfilePostedEventWebhookAttemptsArgs {
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  filter?: Maybe<WebhookAttemptsFilterInput>;
+}
+
+/** The event signaling that a `CandidateProfile` has been purchased. */
+export interface CandidateProfilePurchasedEvent extends Event {
+  __typename?: 'CandidateProfilePurchasedEvent';
+  /** The unique identifier of the event. */
+  id: ObjectIdentifier;
+  /**
+   * The data source for the event.
+   *
+   * The following schemes are supported for this event type:
+   *
+   * - seekAnz
+   */
+  schemeId: Scalars['String'];
+  /** The type of event, i.e. `CandidateProfilePurchased`. */
+  typeCode: Scalars['String'];
+  /**
+   * The date & time the `CandidateProfile` was purchased.
+   *
+   * This field has weak ordering guarantees, so it should not be used as a pagination argument.
+   */
+  createDateTime: Scalars['DateTime'];
+  /** The identifier for the `CandidateProfile` that was purchased. */
+  candidateProfileId: Scalars['String'];
+  /**
+   * A page of webhook attempts for the current event matching the specified criteria.
+   *
+   * The result list is returned in ascending creation date & time order.
+   * It starts from the earliest known attempt if no pagination arguments are provided.
+   */
+  webhookAttempts: WebhookAttemptsConnection;
+}
+
+/** The event signaling that a `CandidateProfile` has been purchased. */
+export interface CandidateProfilePurchasedEventWebhookAttemptsArgs {
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  filter?: Maybe<WebhookAttemptsFilterInput>;
+}
+
+/**
  * The criteria to filter events by.
  *
  * These are `Event`-specific extensions on top of the standard pagination arguments `before`, `after`, `first` and `last`.
@@ -2964,142 +3451,4 @@ export interface EventsFilterInput {
    * This will retrieve events from a persistent stream that is not associated with a webhook subscription.
    */
   subscriptionId?: Maybe<Scalars['String']>;
-}
-
-/**
- * Advertisement branding.
- *
- * This can be associated with one or more `PositionProfile`s when they are created.
- */
-export interface AdvertisementBranding {
-  __typename?: 'AdvertisementBranding';
-  /** An opaque identifier for advertisement branding. */
-  id: ObjectIdentifier;
-  /** The advertisement branding name. */
-  name: Scalars['String'];
-  /** A list of images associated with the advertisement branding. */
-  images: Array<AdvertisementBrandingImage>;
-  /** The organization that has the advertisement branding. */
-  hirer: HiringOrganization;
-}
-
-/** A visual representation of advertisement branding. */
-export interface AdvertisementBrandingImage {
-  __typename?: 'AdvertisementBrandingImage';
-  /**
-   * The type of advertisement branding image.
-   *
-   * Currently, only one code is defined:
-   * - `Original` indicates the original advertisement branding image from which other images are derived.
-   */
-  typeCode: Scalars['String'];
-  /**
-   * The URL of the advertisement branding image.
-   *
-   * This can be retrieved to visually identify an advertisement branding in a partner system.
-   */
-  url: Scalars['String'];
-}
-
-/** A page of advertisement brandings for a hirer. */
-export interface AdvertisementBrandingsConnection {
-  __typename?: 'AdvertisementBrandingsConnection';
-  /**
-   * The page of advertisement brandings and their corresponding cursors.
-   *
-   * This list may be empty.
-   */
-  edges: Array<AdvertisementBrandingEdge>;
-  /** The pagination metadata for this page of advertisement brandings. */
-  pageInfo: PageInfo;
-}
-
-export interface AdvertisementBrandingEdge {
-  __typename?: 'AdvertisementBrandingEdge';
-  /**
-   * The opaque cursor to advertisement branding.
-   *
-   * This can be used as a subsequent pagination argument.
-   */
-  cursor: Scalars['String'];
-  /** The actual advertisement branding. */
-  node: AdvertisementBranding;
-}
-
-/**
- * An advertisement template.
- *
- * This can be associated with one or more `PositionProfile`s when they are created or updated.
- */
-export interface AdvertisementTemplate {
-  __typename?: 'AdvertisementTemplate';
-  /** An opaque identifier for the advertisement template. */
-  id: ObjectIdentifier;
-  /** The advertisement template name. */
-  name: Scalars['String'];
-  /**
-   * The URL of the advertisement template preview image.
-   *
-   * This can be retrieved to visually identify the advertisement template in a partner system.
-   */
-  previewImageUrl: Scalars['String'];
-  /**
-   * A list of fields specific to the advertisement template.
-   *
-   * Advertisement fields are placeholders in the advertisement template which are replaced
-   * with the given values when creating or updating one or more `PositionProfile`s.
-   *
-   * This list may be empty.
-   */
-  fields: Array<AdvertisementTemplateField>;
-  /** The organization that has the advertisement template. */
-  hirer: HiringOrganization;
-}
-
-/** A custom field that is rendered as part of the template. */
-export interface AdvertisementTemplateField {
-  __typename?: 'AdvertisementTemplateField';
-  /**
-   * A SEEK-provided key for the field in the advertisement template.
-   *
-   * This can be associated with the advertisement template used when creating or updating one or more `PositionProfile`s.
-   */
-  key: Scalars['String'];
-  /** The advertisement template field name to show to the hirer. */
-  name: Scalars['String'];
-  /**
-   * The input field type.
-   *
-   * This can be used by a partner system to render the appropriate input control.
-   *
-   * Currently, these codes are defined:
-   * - `SingleLineText` indicates a single line of text.
-   * - `MultilineText` indicates multiple lines of text.
-   */
-  inputTypeCode: Scalars['String'];
-}
-
-/** A page of advertisement templates for a hirer. */
-export interface AdvertisementTemplatesConnection {
-  __typename?: 'AdvertisementTemplatesConnection';
-  /**
-   * The page of advertisement templates and their corresponding cursors.
-   *
-   * This list may be empty.
-   */
-  edges: Array<AdvertisementTemplateEdge>;
-  /** The pagination metadata for this page of advertisement templates. */
-  pageInfo: PageInfo;
-}
-
-export interface AdvertisementTemplateEdge {
-  __typename?: 'AdvertisementTemplateEdge';
-  /**
-   * The opaque cursor to the advertisement template.
-   *
-   * This can be used as a subsequent pagination argument.
-   */
-  cursor: Scalars['String'];
-  /** The actual advertisement template. */
-  node: AdvertisementTemplate;
 }

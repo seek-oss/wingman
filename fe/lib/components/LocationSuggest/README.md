@@ -1,6 +1,6 @@
 # LocationSuggest
 
-A Location autocomplete component that can match on full words and substrings resolving a SEEK location. Returns a Location with object identifier on location selection.
+A Location component that can match on full words and substrings or detect the device's current location to resolve a SEEK location. Returns a Location with object identifier on location selection.
 
 ## Installation
 
@@ -10,7 +10,13 @@ $ yarn add wingman-fe
 
 ## Location Suggest Widget
 
+### Autosuggest -
+
 The Location suggest widget abstracts the `locationSuggestions` query on SEEK API and provides an autosuggest input that returns a SEEK location. Read more about underlying [`locationSuggestions` query](https://developer.seek.com/schema/#operation-locationSuggestions).
+
+### Location Detection -
+
+The Location suggest widget abstracts the `nearestLocations` query on SEEK API to resolve a SEEK location using the device's current location. Read more about underlying [`nearestLocations` query](https://developer.seek.com/schema/#operation-nearestLocations).
 
 ### Properties
 

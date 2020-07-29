@@ -42,6 +42,7 @@ import { JobCategorySuggest } from 'wingman-fe';
 
 const positionProfile = {
   positionTitle: "Senior Developer"
+  positionLocation: ['seekAnzPublicTest:location:seek:2FqwWaaMV'],
 }
 
 // Higher component in tree wraps children in apollo provider
@@ -62,7 +63,8 @@ const client = new ApolloClient({
 
 // Increasing the accuracy of results by supplying description
 const positionProfile = {
-  positionTitle: "Senior Developer"
+  positionTitle: "Senior Developer",
+  positionLocation: ['seekAnzPublicTest:location:seek:2FqwWaaMV'],
   positionFormattedDescriptions: [
     {
       descriptionId: "AdvertisementDetails",
