@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.12.0
+
+### Minor Changes
+
+- 7a0cc51: Adds the ability to use geolocation while suggesting locations using `LocationSuggest`
+
 ## 0.11.0
 
 ### Minor Changes
