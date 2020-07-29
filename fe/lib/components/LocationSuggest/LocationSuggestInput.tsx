@@ -4,8 +4,10 @@ import {
   Button,
   Column,
   Columns,
+  FieldMessage,
   IconLocation,
   IconSearch,
+  Stack,
 } from 'braid-design-system';
 import React, { useState } from 'react';
 
@@ -67,9 +69,11 @@ const LocationSuggestInput = ({
     initialLocationSuggest,
   );
 
+  const [navigatorError, setNavigatorError] = useState(false);
+
   const mappedSuggestions = mapLocationsToSuggestions(locationSuggestions);
 
-  const highlightedSuggestions = mappedSuggestions.map((suggestion) => ({
+  const highlightedSuggestions = mappedSuggestions.map(suggestion => ({
     ...suggestion,
     highlights: createHighlights(suggestion.text, locationSuggest.text),
   }));
@@ -81,7 +85,7 @@ const LocationSuggestInput = ({
 
   const handleSelect = (selectedValue: string) => {
     const selectedLocation = locationSuggestions?.find(
-      (locationSuggestion) =>
+      locationSuggestion =>
         locationSuggestion.location.id.value === selectedValue,
     )?.location;
     onSelect(selectedLocation);
@@ -102,45 +106,53 @@ const LocationSuggestInput = ({
   const handleDetectLocationClicked = () => {
     if (navigator.geolocation) {
       setLocationSuggest(initialLocationSuggest);
-      navigator.geolocation.getCurrentPosition((position) =>
-        onDetectLocation({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        }),
+      navigator.geolocation.getCurrentPosition(
+        position =>
+          onDetectLocation({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          }),
+        () => setNavigatorError(true),
       );
     } else {
-      onDetectLocation(
-        new Error('Geolocation is not supported by this browser.'),
-      );
+      setNavigatorError(true);
     }
   };
 
   return (
-    <Columns space="small">
-      <Column>
-        <Autosuggest
-          placeholder={placeholder}
-          icon={<IconSearch />}
-          id="locationSuggestInput"
-          automaticSelection={false}
-          onClear={handleClear}
-          onChange={handleChange}
-          suggestions={highlightedSuggestions}
-          value={locationSuggest}
-          {...restProps}
+    <Stack space="xsmall">
+      <Columns space="small">
+        <Column>
+          <Autosuggest
+            placeholder={placeholder}
+            icon={<IconSearch />}
+            id="locationSuggestInput"
+            automaticSelection={false}
+            onClear={handleClear}
+            onChange={handleChange}
+            suggestions={highlightedSuggestions}
+            value={locationSuggest}
+            {...restProps}
+          />
+        </Column>
+        <Column width="content">
+          <Button
+            loading={isLoading}
+            weight="weak"
+            onClick={handleDetectLocationClicked}
+          >
+            Detect location <IconLocation />
+          </Button>
+        </Column>
+      </Columns>
+      {navigatorError && (
+        <FieldMessage
+          id="navigatorError"
+          message="Could not detect current location"
+          tone="critical"
         />
-      </Column>
-      <Column width="content">
-        <Button
-          loading={isLoading}
-          weight="weak"
-          onClick={handleDetectLocationClicked}
-        >
-          Detect location
-          <IconLocation />
-        </Button>
-      </Column>
-    </Columns>
+      )}
+    </Stack>
   );
 };
 

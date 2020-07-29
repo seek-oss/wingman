@@ -1,9 +1,8 @@
 import { useLazyQuery } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-client';
-import { FieldMessage, TextField } from 'braid-design-system';
+import { FieldMessage, Stack, TextField } from 'braid-design-system';
 import React, {
   ComponentPropsWithRef,
-  Fragment,
   forwardRef,
   useEffect,
   useState,
@@ -148,7 +147,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
     }, [nearestLocationsData]);
 
     return (
-      <Fragment>
+      <Stack space="xsmall">
         <LocationSuggestInput
           isLoading={nearestLocationsLoading}
           onSelect={handleSuggestSelect}
@@ -169,21 +168,14 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
           ref={forwardedRef}
           readOnly
         />
-        {suggestError && (
+        {(suggestError || nearestLocationsError) && (
           <FieldMessage
             id="suggestError"
             message="Error fetching location, please try again"
             tone="critical"
           />
         )}
-        {nearestLocationsError && (
-          <FieldMessage
-            id="nearestLocationsError"
-            message="Error getting locations using current location, please try again"
-            tone="critical"
-          />
-        )}
-      </Fragment>
+      </Stack>
     );
   },
 );
