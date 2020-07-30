@@ -13,6 +13,9 @@ import {
   GeoLocationInput,
   Location,
   LocationSuggestion,
+  Maybe,
+  QueryLocationSuggestionsArgs,
+  QueryNearestLocationsArgs,
 } from '../../types/seek.graphql';
 
 import LocationSuggestInput from './LocationSuggestInput';
@@ -48,7 +51,10 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
     const [
       getLocationSuggest,
       { data: suggestData, error: suggestError },
-    ] = useLazyQuery(LOCATION_SUGGEST, {
+    ] = useLazyQuery<
+      { locationSuggestions: Maybe<Array<LocationSuggestion>> },
+      QueryLocationSuggestionsArgs
+    >(LOCATION_SUGGEST, {
       ...(client && { client }),
       fetchPolicy: 'no-cache',
     });
@@ -60,7 +66,10 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
         error: nearestLocationsError,
         loading: nearestLocationsLoading,
       },
-    ] = useLazyQuery(NEAREST_LOCATIONS, {
+    ] = useLazyQuery<
+      { nearestLocations: Maybe<Array<Location>> },
+      QueryNearestLocationsArgs
+    >(NEAREST_LOCATIONS, {
       ...(client && { client }),
       fetchPolicy: 'no-cache',
     });
@@ -77,7 +86,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       debounceDelay,
     );
 
-    const handleSuggestSelect = (selectedLocation?: Location) => {
+    const handleLocationSelect = (selectedLocation?: Location) => {
       if (onSelect) {
         onSelect(selectedLocation);
       }
@@ -86,16 +95,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       }
     };
 
-    const handleDetectLocationClicked = (input: GeoLocationInput | Error) => {
-      if (input instanceof Error) {
-        return (
-          <FieldMessage
-            id="nearestLocationsError"
-            message={input.message}
-            tone="critical"
-          />
-        );
-      }
+    const handleDetectLocationClicked = (input: GeoLocationInput) => {
       nearestLocations({
         variables: {
           schemeId,
@@ -132,25 +132,29 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
     }, [suggestData]);
 
     useEffect(() => {
-      if (nearestLocationsData) {
+      if (nearestLocationsData && nearestLocationsData.nearestLocations) {
         // The closest SEEK location returned for the geolocation input
         const closestLocation = nearestLocationsData.nearestLocations[0];
 
-        const {
-          contextualName,
-          id: { value },
-        } = closestLocation;
+        const { contextualName } = closestLocation;
 
         setPlaceholder(contextualName);
-        setSelectedLocationId(value);
+
+        if (onSelect) {
+          onSelect(closestLocation);
+        }
+
+        if (closestLocation?.id?.value) {
+          setSelectedLocationId(closestLocation.id.value);
+        }
       }
-    }, [nearestLocationsData]);
+    }, [nearestLocationsData, onSelect]);
 
     return (
       <Stack space="xsmall">
         <LocationSuggestInput
           isLoading={nearestLocationsLoading}
-          onSelect={handleSuggestSelect}
+          onSelect={handleLocationSelect}
           onDetectLocation={handleDetectLocationClicked}
           onClear={() => {
             setSelectedLocationId('');
