@@ -139,16 +139,10 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
         const { contextualName } = closestLocation;
 
         setPlaceholder(contextualName);
-
-        if (onSelect) {
-          onSelect(closestLocation);
-        }
-
-        if (closestLocation?.id?.value) {
-          setSelectedLocationId(closestLocation.id.value);
-        }
+        handleLocationSelect(closestLocation);
       }
-    }, [nearestLocationsData, onSelect]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [nearestLocationsData]);
 
     return (
       <Stack space="xsmall">
