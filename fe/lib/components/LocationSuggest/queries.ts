@@ -66,8 +66,12 @@ export const LOCATION_SUGGEST = gql`
 `;
 
 export const NEAREST_LOCATIONS = gql`
-  query($input: QueryNearestLocationsArgs!) {
-    nearestLocations(input: $input) {
+  query($schemeId: String!, $geoLocation: GeoLocationInput!, $first: Int) {
+    nearestLocations(
+      schemeId: $schemeId
+      geoLocation: $geoLocation
+      first: $first
+    ) {
       ...nestedLocationAttributes
     }
   }
