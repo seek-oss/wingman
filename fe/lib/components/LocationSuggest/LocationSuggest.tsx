@@ -132,7 +132,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
     }, [suggestData]);
 
     useEffect(() => {
-      if (nearestLocationsData && nearestLocationsData.nearestLocations) {
+      if (nearestLocationsData?.nearestLocations) {
         // The closest SEEK location returned for the geolocation input
         const closestLocation = nearestLocationsData.nearestLocations[0];
 
