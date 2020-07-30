@@ -44,7 +44,7 @@ interface Props {
   onSelect: (location?: Location) => void;
   onChange: (textInput: string) => void;
   onClear: () => void;
-  onDetectLocation: (input: GeoLocationInput | Error) => void;
+  onDetectLocation: (input: GeoLocationInput) => void;
   locationSuggestions?: LocationSuggestion[];
   placeholder: string;
   isLoading: boolean;
@@ -121,7 +121,7 @@ const LocationSuggestInput = ({
 
   return (
     <Stack space="xsmall">
-      <Columns space="small">
+      <Columns space="small" alignY="bottom">
         <Column>
           <Autosuggest
             placeholder={placeholder}
