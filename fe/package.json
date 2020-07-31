@@ -37,9 +37,7 @@
     "sku": "10.5.0",
     "use-query-params": "1.1.6"
   },
-  "files": [
-    "lib"
-  ],
+  "files": ["lib"],
   "homepage": "https://github.com/seek-oss/wingman#readme",
   "license": "MIT",
   "main": "lib/index.ts",
@@ -65,5 +63,5 @@
     "start-storybook": "sku storybook",
     "test": "sku test"
   },
-  "version": "0.12.0"
+  "version": "0.13.0"
 }
