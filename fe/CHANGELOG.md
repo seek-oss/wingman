@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.13.0
+
+### Minor Changes
+
+- 6791783: Type LocationSuggest queries and variables and fix bugs while getting nearest locations
+
 ## 0.12.0
 
 ### Minor Changes
