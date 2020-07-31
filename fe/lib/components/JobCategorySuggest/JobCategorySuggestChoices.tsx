@@ -46,14 +46,14 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
           const { id } = jobCategory;
           return (
             <Radio
+              {...restProps}
               key={id.value}
               checked={id.value === selectedJobCategory?.id.value}
               onChange={() => handleChoiceSelect(choice)}
               value={id.value}
-              id={id.value}
               label={getJobCategoryName(jobCategory)}
               ref={forwardedRef}
-              {...restProps}
+              id={id.value}
             >
               {showConfidence && (
                 <Text tone="secondary" size="small">
