@@ -1,8 +1,12 @@
 generates:
   ./fe/lib/types/seek.graphql.ts:
     schema: ${SEEK_SCHEMA_PATH:https://graphql.seek.com/graphql}
+    documents:
+      - fe/lib/components/LocationSuggest/queries.ts
     plugins:
       - typescript
+      - typescript-operations
+
   ./fe/lib/types/seekFragmentTypes.ts:
     schema: ${SEEK_SCHEMA_PATH:https://graphql.seek.com/graphql}
     plugins:

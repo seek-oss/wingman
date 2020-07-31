@@ -3452,3 +3452,74 @@ export interface EventsFilterInput {
    */
   subscriptionId?: Maybe<Scalars['String']>;
 }
+
+export type LocationAttributesFragment = { __typename?: 'Location' } & Pick<
+  Location,
+  'name' | 'contextualName' | 'countryCode'
+> & {
+    id: { __typename?: 'ObjectIdentifier' } & Pick<ObjectIdentifier, 'value'>;
+  };
+
+export type NestedLocationAttributesFragment = { __typename?: 'Location' } & {
+  parent?: Maybe<
+    { __typename?: 'Location' } & {
+      parent?: Maybe<
+        { __typename?: 'Location' } & {
+          parent?: Maybe<
+            { __typename?: 'Location' } & {
+              parent?: Maybe<
+                { __typename?: 'Location' } & {
+                  parent?: Maybe<
+                    { __typename?: 'Location' } & LocationAttributesFragment
+                  >;
+                } & LocationAttributesFragment
+              >;
+            } & LocationAttributesFragment
+          >;
+        } & LocationAttributesFragment
+      >;
+    } & LocationAttributesFragment
+  >;
+} & LocationAttributesFragment;
+
+export type LocationQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+export type LocationQuery = { __typename?: 'Query' } & {
+  location?: Maybe<
+    { __typename?: 'Location' } & NestedLocationAttributesFragment
+  >;
+};
+
+export type SuggestLocationsQueryVariables = Exact<{
+  usageTypeCode: Scalars['String'];
+  schemeId: Scalars['String'];
+  hirerId?: Maybe<Scalars['String']>;
+  text: Scalars['String'];
+  first?: Maybe<Scalars['Int']>;
+}>;
+
+export type SuggestLocationsQuery = { __typename?: 'Query' } & {
+  locationSuggestions?: Maybe<
+    Array<
+      { __typename?: 'LocationSuggestion' } & {
+        location: {
+          __typename?: 'Location';
+        } & NestedLocationAttributesFragment;
+      }
+    >
+  >;
+};
+
+export type NearestLocationsQueryVariables = Exact<{
+  schemeId: Scalars['String'];
+  geoLocation: GeoLocationInput;
+  first?: Maybe<Scalars['Int']>;
+}>;
+
+export type NearestLocationsQuery = { __typename?: 'Query' } & {
+  nearestLocations?: Maybe<
+    Array<{ __typename?: 'Location' } & NestedLocationAttributesFragment>
+  >;
+};

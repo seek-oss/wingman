@@ -13,6 +13,10 @@ import {
   GeoLocationInput,
   Location,
   LocationSuggestion,
+  NearestLocationsQuery,
+  NearestLocationsQueryVariables,
+  SuggestLocationsQuery,
+  SuggestLocationsQueryVariables,
 } from '../../types/seek.graphql';
 
 import LocationSuggestInput from './LocationSuggestInput';
@@ -48,10 +52,13 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
     const [
       getLocationSuggest,
       { data: suggestData, error: suggestError },
-    ] = useLazyQuery(LOCATION_SUGGEST, {
-      ...(client && { client }),
-      fetchPolicy: 'no-cache',
-    });
+    ] = useLazyQuery<SuggestLocationsQuery, SuggestLocationsQueryVariables>(
+      LOCATION_SUGGEST,
+      {
+        ...(client && { client }),
+        fetchPolicy: 'no-cache',
+      },
+    );
 
     const [
       nearestLocations,
@@ -60,10 +67,13 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
         error: nearestLocationsError,
         loading: nearestLocationsLoading,
       },
-    ] = useLazyQuery(NEAREST_LOCATIONS, {
-      ...(client && { client }),
-      fetchPolicy: 'no-cache',
-    });
+    ] = useLazyQuery<NearestLocationsQuery, NearestLocationsQueryVariables>(
+      NEAREST_LOCATIONS,
+      {
+        ...(client && { client }),
+        fetchPolicy: 'no-cache',
+      },
+    );
 
     const [selectedLocationId, setSelectedLocationId] = useState('');
     const [locationSuggestInput, setLocationSuggestInput] = useState('');
@@ -77,7 +87,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       debounceDelay,
     );
 
-    const handleSuggestSelect = (selectedLocation?: Location) => {
+    const handleLocationSelect = (selectedLocation?: Location) => {
       if (onSelect) {
         onSelect(selectedLocation);
       }
@@ -86,16 +96,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       }
     };
 
-    const handleDetectLocationClicked = (input: GeoLocationInput | Error) => {
-      if (input instanceof Error) {
-        return (
-          <FieldMessage
-            id="nearestLocationsError"
-            message={input.message}
-            tone="critical"
-          />
-        );
-      }
+    const handleDetectLocationClicked = (input: GeoLocationInput) => {
       nearestLocations({
         variables: {
           schemeId,
@@ -132,25 +133,23 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
     }, [suggestData]);
 
     useEffect(() => {
-      if (nearestLocationsData) {
+      if (nearestLocationsData?.nearestLocations) {
         // The closest SEEK location returned for the geolocation input
         const closestLocation = nearestLocationsData.nearestLocations[0];
 
-        const {
-          contextualName,
-          id: { value },
-        } = closestLocation;
+        const { contextualName } = closestLocation;
 
         setPlaceholder(contextualName);
-        setSelectedLocationId(value);
+        handleLocationSelect(closestLocation);
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [nearestLocationsData]);
 
     return (
       <Stack space="xsmall">
         <LocationSuggestInput
           isLoading={nearestLocationsLoading}
-          onSelect={handleSuggestSelect}
+          onSelect={handleLocationSelect}
           onDetectLocation={handleDetectLocationClicked}
           onClear={() => {
             setSelectedLocationId('');
