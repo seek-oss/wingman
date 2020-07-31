@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.13.1
+
+### Patch Changes
+
+- b950182: Fixes JobCategorySuggest radio checklist's ID being overwritten. This would prevent a user from clicking the radio label to change their selection.
+
 ## 0.13.0
 
 ### Minor Changes
