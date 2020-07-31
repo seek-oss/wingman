@@ -13,9 +13,10 @@ import {
   GeoLocationInput,
   Location,
   LocationSuggestion,
-  Maybe,
-  QueryLocationSuggestionsArgs,
-  QueryNearestLocationsArgs,
+  NearestLocationsQuery,
+  NearestLocationsQueryVariables,
+  SuggestLocationsQuery,
+  SuggestLocationsQueryVariables,
 } from '../../types/seek.graphql';
 
 import LocationSuggestInput from './LocationSuggestInput';
@@ -51,13 +52,13 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
     const [
       getLocationSuggest,
       { data: suggestData, error: suggestError },
-    ] = useLazyQuery<
-      { locationSuggestions: Maybe<Array<LocationSuggestion>> },
-      QueryLocationSuggestionsArgs
-    >(LOCATION_SUGGEST, {
-      ...(client && { client }),
-      fetchPolicy: 'no-cache',
-    });
+    ] = useLazyQuery<SuggestLocationsQuery, SuggestLocationsQueryVariables>(
+      LOCATION_SUGGEST,
+      {
+        ...(client && { client }),
+        fetchPolicy: 'no-cache',
+      },
+    );
 
     const [
       nearestLocations,
@@ -66,13 +67,13 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
         error: nearestLocationsError,
         loading: nearestLocationsLoading,
       },
-    ] = useLazyQuery<
-      { nearestLocations: Maybe<Array<Location>> },
-      QueryNearestLocationsArgs
-    >(NEAREST_LOCATIONS, {
-      ...(client && { client }),
-      fetchPolicy: 'no-cache',
-    });
+    ] = useLazyQuery<NearestLocationsQuery, NearestLocationsQueryVariables>(
+      NEAREST_LOCATIONS,
+      {
+        ...(client && { client }),
+        fetchPolicy: 'no-cache',
+      },
+    );
 
     const [selectedLocationId, setSelectedLocationId] = useState('');
     const [locationSuggestInput, setLocationSuggestInput] = useState('');
