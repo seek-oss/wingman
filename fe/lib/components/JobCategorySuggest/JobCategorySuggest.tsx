@@ -19,7 +19,7 @@ import { JOB_CATEGORY_SUGGESTION } from './queries';
 
 interface RadioProps extends ComponentPropsWithRef<typeof Radio> {}
 
-interface Props extends Partial<RadioProps> {
+interface Props extends Partial<Omit<RadioProps, 'id'>> {
   client?: ApolloClient<unknown>;
   schemeId: string;
   debounceDelay?: number;
