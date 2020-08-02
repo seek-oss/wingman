@@ -3,7 +3,7 @@
     "url": "https://github.com/seek-oss/wingman/issues"
   },
   "dependencies": {
-    "@apollo/react-hooks": "^3.1.5",
+    "@apollo/react-hooks": "^4.0.0",
     "@hookform/resolvers": "^0.1.0",
     "@types/uuid": "^8.0.0",
     "@types/yup": "^0.29.2",
