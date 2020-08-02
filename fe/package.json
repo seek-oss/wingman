@@ -33,11 +33,13 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-router-dom": "5.2.0",
-    "scoobie": "3.9.4",
+    "scoobie": "3.11.0",
     "sku": "10.5.0",
     "use-query-params": "1.1.6"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "homepage": "https://github.com/seek-oss/wingman#readme",
   "license": "MIT",
   "main": "lib/index.ts",
