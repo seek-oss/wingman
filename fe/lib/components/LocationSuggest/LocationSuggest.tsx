@@ -1,5 +1,4 @@
-import { useLazyQuery } from '@apollo/react-hooks';
-import ApolloClient from 'apollo-client';
+import { ApolloClient, useLazyQuery } from '@apollo/client';
 import { FieldMessage, Stack, TextField } from 'braid-design-system';
 import React, {
   ComponentPropsWithRef,
@@ -57,6 +56,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       {
         ...(client && { client }),
         fetchPolicy: 'no-cache',
+        ssr: false,
       },
     );
 
@@ -72,6 +72,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       {
         ...(client && { client }),
         fetchPolicy: 'no-cache',
+        ssr: false,
       },
     );
 

@@ -1,3 +1,5 @@
+const { merge } = require('webpack-merge');
+
 const isGitHubPages = Boolean(process.env.IS_GITHUB_PAGES);
 
 module.exports = {
@@ -40,4 +42,20 @@ module.exports = {
       ],
     },
   }),
+
+  dangerouslySetWebpackConfig: (skuWebpackConfig) =>
+    merge(skuWebpackConfig, {
+      module: {
+        rules: [
+          {
+            test: /\.graphql?$/i,
+            use: [
+              {
+                loader: 'raw-loader',
+              },
+            ],
+          },
+        ],
+      },
+    }),
 };

@@ -52,7 +52,7 @@ const positionProfile = {
 #### Default usage with Apollo Client
 
 ```javascript
-import { ApolloClient } from 'apollo-client';
+import { ApolloClient } from '@apollo/client';
 import { JobCategorySuggest } from 'wingman-fe';
 
 // cache and link set-up as required

@@ -1,5 +1,4 @@
-import { useLazyQuery } from '@apollo/react-hooks';
-import ApolloClient from 'apollo-client';
+import { ApolloClient, useLazyQuery } from '@apollo/client';
 import { FieldMessage, Loader, Radio, Stack, Text } from 'braid-design-system';
 import React, {
   ComponentProps,
@@ -50,6 +49,7 @@ export const JobCategorySuggest = forwardRef<HTMLInputElement, Props>(
     ] = useLazyQuery(JOB_CATEGORY_SUGGESTION, {
       client,
       fetchPolicy: 'no-cache',
+      ssr: false,
     });
 
     const [debounceJobCategorySuggestInput] = useDebounce(

@@ -1,35 +1,32 @@
 import 'braid-design-system/reset';
 
 import { Box, BraidLoadableProvider } from 'braid-design-system';
-import { createMockClient } from 'mock-apollo-client';
 import React from 'react';
-import { ApolloProvider } from 'react-apollo';
 import { storiesOf } from 'sku/@storybook/react';
+
+import { ApolloMockProvider } from '../../testing/ApolloMockProvider';
 
 import { LocationSuggest } from './LocationSuggest';
 import { mockLocationSuggest } from './__fixtures__/locationSuggest';
 import { mockNearestLocations } from './__fixtures__/nearestLocations';
-import { LOCATION_SUGGEST, NEAREST_LOCATIONS } from './queries';
-
-const mockClient = createMockClient();
-
-mockClient.setRequestHandler(LOCATION_SUGGEST, () =>
-  Promise.resolve({ data: mockLocationSuggest }),
-);
-mockClient.setRequestHandler(NEAREST_LOCATIONS, () =>
-  Promise.resolve({ data: mockNearestLocations }),
-);
 
 storiesOf('Locations', module)
   .add('Locations Suggest', () => (
     <LocationSuggest id="locationSuggest" schemeId="seekAnz" />
   ))
   .addDecorator((story) => (
-    <ApolloProvider client={mockClient}>
+    <ApolloMockProvider
+      resolvers={{
+        Query: {
+          nearestLocations: () => mockNearestLocations,
+          locationSuggestions: () => mockLocationSuggest,
+        },
+      }}
+    >
       <BraidLoadableProvider themeName="apac">
         <Box paddingX="gutter" paddingY="large">
           {story()}
         </Box>
       </BraidLoadableProvider>
-    </ApolloProvider>
+    </ApolloMockProvider>
   ));

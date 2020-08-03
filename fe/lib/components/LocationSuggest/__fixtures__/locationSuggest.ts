@@ -1,90 +1,88 @@
-export const mockLocationSuggest = {
-  locationSuggestions: [
-    {
-      location: {
+export const mockLocationSuggest = [
+  {
+    location: {
+      id: {
+        value: 'seekAnz:location:seek:2FqwWaaMV',
+      },
+      name: 'Melbourne',
+      contextualName: 'Melbourne VIC 3000 AU',
+      countryCode: 'AU',
+      parent: {
         id: {
-          value: 'seekAnz:location:seek:2FqwWaaMV',
+          value: 'seekAnz:location:seek:2m81wybwV',
         },
-        name: 'Melbourne',
-        contextualName: 'Melbourne VIC 3000 AU',
+        name: 'CBD & Inner Suburbs',
+        contextualName: 'CBD & Inner Suburbs, Melbourne VIC AU',
         countryCode: 'AU',
         parent: {
           id: {
-            value: 'seekAnz:location:seek:2m81wybwV',
+            value: 'seekAnz:location:seek:31XoHiay5',
           },
-          name: 'CBD & Inner Suburbs',
-          contextualName: 'CBD & Inner Suburbs, Melbourne VIC AU',
+          name: 'Melbourne',
+          contextualName: 'Melbourne VIC AU',
           countryCode: 'AU',
           parent: {
             id: {
-              value: 'seekAnz:location:seek:31XoHiay5',
+              value: 'seekAnz:location:seek:HxMS1gfR',
             },
-            name: 'Melbourne',
-            contextualName: 'Melbourne VIC AU',
+            name: 'Victoria',
+            contextualName: 'Victoria AU',
             countryCode: 'AU',
             parent: {
               id: {
-                value: 'seekAnz:location:seek:HxMS1gfR',
+                value: 'seekAnz:location:seek:2aeax6diF',
               },
-              name: 'Victoria',
-              contextualName: 'Victoria AU',
+              name: 'Australia',
+              contextualName: 'Australia',
               countryCode: 'AU',
-              parent: {
-                id: {
-                  value: 'seekAnz:location:seek:2aeax6diF',
-                },
-                name: 'Australia',
-                contextualName: 'Australia',
-                countryCode: 'AU',
-                parent: null,
-              },
+              parent: null,
             },
           },
         },
       },
     },
-    {
-      location: {
+  },
+  {
+    location: {
+      id: {
+        value: 'seekAnz:location:seek:2vArzkyio',
+      },
+      name: 'Sydney',
+      contextualName: 'Sydney NSW 1001 AU',
+      countryCode: 'AU',
+      parent: {
         id: {
-          value: 'seekAnz:location:seek:2vArzkyio',
+          value: 'seekAnz:location:seek:2QCxeiwmR',
         },
-        name: 'Sydney',
-        contextualName: 'Sydney NSW 1001 AU',
+        name: 'CBD, Inner West & Eastern Suburbs',
+        contextualName: 'CBD, Inner West & Eastern Suburbs, Sydney NSW AU',
         countryCode: 'AU',
         parent: {
           id: {
-            value: 'seekAnz:location:seek:2QCxeiwmR',
+            value: 'seekAnz:location:seek:2zY2wZbuq',
           },
-          name: 'CBD, Inner West & Eastern Suburbs',
-          contextualName: 'CBD, Inner West & Eastern Suburbs, Sydney NSW AU',
+          name: 'Sydney',
+          contextualName: 'Sydney NSW AU',
           countryCode: 'AU',
           parent: {
             id: {
-              value: 'seekAnz:location:seek:2zY2wZbuq',
+              value: 'seekAnz:location:seek:FTwZdE2K',
             },
-            name: 'Sydney',
-            contextualName: 'Sydney NSW AU',
+            name: 'New South Wales',
+            contextualName: 'New South Wales AU',
             countryCode: 'AU',
             parent: {
               id: {
-                value: 'seekAnz:location:seek:FTwZdE2K',
+                value: 'seekAnz:location:seek:2aeax6diF',
               },
-              name: 'New South Wales',
-              contextualName: 'New South Wales AU',
+              name: 'Australia',
+              contextualName: 'Australia',
               countryCode: 'AU',
-              parent: {
-                id: {
-                  value: 'seekAnz:location:seek:2aeax6diF',
-                },
-                name: 'Australia',
-                contextualName: 'Australia',
-                countryCode: 'AU',
-                parent: null,
-              },
+              parent: null,
             },
           },
         },
       },
     },
-  ],
-};
+  },
+];

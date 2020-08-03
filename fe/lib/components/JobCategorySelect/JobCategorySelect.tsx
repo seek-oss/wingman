@@ -1,5 +1,4 @@
-import { useQuery } from '@apollo/react-hooks';
-import ApolloClient from 'apollo-client';
+import { ApolloClient, useQuery } from '@apollo/client';
 import {
   Dropdown,
   FieldMessage,
@@ -36,6 +35,7 @@ export const JobCategorySelect = forwardRef<HTMLInputElement, Props>(
     } = useQuery(JOB_CATEGORIES, {
       ...(client && { client }),
       fetchPolicy: 'no-cache',
+      ssr: false,
       variables: {
         schemeId,
       },
