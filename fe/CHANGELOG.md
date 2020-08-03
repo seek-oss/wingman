@@ -1,5 +1,17 @@
 # wingman-fe
 
+## 0.14.0
+
+### Minor Changes
+
+- d89e63e: **deps:** Apollo Client 3
+
+  Breaking: widgets require an Apollo Client 3 instance to be passed in.
+
+### Patch Changes
+
+- d89e63e: Avoid GraphQL queries during SSR
+
 ## 0.13.1
 
 ### Patch Changes
