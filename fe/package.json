@@ -34,9 +34,7 @@
     "use-query-params": "1.1.6",
     "webpack-merge": "5.1.0"
   },
-  "files": [
-    "lib"
-  ],
+  "files": ["lib"],
   "homepage": "https://github.com/seek-oss/wingman#readme",
   "license": "MIT",
   "main": "lib/index.ts",
@@ -62,5 +60,5 @@
     "start-storybook": "sku storybook",
     "test": "sku test"
   },
-  "version": "0.13.1"
+  "version": "0.14.0"
 }
