@@ -1,5 +1,7 @@
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
 /** All built-in and custom scalars, mapped to their actual values */
 export interface Scalars {
   ID: string;
@@ -1321,7 +1323,13 @@ export interface ApplicationMethodInput {
    *
    * When this is provided, SEEK's native apply form will be disabled and the candidate will be redirected to the supplied URL.
    */
-  applicationUri: WebUrlInput;
+  applicationUri?: Maybe<WebUrlInput>;
+  /**
+   * The email address to direct candidate applications to.
+   *
+   * This is deprecated; Do not use this field. This has been replaced by application export.
+   */
+  applicationEmail?: Maybe<EmailInput>;
 }
 
 /** The input parameter for the `closePostedPositionProfile` mutation. */
@@ -2226,15 +2234,29 @@ export interface UpdatePositionOpeningPersonContactsPayload {
 /** The output of the `updatePostedPositionProfile` mutation. */
 export interface UpdatePostedPositionProfilePayload {
   __typename?: 'UpdatePostedPositionProfilePayload';
+  /** Attributes of the updated position profile. */
+  positionProfile: UpdatePostedPositionProfilePositionProfilePayload;
+}
+
+/** Attributes of the updated position profile. */
+export interface UpdatePostedPositionProfilePositionProfilePayload {
+  __typename?: 'UpdatePostedPositionProfile_PositionProfilePayload';
   /** The identifier of the updated posted position profile. */
-  id: ObjectIdentifier;
+  profileId: ObjectIdentifier;
 }
 
 /** The output of the `closePostedPositionProfile` mutation. */
 export interface ClosePostedPositionProfilePayload {
   __typename?: 'ClosePostedPositionProfilePayload';
+  /** Attributes of the closed position profile. */
+  positionProfile: ClosePostedPositionProfilePositionProfilePayload;
+}
+
+/** Attributes of the closed position profile. */
+export interface ClosePostedPositionProfilePositionProfilePayload {
+  __typename?: 'ClosePostedPositionProfile_PositionProfilePayload';
   /** The identifier of the closed posted position profile. */
-  id: ObjectIdentifier;
+  profileId: ObjectIdentifier;
 }
 
 /** The output parameter for the `updateUnpostedPositionProfile` mutation. */
@@ -2529,7 +2551,12 @@ export interface ApplicationMethod {
    *
    * When this is provided, SEEK's native apply form will be disabled and the candidate will be redirected to the supplied URL.
    */
-  applicationUri: WebUrl;
+  applicationUri?: Maybe<WebUrl>;
+  /**
+   * The email address to direct candidate applications to.
+   * @deprecated Do not use this field. This has been replaced by application export.
+   */
+  applicationEmail?: Maybe<Email>;
 }
 
 /** A collection of information about the video to display alongside advertisement details. */
@@ -2563,6 +2590,15 @@ export interface PositionOpeningsFilterInput {
    * - `Closed` indicates the position opening has been closed.
    */
   statusCode?: Maybe<Scalars['String']>;
+}
+
+/** An action that can be executed as part of a workflow process. */
+export interface ProcessAction {
+  __typename?: 'ProcessAction';
+  /** The code of the action. */
+  code: Scalars['String'];
+  /** A deep link to the action. */
+  seekUrl?: Maybe<WebUrl>;
 }
 
 /** Information about a person not specific to a candidate profile. */
@@ -2753,14 +2789,32 @@ export interface PersonCompetency {
   competencyName: Scalars['String'];
 }
 
-/** Structured information about a candidate related to a particular application. */
+/** A source from which the candidate was obtained from. */
+export interface CandidateSource {
+  __typename?: 'CandidateSource';
+  /** Free text description of the source. */
+  name: Scalars['String'];
+  /**
+   * The grouping that the source falls under.
+   *
+   * Currently, two types are defined:
+   *
+   * - `PartnerUpload` indicates that the candidate was uploaded to SEEK from a
+   *   partner system.
+   * - `SeekApplication` indicates that the candidate applied for a position on
+   *   the SEEK candidate site.
+   */
+  type: Scalars['String'];
+}
+
+/** Structured information about a candidate in relation to a particular position. */
 export interface CandidateProfile {
   __typename?: 'CandidateProfile';
   /**
-   * The `Candidate` that submitted this application.
+   * The `Candidate` that this profile relates to.
    *
-   * This contains the candidate's personal details along with all their
-   * applications to the same hirer.
+   * This contains the candidate's personal details along with all their profiles
+   * for the same hirer.
    */
   candidate: Candidate;
   /**
@@ -2770,7 +2824,7 @@ export interface CandidateProfile {
    * to `candidateProfile`.
    */
   profileId: ObjectIdentifier;
-  /** The date & time the candidate applied for the position. */
+  /** The date & time the candidate was associated with the position. */
   createDateTime: Scalars['DateTime'];
   /** The positions this candidate has applied for. */
   associatedPositionOpenings: Array<AssociatedPositionOpening>;
@@ -2782,6 +2836,12 @@ export interface CandidateProfile {
   education: Array<EducationAttendance>;
   /** The skills or competencies of the candidate. */
   qualifications: Array<PersonCompetency>;
+  /** The sources from which the candidate was obtained from. */
+  candidateSources: Array<CandidateSource>;
+  /** The date & time the candidate profile was last updated. */
+  updateDateTime: Scalars['DateTime'];
+  /** A list of executable actions linked to the candidate profile. */
+  seekActions: Array<ProcessAction>;
   /** The completed candidate submission for the position profile's questionnaire. */
   seekQuestionnaireSubmission?: Maybe<ApplicationQuestionnaireSubmission>;
 }

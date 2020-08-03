@@ -14,6 +14,13 @@ generates:
     config:
       module: es2015
 
+  ./fe/lib/types/seekSchema.graphql:
+    schema: ${SEEK_SCHEMA_PATH:https://graphql.seek.com/graphql}
+    plugins:
+      - schema-ast
+    config:
+      includeDirectives: true
+
 config:
   scalars:
     DateTime: string

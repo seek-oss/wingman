@@ -51,7 +51,7 @@ import { LocationSuggest } from 'wingman-fe';
 #### Default usage with Apollo Client
 
 ```javascript
-import { ApolloClient } from 'apollo-client';
+import { ApolloClient } from '@apollo/client';
 import { LocationSuggest } from 'wingman-fe';
 
 // cache and link set-up as required

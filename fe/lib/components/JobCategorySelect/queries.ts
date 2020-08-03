@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import { gql } from '@apollo/client';
 
 const JOB_CATEGORY_ATTRIBUTES = gql`
   fragment jobCategoryAttributes on JobCategory {

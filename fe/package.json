@@ -3,15 +3,13 @@
     "url": "https://github.com/seek-oss/wingman/issues"
   },
   "dependencies": {
-    "@apollo/react-hooks": "^3.1.5",
+    "@apollo/client": "^3.1.1",
     "@hookform/resolvers": "^0.1.0",
     "@types/uuid": "^8.0.0",
     "@types/yup": "^0.29.2",
-    "apollo-boost": "^0.4.9",
     "autosuggest-highlight": "^3.1.1",
     "content-disposition": "^0.5.3",
     "graphql": "^15.0.0",
-    "react-apollo": "^3.1.5",
     "react-hook-form": "^6.0.2",
     "runtypes": "^5.0.0",
     "use-debounce": "^3.4.2",
@@ -19,7 +17,6 @@
     "yup": "^0.29.1"
   },
   "devDependencies": {
-    "@graphql-codegen/typescript-operations": "1.17.6",
     "@testing-library/react": "10.4.7",
     "@types/faker": "4.1.12",
     "@types/react": "16.9.43",
@@ -28,14 +25,14 @@
     "classnames": "2.2.6",
     "date-fns": "2.15.0",
     "faker": "4.1.0",
-    "graphql-tools": "6.0.15",
-    "mock-apollo-client": "0.4.0",
+    "@graphql-tools/schema": "6.0.15",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-router-dom": "5.2.0",
     "scoobie": "3.11.0",
     "sku": "10.5.0",
-    "use-query-params": "1.1.6"
+    "use-query-params": "1.1.6",
+    "webpack-merge": "5.1.0"
   },
   "files": [
     "lib"
