@@ -1,5 +1,11 @@
 # wingman-be
 
+## 0.2.2
+
+### Patch Changes
+
+- 552529c: Release updated package.json with correct main file path
+
 ## 0.2.1
 
 ### Patch Changes

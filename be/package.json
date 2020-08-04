@@ -56,5 +56,5 @@
     "version": "3.7.3"
   },
   "types": "./lib/index.d.ts",
-  "version": "0.2.1"
+  "version": "0.2.2"
 }
