@@ -26,6 +26,6 @@
     "@graphql-codegen/typescript": "1.17.7",
     "@graphql-codegen/typescript-operations": "1.17.7",
     "graphql": "15.3.0",
-    "skuba": "3.7.6"
+    "skuba": "3.7.7"
   }
 }
