@@ -1,5 +1,12 @@
 # wingman-fe
 
+## 0.14.1
+
+### Patch Changes
+
+- 9109456: **deps:** require braid-design-system@29
+- 9109456: **deps:** require scoobie@4
+
 ## 0.14.0
 
 ### Minor Changes
