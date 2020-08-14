@@ -46,7 +46,7 @@ export const FormBuilderQueryInput = ({
         <Card>
           <Stack space="gutter">
             <Textarea
-              label="Graphql Variables"
+              label="GraphQL Input"
               id="id"
               lineLimit={10}
               value={input}

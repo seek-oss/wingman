@@ -37,11 +37,11 @@ export const QuestionnaireBuilder = ({
   const [hirerId, setHirerId] = useState(externalHirerId ?? '');
 
   useEffect(() => {
-    setFormBuilderState(
-      graphqlInputVariables
-        ? mapMutationVariableToFormComponent(graphqlInputVariables)
-        : [],
-    );
+    if (graphqlInputVariables) {
+      setFormBuilderState(
+        mapMutationVariableToFormComponent(graphqlInputVariables),
+      );
+    }
   }, [graphqlInputVariables]);
 
   useEffect(() => {
