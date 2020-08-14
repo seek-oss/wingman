@@ -25,7 +25,7 @@ const mapQuestion = (component: ApplicationQuestion): Question => ({
   componentTypeCode: 'Question',
   questionHtml: component.questionHtml,
   responseChoice: component.responseChoice
-    ? component.responseChoice.map(r => ({
+    ? component.responseChoice.map((r) => ({
         text: r.text,
         value: r.id.value,
         preferredIndicator: r.preferredIndicator,
@@ -38,7 +38,7 @@ const mapQuestion = (component: ApplicationQuestion): Question => ({
 export const mapApplicationQuestionnaireToFormComponent = (
   components: ApplicationQuestionnaireComponent[],
 ): FormComponent[] =>
-  components.map(component =>
+  components.map((component) =>
     component.componentTypeCode === 'PrivacyConsent'
       ? mapPrivacyConsent(component as ApplicationPrivacyConsent)
       : mapQuestion(component as ApplicationQuestion),
@@ -49,7 +49,7 @@ export const mapMutationVariableToFormComponent = (
 ): FormComponent[] => {
   const components = graphqlInput.input.applicationQuestionnaire.components;
 
-  return components.map(component =>
+  return components.map((component) =>
     component.componentTypeCode === 'PrivacyConsent'
       ? component.privacyConsent
       : component.question,
