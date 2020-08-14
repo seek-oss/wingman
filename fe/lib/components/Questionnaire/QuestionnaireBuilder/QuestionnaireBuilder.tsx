@@ -17,21 +17,32 @@ import {
   QuestionnaireCreateInput,
   convertComponentsToMutationVariables,
 } from '../components/GraphqlQueryRenderer/GraphqlQueryRenderer';
-import { FormComponent } from '../questionTypes';
+import { mapMutationVariableToFormComponent } from '../mapping';
+import { FormComponent, MutationVariableInput } from '../questionTypes';
 
 import { FormBuilder } from './FormBuilder/FormBuilder';
 
 interface QuestionnaireBuilderProps {
   hirerId?: string;
+  graphqlInputVariables?: MutationVariableInput;
   onChange?: (mutationVariables: QuestionnaireCreateInput) => void;
 }
 
 export const QuestionnaireBuilder = ({
   hirerId: externalHirerId,
+  graphqlInputVariables,
   onChange,
 }: QuestionnaireBuilderProps) => {
   const [formBuilderState, setFormBuilderState] = useState<FormComponent[]>([]);
   const [hirerId, setHirerId] = useState(externalHirerId ?? '');
+
+  useEffect(() => {
+    setFormBuilderState(
+      graphqlInputVariables
+        ? mapMutationVariableToFormComponent(graphqlInputVariables)
+        : [],
+    );
+  }, [graphqlInputVariables]);
 
   useEffect(() => {
     setHirerId(externalHirerId ?? '');
@@ -49,7 +60,10 @@ export const QuestionnaireBuilder = ({
       <Stack space="medium" dividers>
         <Columns space="large">
           <Column>
-            <FormBuilder onChange={setFormBuilderState} />
+            <FormBuilder
+              externalFormState={formBuilderState}
+              onChange={setFormBuilderState}
+            />
           </Column>
 
           <Column>

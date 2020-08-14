@@ -16,14 +16,19 @@ import PrivacyConsentEntry from './components/PrivacyConsentEntry';
 import QuestionListEntry from './components/QuestionListEntry';
 import {
   StateContext,
+  actionCreators,
   formBuilderStateReducer,
 } from './state/formBuilderState';
 
 interface FormBuilderProps {
+  externalFormState?: FormComponent[];
   onChange: (components: FormComponent[]) => void;
 }
 
-export const FormBuilder = ({ onChange }: FormBuilderProps) => {
+export const FormBuilder = ({
+  externalFormState,
+  onChange,
+}: FormBuilderProps) => {
   const blankQuestionFormValues = ({
     value: '',
     responseTypeCode: '',
@@ -41,7 +46,18 @@ export const FormBuilder = ({ onChange }: FormBuilderProps) => {
 
   const [showQuestionForm, setShowQuestionForm] = useState(false);
   const [showPrivacyConsentForm, setShowPrivacyConsentForm] = useState(false);
-  const [state, dispatch] = useReducer(formBuilderStateReducer, []);
+  const [state, dispatch] = useReducer(
+    formBuilderStateReducer,
+    externalFormState || [],
+  );
+
+  useEffect(() => {
+    if (externalFormState) {
+      const creator = actionCreators.import;
+      creator(dispatch)(externalFormState);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [externalFormState]);
 
   useEffect(() => {
     if (onChange) {
@@ -141,7 +157,7 @@ export const FormBuilder = ({ onChange }: FormBuilderProps) => {
   return (
     <StateContext.Provider value={{ dispatch, state }}>
       <Stack space="none" dividers>
-        {state.map((component) => renderEntries(component))}
+        {state.map(component => renderEntries(component))}
         {displayFormOrAddButton()}
         {displayPrivacyConsentAddButton()}
         {state.length === MAX_NUMBER_OF_COMPONENTS && (
