@@ -1,3 +1,15 @@
+/* eslint-disable new-cap */
+import {
+  Array,
+  Boolean,
+  Literal,
+  Partial,
+  Record as RTRecord,
+  Static,
+  String,
+  Union,
+} from 'runtypes';
+
 import { QuestionType } from './types';
 
 interface BaseQuestion {
@@ -38,3 +50,71 @@ export interface PrivacyConsent {
 }
 
 export type FormComponent = Question | PrivacyConsent;
+
+const PrivacyConsent = RTRecord({
+  value: String,
+  privacyPolicyUrl: RTRecord({
+    url: String,
+  }),
+  componentTypeCode: Literal('PrivacyConsent'),
+}).And(
+  Partial({
+    descriptionHtml: String,
+  }),
+);
+
+const BaseQuestion = RTRecord({
+  value: String,
+  questionHtml: String,
+  responseTypeCode: Union(
+    Literal('FreeText'),
+    Literal('SingleSelect'),
+    Literal('MultiSelect'),
+  ),
+  componentTypeCode: Literal('Question'),
+});
+
+const FreeTextQuestion = BaseQuestion.And(
+  RTRecord({
+    responseTypeCode: Literal('FreeText'),
+  }),
+);
+
+const ResponseChoice = RTRecord({
+  text: String,
+  value: String,
+  preferredIndicator: Boolean,
+});
+
+const SelectionQuestion = BaseQuestion.And(
+  RTRecord({
+    responseTypeCode: Union(Literal('SingleSelect'), Literal('MultiSelect')),
+    responseChoice: Array(ResponseChoice),
+  }),
+);
+
+const GraphqlInput = RTRecord({
+  componentTypeCode: Literal('PrivacyConsent'),
+  privacyConsent: PrivacyConsent,
+}).Or(
+  RTRecord({
+    componentTypeCode: Literal('Question'),
+    question: FreeTextQuestion.Or(SelectionQuestion),
+  }),
+);
+
+const QuestionnaireMutationVariableInput = RTRecord({
+  input: RTRecord({
+    applicationQuestionnaire: RTRecord({
+      hirerId: String,
+      components: Array(GraphqlInput),
+    }),
+  }),
+});
+
+export type MutationVariableInput = Static<
+  typeof QuestionnaireMutationVariableInput
+>;
+
+export const validateQueryInput = (input: unknown): MutationVariableInput =>
+  QuestionnaireMutationVariableInput.check(input);

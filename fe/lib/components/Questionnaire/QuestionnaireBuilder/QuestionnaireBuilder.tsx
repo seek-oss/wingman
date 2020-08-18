@@ -17,25 +17,31 @@ import {
   QuestionnaireCreateInput,
   convertComponentsToMutationVariables,
 } from '../components/GraphqlQueryRenderer/GraphqlQueryRenderer';
-import { FormComponent } from '../questionTypes';
+import { mapMutationVariableToFormComponent } from '../mapping';
+import { FormComponent, MutationVariableInput } from '../questionTypes';
 
 import { FormBuilder } from './FormBuilder/FormBuilder';
 
 interface QuestionnaireBuilderProps {
-  hirerId?: string;
+  graphqlInput?: MutationVariableInput;
   onChange?: (mutationVariables: QuestionnaireCreateInput) => void;
 }
 
 export const QuestionnaireBuilder = ({
-  hirerId: externalHirerId,
+  graphqlInput,
   onChange,
 }: QuestionnaireBuilderProps) => {
   const [formBuilderState, setFormBuilderState] = useState<FormComponent[]>([]);
-  const [hirerId, setHirerId] = useState(externalHirerId ?? '');
+  const [hirerId, setHirerId] = useState(
+    graphqlInput?.input.applicationQuestionnaire.hirerId ?? '',
+  );
 
   useEffect(() => {
-    setHirerId(externalHirerId ?? '');
-  }, [externalHirerId]);
+    if (graphqlInput) {
+      setFormBuilderState(mapMutationVariableToFormComponent(graphqlInput));
+      setHirerId(graphqlInput.input.applicationQuestionnaire.hirerId);
+    }
+  }, [graphqlInput]);
 
   useEffect(() => {
     if (onChange) {
@@ -49,7 +55,10 @@ export const QuestionnaireBuilder = ({
       <Stack space="medium" dividers>
         <Columns space="large">
           <Column>
-            <FormBuilder onChange={setFormBuilderState} />
+            <FormBuilder
+              externalFormState={formBuilderState}
+              onChange={setFormBuilderState}
+            />
           </Column>
 
           <Column>
@@ -63,7 +72,7 @@ export const QuestionnaireBuilder = ({
           <Stack space="large">
             <Heading level="3">GraphQL Output</Heading>
 
-            {typeof externalHirerId === 'undefined' && (
+            {typeof hirerId === 'undefined' && (
               <TextField
                 id="hirerId"
                 label="Hirer OID"

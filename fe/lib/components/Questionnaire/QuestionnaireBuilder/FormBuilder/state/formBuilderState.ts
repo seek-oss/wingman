@@ -25,6 +25,11 @@ export interface EditComponentAction {
   newValue: FormComponent;
 }
 
+export interface ReplaceComponentsAction {
+  type: 'IMPORT_COMPONENTS';
+  newValue: FormComponent[];
+}
+
 const createAddPrivacyConsentAction = (
   dispatch: React.Dispatch<AddComponentAction>,
 ) => (descriptionHtml: string, url: string) => {
@@ -76,6 +81,12 @@ const createDeleteFreeTextAction = (
   dispatch: React.Dispatch<DeleteComponentAction>,
 ) => (questionId: string) => {
   dispatch({ type: 'DELETE_COMPONENT', fieldId: questionId });
+};
+
+const importComponentsAction = (
+  dispatch: React.Dispatch<ReplaceComponentsAction>,
+) => (value: FormComponent[]) => {
+  dispatch({ type: 'IMPORT_COMPONENTS', newValue: value });
 };
 
 const createEditPrivacyConsentAction = (
@@ -140,12 +151,16 @@ export const actionCreators = {
     PrivacyConsent: createEditPrivacyConsentAction,
   },
   delete: createDeleteFreeTextAction,
+  import: importComponentsAction,
 } as const;
 
 interface StateContextType {
   state: FormComponent[];
   dispatch: React.Dispatch<
-    AddComponentAction | DeleteComponentAction | EditComponentAction
+    | AddComponentAction
+    | DeleteComponentAction
+    | EditComponentAction
+    | ReplaceComponentsAction
   >;
 }
 export const StateContext = React.createContext<StateContextType>({
@@ -163,7 +178,11 @@ const splitArrayAt = <T extends any>(inputArray: T[], index: number) => {
 
 export const formBuilderStateReducer = (
   state: FormComponent[],
-  action: AddComponentAction | DeleteComponentAction | EditComponentAction,
+  action:
+    | AddComponentAction
+    | DeleteComponentAction
+    | EditComponentAction
+    | ReplaceComponentsAction,
 ) => {
   const editComponent = (item: FormComponent) => {
     const itemEditIndex = state.findIndex(({ value }) => value === item.value);
@@ -182,5 +201,7 @@ export const formBuilderStateReducer = (
       return [...beforeItem, ...afterItem];
     case 'EDIT_COMPONENT':
       return editComponent(action.newValue);
+    case 'IMPORT_COMPONENTS':
+      return action.newValue;
   }
 };

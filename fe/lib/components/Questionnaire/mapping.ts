@@ -4,7 +4,12 @@ import {
   ApplicationQuestionnaireComponent,
 } from '../../types/seek.graphql';
 
-import { FormComponent, PrivacyConsent, Question } from './questionTypes';
+import {
+  FormComponent,
+  MutationVariableInput,
+  PrivacyConsent,
+  Question,
+} from './questionTypes';
 import { QuestionType } from './types';
 
 const mapPrivacyConsent = (
@@ -37,4 +42,13 @@ export const mapApplicationQuestionnaireToFormComponent = (
     component.componentTypeCode === 'PrivacyConsent'
       ? mapPrivacyConsent(component as ApplicationPrivacyConsent)
       : mapQuestion(component as ApplicationQuestion),
+  );
+
+export const mapMutationVariableToFormComponent = (
+  graphqlInput: MutationVariableInput,
+): FormComponent[] =>
+  graphqlInput.input.applicationQuestionnaire.components.map((component) =>
+    component.componentTypeCode === 'PrivacyConsent'
+      ? component.privacyConsent
+      : component.question,
   );
