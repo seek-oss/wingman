@@ -2,8 +2,6 @@ import {
   Actions,
   Alert,
   Button,
-  Card,
-  ContentBlock,
   Stack,
   Text,
   Textarea,
@@ -43,30 +41,24 @@ export const FormBuilderQueryInput = ({
   };
 
   return (
-    <ContentBlock>
-      <Stack space="gutter">
-        <Card>
-          <Stack space="gutter">
-            <Textarea
-              label="GraphQL Input"
-              id={id}
-              lineLimit={10}
-              value={input}
-              onChange={(e) => {
-                setInput(e.currentTarget.value);
-              }}
-            />
-            {showError && (
-              <Alert tone="caution">
-                <Text>{queryInputError}</Text>
-              </Alert>
-            )}
-            <Actions>
-              <Button onClick={() => checkValidQuery()}>Save</Button>
-            </Actions>
-          </Stack>
-        </Card>
-      </Stack>
-    </ContentBlock>
+    <Stack space="gutter">
+      <Textarea
+        label="GraphQL Input"
+        id={id}
+        lineLimit={10}
+        value={input}
+        onChange={(e) => {
+          setInput(e.currentTarget.value);
+        }}
+      />
+      {showError && (
+        <Alert tone="caution">
+          <Text>{queryInputError}</Text>
+        </Alert>
+      )}
+      <Actions>
+        <Button onClick={() => checkValidQuery()}>Save</Button>
+      </Actions>
+    </Stack>
   );
 };
