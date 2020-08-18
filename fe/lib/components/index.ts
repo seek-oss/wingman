@@ -7,4 +7,3 @@ export { QuestionnaireBuilder } from './Questionnaire/QuestionnaireBuilder/Quest
 export { QuestionnaireForm } from './Questionnaire/QuestionnaireForm/QuestionnaireForm';
 export { QuestionnaireCreateInput } from './Questionnaire/components/GraphqlQueryRenderer/GraphqlQueryRenderer';
 export { FormBuilderQueryInput } from './Questionnaire/components/FormBuilderQueryInput';
-export { MutationVariableInput } from './Questionnaire/questionTypes';

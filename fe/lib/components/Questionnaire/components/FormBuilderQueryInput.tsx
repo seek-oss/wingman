@@ -52,7 +52,7 @@ export const FormBuilderQueryInput = ({
               id={id}
               lineLimit={10}
               value={input}
-              onChange={e => {
+              onChange={(e) => {
                 setInput(e.currentTarget.value);
               }}
             />

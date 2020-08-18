@@ -13,5 +13,4 @@ export {
   SelectionQuestion,
   FormComponent,
   PrivacyConsent,
-  MutationVariableInput,
 } from './questionTypes';
