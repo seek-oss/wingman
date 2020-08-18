@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.15.0
+
+### Minor Changes
+
+- fb2968b: Render questionnaire form from GraphQL mutation
+
 ## 0.14.1
 
 ### Patch Changes
