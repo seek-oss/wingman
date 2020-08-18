@@ -25,8 +25,8 @@ export interface EditComponentAction {
   newValue: FormComponent;
 }
 
-export interface ImportComponentAction {
-  type: 'IMPORT_COMPONENT';
+export interface ReplaceComponentsAction {
+  type: 'IMPORT_COMPONENTS';
   newValue: FormComponent[];
 }
 
@@ -84,9 +84,9 @@ const createDeleteFreeTextAction = (
 };
 
 const importComponentsAction = (
-  dispatch: React.Dispatch<ImportComponentAction>,
+  dispatch: React.Dispatch<ReplaceComponentsAction>,
 ) => (value: FormComponent[]) => {
-  dispatch({ type: 'IMPORT_COMPONENT', newValue: value });
+  dispatch({ type: 'IMPORT_COMPONENTS', newValue: value });
 };
 
 const createEditPrivacyConsentAction = (
@@ -160,7 +160,7 @@ interface StateContextType {
     | AddComponentAction
     | DeleteComponentAction
     | EditComponentAction
-    | ImportComponentAction
+    | ReplaceComponentsAction
   >;
 }
 export const StateContext = React.createContext<StateContextType>({
@@ -182,7 +182,7 @@ export const formBuilderStateReducer = (
     | AddComponentAction
     | DeleteComponentAction
     | EditComponentAction
-    | ImportComponentAction,
+    | ReplaceComponentsAction,
 ) => {
   const editComponent = (item: FormComponent) => {
     const itemEditIndex = state.findIndex(({ value }) => value === item.value);
@@ -201,7 +201,7 @@ export const formBuilderStateReducer = (
       return [...beforeItem, ...afterItem];
     case 'EDIT_COMPONENT':
       return editComponent(action.newValue);
-    case 'IMPORT_COMPONENT':
+    case 'IMPORT_COMPONENTS':
       return action.newValue;
   }
 };

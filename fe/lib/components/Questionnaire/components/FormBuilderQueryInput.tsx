@@ -13,10 +13,12 @@ import React, { useState } from 'react';
 import { MutationVariableInput, validateQueryInput } from '../questionTypes';
 
 interface FormBuilderQueryInputProps {
+  id: string;
   onChange: (variables: MutationVariableInput) => void;
 }
 
 export const FormBuilderQueryInput = ({
+  id,
   onChange,
 }: FormBuilderQueryInputProps) => {
   const [input, setInput] = useState('');
@@ -47,10 +49,10 @@ export const FormBuilderQueryInput = ({
           <Stack space="gutter">
             <Textarea
               label="GraphQL Input"
-              id="id"
+              id={id}
               lineLimit={10}
               value={input}
-              onChange={(e) => {
+              onChange={e => {
                 setInput(e.currentTarget.value);
               }}
             />

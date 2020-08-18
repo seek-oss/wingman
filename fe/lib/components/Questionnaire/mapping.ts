@@ -46,12 +46,9 @@ export const mapApplicationQuestionnaireToFormComponent = (
 
 export const mapMutationVariableToFormComponent = (
   graphqlInput: MutationVariableInput,
-): FormComponent[] => {
-  const components = graphqlInput.input.applicationQuestionnaire.components;
-
-  return components.map((component) =>
+): FormComponent[] =>
+  graphqlInput.input.applicationQuestionnaire.components.map((component) =>
     component.componentTypeCode === 'PrivacyConsent'
       ? component.privacyConsent
       : component.question,
   );
-};

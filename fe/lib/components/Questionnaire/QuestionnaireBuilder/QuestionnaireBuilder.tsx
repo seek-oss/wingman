@@ -23,30 +23,25 @@ import { FormComponent, MutationVariableInput } from '../questionTypes';
 import { FormBuilder } from './FormBuilder/FormBuilder';
 
 interface QuestionnaireBuilderProps {
-  hirerId?: string;
-  graphqlInputVariables?: MutationVariableInput;
+  graphqlInput?: MutationVariableInput;
   onChange?: (mutationVariables: QuestionnaireCreateInput) => void;
 }
 
 export const QuestionnaireBuilder = ({
-  hirerId: externalHirerId,
-  graphqlInputVariables,
+  graphqlInput,
   onChange,
 }: QuestionnaireBuilderProps) => {
   const [formBuilderState, setFormBuilderState] = useState<FormComponent[]>([]);
-  const [hirerId, setHirerId] = useState(externalHirerId ?? '');
+  const [hirerId, setHirerId] = useState(
+    graphqlInput?.input.applicationQuestionnaire.hirerId ?? '',
+  );
 
   useEffect(() => {
-    if (graphqlInputVariables) {
-      setFormBuilderState(
-        mapMutationVariableToFormComponent(graphqlInputVariables),
-      );
+    if (graphqlInput) {
+      setFormBuilderState(mapMutationVariableToFormComponent(graphqlInput));
+      setHirerId(graphqlInput.input.applicationQuestionnaire.hirerId);
     }
-  }, [graphqlInputVariables]);
-
-  useEffect(() => {
-    setHirerId(externalHirerId ?? '');
-  }, [externalHirerId]);
+  }, [graphqlInput]);
 
   useEffect(() => {
     if (onChange) {
@@ -77,7 +72,7 @@ export const QuestionnaireBuilder = ({
           <Stack space="large">
             <Heading level="3">GraphQL Output</Heading>
 
-            {typeof externalHirerId === 'undefined' && (
+            {typeof hirerId === 'undefined' && (
               <TextField
                 id="hirerId"
                 label="Hirer OID"
