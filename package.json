@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@changesets/cli": "2.10.0"
+    "@changesets/cli": "2.10.1"
   },
   "private": true,
   "scripts": {
