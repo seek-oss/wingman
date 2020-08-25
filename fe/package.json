@@ -24,7 +24,7 @@
     "braid-design-system": "29.3.0",
     "classnames": "2.2.6",
     "date-fns": "2.15.0",
-    "faker": "4.1.0",
+    "faker": "5.0.0",
     "@graphql-tools/schema": "6.0.18",
     "react": "16.13.1",
     "react-dom": "16.13.1",
