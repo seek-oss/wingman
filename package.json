@@ -2,6 +2,14 @@
   "dependencies": {
     "@changesets/cli": "2.10.1"
   },
+  "devDependencies": {
+    "@graphql-codegen/cli": "1.17.8",
+    "@graphql-codegen/fragment-matcher": "1.17.8",
+    "@graphql-codegen/schema-ast": "1.17.8",
+    "@graphql-codegen/typescript": "1.17.9",
+    "@graphql-codegen/typescript-operations": "1.17.8",
+    "graphql": "15.3.0"
+  },
   "private": true,
   "scripts": {
     "be": "yarn workspace wingman-be",
@@ -14,18 +22,15 @@
     "codegen": "graphql-codegen --config codegen.yml",
     "deploy": "scripts/deploy"
   },
-  "workspaces": [
-    "be",
-    "fe"
-  ],
   "version": "0.0.0",
-  "devDependencies": {
-    "@graphql-codegen/cli": "1.17.8",
-    "@graphql-codegen/fragment-matcher": "1.17.8",
-    "@graphql-codegen/schema-ast": "1.17.8",
-    "@graphql-codegen/typescript": "1.17.9",
-    "@graphql-codegen/typescript-operations": "1.17.8",
-    "graphql": "15.3.0",
-    "skuba": "3.8.0"
+  "workspaces": {
+    "nohoist": [
+      "wingman-be/**",
+      "wingman-fe/**"
+    ],
+    "packages": [
+      "be",
+      "fe"
+    ]
   }
 }

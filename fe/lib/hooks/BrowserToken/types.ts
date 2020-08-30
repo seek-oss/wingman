@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable new-cap */
 
 import * as t from 'runtypes';
