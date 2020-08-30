@@ -2,17 +2,6 @@ node_modules/
 
 /be/lib/
 
-.DS_Store
+/tsconfig.json
 
-# managed by sku
-.eslintrc
-.prettierrc
-.ssl
-coverage/
-dist-playroom/
-dist-storybook/
-dist/
-report/
-tsconfig.json
-# end managed by sku
-!be/tsconfig.json
+.DS_Store
