@@ -1,5 +1,19 @@
 # wingman-fe
 
+## 0.16.0
+
+### Minor Changes
+
+- ef8b000: Align Privacy Consent render with candidate
+- 41d63fc: Remove hirer ID from questionnaire builder
+
+  - Consumers must now supply a `hirerId` prop to `<QuestionnaireBuilder/>`
+  - `graphqlInput` is now takes an array of components
+
+### Patch Changes
+
+- c1a0aa4: **deps:** Bundle `@types/content-disposition`
+
 ## 0.15.1
 
 ### Patch Changes
