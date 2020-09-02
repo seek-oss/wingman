@@ -85,7 +85,7 @@ export const convertComponentsToMutationVariables = (
 };
 
 const renderVariablesPane = (components: FormComponent[], hirerId: string) => {
-  if (components.length > 0 && hirerId) {
+  if (components.length > 0) {
     const { variables } = convertComponentsToMutationVariables(
       components,
       hirerId,
@@ -102,20 +102,7 @@ const renderVariablesPane = (components: FormComponent[], hirerId: string) => {
     );
   }
 
-  if (hirerId && components.length === 0) {
-    return <Text>You need to add some questions first</Text>;
-  }
-
-  if (!hirerId && components.length > 0) {
-    return <Text>You need to add your hirer ID first</Text>;
-  }
-
-  return (
-    <Text>
-      You need to add your hirer ID, and then add some questions to see any
-      output.
-    </Text>
-  );
+  return <Text>You need to add some questions first</Text>;
 };
 
 interface GraphqlQueryRendererProps {

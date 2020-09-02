@@ -6,7 +6,7 @@ import {
 
 import {
   FormComponent,
-  MutationVariableInput,
+  GraphqlComponentInput,
   PrivacyConsent,
   Question,
 } from './questionTypes';
@@ -44,10 +44,10 @@ export const mapApplicationQuestionnaireToFormComponent = (
       : mapQuestion(component as ApplicationQuestion),
   );
 
-export const mapMutationVariableToFormComponent = (
-  graphqlInput: MutationVariableInput,
+export const mapGraphqlToFormComponent = (
+  graphqlInput: GraphqlComponentInput[],
 ): FormComponent[] =>
-  graphqlInput.input.applicationQuestionnaire.components.map((component) =>
+  graphqlInput.map((component) =>
     component.componentTypeCode === 'PrivacyConsent'
       ? component.privacyConsent
       : component.question,

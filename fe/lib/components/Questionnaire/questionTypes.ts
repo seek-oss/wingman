@@ -93,7 +93,7 @@ const SelectionQuestion = BaseQuestion.And(
   }),
 );
 
-const GraphqlInput = RTRecord({
+export const GraphqlComponentInput = RTRecord({
   componentTypeCode: Literal('PrivacyConsent'),
   privacyConsent: PrivacyConsent,
 }).Or(
@@ -103,11 +103,13 @@ const GraphqlInput = RTRecord({
   }),
 );
 
+export type GraphqlComponentInput = Static<typeof GraphqlComponentInput>;
+
 const QuestionnaireMutationVariableInput = RTRecord({
   input: RTRecord({
     applicationQuestionnaire: RTRecord({
       hirerId: String,
-      components: Array(GraphqlInput),
+      components: Array(GraphqlComponentInput),
     }),
   }),
 });
