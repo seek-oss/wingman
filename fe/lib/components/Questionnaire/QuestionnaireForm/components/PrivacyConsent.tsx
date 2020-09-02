@@ -4,7 +4,7 @@ import {
   Stack,
   Text,
   TextLink,
-  IconLink,
+  IconNewWindow,
 } from 'braid-design-system';
 import React, { useState } from 'react';
 
@@ -29,7 +29,7 @@ const PrivacyConsentRenderer = ({ privacy }: PrivacyConsentRendererProps) => {
         />
         <Text>
           <TextLink hitArea="large" href={privacy.privacyPolicyUrl.url}>
-            Link to Employer's Privacy Policy <IconLink />
+            Link to Employer's Privacy Policy <IconNewWindow />
           </TextLink>
         </Text>
       </Stack>
