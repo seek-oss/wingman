@@ -78,11 +78,7 @@ const renderQuestion = (
 };
 
 const renderPrivacyConsent = (component: PrivacyConsent) => (
-  <PrivacyConsentRenderer
-    key={component.value}
-    privacy={component}
-    title="Privacy consent"
-  />
+  <PrivacyConsentRenderer key={component.value} privacy={component} />
 );
 
 export const QuestionnaireForm = (props: RenderSchemaProps) => {

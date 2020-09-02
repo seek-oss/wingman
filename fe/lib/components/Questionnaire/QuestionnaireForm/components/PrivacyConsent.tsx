@@ -1,36 +1,37 @@
-import { Card, Checkbox, Stack, Text, TextLink } from 'braid-design-system';
+import {
+  Card,
+  Checkbox,
+  IconNewWindow,
+  Stack,
+  Text,
+  TextLink,
+} from 'braid-design-system';
 import React, { useState } from 'react';
 
 import { PrivacyConsent } from '../../questionTypes';
 
 interface PrivacyConsentRendererProps {
   privacy: PrivacyConsent;
-  title: string;
 }
 
-const PrivacyConsentRenderer = ({
-  privacy,
-  title,
-}: PrivacyConsentRendererProps) => {
+const PrivacyConsentRenderer = ({ privacy }: PrivacyConsentRendererProps) => {
   const [checked, setChecked] = useState(false);
   const handleClick = () => setChecked(!checked);
 
   return (
     <Card>
       <Stack space="medium">
-        <Text size="large">{title}</Text>
-        <Text>
-          {privacy.descriptionHtml || 'Do you agree to the privacy policy?'}{' '}
-          <TextLink hitArea="large" href={privacy.privacyPolicyUrl.url}>
-            Privacy policy
-          </TextLink>
-        </Text>
         <Checkbox
           id="privacyConsentCheckbox"
-          label="I have read and accept the privacy policy"
+          label="I agree to this employer's Privacy Policy"
           onChange={handleClick}
           checked={checked}
         />
+        <Text>
+          <TextLink hitArea="large" href={privacy.privacyPolicyUrl.url}>
+            Link to Employer&apos;s Privacy Policy <IconNewWindow />
+          </TextLink>
+        </Text>
       </Stack>
     </Card>
   );
