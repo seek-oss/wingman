@@ -16,14 +16,14 @@ import {
   QuestionnaireCreateInput,
   convertComponentsToMutationVariables,
 } from '../components/GraphqlQueryRenderer/GraphqlQueryRenderer';
-import { mapMutationVariableToFormComponent } from '../mapping';
-import { FormComponent, MutationVariableInput } from '../questionTypes';
+import { mapGraphqlToFormComponent } from '../mapping';
+import { FormComponent, GraphqlComponentInput } from '../questionTypes';
 
 import { FormBuilder } from './FormBuilder/FormBuilder';
 
 interface QuestionnaireBuilderProps {
   hirerId: string;
-  graphqlInput?: MutationVariableInput;
+  graphqlInput?: GraphqlComponentInput[];
   onChange?: (mutationVariables: QuestionnaireCreateInput) => void;
 }
 
@@ -36,7 +36,7 @@ export const QuestionnaireBuilder = ({
 
   useEffect(() => {
     if (graphqlInput) {
-      setFormBuilderState(mapMutationVariableToFormComponent(graphqlInput));
+      setFormBuilderState(mapGraphqlToFormComponent(graphqlInput));
     }
   }, [graphqlInput]);
 
