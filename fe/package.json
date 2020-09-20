@@ -13,7 +13,7 @@
     "graphql": "^15.0.0",
     "react-hook-form": "^6.0.2",
     "runtypes": "^5.0.0",
-    "use-debounce": "^4.0.0",
+    "use-debounce": "^5.0.0",
     "uuid": "^8.1.0",
     "yup": "^0.29.1"
   },
