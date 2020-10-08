@@ -33,14 +33,14 @@ import { CandidateNotes } from './Detail/Notes';
 import { CandidateProfile } from './Detail/Profile';
 
 const CandidateDetails = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id?: string }>();
 
   const { preferences } = useClient();
 
   const [candidate, setCandidate] = useState<Candidate>();
 
   useEffect(() => {
-    const newCandidate = CANDIDATE_BY_ID[id];
+    const newCandidate = id ? CANDIDATE_BY_ID[id] : null;
 
     if (newCandidate) {
       setCandidate(newCandidate);
