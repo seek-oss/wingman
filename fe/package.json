@@ -4,7 +4,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.1.1",
-    "@hookform/resolvers": "^0.1.0",
+    "@hookform/resolvers": "^1.0.0",
     "@types/content-disposition": "^0.5.3",
     "@types/uuid": "^8.0.0",
     "@types/yup": "^0.29.2",
