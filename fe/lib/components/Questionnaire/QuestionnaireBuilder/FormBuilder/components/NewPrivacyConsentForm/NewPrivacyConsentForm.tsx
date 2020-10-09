@@ -1,4 +1,4 @@
-import { yupResolver } from '@hookform/resolvers';
+import { yupResolver } from '@hookform/resolvers/yup';
 import {
   Actions,
   Box,
