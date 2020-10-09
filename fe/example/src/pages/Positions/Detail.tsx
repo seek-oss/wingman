@@ -94,7 +94,7 @@ const PositionDetailTabs = ({
 };
 
 const PositionDetails = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id?: string }>();
 
   const { preferences } = useClient();
 
@@ -106,7 +106,7 @@ const PositionDetails = () => {
   const [ads, setAds] = useState<Ad[]>();
 
   useEffect(() => {
-    const newPosition = POSITION_BY_ID[id];
+    const newPosition = id ? POSITION_BY_ID[id] : null;
 
     if (newPosition) {
       setPosition(newPosition);
