@@ -5,15 +5,3 @@ node_modules/
 /tsconfig.json
 
 .DS_Store
-
-# managed by sku
-.eslintrc
-.prettierrc
-.ssl
-coverage/
-dist-playroom/
-dist-storybook/
-dist/
-report/
-tsconfig.json
-# end managed by sku
