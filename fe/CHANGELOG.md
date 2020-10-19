@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.16.1
+
+### Patch Changes
+
+- da4e51e: **deps:** @hookform/resolvers ^1.0.0
+
 ## 0.16.0
 
 ### Minor Changes
