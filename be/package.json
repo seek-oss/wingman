@@ -23,7 +23,7 @@
     "@types/lru-cache": "5.1.0",
     "@types/supertest": "2.0.10",
     "nock": "13.0.4",
-    "skuba": "3.9.2",
+    "skuba": "3.10.0",
     "skuba-dive": "1.1.1",
     "supertest": "4.0.2"
   },
