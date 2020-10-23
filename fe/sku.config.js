@@ -24,6 +24,7 @@ module.exports = {
 
   compilePackages: ['scoobie'],
   orderImports: true,
+  rootResolution: false,
 
   dangerouslySetESLintConfig: (skuEslintConfig) => ({
     ...skuEslintConfig,
