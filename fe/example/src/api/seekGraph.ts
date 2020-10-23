@@ -1,4 +1,4 @@
-import { isObject } from 'lib/validation';
+import { isObject } from '../../../lib/validation';
 
 import { BE_SEEK_GRAPH_URL } from './constants';
 

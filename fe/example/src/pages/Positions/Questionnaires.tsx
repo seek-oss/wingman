@@ -9,8 +9,7 @@ import {
 import { Questionnaire } from 'example/src/data/questionnaires';
 import React, { useState } from 'react';
 
-import { QuestionnaireForm } from 'lib/components/Questionnaire';
-
+import { QuestionnaireForm } from '../../../../lib/components/Questionnaire';
 import { Header } from '../../components/Header';
 import { QuestionnaireSelect } from '../../widgets/QuestionnaireSelect';
 
