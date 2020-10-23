@@ -6,12 +6,11 @@ import {
   Heading,
   Stack,
 } from 'braid-design-system';
-import { Questionnaire } from 'example/src/data/questionnaires';
 import React, { useState } from 'react';
 
-import { QuestionnaireForm } from 'lib/components/Questionnaire';
-
+import { QuestionnaireForm } from '../../../../lib/components/Questionnaire';
 import { Header } from '../../components/Header';
+import { Questionnaire } from '../../data/questionnaires';
 import { QuestionnaireSelect } from '../../widgets/QuestionnaireSelect';
 
 export const PositionQuestionnairePage = () => {

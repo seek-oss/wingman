@@ -4,8 +4,7 @@ import { Box, BraidLoadableProvider, ToastProvider } from 'braid-design-system';
 import React from 'react';
 import { useStyles } from 'sku/react-treat';
 
-import { BrowserTokenProvider } from 'lib/hooks';
-
+import { BrowserTokenProvider } from '../../../lib/hooks';
 import { BE_BASE_URL } from '../api/constants';
 
 import { Router } from './Router';

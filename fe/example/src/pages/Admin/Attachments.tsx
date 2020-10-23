@@ -1,9 +1,8 @@
 import { Bullet, BulletList, Card, Heading, Stack } from 'braid-design-system';
 import React from 'react';
 
-import { DownloadLink } from 'lib/components/private';
-import { useBrowserToken } from 'lib/hooks';
-
+import { DownloadLink } from '../../../../lib/components/private';
+import { useBrowserToken } from '../../../../lib/hooks';
 import { DOWNLOAD_ATTACHMENT_SCOPE } from '../../api/browserToken';
 
 // https://developer.seek.com/graphql/playground#candidate-application-profiles

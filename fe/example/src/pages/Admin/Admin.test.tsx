@@ -2,8 +2,7 @@ import { render, waitFor } from '@testing-library/react';
 import { BraidTestProvider, ToastProvider } from 'braid-design-system';
 import React from 'react';
 
-import { BrowserTokenProvider } from 'lib/hooks';
-
+import { BrowserTokenProvider } from '../../../../lib/hooks';
 import * as seekGraph from '../../api/seekGraph';
 import { UserProvider } from '../../hooks/user';
 
