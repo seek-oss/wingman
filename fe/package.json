@@ -18,7 +18,7 @@
     "yup": "^0.29.1"
   },
   "devDependencies": {
-    "@testing-library/react": "11.0.4",
+    "@testing-library/react": "11.1.0",
     "@types/faker": "5.1.3",
     "@types/react": "16.9.53",
     "@types/react-dom": "16.9.8",
@@ -30,10 +30,10 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-router-dom": "5.2.0",
-    "scoobie": "4.5.4",
+    "scoobie": "4.6.0",
     "sku": "10.8.0",
-    "use-query-params": "1.1.7",
-    "webpack-merge": "5.1.4"
+    "use-query-params": "1.1.8",
+    "webpack-merge": "5.2.0"
   },
   "files": ["lib"],
   "homepage": "https://github.com/seek-oss/wingman#readme",
