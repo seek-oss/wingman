@@ -2,7 +2,9 @@ import 'braid-design-system/reset';
 
 import { Box, BraidLoadableProvider, ToastProvider } from 'braid-design-system';
 import React from 'react';
+import { Route } from 'react-router-dom';
 import { useStyles } from 'sku/react-treat';
+import { QueryParamProvider } from 'use-query-params';
 
 import { BrowserTokenProvider } from '../../../lib/hooks';
 import { BE_BASE_URL } from '../api/constants';
@@ -36,7 +38,9 @@ export const App = ({ site }: AppProps) => (
   <BraidLoadableProvider themeName={site}>
     <ToastProvider>
       <BrowserTokenProvider baseUrl={BE_BASE_URL}>
-        <Content />
+        <QueryParamProvider ReactRouterRoute={Route}>
+          <Content />
+        </QueryParamProvider>
       </BrowserTokenProvider>
     </ToastProvider>
   </BraidLoadableProvider>
