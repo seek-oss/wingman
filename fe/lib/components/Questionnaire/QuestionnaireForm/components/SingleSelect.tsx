@@ -1,4 +1,4 @@
-import { Card, Radio, Stack, Text } from 'braid-design-system';
+import { Card, RadioGroup, RadioItem, Stack, Text } from 'braid-design-system';
 import React from 'react';
 
 import { componentId } from './componentId';
@@ -26,18 +26,15 @@ const SingleSelect = ({
     <Card>
       <Stack space="medium">
         <Text size="large">{title}</Text>
-        <Stack space="small">
+        <RadioGroup
+          id={componentId('single-select', id)}
+          onChange={onChange}
+          value={value}
+        >
           {choices.map((choice) => (
-            <Radio
-              checked={choice === value}
-              id={componentId('single-select', id, choice)}
-              key={choice}
-              label={choice}
-              value={choice}
-              onChange={onChange}
-            />
+            <RadioItem key={choice} label={choice} value={choice} />
           ))}
-        </Stack>
+        </RadioGroup>
       </Stack>
     </Card>
   );

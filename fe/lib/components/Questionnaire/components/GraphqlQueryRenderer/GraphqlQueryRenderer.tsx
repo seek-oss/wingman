@@ -1,4 +1,10 @@
-import { Radio, Stack, Text, TextLink } from 'braid-design-system';
+import {
+  RadioGroup,
+  RadioItem,
+  Stack,
+  Text,
+  TextLink,
+} from 'braid-design-system';
 import React, { useState } from 'react';
 import { CodeBlock } from 'scoobie';
 
@@ -120,20 +126,14 @@ export const GraphqlQueryRenderer = ({
 
   return (
     <Stack space="medium">
-      <Stack space="small">
-        <Radio
-          checked={visiblePane === 'variables'}
-          id="variablesVisible"
-          label="Variables"
-          onChange={() => setVisiblePane('variables')}
-        />
-        <Radio
-          checked={visiblePane === 'mutation'}
-          id="mutationVisible"
-          label="Mutation"
-          onChange={() => setVisiblePane('mutation')}
-        />
-      </Stack>
+      <RadioGroup
+        id="graphql-query-renderer-pane"
+        onChange={(event) => setVisiblePane(event.currentTarget.value)}
+        value={visiblePane}
+      >
+        <RadioItem label="Variables" value="variables" />
+        <RadioItem label="Mutation" value="mutation" />
+      </RadioGroup>
 
       {visiblePane === 'mutation' && (
         <Stack space="medium">
