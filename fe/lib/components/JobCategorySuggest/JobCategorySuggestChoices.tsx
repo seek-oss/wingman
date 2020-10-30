@@ -1,4 +1,10 @@
-import { Radio, Stack, Strong, Text } from 'braid-design-system';
+import {
+  RadioGroup,
+  RadioItem,
+  Stack,
+  Strong,
+  Text,
+} from 'braid-design-system';
 import React, { ComponentProps, forwardRef, useState } from 'react';
 
 import {
@@ -11,7 +17,7 @@ interface Props {
   choices: JobCategorySuggestionChoice[];
   onSelect?: (jobCategorySuggestionChoice: JobCategorySuggestionChoice) => void;
   showConfidence?: boolean;
-  tone?: ComponentProps<typeof Radio>['tone'];
+  tone?: ComponentProps<typeof RadioGroup>['tone'];
 }
 
 const getJobCategoryName = (jobCategory: JobCategory): string =>
@@ -41,29 +47,33 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
         <Text>
           <Strong>Select a job category</Strong>
         </Text>
-        {choices.map((choice: JobCategorySuggestionChoice) => {
-          const { jobCategory, confidence } = choice;
-          const { id } = jobCategory;
-          return (
-            <Radio
-              {...restProps}
-              key={id.value}
-              checked={id.value === selectedJobCategory?.id.value}
-              onChange={() => handleChoiceSelect(choice)}
-              value={id.value}
-              label={getJobCategoryName(jobCategory)}
-              ref={forwardedRef}
-              id={id.value}
-            >
-              {showConfidence && (
-                <Text tone="secondary" size="small">
-                  <Strong>Confidence score:</Strong>{' '}
-                  {`${(confidence * 100).toFixed(2)}%`}
-                </Text>
-              )}
-            </Radio>
-          );
-        })}
+
+        <RadioGroup
+          id="job-category-suggest-select"
+          onChange={(event) => handleChoiceSelect(event.currentTarget.value)}
+          value={selectedJobCategory?.id.value ?? ''}
+          {...restProps}
+        >
+          {choices.map((choice: JobCategorySuggestionChoice) => {
+            const { jobCategory, confidence } = choice;
+            const { id } = jobCategory;
+            return (
+              <RadioItem
+                key={id.value}
+                label={getJobCategoryName(jobCategory)}
+                ref={forwardedRef}
+                value={id.value}
+              >
+                {showConfidence && (
+                  <Text tone="secondary" size="small">
+                    <Strong>Confidence score:</Strong>{' '}
+                    {`${(confidence * 100).toFixed(2)}%`}
+                  </Text>
+                )}
+              </RadioItem>
+            );
+          })}
+        </RadioGroup>
       </Stack>
     );
   },

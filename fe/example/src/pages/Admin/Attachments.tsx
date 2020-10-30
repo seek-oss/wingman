@@ -1,4 +1,4 @@
-import { Bullet, BulletList, Card, Heading, Stack } from 'braid-design-system';
+import { Card, Heading, List, Stack, Text } from 'braid-design-system';
 import React from 'react';
 
 import { DownloadLink } from '../../../../lib/components/private';
@@ -19,8 +19,8 @@ export const Attachments = () => {
       <Stack dividers space="large">
         <Heading level="3">Attachments</Heading>
 
-        <BulletList>
-          <Bullet>
+        <List>
+          <Text>
             <DownloadLink
               getAuthorization={() =>
                 getAuthorization(DOWNLOAD_ATTACHMENT_SCOPE)
@@ -29,9 +29,9 @@ export const Attachments = () => {
             >
               Cover letter
             </DownloadLink>
-          </Bullet>
+          </Text>
 
-          <Bullet>
+          <Text>
             <DownloadLink
               getAuthorization={() =>
                 getAuthorization(DOWNLOAD_ATTACHMENT_SCOPE)
@@ -40,8 +40,8 @@ export const Attachments = () => {
             >
               Resume
             </DownloadLink>
-          </Bullet>
-        </BulletList>
+          </Text>
+        </List>
       </Stack>
     </Card>
   );

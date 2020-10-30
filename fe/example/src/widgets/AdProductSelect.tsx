@@ -1,7 +1,8 @@
 import {
   Box,
   FieldLabel,
-  Radio,
+  RadioGroup,
+  RadioItem,
   Stack,
   Text,
   Tiles,
@@ -47,12 +48,19 @@ export const AdProductSelect = ({ onChange }: Props) => {
             padding="gutter"
           >
             <Stack space="gutter">
-              <Radio
-                checked={product.name === selection}
+              <RadioGroup
                 id={`adProduct${product.name}`}
-                label={product.name}
                 onChange={() => changeProduct(product.name)}
-              />
+                value={selection ?? ''}
+              >
+                {[
+                  <RadioItem
+                    key="MaliciousCompliance"
+                    label={product.name}
+                    value={product.name}
+                  />,
+                ]}
+              </RadioGroup>
 
               <Text size="small">{product.description}</Text>
             </Stack>
