@@ -3,8 +3,8 @@
     "url": "https://github.com/seek-oss/wingman/issues"
   },
   "dependencies": {
-    "@graphql-tools/delegate": "^6.0.5",
-    "@graphql-tools/wrap": "^6.0.5",
+    "@graphql-tools/delegate": "^7.0.0",
+    "@graphql-tools/wrap": "^7.0.0",
     "apollo-server-koa": "^2.14.2",
     "graphql": "^15.0.0",
     "koa": "^2.12.0",
