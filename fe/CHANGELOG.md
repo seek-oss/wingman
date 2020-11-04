@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.16.3
+
+### Patch Changes
+
+- 080ee2d: Handle Braid 29.13.1 `onChange` changes
+
 ## 0.16.2
 
 ### Patch Changes
