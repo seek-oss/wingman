@@ -41,7 +41,7 @@
   "main": "lib/index.ts",
   "name": "wingman-fe",
   "peerDependencies": {
-    "braid-design-system": ">= 29",
+    "braid-design-system": ">= 29.13.1",
     "classnames": ">= 2 < 3",
     "react": ">= 16 < 17",
     "scoobie": ">= 4 < 5"

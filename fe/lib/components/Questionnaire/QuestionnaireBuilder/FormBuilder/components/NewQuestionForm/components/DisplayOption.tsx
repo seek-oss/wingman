@@ -29,7 +29,7 @@ export default ({
   removeItem,
   preferredIndicator,
 }: DisplayOptionProps) => {
-  const onCheckboxChange = (event: React.FormEvent<HTMLFormElement>) =>
+  const onCheckboxChange = (event: React.FormEvent<HTMLInputElement>) =>
     setPreferred(text, event.currentTarget.checked);
 
   return (
