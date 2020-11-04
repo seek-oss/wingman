@@ -18,7 +18,7 @@ const SingleSelect = ({
   id,
   title,
 }: SingleSelectProps) => {
-  const onChange = (event: React.FormEvent<HTMLFormElement>) => {
+  const onChange = (event: React.FormEvent<HTMLInputElement>) => {
     setValue(event.currentTarget.value);
   };
 

@@ -120,15 +120,16 @@ export const GraphqlQueryRenderer = ({
   components,
   hirerId,
 }: GraphqlQueryRendererProps) => {
-  const [visiblePane, setVisiblePane] = useState<'variables' | 'mutation'>(
-    'variables',
-  );
+  type VisiblePane = 'variables' | 'mutation';
+  const [visiblePane, setVisiblePane] = useState<VisiblePane>('variables');
 
   return (
     <Stack space="medium">
       <RadioGroup
         id="graphql-query-renderer-pane"
-        onChange={(event) => setVisiblePane(event.currentTarget.value)}
+        onChange={(event) =>
+          setVisiblePane(event.currentTarget.value as VisiblePane)
+        }
         value={visiblePane}
       >
         <RadioItem label="Variables" value="variables" />

@@ -19,7 +19,7 @@ const MultiSelect = ({
   title,
 }: MultiSelectProps) => {
   const onChange = (choice: string) => (
-    event: React.FormEvent<HTMLFormElement>,
+    event: React.FormEvent<HTMLInputElement>,
   ) => {
     if (event.currentTarget.checked) {
       const newValues = [...(value || []), choice];

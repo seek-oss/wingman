@@ -22,7 +22,7 @@
     "@types/faker": "5.1.4",
     "@types/react": "16.9.55",
     "@types/react-dom": "16.9.9",
-    "braid-design-system": "29.13.0",
+    "braid-design-system": "29.13.1",
     "classnames": "2.2.6",
     "date-fns": "2.16.1",
     "faker": "5.1.0",
@@ -41,7 +41,7 @@
   "main": "lib/index.ts",
   "name": "wingman-fe",
   "peerDependencies": {
-    "braid-design-system": ">= 29",
+    "braid-design-system": ">= 29.13.1",
     "classnames": ">= 2 < 3",
     "react": ">= 16 < 17",
     "scoobie": ">= 4 < 5"
