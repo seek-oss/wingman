@@ -1,5 +1,13 @@
 # wingman-fe
 
+## 0.16.5
+
+### Patch Changes
+
+- 9c84c86: JobCategorySuggest: Use ID as RadioItem value
+
+  This releases #243.
+
 ## 0.16.4
 
 ### Patch Changes
