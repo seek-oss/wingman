@@ -1,5 +1,11 @@
 # wingman-be
 
+## 0.2.3
+
+### Patch Changes
+
+- c31f24b: refactor(JobCategorySuggest): switch to JobCategory ID for radio group
+
 ## 0.2.2
 
 ### Patch Changes
