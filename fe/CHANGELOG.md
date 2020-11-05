@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.16.4
+
+### Patch Changes
+
+- ed472eb: fix(JobCategorySuggest): set current value of managed radio group
+
 ## 0.16.3
 
 ### Patch Changes
