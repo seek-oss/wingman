@@ -31,9 +31,7 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
     { choices, onSelect, showConfidence = false, ...restProps },
     forwardedRef,
   ) => {
-    const [selectedJobCategory, setSelectedJobCategory] = useState<
-      number
-    >();
+    const [selectedJobCategory, setSelectedJobCategory] = useState<number>();
 
     const handleChoiceSelect = (event: React.FormEvent<HTMLInputElement>) => {
       const index = Number(event.currentTarget.value);
