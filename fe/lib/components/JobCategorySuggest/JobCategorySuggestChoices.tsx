@@ -31,16 +31,14 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
     { choices, onSelect, showConfidence = false, ...restProps },
     forwardedRef,
   ) => {
-    const [selectedJobCategory, setSelectedJobCategory] = useState<
-      JobCategory
-    >();
+    const [selectedJobCategory, setSelectedJobCategory] = useState<number>();
 
     const handleChoiceSelect = (event: React.FormEvent<HTMLInputElement>) => {
       const index = Number(event.currentTarget.value);
 
       const choice = choices[index];
 
-      setSelectedJobCategory(choice.jobCategory);
+      setSelectedJobCategory(index);
 
       if (onSelect) {
         onSelect(choice);
@@ -56,7 +54,7 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
         <RadioGroup
           id="job-category-suggest-select"
           onChange={handleChoiceSelect}
-          value={selectedJobCategory?.id.value ?? ''}
+          value={selectedJobCategory ?? ''}
           {...restProps}
         >
           {choices.map((choice, index) => {
