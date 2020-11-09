@@ -4,7 +4,7 @@
   },
   "devDependencies": {
     "@graphql-codegen/cli": "1.19.1",
-    "@graphql-codegen/fragment-matcher": "1.17.8",
+    "@graphql-codegen/fragment-matcher": "2.0.0",
     "@graphql-codegen/schema-ast": "1.18.0",
     "@graphql-codegen/typescript": "1.17.11",
     "@graphql-codegen/typescript-operations": "1.17.9",
