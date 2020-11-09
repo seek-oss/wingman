@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@koa/cors": "3.1.0",
-    "@koa/router": "9.4.0",
+    "@koa/router": "10.0.0",
     "@types/koa": "2.11.6",
     "@types/koa__router": "8.0.3",
     "@types/lru-cache": "5.1.0",
@@ -25,7 +25,7 @@
     "nock": "13.0.4",
     "skuba": "3.10.1",
     "skuba-dive": "1.1.1",
-    "supertest": "4.0.2"
+    "supertest": "6.0.1"
   },
   "files": [
     "lib/**/*.d.ts",
