@@ -13,7 +13,7 @@
     "lru-cache": "^6.0.0",
     "node-fetch": "^2.6.0",
     "runtypes": "^5.0.0",
-    "seek-koala": "^4.1.1"
+    "seek-koala": "^5.0.0"
   },
   "devDependencies": {
     "@koa/cors": "3.1.0",

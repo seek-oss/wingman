@@ -18228,10 +18228,10 @@ scuid@^1.1.0:
   resolved "https://registry.yarnpkg.com/scuid/-/scuid-1.1.0.tgz#d3f9f920956e737a60f72d0e4ad280bf324d5dab"
   integrity sha512-MuCAyrGZcTLfQoH2XoBlQ8C6bzwN88XT/0slOGz0pn8+gIP85BOAfYa44ZXQUTOwRwPU0QvgU+V+OSajl/59Xg==
 
-seek-koala@^4.1.1:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/seek-koala/-/seek-koala-4.4.0.tgz#3354bffd4afd6fa26a4f0e042e9d9b2e98338091"
-  integrity sha512-4cGmkqjRMYdCqof1S56wTFWzJxLYyA2NbO0N9OnQRkst3GOxv9tYyk0T0gm4jfKk4PpcX2/5Y9Ob8SsX1hX8qQ==
+seek-koala@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/seek-koala/-/seek-koala-5.0.0.tgz#794b7025f1221abf3248d1785ab4c4dc10b9dac6"
+  integrity sha512-LiLTMldFwar/XPUD7bnz9sqi2Qexh89W0k0iZ7S3Ek6ojnURVn4lXNDIuIo7D3nFTkk/snUn6n5uHRAj9Thzzw==
   dependencies:
     uuid "^8.0.0"
 
