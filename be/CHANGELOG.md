@@ -1,5 +1,11 @@
 # wingman-be
 
+## 0.2.4
+
+### Patch Changes
+
+- 26c015c: **deps:** seek-koala ^5.0.0
+
 ## 0.2.3
 
 ### Patch Changes
