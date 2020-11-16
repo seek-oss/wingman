@@ -27,8 +27,8 @@
     "date-fns": "2.16.1",
     "faker": "5.1.0",
     "@graphql-tools/schema": "6.2.4",
-    "react": "16.14.0",
-    "react-dom": "16.14.0",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
     "react-router-dom": "5.2.0",
     "scoobie": "4.6.1",
     "sku": "10.8.2",
@@ -43,7 +43,7 @@
   "peerDependencies": {
     "braid-design-system": ">= 29.13.1",
     "classnames": ">= 2 < 3",
-    "react": ">= 16 < 17",
+    "react": ">= 16 < 18",
     "scoobie": ">= 4 < 5"
   },
   "repository": {
