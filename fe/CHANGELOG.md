@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.16.6
+
+### Patch Changes
+
+- 26c015c: **deps:** Support React 17
+
 ## 0.16.5
 
 ### Patch Changes
