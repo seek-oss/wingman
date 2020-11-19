@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.16.7
+
+### Patch Changes
+
+- b3d9f56: **deps:** yup ^0.30.0
+
 ## 0.16.6
 
 ### Patch Changes
