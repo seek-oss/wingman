@@ -18296,10 +18296,10 @@ selfsigned@^1.10.7:
   dependencies:
     node-forge "0.9.0"
 
-semantic-release@^17.2.1:
-  version "17.2.1"
-  resolved "https://registry.yarnpkg.com/semantic-release/-/semantic-release-17.2.1.tgz#739bad395219110cc30d1ef7029fa2e03e3b4b72"
-  integrity sha512-+xbLWsT9NoibeMMJw4te0pbY4q/Z1gt/vzhB0z9RRNGVyqCgQiK5NUJ11eW6etSyPZ9QFeAMnqO2dzscWUTy2w==
+semantic-release@^17.2.3:
+  version "17.2.3"
+  resolved "https://registry.yarnpkg.com/semantic-release/-/semantic-release-17.2.3.tgz#11f10b851d4e75b1015b17515c433049b3df994c"
+  integrity sha512-MY1MlowGQrkOR7+leOD8ICkVOC6i1szbwDODdbJ0UdshtMx8Ms0bhpRQmEEliqYKEb5PLv/dqs6zKKuHT7UxTg==
   dependencies:
     "@semantic-release/commit-analyzer" "^8.0.0"
     "@semantic-release/error" "^2.2.0"
@@ -18770,10 +18770,10 @@ skuba-dive@1.1.1:
     module-alias "^2.2.2"
     source-map-support "^0.5.16"
 
-skuba@3.10.1:
-  version "3.10.1"
-  resolved "https://registry.yarnpkg.com/skuba/-/skuba-3.10.1.tgz#defc90a1e744bcc23518bb1d4b0be1580bb3f315"
-  integrity sha512-PWccQNmKF5uj5Il5cSy6GjOZRjn4+gW4nihcnYhY1GAPTgl7ubbYt1R4T5oAmXQfkE7Ys5HpBgLBkVVcIj8tIQ==
+skuba@3.10.2:
+  version "3.10.2"
+  resolved "https://registry.yarnpkg.com/skuba/-/skuba-3.10.2.tgz#44c7f92eda6bf99a45a6090fe90052fa23c58376"
+  integrity sha512-yXQbqMH2kUvxWmfnOwRz1aybncozsg4An/PTOR4jGDqr419zHa4+qjCIy9YAH3KlOw07Mt0WMTtbo7y0vNnRGA==
   dependencies:
     "@babel/cli" "^7.12.1"
     "@babel/core" "^7.12.3"
@@ -18803,12 +18803,12 @@ skuba@3.10.1:
     prettier "2.1.2"
     read-pkg-up "^7.0.1"
     runtypes "^5.0.1"
-    semantic-release "^17.2.1"
+    semantic-release "^17.2.3"
     ts-jest "^26.4.1"
     ts-node "^9.0.0"
     ts-node-dev "1.0.0-pre.63"
     tsconfig-seek "1.0.2"
-    typescript "4.0.3"
+    typescript "4.0.5"
     yargs-parser "^20.2.3"
 
 slash@^1.0.0:
@@ -20426,10 +20426,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@4.0.3, typescript@^4.0.3:
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.0.3.tgz#153bbd468ef07725c1df9c77e8b453f8d36abba5"
-  integrity sha512-tEu6DGxGgRJPb/mVPIZ48e69xCn2yRmCgYmDugAVwmJ6o+0u1RI18eO7E7WBTLYLaEVVOhwQmcdhQHweux/WPg==
+typescript@4.0.5, typescript@^4.0.3:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.0.5.tgz#ae9dddfd1069f1cb5beb3ef3b2170dd7c1332389"
+  integrity sha512-ywmr/VrTVCmNTJ6iV2LwIrfG1P+lv6luD8sUJs+2eI9NLGigaN+nUQc13iHqisq7bra9lnmUSYqbJvegraBOPQ==
 
 typescript@^3.7.5:
   version "3.9.7"
