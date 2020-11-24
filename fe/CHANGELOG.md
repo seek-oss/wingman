@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.16.8
+
+### Patch Changes
+
+- c532880: feat(SpecifiedPersonForm): Add component
+
 ## 0.16.7
 
 ### Patch Changes
