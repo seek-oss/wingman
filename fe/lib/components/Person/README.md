@@ -1,6 +1,6 @@
 # SpecifiedPersonForm
 
-A specified person form component that provides a hiring manager or recruiters details for SEEK.
+A specified person form component that provides hiring manager or recruiter details to SEEK.
 Returns a `SpecifiedPersonInput` for e.g the `createPositionOpening` and `createCandidateProcessHistoryItem` mutations.
 
 ## Installation
