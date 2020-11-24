@@ -58,7 +58,7 @@ export const SpecifiedPersonForm = ({ onCreate }: Props) => {
         <Controller
           render={(formProps) => (
             <Dropdown
-              id="roleCode"
+              id="specifiedPersonRoleCode"
               label="Hirer role"
               placeholder="Please select a role"
               {...formProps}
@@ -79,7 +79,7 @@ export const SpecifiedPersonForm = ({ onCreate }: Props) => {
         <Controller
           render={(formProps) => (
             <TextField
-              id="givenName"
+              id="specifiedPersonGivenName"
               type="text"
               message={errors.givenName && 'Given name is required'}
               label="Given name"
@@ -95,7 +95,7 @@ export const SpecifiedPersonForm = ({ onCreate }: Props) => {
         <Controller
           render={(formProps) => (
             <TextField
-              id="familyName"
+              id="specifiedPersonFamilyName"
               type="text"
               message={errors.givenName && 'Family name is required'}
               label="Family name"
@@ -111,7 +111,7 @@ export const SpecifiedPersonForm = ({ onCreate }: Props) => {
         <Controller
           render={(formProps) => (
             <TextField
-              id="email"
+              id="specifiedPersonEmail"
               type="email"
               label="Email address"
               {...formProps}
@@ -126,7 +126,7 @@ export const SpecifiedPersonForm = ({ onCreate }: Props) => {
         <Controller
           render={(formProps) => (
             <TextField
-              id="phone"
+              id="specifiedPersonPhone"
               type="text"
               label="Phone number"
               {...formProps}
