@@ -50,9 +50,13 @@ export const SpecifiedPersonForm = ({ onCreate }: Props) => {
 
   return (
     <form
-      onSubmit={handleSubmit((formData) =>
-        onCreate(mapFormDataToMutationInput(formData)),
-      )}
+      onSubmit={(event) => {
+        event.preventDefault();
+
+        handleSubmit((formData) =>
+          onCreate(mapFormDataToMutationInput(formData)),
+        );
+      }}
     >
       <Stack space="small">
         <Controller
