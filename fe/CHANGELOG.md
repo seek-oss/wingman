@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.16.11
+
+### Patch Changes
+
+- c68f8fd: Remove userForm hook from SpecifiedPersonForm
+
 ## 0.16.10
 
 ### Patch Changes
