@@ -1,10 +1,18 @@
-import { Button, Dropdown, Stack, TextField } from 'braid-design-system';
-import React from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import {
+  Button,
+  Stack,
+  Strong,
+  Text,
+  TextDropdown,
+  TextField,
+} from 'braid-design-system';
+import React, { FormEvent, useState } from 'react';
 
 import { SpecifiedPersonInput } from '../../types/seek.graphql';
 
 type RoleCode = 'HiringManager' | 'Recruiter';
+
+const ROLE_CODES: RoleCode[] = ['HiringManager', 'Recruiter'];
 
 interface Props {
   onCreate: (person: SpecifiedPersonInput) => void;
@@ -46,106 +54,62 @@ const mapFormDataToMutationInput = (
 });
 
 export const SpecifiedPersonForm = ({ onCreate }: Props) => {
-  const { handleSubmit, control, errors } = useForm<SubmitData>();
+  const [submitData, setSubmitData] = useState<SubmitData>({
+    roleCode: 'HiringManager',
+    givenName: '',
+    familyName: '',
+  });
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    // prevent any outer forms from receiving the event too
-    event.stopPropagation();
-
-    return handleSubmit((values) =>
-      onCreate(mapFormDataToMutationInput(values)),
-    )(event);
-  };
+  const setField = (field: keyof SubmitData) => (
+    event: FormEvent<HTMLInputElement | HTMLTextAreaElement> | string,
+  ) =>
+    setSubmitData({
+      ...submitData,
+      [field]: typeof event === 'string' ? event : event.currentTarget.value,
+    });
 
   return (
-    <form onSubmit={onSubmit}>
-      <Stack space="small">
-        <Controller
-          render={(formProps) => (
-            <Dropdown
-              id="specifiedPersonRoleCode"
-              label="Hirer role"
-              placeholder="Please select a role"
-              {...formProps}
-            >
-              <option key={'hiringManager'} value={'HiringManager'}>
-                HiringManager
-              </option>
-              <option key={'recruiter'} value={'Recruiter'}>
-                Recruiter
-              </option>
-            </Dropdown>
-          )}
-          rules={{ required: true }}
-          name="roleCode"
-          control={control}
-          value=""
+    <Stack space="small">
+      <Text>
+        <Strong>Hirer role:</Strong>{' '}
+        <TextDropdown
+          id="specifiedPersonRoleCode"
+          label="Hirer role"
+          onChange={(roleCode) => setSubmitData({ ...submitData, roleCode })}
+          options={ROLE_CODES}
+          value={submitData.roleCode}
         />
-        <Controller
-          render={(formProps) => (
-            <TextField
-              id="specifiedPersonGivenName"
-              type="text"
-              message={errors.givenName && 'Given name is required'}
-              label="Given name"
-              {...formProps}
-            />
-          )}
-          control={control}
-          name="givenName"
-          rules={{ required: true }}
-          value=""
-          defaultValue=""
-        />
-        <Controller
-          render={(formProps) => (
-            <TextField
-              id="specifiedPersonFamilyName"
-              type="text"
-              message={errors.givenName && 'Family name is required'}
-              label="Family name"
-              {...formProps}
-            />
-          )}
-          control={control}
-          name="familyName"
-          rules={{ required: true }}
-          value=""
-          defaultValue=""
-        />
-        <Controller
-          render={(formProps) => (
-            <TextField
-              id="specifiedPersonEmail"
-              type="email"
-              label="Email address"
-              {...formProps}
-            />
-          )}
-          control={control}
-          name="email"
-          rules={{ required: false }}
-          value=""
-          defaultValue=""
-        />
-        <Controller
-          render={(formProps) => (
-            <TextField
-              id="specifiedPersonPhone"
-              type="text"
-              label="Phone number"
-              {...formProps}
-            />
-          )}
-          control={control}
-          name="phone"
-          rules={{ required: false }}
-          value=""
-          defaultValue=""
-        />
-        <Button type="submit">Add specified person</Button>
-      </Stack>
-    </form>
+      </Text>
+      <TextField
+        id="specifiedPersonGivenName"
+        message={submitData.givenName ? undefined : 'Given name is required'}
+        label="Given name"
+        value={submitData.givenName}
+        onChange={setField('givenName')}
+      />
+      <TextField
+        id="specifiedPersonFamilyName"
+        message={submitData.familyName ? undefined : 'Family name is required'}
+        label="Family name"
+        value={submitData.familyName}
+        onChange={setField('familyName')}
+      />
+      <TextField
+        id="specifiedPersonEmail"
+        label="Email address"
+        value={submitData.email ?? ''}
+        onChange={setField('email')}
+      />
+      <TextField
+        id="specifiedPersonPhoneNumber"
+        label="Phone number"
+        value={submitData.phone ?? ''}
+        onChange={setField('phone')}
+      />
+
+      <Button onClick={() => onCreate(mapFormDataToMutationInput(submitData))}>
+        Add specified person
+      </Button>
+    </Stack>
   );
 };
