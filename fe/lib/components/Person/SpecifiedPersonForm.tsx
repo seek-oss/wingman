@@ -48,16 +48,18 @@ const mapFormDataToMutationInput = (
 export const SpecifiedPersonForm = ({ onCreate }: Props) => {
   const { handleSubmit, control, errors } = useForm<SubmitData>();
 
-  return (
-    <form
-      onSubmit={(event) => {
-        event.preventDefault();
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // prevent any outer forms from receiving the event too
+    event.stopPropagation();
 
-        handleSubmit((formData) =>
-          onCreate(mapFormDataToMutationInput(formData)),
-        );
-      }}
-    >
+    return handleSubmit((values) =>
+      onCreate(mapFormDataToMutationInput(values)),
+    )(event);
+  };
+
+  return (
+    <form onSubmit={onSubmit}>
       <Stack space="small">
         <Controller
           render={(formProps) => (
