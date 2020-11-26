@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.16.9
+
+### Patch Changes
+
+- 9415b92: Prevent default SpecifiedPersonForm form submission
+
 ## 0.16.8
 
 ### Patch Changes
