@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.16.10
+
+### Patch Changes
+
+- 87ef14b: Fix SpecifiedPersonForm event handling
+
 ## 0.16.9
 
 ### Patch Changes
