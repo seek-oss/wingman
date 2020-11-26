@@ -2,4 +2,4 @@
 'wingman-fe': patch
 ---
 
-Prevent SpecifiedPersonForm submission
+Prevent default SpecifiedPersonForm form submission
