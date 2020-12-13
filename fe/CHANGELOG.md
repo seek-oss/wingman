@@ -1,5 +1,12 @@
 # wingman-fe
 
+## 0.16.12
+
+### Patch Changes
+
+- 0dfa5b3: **JobCategorySuggest:** Pass through `name` prop
+- 0dfa5b3: **JobCategorySelect:** Pass through `name` prop
+
 ## 0.16.11
 
 ### Patch Changes
