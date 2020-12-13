@@ -27,7 +27,7 @@ interface Props extends Omit<FieldProps, 'value' | 'onChange' | 'children'> {
 }
 
 export const JobCategorySelect = forwardRef<HTMLInputElement, Props>(
-  ({ schemeId, onSelect, client, ...restProps }, forwardedRef) => {
+  ({ schemeId, name, onSelect, client, ...restProps }, forwardedRef) => {
     const {
       data: categoriesData,
       loading: categoriesLoading,

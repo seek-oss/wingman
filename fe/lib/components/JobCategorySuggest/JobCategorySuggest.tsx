@@ -38,6 +38,7 @@ export const JobCategorySuggest = forwardRef<HTMLInputElement, Props>(
       debounceDelay = 250,
       showConfidence,
       message = '',
+      name,
       tone,
       ...restProps
     },
