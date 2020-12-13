@@ -1,5 +1,3 @@
-/* eslint-disable new-cap */
-
 import crypto from 'crypto';
 
 interface ValidateWebhookBodyOptions {
