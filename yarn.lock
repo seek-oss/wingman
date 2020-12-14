@@ -18307,10 +18307,10 @@ schema-utils@^2.0.1, schema-utils@^2.5.0, schema-utils@^2.6.5, schema-utils@^2.6
     ajv "^6.12.2"
     ajv-keywords "^3.4.1"
 
-scoobie@4.6.1:
-  version "4.6.1"
-  resolved "https://registry.yarnpkg.com/scoobie/-/scoobie-4.6.1.tgz#7bd6494ee0cfe3e539442d1928158763aef71666"
-  integrity sha512-n6v+Si/XnpMDxYf3xzR+CqH7SQXssEnoT2DYJ46AGDJfJnITjrOxkCG2C98KSlj9MUiVRdmZt0ndskYDjExqVQ==
+scoobie@4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/scoobie/-/scoobie-4.7.0.tgz#cbdd7ea9d28d17e61ba39b7dabac0bee110e916e"
+  integrity sha512-XiOCnp4FARG52hSr2SB1NZ25EsH5OkfvaPN3JlJaT8h6/ALMOWDrhkHOevQnV2rQaUAT4bFksk0RTxQbppbYuw==
   dependencies:
     "@mdx-js/loader" "^1.6.16"
     "@mdx-js/react" "^1.6.16"
@@ -21311,10 +21311,10 @@ webpack-log@^2.0.0:
     ansi-colors "^3.0.0"
     uuid "^3.3.2"
 
-webpack-merge@5.4.0:
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/webpack-merge/-/webpack-merge-5.4.0.tgz#81bef0a7d23fc1e6c24b06ad8bf22ddeb533a3a3"
-  integrity sha512-/scBgu8LVPlHDgqH95Aw1xS+L+PHrpHKOwYVGFaNOQl4Q4wwwWDarwB1WdZAbLQ24SKhY3Awe7VZGYAdp+N+gQ==
+webpack-merge@5.7.0:
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/webpack-merge/-/webpack-merge-5.7.0.tgz#004dec31f7a875e590c9731e5bdcd3efad0f2715"
+  integrity sha512-UryoMJGRMwOOh/ie4NXZC1OtT0mkA7Ny2+C/MkWOwTRG+jVNEwChVV/+x8rd+ga2mVLeQ0m+QmzLAg7N36+oag==
   dependencies:
     clone-deep "^4.0.1"
     wildcard "^2.0.0"

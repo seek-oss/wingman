@@ -30,10 +30,10 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-router-dom": "5.2.0",
-    "scoobie": "4.6.1",
+    "scoobie": "4.7.0",
     "sku": "10.8.3",
     "use-query-params": "1.1.9",
-    "webpack-merge": "5.4.0"
+    "webpack-merge": "5.7.0"
   },
   "files": ["lib"],
   "homepage": "https://github.com/seek-oss/wingman#readme",
