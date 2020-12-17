@@ -78,7 +78,7 @@ export const useFields = <T extends string>(
           ...(field.hadFocus &&
             !field.value && {
               message: `${field.label} is required`,
-              tone: 'critical',
+              tone: 'critical' as const,
             }),
           reserveMessageSpace: true,
         }
