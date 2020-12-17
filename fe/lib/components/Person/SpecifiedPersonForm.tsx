@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Stack,
   Strong,
@@ -6,110 +7,124 @@ import {
   TextDropdown,
   TextField,
 } from 'braid-design-system';
-import React, { FormEvent, useState } from 'react';
+import React from 'react';
 
+import { useFields } from '../../hooks/Fields/Fields';
 import { SpecifiedPersonInput } from '../../types/seek.graphql';
 
-type RoleCode = 'HiringManager' | 'Recruiter';
-
-const ROLE_CODES: RoleCode[] = ['HiringManager', 'Recruiter'];
+type FieldId =
+  | 'specifiedPersonRoleCode'
+  | 'specifiedPersonGivenName'
+  | 'specifiedPersonFamilyName'
+  | 'specifiedPersonEmailAddress'
+  | 'specifiedPersonPhoneNumber';
 
 interface Props {
+  initialValues?: InitialValues;
   onCreate: (person: SpecifiedPersonInput) => void;
 }
 
-interface SubmitData {
-  roleCode: RoleCode;
-  givenName: string;
-  familyName: string;
-  email?: string;
-  phone?: string;
-}
-
-const mapFormDataToMutationInput = (
-  formData: SubmitData,
-): SpecifiedPersonInput => ({
-  roleCode: formData.roleCode,
+const mapFormDataToMutationInput = ({
+  specifiedPersonRoleCode,
+  specifiedPersonGivenName,
+  specifiedPersonFamilyName,
+  specifiedPersonEmailAddress,
+  specifiedPersonPhoneNumber,
+}: Record<FieldId, string>): SpecifiedPersonInput => ({
+  roleCode: specifiedPersonRoleCode,
   communication: {
-    email: formData.email
+    email: [
+      {
+        address: specifiedPersonEmailAddress,
+      },
+    ],
+    phone: specifiedPersonPhoneNumber
       ? [
           {
-            address: formData.email,
-          },
-        ]
-      : [],
-    phone: formData.phone
-      ? [
-          {
-            formattedNumber: formData.phone,
+            formattedNumber: specifiedPersonPhoneNumber,
           },
         ]
       : [],
   },
   name: {
-    given: formData.givenName,
-    family: formData.familyName,
-    formattedName: `${formData.givenName} ${formData.familyName}`,
+    given: specifiedPersonGivenName,
+    family: specifiedPersonFamilyName,
+    formattedName: `${specifiedPersonGivenName} ${specifiedPersonFamilyName}`,
   },
 });
 
-export const SpecifiedPersonForm = ({ onCreate }: Props) => {
-  const [submitData, setSubmitData] = useState<SubmitData>({
-    roleCode: 'HiringManager',
-    givenName: '',
-    familyName: '',
+interface InitialValues {
+  roleCode?: string;
+  givenName?: string;
+  familyName?: string;
+  emailAddress?: string;
+  phoneNumber?: string;
+}
+
+export const SpecifiedPersonForm = ({
+  initialValues = {},
+  onCreate,
+}: Props) => {
+  const { fieldProps, fieldValues } = useFields<FieldId>({
+    specifiedPersonRoleCode: {
+      label: 'Hirer role',
+      initialValue: initialValues.roleCode ?? 'HiringManager',
+    },
+    specifiedPersonGivenName: {
+      initialValue: initialValues.givenName,
+      label: 'Given name',
+      required: true,
+    },
+    specifiedPersonFamilyName: {
+      initialValue: initialValues.familyName,
+      label: 'Family name',
+      required: true,
+    },
+    specifiedPersonEmailAddress: {
+      initialValue: initialValues.emailAddress,
+      label: 'Email address',
+      required: true,
+    },
+    specifiedPersonPhoneNumber: {
+      initialValue: initialValues.phoneNumber,
+      label: 'Phone number',
+    },
   });
 
-  const setField = (field: keyof SubmitData) => (
-    event: FormEvent<HTMLInputElement | HTMLTextAreaElement> | string,
-  ) =>
-    setSubmitData({
-      ...submitData,
-      [field]: typeof event === 'string' ? event : event.currentTarget.value,
-    });
+  const addContact = () => {
+    const values = fieldValues();
+
+    if (values) {
+      onCreate(mapFormDataToMutationInput(values));
+    }
+  };
 
   return (
-    <Stack space="small">
-      <Text>
-        <Strong>Hirer role:</Strong>{' '}
-        <TextDropdown
-          id="specifiedPersonRoleCode"
-          label="Hirer role"
-          onChange={(roleCode) => setSubmitData({ ...submitData, roleCode })}
-          options={ROLE_CODES}
-          value={submitData.roleCode}
-        />
-      </Text>
-      <TextField
-        id="specifiedPersonGivenName"
-        message={submitData.givenName ? undefined : 'Given name is required'}
-        label="Given name"
-        value={submitData.givenName}
-        onChange={setField('givenName')}
-      />
-      <TextField
-        id="specifiedPersonFamilyName"
-        message={submitData.familyName ? undefined : 'Family name is required'}
-        label="Family name"
-        value={submitData.familyName}
-        onChange={setField('familyName')}
-      />
-      <TextField
-        id="specifiedPersonEmail"
-        label="Email address"
-        value={submitData.email ?? ''}
-        onChange={setField('email')}
-      />
-      <TextField
-        id="specifiedPersonPhoneNumber"
-        label="Phone number"
-        value={submitData.phone ?? ''}
-        onChange={setField('phone')}
-      />
+    <Stack space="medium">
+      <Box marginBottom="medium">
+        <Text>
+          <Strong>Role:</Strong>{' '}
+          <TextDropdown
+            options={[
+              {
+                text: 'Hiring Manager',
+                value: 'HiringManager',
+              },
+              {
+                text: 'Recruiter',
+                value: 'Recruiter',
+              },
+            ]}
+            {...fieldProps('specifiedPersonRoleCode')}
+          />
+        </Text>
+      </Box>
+      <TextField {...fieldProps('specifiedPersonGivenName')} />
+      <TextField {...fieldProps('specifiedPersonFamilyName')} />
+      <TextField {...fieldProps('specifiedPersonEmailAddress')} />
+      <TextField {...fieldProps('specifiedPersonPhoneNumber')} />
 
-      <Button onClick={() => onCreate(mapFormDataToMutationInput(submitData))}>
-        Add specified person
-      </Button>
+      <Button onClick={addContact}>Add contact</Button>
     </Stack>
   );
 };
