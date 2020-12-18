@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.17.0
+
+### Minor Changes
+
+- f967597: SpecifiedPersonForm: Accept initial values and require email address
+
 ## 0.16.12
 
 ### Patch Changes
