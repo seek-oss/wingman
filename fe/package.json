@@ -33,7 +33,7 @@
     "scoobie": "4.7.0",
     "sku": "10.9.1",
     "use-query-params": "1.1.9",
-    "webpack-merge": "5.7.0"
+    "webpack-merge": "5.7.2"
   },
   "files": ["lib"],
   "homepage": "https://github.com/seek-oss/wingman#readme",
