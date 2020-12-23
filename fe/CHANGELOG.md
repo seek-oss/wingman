@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.17.1
+
+### Patch Changes
+
+- f095054: **JobCategorySuggest:** Forward `name` prop
+
 ## 0.17.0
 
 ### Minor Changes
