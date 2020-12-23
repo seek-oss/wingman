@@ -15,6 +15,7 @@ import { flattenResourceByKey } from '../../utils';
 
 interface Props {
   choices: JobCategorySuggestionChoice[];
+  name?: string;
   onSelect?: (jobCategorySuggestionChoice: JobCategorySuggestionChoice) => void;
   showConfidence?: boolean;
   tone?: ComponentProps<typeof RadioGroup>['tone'];
@@ -28,7 +29,7 @@ const getJobCategoryName = (jobCategory: JobCategory): string =>
 
 const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
   (
-    { choices, onSelect, showConfidence = false, ...restProps },
+    { choices, name, onSelect, showConfidence = false, ...restProps },
     forwardedRef,
   ) => {
     const [selectedJobCategory, setSelectedJobCategory] = useState<
@@ -57,6 +58,7 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
 
         <RadioGroup
           id="job-category-suggest-select"
+          name={name}
           onChange={handleChoiceSelect}
           value={selectedJobCategory?.id.value ?? ''}
           {...restProps}
