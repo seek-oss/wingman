@@ -378,9 +378,7 @@ export interface Mutation {
    */
   createPositionOpening: CreatePositionOpeningPayload;
   /** Replaces an existing position opening's person contacts. */
-  updatePositionOpeningPersonContacts?: Maybe<
-    UpdatePositionOpeningPersonContactsPayload
-  >;
+  updatePositionOpeningPersonContacts?: Maybe<UpdatePositionOpeningPersonContactsPayload>;
   /**
    * Update the status of a position opening.
    *
@@ -429,9 +427,7 @@ export interface Mutation {
    * The fields that determine which events are to be delivered are immutable.
    * A new webhook subscription should be created for such cases.
    */
-  updateWebhookSubscriptionDeliveryConfiguration?: Maybe<
-    UpdateWebhookSubscriptionDeliveryConfigurationPayload
-  >;
+  updateWebhookSubscriptionDeliveryConfiguration?: Maybe<UpdateWebhookSubscriptionDeliveryConfigurationPayload>;
   /** Deletes an existing webhook subscription. */
   deleteWebhookSubscription?: Maybe<DeleteWebhookSubscriptionPayload>;
 }
