@@ -14,8 +14,10 @@ export const PositionListPage = () => (
     <Divider />
 
     <PositionList>
-      {// TODO: support pagination
-      POSITIONS.slice(0, 25)}
+      {
+        // TODO: support pagination
+        POSITIONS.slice(0, 25)
+      }
     </PositionList>
   </Stack>
 );
