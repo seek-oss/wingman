@@ -14,7 +14,7 @@ import {
 import React, { FormEvent } from 'react';
 import { useStyles } from 'sku/react-treat';
 
-import { AdProductName } from '../data/adProducts';
+import type { AdProductName } from '../data/adProducts';
 import { useLocalStorage } from '../hooks/localStorage';
 
 import { AdProductSelect } from './AdProductSelect';

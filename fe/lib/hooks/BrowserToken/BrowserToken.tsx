@@ -1,7 +1,7 @@
 import React, { ReactNode, useContext } from 'react';
 
 import { createGetAuthorization } from './fetch';
-import { GetAuthorization } from './types';
+import type { GetAuthorization } from './types';
 
 const ctx = React.createContext<GetAuthorization | undefined>(undefined);
 

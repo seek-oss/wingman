@@ -1,7 +1,7 @@
 import { Stack } from 'braid-design-system';
 import React from 'react';
 
-import {
+import type {
   HookSetterFn,
   OptionListItem,
   QuestionType,

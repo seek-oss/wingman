@@ -1,16 +1,16 @@
-import {
+import type {
   ApplicationPrivacyConsent,
   ApplicationQuestion,
   ApplicationQuestionnaireComponent,
 } from '../../types/seek.graphql';
 
-import {
+import type {
   FormComponent,
   GraphqlComponentInput,
   PrivacyConsent,
   Question,
 } from './questionTypes';
-import { QuestionType } from './types';
+import type { QuestionType } from './types';
 
 const mapPrivacyConsent = (
   component: ApplicationPrivacyConsent,

@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
-import { Render } from 'sku';
+import type { Render } from 'sku';
 
 import { App } from './App/App';
 import { UserProvider } from './hooks/user';
-import { ClientContext } from './types';
+import type { ClientContext } from './types';
 
 interface RenderContext {
   basename: string;

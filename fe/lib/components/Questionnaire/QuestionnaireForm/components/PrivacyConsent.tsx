@@ -8,7 +8,7 @@ import {
 } from 'braid-design-system';
 import React, { useState } from 'react';
 
-import { PrivacyConsent } from '../../questionTypes';
+import type { PrivacyConsent } from '../../questionTypes';
 
 interface PrivacyConsentRendererProps {
   privacy: PrivacyConsent;

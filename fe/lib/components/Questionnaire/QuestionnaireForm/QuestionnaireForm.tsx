@@ -1,9 +1,9 @@
 import { Stack } from 'braid-design-system';
 import React, { useReducer } from 'react';
 
-import { ApplicationQuestionnaireComponent } from '../../../types/seek.graphql';
+import type { ApplicationQuestionnaireComponent } from '../../../types/seek.graphql';
 import { mapApplicationQuestionnaireToFormComponent } from '../mapping';
-import {
+import type {
   FormComponent,
   FreeTextQuestion,
   PrivacyConsent,

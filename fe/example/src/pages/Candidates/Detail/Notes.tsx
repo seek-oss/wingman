@@ -12,7 +12,7 @@ import {
 import React, { useState } from 'react';
 
 import { RelativeDate } from '../../../components/RelativeDate';
-import { Candidate } from '../../../data/candidates';
+import type { Candidate } from '../../../data/candidates';
 
 interface Props {
   children: Candidate;

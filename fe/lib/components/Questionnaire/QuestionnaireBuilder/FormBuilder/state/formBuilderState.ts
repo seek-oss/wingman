@@ -1,13 +1,13 @@
 import React from 'react';
 import { v4 as uuid } from 'uuid';
 
-import {
+import type {
   FormComponent,
   FreeTextQuestion,
   PrivacyConsent,
   SelectionQuestion,
 } from '../../../questionTypes';
-import { OptionListItem, QuestionType } from '../../../types';
+import type { OptionListItem, QuestionType } from '../../../types';
 
 export interface DeleteComponentAction {
   type: 'DELETE_COMPONENT';

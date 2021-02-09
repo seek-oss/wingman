@@ -10,7 +10,7 @@ import {
   Union,
 } from 'runtypes';
 
-import { QuestionType } from './types';
+import type { QuestionType } from './types';
 
 interface BaseQuestion {
   // This is the ID of the question, but GraphQL has it as `value`

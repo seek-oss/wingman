@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 
 import { QuestionnaireForm } from '../../../../lib/components/Questionnaire';
 import { Header } from '../../components/Header';
-import { Questionnaire } from '../../data/questionnaires';
+import type { Questionnaire } from '../../data/questionnaires';
 import { QuestionnaireSelect } from '../../widgets/QuestionnaireSelect';
 
 export const PositionQuestionnairePage = () => {

@@ -21,7 +21,7 @@ import React, { useState } from 'react';
 import { useStyles } from 'sku/react-treat';
 import { StringParam, useQueryParam } from 'use-query-params';
 
-import { Ad } from '../../data/ads';
+import type { Ad } from '../../data/ads';
 import { NewAdForm } from '../../widgets/NewAdForm';
 
 import * as styleRefs from './List.treat';

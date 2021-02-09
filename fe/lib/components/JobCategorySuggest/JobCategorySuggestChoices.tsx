@@ -7,7 +7,7 @@ import {
 } from 'braid-design-system';
 import React, { ComponentProps, forwardRef, useState } from 'react';
 
-import {
+import type {
   JobCategory,
   JobCategorySuggestionChoice,
 } from '../../types/seek.graphql';

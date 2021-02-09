@@ -13,7 +13,7 @@ import React, { useState } from 'react';
 import { RelativeDate } from '../components/RelativeDate';
 import { SearchField } from '../components/SearchField';
 import { Table, TableColumn } from '../components/Table';
-import { Position } from '../data/positions';
+import type { Position } from '../data/positions';
 
 const COLUMNS: Array<TableColumn<Position>> = [
   {

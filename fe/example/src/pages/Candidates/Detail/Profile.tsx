@@ -12,7 +12,7 @@ import {
 } from 'braid-design-system';
 import React from 'react';
 
-import { Candidate, Role } from '../../../data/candidates';
+import type { Candidate, Role } from '../../../data/candidates';
 
 const MAX_ROLES = 3;
 

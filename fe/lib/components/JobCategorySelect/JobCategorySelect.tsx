@@ -13,7 +13,7 @@ import React, {
   useState,
 } from 'react';
 
-import { JobCategory } from '../../types/seek.graphql';
+import type { JobCategory } from '../../types/seek.graphql';
 
 import JobCategorySelectInput from './JobCategorySelectInput';
 import { JOB_CATEGORIES } from './queries';

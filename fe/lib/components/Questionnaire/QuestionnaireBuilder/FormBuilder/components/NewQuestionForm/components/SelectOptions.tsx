@@ -8,7 +8,7 @@ import {
 } from 'braid-design-system';
 import React, { useState } from 'react';
 
-import { HookSetterFn, OptionListItem } from '../../../../../types';
+import type { HookSetterFn, OptionListItem } from '../../../../../types';
 
 import CentredFlexBox from './CentredFlexBox';
 import DisplayOption from './DisplayOption';

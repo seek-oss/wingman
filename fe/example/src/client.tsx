@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { App } from './App/App';
 import { UserProvider } from './hooks/user';
-import { ClientContext } from './types';
+import type { ClientContext } from './types';
 
 export default ({ basename, site }: ClientContext) => {
   hydrate(
