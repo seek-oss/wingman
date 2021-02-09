@@ -7,10 +7,9 @@ import {
   IconClear,
   Stack,
   Text,
+  TextLinkButton,
 } from 'braid-design-system';
 import React from 'react';
-
-import { TextLinkButton } from '../../../../../components/TextLinkButton';
 
 import CentredFlexBox from './CentredFlexBox';
 

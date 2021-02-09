@@ -1,6 +1,5 @@
+import { TextLinkButton } from 'braid-design-system';
 import React, { ReactNode } from 'react';
-
-import { TextLinkButton } from '..';
 
 import { download } from './download';
 
@@ -34,7 +33,7 @@ export const DownloadLink = ({ children, getAuthorization, href }: Props) => {
     }
   };
   return (
-    <TextLinkButton disabled={downloading} onClick={handleClick}>
+    <TextLinkButton onClick={handleClick}>
       {children}
       {downloading ? '...' : ''}
     </TextLinkButton>
