@@ -1,3 +1,15 @@
+# managed by sku
+.eslintrc
+.prettierrc
+coverage/
+dist-playroom/
+dist-storybook/
+dist/
+report/
+tsconfig.json
+# end managed by sku
+
+.ssl/
 node_modules/
 
 /be/lib/
