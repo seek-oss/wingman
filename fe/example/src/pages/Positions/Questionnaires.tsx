@@ -8,7 +8,7 @@ import {
 } from 'braid-design-system';
 import React, { useState } from 'react';
 
-import { QuestionnaireForm } from '../../../../lib/components/Questionnaire';
+import { QuestionnaireForm } from '../../../../lib/components/Questionnaire/QuestionnaireForm/QuestionnaireForm';
 import { Header } from '../../components/Header';
 import type { Questionnaire } from '../../data/questionnaires';
 import { QuestionnaireSelect } from '../../widgets/QuestionnaireSelect';

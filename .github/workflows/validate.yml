@@ -28,3 +28,7 @@ jobs:
 
       - name: Test
         run: yarn test
+
+      # sku lint does not dry run the build
+      - name: Build fe
+        run: yarn fe build
