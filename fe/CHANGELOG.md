@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.17.2
+
+### Patch Changes
+
+- 75dea5a: **QuestionnaireBuilder:** Use Braid's TextLinkButton
+
 ## 0.17.1
 
 ### Patch Changes
