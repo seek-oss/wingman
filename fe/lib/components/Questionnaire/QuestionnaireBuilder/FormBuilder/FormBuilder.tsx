@@ -1,7 +1,13 @@
-import { Alert, Card, IconAdd, Stack, Text } from 'braid-design-system';
+import {
+  Alert,
+  Card,
+  IconAdd,
+  Stack,
+  Text,
+  TextLinkButton,
+} from 'braid-design-system';
 import React, { useEffect, useReducer, useState } from 'react';
 
-import { TextLinkButton } from '../../components/TextLinkButton';
 import { MAX_NUMBER_OF_COMPONENTS } from '../../constants';
 import type {
   FormComponent,
@@ -95,7 +101,7 @@ export const FormBuilder = ({
       state.length < MAX_NUMBER_OF_COMPONENTS && (
         <Card key="questionCard">
           <Text>
-            <TextLinkButton onClick={onClickAddQuestion} width="full">
+            <TextLinkButton onClick={onClickAddQuestion}>
               <CentredFlexBox justifyContent="spaceBetween">
                 Add a question
                 <IconAdd />
@@ -135,7 +141,7 @@ export const FormBuilder = ({
       state.length < MAX_NUMBER_OF_COMPONENTS && (
         <Card key="privacyConsentCard">
           <Text>
-            <TextLinkButton onClick={onClickAddPrivacyConsent} width="full">
+            <TextLinkButton onClick={onClickAddPrivacyConsent}>
               <CentredFlexBox justifyContent="spaceBetween">
                 Add a privacy consent component
                 <IconAdd />
