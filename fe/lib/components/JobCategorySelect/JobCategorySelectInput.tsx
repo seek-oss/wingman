@@ -1,7 +1,7 @@
 import { Column, Columns, Dropdown } from 'braid-design-system';
 import React, { useEffect, useState } from 'react';
 
-import { JobCategory } from '../../types/seek.graphql';
+import type { JobCategory } from '../../types/seek.graphql';
 import { findCategory } from '../../utils';
 
 interface Props {

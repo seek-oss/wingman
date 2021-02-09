@@ -4,7 +4,7 @@ import React, { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { useStyles } from 'sku/react-treat';
 
-import { Align } from './Table';
+import type { Align } from './Table';
 
 import * as styleRefs from './TableCellLink.treat';
 

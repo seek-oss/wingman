@@ -9,12 +9,12 @@ import {
 } from 'braid-design-system';
 import React, { useContext, useState } from 'react';
 
-import {
+import type {
   FreeTextQuestion,
   ResponseChoice,
   SelectionQuestion,
 } from '../../../../questionTypes';
-import { OptionListItem, QuestionType } from '../../../../types';
+import type { OptionListItem, QuestionType } from '../../../../types';
 import { StateContext, actionCreators } from '../../state/formBuilderState';
 
 import QuestionInputFields from './components/QuestionInputFields';

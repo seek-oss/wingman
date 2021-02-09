@@ -1,5 +1,11 @@
 import { ApolloClient, useLazyQuery } from '@apollo/client';
-import { FieldMessage, Loader, Radio, Stack, Text } from 'braid-design-system';
+import {
+  FieldMessage,
+  Loader,
+  RadioGroup,
+  Stack,
+  Text,
+} from 'braid-design-system';
 import React, {
   ComponentProps,
   ComponentPropsWithRef,
@@ -8,7 +14,7 @@ import React, {
 } from 'react';
 import { useDebounce } from 'use-debounce';
 
-import {
+import type {
   JobCategorySuggestionChoice,
   JobCategorySuggestionPositionProfileInput,
 } from '../../types/seek.graphql';
@@ -16,7 +22,7 @@ import {
 import JobCategorySuggestChoices from './JobCategorySuggestChoices';
 import { JOB_CATEGORY_SUGGESTION } from './queries';
 
-interface RadioProps extends ComponentPropsWithRef<typeof Radio> {}
+interface RadioProps extends ComponentPropsWithRef<typeof RadioGroup> {}
 
 interface Props extends Partial<Omit<RadioProps, 'id'>> {
   client?: ApolloClient<unknown>;

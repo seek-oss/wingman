@@ -11,7 +11,7 @@ import {
 import React, { useState } from 'react';
 import { useStyles } from 'sku/react-treat';
 
-import { Attachment } from '../../../data/candidates';
+import type { Attachment } from '../../../data/candidates';
 
 import * as styleRefs from './Attachment.treat';
 

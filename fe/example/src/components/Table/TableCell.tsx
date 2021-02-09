@@ -1,7 +1,7 @@
 import { Box, Text } from 'braid-design-system';
 import React, { ReactNode } from 'react';
 
-import { Align } from './Table';
+import type { Align } from './Table';
 import { TableCellLink } from './TableCellLink';
 
 interface Props {

@@ -11,7 +11,7 @@ import {
 } from 'braid-design-system';
 import React, { useState } from 'react';
 
-import {
+import type {
   GeoLocationInput,
   Location,
   LocationSuggestion,

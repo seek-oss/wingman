@@ -3,7 +3,7 @@ import React, { useEffect, useReducer, useState } from 'react';
 
 import { TextLinkButton } from '../../components/TextLinkButton';
 import { MAX_NUMBER_OF_COMPONENTS } from '../../constants';
-import {
+import type {
   FormComponent,
   PrivacyConsent,
   SelectionQuestion,

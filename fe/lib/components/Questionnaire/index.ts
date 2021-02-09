@@ -2,15 +2,13 @@ export { QuestionnaireBuilder } from './QuestionnaireBuilder/QuestionnaireBuilde
 
 export { FormBuilder } from './QuestionnaireBuilder/FormBuilder/FormBuilder';
 export { QuestionnaireForm } from './QuestionnaireForm/QuestionnaireForm';
-export {
-  GraphqlQueryRenderer,
-  QuestionnaireCreateInput,
-} from './components/GraphqlQueryRenderer/GraphqlQueryRenderer';
+export { GraphqlQueryRenderer } from './components/GraphqlQueryRenderer/GraphqlQueryRenderer';
+export type { QuestionnaireCreateInput } from './components/GraphqlQueryRenderer/GraphqlQueryRenderer';
 
-export {
-  Question,
-  FreeTextQuestion,
-  SelectionQuestion,
+export type {
   FormComponent,
+  FreeTextQuestion,
   PrivacyConsent,
+  Question,
+  SelectionQuestion,
 } from './questionTypes';

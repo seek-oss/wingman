@@ -15,7 +15,7 @@ import React, { Fragment, useState } from 'react';
 
 import { SearchField } from '../components/SearchField';
 import { Table, TableColumn } from '../components/Table';
-import { Candidate } from '../data/candidates';
+import type { Candidate } from '../data/candidates';
 
 const ATTRIBUTE_ROW_LIMIT = 3;
 

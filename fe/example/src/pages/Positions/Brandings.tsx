@@ -2,7 +2,7 @@ import { Box, ContentBlock, Heading, Stack, Text } from 'braid-design-system';
 import React, { useState } from 'react';
 
 import { Header } from '../../components/Header';
-import { Branding } from '../../data/brandings';
+import type { Branding } from '../../data/brandings';
 import { BrandingSelect } from '../../widgets/BrandingSelect';
 
 export const PositionBrandingPage = () => {

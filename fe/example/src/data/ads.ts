@@ -1,4 +1,4 @@
-import { AdProductName } from './adProducts';
+import type { AdProductName } from './adProducts';
 import { faker } from './faker';
 import { POSITIONS, Position } from './positions';
 

@@ -17,7 +17,7 @@ import {
   convertComponentsToMutationVariables,
 } from '../components/GraphqlQueryRenderer/GraphqlQueryRenderer';
 import { mapGraphqlToFormComponent } from '../mapping';
-import { FormComponent, GraphqlComponentInput } from '../questionTypes';
+import type { FormComponent, GraphqlComponentInput } from '../questionTypes';
 
 import { FormBuilder } from './FormBuilder/FormBuilder';
 
