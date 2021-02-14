@@ -95,7 +95,7 @@ export default ({
         <Box>
           <Actions>
             <Button onClick={saveThisQuestion}>Save</Button>
-            <Button onClick={hideForm} weight="weak">
+            <Button onClick={hideForm} variant="transparent">
               Cancel
             </Button>
           </Actions>

@@ -89,7 +89,7 @@ export const AdList = ({ ads }: Props) => {
                           return [...array];
                         })
                       }
-                      weight="weak"
+                      variant="transparent"
                     >
                       Discard
                     </Button>
@@ -159,7 +159,7 @@ export const AdList = ({ ads }: Props) => {
               {/* TODO: actually do something */}
               <Actions>
                 <Button onClick={() => setNewAd(false)}>Post</Button>
-                <Button onClick={() => setNewAd(false)} weight="weak">
+                <Button onClick={() => setNewAd(false)} variant="transparent">
                   Discard
                 </Button>
               </Actions>

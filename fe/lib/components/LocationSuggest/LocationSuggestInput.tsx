@@ -138,8 +138,8 @@ const LocationSuggestInput = ({
         <Column width="content">
           <Button
             loading={isLoading}
-            weight="weak"
             onClick={handleDetectLocationClicked}
+            variant="soft"
           >
             Detect location <IconLocation />
           </Button>

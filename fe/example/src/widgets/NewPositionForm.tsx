@@ -89,7 +89,7 @@ export const NewPositionForm = () => {
 
       <Card>
         <Actions>
-          <Button type="submit" weight="strong">
+          <Button tone="brandAccent" type="submit">
             Create position
           </Button>
         </Actions>
