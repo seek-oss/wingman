@@ -1,5 +1,16 @@
 # wingman-fe
 
+## 0.18.0
+
+### Minor Changes
+
+- a4c4694: **deps:** Require Braid v29.26
+- a4c4694: **deps:** Require Scoobie v5
+
+### Patch Changes
+
+- a4c4694: **LocationSuggest, QuestionnaireBuilder:** Use new Braid button variants
+
 ## 0.17.2
 
 ### Patch Changes
