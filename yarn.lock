@@ -2355,6 +2355,11 @@
     schema-utils "^2.6.5"
     source-map "^0.7.3"
 
+"@popperjs/core@^2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.6.0.tgz#f022195afdfc942e088ee2101285a1d31c7d727f"
+  integrity sha512-cPqjjzuFWNK3BSKLm0abspP0sp/IGOli4p5I5fKFAzdS8fvjdOwDCfZqAaIiXd9lPkOWi3SUUfZof3hEb7J/uw==
+
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@protobufjs/aspromise/-/aspromise-1.1.2.tgz#9b8b0cc663d669a7d8f6f5d0893a14d348f30fbf"
@@ -3307,10 +3312,10 @@
   dependencies:
     "@types/koa" "*"
 
-"@types/koa@*", "@types/koa@2.11.7", "@types/koa@^2.0.46":
-  version "2.11.7"
-  resolved "https://registry.yarnpkg.com/@types/koa/-/koa-2.11.7.tgz#3b38f3b9faa66315a84890a771d166fb36463100"
-  integrity sha512-1iXJZZWCePoMe9LGSIPWsu5k5RI4ooXijW78c+nljMn3YbUts8PXoEESu1OeFmrazLPl1l97vTxzwvmH32TWVQ==
+"@types/koa@*", "@types/koa@2.11.8", "@types/koa@^2.0.46":
+  version "2.11.8"
+  resolved "https://registry.yarnpkg.com/@types/koa/-/koa-2.11.8.tgz#b3fa4bf0baa518b71cb0c14b8a354b6292bea883"
+  integrity sha512-8LJHhlEjxvEb9MR06zencOxZyxpTHG2u6pcvJbSBN9DRBc+GYQ9hFI8sSH7dvYoITKeAGWo2eVPKx1Z/zX/yKw==
   dependencies:
     "@types/accepts" "*"
     "@types/content-disposition" "*"
@@ -3479,10 +3484,10 @@
     "@types/react" "*"
     "@types/reactcss" "*"
 
-"@types/react-dom@17.0.0":
-  version "17.0.0"
-  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.0.tgz#b3b691eb956c4b3401777ee67b900cb28415d95a"
-  integrity sha512-lUqY7OlkF/RbNtD5nIq7ot8NquXrdFrjSOR6+w9a9RFQevGi1oZO1dcJbXMeONAPKtZ2UrZOEJ5UOCVsxbLk/g==
+"@types/react-dom@17.0.1":
+  version "17.0.1"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.1.tgz#d92d77d020bfb083e07cc8e0ac9f933599a4d56a"
+  integrity sha512-yIVyopxQb8IDZ7SOHeTovurFq+fXiPICa+GV3gp0Xedsl+MwQlMLKmvrnEjFbQxjliH5YVAEWFh975eVNmKj7Q==
   dependencies:
     "@types/react" "*"
 
@@ -3532,10 +3537,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@17.0.1":
-  version "17.0.1"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.1.tgz#eb1f1407dea8da3bc741879c1192aa703ab9975b"
-  integrity sha512-w8t9f53B2ei4jeOqf/gxtc2Sswnc3LBK5s0DyJcg5xd10tMHXts2N31cKjWfH9IC/JvEPa/YF1U4YeP1t4R6HQ==
+"@types/react@*", "@types/react@17.0.2":
+  version "17.0.2"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.2.tgz#3de24c4efef902dd9795a49c75f760cbe4f7a5a8"
+  integrity sha512-Xt40xQsrkdvjn1EyWe1Bc0dJLcil/9x2vAuW7ya+PuQip4UYUaXyhzWmAbwRsdMgwOFHpfp7/FFZebDU6Y8VHA==
   dependencies:
     "@types/prop-types" "*"
     csstype "^3.0.2"
@@ -5590,10 +5595,10 @@ braces@^3.0.1, braces@~3.0.2:
   dependencies:
     fill-range "^7.0.1"
 
-braid-design-system@29.26.0:
-  version "29.26.0"
-  resolved "https://registry.yarnpkg.com/braid-design-system/-/braid-design-system-29.26.0.tgz#541974886e6c30cdd224c746db722cf591f974a4"
-  integrity sha512-Kjbrq2VyI1vz6m3YkGIZ5xj5bVaMbTkvaog3PDPqOCnXbYNxcUMOYqckPZ8MgdkPLfphpeMZtbDwvQIiUT6aJQ==
+braid-design-system@29.27.0:
+  version "29.27.0"
+  resolved "https://registry.yarnpkg.com/braid-design-system/-/braid-design-system-29.27.0.tgz#fc528f66626e6cf1a948c5c79414587c49ed8b53"
+  integrity sha512-3g4v/opwmKbDXFW2Tu3d1UlMgd5eysqzWAx10HB5j1MQbiuXSynln7JOx0qlqRcTQ30Ob3KcZBfQcqMCbh9mXA==
   dependencies:
     "@types/autosuggest-highlight" "^3.1.1"
     "@types/classnames" "^2.2.11"
@@ -5614,6 +5619,7 @@ braid-design-system@29.26.0:
     react-element-to-jsx-string "^14.3.2"
     react-focus-lock "^2.5.0"
     react-keyed-flatten-children "^1.3.0"
+    react-popper-tooltip "^4.0.1"
     react-remove-scroll "^2.4.1"
     utility-types "^3.10.0"
     uuid "^8.3.2"
@@ -8873,10 +8879,10 @@ fake-tag@^1.0.0:
   resolved "https://registry.yarnpkg.com/fake-tag/-/fake-tag-1.0.1.tgz#1d59da482240a02bd83500ca98976530ed154b0d"
   integrity sha512-qmewZoBpa71mM+y6oxXYW/d1xOYQmeIvnEXAt1oCmdP0sqcogWYLepR87QL1jQVLSVMVYDq2cjY6ec/Wu8/4pg==
 
-faker@5.3.1:
-  version "5.3.1"
-  resolved "https://registry.yarnpkg.com/faker/-/faker-5.3.1.tgz#67f8f5c170b97a76b875389e0e8b9155da7b4853"
-  integrity sha512-sVdoApX/awJHO9DZHZsHVaJBNFiJW0n3lPs0q/nFxp/Mtya1dr2sCMktST3mdxNMHjkvKTTMAW488E+jH1eSbg==
+faker@5.4.0:
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/faker/-/faker-5.4.0.tgz#f18e55993c6887918182b003d163df14daeb3011"
+  integrity sha512-Y9n/Ky/xZx/Bj8DePvXspUYRtHl/rGQytoIT5LaxmNwSe3wWyOeOXb3lT6Dpipq240PVpeFaGKzScz/5fvff2g==
 
 fast-deep-equal@^2.0.1:
   version "2.0.1"
@@ -16613,7 +16619,7 @@ react-error-overlay@^6.0.3:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.8.tgz#474ed11d04fc6bda3af643447d85e9127ed6b5de"
   integrity sha512-HvPuUQnLp5H7TouGq3kzBeioJmXms1wHy9EGjz2OURWBp4qZO6AfGEcnxts1D/CbwPLRAgTMPCEgYhA3sEM4vw==
 
-react-fast-compare@^3.2.0:
+react-fast-compare@^3.0.1, react-fast-compare@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.2.0.tgz#641a9da81b6a6320f270e89724fb45a0b39e43bb"
   integrity sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==
@@ -16690,6 +16696,15 @@ react-popper-tooltip@^2.8.3:
     "@babel/runtime" "^7.9.2"
     react-popper "^1.3.7"
 
+react-popper-tooltip@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/react-popper-tooltip/-/react-popper-tooltip-4.0.1.tgz#e30f91937c2fc1be60c783b06bf646d8c93056bf"
+  integrity sha512-R5+8h8Z6l82LBguQrP8XVD5xDN8gT9PbWNy6l0lXedijYm7MkpUaLGzqO7OVesxZbehhyHmEbJA6897Q5T5n6Q==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
+    "@popperjs/core" "^2.6.0"
+    react-popper "^2.2.4"
+
 react-popper@^1.3.7:
   version "1.3.7"
   resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-1.3.7.tgz#f6a3471362ef1f0d10a4963673789de1baca2324"
@@ -16701,6 +16716,14 @@ react-popper@^1.3.7:
     popper.js "^1.14.4"
     prop-types "^15.6.1"
     typed-styles "^0.0.7"
+    warning "^4.0.2"
+
+react-popper@^2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-2.2.4.tgz#d2ad3d2474ac9f1abf93df3099d408e5aa6a2e22"
+  integrity sha512-NacOu4zWupdQjVXq02XpTD3yFPSfg5a7fex0wa3uGKVkFK7UN6LvVxgcb+xYr56UCuWiNPMH20tntdVdJRwYew==
+  dependencies:
+    react-fast-compare "^3.0.1"
     warning "^4.0.2"
 
 react-refresh@^0.9.0:
@@ -17700,10 +17723,10 @@ schema-utils@^3.0.0:
     ajv "^6.12.5"
     ajv-keywords "^3.5.2"
 
-scoobie@4.7.0:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/scoobie/-/scoobie-4.7.0.tgz#cbdd7ea9d28d17e61ba39b7dabac0bee110e916e"
-  integrity sha512-XiOCnp4FARG52hSr2SB1NZ25EsH5OkfvaPN3JlJaT8h6/ALMOWDrhkHOevQnV2rQaUAT4bFksk0RTxQbppbYuw==
+scoobie@5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/scoobie/-/scoobie-5.0.1.tgz#a39d2064cfafbc29deb92acf6999c756d9384c8e"
+  integrity sha512-fwdQKIb+jMQsdxanJAnxF81jkn0oRmGXq0E1qx0Yhnxr9Ld2O+eMah7sbQsdKjLaa/bYsZEV4oeJycB0c/cg0A==
   dependencies:
     "@mdx-js/loader" "^1.6.16"
     "@mdx-js/react" "^1.6.16"
