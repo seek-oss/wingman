@@ -3158,10 +3158,10 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
-"@types/faker@5.1.6":
-  version "5.1.6"
-  resolved "https://registry.yarnpkg.com/@types/faker/-/faker-5.1.6.tgz#f029aaebfc2d7931a3d729c0888c15f0187d2453"
-  integrity sha512-D+gfFWR/YCvlrYL8lgNZO1jKgIUW+cfhxsgMOqUMYwCI+tl0htD7vCCXp/oJsIxJpxuI7zqmo3gpVQBkFCM4iA==
+"@types/faker@5.1.7":
+  version "5.1.7"
+  resolved "https://registry.yarnpkg.com/@types/faker/-/faker-5.1.7.tgz#1c3f0655f6e912f5578ce40baa941ab8705fc0ef"
+  integrity sha512-ByseCEyhb+64fapaFR/yASUfAU+Ia4LpCnHhoNMQJFSIBvbtFoEZQB0elwrSF/idpKL5OZvmZhCCukGV8Zi22w==
 
 "@types/fs-capacitor@*":
   version "2.0.0"
@@ -3312,10 +3312,10 @@
   dependencies:
     "@types/koa" "*"
 
-"@types/koa@*", "@types/koa@2.11.8", "@types/koa@^2.0.46":
-  version "2.11.8"
-  resolved "https://registry.yarnpkg.com/@types/koa/-/koa-2.11.8.tgz#b3fa4bf0baa518b71cb0c14b8a354b6292bea883"
-  integrity sha512-8LJHhlEjxvEb9MR06zencOxZyxpTHG2u6pcvJbSBN9DRBc+GYQ9hFI8sSH7dvYoITKeAGWo2eVPKx1Z/zX/yKw==
+"@types/koa@*", "@types/koa@2.13.0", "@types/koa@^2.0.46":
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/@types/koa/-/koa-2.13.0.tgz#6356c48521c0941103b6fcfb97bb01426a99d56d"
+  integrity sha512-hNs1Z2lX+R5sZroIy/WIGbPlH/719s/Nd5uIjSIAdHn9q+g7z6mxOnhwMjK1urE4/NUP0SOoYUOD4MnvD9FRNw==
   dependencies:
     "@types/accepts" "*"
     "@types/content-disposition" "*"
