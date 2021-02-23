@@ -1,4 +1,3 @@
-import { yupResolver } from '@hookform/resolvers/yup';
 import {
   Actions,
   Box,
@@ -9,8 +8,7 @@ import {
   TextField,
 } from 'braid-design-system';
 import React, { useContext } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import { object, string } from 'yup';
+import { Controller, EmptyObject, Resolver, useForm } from 'react-hook-form';
 
 import type { PrivacyConsent, WebUrl } from '../../../../questionTypes';
 import { StateContext, actionCreators } from '../../state/formBuilderState';
@@ -33,10 +31,30 @@ const blankFormValues = {
   descriptionHtml: '',
 };
 
-const schema = object().shape({
-  url: string().url().required(),
-  description: string(),
-});
+const isWebUrl = (str: string): boolean => {
+  try {
+    const url = new URL(str);
+    return ['http:', 'https:'].includes(url.protocol);
+  } catch {
+    return false;
+  }
+};
+
+const formValuesResolver: Resolver<FormValues> = (values) =>
+  isWebUrl(values.url)
+    ? {
+        errors: {} as EmptyObject,
+        values,
+      }
+    : {
+        errors: {
+          url: {
+            type: 'validate',
+            message: 'Must be a valid HTTP(S) URL',
+          },
+        },
+        values: {} as EmptyObject,
+      };
 
 export default ({
   hideForm,
@@ -45,7 +63,7 @@ export default ({
   const { dispatch } = useContext(StateContext);
 
   const { control, handleSubmit, errors } = useForm<FormValues>({
-    resolver: yupResolver(schema),
+    resolver: formValuesResolver,
   });
 
   const saveThisPrivacyConsent = (formData: FormValues) => {
