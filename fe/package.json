@@ -19,7 +19,7 @@
     "@types/faker": "5.1.7",
     "@types/react": "17.0.2",
     "@types/react-dom": "17.0.1",
-    "braid-design-system": "29.29.1",
+    "braid-design-system": "29.29.2",
     "classnames": "2.2.6",
     "date-fns": "2.17.0",
     "faker": "5.4.0",
