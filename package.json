@@ -3,11 +3,11 @@
     "@changesets/cli": "2.14.1"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "1.21.1",
+    "@graphql-codegen/cli": "1.21.2",
     "@graphql-codegen/fragment-matcher": "2.0.1",
     "@graphql-codegen/schema-ast": "1.18.1",
-    "@graphql-codegen/typescript": "1.21.0",
-    "@graphql-codegen/typescript-operations": "1.17.14",
+    "@graphql-codegen/typescript": "1.21.1",
+    "@graphql-codegen/typescript-operations": "1.17.15",
     "concurrently": "6.0.0",
     "graphql": "15.5.0"
   },
