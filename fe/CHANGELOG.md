@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.18.2
+
+### Patch Changes
+
+- eb90de5: fix: use-debounce ^6.0.0
+
 ## 0.18.1
 
 ### Patch Changes
