@@ -6039,6 +6039,11 @@ capsize@^1.1.0:
   dependencies:
     round-to "^4.1.0"
 
+capsize@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/capsize/-/capsize-2.0.0.tgz#09c440000d6c6c9da2c22b419b6ced1b74a1b29d"
+  integrity sha512-/xluZJe+SnuByQjws/B6QkrMzo9OqE9sd+k6paTxYoVVZLrwZoPdsCRasPiCIUQMy8UD11xgo5QZ/gtcNMlGlQ==
+
 capture-exit@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/capture-exit/-/capture-exit-2.0.0.tgz#fb953bfaebeb781f62898239dabb426d08a509a4"
@@ -17896,16 +17901,16 @@ schema-utils@^3.0.0:
     ajv "^6.12.5"
     ajv-keywords "^3.5.2"
 
-scoobie@5.0.2:
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/scoobie/-/scoobie-5.0.2.tgz#6ba2e74b9a481636b81d4bef4680ddaef9a8701c"
-  integrity sha512-ajuqjy467KaN6yedfeVkekiXM6y1Y5w5HjKq/dJGseK6O3zDQcIuxxBL+4TcHLcQvIDSxfJnvrXn1LGJRm2vcA==
+scoobie@5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/scoobie/-/scoobie-5.0.3.tgz#af9dd919bd8a855ec78c73ec363495d12242bd4c"
+  integrity sha512-bYHfDuR+EXnO4JXDNKxNFwox84RVjpqWzLppm46nRfOk7zi6rZpnEgK20PySZ70djt/xuCYkT2U+Spxe//6qhw==
   dependencies:
     "@mdx-js/loader" "^1.6.16"
     "@mdx-js/react" "^1.6.16"
     "@types/mdx-js__react" "^1.5.2"
     "@types/react-router-hash-link" "^1.2.1"
-    capsize "^1.1.0"
+    capsize "^2.0.0"
     classnames "^2.2.6"
     find-up "^5.0.0"
     polished "^4.0.0"
