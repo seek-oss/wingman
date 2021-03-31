@@ -1,14 +1,6 @@
 /* eslint-disable new-cap */
-import {
-  Array,
-  Boolean,
-  Literal,
-  Partial,
-  Record as RTRecord,
-  Static,
-  String,
-  Union,
-} from 'runtypes';
+
+import * as t from 'runtypes';
 
 import type { QuestionType } from './types';
 
@@ -51,70 +43,69 @@ export interface PrivacyConsent {
 
 export type FormComponent = Question | PrivacyConsent;
 
-const PrivacyConsent = RTRecord({
-  value: String,
-  privacyPolicyUrl: RTRecord({
-    url: String,
+const PrivacyConsent = t.Record({
+  value: t.String,
+  privacyPolicyUrl: t.Record({
+    url: t.String,
   }),
-  componentTypeCode: Literal('PrivacyConsent'),
-}).And(
-  Partial({
-    descriptionHtml: String,
-  }),
-);
+  componentTypeCode: t.Literal('PrivacyConsent'),
+  descriptionHtml: t.String.optional(),
+});
 
-const BaseQuestion = RTRecord({
-  value: String,
-  questionHtml: String,
-  responseTypeCode: Union(
-    Literal('FreeText'),
-    Literal('SingleSelect'),
-    Literal('MultiSelect'),
+const baseQuestionFields = {
+  value: t.String,
+  questionHtml: t.String,
+  responseTypeCode: t.Union(
+    t.Literal('FreeText'),
+    t.Literal('SingleSelect'),
+    t.Literal('MultiSelect'),
   ),
-  componentTypeCode: Literal('Question'),
+  componentTypeCode: t.Literal('Question'),
+};
+
+const FreeTextQuestion = t.Record({
+  ...baseQuestionFields,
+  responseTypeCode: t.Literal('FreeText'),
 });
 
-const FreeTextQuestion = BaseQuestion.And(
-  RTRecord({
-    responseTypeCode: Literal('FreeText'),
-  }),
-);
-
-const ResponseChoice = RTRecord({
-  text: String,
-  value: String,
-  preferredIndicator: Boolean,
+const ResponseChoice = t.Record({
+  text: t.String,
+  value: t.String,
+  preferredIndicator: t.Boolean,
 });
 
-const SelectionQuestion = BaseQuestion.And(
-  RTRecord({
-    responseTypeCode: Union(Literal('SingleSelect'), Literal('MultiSelect')),
-    responseChoice: Array(ResponseChoice),
+const SelectionQuestion = t.Record({
+  ...baseQuestionFields,
+  responseTypeCode: t.Union(
+    t.Literal('SingleSelect'),
+    t.Literal('MultiSelect'),
+  ),
+  responseChoice: t.Array(ResponseChoice),
+});
+
+export const GraphqlComponentInput = t.Union(
+  t.Record({
+    componentTypeCode: t.Literal('PrivacyConsent'),
+    privacyConsent: PrivacyConsent,
+  }),
+  t.Record({
+    componentTypeCode: t.Literal('Question'),
+    question: t.Union(FreeTextQuestion, SelectionQuestion),
   }),
 );
 
-export const GraphqlComponentInput = RTRecord({
-  componentTypeCode: Literal('PrivacyConsent'),
-  privacyConsent: PrivacyConsent,
-}).Or(
-  RTRecord({
-    componentTypeCode: Literal('Question'),
-    question: FreeTextQuestion.Or(SelectionQuestion),
-  }),
-);
+export type GraphqlComponentInput = t.Static<typeof GraphqlComponentInput>;
 
-export type GraphqlComponentInput = Static<typeof GraphqlComponentInput>;
-
-const QuestionnaireMutationVariableInput = RTRecord({
-  input: RTRecord({
-    applicationQuestionnaire: RTRecord({
-      hirerId: String,
-      components: Array(GraphqlComponentInput),
+const QuestionnaireMutationVariableInput = t.Record({
+  input: t.Record({
+    applicationQuestionnaire: t.Record({
+      hirerId: t.String,
+      components: t.Array(GraphqlComponentInput),
     }),
   }),
 });
 
-export type MutationVariableInput = Static<
+export type MutationVariableInput = t.Static<
   typeof QuestionnaireMutationVariableInput
 >;
 

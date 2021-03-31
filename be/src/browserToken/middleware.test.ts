@@ -110,7 +110,12 @@ describe('createBrowserTokenMiddleware', () => {
       .post('/')
       .set('aUtHoRiZaTiOn', 'in')
       .send({ noscope: 720 })
-      .expect(400, 'scope: Expected string, but was undefined'));
+      .expect(400)
+      .expect(({ text }) =>
+        expect(text).toMatchInlineSnapshot(
+          `"scope: Expected \\"scope\\" property to be present, but was missing"`,
+        ),
+      ));
 
   it('blocks an unknown user', () =>
     agent()
