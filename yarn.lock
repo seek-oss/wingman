@@ -3379,10 +3379,10 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
-"@types/faker@5.1.7":
-  version "5.1.7"
-  resolved "https://registry.yarnpkg.com/@types/faker/-/faker-5.1.7.tgz#1c3f0655f6e912f5578ce40baa941ab8705fc0ef"
-  integrity sha512-ByseCEyhb+64fapaFR/yASUfAU+Ia4LpCnHhoNMQJFSIBvbtFoEZQB0elwrSF/idpKL5OZvmZhCCukGV8Zi22w==
+"@types/faker@5.5.0":
+  version "5.5.0"
+  resolved "https://registry.yarnpkg.com/@types/faker/-/faker-5.5.0.tgz#c1d1d3015559e0f7ca3a7a2e3a2ee31066d5a0f9"
+  integrity sha512-WPBf6jgCsRrbPrgDuWHfbI+cd2CT33JUK+w8NM8jU7KmNr9PF+2eKhD0DKV32nMlyzdMnTHc5TSAG1jpkZbN5A==
 
 "@types/fs-capacitor@*":
   version "2.0.0"
@@ -3824,10 +3824,10 @@
     "@types/cookiejar" "*"
     "@types/node" "*"
 
-"@types/supertest@2.0.10":
-  version "2.0.10"
-  resolved "https://registry.yarnpkg.com/@types/supertest/-/supertest-2.0.10.tgz#630d79b4d82c73e043e43ff777a9ca98d457cab7"
-  integrity sha512-Xt8TbEyZTnD5Xulw95GLMOkmjGICrOQyJ2jqgkSjAUR3mm7pAIzSR0NFBaMcwlzVvlpCjNwbATcWWwjNiZiFrQ==
+"@types/supertest@2.0.11":
+  version "2.0.11"
+  resolved "https://registry.yarnpkg.com/@types/supertest/-/supertest-2.0.11.tgz#2e70f69f220bc77b4f660d72c2e1a4231f44a77d"
+  integrity sha512-uci4Esokrw9qGb9bvhhSVEjd6rkny/dk5PK/Qz4yxKiyppEI+dOPlNrZBahE3i+PoKFYyDxChVXZ/ysS/nrm1Q==
   dependencies:
     "@types/superagent" "*"
 
@@ -10146,12 +10146,7 @@ graphql-subscriptions@^1.0.0:
   dependencies:
     iterall "^1.3.0"
 
-graphql-tag@^2.11.0:
-  version "2.11.0"
-  resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.11.0.tgz#1deb53a01c46a7eb401d6cb59dec86fa1cccbffd"
-  integrity sha512-VmsD5pJqWJnQZMUeRwrDhfgoyqcfwEkvtpANqcoUG8/tOLkwNgU9mzub/Mc78OJMhHjx7gfAMTxzdG43VGg3bA==
-
-graphql-tag@^2.12.0:
+graphql-tag@^2.11.0, graphql-tag@^2.12.0:
   version "2.12.3"
   resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.12.3.tgz#ac47bf9d51c67c68ada8a33fd527143ed15bb647"
   integrity sha512-5wJMjSvj30yzdciEuk9dPuUBUR56AqDi3xncoYQl1i42pGdSqOJrJsdb/rz5BDoy+qoGvQwABcBeF0xXY3TrKw==
