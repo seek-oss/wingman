@@ -1,5 +1,4 @@
 import { Box, Text } from 'braid-design-system';
-import classNames from 'classnames';
 import React, { ComponentProps } from 'react';
 import { useStyles } from 'sku/react-treat';
 
@@ -13,12 +12,7 @@ export const RedactableText = ({ children, redact, ...textProps }: Props) => {
   const styles = useStyles(styleDefs);
   return (
     <Text {...textProps}>
-      <Box
-        className={classNames({
-          [styles.redact]: redact,
-        })}
-        component="span"
-      >
+      <Box className={{ [styles.redact]: redact }} component="span">
         {children}
       </Box>
     </Text>
