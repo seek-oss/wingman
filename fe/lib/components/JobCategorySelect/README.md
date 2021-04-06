@@ -100,9 +100,8 @@ const JobCategoryForm = () => {
         schemeId="seekAnz"
         client={client}
         id="jobCategorySelect"
-        name="jobCategorySelect"
         label="Job category"
-        ref={register({ required: true })}
+        {...register('jobCategorySelect', { required: true })}
       />
       <button type="submit">Submit job category</button>
     </form>

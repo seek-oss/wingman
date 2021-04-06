@@ -109,9 +109,8 @@ const LocationForm = () => {
         client={client}
         onSelect={setLocation}
         id="categorySuggestLocation"
-        name="categorySuggestLocation"
         label="Job location"
-        ref={register({ required: true })}
+        {...register('categorySuggestLocation', { required: true })}
       />
       <button type="submit">Submit Location</button>
     </form>
