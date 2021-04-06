@@ -62,7 +62,11 @@ export default ({
 }: NewPrivacyConsentForm) => {
   const { dispatch } = useContext(StateContext);
 
-  const { control, handleSubmit, errors } = useForm<FormValues>({
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<FormValues>({
     resolver: formValuesResolver,
   });
 
@@ -89,33 +93,31 @@ export default ({
             </Heading>
           </Box>
           <Controller
-            render={(formProps) => (
+            render={({ field }) => (
               <TextField
                 id="url"
                 label="URL"
                 message={errors.url?.message}
                 tone={errors.url ? 'critical' : undefined}
-                {...formProps}
+                {...field}
               />
             )}
             control={control}
             name="url"
-            value=""
             defaultValue={initialValues.privacyPolicyUrl.url}
           />
           <Controller
-            render={(formProps) => (
+            render={({ field }) => (
               <TextField
                 id="description"
                 label="Description"
                 message={errors.description?.message}
                 tone={errors.description ? 'critical' : undefined}
-                {...formProps}
+                {...field}
               />
             )}
             control={control}
             name="description"
-            value=""
             defaultValue={
               initialValues.descriptionHtml ||
               'Do you agree to the privacy policy?'
