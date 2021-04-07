@@ -8,7 +8,13 @@ import {
   TextField,
 } from 'braid-design-system';
 import React, { useContext } from 'react';
-import { Controller, EmptyObject, Resolver, useForm } from 'react-hook-form';
+import {
+  Controller,
+  EmptyObject,
+  FieldErrors,
+  Resolver,
+  useForm,
+} from 'react-hook-form';
 
 import type { PrivacyConsent, WebUrl } from '../../../../questionTypes';
 import { StateContext, actionCreators } from '../../state/formBuilderState';
@@ -40,21 +46,33 @@ const isWebUrl = (str: string): boolean => {
   }
 };
 
-const formValuesResolver: Resolver<FormValues> = (values) =>
-  isWebUrl(values.url)
+const formValuesResolver: Resolver<FormValues> = (values) => {
+  const errors: FieldErrors<FormValues> = {};
+
+  if (!values.description.trim()) {
+    errors.description = {
+      type: 'required',
+      message: 'Description is required',
+    };
+  }
+
+  if (!isWebUrl(values.url)) {
+    errors.url = {
+      type: 'validate',
+      message: 'URL should be a valid HTTP(S) URL',
+    };
+  }
+
+  return Object.keys(errors).length
     ? {
-        errors: {} as EmptyObject,
-        values,
+        errors,
+        values: {} as EmptyObject,
       }
     : {
-        errors: {
-          url: {
-            type: 'validate',
-            message: 'Must be a valid HTTP(S) URL',
-          },
-        },
-        values: {} as EmptyObject,
+        errors: {} as EmptyObject,
+        values,
       };
+};
 
 export default ({
   hideForm,
