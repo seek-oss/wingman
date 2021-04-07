@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.18.5
+
+### Patch Changes
+
+- 61d0683: **QuestionnaireBuilder:** Require privacy consent description field
+
 ## 0.18.4
 
 ### Patch Changes
