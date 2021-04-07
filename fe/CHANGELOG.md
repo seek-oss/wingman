@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.18.4
+
+### Patch Changes
+
+- 7e1e1b0: **deps:** react-hook-form ^7.0.0
+
 ## 0.18.3
 
 ### Patch Changes
