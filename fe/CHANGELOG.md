@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.18.6
+
+### Patch Changes
+
+- 0368a0d: Update schema codegen
+
 ## 0.18.5
 
 ### Patch Changes
