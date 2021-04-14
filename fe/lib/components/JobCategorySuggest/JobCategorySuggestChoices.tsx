@@ -58,11 +58,11 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
         </Text>
 
         <RadioGroup
+          {...restProps}
           id="job-category-suggest-select"
           name={name}
           onChange={handleChoiceSelect}
           value={selectedJobCategory?.id.value ?? ''}
-          {...restProps}
         >
           {choices.map((choice) => {
             const { jobCategory, confidence } = choice;

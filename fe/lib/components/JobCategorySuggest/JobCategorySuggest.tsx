@@ -87,13 +87,13 @@ export const JobCategorySuggest = forwardRef<HTMLInputElement, Props>(
         ) : (
           suggestData?.jobCategorySuggestions && (
             <JobCategorySuggestChoices
+              {...restProps}
               choices={suggestData.jobCategorySuggestions}
               name={name}
               ref={forwardedRef}
               onSelect={onSelect}
               showConfidence={showConfidence}
               tone={tone}
-              {...restProps}
             />
           )
         )}

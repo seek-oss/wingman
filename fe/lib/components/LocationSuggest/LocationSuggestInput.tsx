@@ -124,6 +124,7 @@ const LocationSuggestInput = ({
       <Columns space="small" alignY="bottom">
         <Column>
           <Autosuggest
+            {...restProps}
             placeholder={placeholder}
             icon={<IconSearch />}
             id="locationSuggestInput"
@@ -132,7 +133,6 @@ const LocationSuggestInput = ({
             onChange={handleChange}
             suggestions={highlightedSuggestions}
             value={locationSuggest}
-            {...restProps}
           />
         </Column>
         <Column width="content">
