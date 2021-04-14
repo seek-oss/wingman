@@ -149,6 +149,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
     return (
       <Stack space="xsmall">
         <LocationSuggestInput
+          {...restProps}
           isLoading={nearestLocationsLoading}
           onSelect={handleLocationSelect}
           onDetectLocation={handleDetectLocationClicked}
@@ -159,7 +160,6 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
           onChange={setLocationSuggestInput}
           locationSuggestions={locationSuggestResults}
           placeholder={placeholder}
-          {...restProps}
         />
         <input
           type="hidden"

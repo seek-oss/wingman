@@ -62,9 +62,9 @@ export const JobCategorySelect = forwardRef<HTMLInputElement, Props>(
         ) : (
           categoriesData?.jobCategories && (
             <JobCategorySelectInput
+              {...restProps}
               onSelect={handleJobCategoriesSelect}
               jobCategories={categoriesData.jobCategories}
-              {...restProps}
             />
           )
         )}
