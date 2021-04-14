@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.18.7
+
+### Patch Changes
+
+- 5286f8c: Ensure props are not overwritten
+
 ## 0.18.6
 
 ### Patch Changes
