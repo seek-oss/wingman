@@ -7,7 +7,7 @@ Returns a `JobCategorySuggestionChoice` on selection of a suggestion. This inclu
 ## Installation
 
 ```shell
-$ yarn add wingman-fe
+yarn add wingman-fe
 ```
 
 ## Job Category Suggest Widget
@@ -109,14 +109,14 @@ const JobCategoryForm = () => {
 #### react-hook-form (controlled form) usage
 
 ```javascript
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { JobCategorySuggest } from 'wingman-fe';
 
 // client set-up as per the previous example
 // position profile input per previous examples
 
 const JobCategoryForm = () => {
-  const { register, handleSubmit } = useForm();
+  const { control, handleSubmit, setValue } = useForm();
 
   const handleFormSubmit = (formData) => {
     // submit logic here
@@ -124,13 +124,25 @@ const JobCategoryForm = () => {
 
   return (
     <form action="" method="post" onSubmit={handleSubmit(handleFormSubmit)}>
-      <JobCategorySuggest
-        schemeId="seekAnz"
-        client={client}
-        id="jobCategorySuggest"
-        label="Job category"
-        positionProfile={positionProfile}
-        {...register('jobCategorySuggest', { required: true })}
+      <Controller
+        control={control}
+        name="jobCategorySuggest"
+        render={({ field }) => (
+          <JobCategorySuggest
+            {...field}
+            client={client}
+            id="jobCategorySuggest"
+            label="Job category"
+            onSelect={(choice) =>
+              setValue('jobCategoryId', choice.jobCategory.id.value, {
+                shouldValidate: true,
+              })
+            }
+            positionProfile={positionProfile}
+            schemeId="seekAnz"
+          />
+        )}
+        rules={{ required: true }}
       />
       <button type="submit">Submit job category</button>
     </form>

@@ -5,16 +5,16 @@ A Location component that can match on full words and substrings or detect the d
 ## Installation
 
 ```shell
-$ yarn add wingman-fe
+yarn add wingman-fe
 ```
 
 ## Location Suggest Widget
 
-### Autosuggest -
+### Autosuggest
 
 The Location suggest widget abstracts the `locationSuggestions` query on SEEK API and provides an autosuggest input that returns a SEEK location. Read more about underlying [`locationSuggestions` query](https://developer.seek.com/schema/#operation-locationSuggestions).
 
-### Location Detection -
+### Location Detection
 
 The Location suggest widget abstracts the `nearestLocations` query on SEEK API to resolve a SEEK location using the device's current location. Read more about underlying [`nearestLocations` query](https://developer.seek.com/schema/#operation-nearestLocations).
 
@@ -90,13 +90,13 @@ const LocationForm = () => {
 #### react-hook-form (controlled form) usage
 
 ```javascript
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { LocationSuggest } from 'wingman-fe';
 
 // client set-up as per the previous example
 
 const LocationForm = () => {
-  const { register, setValue, handleSubmit } = useForm();
+  const { control, handleSubmit, setValue } = useForm();
 
   const handleLocationSubmit = (formData) => {
     // submit logic here
@@ -104,13 +104,25 @@ const LocationForm = () => {
 
   return (
     <form action="" method="post" onSubmit={handleSubmit(handleLocationSubmit)}>
-      <LocationSuggest
-        schemeId="seekAnz"
-        client={client}
-        onSelect={setLocation}
-        id="categorySuggestLocation"
-        label="Job location"
-        {...register('categorySuggestLocation', { required: true })}
+      <Controller
+        control={control}
+        name="locationSuggest"
+        render={({ field }) => (
+          <LocationSuggest
+            {...field}
+            client={client}
+            id="locationSuggest"
+            label="Job location"
+            onSelect={(location) =>
+              location &&
+              setValue('locationId', location.id.value, {
+                shouldValidate: true,
+              })
+            }
+            schemeId="seekAnz"
+          />
+        )}
+        rules={{ required: true }}
       />
       <button type="submit">Submit Location</button>
     </form>
