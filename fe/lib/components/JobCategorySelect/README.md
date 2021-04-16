@@ -6,7 +6,7 @@ Returns a JobCategory (parent or child) with object identifier on category selec
 ## Installation
 
 ```shell
-$ yarn add wingman-fe
+yarn add wingman-fe
 ```
 
 ## Job Category Select Widget
@@ -82,13 +82,13 @@ const JobCategoryForm = () => {
 #### react-hook-form (controlled form) usage
 
 ```javascript
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { JobCategorySelect } from 'wingman-fe';
 
 // client set-up as per the previous example
 
 const JobCategoryForm = () => {
-  const { register, handleSubmit } = useForm();
+  const { control, handleSubmit, setValue } = useForm();
 
   const handleFormSubmit = (formData) => {
     // submit logic here
@@ -96,12 +96,24 @@ const JobCategoryForm = () => {
 
   return (
     <form action="" method="post" onSubmit={handleSubmit(handleFormSubmit)}>
-      <JobCategorySelect
-        schemeId="seekAnz"
-        client={client}
-        id="jobCategorySelect"
-        label="Job category"
-        {...register('jobCategorySelect', { required: true })}
+      <Controller
+        control={control}
+        name="jobCategorySelect"
+        render={({ field }) => (
+          <JobCategorySelect
+            {...field}
+            client={client}
+            id="jobCategorySelect"
+            label="Job category"
+            onSelect={(category) =>
+              setValue('jobCategoryId', category.id.value, {
+                shouldValidate: true,
+              })
+            }
+            schemeId="seekAnz"
+          />
+        )}
+        rules={{ required: true }}
       />
       <button type="submit">Submit job category</button>
     </form>
