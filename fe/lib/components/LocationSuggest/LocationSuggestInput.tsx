@@ -4,12 +4,11 @@ import {
   Button,
   Column,
   Columns,
-  FieldMessage,
   IconLocation,
   IconSearch,
-  Stack,
+  TextField,
 } from 'braid-design-system';
-import React, { useState } from 'react';
+import React, { ComponentProps, useState } from 'react';
 
 import type {
   GeoLocationInput,
@@ -41,23 +40,27 @@ const createHighlights = (string: string, input: string) => {
 };
 
 interface Props {
-  onSelect: (location?: Location) => void;
+  isLoading: boolean;
+  locationSuggestions?: LocationSuggestion[];
   onChange: (textInput: string) => void;
   onClear: () => void;
   onDetectLocation: (input: GeoLocationInput) => void;
-  locationSuggestions?: LocationSuggestion[];
+  onSelect: (location?: Location) => void;
   placeholder: string;
-  isLoading: boolean;
+  setDetectLocationError: (err?: string) => void;
+  tone: ComponentProps<typeof TextField>['tone'];
 }
 
 const LocationSuggestInput = ({
-  onSelect,
+  isLoading,
+  locationSuggestions,
   onChange,
   onClear,
   onDetectLocation,
-  locationSuggestions,
+  onSelect,
   placeholder,
-  isLoading,
+  setDetectLocationError,
+  tone,
   ...restProps
 }: Props) => {
   const initialLocationSuggest = {
@@ -68,8 +71,6 @@ const LocationSuggestInput = ({
   const [locationSuggest, setLocationSuggest] = useState(
     initialLocationSuggest,
   );
-
-  const [navigatorError, setNavigatorError] = useState(false);
 
   const mappedSuggestions = mapLocationsToSuggestions(locationSuggestions);
 
@@ -107,52 +108,50 @@ const LocationSuggestInput = ({
     if (navigator.geolocation) {
       setLocationSuggest(initialLocationSuggest);
       navigator.geolocation.getCurrentPosition(
-        (position) =>
+        (position) => {
           onDetectLocation({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
-          }),
-        () => setNavigatorError(true),
+          });
+          setDetectLocationError();
+        },
+        () =>
+          setDetectLocationError(
+            'Sorry, we couldn’t detect your current location. Please try again.',
+          ),
       );
     } else {
-      setNavigatorError(true);
+      setDetectLocationError('Sorry, we can’t detect your current location.');
     }
   };
 
   return (
-    <Stack space="xsmall">
-      <Columns space="small" alignY="bottom">
-        <Column>
-          <Autosuggest
-            {...restProps}
-            placeholder={placeholder}
-            icon={<IconSearch />}
-            id="locationSuggestInput"
-            automaticSelection={false}
-            onClear={handleClear}
-            onChange={handleChange}
-            suggestions={highlightedSuggestions}
-            value={locationSuggest}
-          />
-        </Column>
-        <Column width="content">
-          <Button
-            loading={isLoading}
-            onClick={handleDetectLocationClicked}
-            variant="soft"
-          >
-            Detect location <IconLocation />
-          </Button>
-        </Column>
-      </Columns>
-      {navigatorError && (
-        <FieldMessage
-          id="navigatorError"
-          message="Could not detect current location"
-          tone="critical"
+    <Columns space="small" alignY="bottom">
+      <Column>
+        <Autosuggest
+          {...restProps}
+          placeholder={placeholder}
+          icon={<IconSearch />}
+          id="locationSuggestInput"
+          automaticSelection={false}
+          onClear={handleClear}
+          onChange={handleChange}
+          suggestions={highlightedSuggestions}
+          tone={tone}
+          value={locationSuggest}
         />
-      )}
-    </Stack>
+      </Column>
+      <Column width="content">
+        <Button
+          loading={isLoading}
+          onClick={handleDetectLocationClicked}
+          tone={tone === 'critical' ? tone : undefined}
+          variant="soft"
+        >
+          Detect <IconLocation />
+        </Button>
+      </Column>
+    </Columns>
   );
 };
 

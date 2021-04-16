@@ -5,7 +5,7 @@ This is an example component for wingman fe
 ## Installation
 
 ```shell
-$ yarn add wingman-fe
+yarn add wingman-fe
 ```
 
 ## Properties

@@ -1,5 +1,6 @@
 import 'braid-design-system/reset';
 
+import { boolean, select } from '@storybook/addon-knobs';
 import { Box, BraidLoadableProvider } from 'braid-design-system';
 import React from 'react';
 import { storiesOf } from 'sku/@storybook/react';
@@ -11,9 +12,39 @@ import { mockLocationSuggest } from './__fixtures__/locationSuggest';
 import { mockNearestLocations } from './__fixtures__/nearestLocations';
 
 storiesOf('Locations', module)
-  .add('Locations Suggest', () => (
-    <LocationSuggest id="locationSuggest" schemeId="seekAnz" />
-  ))
+  .add('Locations Suggest', () => {
+    const requiredValidation = 'Please select a location.';
+
+    const message = select(
+      'message',
+      {
+        undefined,
+        requiredValidation,
+      },
+      undefined,
+    );
+
+    const tone = select(
+      'tone',
+      {
+        undefined,
+        critical: 'critical',
+        neutral: 'neutral',
+        positive: 'positive',
+      },
+      undefined,
+    );
+
+    return (
+      <LocationSuggest
+        id="locationSuggest"
+        message={message}
+        reserveMessageSpace={boolean('reserveMessageSpace', false)}
+        schemeId="seekAnz"
+        tone={tone}
+      />
+    );
+  })
   .addDecorator((story) => (
     <ApolloMockProvider
       resolvers={{

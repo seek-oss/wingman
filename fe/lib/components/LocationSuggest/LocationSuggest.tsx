@@ -27,10 +27,10 @@ interface Props extends Omit<FieldProps, 'value' | 'onChange'> {
   client?: ApolloClient<unknown>;
   debounceDelay?: number;
   first?: number;
-  usageTypeCode?: string;
-  schemeId: string;
   hirerId?: string;
   onSelect?: (location?: Location) => void;
+  schemeId: string;
+  usageTypeCode?: string;
 }
 
 export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
@@ -39,11 +39,16 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       client,
       debounceDelay = 250,
       first = 5,
-      usageTypeCode = 'PositionPosting',
-      schemeId,
       hirerId,
       onSelect,
+      schemeId,
+      usageTypeCode = 'PositionPosting',
+
+      message,
       name,
+      reserveMessageSpace,
+      tone,
+
       ...restProps
     },
     forwardedRef,
@@ -81,6 +86,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
     const [locationSuggestResults, setLocationSuggestResults] = useState<
       LocationSuggestion[]
     >();
+    const [detectLocationError, setDetectLocationError] = useState<string>();
 
     const [placeholder, setPlaceholder] = useState('');
     const [debounceLocationSuggestInput] = useDebounce(
@@ -147,34 +153,69 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
     }, [nearestLocationsData]);
 
     return (
-      <Stack space="xsmall">
-        <LocationSuggestInput
-          {...restProps}
-          isLoading={nearestLocationsLoading}
-          onSelect={handleLocationSelect}
-          onDetectLocation={handleDetectLocationClicked}
-          onClear={() => {
-            setSelectedLocationId('');
-            setPlaceholder('');
-          }}
-          onChange={setLocationSuggestInput}
-          locationSuggestions={locationSuggestResults}
-          placeholder={placeholder}
-        />
-        <input
-          type="hidden"
-          name={name}
-          value={selectedLocationId}
-          ref={forwardedRef}
-          readOnly
-        />
-        {(suggestError || nearestLocationsError) && (
+      <Stack space="small">
+        <Stack space="none">
+          <LocationSuggestInput
+            {...restProps}
+            isLoading={nearestLocationsLoading}
+            locationSuggestions={locationSuggestResults}
+            onChange={setLocationSuggestInput}
+            onClear={() => {
+              setSelectedLocationId('');
+              setPlaceholder('');
+            }}
+            onDetectLocation={handleDetectLocationClicked}
+            onSelect={handleLocationSelect}
+            placeholder={placeholder}
+            setDetectLocationError={setDetectLocationError}
+            tone={tone}
+          />
+
+          <input
+            type="hidden"
+            name={name}
+            value={selectedLocationId}
+            ref={forwardedRef}
+            readOnly
+          />
+        </Stack>
+
+        {(message || reserveMessageSpace) && (
           <FieldMessage
-            id="suggestError"
-            message="Error fetching location, please try again"
+            id="locationSuggestMessage"
+            message={message}
+            reserveMessageSpace={
+              suggestError || nearestLocationsError
+                ? undefined
+                : reserveMessageSpace
+            }
+            tone={tone}
+          />
+        )}
+
+        {suggestError && (
+          <FieldMessage
+            id="locationSuggestError"
+            message={suggestError}
             tone="critical"
           />
         )}
+
+        {nearestLocationsError && (
+          <FieldMessage
+            id="locationSuggestNearestLocationsError"
+            message={nearestLocationsError}
+            tone="critical"
+          />
+        )}
+
+        {detectLocationError ? (
+          <FieldMessage
+            id="locationSuggestDetectLocationError"
+            message={detectLocationError}
+            tone="critical"
+          />
+        ) : null}
       </Stack>
     );
   },
