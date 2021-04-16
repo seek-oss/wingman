@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.18.8
+
+### Patch Changes
+
+- 4ff7174: **JobCategorySelect, QuestionnaireBuilder:** Shorten form placeholders
+
 ## 0.18.7
 
 ### Patch Changes
