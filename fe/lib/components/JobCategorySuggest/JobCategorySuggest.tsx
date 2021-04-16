@@ -6,12 +6,7 @@ import {
   Stack,
   Text,
 } from 'braid-design-system';
-import React, {
-  ComponentProps,
-  ComponentPropsWithRef,
-  forwardRef,
-  useEffect,
-} from 'react';
+import React, { ComponentPropsWithRef, forwardRef, useEffect } from 'react';
 import { useDebounce } from 'use-debounce';
 
 import type {
@@ -26,26 +21,28 @@ interface RadioProps extends ComponentPropsWithRef<typeof RadioGroup> {}
 
 interface Props extends Partial<Omit<RadioProps, 'id'>> {
   client?: ApolloClient<unknown>;
-  schemeId: string;
   debounceDelay?: number;
-  positionProfile: JobCategorySuggestionPositionProfileInput;
   onSelect?: (jobCategorySuggestionChoice: JobCategorySuggestionChoice) => void;
+  positionProfile: JobCategorySuggestionPositionProfileInput;
+  schemeId: string;
   showConfidence?: boolean;
-  message?: ComponentProps<typeof FieldMessage>['message'];
 }
 
 export const JobCategorySuggest = forwardRef<HTMLInputElement, Props>(
   (
     {
-      schemeId,
-      onSelect,
       client,
-      positionProfile,
       debounceDelay = 250,
+      onSelect,
+      positionProfile,
+      schemeId,
       showConfidence,
-      message = '',
+
+      message,
       name,
+      reserveMessageSpace,
       tone,
+
       ...restProps
     },
     forwardedRef,
@@ -97,15 +94,20 @@ export const JobCategorySuggest = forwardRef<HTMLInputElement, Props>(
             />
           )
         )}
-        <FieldMessage
-          message={message}
-          id="jobCategorySuggestMessage"
-          tone={tone}
-        />
+
+        {message || reserveMessageSpace ? (
+          <FieldMessage
+            id="jobCategorySuggestMessage"
+            message={message}
+            reserveMessageSpace={suggestError ? undefined : reserveMessageSpace}
+            tone={tone}
+          />
+        ) : null}
+
         {suggestError && (
           <FieldMessage
-            id="suggestError"
-            message="Error fetching job category suggestions, please try again"
+            id="jobCategorySuggestError"
+            message="Sorry, we couldn’t fetch category suggestions. Please try again."
             tone="critical"
           />
         )}

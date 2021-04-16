@@ -6,12 +6,7 @@ import {
   Stack,
   Text,
 } from 'braid-design-system';
-import React, {
-  ComponentPropsWithRef,
-  Fragment,
-  forwardRef,
-  useState,
-} from 'react';
+import React, { ComponentPropsWithRef, forwardRef, useState } from 'react';
 
 import type { JobCategory } from '../../types/seek.graphql';
 
@@ -22,12 +17,26 @@ interface FieldProps extends ComponentPropsWithRef<typeof Dropdown> {}
 
 interface Props extends Omit<FieldProps, 'value' | 'onChange' | 'children'> {
   client?: ApolloClient<unknown>;
-  schemeId: string;
   onSelect?: (jobCategory: JobCategory) => void;
+  schemeId: string;
 }
 
 export const JobCategorySelect = forwardRef<HTMLInputElement, Props>(
-  ({ schemeId, name, onSelect, client, ...restProps }, forwardedRef) => {
+  (
+    {
+      client,
+      onSelect,
+      schemeId,
+
+      message,
+      name,
+      reserveMessageSpace,
+      tone,
+
+      ...restProps
+    },
+    forwardedRef,
+  ) => {
     const {
       data: categoriesData,
       loading: categoriesLoading,
@@ -53,36 +62,52 @@ export const JobCategorySelect = forwardRef<HTMLInputElement, Props>(
     };
 
     return (
-      <Fragment>
-        {categoriesLoading ? (
-          <Stack space="medium">
-            <Text>Loading all categories</Text>
-            <Loader size="xsmall" />
-          </Stack>
-        ) : (
-          categoriesData?.jobCategories && (
-            <JobCategorySelectInput
-              {...restProps}
-              onSelect={handleJobCategoriesSelect}
-              jobCategories={categoriesData.jobCategories}
-            />
-          )
-        )}
-        <input
-          type="hidden"
-          name={name}
-          value={selectedJobCategoryId}
-          ref={forwardedRef}
-          readOnly
-        />
+      <Stack space="small">
+        <Stack space="none">
+          {categoriesLoading ? (
+            <Stack space="medium">
+              <Text>Loading all categories</Text>
+              <Loader size="xsmall" />
+            </Stack>
+          ) : (
+            categoriesData?.jobCategories && (
+              <JobCategorySelectInput
+                {...restProps}
+                jobCategories={categoriesData.jobCategories}
+                onSelect={handleJobCategoriesSelect}
+                tone={tone}
+              />
+            )
+          )}
+
+          <input
+            type="hidden"
+            name={name}
+            value={selectedJobCategoryId}
+            ref={forwardedRef}
+            readOnly
+          />
+        </Stack>
+
+        {message || reserveMessageSpace ? (
+          <FieldMessage
+            id="jobCategorySelectMessage"
+            message={message}
+            reserveMessageSpace={
+              categoriesError ? undefined : reserveMessageSpace
+            }
+            tone={tone}
+          />
+        ) : null}
+
         {categoriesError && (
           <FieldMessage
-            id="selectError"
-            message="Error fetching job category, please try again"
+            id="jobCategorySelectError"
+            message="Sorry, we couldn’t fetch categories. Please try again."
             tone="critical"
           />
         )}
-      </Fragment>
+      </Stack>
     );
   },
 );

@@ -1,5 +1,6 @@
 import 'braid-design-system/reset';
 
+import { boolean, select } from '@storybook/addon-knobs';
 import { Box, BraidLoadableProvider } from 'braid-design-system';
 import React from 'react';
 import { storiesOf } from 'sku/@storybook/react';
@@ -10,9 +11,39 @@ import { JobCategorySelect } from './JobCategorySelect';
 import { mockJobCategories } from './__fixtures__/jobCategories';
 
 storiesOf('JobCategories', module)
-  .add('Job Category Select', () => (
-    <JobCategorySelect id="jobCategories" schemeId="seekAnz" />
-  ))
+  .add('Job Category Select', () => {
+    const requiredValidation = 'Please select a category.';
+
+    const message = select(
+      'message',
+      {
+        undefined,
+        requiredValidation,
+      },
+      undefined,
+    );
+
+    const tone = select(
+      'tone',
+      {
+        undefined,
+        critical: 'critical',
+        neutral: 'neutral',
+        positive: 'positive',
+      },
+      undefined,
+    );
+
+    return (
+      <JobCategorySelect
+        id="jobCategories"
+        message={message}
+        schemeId="seekAnz"
+        reserveMessageSpace={boolean('reserveMessageSpace', false)}
+        tone={tone}
+      />
+    );
+  })
   .addDecorator((story) => (
     <ApolloMockProvider
       resolvers={{
