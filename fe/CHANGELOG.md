@@ -1,5 +1,17 @@
 # wingman-fe
 
+## 0.18.9
+
+### Patch Changes
+
+- a59f68d: **JobCategorySelect, JobCategorySuggest, LocationSuggest:** Improve error messagging
+- a59f68d: **JobCategorySuggest:** Remove unintentional bottom spacing
+- a59f68d: **LocationSuggest:** Fix detect button alignment
+
+  This ensures the detect button stays aligned with the autosuggest field when the `message` or `reserveMessageSpace` prop is set.
+
+- a59f68d: **JobCategorySelect, JobCategorySuggest, LocationSuggest:** Improve `message` and `reserveMessageSpace` alignment and handling
+
 ## 0.18.8
 
 ### Patch Changes
