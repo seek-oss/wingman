@@ -74,7 +74,7 @@ export default ({
         <Dropdown
           id="questionType"
           label="Question type"
-          placeholder="Please select question type"
+          placeholder="Select a question type"
           value={questionType}
           onChange={(event) =>
             setQuestionType(event.currentTarget.value as any)

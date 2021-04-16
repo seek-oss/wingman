@@ -53,11 +53,11 @@ const JobCategorySelectInput = ({
         <Dropdown
           {...restProps}
           id="jobCategoriesSelect"
-          label="Job category"
-          placeholder="Please select a job category"
+          label="Category"
           onChange={(event) =>
             setSelectedParentCategoryId(event.currentTarget.value)
           }
+          placeholder="Select a category"
           value={selectedParentCategoryId}
         >
           {jobCategories.map(({ name, id }) => (
@@ -72,11 +72,11 @@ const JobCategorySelectInput = ({
           <Dropdown
             {...restProps}
             id="subJobCategoriesSelect"
-            label="Sub category"
-            placeholder="Please select a sub category"
+            label="Subcategory"
             onChange={(event) =>
               setSelectedChildCategoryId(event.currentTarget.value)
             }
+            placeholder="Select a subcategory"
             value={selectedChildCategoryId}
           >
             {childCategories.map(({ name, id }) => (

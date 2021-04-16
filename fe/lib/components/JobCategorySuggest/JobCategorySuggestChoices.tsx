@@ -53,9 +53,7 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
 
     return (
       <Stack space="small">
-        <Text>
-          <Strong>Select a job category</Strong>
-        </Text>
+        <Text weight="strong">Category</Text>
 
         <RadioGroup
           {...restProps}
