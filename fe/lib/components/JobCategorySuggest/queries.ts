@@ -9,24 +9,25 @@ const JOB_CATEGORY_ATTRIBUTES = gql`
   }
 `;
 
-const NESTED_JOB_CATEGORY_ATTRIBUTES = gql`
-  fragment nestedJobCategoryAttributes on JobCategory {
-    ...jobCategoryAttributes
-    parent {
-      ...jobCategoryAttributes
-    }
-    children {
+const JOB_CATEGORY_SUGGESTION_CHOICE_ATTRIBUTES = gql`
+  fragment jobCategorySuggestionChoiceAttributes on JobCategorySuggestionChoice {
+    jobCategory {
       ...jobCategoryAttributes
       parent {
         ...jobCategoryAttributes
       }
+      children {
+        ...jobCategoryAttributes
+      }
     }
+    confidence
   }
+
   ${JOB_CATEGORY_ATTRIBUTES}
 `;
 
-export const JOB_CATEGORY_SUGGESTION = gql`
-  query(
+export const JOB_CATEGORY_SUGGEST = gql`
+  query JobCategorySuggest(
     $positionProfile: JobCategorySuggestionPositionProfileInput!
     $schemeId: String!
     $first: Int
@@ -36,11 +37,9 @@ export const JOB_CATEGORY_SUGGESTION = gql`
       schemeId: $schemeId
       first: $first
     ) {
-      jobCategory {
-        ...nestedJobCategoryAttributes
-      }
-      confidence
+      ...jobCategorySuggestionChoiceAttributes
     }
   }
-  ${NESTED_JOB_CATEGORY_ATTRIBUTES}
+
+  ${JOB_CATEGORY_SUGGESTION_CHOICE_ATTRIBUTES}
 `;

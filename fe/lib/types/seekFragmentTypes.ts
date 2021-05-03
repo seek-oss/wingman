@@ -24,6 +24,7 @@ const result: PossibleTypesResultData = {
     Event: [
       'CandidateApplicationCreatedEvent',
       'CandidateProfilePurchasedEvent',
+      'PositionProfileClosedEvent',
       'PositionProfilePostedEvent',
     ],
     PositionProfile: ['PostedPositionProfile', 'UnpostedPositionProfile'],
