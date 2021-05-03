@@ -9,14 +9,16 @@ import React, { ComponentProps, forwardRef, useState } from 'react';
 
 import type {
   JobCategory,
-  JobCategorySuggestionChoice,
+  JobCategorySuggestionChoiceAttributesFragment,
 } from '../../types/seek.graphql';
 import { flattenResourceByKey } from '../../utils';
 
 interface Props {
-  choices: JobCategorySuggestionChoice[];
+  choices: JobCategorySuggestionChoiceAttributesFragment[];
   name?: string;
-  onSelect?: (jobCategorySuggestionChoice: JobCategorySuggestionChoice) => void;
+  onSelect?: (
+    jobCategorySuggestionChoice: JobCategorySuggestionChoiceAttributesFragment,
+  ) => void;
   showConfidence?: boolean;
   tone?: ComponentProps<typeof RadioGroup>['tone'];
 }

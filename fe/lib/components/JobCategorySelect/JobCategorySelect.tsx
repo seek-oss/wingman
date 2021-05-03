@@ -8,7 +8,10 @@ import {
 } from 'braid-design-system';
 import React, { ComponentPropsWithRef, forwardRef, useState } from 'react';
 
-import type { JobCategory } from '../../types/seek.graphql';
+import type {
+  JobCategoriesQuery,
+  JobCategoryAttributesFragment,
+} from '../../types/seek.graphql';
 
 import JobCategorySelectInput from './JobCategorySelectInput';
 import { JOB_CATEGORIES } from './queries';
@@ -17,7 +20,7 @@ interface FieldProps extends ComponentPropsWithRef<typeof Dropdown> {}
 
 interface Props extends Omit<FieldProps, 'value' | 'onChange' | 'children'> {
   client?: ApolloClient<unknown>;
-  onSelect?: (jobCategory: JobCategory) => void;
+  onSelect?: (jobCategory: JobCategoryAttributesFragment) => void;
   schemeId: string;
 }
 
@@ -41,7 +44,7 @@ export const JobCategorySelect = forwardRef<HTMLInputElement, Props>(
       data: categoriesData,
       loading: categoriesLoading,
       error: categoriesError,
-    } = useQuery(JOB_CATEGORIES, {
+    } = useQuery<JobCategoriesQuery>(JOB_CATEGORIES, {
       ...(client && { client }),
       fetchPolicy: 'no-cache',
       ssr: false,
@@ -52,7 +55,9 @@ export const JobCategorySelect = forwardRef<HTMLInputElement, Props>(
 
     const [selectedJobCategoryId, setSelectedJobCategoryId] = useState('');
 
-    const handleJobCategoriesSelect = (selectedJobCategory: JobCategory) => {
+    const handleJobCategoriesSelect = (
+      selectedJobCategory: JobCategoryAttributesFragment,
+    ) => {
       if (onSelect) {
         onSelect(selectedJobCategory);
       }

@@ -10,19 +10,22 @@ import React, { ComponentPropsWithRef, forwardRef, useEffect } from 'react';
 import { useDebounce } from 'use-debounce';
 
 import type {
-  JobCategorySuggestionChoice,
+  JobCategorySuggestQuery,
+  JobCategorySuggestionChoiceAttributesFragment,
   JobCategorySuggestionPositionProfileInput,
 } from '../../types/seek.graphql';
 
 import JobCategorySuggestChoices from './JobCategorySuggestChoices';
-import { JOB_CATEGORY_SUGGESTION } from './queries';
+import { JOB_CATEGORY_SUGGEST } from './queries';
 
 interface RadioProps extends ComponentPropsWithRef<typeof RadioGroup> {}
 
 interface Props extends Partial<Omit<RadioProps, 'id'>> {
   client?: ApolloClient<unknown>;
   debounceDelay?: number;
-  onSelect?: (jobCategorySuggestionChoice: JobCategorySuggestionChoice) => void;
+  onSelect?: (
+    jobCategorySuggestionChoice: JobCategorySuggestionChoiceAttributesFragment,
+  ) => void;
   positionProfile: JobCategorySuggestionPositionProfileInput;
   schemeId: string;
   showConfidence?: boolean;
@@ -50,7 +53,7 @@ export const JobCategorySuggest = forwardRef<HTMLInputElement, Props>(
     const [
       getCategorySuggestion,
       { data: suggestData, error: suggestError, loading: suggestLoading },
-    ] = useLazyQuery(JOB_CATEGORY_SUGGESTION, {
+    ] = useLazyQuery<JobCategorySuggestQuery>(JOB_CATEGORY_SUGGEST, {
       client,
       fetchPolicy: 'no-cache',
       ssr: false,

@@ -111,11 +111,19 @@ export interface AddressInput {
   countrySubDivisions: Array<AddressComponentInput>;
   /** The city or suburb of the address. */
   city?: Maybe<Scalars['String']>;
-  /** The postal code of the address. */
+  /**
+   * The postal code of the address.
+   *
+   * This field has a maximum length of 50 bytes in UTF-8 encoding.
+   */
   postalCode?: Maybe<Scalars['String']>;
   /** The geographical coordinates of the address. */
   geoLocation?: Maybe<GeoLocationInput>;
-  /** The formatted representation of the whole address for display purposes. */
+  /**
+   * The formatted representation of the whole address for display purposes.
+   *
+   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
+   */
   formattedAddress?: Maybe<Scalars['String']>;
 }
 
@@ -211,6 +219,8 @@ export interface ApplicationMethodInput {
   applicationUri?: Maybe<WebUrlInput>;
   /**
    * The email address to direct candidate applications to.
+   *
+   * This field has a maximum length of 100 bytes in UTF-8 encoding.
    *
    * This is deprecated. Do not use this field. This has been replaced by Application Export.
    */
@@ -791,7 +801,7 @@ export interface CandidateProcessAction {
   code: Scalars['String'];
   /** The free-form description of the action. */
   description?: Maybe<Scalars['String']>;
-  /** A short human-readable name of the workflow process. */
+  /** A short human-readable name for the workflow step. */
   name?: Maybe<Scalars['String']>;
   /** A deep link to the action. */
   seekUrl?: Maybe<WebUrl>;
@@ -833,6 +843,8 @@ export interface CandidateProcessActionInput {
    * A deep link to the action.
    *
    * This is required for a profile action of an uploaded candidate.
+   *
+   * The `url` field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
   seekUrl?: Maybe<WebUrlInput>;
 }
@@ -1381,7 +1393,7 @@ export interface CreatePositionOpeningPositionOpeningInput {
    *
    * The metadata is not used by SEEK and won't be seen by hirers or candidates.
    *
-   * This field has a maximum length of 1000 characters.
+   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
   seekPartnerMetadata?: Maybe<Scalars['String']>;
   /**
@@ -1465,14 +1477,24 @@ export interface CreateUnpostedPositionProfileForOpeningInput {
 export interface CreateUnpostedPositionProfileForOpeningPayload {
   __typename?: 'CreateUnpostedPositionProfileForOpeningPayload';
   /** Attributes of the newly created unposted position profile. */
-  positionProfile: PositionProfile;
+  positionProfile: UnpostedPositionProfile;
 }
 
 /** An unposted profile of a position opening to create. */
 export interface CreateUnpostedPositionProfileForOpeningPositionProfileInput {
   /** The identifier for the `PositionOpening` that this position profile belongs to. */
   positionOpeningId: Scalars['String'];
-  /** A short phrase describing the position as it would be listed on a business card or in a company directory. */
+  /**
+   * A human-readable name given to the profile.
+   *
+   * This in addition to the `positionTitle` can help identify the profile to an end user.
+   */
+  profileName?: Maybe<Scalars['String']>;
+  /**
+   * A short phrase describing the position as it would be listed on a business card or in a company directory.
+   *
+   * This field has a maximum length of 80 bytes in UTF-8 encoding.
+   */
   positionTitle: Scalars['String'];
   /**
    * An array of identifiers for the `HiringOrganization`s that have the position.
@@ -1481,12 +1503,18 @@ export interface CreateUnpostedPositionProfileForOpeningPositionProfileInput {
    * this should contain exactly one element that matches the `postingRequester` on the position opening.
    */
   positionOrganizations: Array<Scalars['String']>;
-  /** An optional hirer-provided opaque job reference. */
+  /**
+   * An optional hirer-provided opaque job reference.
+   *
+   * This field has a maximum length of 50 bytes in UTF-8 encoding.
+   */
   seekHirerJobReference?: Maybe<Scalars['String']>;
   /**
    * An optional opaque billing reference.
    *
    * SEEK does not use this field on unposted position profiles.
+   *
+   * This field has a maximum length of 50 bytes in UTF-8 encoding.
    */
   seekBillingReference?: Maybe<Scalars['String']>;
   /**
@@ -1523,7 +1551,7 @@ export interface CreateUnpostedPositionProfileForOpeningPositionProfileInput {
    *
    * The metadata is not used by SEEK and won't be seen by hirers or candidates.
    *
-   * This field has a maximum length of 1000 characters.
+   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
   seekPartnerMetadata?: Maybe<Scalars['String']>;
 }
@@ -1673,7 +1701,7 @@ export interface DeleteUnpostedPositionProfileInput {
 export interface DeleteUnpostedPositionProfilePayload {
   __typename?: 'DeleteUnpostedPositionProfilePayload';
   /** The details of the deleted unposted position profile. */
-  positionProfile: PositionProfile;
+  positionProfile: UnpostedPositionProfile;
 }
 
 /** The details of the unposted position profile to be deleted. */
@@ -2164,13 +2192,20 @@ export interface Mutation {
   /**
    * Updates an existing webhook subscription's delivery configuration.
    *
-   * This modifies fields related to the URL, payload & signature of an existing webhook subscription.
+   * This modifies fields related to the URL and payload of an existing webhook subscription.
    * Changes may take up to half an hour to take effect.
    *
    * The fields that determine which events are to be delivered are immutable.
    * A new webhook subscription should be created for such cases.
    */
   updateWebhookSubscriptionDeliveryConfiguration?: Maybe<UpdateWebhookSubscriptionDeliveryConfigurationPayload>;
+  /**
+   * Updates an existing webhook subscription's signing configuration.
+   *
+   * This modifies fields related to the signature of an existing webhook subscription.
+   * Changes may take up to half an hour to take effect.
+   */
+  updateWebhookSubscriptionSigningConfiguration?: Maybe<UpdateWebhookSubscriptionSigningConfigurationPayload>;
   /** Deletes an existing webhook subscription. */
   deleteWebhookSubscription?: Maybe<DeleteWebhookSubscriptionPayload>;
   /**
@@ -2395,6 +2430,15 @@ export interface MutationUpdateWebhookSubscriptionDeliveryConfigurationArgs {
  *
  * This acts as the public, top-level API from which all mutation queries must start.
  */
+export interface MutationUpdateWebhookSubscriptionSigningConfigurationArgs {
+  input: UpdateWebhookSubscriptionSigningConfigurationInput;
+}
+
+/**
+ * The schema's entry-point for mutations.
+ *
+ * This acts as the public, top-level API from which all mutation queries must start.
+ */
 export interface MutationDeleteWebhookSubscriptionArgs {
   input: DeleteWebhookSubscriptionInput;
 }
@@ -2531,10 +2575,23 @@ export interface PositionFormattedDescriptionInput {
    *
    * Scheme requirements:
    *
-   * - The `seekAnz` scheme requires `AdvertisementDetails` and `SearchSummary` to be included and non-empty.
+   * - The `seekAnz` scheme requires `AdvertisementDetails` and `SearchSummary` to be included.
+   */
+  descriptionId: Scalars['String'];
+  /**
+   * The HTML content of the description.
+   *
+   * The maximum length differs by `descriptionId`:
+   *
+   *   - `AdvertisementDetails` has a maximum length of 20,000 bytes in UTF-8 encoding.
+   *   - `SearchBulletPoint` has a maximum length of 80 bytes in UTF-8 encoding.
+   *   - `SearchSummary` has a maximum length of 150 bytes in UTF-8 encoding.
+   *
+   * Scheme requirements:
    *
    * - The `seekAnz` scheme supports the following HTML tags in `AdvertisementDetails`:
-   *   - `a`
+   *
+   *   - `a` (Available on a per hirer basis. Hirer must contact SEEK to enable.)
    *   - `br`
    *   - `div`
    *   - `em`
@@ -2547,8 +2604,6 @@ export interface PositionFormattedDescriptionInput {
    *
    *   Other descriptions will have all HTML tags stripped.
    */
-  descriptionId: Scalars['String'];
-  /** The HTML content of the description. */
   content: Scalars['String'];
 }
 
@@ -2599,7 +2654,7 @@ export interface PositionOpening {
    *
    * The metadata is not used by SEEK and won't be seen by hirers or candidates.
    *
-   * This field has a maximum length of 1000 characters.
+   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
   seekPartnerMetadata?: Maybe<Scalars['String']>;
   /**
@@ -2764,16 +2819,65 @@ export interface PositionProfile {
    *
    * The metadata is not used by SEEK and won't be seen by hirers or candidates.
    *
-   * This field has a maximum length of 1000 characters.
+   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
   seekPartnerMetadata?: Maybe<Scalars['String']>;
 }
 
-/**
- * The event signaling that a `PositionProfile` has been posted.
- *
- * Corresponding events for the `updatePostedPositionProfile` and `closePostedPositionProfile` mutations are not currently available.
- */
+/** The event signaling that a posted `PositionProfile` has been closed. */
+export interface PositionProfileClosedEvent extends Event {
+  __typename?: 'PositionProfileClosedEvent';
+  /** The identifier for the `Event`. */
+  id: ObjectIdentifier;
+  /**
+   * The data source for the event.
+   *
+   * The following schemes are supported for this event type:
+   *
+   * - `seekAnz`
+   */
+  schemeId: Scalars['String'];
+  /** The type of event, i.e. `PositionProfileClosed`. */
+  typeCode: Scalars['String'];
+  /**
+   * The date & time the `PositionProfile` was closed.
+   *
+   * `PositionProfile`s are closed automatically when they reach their `PostingInstruction`'s `end` date.
+   * They can also be closed early using the `closePostedPositionProfile` mutation.
+   *
+   * This field has weak ordering guarantees, so it should not be used as a pagination argument.
+   */
+  createDateTime: Scalars['DateTime'];
+  /** The identifier for the `PositionProfile` that was closed. */
+  positionProfileId: Scalars['String'];
+  /**
+   * The `PositionProfile` that was closed.
+   *
+   * This may return null if the `PositionProfile` has been closed for an extended period of time.
+   */
+  positionProfile?: Maybe<PostedPositionProfile>;
+  /**
+   * A page of webhook attempts for the current event matching the specified criteria.
+   *
+   * A maximum of 100 webhook attempts can be returned in a single page.
+   * Additional webhook attempts can be queried using a pagination cursor.
+   *
+   * The result list is returned in ascending creation date & time order.
+   * It starts from the earliest known attempt if no pagination arguments are provided.
+   */
+  webhookAttempts: WebhookAttemptsConnection;
+}
+
+/** The event signaling that a posted `PositionProfile` has been closed. */
+export interface PositionProfileClosedEventWebhookAttemptsArgs {
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  filter?: Maybe<WebhookAttemptsFilterInput>;
+}
+
+/** The event signaling that a `PositionProfile` has been posted. */
 export interface PositionProfilePostedEvent extends Event {
   __typename?: 'PositionProfilePostedEvent';
   /** The identifier for the `Event`. */
@@ -2801,7 +2905,7 @@ export interface PositionProfilePostedEvent extends Event {
    *
    * This may return null if the `PositionProfile` has been closed for an extended period of time.
    */
-  positionProfile?: Maybe<PositionProfile>;
+  positionProfile?: Maybe<PostedPositionProfile>;
   /**
    * A page of webhook attempts for the current event matching the specified criteria.
    *
@@ -2814,11 +2918,7 @@ export interface PositionProfilePostedEvent extends Event {
   webhookAttempts: WebhookAttemptsConnection;
 }
 
-/**
- * The event signaling that a `PositionProfile` has been posted.
- *
- * Corresponding events for the `updatePostedPositionProfile` and `closePostedPositionProfile` mutations are not currently available.
- */
+/** The event signaling that a `PositionProfile` has been posted. */
 export interface PositionProfilePostedEventWebhookAttemptsArgs {
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
@@ -2905,7 +3005,11 @@ export interface PostPositionProfileForOpeningPayloadSuccess {
 export interface PostPositionProfileForOpeningPositionProfileInput {
   /** The identifier for the `PositionOpening` that this position profile belongs to. */
   positionOpeningId: Scalars['String'];
-  /** A short phrase describing the position as it would be listed on a business card or in a company directory. */
+  /**
+   * A short phrase describing the position as it would be listed on a business card or in a company directory.
+   *
+   * This field has a maximum length of 80 bytes in UTF-8 encoding.
+   */
   positionTitle: Scalars['String'];
   /**
    * An array of identifiers for the `HiringOrganization`s that have the position.
@@ -2915,12 +3019,18 @@ export interface PostPositionProfileForOpeningPositionProfileInput {
    * - The `seekAnz` scheme requires exactly one element.
    */
   positionOrganizations: Array<Scalars['String']>;
-  /** An optional hirer-provided opaque job reference. */
+  /**
+   * An optional hirer-provided opaque job reference.
+   *
+   * This field has a maximum length of 50 bytes in UTF-8 encoding.
+   */
   seekHirerJobReference?: Maybe<Scalars['String']>;
   /**
    * An optional opaque billing reference.
    *
    * This appears on the invoice when SEEK bills the hirer for the job ad.
+   *
+   * This field has a maximum length of 50 bytes in UTF-8 encoding.
    */
   seekBillingReference?: Maybe<Scalars['String']>;
   /** An array of formatted position profile descriptions. */
@@ -2993,7 +3103,7 @@ export interface PostPositionProfileForOpeningPositionProfileInput {
    *
    * The metadata is not used by SEEK and won't be seen by hirers or candidates.
    *
-   * This field has a maximum length of 1000 characters.
+   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
   seekPartnerMetadata?: Maybe<Scalars['String']>;
 }
@@ -3022,7 +3132,11 @@ export interface PostPositionPositionOpeningPayload {
 
 /** The details of the position profile to be created. */
 export interface PostPositionPositionProfileInput {
-  /** A short phrase describing the position as it would be listed on a business card or in a company directory. */
+  /**
+   * A short phrase describing the position as it would be listed on a business card or in a company directory.
+   *
+   * This field has a maximum length of 80 bytes in UTF-8 encoding.
+   */
   positionTitle: Scalars['String'];
   /**
    * An array of identifiers for the `HiringOrganization`s that have the position.
@@ -3035,15 +3149,15 @@ export interface PostPositionPositionProfileInput {
   /**
    * An optional hirer-provided opaque job reference.
    *
-   * Scheme requirements:
-   *
-   * - The `seekAnz` scheme requires this field to have a maximum length of 50 characters.
+   * This field has a maximum length of 50 bytes in UTF-8 encoding.
    */
   seekHirerJobReference?: Maybe<Scalars['String']>;
   /**
    * An optional opaque billing reference.
    *
    * This appears on the invoice when SEEK bills the hirer for the job ad.
+   *
+   * This field has a maximum length of 50 bytes in UTF-8 encoding.
    */
   seekBillingReference?: Maybe<Scalars['String']>;
   /** An array of formatted position profile descriptions. */
@@ -3116,7 +3230,7 @@ export interface PostPositionPositionProfileInput {
    *
    * The metadata is not used by SEEK and won't be seen by hirers or candidates.
    *
-   * This field has a maximum length of 1000 characters.
+   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
   seekPartnerMetadata?: Maybe<Scalars['String']>;
 }
@@ -3214,7 +3328,7 @@ export interface PostedPositionProfile extends PositionProfile {
    *
    * The metadata is not used by SEEK and won't be seen by hirers or candidates.
    *
-   * This field has a maximum length of 1000 characters.
+   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
   seekPartnerMetadata?: Maybe<Scalars['String']>;
 }
@@ -3440,16 +3554,6 @@ export interface Query {
    */
   events: EventsConnection;
   /**
-   * A page of webhook attempts matching the specified criteria generated by a selected subscription.
-   *
-   * A maximum of 100 webhook attempts can be returned in a single page.
-   * Additional webhook attempts can be queried using a pagination cursor.
-   *
-   * The result list is returned in ascending creation date & time order.
-   * It starts from the earliest known attempt if no pagination arguments are provided.
-   */
-  webhookAttemptsForSubscription: WebhookAttemptsConnection;
-  /**
    * A page of webhook attempts matching the specified criteria generated by a selected event.
    *
    * A maximum of 100 webhook attempts can be returned in a single page.
@@ -3482,7 +3586,7 @@ export interface Query {
    * The result list is returned in ascending creation date & time order.
    * It starts from the earliest known request if no pagination arguments are provided.
    */
-  webhookRequestsForSubscription: WebhookRequestConnection;
+  webhookRequestsForSubscription: WebhookRequestsConnection;
   /** The webhook request for the given `requestId`. */
   webhookRequest?: Maybe<WebhookRequest>;
 }
@@ -3715,20 +3819,6 @@ export interface QueryEventsArgs {
  *
  * This acts as the public, top-level API from which all queries must start.
  */
-export interface QueryWebhookAttemptsForSubscriptionArgs {
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  filter?: Maybe<WebhookAttemptsFilterInput>;
-  subscriptionId: Scalars['String'];
-}
-
-/**
- * The schema's entry-point for queries.
- *
- * This acts as the public, top-level API from which all queries must start.
- */
 export interface QueryWebhookAttemptsForEventArgs {
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
@@ -3820,8 +3910,12 @@ export interface RemunerationAmountInput {
    *
    * For the `seekAnz` scheme, a single currency is accepted in each location:
    *
-   * - `NZD` is used by New Zealand (`seekAnz:location:seek:2b9U8B8Es`) and its children
-   * - `GBP` is used by the UK & Ireland (`seekAnz:location:seek:2beMJFcmV`) and their children
+   * - `NZD` is used by locations in New Zealand.
+   *   These are `Location`s that have a `countryCode` of `NZ`.
+   *
+   * - `GBP` is used by locations in the UK & Ireland.
+   *   These are `Location`s that have a `countryCode` of `GB` or `IE`.
+   *
    * - `AUD` is used by all other locations
    */
   currency: Scalars['String'];
@@ -4200,7 +4294,7 @@ export interface SeekVideoInput {
    *
    * Scheme requirements:
    *
-   *  - The `seekAnz` scheme requires URLs to be YouTube embed URLs less than 255 characters e.g. `https://www.youtube.com/embed/aAgePQvHBQM`.
+   *  - The `seekAnz` scheme requires URLs to be YouTube embed URLs, e.g. `https://www.youtube.com/embed/aAgePQvHBQM`.
    */
   url: Scalars['String'];
   /**
@@ -4258,6 +4352,12 @@ export interface UnpostedPositionProfile extends PositionProfile {
   __typename?: 'UnpostedPositionProfile';
   /** The identifier for the `PositionProfile`. */
   profileId: ObjectIdentifier;
+  /**
+   * A human-readable name given to the profile.
+   *
+   * This in addition to the `positionTitle` can help identify the profile to an end user.
+   */
+  profileName?: Maybe<Scalars['String']>;
   /** The `PositionOpening` that this profile was created under. */
   positionOpening: PositionOpening;
   /** The type of position profile, i.e. `UnpostedPositionProfile`. */
@@ -4327,7 +4427,7 @@ export interface UnpostedPositionProfile extends PositionProfile {
    *
    * The metadata is not used by SEEK and won't be seen by hirers or candidates.
    *
-   * This field has a maximum length of 1000 characters.
+   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
   seekPartnerMetadata?: Maybe<Scalars['String']>;
 }
@@ -4456,7 +4556,11 @@ export interface UpdatePostedPositionProfilePayload {
 export interface UpdatePostedPositionProfilePositionProfileInput {
   /** The identifier for the posted `PositionProfile` to update. */
   profileId: Scalars['String'];
-  /** A short phrase describing the position as it would be listed on a business card or in a company directory. */
+  /**
+   * A short phrase describing the position as it would be listed on a business card or in a company directory.
+   *
+   * This field has a maximum length of 80 bytes in UTF-8 encoding.
+   */
   positionTitle: Scalars['String'];
   /**
    * An array of identifiers for the `HiringOrganization`s that have the position.
@@ -4466,12 +4570,18 @@ export interface UpdatePostedPositionProfilePositionProfileInput {
    * - The `seekAnz` scheme requires exactly one element.
    */
   positionOrganizations: Array<Scalars['String']>;
-  /** An optional hirer-provided opaque job reference. */
+  /**
+   * An optional hirer-provided opaque job reference.
+   *
+   * This field has a maximum length of 50 bytes in UTF-8 encoding.
+   */
   seekHirerJobReference?: Maybe<Scalars['String']>;
   /**
    * An optional opaque billing reference.
    *
    * This appears on the invoice when SEEK bills the hirer for the job ad.
+   *
+   * This field has a maximum length of 50 bytes in UTF-8 encoding.
    */
   seekBillingReference?: Maybe<Scalars['String']>;
   /** An array of formatted position profile descriptions. */
@@ -4548,7 +4658,7 @@ export interface UpdatePostedPositionProfilePositionProfileInput {
    *
    * The metadata is not used by SEEK and won't be seen by hirers or candidates.
    *
-   * This field has a maximum length of 1000 characters.
+   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
   seekPartnerMetadata?: Maybe<Scalars['String']>;
 }
@@ -4613,17 +4723,39 @@ export interface UpdateUnpostedPositionProfileInput {
 export interface UpdateUnpostedPositionProfilePayload {
   __typename?: 'UpdateUnpostedPositionProfilePayload';
   /** Attributes of the updated unposted position profile. */
-  positionProfile: PositionProfile;
+  positionProfile: UnpostedPositionProfile;
 }
 
 /** An unposted profile of a position opening to update. */
 export interface UpdateUnpostedPositionProfilePositionProfileInput {
   /** The identifier for the unposted `PositionProfile` to update. */
   profileId: Scalars['String'];
-  /** A short phrase describing the position as it would be listed on a business card or in a company directory. */
+  /**
+   * A human-readable name given to the profile.
+   *
+   * This in addition to the `positionTitle` can help identify the profile to an end user.
+   */
+  profileName?: Maybe<Scalars['String']>;
+  /**
+   * A short phrase describing the position as it would be listed on a business card or in a company directory.
+   *
+   * This field has a maximum length of 80 bytes in UTF-8 encoding.
+   */
   positionTitle: Scalars['String'];
-  /** An optional hirer-provided opaque job reference. */
+  /**
+   * An optional hirer-provided opaque job reference.
+   *
+   * This field has a maximum length of 50 bytes in UTF-8 encoding.
+   */
   seekHirerJobReference?: Maybe<Scalars['String']>;
+  /**
+   * An optional opaque billing reference.
+   *
+   * SEEK does not use this field on unposted position profiles.
+   *
+   * This field has a maximum length of 50 bytes in UTF-8 encoding.
+   */
+  seekBillingReference?: Maybe<Scalars['String']>;
   /**
    * An array of formatted position profile descriptions.
    *
@@ -4658,7 +4790,7 @@ export interface UpdateUnpostedPositionProfilePositionProfileInput {
    *
    * The metadata is not used by SEEK and won't be seen by hirers or candidates.
    *
-   * This field has a maximum length of 1000 characters.
+   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
   seekPartnerMetadata?: Maybe<Scalars['String']>;
 }
@@ -4844,6 +4976,25 @@ export interface UpdateWebhookSubscriptionDeliveryConfigurationSubscriptionInput
    * This number must be between 1 and 10 inclusive. Defaults to 10.
    */
   maxEventsPerAttempt?: Maybe<Scalars['Int']>;
+}
+
+/** The input parameter for the `updateWebhookSubscriptionSigningConfiguration` mutation. */
+export interface UpdateWebhookSubscriptionSigningConfigurationInput {
+  /** The details of the webhook subscription to be updated. */
+  webhookSubscription: UpdateWebhookSubscriptionSigningConfigurationSubscriptionInput;
+}
+
+/** The output parameter for the `updateWebhookSubscriptionSigningConfiguration` mutation. */
+export interface UpdateWebhookSubscriptionSigningConfigurationPayload {
+  __typename?: 'UpdateWebhookSubscriptionSigningConfigurationPayload';
+  /** The details of the updated webhook subscription. */
+  webhookSubscription: WebhookSubscription;
+}
+
+/** The details of the webhook subscription signing configuration to be updated. */
+export interface UpdateWebhookSubscriptionSigningConfigurationSubscriptionInput {
+  /** The identifier for the `WebhookSubscription`. */
+  id: Scalars['String'];
   /**
    * The algorithm for signing webhooks.
    *
@@ -5136,19 +5287,6 @@ export interface WebhookRequest {
   attempts: Array<WebhookAttempt>;
 }
 
-/** A page of webhook requests. */
-export interface WebhookRequestConnection {
-  __typename?: 'WebhookRequestConnection';
-  /**
-   * The page of webhook requests and their corresponding cursors.
-   *
-   * This is always a non-empty list.
-   */
-  edges: Array<WebhookRequestEdge>;
-  /** The pagination metadata for this page of webhook requests. */
-  pageInfo: PageInfo;
-}
-
 /** A webhook request in a paginated list. */
 export interface WebhookRequestEdge {
   __typename?: 'WebhookRequestEdge';
@@ -5172,14 +5310,14 @@ export interface WebhookRequestFilterInput {
    * The creation date & time that resulting webhook requests must succeed.
    *
    * This can be used to initiate the retrieval of paginated results.
-   * Subsequent queries should use the opaque cursors returned from `WebhookRequestConnection`.
+   * Subsequent queries should use the opaque cursors returned from `WebhookRequestsConnection`.
    */
   afterDateTime?: Maybe<Scalars['DateTime']>;
   /**
    * The creation date & time that resulting webhook requests must precede.
    *
    * This can be used to initiate the retrieval of paginated results.
-   * Subsequent queries should use the opaque cursors returned from `WebhookRequestConnection`.
+   * Subsequent queries should use the opaque cursors returned from `WebhookRequestsConnection`.
    */
   beforeDateTime?: Maybe<Scalars['DateTime']>;
   /**
@@ -5190,6 +5328,19 @@ export interface WebhookRequestFilterInput {
    * If this is not provided then requests of all types will be returned.
    */
   descriptionCodes?: Maybe<Array<Scalars['String']>>;
+}
+
+/** A page of webhook requests. */
+export interface WebhookRequestsConnection {
+  __typename?: 'WebhookRequestsConnection';
+  /**
+   * The page of webhook requests and their corresponding cursors.
+   *
+   * This is always a non-empty list.
+   */
+  edges: Array<WebhookRequestEdge>;
+  /** The pagination metadata for this page of webhook requests. */
+  pageInfo: PageInfo;
 }
 
 /**
@@ -5221,6 +5372,15 @@ export interface WebhookSubscription {
    * A non-null `hirerId` indicates that this subscription is filtered to a single hirer.
    */
   hirerId?: Maybe<ObjectIdentifier>;
+  /**
+   * The optional hirer associated with this webhook subscription.
+   *
+   * This will only be accessible if there is an active relationship between the partner and hirer.
+   *
+   * By default webhook subscriptions will send events from all hirers the partner has access to.
+   * A non-null `hirer` field indicates that this subscription is filtered to a single hirer.
+   */
+  hirer?: Maybe<HiringOrganization>;
   /** The subscriber-owned URL where events are sent to. */
   url: Scalars['String'];
   /**
@@ -5252,15 +5412,15 @@ export interface WebhookSubscription {
   /** The date & time the webhook subscription was last updated. */
   updateDateTime: Scalars['DateTime'];
   /**
-   * A page of webhook attempts for the current subscription matching the specified criteria.
+   * A page of webhook requests for the subscription matching the specified criteria.
    *
-   * A maximum of 100 webhook attempts can be returned in a single page.
-   * Additional webhook attempts can be queried using a pagination cursor.
+   * A maximum of 100 webhook requests can be returned in a single page.
+   * Additional webhook requests can be queried using a pagination cursor.
    *
    * The result list is returned in ascending creation date & time order.
-   * It starts from the earliest known attempt if no pagination arguments are provided.
+   * It starts from the earliest known request if no pagination arguments are provided.
    */
-  webhookAttempts: WebhookAttemptsConnection;
+  webhookRequests: WebhookRequestsConnection;
   /**
    * A page of replays for the current webhook subscription matching the specified criteria.
    *
@@ -5278,12 +5438,12 @@ export interface WebhookSubscription {
  *
  * Events are delivered in batches with a HTTP POST request to the specified subscription URL.
  */
-export interface WebhookSubscriptionWebhookAttemptsArgs {
+export interface WebhookSubscriptionWebhookRequestsArgs {
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
-  filter?: Maybe<WebhookAttemptsFilterInput>;
+  filter?: Maybe<WebhookRequestFilterInput>;
 }
 
 /**
@@ -5373,8 +5533,7 @@ export interface WebhookSubscriptionReplaysConnection {
    * - The property `hasPreviousPage` will always be false when paginating by `first`
    * - The property `hasNextPage` will always be false when paginating by `last`
    *
-   * To discern whether a next/previous page exists in these conditions, an additional request will need to be made
-   * to retrieve the next/previous page.
+   * To discern whether a next/previous page exists in these conditions, an additional request will need to be made to retrieve the next/previous page.
    */
   pageInfo: PageInfo;
 }
@@ -5443,6 +5602,56 @@ export interface WebhookSubscriptionsFilterInput {
    */
   hirerIds?: Maybe<Array<Scalars['String']>>;
 }
+
+export type JobCategoryAttributesFragment = {
+  __typename?: 'JobCategory';
+} & Pick<JobCategory, 'name'> & {
+    id: { __typename?: 'ObjectIdentifier' } & Pick<ObjectIdentifier, 'value'>;
+  };
+
+export type JobCategoriesQueryVariables = Exact<{
+  schemeId: Scalars['String'];
+}>;
+
+export type JobCategoriesQuery = { __typename?: 'Query' } & {
+  jobCategories: Array<
+    { __typename?: 'JobCategory' } & {
+      parent?: Maybe<
+        { __typename?: 'JobCategory' } & JobCategoryAttributesFragment
+      >;
+      children?: Maybe<
+        Array<{ __typename?: 'JobCategory' } & JobCategoryAttributesFragment>
+      >;
+    } & JobCategoryAttributesFragment
+  >;
+};
+
+export type JobCategorySuggestionChoiceAttributesFragment = {
+  __typename?: 'JobCategorySuggestionChoice';
+} & Pick<JobCategorySuggestionChoice, 'confidence'> & {
+    jobCategory: { __typename?: 'JobCategory' } & {
+      parent?: Maybe<
+        { __typename?: 'JobCategory' } & JobCategoryAttributesFragment
+      >;
+      children?: Maybe<
+        Array<{ __typename?: 'JobCategory' } & JobCategoryAttributesFragment>
+      >;
+    } & JobCategoryAttributesFragment;
+  };
+
+export type JobCategorySuggestQueryVariables = Exact<{
+  positionProfile: JobCategorySuggestionPositionProfileInput;
+  schemeId: Scalars['String'];
+  first?: Maybe<Scalars['Int']>;
+}>;
+
+export type JobCategorySuggestQuery = { __typename?: 'Query' } & {
+  jobCategorySuggestions: Array<
+    {
+      __typename?: 'JobCategorySuggestionChoice';
+    } & JobCategorySuggestionChoiceAttributesFragment
+  >;
+};
 
 export type LocationAttributesFragment = { __typename?: 'Location' } & Pick<
   Location,

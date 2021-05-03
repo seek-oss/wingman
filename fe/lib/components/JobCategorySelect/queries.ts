@@ -8,28 +8,17 @@ const JOB_CATEGORY_ATTRIBUTES = gql`
     name
   }
 `;
-
-const NESTED_JOB_CATEGORY_ATTRIBUTES = gql`
-  fragment nestedJobCategoryAttributes on JobCategory {
-    ...jobCategoryAttributes
-    parent {
-      ...jobCategoryAttributes
-    }
-    children {
+export const JOB_CATEGORIES = gql`
+  query JobCategories($schemeId: String!) {
+    jobCategories(schemeId: $schemeId) {
       ...jobCategoryAttributes
       parent {
+        ...jobCategoryAttributes
+      }
+      children {
         ...jobCategoryAttributes
       }
     }
   }
   ${JOB_CATEGORY_ATTRIBUTES}
-`;
-
-export const JOB_CATEGORIES = gql`
-  query($schemeId: String!) {
-    jobCategories(schemeId: $schemeId) {
-      ...nestedJobCategoryAttributes
-    }
-  }
-  ${NESTED_JOB_CATEGORY_ATTRIBUTES}
 `;
