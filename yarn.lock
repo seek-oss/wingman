@@ -17708,10 +17708,10 @@ schema-utils@^3.0.0:
     ajv "^6.12.5"
     ajv-keywords "^3.5.2"
 
-scoobie@5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/scoobie/-/scoobie-5.2.0.tgz#8ad97ef0942fdb2150c85872ee0bff3f2f6d993b"
-  integrity sha512-/XtLXxs7nbp7Ne/CTmIMbtM4Da4LodfZ8dAAjnP1pD1PBSmhuvddVeV9xFpZjVKprSiIlNioCARqiGU8lXy0dQ==
+scoobie@5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/scoobie/-/scoobie-5.2.1.tgz#b0fc83a830a08db16baa7456fd684bcd83d6ed9d"
+  integrity sha512-UrtB5y/7yebvp7LVFmox+Wq/KqaHOWNKGZixHUHcNLh4WgC1Y0h++J3pHelXlet8Nv7cAQ0MteXuVFzoz4RvyA==
   dependencies:
     "@mdx-js/loader" "^1.6.16"
     "@mdx-js/react" "^1.6.16"
