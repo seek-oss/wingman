@@ -17,7 +17,7 @@
   "devDependencies": {
     "@testing-library/react": "11.2.6",
     "@types/faker": "5.5.3",
-    "@types/react": "17.0.3",
+    "@types/react": "17.0.4",
     "@types/react-dom": "17.0.3",
     "braid-design-system": "29.31.0",
     "classnames": "2.3.1",
