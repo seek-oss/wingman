@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.19.0
+
+### Minor Changes
+
+- f701f01: **JobCategorySelect, JobCategorySuggest:** Clean up job category GraphQL queries
+
 ## 0.18.9
 
 ### Patch Changes
