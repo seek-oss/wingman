@@ -23,13 +23,18 @@ const PrivacyConsentRenderer = ({ privacy }: PrivacyConsentRendererProps) => {
       <Stack space="medium">
         <Checkbox
           id="privacyConsentCheckbox"
-          label="I agree to this employer's Privacy Policy"
+          label={
+            /**
+             * {@link https://developer.seek.com/schema/#/named-type/ApplicationPrivacyConsentInput}
+             */
+            privacy.descriptionHtml ?? 'Do you agree to the privacy policy?'
+          }
           onChange={handleClick}
           checked={checked}
         />
         <Text>
           <TextLink hitArea="large" href={privacy.privacyPolicyUrl.url}>
-            Link to Employer&apos;s Privacy Policy <IconNewWindow />
+            Click here to view <IconNewWindow />
           </TextLink>
         </Text>
       </Stack>
