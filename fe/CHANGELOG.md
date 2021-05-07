@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.19.1
+
+### Patch Changes
+
+- be620ff: **QuestionnaireBuilder:** Render custom privacy consent prompt
+
 ## 0.19.0
 
 ### Minor Changes
