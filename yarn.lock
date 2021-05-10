@@ -3734,10 +3734,10 @@
     "@types/react" "*"
     "@types/react-router" "*"
 
-"@types/react-router-hash-link@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@types/react-router-hash-link/-/react-router-hash-link-1.2.1.tgz#fba7dc351cef2985791023018b7a5dbd0653c843"
-  integrity sha512-jdzPGE8jFGq7fHUpPaKrJvLW1Yhoe5MQCrmgeesC+eSLseMj3cGCTYMDA4BNWG8JQmwO8NTYt/oT3uBZ77pmBA==
+"@types/react-router-hash-link@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@types/react-router-hash-link/-/react-router-hash-link-2.0.0.tgz#93189b39dcc4ac3f28616867aad134bbe7a41521"
+  integrity sha512-Y40Kjxu9IqpVFE7gUrRJvV23+iMkrM+gI8q4DCNfywG9Cv34lQ/rrO2uZJ6TjCF2faMy3Y9rizVue1jLFQzQYA==
   dependencies:
     "@types/react" "*"
     "@types/react-router-dom" "*"
@@ -6959,10 +6959,10 @@ concat-stream@^1.5.0:
     readable-stream "^2.2.2"
     typedarray "^0.0.6"
 
-concurrently@6.0.2, concurrently@^6.0.0:
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/concurrently/-/concurrently-6.0.2.tgz#4ecdfc78a72a6f626a3a5d3c2a7a81962f3663e3"
-  integrity sha512-u+1Q0dJG5BidgUTpz9CU16yoHTt/oApFDQ3mbvHwSDgMjU7aGqy0q8ZQyaZyaNxdwRKTD872Ux3Twc6//sWA+Q==
+concurrently@6.1.0, concurrently@^6.0.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/concurrently/-/concurrently-6.1.0.tgz#00d22525d3fcdce7f34cc7f3c9753f90a57d6208"
+  integrity sha512-jy+xj49pvqeKjc2TAVXRIhrgPG51eBKDZti0kZ41kaWk9iLbyWBjH6KMFpW7peOLkEymD+ZM83Lx6UEy3N/M9g==
   dependencies:
     chalk "^4.1.0"
     date-fns "^2.16.1"
@@ -7937,10 +7937,10 @@ dataloader@2.0.0:
   resolved "https://registry.yarnpkg.com/dataloader/-/dataloader-2.0.0.tgz#41eaf123db115987e21ca93c005cd7753c55fe6f"
   integrity sha512-YzhyDAwA4TaQIhM5go+vCLmU0UikghC/t9DTQYZR2M/UvZ1MdOhPezSDZcjj9uqQJOMqjLcpWtyW2iNINdlatQ==
 
-date-fns@2.21.1, date-fns@^2.16.1:
-  version "2.21.1"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.21.1.tgz#679a4ccaa584c0706ea70b3fa92262ac3009d2b0"
-  integrity sha512-m1WR0xGiC6j6jNFAyW4Nvh4WxAi4JF4w9jRJwSI8nBmNcyZXPcP9VUQG+6gHQXAmqaGEKDKhOqAtENDC941UkA==
+date-fns@2.21.3, date-fns@^2.16.1:
+  version "2.21.3"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.21.3.tgz#8f5f6889d7a96bbcc1f0ea50239b397a83357f9b"
+  integrity sha512-HeYdzCaFflc1i4tGbj7JKMjM4cKGYoyxwcIIkHzNgCkX8xXDNJDZXgDDVchIWpN4eQc3lH37WarduXFZJOtxfw==
 
 date-fns@^1.27.2:
   version "1.30.1"
@@ -9986,6 +9986,15 @@ fs-extra@^0.30.0:
     klaw "^1.0.0"
     path-is-absolute "^1.0.0"
     rimraf "^2.2.8"
+
+fs-extra@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-10.0.0.tgz#9ff61b655dde53fb34a82df84bb214ce802e17c1"
+  integrity sha512-C5owb14u9eJwizKGdchcDUQeFtlSHHthBk8pbX9Vc1PFZrLombudjDnNns88aYslCyF6IY5SUw3Roz6xShcEIQ==
+  dependencies:
+    graceful-fs "^4.2.0"
+    jsonfile "^6.0.1"
+    universalify "^2.0.0"
 
 fs-extra@^3.0.1:
   version "3.0.1"
@@ -18156,26 +18165,27 @@ schema-utils@^3.0.0:
     ajv "^6.12.5"
     ajv-keywords "^3.5.2"
 
-scoobie@6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/scoobie/-/scoobie-6.0.0.tgz#e70fcab36bdbb27b6418b119f7ee8f13922e838f"
-  integrity sha512-PgnWtkrL3dn1EZEPSsHFkVu6M1BUlbp/5k6bCpw+ShTHkwg/rgnQsAG4ircNzpa6JQGsLi6fqZlNeH3/yWEA9g==
+scoobie@6.0.4:
+  version "6.0.4"
+  resolved "https://registry.yarnpkg.com/scoobie/-/scoobie-6.0.4.tgz#f16c6ae3b2d69aa3d23daf28c6454e2113091823"
+  integrity sha512-rq+gCYotPgw3yTa74Clv0PRVm9xW23UW6rhR3pjJ9fuRffU/5MsXPtzKiM8BCSxr3CCszu1/9zwKEinlLCfnFg==
   dependencies:
     "@mdx-js/loader" "^1.6.16"
     "@mdx-js/react" "^1.6.16"
     "@mermaid-js/mermaid-cli" "^8.9.2"
     "@types/mdx-js__react" "^1.5.2"
-    "@types/react-router-hash-link" "^1.2.1"
+    "@types/react-router-hash-link" "^2.0.0"
     capsize "^2.0.0"
     classnames "^2.2.6"
     find-up "^5.0.0"
-    fs-extra "^9.1.0"
+    fs-extra "^10.0.0"
     polished "^4.0.0"
     prism-react-renderer "1.1.1"
     react-keyed-flatten-children "^1.3.0"
     react-router-hash-link "^2.0.0"
     refractor "^3.3.1"
     remark-slug "^6.0.0"
+    svgo-loader "^2.2.1"
     unist-util-visit "^2.0.2"
     which "^2.0.2"
 
