@@ -74,7 +74,7 @@ input AddressInput {
   """
   extendedLines: [AddressComponentInput!]!
   """The two-letter ISO 3166-1:2013 country code, in uppercase."""
-  countryCode: String
+  countryCode: String!
   """
   An array of further divisions of the country.
   
@@ -84,13 +84,13 @@ input AddressInput {
   """
   countrySubDivisions: [AddressComponentInput!]!
   """The city or suburb of the address."""
-  city: String
+  city: String!
   """
   The postal code of the address.
   
   This field has a maximum length of 50 bytes in UTF-8 encoding.
   """
-  postalCode: String
+  postalCode: String!
   """The geographical coordinates of the address."""
   geoLocation: GeoLocationInput
   """
@@ -1912,11 +1912,7 @@ type EventEdge {
 
 """A page of events from a stream."""
 type EventsConnection {
-  """
-  The page of events and their corresponding cursors.
-  
-  This is always a non-empty list.
-  """
+  """The page of events and their corresponding cursors."""
   edges: [EventEdge!]!
   """The pagination metadata for this page of events."""
   pageInfo: PageInfo!
@@ -1988,12 +1984,91 @@ type HiringOrganization {
   """The name of the hiring organization."""
   name: String!
   """
+  The capabilities of the requesting partner to act on behalf of the hiring organization.
+  
+  This will be `null` for agencies; the SEEK API does not support acting on behalf of an agency.
+  """
+  seekApiCapabilities: HiringOrganizationApiCapabilities
+  """
   The legacy SEEK ANZ advertiser ID.
   
   This is a numeric identifier used by legacy Job Posting & Application Export APIs in the `seekAnz` scheme.
   For organizations in other schemes this will be `null`.
   """
   seekAnzAdvertiserId: Int
+}
+
+"""
+The capabilities of the requesting partner to act on behalf of a hirer.
+
+This provides a read-only view of the configuration of a SEEK hirer for the current partner.
+"""
+type HiringOrganizationApiCapabilities {
+  """
+  The active relationship types between the requesting partner and the hirer.
+  
+  Currently, three codes are defined:
+  
+  - `ApplicationExport` enables exporting candidate applications from SEEK's native apply functionality.
+  
+  - `JobPosting` enables posting job ads to SEEK's job boards.
+  
+  - `ProactiveSourcing` enables hirers to proactively search for and connect with suitable candidates.
+  """
+  relationshipTypeCodes: [String!]!
+  """
+  The supported methods of applying to job ads posted by the hirer.
+  
+  All SEEK hirers can use SEEK's native apply functionality by omitting the `ApplicationMethod` object when posting.
+  This enumerates additional application methods SEEK has configured for the hirer.
+  
+  Currently, one code is defined:
+  
+  - `ApplicationUri` indicates that job ads can link out to an external apply form.
+  """
+  applicationMethodCodes: [String!]!
+}
+
+"""A hirer in a paginated list."""
+type HiringOrganizationEdge {
+  """
+  The opaque cursor to the hirer.
+  
+  This can be used as a subsequent pagination argument.
+  """
+  cursor: String!
+  """The actual hirer."""
+  node: HiringOrganization!
+}
+
+"""A page of hirers."""
+type HiringOrganizationsConnection {
+  """The page of hirers and their corresponding cursors."""
+  edges: [HiringOrganizationEdge!]!
+  """The pagination metadata for this page of hirers."""
+  pageInfo: PageInfo!
+}
+
+"""
+The criteria to filter hirers by.
+
+These are `HiringOrganization`-specific extensions on top of the standard pagination arguments `before`, `after`, `first` and `last`.
+"""
+input HiringOrganizationsFilterInput {
+  """
+  Filters on relationship types between the hirer and requesting partner.
+  
+  See the `HiringOrganizationApiCapabilities` documentation for a list of supported event types.
+  
+  If this is not provided then all related hirers are returned.
+  """
+  relationshipTypeCodes: [String!]
+  """
+  Filters on hirer names containing the provided case-insensitive substring.
+  
+  This is intended to support ad-hoc searches for hirers by name.
+  """
+  nameSearch: String
 }
 
 """
@@ -3315,6 +3390,58 @@ type Query {
     id: String!
   ): HiringOrganization
   """
+  A page of hirers that have an active relationship with the requesting partner.
+  
+  This will not return agencies; it's not possible to have a relationship with an agency.
+  
+  A maximum of 100 hirers can be returned in a single page.
+  Additional hirers can be queried using a pagination cursor.
+  
+  The result list is ordered alphabetically by the hirer's name.
+  
+  This query accepts browser tokens that include the `query:organizations` scope.
+  It will only return the single hirer that the browser token is scoped to.
+  """
+  hiringOrganizations(
+    """
+    The scheme of the hirers.
+    
+    Currently, only `seekAnz` and `seekAnzPublicTest` are supported.
+    """
+    schemeId: String!
+    """
+    An opaque cursor to the earlier bounding hirer.
+    
+    Resulting hirers will be alphabetically later than this cursor.
+    """
+    after: String
+    """
+    An opaque cursor to the later bounding hirers.
+    
+    Resulting hirers will be alphabetically earlier than this cursor.
+    """
+    before: String
+    """
+    The upper limit of hirers to return from the start of the list.
+    
+    Defaults to 10 if neither `first` nor `last` are specified.
+    Excess hirers will be trimmed from the end of the list.
+    
+    `first` and `last` cannot be specified in the same query.
+    """
+    first: Int
+    """
+    The upper limit of hirers to return from the end of the list.
+    
+    Excess hirers will be trimmed from the start of the list.
+    
+    `first` and `last` cannot be specified in the same query.
+    """
+    last: Int
+    """The additional `HiringOrganization`-specific criteria to filter by."""
+    filter: HiringOrganizationsFilterInput
+  ): HiringOrganizationsConnection!
+  """
   A hiring organization corresponding to the given SEEK ANZ advertiser ID.
   
   This query accepts browser tokens that include the `query:organizations` scope.
@@ -3847,6 +3974,10 @@ input RemunerationRangeInput {
   
   - `Hour` is used to express hourly rates.
   - `Year` is used to express annual salaries or commissions.
+  
+  The specified value must correspond to the specified `RemunerationPackageInput`.`basisCode`.
+  When `RemunerationPackageInput`.`basisCode` equals `Hourly`, the `RemunerationRangeInput`.`intervalCode` must be `Hour`.
+  For all other `RemunerationPackageInput`.`basisCode`s, the `RemunerationRangeInput`.`intervalCode` must be `Year`.
   """
   intervalCode: String!
 }
@@ -4628,12 +4759,6 @@ input UpdateUploadedCandidatePerson_CandidateInput {
   and one of the provided values must match `seekPrimaryEmailAddress`.
   
   If no value is provided for physical addresses in `communication` it will be treated as an empty list and will remove any previously uploaded addresses.
-  
-  `ProactiveSourcing` candidates require the following fields for each physical address in `communication`:
-  
-  - `city`
-  - `countryCode`
-  - `postalCode`
   """
   person: CandidatePersonInput!
   """
@@ -4735,12 +4860,7 @@ input UpdateUploadedCandidateProfilePositionPreferences_CandidateProfileInput {
   """
   The candidate's preferences in an ideal position.
   
-  `ProactiveSourcing` candidates may have 0–1 position preferences,
-  and require the following fields for each physical address in `locations`:
-  
-  - `city`
-  - `countryCode`
-  - `postalCode`
+  `ProactiveSourcing` candidates may have 0–1 position preferences.
   """
   positionPreferences: [PositionPreferenceInput!]!
 }
@@ -4871,12 +4991,6 @@ input UploadCandidate_CandidateInput {
   
   At least one email address is required in `communication`,
   and one of the provided values must match `seekPrimaryEmailAddress`.
-  
-  `ProactiveSourcing` candidates require the following fields for each physical address in `communication`:
-  
-  - `city`
-  - `countryCode`
-  - `postalCode`
   """
   person: CandidatePersonInput!
 }
@@ -4906,12 +5020,7 @@ input UploadCandidate_CandidateProfileInput {
   """
   The candidate's preferences in an ideal position.
   
-  `ProactiveSourcing` candidates may have 0–1 position preferences,
-  and require the following fields for each physical address in `locations`:
-  
-  - `city`
-  - `countryCode`
-  - `postalCode`
+  `ProactiveSourcing` candidates may have 0–1 position preferences.
   """
   positionPreferences: [PositionPreferenceInput!]!
   """
@@ -4976,11 +5085,7 @@ type WebhookAttemptEdge {
 
 """A page of webhook attempts."""
 type WebhookAttemptsConnection {
-  """
-  The page of webhook attempts and their corresponding cursors.
-  
-  This is always a non-empty list.
-  """
+  """The page of webhook attempts and their corresponding cursors."""
   edges: [WebhookAttemptEdge!]!
   """The pagination metadata for this page of webhook attempts."""
   pageInfo: PageInfo!
@@ -5114,11 +5219,7 @@ input WebhookRequestFilterInput {
 
 """A page of webhook requests."""
 type WebhookRequestsConnection {
-  """
-  The page of webhook requests and their corresponding cursors.
-  
-  This is always a non-empty list.
-  """
+  """The page of webhook requests and their corresponding cursors."""
   edges: [WebhookRequestEdge!]!
   """The pagination metadata for this page of webhook requests."""
   pageInfo: PageInfo!
@@ -5334,11 +5435,7 @@ type WebhookSubscriptionReplayEdge {
 
 """A page of webhook subscription replays."""
 type WebhookSubscriptionReplaysConnection {
-  """
-  The page of webhook subscription replays and their corresponding cursors.
-  
-  This is always a non-empty list.
-  """
+  """The page of webhook subscription replays and their corresponding cursors."""
   edges: [WebhookSubscriptionReplayEdge!]!
   """
   The pagination metadata for this page of webhook subscription replays.
@@ -5370,11 +5467,7 @@ input WebhookSubscriptionReplaysFilterInput {
 
 """A page of webhook subscriptions."""
 type WebhookSubscriptionsConnection {
-  """
-  The page of webhook subscriptions and their corresponding cursors.
-  
-  This is always a non-empty list.
-  """
+  """The page of webhook subscriptions and their corresponding cursors."""
   edges: [WebhookSubscriptionEdge!]!
   """The pagination metadata for this page of subscriptions."""
   pageInfo: PageInfo!
@@ -5416,6 +5509,6 @@ input WebhookSubscriptionsFilterInput {
   hirerIds: [String!]
 }
 
-directive @complexity(value: Int!, multipliers: [String!]) on FIELD_DEFINITION
-
 directive @paginated(defaultPageSize: Int!) on FIELD_DEFINITION
+
+directive @unpaginated(indicativeLength: Int!) on FIELD_DEFINITION
