@@ -100,7 +100,7 @@ export interface AddressInput {
    */
   extendedLines: Array<AddressComponentInput>;
   /** The two-letter ISO 3166-1:2013 country code, in uppercase. */
-  countryCode?: Maybe<Scalars['String']>;
+  countryCode: Scalars['String'];
   /**
    * An array of further divisions of the country.
    *
@@ -110,13 +110,13 @@ export interface AddressInput {
    */
   countrySubDivisions: Array<AddressComponentInput>;
   /** The city or suburb of the address. */
-  city?: Maybe<Scalars['String']>;
+  city: Scalars['String'];
   /**
    * The postal code of the address.
    *
    * This field has a maximum length of 50 bytes in UTF-8 encoding.
    */
-  postalCode?: Maybe<Scalars['String']>;
+  postalCode: Scalars['String'];
   /** The geographical coordinates of the address. */
   geoLocation?: Maybe<GeoLocationInput>;
   /**
@@ -1933,11 +1933,7 @@ export interface EventEdge {
 /** A page of events from a stream. */
 export interface EventsConnection {
   __typename?: 'EventsConnection';
-  /**
-   * The page of events and their corresponding cursors.
-   *
-   * This is always a non-empty list.
-   */
+  /** The page of events and their corresponding cursors. */
   edges: Array<EventEdge>;
   /** The pagination metadata for this page of events. */
   pageInfo: PageInfo;
@@ -2011,12 +2007,94 @@ export interface HiringOrganization {
   /** The name of the hiring organization. */
   name: Scalars['String'];
   /**
+   * The capabilities of the requesting partner to act on behalf of the hiring organization.
+   *
+   * This will be `null` for agencies; the SEEK API does not support acting on behalf of an agency.
+   */
+  seekApiCapabilities?: Maybe<HiringOrganizationApiCapabilities>;
+  /**
    * The legacy SEEK ANZ advertiser ID.
    *
    * This is a numeric identifier used by legacy Job Posting & Application Export APIs in the `seekAnz` scheme.
    * For organizations in other schemes this will be `null`.
    */
   seekAnzAdvertiserId?: Maybe<Scalars['Int']>;
+}
+
+/**
+ * The capabilities of the requesting partner to act on behalf of a hirer.
+ *
+ * This provides a read-only view of the configuration of a SEEK hirer for the current partner.
+ */
+export interface HiringOrganizationApiCapabilities {
+  __typename?: 'HiringOrganizationApiCapabilities';
+  /**
+   * The active relationship types between the requesting partner and the hirer.
+   *
+   * Currently, three codes are defined:
+   *
+   * - `ApplicationExport` enables exporting candidate applications from SEEK's native apply functionality.
+   *
+   * - `JobPosting` enables posting job ads to SEEK's job boards.
+   *
+   * - `ProactiveSourcing` enables hirers to proactively search for and connect with suitable candidates.
+   */
+  relationshipTypeCodes: Array<Scalars['String']>;
+  /**
+   * The supported methods of applying to job ads posted by the hirer.
+   *
+   * All SEEK hirers can use SEEK's native apply functionality by omitting the `ApplicationMethod` object when posting.
+   * This enumerates additional application methods SEEK has configured for the hirer.
+   *
+   * Currently, one code is defined:
+   *
+   * - `ApplicationUri` indicates that job ads can link out to an external apply form.
+   */
+  applicationMethodCodes: Array<Scalars['String']>;
+}
+
+/** A hirer in a paginated list. */
+export interface HiringOrganizationEdge {
+  __typename?: 'HiringOrganizationEdge';
+  /**
+   * The opaque cursor to the hirer.
+   *
+   * This can be used as a subsequent pagination argument.
+   */
+  cursor: Scalars['String'];
+  /** The actual hirer. */
+  node: HiringOrganization;
+}
+
+/** A page of hirers. */
+export interface HiringOrganizationsConnection {
+  __typename?: 'HiringOrganizationsConnection';
+  /** The page of hirers and their corresponding cursors. */
+  edges: Array<HiringOrganizationEdge>;
+  /** The pagination metadata for this page of hirers. */
+  pageInfo: PageInfo;
+}
+
+/**
+ * The criteria to filter hirers by.
+ *
+ * These are `HiringOrganization`-specific extensions on top of the standard pagination arguments `before`, `after`, `first` and `last`.
+ */
+export interface HiringOrganizationsFilterInput {
+  /**
+   * Filters on relationship types between the hirer and requesting partner.
+   *
+   * See the `HiringOrganizationApiCapabilities` documentation for a list of supported event types.
+   *
+   * If this is not provided then all related hirers are returned.
+   */
+  relationshipTypeCodes?: Maybe<Array<Scalars['String']>>;
+  /**
+   * Filters on hirer names containing the provided case-insensitive substring.
+   *
+   * This is intended to support ad-hoc searches for hirers by name.
+   */
+  nameSearch?: Maybe<Scalars['String']>;
 }
 
 /** The category of a job's occupation. */
@@ -3491,6 +3569,20 @@ export interface Query {
    */
   hiringOrganization?: Maybe<HiringOrganization>;
   /**
+   * A page of hirers that have an active relationship with the requesting partner.
+   *
+   * This will not return agencies; it's not possible to have a relationship with an agency.
+   *
+   * A maximum of 100 hirers can be returned in a single page.
+   * Additional hirers can be queried using a pagination cursor.
+   *
+   * The result list is ordered alphabetically by the hirer's name.
+   *
+   * This query accepts browser tokens that include the `query:organizations` scope.
+   * It will only return the single hirer that the browser token is scoped to.
+   */
+  hiringOrganizations: HiringOrganizationsConnection;
+  /**
    * A hiring organization corresponding to the given SEEK ANZ advertiser ID.
    *
    * This query accepts browser tokens that include the `query:organizations` scope.
@@ -3672,6 +3764,20 @@ export interface QuerySeekAnzHirerAdvertisementModificationProductsAltArgs {
  */
 export interface QueryHiringOrganizationArgs {
   id: Scalars['String'];
+}
+
+/**
+ * The schema's entry-point for queries.
+ *
+ * This acts as the public, top-level API from which all queries must start.
+ */
+export interface QueryHiringOrganizationsArgs {
+  schemeId: Scalars['String'];
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  filter?: Maybe<HiringOrganizationsFilterInput>;
 }
 
 /**
@@ -4029,6 +4135,10 @@ export interface RemunerationRangeInput {
    *
    * - `Hour` is used to express hourly rates.
    * - `Year` is used to express annual salaries or commissions.
+   *
+   * The specified value must correspond to the specified `RemunerationPackageInput`.`basisCode`.
+   * When `RemunerationPackageInput`.`basisCode` equals `Hourly`, the `RemunerationRangeInput`.`intervalCode` must be `Hour`.
+   * For all other `RemunerationPackageInput`.`basisCode`s, the `RemunerationRangeInput`.`intervalCode` must be `Year`.
    */
   intervalCode: Scalars['String'];
 }
@@ -4831,12 +4941,6 @@ export interface UpdateUploadedCandidatePersonCandidateInput {
    * and one of the provided values must match `seekPrimaryEmailAddress`.
    *
    * If no value is provided for physical addresses in `communication` it will be treated as an empty list and will remove any previously uploaded addresses.
-   *
-   * `ProactiveSourcing` candidates require the following fields for each physical address in `communication`:
-   *
-   * - `city`
-   * - `countryCode`
-   * - `postalCode`
    */
   person: CandidatePersonInput;
   /**
@@ -4941,12 +5045,7 @@ export interface UpdateUploadedCandidateProfilePositionPreferencesCandidateProfi
   /**
    * The candidate's preferences in an ideal position.
    *
-   * `ProactiveSourcing` candidates may have 0–1 position preferences,
-   * and require the following fields for each physical address in `locations`:
-   *
-   * - `city`
-   * - `countryCode`
-   * - `postalCode`
+   * `ProactiveSourcing` candidates may have 0–1 position preferences.
    */
   positionPreferences: Array<PositionPreferenceInput>;
 }
@@ -5083,12 +5182,6 @@ export interface UploadCandidateCandidateInput {
    *
    * At least one email address is required in `communication`,
    * and one of the provided values must match `seekPrimaryEmailAddress`.
-   *
-   * `ProactiveSourcing` candidates require the following fields for each physical address in `communication`:
-   *
-   * - `city`
-   * - `countryCode`
-   * - `postalCode`
    */
   person: CandidatePersonInput;
 }
@@ -5118,12 +5211,7 @@ export interface UploadCandidateCandidateProfileInput {
   /**
    * The candidate's preferences in an ideal position.
    *
-   * `ProactiveSourcing` candidates may have 0–1 position preferences,
-   * and require the following fields for each physical address in `locations`:
-   *
-   * - `city`
-   * - `countryCode`
-   * - `postalCode`
+   * `ProactiveSourcing` candidates may have 0–1 position preferences.
    */
   positionPreferences: Array<PositionPreferenceInput>;
   /**
@@ -5192,11 +5280,7 @@ export interface WebhookAttemptEdge {
 /** A page of webhook attempts. */
 export interface WebhookAttemptsConnection {
   __typename?: 'WebhookAttemptsConnection';
-  /**
-   * The page of webhook attempts and their corresponding cursors.
-   *
-   * This is always a non-empty list.
-   */
+  /** The page of webhook attempts and their corresponding cursors. */
   edges: Array<WebhookAttemptEdge>;
   /** The pagination metadata for this page of webhook attempts. */
   pageInfo: PageInfo;
@@ -5333,11 +5417,7 @@ export interface WebhookRequestFilterInput {
 /** A page of webhook requests. */
 export interface WebhookRequestsConnection {
   __typename?: 'WebhookRequestsConnection';
-  /**
-   * The page of webhook requests and their corresponding cursors.
-   *
-   * This is always a non-empty list.
-   */
+  /** The page of webhook requests and their corresponding cursors. */
   edges: Array<WebhookRequestEdge>;
   /** The pagination metadata for this page of webhook requests. */
   pageInfo: PageInfo;
@@ -5520,11 +5600,7 @@ export interface WebhookSubscriptionReplayEdge {
 /** A page of webhook subscription replays. */
 export interface WebhookSubscriptionReplaysConnection {
   __typename?: 'WebhookSubscriptionReplaysConnection';
-  /**
-   * The page of webhook subscription replays and their corresponding cursors.
-   *
-   * This is always a non-empty list.
-   */
+  /** The page of webhook subscription replays and their corresponding cursors. */
   edges: Array<WebhookSubscriptionReplayEdge>;
   /**
    * The pagination metadata for this page of webhook subscription replays.
@@ -5557,11 +5633,7 @@ export interface WebhookSubscriptionReplaysFilterInput {
 /** A page of webhook subscriptions. */
 export interface WebhookSubscriptionsConnection {
   __typename?: 'WebhookSubscriptionsConnection';
-  /**
-   * The page of webhook subscriptions and their corresponding cursors.
-   *
-   * This is always a non-empty list.
-   */
+  /** The page of webhook subscriptions and their corresponding cursors. */
   edges: Array<WebhookSubscriptionEdge>;
   /** The pagination metadata for this page of subscriptions. */
   pageInfo: PageInfo;
