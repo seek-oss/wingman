@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.19.2
+
+### Patch Changes
+
+- c6213f7: Run codegen for `AddressInput` changes
+
 ## 0.19.1
 
 ### Patch Changes
