@@ -80,7 +80,7 @@ const generateTitle = (positionName: string) =>
 export const ADS: Ad[] = POSITIONS.map((position) =>
   faker.custom.generate<Ad>(
     () => ({
-      id: `wingman:ad:${faker.random.uuid()}`,
+      id: `wingman:ad:${faker.datatype.uuid()}`,
       position: {
         id: position.id,
       },
