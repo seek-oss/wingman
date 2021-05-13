@@ -36,7 +36,7 @@ export const POSITIONS: Position[] = faker.custom
     const newCandidates = faker.random.number({ max: totalCandidates, min: 0 });
 
     return {
-      id: `wingman:position:${faker.random.uuid()}`,
+      id: `wingman:position:${faker.datatype.uuid()}`,
       name: faker.name.jobTitle(),
       candidates: {
         new: newCandidates,

@@ -69,7 +69,7 @@ const componentGenerators: Record<ComponentType, () => FormComponent> = {
 
 export const QUESTIONNAIRES = faker.custom.generate<Questionnaire>(
   () => ({
-    id: faker.random.uuid(),
+    id: faker.datatype.uuid(),
     name: faker.random.words(),
     components: faker.custom.generate(
       () => {

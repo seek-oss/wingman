@@ -63,7 +63,7 @@ export const CANDIDATES: Candidate[] = POSITIONS.map((position) =>
       ? `${firstName} ${faker.name.lastName()}`
       : firstName;
 
-    const id = `wingman:candidate:${faker.random.uuid()}`;
+    const id = `wingman:candidate:${faker.datatype.uuid()}`;
 
     return {
       id,
