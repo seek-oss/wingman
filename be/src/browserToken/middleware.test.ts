@@ -113,7 +113,7 @@ describe('createBrowserTokenMiddleware', () => {
       .expect(400)
       .expect(({ text }) =>
         expect(text).toMatchInlineSnapshot(
-          `"scope: Expected \\"scope\\" property to be present, but was missing"`,
+          `"Bad Request: Expected { scope: string; }, but was incompatible"`,
         ),
       ));
 
