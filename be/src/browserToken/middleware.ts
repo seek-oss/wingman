@@ -41,10 +41,7 @@ const _createBrowserTokenMiddleware = ({
     const requestResult = BrowserTokenRequest.validate(ctx.request.body);
 
     if (!requestResult.success) {
-      return ctx.throw(
-        400,
-        `${requestResult.key ?? 'Bad Request'}: ${requestResult.message}`,
-      );
+      return ctx.throw(400, `Bad Request: ${requestResult.message}`);
     }
 
     const { scope } = requestResult.value;
