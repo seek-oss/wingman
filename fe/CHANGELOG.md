@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.19.3
+
+### Patch Changes
+
+- 6841ee0: **deps:** runtypes ^6.3.0
+
 ## 0.19.2
 
 ### Patch Changes
