@@ -1,5 +1,11 @@
 # wingman-be
 
+## 0.2.6
+
+### Patch Changes
+
+- 6841ee0: **deps:** runtypes ^6.3.0
+
 ## 0.2.5
 
 ### Patch Changes
