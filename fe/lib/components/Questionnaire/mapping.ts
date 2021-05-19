@@ -9,8 +9,8 @@ import type {
   GraphqlComponentInput,
   PrivacyConsent,
   Question,
-} from './questionTypes';
-import type { QuestionType } from './types';
+  QuestionType,
+} from './types';
 
 const mapPrivacyConsent = (
   component: ApplicationPrivacyConsent,

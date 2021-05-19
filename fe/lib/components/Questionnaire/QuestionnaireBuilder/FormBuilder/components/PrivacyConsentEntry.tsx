@@ -1,7 +1,7 @@
 import { Card, Column, Columns, Stack, Text } from 'braid-design-system';
 import React, { useContext, useState } from 'react';
 
-import type { PrivacyConsent } from '../../../questionTypes';
+import type { PrivacyConsent } from '../../../types';
 import { StateContext, actionCreators } from '../state/formBuilderState';
 
 import NewPrivacyConsentForm from './NewPrivacyConsentForm/NewPrivacyConsentForm';

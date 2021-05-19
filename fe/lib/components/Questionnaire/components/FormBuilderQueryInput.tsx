@@ -8,7 +8,7 @@ import {
 } from 'braid-design-system';
 import React, { useState } from 'react';
 
-import { MutationVariableInput, validateQueryInput } from '../questionTypes';
+import { MutationVariableInput, validateQueryInput } from '../types';
 
 interface FormBuilderQueryInputProps {
   id: string;

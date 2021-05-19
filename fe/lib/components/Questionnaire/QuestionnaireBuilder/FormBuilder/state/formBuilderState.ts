@@ -5,10 +5,10 @@ import type {
   FormComponent,
   FreeTextQuestion,
   PrivacyConsent,
+  QuestionType,
   ResponseChoice,
   SelectionQuestion,
-} from '../../../questionTypes';
-import type { QuestionType } from '../../../types';
+} from '../../../types';
 
 export interface DeleteComponentAction {
   type: 'DELETE_COMPONENT';
