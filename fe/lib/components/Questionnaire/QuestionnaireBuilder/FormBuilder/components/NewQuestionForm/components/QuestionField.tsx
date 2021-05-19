@@ -3,7 +3,7 @@ import React from 'react';
 
 interface QuestionFieldProps {
   value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  setValue: (value: string) => void;
 }
 
 export default ({ value, setValue }: QuestionFieldProps) => (
