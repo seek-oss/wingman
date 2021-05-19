@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.19.5
+
+### Patch Changes
+
+- 0e31cd6: **QuestionnaireBuilder:** Fix TypeScript mismatches
+
 ## 0.19.4
 
 ### Patch Changes
