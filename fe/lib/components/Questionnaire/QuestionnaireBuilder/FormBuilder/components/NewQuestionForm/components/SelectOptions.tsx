@@ -7,7 +7,7 @@ import {
   Stack,
   TextField,
 } from 'braid-design-system';
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import { createResolver } from '../../../../../../../utils';
@@ -63,6 +63,8 @@ export default ({ options, setOptionList }: SelectOptionsProps) => {
     resolver,
   });
 
+  const optionInputRef = useRef<HTMLInputElement>(null);
+
   const addOption = (values: FormValues) => {
     setOptionList([
       ...options,
@@ -70,6 +72,8 @@ export default ({ options, setOptionList }: SelectOptionsProps) => {
     ]);
 
     reset();
+
+    optionInputRef.current?.focus();
   };
 
   const setPreferred = (itemText: string, newStatus: boolean) => {
@@ -107,6 +111,7 @@ export default ({ options, setOptionList }: SelectOptionsProps) => {
                   id="questionnaireBuilderAddOption"
                   label="Add options"
                   onClear={() => setValue('option', '')}
+                  ref={optionInputRef}
                   tone={errors.option ? 'critical' : undefined}
                 />
               )}
