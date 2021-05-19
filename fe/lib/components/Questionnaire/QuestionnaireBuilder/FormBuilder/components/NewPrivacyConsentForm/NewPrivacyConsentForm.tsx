@@ -8,14 +8,9 @@ import {
   TextField,
 } from 'braid-design-system';
 import React, { useContext } from 'react';
-import {
-  Controller,
-  EmptyObject,
-  FieldErrors,
-  Resolver,
-  useForm,
-} from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 
+import { createResolver } from '../../../../../../utils';
 import type { PrivacyConsent, WebUrl } from '../../../../questionTypes';
 import { StateContext, actionCreators } from '../../state/formBuilderState';
 
@@ -46,9 +41,7 @@ const isWebUrl = (str: string): boolean => {
   }
 };
 
-const formValuesResolver: Resolver<FormValues> = (values) => {
-  const errors: FieldErrors<FormValues> = {};
-
+const resolver = createResolver<FormValues>((values, errors) => {
   if (!values.description.trim()) {
     errors.description = {
       type: 'required',
@@ -62,17 +55,7 @@ const formValuesResolver: Resolver<FormValues> = (values) => {
       message: 'Please enter a valid HTTP(S) URL.',
     };
   }
-
-  return Object.keys(errors).length
-    ? {
-        errors,
-        values: {} as EmptyObject,
-      }
-    : {
-        errors: {} as EmptyObject,
-        values,
-      };
-};
+});
 
 export default ({
   hideForm,
@@ -85,7 +68,7 @@ export default ({
     formState: { errors },
     handleSubmit,
   } = useForm<FormValues>({
-    resolver: formValuesResolver,
+    resolver,
   });
 
   const saveThisPrivacyConsent = (formData: FormValues) => {
