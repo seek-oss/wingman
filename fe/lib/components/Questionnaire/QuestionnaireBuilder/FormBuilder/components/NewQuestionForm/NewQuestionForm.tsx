@@ -14,7 +14,7 @@ import type {
   ResponseChoice,
   SelectionQuestion,
 } from '../../../../questionTypes';
-import type { OptionListItem, QuestionType } from '../../../../types';
+import type { QuestionType } from '../../../../types';
 import { StateContext, actionCreators } from '../../state/formBuilderState';
 
 import QuestionInputFields from './components/QuestionInputFields';
@@ -39,7 +39,7 @@ export default ({
   const [questionType, setQuestionType] = useState<QuestionType | ''>(
     initialValues.responseTypeCode,
   );
-  const [selectOptions, setSelectOptions] = useState<OptionListItem[]>(
+  const [selectOptions, setSelectOptions] = useState<ResponseChoice[]>(
     'responseChoice' in initialValues ? initialValues.responseChoice : [],
   );
   const [questionText, setQuestionText] = useState(initialValues.questionHtml);

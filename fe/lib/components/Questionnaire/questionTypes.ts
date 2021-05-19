@@ -19,7 +19,7 @@ export interface FreeTextQuestion extends BaseQuestion {
 
 export interface ResponseChoice {
   text: string;
-  value: string;
+  value?: string;
   preferredIndicator: boolean;
 }
 

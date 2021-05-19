@@ -3,18 +3,30 @@ import {
   Button,
   Column,
   Columns,
+  FieldMessage,
   Stack,
   TextField,
 } from 'braid-design-system';
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
+import {
+  Controller,
+  EmptyObject,
+  FieldErrors,
+  Resolver,
+  useForm,
+} from 'react-hook-form';
 
-import type { HookSetterFn, OptionListItem } from '../../../../../types';
+import type { ResponseChoice } from '../../../../../questionTypes';
 
 import DisplayOption from './DisplayOption';
 
+interface FormValues {
+  option: string;
+}
+
 interface SelectOptionsProps {
-  options: OptionListItem[];
-  setOptionList: HookSetterFn<OptionListItem[]>;
+  options: ResponseChoice[];
+  setOptionList: (value: ResponseChoice[]) => void;
 }
 
 const splitArrayAt = <T extends any>(inputArray: T[], index: number) => {
@@ -25,16 +37,55 @@ const splitArrayAt = <T extends any>(inputArray: T[], index: number) => {
 };
 
 export default ({ options, setOptionList }: SelectOptionsProps) => {
-  const [option, setOption] = useState('');
+  const resolver = useCallback<Resolver<FormValues>>(
+    (values) => {
+      const errors: FieldErrors<FormValues> = {};
 
-  const submitHandler = (
-    event:
-      | React.FormEvent<HTMLFormElement>
-      | React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => {
-    event.preventDefault();
-    setOptionList([...options, { text: option, preferredIndicator: false }]);
-    setOption('');
+      if (!values.option) {
+        errors.option = {
+          type: 'required',
+          message: 'Please enter an option.',
+        };
+      } else if (options.some((option) => option.value === values.option)) {
+        errors.option = {
+          type: 'validate',
+          message: 'This option already exists.',
+        };
+      }
+
+      return Object.keys(errors).length
+        ? {
+            errors,
+            values: {} as EmptyObject,
+          }
+        : {
+            errors: {} as EmptyObject,
+            values,
+          };
+    },
+    [options],
+  );
+
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+    reset,
+    setValue,
+  } = useForm<FormValues>({
+    defaultValues: {
+      option: '',
+    },
+    resolver,
+  });
+
+  const addOption = (values: FormValues) => {
+    setOptionList([
+      ...options,
+      { text: values.option, value: values.option, preferredIndicator: false },
+    ]);
+
+    reset();
   };
 
   const setPreferred = (itemText: string, newStatus: boolean) => {
@@ -46,6 +97,7 @@ export default ({ options, setOptionList }: SelectOptionsProps) => {
       {
         text: item.text,
         preferredIndicator: newStatus,
+        value: item.value,
       },
       ...afterItem,
     ]);
@@ -57,30 +109,40 @@ export default ({ options, setOptionList }: SelectOptionsProps) => {
     setOptionList([...beforeItem, ...afterItem]);
   };
 
-  const setOptionToTargetValue = (event: React.FormEvent<HTMLInputElement>) =>
-    setOption(event.currentTarget.value);
-
-  const setOptionToBlank = () => setOption('');
-
   return (
     <Stack space="medium">
-      <Columns alignY="bottom" space="small">
-        <Column>
-          <TextField
-            id="questionnaireBuilderAddOption"
-            label="Add options"
-            onClear={setOptionToBlank}
-            value={option}
-            onChange={setOptionToTargetValue}
-          />
-        </Column>
+      <Stack space="small">
+        <Columns alignY="bottom" space="small">
+          <Column>
+            <Controller
+              control={control}
+              name="option"
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  id="questionnaireBuilderAddOption"
+                  label="Add options"
+                  onClear={() => setValue('option', '')}
+                  tone={errors.option ? 'critical' : undefined}
+                />
+              )}
+            />
+          </Column>
+          <Column width="content">
+            <Actions>
+              <Button onClick={handleSubmit(addOption)}>Add</Button>
+            </Actions>
+          </Column>
+        </Columns>
 
-        <Column width="content">
-          <Actions>
-            <Button onClick={submitHandler}>Add</Button>
-          </Actions>
-        </Column>
-      </Columns>
+        {errors.option?.message ? (
+          <FieldMessage
+            id="questionnaireBuilderAddOptionMessage"
+            message={errors.option.message}
+            tone="critical"
+          />
+        ) : null}
+      </Stack>
 
       <Stack space="small">
         {options.map(({ text, preferredIndicator }, index) => (

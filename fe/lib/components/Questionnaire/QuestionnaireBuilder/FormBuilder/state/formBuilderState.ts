@@ -5,9 +5,10 @@ import type {
   FormComponent,
   FreeTextQuestion,
   PrivacyConsent,
+  ResponseChoice,
   SelectionQuestion,
 } from '../../../questionTypes';
-import type { OptionListItem, QuestionType } from '../../../types';
+import type { QuestionType } from '../../../types';
 
 export interface DeleteComponentAction {
   type: 'DELETE_COMPONENT';
@@ -60,7 +61,7 @@ const createAddSelectQuestionAction = (
   questionType: Exclude<QuestionType, 'FreeText'>,
 ) => (dispatch: React.Dispatch<AddComponentAction>) => (
   questionText: string,
-  options: OptionListItem[],
+  options: ResponseChoice[],
 ) => {
   const responseChoice = options.map(({ text, preferredIndicator }) => ({
     text,
@@ -120,7 +121,7 @@ const createEditSelectQuestionAction = (
 ) => (dispatch: React.Dispatch<EditComponentAction>) => (
   questionId: string,
   questionText: string,
-  options: OptionListItem[],
+  options: ResponseChoice[],
 ) => {
   const responseChoice = options.map(({ text, preferredIndicator }) => ({
     text,
