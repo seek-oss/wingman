@@ -128,7 +128,7 @@ export const GraphqlQueryRenderer = ({
   const [visiblePane, setVisiblePane] = useState<VisiblePane>('variables');
 
   return (
-    <Stack space="medium">
+    <Stack space="large">
       <RadioGroup
         id="graphql-query-renderer-pane"
         onChange={(event) =>

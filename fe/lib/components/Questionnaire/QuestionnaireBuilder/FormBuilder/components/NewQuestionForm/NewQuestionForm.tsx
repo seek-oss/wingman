@@ -7,8 +7,10 @@ import {
   Heading,
   Stack,
 } from 'braid-design-system';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 
+import { createResolver } from '../../../../../../utils';
 import type {
   FreeTextQuestion,
   ResponseChoice,
@@ -19,88 +21,161 @@ import { StateContext, actionCreators } from '../../state/formBuilderState';
 
 import QuestionInputFields from './components/QuestionInputFields';
 
-interface NewQuestionFormProps {
-  hideForm: () => void;
-  initialValues: FreeTextQuestion | SelectionQuestion | typeof blankFormValues;
+interface FormValues {
+  questionHtml: string;
+  questionType?: QuestionType;
+  responseChoice: ResponseChoice[];
+  value?: string;
 }
 
-const blankFormValues = {
-  value: '',
-  responseTypeCode: '' as const,
-  responseChoice: [] as ResponseChoice[],
-  questionHtml: '',
-};
+interface NewQuestionFormProps {
+  hideForm: () => void;
+  initialValues: FreeTextQuestion | SelectionQuestion;
+}
 
-export default ({
-  hideForm,
-  initialValues = blankFormValues,
-}: NewQuestionFormProps) => {
+const resolver = createResolver<FormValues>((values, errors) => {
+  if (!values.questionType) {
+    errors.questionType = {
+      type: 'required',
+      message: 'Please select a question type.',
+    };
+  } else if (
+    values.questionType === 'FreeText' &&
+    values.responseChoice?.length
+  ) {
+    errors.questionType = {
+      type: 'validate',
+      message: 'Please omit any response options.',
+    };
+  } else if (
+    values.questionType !== 'FreeText' &&
+    (!values.responseChoice || values.responseChoice.length < 2)
+  ) {
+    errors.questionType = {
+      type: 'validate',
+      message: 'Please provide at least two response options.',
+    };
+  }
+
+  if (!values.questionHtml) {
+    errors.questionHtml = {
+      type: 'required',
+      message: 'Please enter a question.',
+    };
+  }
+});
+
+export default ({ hideForm, initialValues }: NewQuestionFormProps) => {
+  const {
+    clearErrors,
+    control,
+    formState: { errors },
+    handleSubmit,
+    setValue,
+    watch,
+  } = useForm<FormValues>({
+    defaultValues: {
+      questionHtml: initialValues.questionHtml,
+      questionType: initialValues.responseTypeCode,
+      responseChoice:
+        'responseChoice' in initialValues ? initialValues.responseChoice : [],
+    },
+    resolver,
+  });
+
+  const questionHtmlValue = watch('questionHtml');
+  const questionTypeValue = watch('questionType');
+  const responseChoiceValue = watch('responseChoice');
+
+  useEffect(() => clearErrors('questionType'), [
+    clearErrors,
+    responseChoiceValue.length,
+  ]);
+
   const { dispatch } = useContext(StateContext);
-  const [questionType, setQuestionType] = useState<QuestionType | ''>(
-    initialValues.responseTypeCode,
-  );
-  const [selectOptions, setSelectOptions] = useState<ResponseChoice[]>(
-    'responseChoice' in initialValues ? initialValues.responseChoice : [],
-  );
-  const [questionText, setQuestionText] = useState(initialValues.questionHtml);
 
   const aggregatedState = {
-    questionText: { value: questionText, set: setQuestionText },
-    options: { value: selectOptions, set: setSelectOptions },
+    questionText: {
+      error: errors.questionHtml?.message,
+      value: questionHtmlValue,
+      set: (value: string) =>
+        setValue('questionHtml', value, { shouldValidate: true }),
+    },
+    options: {
+      value: responseChoiceValue,
+      set: (value: ResponseChoice[]) =>
+        setValue('responseChoice', value, { shouldValidate: true }),
+    },
   };
 
-  const saveThisQuestion = () => {
-    if (questionType !== '') {
-      if (initialValues.value) {
-        const creator = actionCreators.update[questionType];
-        creator(dispatch)(initialValues.value, questionText, selectOptions);
-      } else {
-        const creator = actionCreators.add[questionType];
-        creator(dispatch)(questionText, selectOptions);
-      }
-      hideForm();
+  const createQuestion = ({
+    questionHtml,
+    questionType,
+    responseChoice,
+  }: FormValues) => {
+    if (!questionType) {
+      return;
     }
+
+    if (initialValues.value) {
+      const creator = actionCreators.update[questionType];
+      creator(dispatch)(initialValues.value, questionHtml, responseChoice);
+    } else {
+      const creator = actionCreators.add[questionType];
+      creator(dispatch)(questionHtml, responseChoice);
+    }
+
+    hideForm();
   };
 
   return (
-    <Card>
-      <Stack space="large">
-        <Box>
-          <Heading level="3">
-            {initialValues.value ? 'Edit' : 'New'} Question
-          </Heading>
-        </Box>
+    <form onSubmit={handleSubmit(createQuestion)}>
+      <Card>
+        <Stack space="large">
+          <Box>
+            <Heading level="3">
+              {initialValues.value ? 'Edit' : 'New'} Question
+            </Heading>
+          </Box>
 
-        <Dropdown
-          id="questionType"
-          label="Question type"
-          placeholder="Select a question type"
-          value={questionType}
-          onChange={(event) =>
-            setQuestionType(event.currentTarget.value as any)
-          }
-        >
-          <option value="FreeText">Free Text</option>
-          <option value="SingleSelect">Single Select</option>
-          <option value="MultiSelect">Multi Select</option>
-        </Dropdown>
-
-        {questionType === '' ? undefined : (
-          <QuestionInputFields
-            questionType={questionType}
-            state={aggregatedState}
+          <Controller
+            control={control}
+            defaultValue={initialValues.responseTypeCode}
+            name="questionType"
+            render={({ field }) => (
+              <Dropdown
+                {...field}
+                id={field.name}
+                label="Type"
+                message={errors.questionType?.message}
+                placeholder="Select a question type"
+                tone={errors.questionType ? 'critical' : undefined}
+                value={questionTypeValue ?? ''}
+              >
+                <option value="FreeText">Free Text</option>
+                <option value="SingleSelect">Single Select</option>
+                <option value="MultiSelect">Multi Select</option>
+              </Dropdown>
+            )}
           />
-        )}
 
-        <Box>
-          <Actions>
-            <Button onClick={saveThisQuestion}>Save</Button>
-            <Button onClick={hideForm} variant="transparent">
-              Cancel
-            </Button>
-          </Actions>
-        </Box>
-      </Stack>
-    </Card>
+          {questionTypeValue ? (
+            <QuestionInputFields
+              questionType={questionTypeValue}
+              state={aggregatedState}
+            />
+          ) : null}
+
+          <Box>
+            <Actions>
+              <Button type="submit">Save</Button>
+              <Button onClick={hideForm} variant="transparent">
+                Cancel
+              </Button>
+            </Actions>
+          </Box>
+        </Stack>
+      </Card>
+    </form>
   );
 };
