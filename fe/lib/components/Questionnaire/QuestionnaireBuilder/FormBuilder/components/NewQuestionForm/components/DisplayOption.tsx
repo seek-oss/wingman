@@ -2,7 +2,6 @@ import {
   Checkbox,
   Column,
   Columns,
-  Divider,
   IconClear,
   Stack,
   Text,
@@ -12,7 +11,6 @@ import React from 'react';
 
 interface DisplayOptionProps {
   text: string;
-  showDivider: boolean;
   setPreferred: (text: string, newStatus: boolean) => void;
   removeItem: () => void;
   preferredIndicator: boolean;
@@ -20,7 +18,6 @@ interface DisplayOptionProps {
 
 export default ({
   text,
-  showDivider,
   setPreferred,
   removeItem,
   preferredIndicator,
@@ -30,8 +27,6 @@ export default ({
 
   return (
     <Stack space="small">
-      {showDivider && <Divider />}
-
       <Columns alignY="center" space="small">
         <Column width="content">
           <Text>
