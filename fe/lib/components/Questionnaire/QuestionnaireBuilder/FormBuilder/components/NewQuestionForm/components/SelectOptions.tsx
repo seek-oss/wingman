@@ -7,15 +7,10 @@ import {
   Stack,
   TextField,
 } from 'braid-design-system';
-import React, { useCallback } from 'react';
-import {
-  Controller,
-  EmptyObject,
-  FieldErrors,
-  Resolver,
-  useForm,
-} from 'react-hook-form';
+import React, { useMemo } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 
+import { createResolver } from '../../../../../../../utils';
 import type { ResponseChoice } from '../../../../../questionTypes';
 
 import DisplayOption from './DisplayOption';
@@ -37,32 +32,21 @@ const splitArrayAt = <T extends any>(inputArray: T[], index: number) => {
 };
 
 export default ({ options, setOptionList }: SelectOptionsProps) => {
-  const resolver = useCallback<Resolver<FormValues>>(
-    (values) => {
-      const errors: FieldErrors<FormValues> = {};
-
-      if (!values.option) {
-        errors.option = {
-          type: 'required',
-          message: 'Please enter an option.',
-        };
-      } else if (options.some((option) => option.value === values.option)) {
-        errors.option = {
-          type: 'validate',
-          message: 'This option already exists.',
-        };
-      }
-
-      return Object.keys(errors).length
-        ? {
-            errors,
-            values: {} as EmptyObject,
-          }
-        : {
-            errors: {} as EmptyObject,
-            values,
+  const resolver = useMemo(
+    () =>
+      createResolver<FormValues>((values, errors) => {
+        if (!values.option) {
+          errors.option = {
+            type: 'required',
+            message: 'Please enter an option.',
           };
-    },
+        } else if (options.some((option) => option.value === values.option)) {
+          errors.option = {
+            type: 'validate',
+            message: 'This option already exists.',
+          };
+        }
+      }),
     [options],
   );
 
