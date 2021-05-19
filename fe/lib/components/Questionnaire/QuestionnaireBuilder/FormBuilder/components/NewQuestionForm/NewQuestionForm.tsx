@@ -60,7 +60,7 @@ const resolver = createResolver<FormValues>((values, errors) => {
   if (!values.questionHtml) {
     errors.questionHtml = {
       type: 'required',
-      message: 'Please enter some question text.',
+      message: 'Please enter a question.',
     };
   }
 });
