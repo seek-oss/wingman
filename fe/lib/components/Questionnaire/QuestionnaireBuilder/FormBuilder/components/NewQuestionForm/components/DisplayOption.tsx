@@ -1,5 +1,4 @@
 import {
-  Box,
   Checkbox,
   Column,
   Columns,
@@ -10,8 +9,6 @@ import {
   TextLinkButton,
 } from 'braid-design-system';
 import React from 'react';
-
-import CentredFlexBox from './CentredFlexBox';
 
 interface DisplayOptionProps {
   text: string;
@@ -35,30 +32,27 @@ export default ({
     <Stack space="small">
       {showDivider && <Divider />}
 
-      <Columns space="small">
-        <Column width="4/5">
-          <CentredFlexBox>
-            <Box paddingRight="small">
-              <Text>
-                <TextLinkButton onClick={removeItem}>
-                  <IconClear tone="link" />
-                </TextLinkButton>
-              </Text>
-            </Box>
-            <Text baseline={false}>{text}</Text>
-          </CentredFlexBox>
+      <Columns alignY="center" space="small">
+        <Column width="content">
+          <Text>
+            <TextLinkButton hitArea="large" onClick={removeItem}>
+              <IconClear tone="link" />
+            </TextLinkButton>
+          </Text>
         </Column>
 
         <Column>
-          <CentredFlexBox justifyContent="flexEnd">
-            <Checkbox
-              reserveMessageSpace={false}
-              checked={preferredIndicator}
-              id="id"
-              label=""
-              onChange={onCheckboxChange}
-            />
-          </CentredFlexBox>
+          <Text>{text}</Text>
+        </Column>
+
+        <Column width="content">
+          <Checkbox
+            reserveMessageSpace={false}
+            checked={preferredIndicator}
+            id="id"
+            label=""
+            onChange={onCheckboxChange}
+          />
         </Column>
       </Columns>
     </Stack>

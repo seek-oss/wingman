@@ -1,4 +1,4 @@
-import { Box, Card, Stack, Text } from 'braid-design-system';
+import { Card, Column, Columns, Stack, Text } from 'braid-design-system';
 import React, { useContext, useState } from 'react';
 
 import type {
@@ -41,18 +41,23 @@ const QuestionListEntry = ({ question }: QuestionListEntryProps) => {
     />
   ) : (
     <Card>
-      <Box display="flex" justifyContent="spaceBetween">
-        <Stack space="small">
-          <Text size="large">{question.questionHtml}</Text>
-          <Text tone="secondary" size="small">
-            {questionTypeDisplayNames[question.responseTypeCode]}
-          </Text>
-        </Stack>
-        <QuestionEntryMenu
-          onClickDelete={onClickDelete(question)}
-          onClickEdit={onClickEdit}
-        />
-      </Box>
+      <Columns alignY="center" space="small">
+        <Column>
+          <Stack space="small">
+            <Text size="large">{question.questionHtml}</Text>
+            <Text tone="secondary" size="small">
+              {questionTypeDisplayNames[question.responseTypeCode]}
+            </Text>
+          </Stack>
+        </Column>
+
+        <Column width="content">
+          <QuestionEntryMenu
+            onClickDelete={onClickDelete(question)}
+            onClickEdit={onClickEdit}
+          />
+        </Column>
+      </Columns>
     </Card>
   );
 };

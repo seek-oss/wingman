@@ -1,5 +1,4 @@
 import {
-  Box,
   IconDelete,
   IconEdit,
   MenuItem,
@@ -15,16 +14,10 @@ interface QuestionEntryMenuProps {
 export default ({ onClickEdit, onClickDelete }: QuestionEntryMenuProps) => (
   <OverflowMenu label="Options">
     <MenuItem onClick={onClickEdit}>
-      <Box display="flex" alignItems="center">
-        <IconEdit />
-        <Box paddingLeft="medium">Edit</Box>
-      </Box>
+      <IconEdit /> Edit
     </MenuItem>
     <MenuItem onClick={onClickDelete}>
-      <Box display="flex" alignItems="center">
-        <IconDelete />
-        <Box paddingLeft="medium">Delete</Box>
-      </Box>
+      <IconDelete /> Delete
     </MenuItem>
   </OverflowMenu>
 );
