@@ -1,13 +1,13 @@
-import { Stack } from 'braid-design-system';
+import { Stack, TextField } from 'braid-design-system';
 import React from 'react';
 
 import type { ResponseChoice } from '../../../../../questionTypes';
 import type { QuestionType } from '../../../../../types';
 
-import QuestionField from './QuestionField';
 import SelectOptions from './SelectOptions';
 
 interface StateProp<T> {
+  error?: string;
   value: T;
   set: (value: T) => void;
 }
@@ -21,12 +21,17 @@ interface QuestionInputFieldsProps {
 }
 
 export default ({ questionType, state }: QuestionInputFieldsProps) => (
-  <Stack space="medium">
-    <QuestionField
-      key="questionField"
+  <Stack space="large">
+    <TextField
+      id="questionnaireBuilderQuestionHtml"
+      label="Question"
+      message={state.questionText.error}
+      onChange={(event) => state.questionText.set(event.currentTarget.value)}
+      onClear={() => state.questionText.set('')}
       value={state.questionText.value}
-      setValue={state.questionText.set}
+      tone={state.questionText.error ? 'critical' : undefined}
     />
+
     {['SingleSelect', 'MultiSelect'].includes(questionType) && (
       <SelectOptions
         options={state.options.value}

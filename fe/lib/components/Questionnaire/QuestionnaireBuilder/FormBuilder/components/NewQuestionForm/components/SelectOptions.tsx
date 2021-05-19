@@ -105,7 +105,7 @@ export default ({ options, setOptionList }: SelectOptionsProps) => {
                 <TextField
                   {...field}
                   id="questionnaireBuilderAddOption"
-                  label="Add options"
+                  label="Options"
                   onClear={() => setValue('option', '')}
                   tone={errors.option ? 'critical' : undefined}
                 />
