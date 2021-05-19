@@ -128,12 +128,11 @@ export default ({ options, setOptionList }: SelectOptionsProps) => {
         ) : null}
       </Stack>
 
-      <Stack space="small">
-        {options.map(({ text, preferredIndicator }, index) => (
+      <Stack dividers space="small">
+        {options.map(({ text, preferredIndicator }) => (
           <DisplayOption
             key={text}
             text={text}
-            showDivider={index !== 0}
             preferredIndicator={preferredIndicator}
             setPreferred={setPreferred}
             removeItem={removeItem(text)}
