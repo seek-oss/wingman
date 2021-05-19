@@ -1,4 +1,4 @@
-import { Box, Card, Stack, Text } from 'braid-design-system';
+import { Card, Column, Columns, Stack, Text } from 'braid-design-system';
 import React, { useContext, useState } from 'react';
 
 import type { PrivacyConsent } from '../../../questionTypes';
@@ -30,19 +30,24 @@ const PrivacyConsentEntry = ({ privacyConsent }: PrivacyConsentEntryProps) => {
     />
   ) : (
     <Card>
-      <Box display="flex" justifyContent="spaceBetween">
-        <Stack space="small">
-          <Text size="large">Privacy consent</Text>
-          <Text tone="secondary" size="small">
-            {privacyConsent.descriptionHtml ??
-              privacyConsent.privacyPolicyUrl.url}
-          </Text>
-        </Stack>
-        <QuestionEntryMenu
-          onClickDelete={onClickDelete(privacyConsent)}
-          onClickEdit={onClickEdit}
-        />
-      </Box>
+      <Columns alignY="center" space="small">
+        <Column>
+          <Stack space="small">
+            <Text size="large">Privacy consent</Text>
+            <Text tone="secondary" size="small">
+              {privacyConsent.descriptionHtml ??
+                privacyConsent.privacyPolicyUrl.url}
+            </Text>
+          </Stack>
+        </Column>
+
+        <Column width="content">
+          <QuestionEntryMenu
+            onClickDelete={onClickDelete(privacyConsent)}
+            onClickEdit={onClickEdit}
+          />
+        </Column>
+      </Columns>
     </Card>
   );
 };

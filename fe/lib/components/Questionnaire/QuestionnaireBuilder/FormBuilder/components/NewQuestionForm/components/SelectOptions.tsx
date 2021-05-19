@@ -10,7 +10,6 @@ import React, { useState } from 'react';
 
 import type { HookSetterFn, OptionListItem } from '../../../../../types';
 
-import CentredFlexBox from './CentredFlexBox';
 import DisplayOption from './DisplayOption';
 
 interface SelectOptionsProps {
@@ -65,26 +64,23 @@ export default ({ options, setOptionList }: SelectOptionsProps) => {
 
   return (
     <Stack space="medium">
-      <form onSubmit={submitHandler}>
-        <Columns alignY="bottom" space="small">
-          <Column width="4/5">
-            <TextField
-              id="id"
-              label="Add options"
-              onClear={setOptionToBlank}
-              value={option}
-              onChange={setOptionToTargetValue}
-            />
-          </Column>
-          <Column>
-            <CentredFlexBox justifyContent="flexEnd">
-              <Actions>
-                <Button onClick={submitHandler}>Add</Button>
-              </Actions>
-            </CentredFlexBox>
-          </Column>
-        </Columns>
-      </form>
+      <Columns alignY="bottom" space="small">
+        <Column>
+          <TextField
+            id="questionnaireBuilderAddOption"
+            label="Add options"
+            onClear={setOptionToBlank}
+            value={option}
+            onChange={setOptionToTargetValue}
+          />
+        </Column>
+
+        <Column width="content">
+          <Actions>
+            <Button onClick={submitHandler}>Add</Button>
+          </Actions>
+        </Column>
+      </Columns>
 
       <Stack space="small">
         {options.map(({ text, preferredIndicator }, index) => (

@@ -1,6 +1,8 @@
 import {
   Alert,
   Card,
+  Column,
+  Columns,
   IconAdd,
   Stack,
   Text,
@@ -17,7 +19,6 @@ import type {
 
 import NewPrivacyConsentForm from './components/NewPrivacyConsentForm/NewPrivacyConsentForm';
 import NewQuestionForm from './components/NewQuestionForm/NewQuestionForm';
-import CentredFlexBox from './components/NewQuestionForm/components/CentredFlexBox';
 import PrivacyConsentEntry from './components/PrivacyConsentEntry';
 import QuestionListEntry from './components/QuestionListEntry';
 import {
@@ -102,10 +103,13 @@ export const FormBuilder = ({
         <Card key="questionCard">
           <Text>
             <TextLinkButton onClick={onClickAddQuestion}>
-              <CentredFlexBox justifyContent="spaceBetween">
-                Add a question
-                <IconAdd />
-              </CentredFlexBox>
+              <Columns alignY="center" space="small">
+                <Column>Add a question</Column>
+
+                <Column width="content">
+                  <IconAdd />
+                </Column>
+              </Columns>
             </TextLinkButton>
           </Text>
         </Card>
@@ -142,10 +146,13 @@ export const FormBuilder = ({
         <Card key="privacyConsentCard">
           <Text>
             <TextLinkButton onClick={onClickAddPrivacyConsent}>
-              <CentredFlexBox justifyContent="spaceBetween">
-                Add a privacy consent component
-                <IconAdd />
-              </CentredFlexBox>
+              <Columns alignY="center" space="small">
+                <Column>Add a privacy consent</Column>
+
+                <Column width="content">
+                  <IconAdd />
+                </Column>
+              </Columns>
             </TextLinkButton>
           </Text>
         </Card>
