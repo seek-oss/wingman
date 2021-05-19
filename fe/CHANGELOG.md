@@ -1,5 +1,15 @@
 # wingman-fe
 
+## 0.19.4
+
+### Patch Changes
+
+- ec391a6: **QuestionnaireBuilder:** Ensure question options are unique and non-empty
+- bb2ed17: **QuestionnaireBuilder:** Align privacy consent validation messages
+- bdce19a: **QuestionnaireBuilder:** Remove custom flexbox usage
+- 27c9847: **QuestionnaireBuilder:** Validate question text and options
+- 0a5c5eb: **QuestionnaireBuilder:** Autofocus option field after adding one
+
 ## 0.19.3
 
 ### Patch Changes
