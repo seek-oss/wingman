@@ -7,4 +7,4 @@ export type {
   PrivacyConsent,
   Question,
   SelectionQuestion,
-} from './questionTypes';
+} from './types';

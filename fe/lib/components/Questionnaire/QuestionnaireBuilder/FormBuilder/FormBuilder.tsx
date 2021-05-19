@@ -15,7 +15,7 @@ import type {
   FormComponent,
   PrivacyConsent,
   SelectionQuestion,
-} from '../../questionTypes';
+} from '../../types';
 
 import NewPrivacyConsentForm from './components/NewPrivacyConsentForm/NewPrivacyConsentForm';
 import NewQuestionForm from './components/NewQuestionForm/NewQuestionForm';

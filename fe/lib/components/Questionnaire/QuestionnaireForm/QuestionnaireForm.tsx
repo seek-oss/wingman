@@ -9,7 +9,7 @@ import type {
   PrivacyConsent,
   Question,
   SelectionQuestion,
-} from '../questionTypes';
+} from '../types';
 
 import FreeText from './components/FreeText';
 import MultiSelect from './components/MultiSelect';

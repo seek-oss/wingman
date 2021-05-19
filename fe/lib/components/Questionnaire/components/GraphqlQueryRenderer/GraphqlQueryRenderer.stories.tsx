@@ -4,7 +4,7 @@ import { Box, BraidLoadableProvider } from 'braid-design-system';
 import React from 'react';
 import { storiesOf } from 'sku/@storybook/react';
 
-import { FormComponent } from '../../questionTypes';
+import type { FormComponent } from '../../types';
 
 import { GraphqlQueryRenderer } from './GraphqlQueryRenderer';
 

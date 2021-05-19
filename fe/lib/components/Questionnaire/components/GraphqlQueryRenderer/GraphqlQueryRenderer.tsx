@@ -9,11 +9,7 @@ import React, { useState } from 'react';
 import { CodeBlock } from 'scoobie';
 
 import { MAX_NUMBER_OF_COMPONENTS } from '../../constants';
-import type {
-  FormComponent,
-  PrivacyConsent,
-  Question,
-} from '../../questionTypes';
+import type { FormComponent, PrivacyConsent, Question } from '../../types';
 
 type MutationQuestionnaireComponents =
   | {

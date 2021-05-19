@@ -1,10 +1,7 @@
 import { Card, Column, Columns, Stack, Text } from 'braid-design-system';
 import React, { useContext, useState } from 'react';
 
-import type {
-  FreeTextQuestion,
-  SelectionQuestion,
-} from '../../../questionTypes';
+import type { FreeTextQuestion, SelectionQuestion } from '../../../types';
 import { StateContext, actionCreators } from '../state/formBuilderState';
 
 import NewQuestionForm from './NewQuestionForm/NewQuestionForm';

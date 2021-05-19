@@ -1,8 +1,7 @@
 import { Stack, TextField } from 'braid-design-system';
 import React from 'react';
 
-import type { ResponseChoice } from '../../../../../questionTypes';
-import type { QuestionType } from '../../../../../types';
+import type { QuestionType, ResponseChoice } from '../../../../../types';
 
 import SelectOptions from './SelectOptions';
 

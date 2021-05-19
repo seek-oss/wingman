@@ -1,4 +1,4 @@
-import { FormComponent } from '../../questionTypes';
+import type { FormComponent } from '../../types';
 
 import { convertComponentsToMutationVariables } from './GraphqlQueryRenderer';
 

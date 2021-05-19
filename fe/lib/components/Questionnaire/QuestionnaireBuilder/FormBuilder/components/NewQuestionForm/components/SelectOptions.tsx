@@ -11,7 +11,7 @@ import React, { useMemo, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import { createResolver } from '../../../../../../../utils';
-import type { ResponseChoice } from '../../../../../questionTypes';
+import type { ResponseChoice } from '../../../../../types';
 
 import DisplayOption from './DisplayOption';
 
