@@ -1,5 +1,12 @@
 # wingman-fe
 
+## 0.19.6
+
+### Patch Changes
+
+- 22ecce3: **QuestionnaireBuilder:** Improve accessibility of preferred option checkbox
+- 22ecce3: **deps:** Require Braid 29.32+
+
 ## 0.19.5
 
 ### Patch Changes
