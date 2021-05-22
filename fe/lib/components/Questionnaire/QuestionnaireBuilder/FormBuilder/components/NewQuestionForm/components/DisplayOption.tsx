@@ -1,5 +1,5 @@
 import {
-  Checkbox,
+  CheckboxStandalone,
   Column,
   Columns,
   IconClear,
@@ -41,11 +41,10 @@ export default ({
         </Column>
 
         <Column width="content">
-          <Checkbox
-            reserveMessageSpace={false}
+          <CheckboxStandalone
+            aria-label="Set option as preferred"
             checked={preferredIndicator}
-            id="id"
-            label=""
+            id={`questionnaireBuilderQuestionOptionPreferredIndicator-${text}`}
             onChange={onCheckboxChange}
           />
         </Column>
