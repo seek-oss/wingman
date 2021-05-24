@@ -24,7 +24,7 @@
     "@types/supertest": "2.0.11",
     "nock": "13.0.11",
     "skuba": "3.13.1",
-    "skuba-dive": "1.1.2",
+    "skuba-dive": "1.2.0",
     "supertest": "6.1.3"
   },
   "files": [
