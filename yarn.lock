@@ -6959,10 +6959,10 @@ concat-stream@^1.5.0:
     readable-stream "^2.2.2"
     typedarray "^0.0.6"
 
-concurrently@6.1.0, concurrently@^6.0.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/concurrently/-/concurrently-6.1.0.tgz#00d22525d3fcdce7f34cc7f3c9753f90a57d6208"
-  integrity sha512-jy+xj49pvqeKjc2TAVXRIhrgPG51eBKDZti0kZ41kaWk9iLbyWBjH6KMFpW7peOLkEymD+ZM83Lx6UEy3N/M9g==
+concurrently@6.2.0, concurrently@^6.0.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/concurrently/-/concurrently-6.2.0.tgz#587e2cb8afca7234172d8ea55176088632c4c56d"
+  integrity sha512-v9I4Y3wFoXCSY2L73yYgwA9ESrQMpRn80jMcqMgHx720Hecz2GZAvTI6bREVST6lkddNypDKRN22qhK0X8Y00g==
   dependencies:
     chalk "^4.1.0"
     date-fns "^2.16.1"
@@ -18700,10 +18700,10 @@ sku@10.12.2:
     wrap-ansi "^7.0.0"
     x-default-browser "^0.4.0"
 
-skuba-dive@1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/skuba-dive/-/skuba-dive-1.1.2.tgz#73d402dea15832b63d5f216fdf4ab48c2169f556"
-  integrity sha512-QiSh+kryK3YACxf1f0UXvDwqGa9ZhI8wjvm9p3ZAZMBElL0kNtDIDp2C9mnz7Ibcllzg88D3RUmune4ZYnyGMw==
+skuba-dive@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/skuba-dive/-/skuba-dive-1.2.0.tgz#1980054d8f88e59a1a9a4d3113a8459fb0d29aad"
+  integrity sha512-/sPMJFcfGx7XoNBdyj+4SO3hcKslz91QjZ4mhf4cCuwex0/q0nq9rmVrJbJBJIQsSFtrEvv7FM4Coxz/QqTIZg==
   dependencies:
     module-alias "^2.2.2"
     source-map-support "^0.5.16"
