@@ -23,11 +23,11 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Lint
-        run: yarn lint
-
       - name: Test
         run: yarn test
+
+      - name: Lint
+        run: yarn lint
 
       # sku lint does not dry run the build
       - name: Build fe
