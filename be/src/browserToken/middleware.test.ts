@@ -15,10 +15,11 @@ import {
 import { createBrowserTokenMiddleware, resetTokenCache } from './middleware';
 
 describe('createBrowserTokenMiddleware', () => {
-  const getPartnerToken = jest.fn<
-    Promise<{ hirerId: string; partnerToken: string }>,
-    [RetrieveRequest]
-  >();
+  const getPartnerToken =
+    jest.fn<
+      Promise<{ hirerId: string; partnerToken: string }>,
+      [RetrieveRequest]
+    >();
 
   const agent = createAgent(() => {
     const middleware = createBrowserTokenMiddleware({
