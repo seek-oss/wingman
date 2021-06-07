@@ -12,7 +12,11 @@ export const RedactableText = ({ children, redact, ...textProps }: Props) => {
   const styles = useStyles(styleDefs);
   return (
     <Text {...textProps}>
-      <Box className={{ [styles.redact]: redact }} component="span">
+      <Box
+        // TODO: This contortion is required for JedWatson/classnames#240
+        className={redact ? styles.redact : undefined}
+        component="span"
+      >
         {children}
       </Box>
     </Text>

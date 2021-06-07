@@ -53,10 +53,11 @@ export const AdList = ({ ads }: Props) => {
 
         {ads.map((ad, index) => (
           <Box
-            className={{
-              [styles.ad]: true,
-              [styles.selectedAd]: ad.id === selectedAdId,
-            }}
+            // TODO: This contortion is required for JedWatson/classnames#240
+            className={[
+              styles.ad,
+              ad.id === selectedAdId ? [styles.selectedAd] : [],
+            ]}
             key={index}
             onClick={() => setSelectedAdId(ad.id)}
           >
