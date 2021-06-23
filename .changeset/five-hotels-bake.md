@@ -2,4 +2,4 @@
 'wingman-fe': minor
 ---
 
-**deps:** Require Scoobie 6.2
+**deps:** Require Scoobie 7

@@ -18935,10 +18935,10 @@ schema-utils@^3.0.0:
     ajv "^6.12.5"
     ajv-keywords "^3.5.2"
 
-scoobie@6.2.0:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/scoobie/-/scoobie-6.2.0.tgz#e5e52fe2a7702b07c8d2767a2806c1f5d2db0783"
-  integrity sha512-CGKIGXIg/8jyFha5SG9IX3/B0JX+TmKvVhGJ1k09TtNr6hd/2GCkxCZ/i73307Tl8wS2JRg+m0wXEt57egHftg==
+scoobie@7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/scoobie/-/scoobie-7.0.0.tgz#f57dc3770e82485c3180bd23073d9bc9ddbc4be0"
+  integrity sha512-0sOwOC/M9yweskOb1j5iWCCNasYtmqB6SQG8wGbG/7/OE/hWYFvkm4m+VQnAuKUBj3gQmmxLzyGt4xmeQPxBPw==
   dependencies:
     "@mdx-js/loader" "^1.6.16"
     "@mdx-js/react" "^1.6.16"
