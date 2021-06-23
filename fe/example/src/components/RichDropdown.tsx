@@ -1,8 +1,7 @@
 import { Box, IconChevron, Stack } from 'braid-design-system';
 import React, { ReactNode, useState } from 'react';
-import { useStyles } from 'sku/react-treat';
 
-import * as styleRefs from './RichDropdown.treat';
+import * as styles from './RichDropdown.css';
 
 interface BaseT {
   id: string;
@@ -20,28 +19,24 @@ const Item = <T extends unknown>({
   chevron,
   onClick,
   value,
-}: ItemProps<T>) => {
-  const styles = useStyles(styleRefs);
+}: ItemProps<T>) => (
+  <Box
+    alignItems="center"
+    background="card"
+    className={styles.selectionHover}
+    component="button"
+    cursor="pointer"
+    display="flex"
+    justifyContent="spaceBetween"
+    onClick={onClick}
+    padding="gutter"
+    width="full"
+  >
+    {children(value)}
 
-  return (
-    <Box
-      alignItems="center"
-      background="card"
-      className={styles.selectionHover}
-      component="button"
-      cursor="pointer"
-      display="flex"
-      justifyContent="spaceBetween"
-      onClick={onClick}
-      padding="gutter"
-      width="full"
-    >
-      {children(value)}
-
-      {chevron ? <IconChevron direction="down" size="xsmall" /> : undefined}
-    </Box>
-  );
-};
+    {chevron ? <IconChevron direction="down" size="xsmall" /> : undefined}
+  </Box>
+);
 
 interface Props<T> {
   children: (value: T | undefined) => ReactNode;

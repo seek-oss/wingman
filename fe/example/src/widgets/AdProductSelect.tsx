@@ -8,19 +8,16 @@ import {
   Tiles,
 } from 'braid-design-system';
 import React, { useState } from 'react';
-import { useStyles } from 'sku/react-treat';
 
 import { AD_PRODUCTS, AdProductName } from '../data/adProducts';
 
-import * as styleRefs from './AdProductSelect.treat';
+import * as styles from './AdProductSelect.css';
 
 interface Props {
   onChange: (name: AdProductName) => void;
 }
 
 export const AdProductSelect = ({ onChange }: Props) => {
-  const styles = useStyles(styleRefs);
-
   const [selection, setSelection] = useState<AdProductName>();
 
   const changeProduct = (name: AdProductName) => {

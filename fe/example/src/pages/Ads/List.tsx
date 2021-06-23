@@ -18,13 +18,12 @@ import {
   Text,
 } from 'braid-design-system';
 import React, { useState } from 'react';
-import { useStyles } from 'sku/react-treat';
 import { StringParam, useQueryParam } from 'use-query-params';
 
 import type { Ad } from '../../data/ads';
 import { NewAdForm } from '../../widgets/NewAdForm';
 
-import * as styleRefs from './List.treat';
+import * as styles from './List.css';
 
 interface Props {
   ads: Ad[];
@@ -40,8 +39,6 @@ export const AdList = ({ ads }: Props) => {
     [...new Array(ads.length)].map(() => false),
   );
 
-  const styles = useStyles(styleRefs);
-
   return (
     <Box padding="gutter">
       <Stack space="gutter">
@@ -53,11 +50,10 @@ export const AdList = ({ ads }: Props) => {
 
         {ads.map((ad, index) => (
           <Box
-            // TODO: This contortion is required for JedWatson/classnames#240
-            className={[
-              styles.ad,
-              ad.id === selectedAdId ? [styles.selectedAd] : [],
-            ]}
+            className={{
+              [styles.ad]: true,
+              [styles.selectedAd]: ad.id === selectedAdId,
+            }}
             key={index}
             onClick={() => setSelectedAdId(ad.id)}
           >

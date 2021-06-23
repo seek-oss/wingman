@@ -1,4 +1,4 @@
-import { globalStyle, style } from 'sku/treat';
+import { globalStyle, style } from '@vanilla-extract/css';
 
 export const redact = style({
   backgroundColor: 'black',

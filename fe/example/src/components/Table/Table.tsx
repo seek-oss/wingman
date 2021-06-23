@@ -1,10 +1,9 @@
 import { Box, Text } from 'braid-design-system';
 import React, { ReactNode } from 'react';
-import { useStyles } from 'sku/react-treat';
 
 import { TableCell } from './TableCell';
 
-import * as styleRefs from './Table.treat';
+import * as styles from './Table.css';
 
 export type Align = 'left' | 'center' | 'right';
 
@@ -26,57 +25,45 @@ interface Props<Row extends BaseRow> {
   rows: Row[];
 }
 
-const TableHead = <T extends BaseRow>({ columns }: Props<T>) => {
-  const styles = useStyles(styleRefs);
-
-  return (
-    <Box className={styles.head} component="thead">
-      <Box component="tr">
-        {columns.map((column) => (
-          <Box
-            component="th"
-            key={column.label}
-            padding="gutter"
-            textAlign={column.align}
-          >
-            <Text weight="strong">{column.label}</Text>
-          </Box>
-        ))}
-      </Box>
-    </Box>
-  );
-};
-
-const TableBody = <T extends BaseRow>({ columns, rows }: Props<T>) => {
-  const styles = useStyles(styleRefs);
-
-  return (
-    <Box background="card" component="tbody">
-      {rows.map((row) => (
-        <Box className={styles.row} component="tr" key={row.id}>
-          {columns.map((column) => (
-            <TableCell
-              align={column.align}
-              key={column.label}
-              to={column.to?.(row)}
-            >
-              {column.render(row)}
-            </TableCell>
-          ))}
+const TableHead = <T extends BaseRow>({ columns }: Props<T>) => (
+  <Box className={styles.head} component="thead">
+    <Box component="tr">
+      {columns.map((column) => (
+        <Box
+          component="th"
+          key={column.label}
+          padding="gutter"
+          textAlign={column.align}
+        >
+          <Text weight="strong">{column.label}</Text>
         </Box>
       ))}
     </Box>
-  );
-};
+  </Box>
+);
 
-export const Table = <T extends BaseRow>(props: Props<T>) => {
-  const styles = useStyles(styleRefs);
+const TableBody = <T extends BaseRow>({ columns, rows }: Props<T>) => (
+  <Box background="card" component="tbody">
+    {rows.map((row) => (
+      <Box className={styles.row} component="tr" key={row.id}>
+        {columns.map((column) => (
+          <TableCell
+            align={column.align}
+            key={column.label}
+            to={column.to?.(row)}
+          >
+            {column.render(row)}
+          </TableCell>
+        ))}
+      </Box>
+    ))}
+  </Box>
+);
 
-  return (
-    <Box className={styles.table} component="table">
-      <TableHead {...props} />
+export const Table = <T extends BaseRow>(props: Props<T>) => (
+  <Box className={styles.table} component="table">
+    <TableHead {...props} />
 
-      <TableBody {...props} />
-    </Box>
-  );
-};
+    <TableBody {...props} />
+  </Box>
+);
