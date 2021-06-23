@@ -26,14 +26,17 @@ export interface Position {
 
 export const POSITIONS: Position[] = faker.custom
   .generate<Position>(() => {
-    const totalCandidates = faker.random.number(5)
-      ? faker.random.number({
+    const totalCandidates = faker.datatype.number(5)
+      ? faker.datatype.number({
           max: 200,
           min: 1,
         })
       : 0;
 
-    const newCandidates = faker.random.number({ max: totalCandidates, min: 0 });
+    const newCandidates = faker.datatype.number({
+      max: totalCandidates,
+      min: 0,
+    });
 
     return {
       id: `wingman:position:${faker.datatype.uuid()}`,

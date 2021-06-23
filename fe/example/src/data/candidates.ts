@@ -59,7 +59,7 @@ export const CANDIDATES: Candidate[] = POSITIONS.map((position) =>
   faker.custom.generate<Candidate>(() => {
     const firstName = faker.name.firstName();
 
-    const formattedName = faker.random.number(20)
+    const formattedName = faker.datatype.number(20)
       ? `${firstName} ${faker.name.lastName()}`
       : firstName;
 
@@ -70,7 +70,7 @@ export const CANDIDATES: Candidate[] = POSITIONS.map((position) =>
       formattedName,
 
       // Inflate our self-importance
-      source: faker.random.number(5)
+      source: faker.datatype.number(5)
         ? 'SEEK application'
         : faker.random.arrayElement(SOURCES),
 
@@ -99,7 +99,7 @@ export const CANDIDATES: Candidate[] = POSITIONS.map((position) =>
         .generate<Role>(
           () => {
             const startDate = faker.date.past(5, faker.custom.latestDate);
-            const endDate = faker.random.number(3)
+            const endDate = faker.datatype.number(3)
               ? faker.date.between(startDate, faker.custom.latestDate)
               : undefined;
 
@@ -107,7 +107,7 @@ export const CANDIDATES: Candidate[] = POSITIONS.map((position) =>
               company: faker.company.companyName(),
               title: faker.name.jobTitle(),
               highlights: faker.lorem.paragraphs(
-                faker.random.number({ max: 3, min: 1 }),
+                faker.datatype.number({ max: 3, min: 1 }),
               ),
               startDate,
               endDate,
@@ -133,7 +133,7 @@ export const CANDIDATES: Candidate[] = POSITIONS.map((position) =>
           () => ({
             author: faker.random.arrayElement(USERS),
             text: faker.lorem.paragraphs(
-              faker.random.number({ max: 3, min: 1 }),
+              faker.datatype.number({ max: 3, min: 1 }),
             ),
             // TODO: candidate uploaded date
             date: faker.date.between(new Date(), faker.custom.latestDate),

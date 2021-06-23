@@ -12,7 +12,6 @@ import {
   Textarea,
 } from 'braid-design-system';
 import React, { FormEvent } from 'react';
-import { useStyles } from 'sku/react-treat';
 
 import type { AdProductName } from '../data/adProducts';
 import { useLocalStorage } from '../hooks/localStorage';
@@ -21,7 +20,7 @@ import { AdProductSelect } from './AdProductSelect';
 import { BrandingSelect } from './BrandingSelect';
 import { QuestionnaireSelect } from './QuestionnaireSelect';
 
-import * as styleRefs from './NewAdForm.treat';
+import * as styles from './NewAdForm.css';
 
 export interface Fields {
   title: string;
@@ -56,8 +55,6 @@ interface Props {
 }
 
 export const NewAdForm = ({ initial }: Props) => {
-  const styles = useStyles(styleRefs);
-
   const [fields, setFields] = useLocalStorage<Fields>('widgets/NewAdForm', {
     ...DEFAULT_FIELDS,
     ...initial,

@@ -9,19 +9,16 @@ import {
   Stack,
 } from 'braid-design-system';
 import React, { useState } from 'react';
-import { useStyles } from 'sku/react-treat';
 
 import type { Attachment } from '../../../data/candidates';
 
-import * as styleRefs from './Attachment.treat';
+import * as styles from './Attachment.css';
 
 interface Props {
   children: Attachment;
 }
 
 export const CandidateAttachment = ({ children: attachment }: Props) => {
-  const styles = useStyles(styleRefs);
-
   const [loading, setLoading] = useState(false);
 
   return (
