@@ -1,5 +1,13 @@
 # wingman-fe
 
+## 0.20.0
+
+### Minor Changes
+
+- 05a28e8: **deps:** Require Scoobie 7
+- 05a28e8: **deps:** Require React 17
+- 05a28e8: **deps:** Require Braid 30
+
 ## 0.19.6
 
 ### Patch Changes
