@@ -4239,7 +4239,7 @@
   resolved "https://registry.yarnpkg.com/@vanilla-extract/css-utils/-/css-utils-0.1.1.tgz#f4f58f85347d8a841ef74c60db111ec264011860"
   integrity sha512-9fDV8IhSfzgDd9Z+64jVcS38S2dVc6c1eOd+hgO8zPMRba6rEB8kEjg5+AQ3xPCdzl1m8olqFHnfQRNOn1OXuA==
 
-"@vanilla-extract/css@1.1.0", "@vanilla-extract/css@^1.0.0":
+"@vanilla-extract/css@1.1.0", "@vanilla-extract/css@^1.0.0", "@vanilla-extract/css@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@vanilla-extract/css/-/css-1.1.0.tgz#436ceb348aacecbe6646d86aa17e81b3aaef5573"
   integrity sha512-tvoHwhBq/jlnE0ayt7LLGFljBvdgeuRaa3vCffzqedsAxNQVcBb4FAlU8HokeSnp+eofqYiHyHytme0807ar0A==
@@ -18935,18 +18935,20 @@ schema-utils@^3.0.0:
     ajv "^6.12.5"
     ajv-keywords "^3.5.2"
 
-scoobie@6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/scoobie/-/scoobie-6.1.0.tgz#5adbc7de6b3d35f6bfec06efd9b45d3634c6836c"
-  integrity sha512-y8J92tCUN58UbK3Uy6bL5gOt5yJD55OVoGGeikVU+QeUHYmgWwwXfgXMJoj5phoR7Qqp7ztuhjWRyBA8vnxjWg==
+scoobie@6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/scoobie/-/scoobie-6.2.0.tgz#e5e52fe2a7702b07c8d2767a2806c1f5d2db0783"
+  integrity sha512-CGKIGXIg/8jyFha5SG9IX3/B0JX+TmKvVhGJ1k09TtNr6hd/2GCkxCZ/i73307Tl8wS2JRg+m0wXEt57egHftg==
   dependencies:
     "@mdx-js/loader" "^1.6.16"
     "@mdx-js/react" "^1.6.16"
     "@mermaid-js/mermaid-cli" "^8.9.2"
     "@types/mdx-js__react" "^1.5.2"
     "@types/react-router-hash-link" "^2.0.0"
+    "@vanilla-extract/css" "^1.1.0"
+    "@vanilla-extract/css-utils" "^0.1.1"
     capsize "^2.0.0"
-    classnames "^2.2.6"
+    clsx "^1.1.1"
     find-up "^5.0.0"
     fs-extra "^10.0.0"
     polished "^4.0.0"
