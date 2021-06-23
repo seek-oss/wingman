@@ -39,7 +39,7 @@ const componentGenerators: Record<ComponentType, () => FormComponent> = {
       () => ({
         text: faker.lorem.sentence(),
         value: faker.lorem.sentence(),
-        preferredIndicator: faker.random.boolean(),
+        preferredIndicator: faker.datatype.boolean(),
       }),
       { max: 5, min: 2 },
     ),
@@ -54,7 +54,7 @@ const componentGenerators: Record<ComponentType, () => FormComponent> = {
       () => ({
         text: faker.lorem.sentence(),
         value: faker.lorem.sentence(),
-        preferredIndicator: faker.random.boolean(),
+        preferredIndicator: faker.datatype.boolean(),
       }),
       { max: 5, min: 2 },
     ),

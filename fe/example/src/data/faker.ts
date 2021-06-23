@@ -7,7 +7,8 @@ const custom = {
     generator: () => T,
     num: number | { max?: number; min?: number },
   ): T[] => {
-    const count = typeof num === 'number' ? num : baseFaker.random.number(num);
+    const count =
+      typeof num === 'number' ? num : baseFaker.datatype.number(num);
 
     return [...new Array(count)].map(() => generator());
   },
@@ -15,7 +16,7 @@ const custom = {
   latestDate: new Date(1593939249876),
 
   sample: <T>(options: T[], max: number = options.length): T[] => {
-    const count = baseFaker.random.number({ max });
+    const count = baseFaker.datatype.number({ max });
 
     const shuffled = baseFaker.helpers.shuffle(options);
 

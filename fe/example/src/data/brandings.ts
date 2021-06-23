@@ -35,7 +35,7 @@ export const BRANDINGS = faker.custom.generate<Branding>(
     id: faker.datatype.uuid(),
     name: faker.system
       .commonFileName(faker.random.arrayElement(['jpeg', 'jpg']))
-      .replace(faker.random.boolean() ? '' : /\..*$/, ''),
+      .replace(faker.datatype.boolean() ? '' : /\..*$/, ''),
     url: faker.random.arrayElement(IMAGE_URLS),
   }),
   5,
