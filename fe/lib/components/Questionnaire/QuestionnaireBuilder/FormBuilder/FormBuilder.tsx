@@ -36,12 +36,12 @@ export const FormBuilder = ({
   externalFormState,
   onChange,
 }: FormBuilderProps) => {
-  const blankQuestionFormValues = ({
+  const blankQuestionFormValues = {
     value: '',
     responseTypeCode: '',
     responseChoice: [],
     questionHtml: '',
-  } as unknown) as SelectionQuestion;
+  } as unknown as SelectionQuestion;
 
   const blankPrivacyConsentFormValues = {
     value: '',

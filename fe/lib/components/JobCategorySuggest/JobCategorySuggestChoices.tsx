@@ -34,10 +34,8 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
     { choices, name, onSelect, showConfidence = false, ...restProps },
     forwardedRef,
   ) => {
-    const [
-      selectedJobCategory,
-      setSelectedJobCategory,
-    ] = useState<JobCategory>();
+    const [selectedJobCategory, setSelectedJobCategory] =
+      useState<JobCategory>();
 
     const handleChoiceSelect = (event: React.FormEvent<HTMLInputElement>) => {
       const choiceId = event.currentTarget.value;

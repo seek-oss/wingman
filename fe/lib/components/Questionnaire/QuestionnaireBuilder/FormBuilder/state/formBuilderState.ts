@@ -31,112 +31,105 @@ export interface ReplaceComponentsAction {
   newValue: FormComponent[];
 }
 
-const createAddPrivacyConsentAction = (
-  dispatch: React.Dispatch<AddComponentAction>,
-) => (descriptionHtml: string, url: string) => {
-  const newValue: PrivacyConsent = {
-    value: uuid(),
-    privacyPolicyUrl: {
-      url,
-    },
-    descriptionHtml,
-    componentTypeCode: 'PrivacyConsent',
+const createAddPrivacyConsentAction =
+  (dispatch: React.Dispatch<AddComponentAction>) =>
+  (descriptionHtml: string, url: string) => {
+    const newValue: PrivacyConsent = {
+      value: uuid(),
+      privacyPolicyUrl: {
+        url,
+      },
+      descriptionHtml,
+      componentTypeCode: 'PrivacyConsent',
+    };
+    dispatch({ type: 'ADD_COMPONENT', fieldId: newValue.value, newValue });
   };
-  dispatch({ type: 'ADD_COMPONENT', fieldId: newValue.value, newValue });
-};
 
-const createAddFreeTextQuestionAction = (
-  dispatch: React.Dispatch<AddComponentAction>,
-) => (questionText: string) => {
-  const newValue: FreeTextQuestion = {
-    value: uuid(),
-    questionHtml: questionText,
-    responseTypeCode: 'FreeText',
-    componentTypeCode: 'Question',
+const createAddFreeTextQuestionAction =
+  (dispatch: React.Dispatch<AddComponentAction>) => (questionText: string) => {
+    const newValue: FreeTextQuestion = {
+      value: uuid(),
+      questionHtml: questionText,
+      responseTypeCode: 'FreeText',
+      componentTypeCode: 'Question',
+    };
+    dispatch({ type: 'ADD_COMPONENT', fieldId: newValue.value, newValue });
   };
-  dispatch({ type: 'ADD_COMPONENT', fieldId: newValue.value, newValue });
-};
 
-const createAddSelectQuestionAction = (
-  questionType: Exclude<QuestionType, 'FreeText'>,
-) => (dispatch: React.Dispatch<AddComponentAction>) => (
-  questionText: string,
-  options: ResponseChoice[],
-) => {
-  const responseChoice = options.map(({ text, preferredIndicator }) => ({
-    text,
-    preferredIndicator,
-    value: text.replace(/ /g, '').toLowerCase(),
-  }));
-  const newValue: SelectionQuestion = {
-    value: uuid(),
-    componentTypeCode: 'Question',
-    questionHtml: questionText,
-    responseTypeCode: questionType,
-    responseChoice,
+const createAddSelectQuestionAction =
+  (questionType: Exclude<QuestionType, 'FreeText'>) =>
+  (dispatch: React.Dispatch<AddComponentAction>) =>
+  (questionText: string, options: ResponseChoice[]) => {
+    const responseChoice = options.map(({ text, preferredIndicator }) => ({
+      text,
+      preferredIndicator,
+      value: text.replace(/ /g, '').toLowerCase(),
+    }));
+    const newValue: SelectionQuestion = {
+      value: uuid(),
+      componentTypeCode: 'Question',
+      questionHtml: questionText,
+      responseTypeCode: questionType,
+      responseChoice,
+    };
+    dispatch({ type: 'ADD_COMPONENT', fieldId: newValue.value, newValue });
   };
-  dispatch({ type: 'ADD_COMPONENT', fieldId: newValue.value, newValue });
-};
 
-const createDeleteFreeTextAction = (
-  dispatch: React.Dispatch<DeleteComponentAction>,
-) => (questionId: string) => {
-  dispatch({ type: 'DELETE_COMPONENT', fieldId: questionId });
-};
-
-const importComponentsAction = (
-  dispatch: React.Dispatch<ReplaceComponentsAction>,
-) => (value: FormComponent[]) => {
-  dispatch({ type: 'IMPORT_COMPONENTS', newValue: value });
-};
-
-const createEditPrivacyConsentAction = (
-  dispatch: React.Dispatch<EditComponentAction>,
-) => (questionId: string, descriptionHtml: string, url: string) => {
-  const newValue: PrivacyConsent = {
-    value: questionId,
-    privacyPolicyUrl: {
-      url,
-    },
-    descriptionHtml,
-    componentTypeCode: 'PrivacyConsent',
+const createDeleteFreeTextAction =
+  (dispatch: React.Dispatch<DeleteComponentAction>) => (questionId: string) => {
+    dispatch({ type: 'DELETE_COMPONENT', fieldId: questionId });
   };
-  dispatch({ type: 'EDIT_COMPONENT', newValue });
-};
 
-const createEditFreeTextQuestionAction = (
-  dispatch: React.Dispatch<EditComponentAction>,
-) => (questionId: string, questionText: string) => {
-  const newValue: FreeTextQuestion = {
-    value: questionId,
-    questionHtml: questionText,
-    responseTypeCode: 'FreeText',
-    componentTypeCode: 'Question',
+const importComponentsAction =
+  (dispatch: React.Dispatch<ReplaceComponentsAction>) =>
+  (value: FormComponent[]) => {
+    dispatch({ type: 'IMPORT_COMPONENTS', newValue: value });
   };
-  dispatch({ type: 'EDIT_COMPONENT', newValue });
-};
 
-const createEditSelectQuestionAction = (
-  questionType: Exclude<QuestionType, 'FreeText'>,
-) => (dispatch: React.Dispatch<EditComponentAction>) => (
-  questionId: string,
-  questionText: string,
-  options: ResponseChoice[],
-) => {
-  const responseChoice = options.map(({ text, preferredIndicator }) => ({
-    text,
-    preferredIndicator,
-    value: text.replace(/ /g, '').toLowerCase(),
-  }));
-  const newValue: SelectionQuestion = {
-    value: questionId,
-    questionHtml: questionText,
-    responseTypeCode: questionType,
-    responseChoice,
-    componentTypeCode: 'Question',
+const createEditPrivacyConsentAction =
+  (dispatch: React.Dispatch<EditComponentAction>) =>
+  (questionId: string, descriptionHtml: string, url: string) => {
+    const newValue: PrivacyConsent = {
+      value: questionId,
+      privacyPolicyUrl: {
+        url,
+      },
+      descriptionHtml,
+      componentTypeCode: 'PrivacyConsent',
+    };
+    dispatch({ type: 'EDIT_COMPONENT', newValue });
   };
-  dispatch({ type: 'EDIT_COMPONENT', newValue });
-};
+
+const createEditFreeTextQuestionAction =
+  (dispatch: React.Dispatch<EditComponentAction>) =>
+  (questionId: string, questionText: string) => {
+    const newValue: FreeTextQuestion = {
+      value: questionId,
+      questionHtml: questionText,
+      responseTypeCode: 'FreeText',
+      componentTypeCode: 'Question',
+    };
+    dispatch({ type: 'EDIT_COMPONENT', newValue });
+  };
+
+const createEditSelectQuestionAction =
+  (questionType: Exclude<QuestionType, 'FreeText'>) =>
+  (dispatch: React.Dispatch<EditComponentAction>) =>
+  (questionId: string, questionText: string, options: ResponseChoice[]) => {
+    const responseChoice = options.map(({ text, preferredIndicator }) => ({
+      text,
+      preferredIndicator,
+      value: text.replace(/ /g, '').toLowerCase(),
+    }));
+    const newValue: SelectionQuestion = {
+      value: questionId,
+      questionHtml: questionText,
+      responseTypeCode: questionType,
+      responseChoice,
+      componentTypeCode: 'Question',
+    };
+    dispatch({ type: 'EDIT_COMPONENT', newValue });
+  };
 
 export const actionCreators = {
   add: {

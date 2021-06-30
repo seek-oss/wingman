@@ -4,10 +4,10 @@ export interface FormUpdateAction {
   fieldId: string;
 }
 
-export const createUpdateFieldAction = <T>(
-  fieldId: string,
-  dispatch: React.Dispatch<FormUpdateAction>,
-) => (newValue: T) => dispatch({ type: 'UPDATE_FIELD', fieldId, newValue });
+export const createUpdateFieldAction =
+  <T>(fieldId: string, dispatch: React.Dispatch<FormUpdateAction>) =>
+  (newValue: T) =>
+    dispatch({ type: 'UPDATE_FIELD', fieldId, newValue });
 
 export const formStateReducer = (
   state: Record<string, any>,

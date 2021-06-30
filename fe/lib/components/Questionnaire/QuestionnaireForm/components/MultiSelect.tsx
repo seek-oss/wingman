@@ -18,19 +18,18 @@ const MultiSelect = ({
   id,
   title,
 }: MultiSelectProps) => {
-  const onChange = (choice: string) => (
-    event: React.FormEvent<HTMLInputElement>,
-  ) => {
-    if (event.currentTarget.checked) {
-      const newValues = [...(value || []), choice];
+  const onChange =
+    (choice: string) => (event: React.FormEvent<HTMLInputElement>) => {
+      if (event.currentTarget.checked) {
+        const newValues = [...(value || []), choice];
 
-      setValue(newValues);
-    } else {
-      const newValues = value.filter((val) => val !== choice);
+        setValue(newValues);
+      } else {
+        const newValues = value.filter((val) => val !== choice);
 
-      setValue(newValues);
-    }
-  };
+        setValue(newValues);
+      }
+    };
   return (
     <Card>
       <Stack space="medium">

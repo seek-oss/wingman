@@ -53,17 +53,15 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
     },
     forwardedRef,
   ) => {
-    const [
-      getLocationSuggest,
-      { data: suggestData, error: suggestError },
-    ] = useLazyQuery<SuggestLocationsQuery, SuggestLocationsQueryVariables>(
-      LOCATION_SUGGEST,
-      {
-        ...(client && { client }),
-        fetchPolicy: 'no-cache',
-        ssr: false,
-      },
-    );
+    const [getLocationSuggest, { data: suggestData, error: suggestError }] =
+      useLazyQuery<SuggestLocationsQuery, SuggestLocationsQueryVariables>(
+        LOCATION_SUGGEST,
+        {
+          ...(client && { client }),
+          fetchPolicy: 'no-cache',
+          ssr: false,
+        },
+      );
 
     const [
       nearestLocations,
@@ -83,9 +81,8 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
 
     const [selectedLocationId, setSelectedLocationId] = useState('');
     const [locationSuggestInput, setLocationSuggestInput] = useState('');
-    const [locationSuggestResults, setLocationSuggestResults] = useState<
-      LocationSuggestion[]
-    >();
+    const [locationSuggestResults, setLocationSuggestResults] =
+      useState<LocationSuggestion[]>();
     const [detectLocationError, setDetectLocationError] = useState<string>();
 
     const [placeholder, setPlaceholder] = useState('');
