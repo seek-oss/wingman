@@ -21,11 +21,10 @@ const QuestionListEntry = ({ question }: QuestionListEntryProps) => {
   const { dispatch } = useContext(StateContext);
   const [showEditForm, setShowEditForm] = useState(false);
 
-  const onClickDelete = (
-    questionToDelete: FreeTextQuestion | SelectionQuestion,
-  ) => () => {
-    actionCreators.delete(dispatch)(questionToDelete.value);
-  };
+  const onClickDelete =
+    (questionToDelete: FreeTextQuestion | SelectionQuestion) => () => {
+      actionCreators.delete(dispatch)(questionToDelete.value);
+    };
 
   const onClickEdit = () => {
     setShowEditForm(true);

@@ -63,17 +63,21 @@ const client = new ApolloClient({
 
 // Increasing the accuracy of results by supplying description
 const positionProfile = {
-  positionTitle: "Senior Developer",
+  positionTitle: 'Senior Developer',
   positionLocation: ['seekAnzPublicTest:location:seek:2FqwWaaMV'],
   positionFormattedDescriptions: [
     {
-      descriptionId: "AdvertisementDetails",
-      content: "TypeScript, React, GraphQL skills required..."
-    }
-  ]
-}
+      descriptionId: 'AdvertisementDetails',
+      content: 'TypeScript, React, GraphQL skills required...',
+    },
+  ],
+};
 
-<JobCategorySuggest schemeId="seekAnz" client={client} positionProfile={positionProfile} />;
+<JobCategorySuggest
+  schemeId="seekAnz"
+  client={client}
+  positionProfile={positionProfile}
+/>;
 ```
 
 #### onSelect callback usage

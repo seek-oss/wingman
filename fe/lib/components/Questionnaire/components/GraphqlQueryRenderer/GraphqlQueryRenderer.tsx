@@ -64,8 +64,8 @@ export const convertComponentsToMutationVariables = (
   components: FormComponent[],
   hirerId: string,
 ): QuestionnaireCreateInput => {
-  const questionnaireComponents: MutationQuestionnaireComponents[] = components.map(
-    (component) =>
+  const questionnaireComponents: MutationQuestionnaireComponents[] =
+    components.map((component) =>
       component.componentTypeCode === 'Question'
         ? {
             componentTypeCode: 'Question',
@@ -75,7 +75,7 @@ export const convertComponentsToMutationVariables = (
             componentTypeCode: 'PrivacyConsent',
             privacyConsent: component,
           },
-  );
+    );
 
   return {
     variables: {

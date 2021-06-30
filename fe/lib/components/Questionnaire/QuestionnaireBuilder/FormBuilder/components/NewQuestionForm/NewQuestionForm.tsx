@@ -87,10 +87,10 @@ export default ({ hideForm, initialValues }: NewQuestionFormProps) => {
   const questionTypeValue = watch('questionType');
   const responseChoiceValue = watch('responseChoice');
 
-  useEffect(() => clearErrors('questionType'), [
-    clearErrors,
-    responseChoiceValue.length,
-  ]);
+  useEffect(
+    () => clearErrors('questionType'),
+    [clearErrors, responseChoiceValue.length],
+  );
 
   const { dispatch } = useContext(StateContext);
 

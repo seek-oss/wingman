@@ -60,13 +60,13 @@ export const NewAdForm = ({ initial }: Props) => {
     ...initial,
   });
 
-  const setField = (field: keyof Fields) => (
-    event: FormEvent<HTMLInputElement | HTMLTextAreaElement> | string,
-  ) =>
-    setFields({
-      ...fields,
-      [field]: typeof event === 'string' ? event : event.currentTarget.value,
-    });
+  const setField =
+    (field: keyof Fields) =>
+    (event: FormEvent<HTMLInputElement | HTMLTextAreaElement> | string) =>
+      setFields({
+        ...fields,
+        [field]: typeof event === 'string' ? event : event.currentTarget.value,
+      });
 
   const clearField = (field: keyof Fields) => () =>
     setFields({
