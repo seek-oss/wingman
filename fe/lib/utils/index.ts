@@ -1,3 +1,3 @@
 export { flattenResourceByKey } from './flattenResourceByKey';
-export { findCategory } from './findCategory';
+export { findObjectByOid } from './findObjectByOid';
 export { createResolver } from './reactHookForm';

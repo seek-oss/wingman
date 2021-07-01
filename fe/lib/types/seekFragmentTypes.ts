@@ -40,6 +40,10 @@ const result: PossibleTypesResultData = {
       'UpdateUploadedCandidatePersonPayload_Conflict',
       'UpdateUploadedCandidatePersonPayload_Success',
     ],
+    UpdateWebhookSubscriptionDeliveryConfigurationPayload: [
+      'UpdateWebhookSubscriptionDeliveryConfigurationPayload_Conflict',
+      'UpdateWebhookSubscriptionDeliveryConfigurationPayload_Success',
+    ],
     UploadCandidatePayload: [
       'UploadCandidatePayload_Conflict',
       'UploadCandidatePayload_Success',

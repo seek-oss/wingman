@@ -1,12 +1,18 @@
 import { Column, Columns, Dropdown } from 'braid-design-system';
 import React, { ComponentProps, useEffect, useState } from 'react';
 
-import type { JobCategory } from '../../types/seek.graphql';
-import { findCategory } from '../../utils';
+import type {
+  JobCategoriesQuery,
+  JobCategoryAttributesFragment,
+} from '../../types/seek.graphql';
+import { findObjectByOid } from '../../utils';
+
+type AllJobCategories = JobCategoriesQuery['jobCategories'];
+type AnyJobCategory = JobCategoryAttributesFragment;
 
 interface Props {
-  jobCategories: JobCategory[];
-  onSelect: (jobCategory: JobCategory) => void;
+  jobCategories: AllJobCategories;
+  onSelect: (jobCategory: AnyJobCategory) => void;
   tone: ComponentProps<typeof Dropdown>['tone'];
 }
 
@@ -17,11 +23,11 @@ const JobCategorySelectInput = ({
 }: Props) => {
   const [selectedParentCategoryId, setSelectedParentCategoryId] = useState('');
   const [selectedChildCategoryId, setSelectedChildCategoryId] = useState('');
-  const [childCategories, setChildCategories] = useState<JobCategory[]>();
+  const [childCategories, setChildCategories] = useState<AnyJobCategory[]>();
 
   useEffect(() => {
     if (selectedParentCategoryId !== '') {
-      const parentCategory = findCategory(
+      const parentCategory = findObjectByOid(
         jobCategories,
         selectedParentCategoryId,
       );
@@ -37,7 +43,7 @@ const JobCategorySelectInput = ({
 
   useEffect(() => {
     if (selectedChildCategoryId !== '' && childCategories) {
-      const childCategory = findCategory(
+      const childCategory = findObjectByOid(
         childCategories,
         selectedChildCategoryId,
       );

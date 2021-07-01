@@ -12,9 +12,6 @@ export const JOB_CATEGORIES = gql`
   query JobCategories($schemeId: String!) {
     jobCategories(schemeId: $schemeId) {
       ...jobCategoryAttributes
-      parent {
-        ...jobCategoryAttributes
-      }
       children {
         ...jobCategoryAttributes
       }
