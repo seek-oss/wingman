@@ -17,10 +17,14 @@ import JobCategorySelectInput from './JobCategorySelectInput';
 import { JOB_CATEGORIES } from './queries';
 
 interface FieldProps extends ComponentPropsWithRef<typeof Dropdown> {}
+type JobCategoryType = 'parent' | 'child';
 
 interface Props extends Omit<FieldProps, 'value' | 'onChange' | 'children'> {
   client?: ApolloClient<unknown>;
-  onSelect?: (jobCategory: JobCategoryAttributesFragment) => void;
+  onSelect?: (
+    jobCategory: JobCategoryAttributesFragment,
+    type: JobCategoryType,
+  ) => void;
   schemeId: string;
 }
 
@@ -57,9 +61,10 @@ export const JobCategorySelect = forwardRef<HTMLInputElement, Props>(
 
     const handleJobCategoriesSelect = (
       selectedJobCategory: JobCategoryAttributesFragment,
+      type: JobCategoryType,
     ) => {
       if (onSelect) {
-        onSelect(selectedJobCategory);
+        onSelect(selectedJobCategory, type);
       }
       if (selectedJobCategory?.id?.value) {
         setSelectedJobCategoryId(selectedJobCategory.id.value);
