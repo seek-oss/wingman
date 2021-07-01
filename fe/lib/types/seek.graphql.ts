@@ -283,7 +283,11 @@ export interface ApplicationPrivacyConsentInput {
    * This can be used to correlate the consent component with the submitted response.
    */
   value?: Maybe<Scalars['String']>;
-  /** The URL of the privacy policy to show to the candidate. */
+  /**
+   * The URL of the privacy policy to show to the candidate.
+   *
+   * The `url` field has a maximum length of 1,000 bytes in UTF-8 encoding.
+   */
   privacyPolicyUrl: WebUrlInput;
   /**
    * The HTML snippet to prompt the candidate for consent.
@@ -600,13 +604,13 @@ export interface AssociatedPositionOpening {
    * A resource identifier for the position.
    *
    * This identifies the relevant position profile within the position opening.
+   * It can be matched with the position profile `positionUri` field.
    *
    * - For candidate application profiles from the Application Export use case,
    *   this is the public web URL of the posted job ad.
-   *   It can be matched with the position profile `positionUri` field.
+   *
    * - For purchased candidate profiles from the Proactive Sourcing use case,
    *   this is the object identifier of the relevant unposted position profile.
-   *   It can be matched with the position profile `profileId` field.
    */
   positionUri: Scalars['String'];
   /**
@@ -706,9 +710,7 @@ export interface CandidateApplicationCreatedEvent extends Event {
   /**
    * The data source for the event.
    *
-   * The following schemes are supported for this event type:
-   *
-   * - `seekAnz`
+   * Currently, only the `seekAnz` and `seekAnzPublicTest` schemes generate `CandidateApplicationCreated` events.
    */
   schemeId: Scalars['String'];
   /** The type of event, i.e. `CandidateApplicationCreated`. */
@@ -812,7 +814,7 @@ export interface CandidateProcessActionInput {
   /**
    * The code of the action.
    *
-   * Currently, the following action codes are defined:
+   * For process history actions, the following action codes are defined:
    *
    * - `AgencySubmission`
    * - `CandidateWorkflowTransition`
@@ -825,6 +827,10 @@ export interface CandidateProcessActionInput {
    * - `StatusChange`
    * - `VerificationActivity`
    * - `Other`
+   *
+   * For profile actions, one action code is defined:
+   *
+   * - `ViewProfile` indicates that the URL is used to view the candidate's profile.
    */
   code: Scalars['String'];
   /**
@@ -1063,7 +1069,12 @@ export interface CandidateProfile {
   certifications: Array<Certification>;
   /** The sources from which the candidate was obtained from. */
   candidateSources: Array<CandidateSource>;
-  /** The candidate's preferences in an ideal position. */
+  /**
+   * The candidate's preferences in an ideal position.
+   *
+   * This is only available for uploaded candidate profiles.
+   * For candidate applications & purchased profiles this will be an empty list.
+   */
   positionPreferences: Array<PositionPreference>;
   /** The date & time the candidate profile was last updated. */
   updateDateTime: Scalars['DateTime'];
@@ -1096,9 +1107,7 @@ export interface CandidateProfilePurchasedEvent extends Event {
   /**
    * The data source for the event.
    *
-   * The following schemes are supported for this event type:
-   *
-   * - `seekAnz`
+   * Currently, only the `seekAnz` and `seekAnzPublicTest` schemes generate `CandidateProfilePurchased` events.
    */
   schemeId: Scalars['String'];
   /** The type of event, i.e. `CandidateProfilePurchased`. */
@@ -1142,10 +1151,10 @@ export interface CandidateSource {
   /**
    * The grouping that the source falls under.
    *
-   * Currently, two types are defined:
+   * Currently, three types are defined:
    *
    * - `PartnerUpload` indicates that the candidate was uploaded to SEEK from a partner system.
-   * - `SeekApplication` indicates that the candidate applied for a position on the SEEK candidate site.
+   * - `SeekApplication` indicates that the candidate applied for a position on the SEEK job board.
    * - `SeekPurchase` indicates that the candidate profile was purchased from SEEK Talent Search.
    */
   type: Scalars['String'];
@@ -1271,7 +1280,7 @@ export interface CreateApplicationQuestionnaireInput {
   applicationQuestionnaire: CreateApplicationQuestionnaireApplicationQuestionnaireInput;
 }
 
-/** The output parameter for the `createApplicationQuestionnaire` mutation. */
+/** The response from the `createApplicationQuestionnaire` mutation. */
 export interface CreateApplicationQuestionnairePayload {
   __typename?: 'CreateApplicationQuestionnairePayload';
   /** The details of the created questionnaire. */
@@ -1298,7 +1307,7 @@ export interface CreateCandidateProcessHistoryItemInput {
   candidateProcessHistoryItem: CreateCandidateProcessHistoryItemCandidateProcessHistoryItemInput;
 }
 
-/** The output parameter for the `createCandidateProcessHistoryItem` mutation. */
+/** The response from the `createCandidateProcessHistoryItem` mutation. */
 export type CreateCandidateProcessHistoryItemPayload =
   | CreateCandidateProcessHistoryItemPayloadConflict
   | CreateCandidateProcessHistoryItemPayloadSuccess;
@@ -1377,7 +1386,7 @@ export interface CreatePositionOpeningInput {
   positionOpening: CreatePositionOpeningPositionOpeningInput;
 }
 
-/** The output parameter for the `createPositionOpening` mutation. */
+/** The response from the `createPositionOpening` mutation. */
 export interface CreatePositionOpeningPayload {
   __typename?: 'CreatePositionOpeningPayload';
   /** The details of the created position opening. */
@@ -1473,7 +1482,7 @@ export interface CreateUnpostedPositionProfileForOpeningInput {
   positionProfile: CreateUnpostedPositionProfileForOpeningPositionProfileInput;
 }
 
-/** The output parameter for the `createUnpostedPositionProfileForOpening` mutation. */
+/** The response from the `createUnpostedPositionProfileForOpening` mutation. */
 export interface CreateUnpostedPositionProfileForOpeningPayload {
   __typename?: 'CreateUnpostedPositionProfileForOpeningPayload';
   /** Attributes of the newly created unposted position profile. */
@@ -1497,10 +1506,9 @@ export interface CreateUnpostedPositionProfileForOpeningPositionProfileInput {
    */
   positionTitle: Scalars['String'];
   /**
-   * An array of identifiers for the `HiringOrganization`s that have the position.
+   * The identifier for the `HiringOrganization` that has the position.
    *
-   * For unposted position profiles,
-   * this should contain exactly one element that matches the `postingRequester` on the position opening.
+   * This should contain exactly one element that matches the `postingRequester` on the position opening.
    */
   positionOrganizations: Array<Scalars['String']>;
   /**
@@ -1562,12 +1570,17 @@ export interface CreateWebhookSubscriptionInput {
   webhookSubscription: CreateWebhookSubscriptionSubscriptionInput;
 }
 
-/** The output parameter for the `createWebhookSubscription` mutation. */
+/** The response from the `createWebhookSubscription` mutation. */
 export type CreateWebhookSubscriptionPayload =
   | CreateWebhookSubscriptionPayloadConflict
   | CreateWebhookSubscriptionPayloadSuccess;
 
-/** The conflict result for the `createWebhookSubscription` mutation. */
+/**
+ * The conflict result for the `createWebhookSubscription` mutation.
+ *
+ * Webhook subscriptions must have a unique combination of `eventTypeCode`, `schemeId`, `url` & `hirerId` fields.
+ * Attempting to create a duplicate webhook subscription will result in a conflict.
+ */
 export interface CreateWebhookSubscriptionPayloadConflict {
   __typename?: 'CreateWebhookSubscriptionPayload_Conflict';
   /** The details of the conflicting webhook subscription. */
@@ -1592,8 +1605,7 @@ export interface CreateWebhookSubscriptionSubscriptionInput {
   /**
    * The data source for the event.
    *
-   * This commonly refers to a SEEK brand.
-   * See the relevant `Event` implementation for a list of supported schemes.
+   * Currently, only `seekAnz` and `seekAnzPublicTest` are supported.
    */
   schemeId: Scalars['String'];
   /**
@@ -1659,7 +1671,7 @@ export interface DeleteCandidateProcessHistoryItemInput {
   candidateProcessHistoryItem: DeleteCandidateProcessHistoryItemCandidateProcessHistoryItemInput;
 }
 
-/** The output parameter for the `deleteCandidateProcessHistoryItem` mutation. */
+/** The response from the `deleteCandidateProcessHistoryItem` mutation. */
 export interface DeleteCandidateProcessHistoryItemPayload {
   __typename?: 'DeleteCandidateProcessHistoryItemPayload';
   /** The details of the `CandidateProcessHistoryItem` that was deleted. */
@@ -1678,7 +1690,7 @@ export interface DeletePositionOpeningInput {
   positionOpening: DeletePositionOpeningPositionOpeningInput;
 }
 
-/** The output parameter for the `deletePositionOpening` mutation. */
+/** The response from the `deletePositionOpening` mutation. */
 export interface DeletePositionOpeningPayload {
   __typename?: 'DeletePositionOpeningPayload';
   /** The details of the deleted position opening. */
@@ -1697,7 +1709,7 @@ export interface DeleteUnpostedPositionProfileInput {
   positionProfile: DeleteUnpostedPositionProfilePositionProfileInput;
 }
 
-/** The output parameter for the `deleteUnpostedPositionProfile` mutation. */
+/** The response from the `deleteUnpostedPositionProfile` mutation. */
 export interface DeleteUnpostedPositionProfilePayload {
   __typename?: 'DeleteUnpostedPositionProfilePayload';
   /** The details of the deleted unposted position profile. */
@@ -1716,7 +1728,7 @@ export interface DeleteUploadedCandidateInput {
   candidate: DeleteUploadedCandidateCandidateInput;
 }
 
-/** The output parameter for the `deleteUploadedCandidate` mutation. */
+/** The response from the `deleteUploadedCandidate` mutation. */
 export interface DeleteUploadedCandidatePayload {
   __typename?: 'DeleteUploadedCandidatePayload';
   /**
@@ -1739,7 +1751,7 @@ export interface DeleteWebhookSubscriptionInput {
   webhookSubscription: DeleteWebhookSubscriptionSubscriptionInput;
 }
 
-/** The output parameter for the `deleteWebhookSubscription` mutation. */
+/** The response from the `deleteWebhookSubscription` mutation. */
 export interface DeleteWebhookSubscriptionPayload {
   __typename?: 'DeleteWebhookSubscriptionPayload';
   /** The details of the deleted webhook subscription. */
@@ -1864,8 +1876,7 @@ export interface Event {
   /**
    * The data source for the event.
    *
-   * This commonly refers to a SEEK brand.
-   * See the relevant `Event` implementation for a list of supported schemes.
+   * Currently, only the `seekAnz` and `seekAnzPublicTest` schemes generate events.
    */
   schemeId: Scalars['String'];
   /**
@@ -2035,7 +2046,7 @@ export interface HiringOrganizationApiCapabilities {
    *
    * - `ApplicationExport` enables exporting candidate applications from SEEK's native apply functionality.
    *
-   * - `JobPosting` enables posting job ads to SEEK's job boards.
+   * - `JobPosting` enables posting job ads to the SEEK job board.
    *
    * - `ProactiveSourcing` enables hirers to proactively search for and connect with suitable candidates.
    */
@@ -2155,7 +2166,7 @@ export interface JobCategorySuggestionPositionProfileInput {
   >;
 }
 
-/** A physical address with a persistent identifier. */
+/** A physical location with a persistent identifier. */
 export interface Location {
   __typename?: 'Location';
   /** The identifier for the `Location`. */
@@ -2164,9 +2175,17 @@ export interface Location {
   parent?: Maybe<Location>;
   /** An array of child locations. */
   children?: Maybe<Array<Location>>;
-  /** The location name. */
+  /**
+   * The location name, e.g. "Richmond".
+   *
+   * This name is ambiguous without the context of its parent location.
+   */
   name: Scalars['String'];
-  /** Contextual name of the location. */
+  /**
+   * The contextual name of the location, e.g. "Richmond VIC 3121 AU".
+   *
+   * This name is sufficient to unambiguously identify the location to a hirer.
+   */
   contextualName: Scalars['String'];
   /** The two-letter ISO 3166-1:2013 country code, in uppercase. */
   countryCode: Scalars['String'];
@@ -2569,6 +2588,13 @@ export interface PageInfo {
   endCursor?: Maybe<Scalars['String']>;
 }
 
+/** A partner organization for a `self` query. */
+export interface PartnerOrganization {
+  __typename?: 'PartnerOrganization';
+  /** The name of the querying partner. */
+  name: Scalars['String'];
+}
+
 /** A skill or competency asserted by the candidate. */
 export interface PersonCompetency {
   __typename?: 'PersonCompetency';
@@ -2633,8 +2659,10 @@ export interface PositionFormattedDescriptionIdentifier {
    *
    * - `AdvertisementDetails` is the detailed description of the position that appears on the job ad.
    * - `SearchBulletPoint` is a highlight or selling point of the position that appears in search results.
+   *   This will not appear on the job ad details page.
    *   SEEK ANZ allows up to three search bullet points when `SeekAnzAdProductFeatures`'s `searchBulletPointsIndicator` is true.
    * - `SearchSummary` is a short description that appears in search results.
+   *   This will not appear on the job ad details page.
    */
   value: Scalars['String'];
 }
@@ -2845,9 +2873,11 @@ export interface PositionProfile {
    */
   seekBillingReference?: Maybe<Scalars['String']>;
   /**
-   * The public web URL of the posted job ad.
+   * A unique resource identifier the position profile.
    *
-   * This will be the profile's object identifier for unposted position profiles.
+   * - For posted position profiles, this is the public web URL of the posted job ad.
+   *
+   * - For unposted position profiles, this is the profile's object identifier.
    */
   positionUri: Scalars['String'];
   /** An array of formatted position profile descriptions. */
@@ -2910,9 +2940,7 @@ export interface PositionProfileClosedEvent extends Event {
   /**
    * The data source for the event.
    *
-   * The following schemes are supported for this event type:
-   *
-   * - `seekAnz`
+   * Currently, only the `seekAnz` and `seekAnzPublicTest` schemes generate `PositionProfileClosed` events.
    */
   schemeId: Scalars['String'];
   /** The type of event, i.e. `PositionProfileClosed`. */
@@ -2963,9 +2991,7 @@ export interface PositionProfilePostedEvent extends Event {
   /**
    * The data source for the event.
    *
-   * The following schemes are supported for this event type:
-   *
-   * - `seekAnz`
+   * Currently, only the `seekAnz` and `seekAnzPublicTest` schemes generate `PositionProfilePosted` events.
    */
   schemeId: Scalars['String'];
   /** The type of event, i.e. `PositionProfilePosted`. */
@@ -3013,7 +3039,7 @@ export interface PostPositionInput {
   positionProfile: PostPositionPositionProfileInput;
 }
 
-/** The output parameter for the `postPosition` mutation. */
+/** The response from the `postPosition` mutation. */
 export type PostPositionPayload =
   | PostPositionPayloadSuccess
   | PostPositionPayloadConflict;
@@ -3051,7 +3077,7 @@ export interface PostPositionProfileForOpeningInput {
   positionProfile: PostPositionProfileForOpeningPositionProfileInput;
 }
 
-/** The output parameter for the `postPositionProfileForOpening` mutation. */
+/** The response from the `postPositionProfileForOpening` mutation. */
 export type PostPositionProfileForOpeningPayload =
   | PostPositionProfileForOpeningPayloadSuccess
   | PostPositionProfileForOpeningPayloadConflict;
@@ -3353,11 +3379,7 @@ export interface PostedPositionProfile extends PositionProfile {
    * This appears on the invoice when SEEK bills the hirer for the job ad.
    */
   seekBillingReference?: Maybe<Scalars['String']>;
-  /**
-   * The public web URL of the posted job ad.
-   *
-   * This will be the profile's object identifier for unposted position profiles.
-   */
+  /** The public web URL of the posted job ad. */
   positionUri: Scalars['String'];
   /** An array of formatted position profile descriptions. */
   positionFormattedDescriptions: Array<PositionFormattedDescription>;
@@ -3523,46 +3545,6 @@ export interface Query {
   /** The API version. */
   version: Scalars['String'];
   /**
-   * A location node with the given location `id`.
-   *
-   * This query accepts browser tokens that include the `query:ontologies` scope.
-   */
-  location?: Maybe<Location>;
-  /**
-   * An array of location nodes relevant to the text provided.
-   *
-   * This query accepts browser tokens that include the `query:ontologies` scope.
-   */
-  locationSuggestions?: Maybe<Array<LocationSuggestion>>;
-  /**
-   * An array of locations relevant to the provided geolocation ordered by distance.
-   *
-   * This query accepts browser tokens that include the `query:ontologies` scope.
-   */
-  nearestLocations?: Maybe<Array<Location>>;
-  /**
-   * An application questionnaire with the given `id`.
-   *
-   * Questionnaires can be associated with a `PositionProfile`.
-   *
-   * This query accepts browser tokens that include the `query:application-questionnaires` scope.
-   */
-  applicationQuestionnaire?: Maybe<ApplicationQuestionnaire>;
-  /** Ad products available when creating an advertisement. */
-  seekAnzHirerAdvertisementCreationProducts?: Maybe<Array<SeekAnzAdProduct>>;
-  /** Ad products available when updating an advertisement. */
-  seekAnzHirerAdvertisementModificationProducts?: Maybe<
-    Array<SeekAnzAdProduct>
-  >;
-  /**
-   * Ad products available when updating an advertisement.
-   *
-   * Use this query while you don't have an identifier for the live `PositionProfile`.
-   */
-  seekAnzHirerAdvertisementModificationProductsAlt?: Maybe<
-    Array<SeekAnzAdProduct>
-  >;
-  /**
    * The hiring organization for the given `id`.
    *
    * This query accepts browser tokens that include the `query:organizations` scope.
@@ -3589,6 +3571,61 @@ export interface Query {
    */
   seekAnzAdvertiser?: Maybe<HiringOrganization>;
   /**
+   * The organizations the query's access token can act on behalf of.
+   *
+   * For all token types this returns the name of the integration partner.
+   *
+   * This query accepts browser tokens that include the `query:organizations` scope.
+   * When provided with a browser token this will additionally return the scoped SEEK hirer.
+   */
+  self: SelfOrganizations;
+  /** A page of advertisement brandings associated with the specified `hirerId`. */
+  advertisementBrandings: AdvertisementBrandingsConnection;
+  /** The advertisement branding for the given `id`. */
+  advertisementBranding?: Maybe<AdvertisementBranding>;
+  /**
+   * Ad products available when creating an advertisement.
+   *
+   * This query accepts browser tokens that include the `query:ad-products` scope.
+   */
+  seekAnzHirerAdvertisementCreationProducts?: Maybe<Array<SeekAnzAdProduct>>;
+  /**
+   * Ad products available when updating an advertisement.
+   *
+   * This query accepts browser tokens that include the `query:ad-products` scope.
+   */
+  seekAnzHirerAdvertisementModificationProducts?: Maybe<
+    Array<SeekAnzAdProduct>
+  >;
+  /**
+   * Ad products available when updating an advertisement.
+   *
+   * Use this query while you don't have an identifier for the live `PositionProfile`.
+   *
+   * This query accepts browser tokens that include the `query:ad-products` scope.
+   */
+  seekAnzHirerAdvertisementModificationProductsAlt?: Maybe<
+    Array<SeekAnzAdProduct>
+  >;
+  /**
+   * A location node with the given location `id`.
+   *
+   * This query accepts browser tokens that include the `query:ontologies` scope.
+   */
+  location?: Maybe<Location>;
+  /**
+   * An array of location nodes relevant to the text provided.
+   *
+   * This query accepts browser tokens that include the `query:ontologies` scope.
+   */
+  locationSuggestions?: Maybe<Array<LocationSuggestion>>;
+  /**
+   * An array of locations relevant to the provided geolocation ordered by distance.
+   *
+   * This query accepts browser tokens that include the `query:ontologies` scope.
+   */
+  nearestLocations?: Maybe<Array<Location>>;
+  /**
    * The job category for the given `id`.
    *
    * This query accepts browser tokens that include the `query:ontologies` scope.
@@ -3606,10 +3643,14 @@ export interface Query {
    * This query accepts browser tokens that include the `query:ontologies` scope.
    */
   jobCategorySuggestions: Array<JobCategorySuggestionChoice>;
-  /** A page of advertisement brandings associated with the specified `hirerId`. */
-  advertisementBrandings: AdvertisementBrandingsConnection;
-  /** The advertisement branding for the given `id`. */
-  advertisementBranding?: Maybe<AdvertisementBranding>;
+  /**
+   * An application questionnaire with the given `id`.
+   *
+   * Questionnaires can be associated with a `PositionProfile`.
+   *
+   * This query accepts browser tokens that include the `query:application-questionnaires` scope.
+   */
+  applicationQuestionnaire?: Maybe<ApplicationQuestionnaire>;
   /** A position opening with the given `id`. */
   positionOpening?: Maybe<PositionOpening>;
   /** A position profile with the given `id`. */
@@ -3688,7 +3729,7 @@ export interface Query {
  *
  * This acts as the public, top-level API from which all queries must start.
  */
-export interface QueryLocationArgs {
+export interface QueryHiringOrganizationArgs {
   id: Scalars['String'];
 }
 
@@ -3697,12 +3738,13 @@ export interface QueryLocationArgs {
  *
  * This acts as the public, top-level API from which all queries must start.
  */
-export interface QueryLocationSuggestionsArgs {
-  usageTypeCode: Scalars['String'];
+export interface QueryHiringOrganizationsArgs {
   schemeId: Scalars['String'];
-  hirerId?: Maybe<Scalars['String']>;
-  text: Scalars['String'];
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  filter?: Maybe<HiringOrganizationsFilterInput>;
 }
 
 /**
@@ -3710,10 +3752,8 @@ export interface QueryLocationSuggestionsArgs {
  *
  * This acts as the public, top-level API from which all queries must start.
  */
-export interface QueryNearestLocationsArgs {
-  schemeId: Scalars['String'];
-  geoLocation: GeoLocationInput;
-  first?: Maybe<Scalars['Int']>;
+export interface QuerySeekAnzAdvertiserArgs {
+  id: Scalars['Int'];
 }
 
 /**
@@ -3721,7 +3761,20 @@ export interface QueryNearestLocationsArgs {
  *
  * This acts as the public, top-level API from which all queries must start.
  */
-export interface QueryApplicationQuestionnaireArgs {
+export interface QueryAdvertisementBrandingsArgs {
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  hirerId: Scalars['String'];
+}
+
+/**
+ * The schema's entry-point for queries.
+ *
+ * This acts as the public, top-level API from which all queries must start.
+ */
+export interface QueryAdvertisementBrandingArgs {
   id: Scalars['String'];
 }
 
@@ -3762,7 +3815,7 @@ export interface QuerySeekAnzHirerAdvertisementModificationProductsAltArgs {
  *
  * This acts as the public, top-level API from which all queries must start.
  */
-export interface QueryHiringOrganizationArgs {
+export interface QueryLocationArgs {
   id: Scalars['String'];
 }
 
@@ -3771,13 +3824,12 @@ export interface QueryHiringOrganizationArgs {
  *
  * This acts as the public, top-level API from which all queries must start.
  */
-export interface QueryHiringOrganizationsArgs {
+export interface QueryLocationSuggestionsArgs {
+  usageTypeCode: Scalars['String'];
   schemeId: Scalars['String'];
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
+  hirerId?: Maybe<Scalars['String']>;
+  text: Scalars['String'];
   first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  filter?: Maybe<HiringOrganizationsFilterInput>;
 }
 
 /**
@@ -3785,8 +3837,10 @@ export interface QueryHiringOrganizationsArgs {
  *
  * This acts as the public, top-level API from which all queries must start.
  */
-export interface QuerySeekAnzAdvertiserArgs {
-  id: Scalars['Int'];
+export interface QueryNearestLocationsArgs {
+  schemeId: Scalars['String'];
+  geoLocation: GeoLocationInput;
+  first?: Maybe<Scalars['Int']>;
 }
 
 /**
@@ -3823,20 +3877,7 @@ export interface QueryJobCategorySuggestionsArgs {
  *
  * This acts as the public, top-level API from which all queries must start.
  */
-export interface QueryAdvertisementBrandingsArgs {
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  hirerId: Scalars['String'];
-}
-
-/**
- * The schema's entry-point for queries.
- *
- * This acts as the public, top-level API from which all queries must start.
- */
-export interface QueryAdvertisementBrandingArgs {
+export interface QueryApplicationQuestionnaireArgs {
   id: Scalars['String'];
 }
 
@@ -4022,7 +4063,7 @@ export interface RemunerationAmountInput {
    * - `GBP` is used by locations in the UK & Ireland.
    *   These are `Location`s that have a `countryCode` of `GB` or `IE`.
    *
-   * - `AUD` is used by all other locations
+   * - `AUD` is used by all other locations.
    */
   currency: Scalars['String'];
 }
@@ -4085,7 +4126,7 @@ export interface RemunerationPackageInput {
    * Scheme requirements:
    *
    * - The `global` scheme has a maximum of 10 elements for `UnpostedPositionProfile`s.
-   * - The `seekAnz` scheme is limited to a single element.
+   * - The `seekAnz` scheme is limited to a single element with a maximum length of 50 bytes in UTF-8 encoding.
    *
    * An empty array must be provided to signify the absence of salary descriptions.
    */
@@ -4122,10 +4163,6 @@ export interface RemunerationRangeInput {
    * The maximum amount an organization is willing to pay for a position.
    *
    * A `null` value indicates the organization has not specified an upper bound for the range.
-   *
-   * Scheme requirements:
-   *
-   * - Required for the `seekAnz` scheme when `postingInstructions` are provided.
    */
   maximumAmount?: Maybe<RemunerationAmountInput>;
   /**
@@ -4151,7 +4188,7 @@ export interface ReplayWebhookSubscriptionInput {
   filter?: Maybe<ReplayWebhookSubscriptionFilterInput>;
 }
 
-/** The output parameter for the `replayWebhookSubscription` mutation. */
+/** The response from the `replayWebhookSubscription` mutation. */
 export interface ReplayWebhookSubscriptionPayload {
   __typename?: 'ReplayWebhookSubscriptionPayload';
   /** The details of the webhook subscription to have its messages redelivered. */
@@ -4404,7 +4441,11 @@ export interface SeekVideoInput {
    *
    * Scheme requirements:
    *
-   *  - The `seekAnz` scheme requires URLs to be YouTube embed URLs, e.g. `https://www.youtube.com/embed/aAgePQvHBQM`.
+   *  - The `seekAnz` scheme requires a YouTube link in one of the following formats:
+   *
+   *     - `https://www.youtube.com/embed/aAgePQvHBQM`
+   *     - `https://www.youtube.com/watch?v=aAgePQvHBQM`
+   *     - `https://youtu.be/aAgePQvHBQM`
    */
   url: Scalars['String'];
   /**
@@ -4416,6 +4457,19 @@ export interface SeekVideoInput {
    * - `Below` indicates the video will render below the advertisement details.
    */
   seekAnzPositionCode?: Maybe<Scalars['String']>;
+}
+
+/** The organizations the query's access token can act on behalf of. */
+export interface SelfOrganizations {
+  __typename?: 'SelfOrganizations';
+  /** The partner organization making the request. */
+  partner: PartnerOrganization;
+  /**
+   * The hirer the browser token is scoped to.
+   *
+   * This will be `null` when queried with a partner token.
+   */
+  hirer?: Maybe<HiringOrganization>;
 }
 
 /** A reference to a person associated with an object. */
@@ -4485,9 +4539,9 @@ export interface UnpostedPositionProfile extends PositionProfile {
    */
   seekBillingReference?: Maybe<Scalars['String']>;
   /**
-   * The public web URL of the posted job ad.
+   * The object identifier for the `PositionProfile`.
    *
-   * This will be the profile's object identifier for unposted position profiles.
+   * This is duplicated from the `profileId` field to satisfy the `PositionProfile` interface.
    */
   positionUri: Scalars['String'];
   /** An array of formatted position profile descriptions. */
@@ -4548,7 +4602,7 @@ export interface UpdateCandidateProcessHistoryItemInput {
   candidateProcessHistoryItem: UpdateCandidateProcessHistoryItemCandidateProcessHistoryItemInput;
 }
 
-/** The output parameter for the `updateCandidateProcessHistoryItem` mutation. */
+/** The response from the `updateCandidateProcessHistoryItem` mutation. */
 export interface UpdateCandidateProcessHistoryItemPayload {
   __typename?: 'UpdateCandidateProcessHistoryItemPayload';
   /** The details of the `CandidateProcessHistoryItem` that was updated. */
@@ -4600,7 +4654,7 @@ export interface UpdatePositionOpeningPersonContactsInput {
   positionOpening: UpdatePositionOpeningPersonContactsPositionOpeningInput;
 }
 
-/** The output parameter for the `updatePositionOpeningPersonContacts` mutation. */
+/** The response from the `updatePositionOpeningPersonContacts` mutation. */
 export interface UpdatePositionOpeningPersonContactsPayload {
   __typename?: 'UpdatePositionOpeningPersonContactsPayload';
   /** The details of the updated position opening. */
@@ -4626,7 +4680,7 @@ export interface UpdatePositionOpeningStatusInput {
   positionOpening: UpdatePositionOpeningStatusPositionOpeningInput;
 }
 
-/** The output parameter for the `updatePositionOpeningStatus` mutation. */
+/** The response from the `updatePositionOpeningStatus` mutation. */
 export interface UpdatePositionOpeningStatusPayload {
   __typename?: 'UpdatePositionOpeningStatusPayload';
   /** The details of the updated position opening. */
@@ -4829,7 +4883,7 @@ export interface UpdateUnpostedPositionProfileInput {
   positionProfile: UpdateUnpostedPositionProfilePositionProfileInput;
 }
 
-/** The output parameter for the `updateUnpostedPositionProfile` mutation. */
+/** The response from the `updateUnpostedPositionProfile` mutation. */
 export interface UpdateUnpostedPositionProfilePayload {
   __typename?: 'UpdateUnpostedPositionProfilePayload';
   /** Attributes of the updated unposted position profile. */
@@ -4911,7 +4965,7 @@ export interface UpdateUploadedCandidatePersonInput {
   candidate: UpdateUploadedCandidatePersonCandidateInput;
 }
 
-/** The output parameter for the `updateUploadedCandidatePerson` mutation. */
+/** The response from the `updateUploadedCandidatePerson` mutation. */
 export type UpdateUploadedCandidatePersonPayload =
   | UpdateUploadedCandidatePersonPayloadConflict
   | UpdateUploadedCandidatePersonPayloadSuccess;
@@ -4957,7 +5011,7 @@ export interface UpdateUploadedCandidateProfileActionsInput {
   candidateProfile: UpdateUploadedCandidateProfileActionsCandidateProfileInput;
 }
 
-/** The output parameter for the `updateUploadedCandidateProfileActions` mutation. */
+/** The response from the `updateUploadedCandidateProfileActions` mutation. */
 export interface UpdateUploadedCandidateProfileActionsPayload {
   __typename?: 'UpdateUploadedCandidateProfileActionsPayload';
   /**
@@ -4976,10 +5030,7 @@ export interface UpdateUploadedCandidateProfileActionsCandidateProfileInput {
    * Any associated actions that can be performed on the candidate profile.
    *
    * Only one of each type of action is permitted for the candidate profile.
-   *
-   * Currently, one type is defined for the `CandidateProcessActionInput` `code` field:
-   *
-   * - `ViewProfile` indicates that the URL is used to view the candidate's profile.
+   * Currently, only a `ViewProfile` action type is defined to provide a URL to view the candidate's profile.
    */
   seekActions: Array<CandidateProcessActionInput>;
 }
@@ -4990,7 +5041,7 @@ export interface UpdateUploadedCandidateProfileDatesInput {
   candidateProfile: UpdateUploadedCandidateProfileDatesCandidateProfileInput;
 }
 
-/** The output parameter for the `updateUploadedCandidateProfileDates` mutation. */
+/** The response from the `updateUploadedCandidateProfileDates` mutation. */
 export interface UpdateUploadedCandidateProfileDatesPayload {
   __typename?: 'UpdateUploadedCandidateProfileDatesPayload';
   /**
@@ -5027,7 +5078,7 @@ export interface UpdateUploadedCandidateProfilePositionPreferencesInput {
   candidateProfile: UpdateUploadedCandidateProfilePositionPreferencesCandidateProfileInput;
 }
 
-/** The output parameter for the `updateUploadedCandidateProfilePositionPreferences` mutation. */
+/** The response from the `updateUploadedCandidateProfilePositionPreferences` mutation. */
 export interface UpdateUploadedCandidateProfilePositionPreferencesPayload {
   __typename?: 'UpdateUploadedCandidateProfilePositionPreferencesPayload';
   /**
@@ -5056,9 +5107,26 @@ export interface UpdateWebhookSubscriptionDeliveryConfigurationInput {
   webhookSubscription: UpdateWebhookSubscriptionDeliveryConfigurationSubscriptionInput;
 }
 
-/** The output parameter for the `updateWebhookSubscriptionDeliveryConfiguration` mutation. */
-export interface UpdateWebhookSubscriptionDeliveryConfigurationPayload {
-  __typename?: 'UpdateWebhookSubscriptionDeliveryConfigurationPayload';
+/** The response from the `updateWebhookSubscriptionDeliveryConfiguration` mutation. */
+export type UpdateWebhookSubscriptionDeliveryConfigurationPayload =
+  | UpdateWebhookSubscriptionDeliveryConfigurationPayloadConflict
+  | UpdateWebhookSubscriptionDeliveryConfigurationPayloadSuccess;
+
+/**
+ * The conflict result for the `updateWebhookSubscriptionDeliveryConfiguration` mutation.
+ *
+ * Webhook subscriptions must have a unique combination of `eventTypeCode`, `schemeId`, `url` & `hirerId` fields.
+ * Attempting to update a webhook subscription to match an existing subscription will result in a conflict.
+ */
+export interface UpdateWebhookSubscriptionDeliveryConfigurationPayloadConflict {
+  __typename?: 'UpdateWebhookSubscriptionDeliveryConfigurationPayload_Conflict';
+  /** The details of the conflicting webhook subscription. */
+  conflictingWebhookSubscription: WebhookSubscription;
+}
+
+/** The success result for the `updateWebhookSubscriptionDeliveryConfiguration` mutation. */
+export interface UpdateWebhookSubscriptionDeliveryConfigurationPayloadSuccess {
+  __typename?: 'UpdateWebhookSubscriptionDeliveryConfigurationPayload_Success';
   /** The details of the updated webhook subscription. */
   webhookSubscription: WebhookSubscription;
 }
@@ -5083,7 +5151,7 @@ export interface UpdateWebhookSubscriptionSigningConfigurationInput {
   webhookSubscription: UpdateWebhookSubscriptionSigningConfigurationSubscriptionInput;
 }
 
-/** The output parameter for the `updateWebhookSubscriptionSigningConfiguration` mutation. */
+/** The response from the `updateWebhookSubscriptionSigningConfiguration` mutation. */
 export interface UpdateWebhookSubscriptionSigningConfigurationPayload {
   __typename?: 'UpdateWebhookSubscriptionSigningConfigurationPayload';
   /** The details of the updated webhook subscription. */
@@ -5129,7 +5197,7 @@ export interface UploadCandidateInput {
   hiringOrganization: UploadCandidateHiringOrganizationInput;
 }
 
-/** The output parameter for the `uploadCandidate` mutation. */
+/** The response from the `uploadCandidate` mutation. */
 export type UploadCandidatePayload =
   | UploadCandidatePayloadConflict
   | UploadCandidatePayloadSuccess;
@@ -5218,10 +5286,7 @@ export interface UploadCandidateCandidateProfileInput {
    * Any associated actions that can be performed on the candidate profile.
    *
    * Only one of each type of action is permitted for the candidate profile.
-   *
-   * Currently, one `code` is defined:
-   *
-   * - `ViewProfile` indicates that the URL is used to view the candidate's profile.
+   * Currently, only a `ViewProfile` action type is defined to provide a URL to view the candidate's profile.
    */
   seekActions: Array<CandidateProcessActionInput>;
 }
@@ -5441,8 +5506,7 @@ export interface WebhookSubscription {
   /**
    * The data source for the event.
    *
-   * This commonly refers to a SEEK brand.
-   * See the relevant `Event` implementation for a list of supported schemes.
+   * Currently, only `seekAnz` and `seekAnzPublicTest` are supported.
    */
   schemeId: Scalars['String'];
   /**
@@ -5606,8 +5670,8 @@ export interface WebhookSubscriptionReplaysConnection {
    * The pagination metadata for this page of webhook subscription replays.
    *
    * Disclaimer:
-   * - The property `hasPreviousPage` will always be false when paginating by `first`
-   * - The property `hasNextPage` will always be false when paginating by `last`
+   * - The `hasPreviousPage` field will always be false when paginating by `first`.
+   * - The `hasNextPage` field will always be false when paginating by `last`.
    *
    * To discern whether a next/previous page exists in these conditions, an additional request will need to be made to retrieve the next/previous page.
    */
@@ -5688,9 +5752,6 @@ export type JobCategoriesQueryVariables = Exact<{
 export type JobCategoriesQuery = { __typename?: 'Query' } & {
   jobCategories: Array<
     { __typename?: 'JobCategory' } & {
-      parent?: Maybe<
-        { __typename?: 'JobCategory' } & JobCategoryAttributesFragment
-      >;
       children?: Maybe<
         Array<{ __typename?: 'JobCategory' } & JobCategoryAttributesFragment>
       >;

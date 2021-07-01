@@ -3,6 +3,10 @@ schema {
   mutation: Mutation
 }
 
+directive @paginated(defaultPageSize: Int!) on FIELD_DEFINITION
+
+directive @unpaginated(indicativeLength: Int!) on FIELD_DEFINITION
+
 """A physical address."""
 type Address {
   """The street line address."""
@@ -247,7 +251,11 @@ input ApplicationPrivacyConsentInput {
   This can be used to correlate the consent component with the submitted response.
   """
   value: String
-  """The URL of the privacy policy to show to the candidate."""
+  """
+  The URL of the privacy policy to show to the candidate.
+  
+  The `url` field has a maximum length of 1,000 bytes in UTF-8 encoding.
+  """
   privacyPolicyUrl: WebUrlInput!
   """
   The HTML snippet to prompt the candidate for consent.
@@ -554,13 +562,13 @@ type AssociatedPositionOpening {
   A resource identifier for the position.
   
   This identifies the relevant position profile within the position opening.
+  It can be matched with the position profile `positionUri` field.
   
   - For candidate application profiles from the Application Export use case,
     this is the public web URL of the posted job ad.
-    It can be matched with the position profile `positionUri` field.
+  
   - For purchased candidate profiles from the Proactive Sourcing use case,
     this is the object identifier of the relevant unposted position profile.
-    It can be matched with the position profile `profileId` field.
   """
   positionUri: String!
   """
@@ -654,9 +662,7 @@ type CandidateApplicationCreatedEvent implements Event {
   """
   The data source for the event.
   
-  The following schemes are supported for this event type:
-  
-  - `seekAnz`
+  Currently, only the `seekAnz` and `seekAnzPublicTest` schemes generate `CandidateApplicationCreated` events.
   """
   schemeId: String!
   """The type of event, i.e. `CandidateApplicationCreated`."""
@@ -776,7 +782,7 @@ input CandidateProcessActionInput {
   """
   The code of the action.
   
-  Currently, the following action codes are defined:
+  For process history actions, the following action codes are defined:
   
   - `AgencySubmission`
   - `CandidateWorkflowTransition`
@@ -789,6 +795,10 @@ input CandidateProcessActionInput {
   - `StatusChange`
   - `VerificationActivity`
   - `Other`
+  
+  For profile actions, one action code is defined:
+  
+  - `ViewProfile` indicates that the URL is used to view the candidate's profile.
   """
   code: String!
   """
@@ -1021,7 +1031,12 @@ type CandidateProfile {
   certifications: [Certification!]!
   """The sources from which the candidate was obtained from."""
   candidateSources: [CandidateSource!]!
-  """The candidate's preferences in an ideal position."""
+  """
+  The candidate's preferences in an ideal position.
+  
+  This is only available for uploaded candidate profiles.
+  For candidate applications & purchased profiles this will be an empty list.
+  """
   positionPreferences: [PositionPreference!]!
   """The date & time the candidate profile was last updated."""
   updateDateTime: DateTime!
@@ -1061,9 +1076,7 @@ type CandidateProfilePurchasedEvent implements Event {
   """
   The data source for the event.
   
-  The following schemes are supported for this event type:
-  
-  - `seekAnz`
+  Currently, only the `seekAnz` and `seekAnzPublicTest` schemes generate `CandidateProfilePurchased` events.
   """
   schemeId: String!
   """The type of event, i.e. `CandidateProfilePurchased`."""
@@ -1129,10 +1142,10 @@ type CandidateSource {
   """
   The grouping that the source falls under.
   
-  Currently, two types are defined:
+  Currently, three types are defined:
   
   - `PartnerUpload` indicates that the candidate was uploaded to SEEK from a partner system.
-  - `SeekApplication` indicates that the candidate applied for a position on the SEEK candidate site.
+  - `SeekApplication` indicates that the candidate applied for a position on the SEEK job board.
   - `SeekPurchase` indicates that the candidate profile was purchased from SEEK Talent Search.
   """
   type: String!
@@ -1253,7 +1266,7 @@ input CreateApplicationQuestionnaireInput {
   applicationQuestionnaire: CreateApplicationQuestionnaire_ApplicationQuestionnaireInput!
 }
 
-"""The output parameter for the `createApplicationQuestionnaire` mutation."""
+"""The response from the `createApplicationQuestionnaire` mutation."""
 type CreateApplicationQuestionnairePayload {
   """The details of the created questionnaire."""
   applicationQuestionnaire: ApplicationQuestionnaire!
@@ -1279,7 +1292,7 @@ input CreateCandidateProcessHistoryItemInput {
   candidateProcessHistoryItem: CreateCandidateProcessHistoryItem_CandidateProcessHistoryItemInput!
 }
 
-"""The output parameter for the `createCandidateProcessHistoryItem` mutation."""
+"""The response from the `createCandidateProcessHistoryItem` mutation."""
 union CreateCandidateProcessHistoryItemPayload = CreateCandidateProcessHistoryItemPayload_Conflict | CreateCandidateProcessHistoryItemPayload_Success
 
 """The conflict result for the `createCandidateProcessHistoryItem` mutation."""
@@ -1354,7 +1367,7 @@ input CreatePositionOpeningInput {
   positionOpening: CreatePositionOpening_PositionOpeningInput!
 }
 
-"""The output parameter for the `createPositionOpening` mutation."""
+"""The response from the `createPositionOpening` mutation."""
 type CreatePositionOpeningPayload {
   """The details of the created position opening."""
   positionOpening: PositionOpening!
@@ -1449,7 +1462,7 @@ input CreateUnpostedPositionProfileForOpeningInput {
   positionProfile: CreateUnpostedPositionProfileForOpeningPositionProfileInput!
 }
 
-"""The output parameter for the `createUnpostedPositionProfileForOpening` mutation."""
+"""The response from the `createUnpostedPositionProfileForOpening` mutation."""
 type CreateUnpostedPositionProfileForOpeningPayload {
   """Attributes of the newly created unposted position profile."""
   positionProfile: UnpostedPositionProfile!
@@ -1472,10 +1485,9 @@ input CreateUnpostedPositionProfileForOpeningPositionProfileInput {
   """
   positionTitle: String!
   """
-  An array of identifiers for the `HiringOrganization`s that have the position.
+  The identifier for the `HiringOrganization` that has the position.
   
-  For unposted position profiles,
-  this should contain exactly one element that matches the `postingRequester` on the position opening.
+  This should contain exactly one element that matches the `postingRequester` on the position opening.
   """
   positionOrganizations: [String!]!
   """
@@ -1537,10 +1549,15 @@ input CreateWebhookSubscriptionInput {
   webhookSubscription: CreateWebhookSubscription_SubscriptionInput!
 }
 
-"""The output parameter for the `createWebhookSubscription` mutation."""
+"""The response from the `createWebhookSubscription` mutation."""
 union CreateWebhookSubscriptionPayload = CreateWebhookSubscriptionPayload_Conflict | CreateWebhookSubscriptionPayload_Success
 
-"""The conflict result for the `createWebhookSubscription` mutation."""
+"""
+The conflict result for the `createWebhookSubscription` mutation.
+
+Webhook subscriptions must have a unique combination of `eventTypeCode`, `schemeId`, `url` & `hirerId` fields.
+Attempting to create a duplicate webhook subscription will result in a conflict.
+"""
 type CreateWebhookSubscriptionPayload_Conflict {
   """The details of the conflicting webhook subscription."""
   conflictingWebhookSubscription: WebhookSubscription!
@@ -1563,8 +1580,7 @@ input CreateWebhookSubscription_SubscriptionInput {
   """
   The data source for the event.
   
-  This commonly refers to a SEEK brand.
-  See the relevant `Event` implementation for a list of supported schemes.
+  Currently, only `seekAnz` and `seekAnzPublicTest` are supported.
   """
   schemeId: String!
   """
@@ -1635,7 +1651,7 @@ input DeleteCandidateProcessHistoryItemInput {
   candidateProcessHistoryItem: DeleteCandidateProcessHistoryItem_CandidateProcessHistoryItemInput!
 }
 
-"""The output parameter for the `deleteCandidateProcessHistoryItem` mutation."""
+"""The response from the `deleteCandidateProcessHistoryItem` mutation."""
 type DeleteCandidateProcessHistoryItemPayload {
   """The details of the `CandidateProcessHistoryItem` that was deleted."""
   candidateProcessHistoryItem: CandidateProcessHistoryItem!
@@ -1653,7 +1669,7 @@ input DeletePositionOpeningInput {
   positionOpening: DeletePositionOpening_PositionOpeningInput!
 }
 
-"""The output parameter for the `deletePositionOpening` mutation."""
+"""The response from the `deletePositionOpening` mutation."""
 type DeletePositionOpeningPayload {
   """The details of the deleted position opening."""
   positionOpening: PositionOpening!
@@ -1671,7 +1687,7 @@ input DeleteUnpostedPositionProfileInput {
   positionProfile: DeleteUnpostedPositionProfile_PositionProfileInput!
 }
 
-"""The output parameter for the `deleteUnpostedPositionProfile` mutation."""
+"""The response from the `deleteUnpostedPositionProfile` mutation."""
 type DeleteUnpostedPositionProfilePayload {
   """The details of the deleted unposted position profile."""
   positionProfile: UnpostedPositionProfile!
@@ -1689,7 +1705,7 @@ input DeleteUploadedCandidateInput {
   candidate: DeleteUploadedCandidate_CandidateInput!
 }
 
-"""The output parameter for the `deleteUploadedCandidate` mutation."""
+"""The response from the `deleteUploadedCandidate` mutation."""
 type DeleteUploadedCandidatePayload {
   """
   The details of the uploaded candidate that was deleted.
@@ -1711,7 +1727,7 @@ input DeleteWebhookSubscriptionInput {
   webhookSubscription: DeleteWebhookSubscription_SubscriptionInput!
 }
 
-"""The output parameter for the `deleteWebhookSubscription` mutation."""
+"""The response from the `deleteWebhookSubscription` mutation."""
 type DeleteWebhookSubscriptionPayload {
   """The details of the deleted webhook subscription."""
   webhookSubscription: WebhookSubscription!
@@ -1829,8 +1845,7 @@ interface Event {
   """
   The data source for the event.
   
-  This commonly refers to a SEEK brand.
-  See the relevant `Event` implementation for a list of supported schemes.
+  Currently, only the `seekAnz` and `seekAnzPublicTest` schemes generate events.
   """
   schemeId: String!
   """
@@ -2011,7 +2026,7 @@ type HiringOrganizationApiCapabilities {
   
   - `ApplicationExport` enables exporting candidate applications from SEEK's native apply functionality.
   
-  - `JobPosting` enables posting job ads to SEEK's job boards.
+  - `JobPosting` enables posting job ads to the SEEK job board.
   
   - `ProactiveSourcing` enables hirers to proactively search for and connect with suitable candidates.
   """
@@ -2134,7 +2149,7 @@ input JobCategorySuggestionPositionProfileInput {
   positionFormattedDescriptions: [PositionFormattedDescriptionInput!]
 }
 
-"""A physical address with a persistent identifier."""
+"""A physical location with a persistent identifier."""
 type Location {
   """The identifier for the `Location`."""
   id: ObjectIdentifier!
@@ -2142,9 +2157,17 @@ type Location {
   parent: Location
   """An array of child locations."""
   children: [Location!]
-  """The location name."""
+  """
+  The location name, e.g. "Richmond".
+  
+  This name is ambiguous without the context of its parent location.
+  """
   name: String!
-  """Contextual name of the location."""
+  """
+  The contextual name of the location, e.g. "Richmond VIC 3121 AU".
+  
+  This name is sufficient to unambiguously identify the location to a hirer.
+  """
   contextualName: String!
   """The two-letter ISO 3166-1:2013 country code, in uppercase."""
   countryCode: String!
@@ -2305,6 +2328,12 @@ type PageInfo {
   endCursor: String
 }
 
+"""A partner organization for a `self` query."""
+type PartnerOrganization {
+  """The name of the querying partner."""
+  name: String!
+}
+
 """A skill or competency asserted by the candidate."""
 type PersonCompetency {
   """The human readable name of the competency."""
@@ -2364,8 +2393,10 @@ type PositionFormattedDescriptionIdentifier {
   
   - `AdvertisementDetails` is the detailed description of the position that appears on the job ad.
   - `SearchBulletPoint` is a highlight or selling point of the position that appears in search results.
+    This will not appear on the job ad details page.
     SEEK ANZ allows up to three search bullet points when `SeekAnzAdProductFeatures`'s `searchBulletPointsIndicator` is true.
   - `SearchSummary` is a short description that appears in search results.
+    This will not appear on the job ad details page.
   """
   value: String!
 }
@@ -2571,9 +2602,11 @@ interface PositionProfile {
   """
   seekBillingReference: String
   """
-  The public web URL of the posted job ad.
+  A unique resource identifier the position profile.
   
-  This will be the profile's object identifier for unposted position profiles.
+  - For posted position profiles, this is the public web URL of the posted job ad.
+  
+  - For unposted position profiles, this is the profile's object identifier.
   """
   positionUri: String!
   """An array of formatted position profile descriptions."""
@@ -2635,9 +2668,7 @@ type PositionProfileClosedEvent implements Event {
   """
   The data source for the event.
   
-  The following schemes are supported for this event type:
-  
-  - `seekAnz`
+  Currently, only the `seekAnz` and `seekAnzPublicTest` schemes generate `PositionProfileClosed` events.
   """
   schemeId: String!
   """The type of event, i.e. `PositionProfileClosed`."""
@@ -2710,9 +2741,7 @@ type PositionProfilePostedEvent implements Event {
   """
   The data source for the event.
   
-  The following schemes are supported for this event type:
-  
-  - `seekAnz`
+  Currently, only the `seekAnz` and `seekAnzPublicTest` schemes generate `PositionProfilePosted` events.
   """
   schemeId: String!
   """The type of event, i.e. `PositionProfilePosted`."""
@@ -2783,7 +2812,7 @@ input PostPositionInput {
   positionProfile: PostPosition_PositionProfileInput!
 }
 
-"""The output parameter for the `postPosition` mutation."""
+"""The response from the `postPosition` mutation."""
 union PostPositionPayload = PostPositionPayload_Success | PostPositionPayload_Conflict
 
 """
@@ -2817,7 +2846,7 @@ input PostPositionProfileForOpeningInput {
   positionProfile: PostPositionProfileForOpeningPositionProfileInput!
 }
 
-"""The output parameter for the `postPositionProfileForOpening` mutation."""
+"""The response from the `postPositionProfileForOpening` mutation."""
 union PostPositionProfileForOpeningPayload = PostPositionProfileForOpeningPayload_Success | PostPositionProfileForOpeningPayload_Conflict
 
 """
@@ -3111,11 +3140,7 @@ type PostedPositionProfile implements PositionProfile {
   This appears on the invoice when SEEK bills the hirer for the job ad.
   """
   seekBillingReference: String
-  """
-  The public web URL of the posted job ad.
-  
-  This will be the profile's object identifier for unposted position profiles.
-  """
+  """The public web URL of the posted job ad."""
   positionUri: String!
   """An array of formatted position profile descriptions."""
   positionFormattedDescriptions: [PositionFormattedDescription!]!
@@ -3277,110 +3302,6 @@ type Query {
   """The API version."""
   version: String!
   """
-  A location node with the given location `id`.
-  
-  This query accepts browser tokens that include the `query:ontologies` scope.
-  """
-  location(
-    """The identifier for the `Location`."""
-    id: String!
-  ): Location
-  """
-  An array of location nodes relevant to the text provided.
-  
-  This query accepts browser tokens that include the `query:ontologies` scope.
-  """
-  locationSuggestions(
-    """
-    The context that the location suggestions will be used for.
-    
-    The only supported value is `PositionPosting` which returns locations for the purposes of posting a position profile.
-    Additional values will be added in the future.
-    """
-    usageTypeCode: String!
-    """
-    The scheme for the location dataset to query.
-    
-    Currently, only `seekAnz` and `seekAnzPublicTest` are supported.
-    """
-    schemeId: String!
-    """
-    The identifier for the `HiringOrganization` used to provide tailored location suggestions.
-    
-    This field is ignored when its scheme doesn't match `schemeId`.
-    """
-    hirerId: String
-    """The input used for the location suggestions."""
-    text: String!
-    """
-    A non-negative limit to the number of locations to return.
-    
-    Defaults to 20.
-    """
-    first: Int
-  ): [LocationSuggestion!]
-  """
-  An array of locations relevant to the provided geolocation ordered by distance.
-  
-  This query accepts browser tokens that include the `query:ontologies` scope.
-  """
-  nearestLocations(
-    """
-    The scheme for the location dataset to query.
-    
-    Currently, only `seekAnz` and `seekAnzPublicTest` are supported.
-    """
-    schemeId: String!
-    """The geolocation coordinates input used for the location suggestions."""
-    geoLocation: GeoLocationInput!
-    """
-    A non-negative limit to the number of locations to return.
-    
-    Defaults to the maximum value of 10.
-    """
-    first: Int
-  ): [Location!]
-  """
-  An application questionnaire with the given `id`.
-  
-  Questionnaires can be associated with a `PositionProfile`.
-  
-  This query accepts browser tokens that include the `query:application-questionnaires` scope.
-  """
-  applicationQuestionnaire(
-    """The identifier for the `ApplicationQuestionnaire`."""
-    id: String!
-  ): ApplicationQuestionnaire
-  """Ad products available when creating an advertisement."""
-  seekAnzHirerAdvertisementCreationProducts(
-    """The identifier for the `HiringOrganization`."""
-    hirerId: String!
-    """The advertisement with possible field changes."""
-    draftAdvertisement: SeekAnzAdProductAdvertisementDraftInput!
-  ): [SeekAnzAdProduct!]
-  """Ad products available when updating an advertisement."""
-  seekAnzHirerAdvertisementModificationProducts(
-    """The identifier for the `HiringOrganization`."""
-    hirerId: String!
-    """The identifier for the `PositionProfile`."""
-    advertisementId: String!
-    """The advertisement with possible field changes."""
-    draftAdvertisement: SeekAnzAdProductAdvertisementDraftInput!
-  ): [SeekAnzAdProduct!]
-  """
-  Ad products available when updating an advertisement.
-  
-  Use this query while you don't have an identifier for the live `PositionProfile`.
-  """
-  seekAnzHirerAdvertisementModificationProductsAlt(
-    """The identifier for the `HiringOrganization`."""
-    hirerId: String!
-    """The advertisement before any field changes."""
-    advertisement: SeekAnzAdProductAdvertisementInput!
-    """The advertisement with possible field changes."""
-    draftAdvertisement: SeekAnzAdProductAdvertisementDraftInput!
-  ): [SeekAnzAdProduct!]
-  """
   The hiring organization for the given `id`.
   
   This query accepts browser tokens that include the `query:organizations` scope.
@@ -3455,6 +3376,162 @@ type Query {
     id: Int!
   ): HiringOrganization
   """
+  The organizations the query's access token can act on behalf of.
+  
+  For all token types this returns the name of the integration partner.
+  
+  This query accepts browser tokens that include the `query:organizations` scope.
+  When provided with a browser token this will additionally return the scoped SEEK hirer.
+  """
+  self: SelfOrganizations!
+  """A page of advertisement brandings associated with the specified `hirerId`."""
+  advertisementBrandings(
+    """
+    An opaque cursor to the earlier bounding advertisement brandings.
+    
+    Resulting advertisement brandings will _succeed_ this cursor.
+    """
+    after: String
+    """
+    An opaque cursor to the later bounding advertisement brandings.
+    
+    Resulting advertisement brandings will _precede_ this cursor.
+    """
+    before: String
+    """
+    The upper limit of advertisement brandings to return from the start of the list.
+    
+    Defaults to 10 if neither `first` nor `last` are specified.
+    Excess advertisement brandings will be trimmed from the end of the list.
+    
+    `first` and `last` cannot be specified in the same query.
+    """
+    first: Int
+    """
+    The upper limit of advertisement brandings to return from the end of the list.
+    
+    Excess advertisement brandings will be trimmed from the start of the list.
+    
+    `first` and `last` cannot be specified in the same query.
+    """
+    last: Int
+    """The identifier for the `HiringOrganization`."""
+    hirerId: String!
+  ): AdvertisementBrandingsConnection!
+  """The advertisement branding for the given `id`."""
+  advertisementBranding(
+    """The identifier for the `AdvertisementBranding`."""
+    id: String!
+  ): AdvertisementBranding
+  """
+  Ad products available when creating an advertisement.
+  
+  This query accepts browser tokens that include the `query:ad-products` scope.
+  """
+  seekAnzHirerAdvertisementCreationProducts(
+    """The identifier for the `HiringOrganization`."""
+    hirerId: String!
+    """The advertisement with possible field changes."""
+    draftAdvertisement: SeekAnzAdProductAdvertisementDraftInput!
+  ): [SeekAnzAdProduct!]
+  """
+  Ad products available when updating an advertisement.
+  
+  This query accepts browser tokens that include the `query:ad-products` scope.
+  """
+  seekAnzHirerAdvertisementModificationProducts(
+    """The identifier for the `HiringOrganization`."""
+    hirerId: String!
+    """The identifier for the `PositionProfile`."""
+    advertisementId: String!
+    """The advertisement with possible field changes."""
+    draftAdvertisement: SeekAnzAdProductAdvertisementDraftInput!
+  ): [SeekAnzAdProduct!]
+  """
+  Ad products available when updating an advertisement.
+  
+  Use this query while you don't have an identifier for the live `PositionProfile`.
+  
+  This query accepts browser tokens that include the `query:ad-products` scope.
+  """
+  seekAnzHirerAdvertisementModificationProductsAlt(
+    """The identifier for the `HiringOrganization`."""
+    hirerId: String!
+    """The advertisement before any field changes."""
+    advertisement: SeekAnzAdProductAdvertisementInput!
+    """The advertisement with possible field changes."""
+    draftAdvertisement: SeekAnzAdProductAdvertisementDraftInput!
+  ): [SeekAnzAdProduct!]
+  """
+  A location node with the given location `id`.
+  
+  This query accepts browser tokens that include the `query:ontologies` scope.
+  """
+  location(
+    """The identifier for the `Location`."""
+    id: String!
+  ): Location
+  """
+  An array of location nodes relevant to the text provided.
+  
+  This query accepts browser tokens that include the `query:ontologies` scope.
+  """
+  locationSuggestions(
+    """
+    The context that the location suggestions will be used for.
+    
+    The only supported value is `PositionPosting` which returns locations for the purposes of posting a position profile.
+    Additional values will be added in the future.
+    """
+    usageTypeCode: String!
+    """
+    The scheme for the location dataset to query.
+    
+    Currently, only `seekAnz` and `seekAnzPublicTest` are supported.
+    """
+    schemeId: String!
+    """
+    The identifier for the `HiringOrganization` used to provide tailored location suggestions.
+    
+    This field is ignored when its scheme doesn't match `schemeId`.
+    """
+    hirerId: String
+    """
+    Hirer-provided text used for the location suggestions.
+    
+    This currently expects a substring of a location's name (e.g. a suburb or city name).
+    Postcodes and street addresses are not supported.
+    """
+    text: String!
+    """
+    A non-negative limit to the number of locations to return.
+    
+    Defaults to 20.
+    """
+    first: Int
+  ): [LocationSuggestion!]
+  """
+  An array of locations relevant to the provided geolocation ordered by distance.
+  
+  This query accepts browser tokens that include the `query:ontologies` scope.
+  """
+  nearestLocations(
+    """
+    The scheme for the location dataset to query.
+    
+    Currently, only `seekAnz` and `seekAnzPublicTest` are supported.
+    """
+    schemeId: String!
+    """The geolocation coordinates input used for the location suggestions."""
+    geoLocation: GeoLocationInput!
+    """
+    A non-negative limit to the number of locations to return.
+    
+    Defaults to the maximum value of 10.
+    """
+    first: Int
+  ): [Location!]
+  """
   The job category for the given `id`.
   
   This query accepts browser tokens that include the `query:ontologies` scope.
@@ -3501,45 +3578,17 @@ type Query {
     """
     first: Int
   ): [JobCategorySuggestionChoice!]!
-  """A page of advertisement brandings associated with the specified `hirerId`."""
-  advertisementBrandings(
-    """
-    An opaque cursor to the earlier bounding advertisement brandings.
-    
-    Resulting advertisement brandings will _succeed_ this cursor.
-    """
-    after: String
-    """
-    An opaque cursor to the later bounding advertisement brandings.
-    
-    Resulting advertisement brandings will _precede_ this cursor.
-    """
-    before: String
-    """
-    The upper limit of advertisement brandings to return from the start of the list.
-    
-    Defaults to 10 if neither `first` nor `last` are specified.
-    Excess advertisement brandings will be trimmed from the end of the list.
-    
-    `first` and `last` cannot be specified in the same query.
-    """
-    first: Int
-    """
-    The upper limit of advertisement brandings to return from the end of the list.
-    
-    Excess advertisement brandings will be trimmed from the start of the list.
-    
-    `first` and `last` cannot be specified in the same query.
-    """
-    last: Int
-    """The identifier for the `HiringOrganization`."""
-    hirerId: String!
-  ): AdvertisementBrandingsConnection!
-  """The advertisement branding for the given `id`."""
-  advertisementBranding(
-    """The identifier for the `AdvertisementBranding`."""
+  """
+  An application questionnaire with the given `id`.
+  
+  Questionnaires can be associated with a `PositionProfile`.
+  
+  This query accepts browser tokens that include the `query:application-questionnaires` scope.
+  """
+  applicationQuestionnaire(
+    """The identifier for the `ApplicationQuestionnaire`."""
     id: String!
-  ): AdvertisementBranding
+  ): ApplicationQuestionnaire
   """A position opening with the given `id`."""
   positionOpening(
     """
@@ -3661,8 +3710,7 @@ type Query {
     """
     The data source for the event.
     
-    This commonly refers to a SEEK brand.
-    See the relevant `Event` implementation for a list of supported schemes.
+    Currently, only `seekAnz` and `seekAnzPublicTest` are supported.
     """
     schemeId: String!
   ): EventsConnection!
@@ -3759,8 +3807,7 @@ type Query {
     """
     The data source for the webhook subscription's events.
     
-    This commonly refers to a SEEK brand.
-    See the relevant `Event` implementation for a list of supported schemes.
+    Currently, only `seekAnz` and `seekAnzPublicTest` are supported.
     """
     schemeId: String!
   ): WebhookSubscriptionsConnection!
@@ -3863,7 +3910,7 @@ input RemunerationAmountInput {
   - `GBP` is used by locations in the UK & Ireland.
     These are `Location`s that have a `countryCode` of `GB` or `IE`.
   
-  - `AUD` is used by all other locations
+  - `AUD` is used by all other locations.
   """
   currency: String!
 }
@@ -3925,7 +3972,7 @@ input RemunerationPackageInput {
   Scheme requirements:
   
   - The `global` scheme has a maximum of 10 elements for `UnpostedPositionProfile`s.
-  - The `seekAnz` scheme is limited to a single element.
+  - The `seekAnz` scheme is limited to a single element with a maximum length of 50 bytes in UTF-8 encoding.
   
   An empty array must be provided to signify the absence of salary descriptions.
   """
@@ -3961,10 +4008,6 @@ input RemunerationRangeInput {
   The maximum amount an organization is willing to pay for a position.
   
   A `null` value indicates the organization has not specified an upper bound for the range.
-  
-  Scheme requirements:
-  
-  - Required for the `seekAnz` scheme when `postingInstructions` are provided.
   """
   maximumAmount: RemunerationAmountInput
   """
@@ -3990,7 +4033,7 @@ input ReplayWebhookSubscriptionInput {
   filter: ReplayWebhookSubscription_FilterInput
 }
 
-"""The output parameter for the `replayWebhookSubscription` mutation."""
+"""The response from the `replayWebhookSubscription` mutation."""
 type ReplayWebhookSubscriptionPayload {
   """The details of the webhook subscription to have its messages redelivered."""
   webhookSubscription: WebhookSubscription!
@@ -4234,7 +4277,11 @@ input SeekVideoInput {
   
   Scheme requirements:
   
-   - The `seekAnz` scheme requires URLs to be YouTube embed URLs, e.g. `https://www.youtube.com/embed/aAgePQvHBQM`.
+   - The `seekAnz` scheme requires a YouTube link in one of the following formats:
+  
+      - `https://www.youtube.com/embed/aAgePQvHBQM`
+      - `https://www.youtube.com/watch?v=aAgePQvHBQM`
+      - `https://youtu.be/aAgePQvHBQM`
   """
   url: String!
   """
@@ -4246,6 +4293,18 @@ input SeekVideoInput {
   - `Below` indicates the video will render below the advertisement details.
   """
   seekAnzPositionCode: String
+}
+
+"""The organizations the query's access token can act on behalf of."""
+type SelfOrganizations {
+  """The partner organization making the request."""
+  partner: PartnerOrganization!
+  """
+  The hirer the browser token is scoped to.
+  
+  This will be `null` when queried with a partner token.
+  """
+  hirer: HiringOrganization
 }
 
 """A reference to a person associated with an object."""
@@ -4313,9 +4372,9 @@ type UnpostedPositionProfile implements PositionProfile {
   """
   seekBillingReference: String
   """
-  The public web URL of the posted job ad.
+  The object identifier for the `PositionProfile`.
   
-  This will be the profile's object identifier for unposted position profiles.
+  This is duplicated from the `profileId` field to satisfy the `PositionProfile` interface.
   """
   positionUri: String!
   """An array of formatted position profile descriptions."""
@@ -4376,7 +4435,7 @@ input UpdateCandidateProcessHistoryItemInput {
   candidateProcessHistoryItem: UpdateCandidateProcessHistoryItem_CandidateProcessHistoryItemInput!
 }
 
-"""The output parameter for the `updateCandidateProcessHistoryItem` mutation."""
+"""The response from the `updateCandidateProcessHistoryItem` mutation."""
 type UpdateCandidateProcessHistoryItemPayload {
   """The details of the `CandidateProcessHistoryItem` that was updated."""
   candidateProcessHistoryItem: CandidateProcessHistoryItem!
@@ -4427,7 +4486,7 @@ input UpdatePositionOpeningPersonContactsInput {
   positionOpening: UpdatePositionOpeningPersonContactsPositionOpeningInput!
 }
 
-"""The output parameter for the `updatePositionOpeningPersonContacts` mutation."""
+"""The response from the `updatePositionOpeningPersonContacts` mutation."""
 type UpdatePositionOpeningPersonContactsPayload {
   """The details of the updated position opening."""
   positionOpening: PositionOpening!
@@ -4452,7 +4511,7 @@ input UpdatePositionOpeningStatusInput {
   positionOpening: UpdatePositionOpeningStatusPositionOpeningInput!
 }
 
-"""The output parameter for the `updatePositionOpeningStatus` mutation."""
+"""The response from the `updatePositionOpeningStatus` mutation."""
 type UpdatePositionOpeningStatusPayload {
   """The details of the updated position opening."""
   positionOpening: PositionOpening!
@@ -4652,7 +4711,7 @@ input UpdateUnpostedPositionProfileInput {
   positionProfile: UpdateUnpostedPositionProfile_PositionProfileInput!
 }
 
-"""The output parameter for the `updateUnpostedPositionProfile` mutation."""
+"""The response from the `updateUnpostedPositionProfile` mutation."""
 type UpdateUnpostedPositionProfilePayload {
   """Attributes of the updated unposted position profile."""
   positionProfile: UnpostedPositionProfile!
@@ -4733,7 +4792,7 @@ input UpdateUploadedCandidatePersonInput {
   candidate: UpdateUploadedCandidatePerson_CandidateInput!
 }
 
-"""The output parameter for the `updateUploadedCandidatePerson` mutation."""
+"""The response from the `updateUploadedCandidatePerson` mutation."""
 union UpdateUploadedCandidatePersonPayload = UpdateUploadedCandidatePersonPayload_Conflict | UpdateUploadedCandidatePersonPayload_Success
 
 """The conflict result for the `updateUploadedCandidatePerson` mutation."""
@@ -4775,7 +4834,7 @@ input UpdateUploadedCandidateProfileActionsInput {
   candidateProfile: UpdateUploadedCandidateProfileActions_CandidateProfileInput!
 }
 
-"""The output parameter for the `updateUploadedCandidateProfileActions` mutation."""
+"""The response from the `updateUploadedCandidateProfileActions` mutation."""
 type UpdateUploadedCandidateProfileActionsPayload {
   """
   The details of the uploaded candidate profile that was updated.
@@ -4793,10 +4852,7 @@ input UpdateUploadedCandidateProfileActions_CandidateProfileInput {
   Any associated actions that can be performed on the candidate profile.
   
   Only one of each type of action is permitted for the candidate profile.
-  
-  Currently, one type is defined for the `CandidateProcessActionInput` `code` field:
-  
-  - `ViewProfile` indicates that the URL is used to view the candidate's profile.
+  Currently, only a `ViewProfile` action type is defined to provide a URL to view the candidate's profile.
   """
   seekActions: [CandidateProcessActionInput!]!
 }
@@ -4807,7 +4863,7 @@ input UpdateUploadedCandidateProfileDatesInput {
   candidateProfile: UpdateUploadedCandidateProfileDates_CandidateProfileInput!
 }
 
-"""The output parameter for the `updateUploadedCandidateProfileDates` mutation."""
+"""The response from the `updateUploadedCandidateProfileDates` mutation."""
 type UpdateUploadedCandidateProfileDatesPayload {
   """
   The details of the uploaded candidate profile that was updated.
@@ -4843,7 +4899,7 @@ input UpdateUploadedCandidateProfilePositionPreferencesInput {
   candidateProfile: UpdateUploadedCandidateProfilePositionPreferences_CandidateProfileInput!
 }
 
-"""The output parameter for the `updateUploadedCandidateProfilePositionPreferences` mutation."""
+"""The response from the `updateUploadedCandidateProfilePositionPreferences` mutation."""
 type UpdateUploadedCandidateProfilePositionPreferencesPayload {
   """
   The details of the uploaded candidate profile that was updated.
@@ -4871,8 +4927,22 @@ input UpdateWebhookSubscriptionDeliveryConfigurationInput {
   webhookSubscription: UpdateWebhookSubscriptionDeliveryConfiguration_SubscriptionInput!
 }
 
-"""The output parameter for the `updateWebhookSubscriptionDeliveryConfiguration` mutation."""
-type UpdateWebhookSubscriptionDeliveryConfigurationPayload {
+"""The response from the `updateWebhookSubscriptionDeliveryConfiguration` mutation."""
+union UpdateWebhookSubscriptionDeliveryConfigurationPayload = UpdateWebhookSubscriptionDeliveryConfigurationPayload_Conflict | UpdateWebhookSubscriptionDeliveryConfigurationPayload_Success
+
+"""
+The conflict result for the `updateWebhookSubscriptionDeliveryConfiguration` mutation.
+
+Webhook subscriptions must have a unique combination of `eventTypeCode`, `schemeId`, `url` & `hirerId` fields.
+Attempting to update a webhook subscription to match an existing subscription will result in a conflict.
+"""
+type UpdateWebhookSubscriptionDeliveryConfigurationPayload_Conflict {
+  """The details of the conflicting webhook subscription."""
+  conflictingWebhookSubscription: WebhookSubscription!
+}
+
+"""The success result for the `updateWebhookSubscriptionDeliveryConfiguration` mutation."""
+type UpdateWebhookSubscriptionDeliveryConfigurationPayload_Success {
   """The details of the updated webhook subscription."""
   webhookSubscription: WebhookSubscription!
 }
@@ -4897,7 +4967,7 @@ input UpdateWebhookSubscriptionSigningConfigurationInput {
   webhookSubscription: UpdateWebhookSubscriptionSigningConfiguration_SubscriptionInput!
 }
 
-"""The output parameter for the `updateWebhookSubscriptionSigningConfiguration` mutation."""
+"""The response from the `updateWebhookSubscriptionSigningConfiguration` mutation."""
 type UpdateWebhookSubscriptionSigningConfigurationPayload {
   """The details of the updated webhook subscription."""
   webhookSubscription: WebhookSubscription!
@@ -4942,7 +5012,7 @@ input UploadCandidateInput {
   hiringOrganization: UploadCandidate_HiringOrganizationInput!
 }
 
-"""The output parameter for the `uploadCandidate` mutation."""
+"""The response from the `uploadCandidate` mutation."""
 union UploadCandidatePayload = UploadCandidatePayload_Conflict | UploadCandidatePayload_Success
 
 """The conflict result for the `uploadCandidate` mutation."""
@@ -5027,10 +5097,7 @@ input UploadCandidate_CandidateProfileInput {
   Any associated actions that can be performed on the candidate profile.
   
   Only one of each type of action is permitted for the candidate profile.
-  
-  Currently, one `code` is defined:
-  
-  - `ViewProfile` indicates that the URL is used to view the candidate's profile.
+  Currently, only a `ViewProfile` action type is defined to provide a URL to view the candidate's profile.
   """
   seekActions: [CandidateProcessActionInput!]!
 }
@@ -5242,8 +5309,7 @@ type WebhookSubscription {
   """
   The data source for the event.
   
-  This commonly refers to a SEEK brand.
-  See the relevant `Event` implementation for a list of supported schemes.
+  Currently, only `seekAnz` and `seekAnzPublicTest` are supported.
   """
   schemeId: String!
   """
@@ -5441,8 +5507,8 @@ type WebhookSubscriptionReplaysConnection {
   The pagination metadata for this page of webhook subscription replays.
   
   Disclaimer:
-  - The property `hasPreviousPage` will always be false when paginating by `first`
-  - The property `hasNextPage` will always be false when paginating by `last`
+  - The `hasPreviousPage` field will always be false when paginating by `first`.
+  - The `hasNextPage` field will always be false when paginating by `last`.
   
   To discern whether a next/previous page exists in these conditions, an additional request will need to be made to retrieve the next/previous page.
   """
@@ -5508,7 +5574,3 @@ input WebhookSubscriptionsFilterInput {
   """
   hirerIds: [String!]
 }
-
-directive @paginated(defaultPageSize: Int!) on FIELD_DEFINITION
-
-directive @unpaginated(indicativeLength: Int!) on FIELD_DEFINITION
