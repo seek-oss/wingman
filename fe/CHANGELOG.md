@@ -1,5 +1,21 @@
 # wingman-fe
 
+## 0.21.0
+
+### Minor Changes
+
+- 693f7e7: **JobCategorySelect**: Provide job category node type
+
+  Job posting in ANZ requires a child category for both pricing & posting.
+
+  Pass back the category node type (`parent` or `child`) so we can
+  validate we have the right type of category. For example, we could block
+  posting until the user has selected a `child`.
+
+### Patch Changes
+
+- c390fd2: **JobCategorySelect:** Don't select `parent` in `jobCategories` query
+
 ## 0.20.0
 
 ### Minor Changes
