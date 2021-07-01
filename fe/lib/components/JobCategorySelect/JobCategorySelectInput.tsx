@@ -12,7 +12,7 @@ type AnyJobCategory = JobCategoryAttributesFragment;
 
 interface Props {
   jobCategories: AllJobCategories;
-  onSelect: (jobCategory: AnyJobCategory) => void;
+  onSelect: (jobCategory: AnyJobCategory, type: 'parent' | 'child') => void;
   tone: ComponentProps<typeof Dropdown>['tone'];
 }
 
@@ -35,7 +35,7 @@ const JobCategorySelectInput = ({
       if (parentCategory?.children) {
         setChildCategories(parentCategory.children);
         setSelectedChildCategoryId('');
-        onSelect(parentCategory);
+        onSelect(parentCategory, 'parent');
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -48,7 +48,7 @@ const JobCategorySelectInput = ({
         selectedChildCategoryId,
       );
       if (childCategory) {
-        onSelect(childCategory);
+        onSelect(childCategory, 'child');
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
