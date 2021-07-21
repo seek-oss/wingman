@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.21.1
+
+### Patch Changes
+
+- 261929c: Remove detect error messaging on successful location query
+
 ## 0.21.0
 
 ### Minor Changes
