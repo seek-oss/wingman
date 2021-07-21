@@ -60,6 +60,16 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
           ...(client && { client }),
           fetchPolicy: 'no-cache',
           ssr: false,
+          onCompleted: (data) => {
+            if (
+              data.locationSuggestions &&
+              data.locationSuggestions.length > 0 &&
+              Boolean(detectLocationError)
+            ) {
+              // Reset any errors on a successful location search
+              setDetectLocationError('');
+            }
+          },
         },
       );
 
