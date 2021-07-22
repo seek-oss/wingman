@@ -34,8 +34,23 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
     { choices, name, onSelect, showConfidence = false, ...restProps },
     forwardedRef,
   ) => {
-    const [selectedJobCategory, setSelectedJobCategory] =
-      useState<JobCategory>();
+    const simpleChoices = choices.map((choice) => {
+      return {
+        key: choice.jobCategory.id.value,
+        label: getJobCategoryName(choice.jobCategory),
+        value: choice.jobCategory.id.value,
+        confidence: choice.confidence,
+      };
+    });
+
+    simpleChoices.push({
+      key: 'Other',
+      label: 'Other',
+      value: 'Other',
+      confidence: 0,
+    });
+
+    const [selectedJobCategory, setSelectedJobCategory] = useState<string>();
 
     const handleChoiceSelect = (event: React.FormEvent<HTMLInputElement>) => {
       const choiceId = event.currentTarget.value;
@@ -44,7 +59,7 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
         (choice) => choice.jobCategory.id.value === choiceId,
       );
 
-      setSelectedJobCategory(jobCategorySuggest?.jobCategory);
+      setSelectedJobCategory(choiceId);
 
       if (onSelect && jobCategorySuggest) {
         onSelect(jobCategorySuggest);
@@ -60,17 +75,16 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
           id="job-category-suggest-select"
           name={name}
           onChange={handleChoiceSelect}
-          value={selectedJobCategory?.id.value ?? ''}
+          value={selectedJobCategory ?? ''}
         >
-          {choices.map((choice) => {
-            const { jobCategory, confidence } = choice;
-            const { id } = jobCategory;
+          {simpleChoices.map((choice) => {
+            const { label, confidence, key, value } = choice;
             return (
               <RadioItem
-                key={id.value}
-                label={getJobCategoryName(jobCategory)}
+                key={key}
+                label={label}
                 ref={forwardedRef}
-                value={id.value}
+                value={value}
               >
                 {showConfidence && (
                   <Text tone="secondary" size="small">
