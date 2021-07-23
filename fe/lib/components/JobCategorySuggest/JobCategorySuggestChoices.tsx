@@ -1,3 +1,4 @@
+import { ApolloClient } from '@apollo/client';
 import {
   RadioGroup,
   RadioItem,
@@ -9,11 +10,15 @@ import React, { ComponentProps, forwardRef, useState } from 'react';
 
 import type {
   JobCategory,
+  JobCategoryAttributesFragment,
   JobCategorySuggestionChoiceAttributesFragment,
 } from '../../types/seek.graphql';
 import { flattenResourceByKey } from '../../utils';
+import { JobCategorySelect } from '../JobCategorySelect/JobCategorySelect';
 
 interface Props {
+  client?: ApolloClient<unknown>;
+  schemeId: string;
   choices: JobCategorySuggestionChoiceAttributesFragment[];
   name?: string;
   onSelect?: (
@@ -31,7 +36,7 @@ const getJobCategoryName = (jobCategory: JobCategory): string =>
 
 const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
   (
-    { choices, name, onSelect, showConfidence = false, ...restProps },
+    { client, schemeId, choices, name, onSelect, showConfidence = false, ...restProps },
     forwardedRef,
   ) => {
     const simpleChoices = choices.map((choice) => {
@@ -73,7 +78,7 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
         <RadioGroup
           {...restProps}
           id="job-category-suggest-select"
-          name={name}
+          name={selectedJobCategory === 'Other' ? '' : name}
           onChange={handleChoiceSelect}
           value={selectedJobCategory ?? ''}
         >
@@ -96,6 +101,24 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
             );
           })}
         </RadioGroup>
+        {selectedJobCategory === 'Other' && (
+          <JobCategorySelect
+            client={client}
+            name={name}
+            id="jobCategoryId"
+            onSelect={(jobCategory: JobCategoryAttributesFragment) => {
+              const jobCategorySuggest = choices.find(
+                (choice) => choice.jobCategory.id.value === jobCategory.id.value,
+              );
+
+              if (onSelect && jobCategorySuggest) {
+                onSelect(jobCategorySuggest);
+              }
+            }}
+            schemeId={schemeId}
+            hideLabel={true}
+          />
+        )}
       </Stack>
     );
   },

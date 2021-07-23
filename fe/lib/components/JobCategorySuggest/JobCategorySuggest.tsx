@@ -94,6 +94,8 @@ export const JobCategorySuggest = forwardRef<HTMLInputElement, Props>(
               onSelect={onSelect}
               showConfidence={showConfidence}
               tone={tone}
+              client={client}
+              schemeId={schemeId}
             />
           )
         )}

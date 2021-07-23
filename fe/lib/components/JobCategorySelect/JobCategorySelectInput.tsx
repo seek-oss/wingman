@@ -14,11 +14,13 @@ interface Props {
   jobCategories: AllJobCategories;
   onSelect: (jobCategory: AnyJobCategory, type: 'parent' | 'child') => void;
   tone: ComponentProps<typeof Dropdown>['tone'];
+  hideLabel?: boolean;
 }
 
 const JobCategorySelectInput = ({
   jobCategories,
   onSelect,
+  hideLabel,
   ...restProps
 }: Props) => {
   const [selectedParentCategoryId, setSelectedParentCategoryId] = useState('');
@@ -60,7 +62,7 @@ const JobCategorySelectInput = ({
         <Dropdown
           {...restProps}
           id="jobCategoriesSelect"
-          label="Category"
+          label={hideLabel ? "" : "Category"}
           onChange={(event) =>
             setSelectedParentCategoryId(event.currentTarget.value)
           }
@@ -79,7 +81,7 @@ const JobCategorySelectInput = ({
           <Dropdown
             {...restProps}
             id="subJobCategoriesSelect"
-            label="Subcategory"
+            label={hideLabel ? "" : "Subcategory"}
             onChange={(event) =>
               setSelectedChildCategoryId(event.currentTarget.value)
             }

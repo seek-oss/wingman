@@ -9,6 +9,7 @@ import { ApolloMockProvider } from '../../testing/ApolloMockProvider';
 
 import { JobCategorySuggest } from './JobCategorySuggest';
 import { mockJobCategorySuggest } from './__fixtures__/jobCategorySuggest';
+import { mockJobCategories } from '../JobCategorySelect/__fixtures__/jobCategories';
 
 storiesOf('JobCategories', module)
   .add('Job Category Suggest', () => {
@@ -52,6 +53,7 @@ storiesOf('JobCategories', module)
       resolvers={{
         Query: {
           jobCategorySuggestions: () => mockJobCategorySuggest,
+          jobCategories: () => mockJobCategories,
         },
       }}
     >
