@@ -36,22 +36,26 @@ const getJobCategoryName = (jobCategory: JobCategory): string =>
 
 const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
   (
-    { client, schemeId, choices, name, onSelect, showConfidence = false, ...restProps },
+    {
+      client,
+      schemeId,
+      choices,
+      name,
+      onSelect,
+      showConfidence = false,
+      ...restProps
+    },
     forwardedRef,
   ) => {
-    const simpleChoices = choices.map((choice) => {
-      return {
-        key: choice.jobCategory.id.value,
-        label: getJobCategoryName(choice.jobCategory),
-        value: choice.jobCategory.id.value,
-        confidence: choice.confidence,
-      };
-    });
+    const suggestions = choices.map((choice) => ({
+      key: choice.jobCategory.id.value,
+      label: getJobCategoryName(choice.jobCategory),
+      confidence: choice.confidence,
+    }));
 
-    simpleChoices.push({
+    suggestions.push({
       key: 'Other',
       label: 'Other',
-      value: 'Other',
       confidence: 0,
     });
 
@@ -82,15 +86,10 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
           onChange={handleChoiceSelect}
           value={selectedJobCategory ?? ''}
         >
-          {simpleChoices.map((choice) => {
-            const { label, confidence, key, value } = choice;
+          {suggestions.map((choice) => {
+            const { label, confidence, key } = choice;
             return (
-              <RadioItem
-                key={key}
-                label={label}
-                ref={forwardedRef}
-                value={value}
-              >
+              <RadioItem key={key} label={label} ref={forwardedRef} value={key}>
                 {showConfidence && (
                   <Text tone="secondary" size="small">
                     <Strong>Confidence score:</Strong>{' '}
@@ -106,15 +105,9 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
             client={client}
             name={name}
             id="jobCategoryId"
-            onSelect={(jobCategory: JobCategoryAttributesFragment) => {
-              const jobCategorySuggest = choices.find(
-                (choice) => choice.jobCategory.id.value === jobCategory.id.value,
-              );
-
-              if (onSelect && jobCategorySuggest) {
-                onSelect(jobCategorySuggest);
-              }
-            }}
+            onSelect={(jobCategory: JobCategoryAttributesFragment) =>
+              onSelect?.({ jobCategory, confidence: 100 })
+            }
             schemeId={schemeId}
             hideLabel={true}
           />
