@@ -17,13 +17,13 @@ import { flattenResourceByKey } from '../../utils';
 import { JobCategorySelect } from '../JobCategorySelect/JobCategorySelect';
 
 interface Props {
-  client?: ApolloClient<unknown>;
   schemeId: string;
   choices: JobCategorySuggestionChoiceAttributesFragment[];
-  name?: string;
-  onSelect?: (
+  onSelect: (
     jobCategorySuggestionChoice: JobCategorySuggestionChoiceAttributesFragment,
   ) => void;
+  client?: ApolloClient<unknown>;
+  name?: string;
   showConfidence?: boolean;
   tone?: ComponentProps<typeof RadioGroup>['tone'];
 }
@@ -70,7 +70,7 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
 
       setSelectedJobCategory(choiceId);
 
-      if (onSelect && jobCategorySuggest) {
+      if (jobCategorySuggest) {
         onSelect(jobCategorySuggest);
       }
     };
@@ -81,8 +81,8 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
 
         <RadioGroup
           {...restProps}
+          name={name}
           id="job-category-suggest-select"
-          name={selectedJobCategory === 'Other' ? '' : name}
           onChange={handleChoiceSelect}
           value={selectedJobCategory ?? ''}
         >
@@ -103,11 +103,10 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
         {selectedJobCategory === 'Other' && (
           <JobCategorySelect
             client={client}
-            name={name}
             id="jobCategoryId"
-            onSelect={(jobCategory: JobCategoryAttributesFragment) =>
-              onSelect?.({ jobCategory, confidence: 100 })
-            }
+            onSelect={(jobCategory: JobCategoryAttributesFragment) => {
+              onSelect({ jobCategory, confidence: 1 });
+            }}
             schemeId={schemeId}
             hideLabel={true}
           />
