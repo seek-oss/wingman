@@ -62,7 +62,7 @@ const JobCategorySelectInput = ({
         <Dropdown
           {...restProps}
           id="jobCategoriesSelect"
-          label={hideLabel ? "" : "Category"}
+          label={hideLabel ? undefined : 'Category'}
           onChange={(event) =>
             setSelectedParentCategoryId(event.currentTarget.value)
           }
@@ -81,7 +81,7 @@ const JobCategorySelectInput = ({
           <Dropdown
             {...restProps}
             id="subJobCategoriesSelect"
-            label={hideLabel ? "" : "Subcategory"}
+            label={hideLabel ? undefined : 'Subcategory'}
             onChange={(event) =>
               setSelectedChildCategoryId(event.currentTarget.value)
             }

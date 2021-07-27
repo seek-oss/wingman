@@ -103,12 +103,12 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
         {selectedJobCategory === 'Other' && (
           <JobCategorySelect
             client={client}
-            id="jobCategoryId"
+            id="job-category-suggest-select-other"
             onSelect={(jobCategory: JobCategoryAttributesFragment) => {
               onSelect({ jobCategory, confidence: 1 });
             }}
             schemeId={schemeId}
-            hideLabel={true}
+            hideLabel
           />
         )}
       </Stack>
