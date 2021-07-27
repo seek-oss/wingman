@@ -99,10 +99,10 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
             })}
           </>
           <RadioItem
-            key={'Other'}
-            label={'Other'}
+            key="Other"
+            label="Other"
             ref={forwardedRef}
-            value={'Other'}
+            value="Other"
           >
             {selectedJobCategory === 'Other' && (
               <JobCategorySelect
