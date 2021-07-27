@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.22.0
+
+### Minor Changes
+
+- b439228: Add 'Other' as a suggested job category option which triggers the job category select list
+
 ## 0.21.1
 
 ### Patch Changes

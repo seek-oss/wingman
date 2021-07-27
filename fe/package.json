@@ -61,5 +61,5 @@
     "start-storybook": "sku storybook",
     "test": "sku test"
   },
-  "version": "0.21.1"
+  "version": "0.22.0"
 }
