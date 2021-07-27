@@ -108,7 +108,6 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
                    * Only child job categories are suitable for job posting
                    */
                   if (type === 'child') {
-                    console.log(jobCategory);
                     onSelect({ jobCategory, confidence: 1 });
                   }
                 }}
