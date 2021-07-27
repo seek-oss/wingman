@@ -21,13 +21,13 @@ import { JOB_CATEGORY_SUGGEST } from './queries';
 interface RadioProps extends ComponentPropsWithRef<typeof RadioGroup> {}
 
 interface Props extends Partial<Omit<RadioProps, 'id'>> {
-  client?: ApolloClient<unknown>;
-  debounceDelay?: number;
-  onSelect?: (
-    jobCategorySuggestionChoice: JobCategorySuggestionChoiceAttributesFragment,
-  ) => void;
   positionProfile: JobCategorySuggestionPositionProfileInput;
   schemeId: string;
+  onSelect: (
+    jobCategorySuggestionChoice: JobCategorySuggestionChoiceAttributesFragment,
+  ) => void;
+  client?: ApolloClient<unknown>;
+  debounceDelay?: number;
   showConfidence?: boolean;
 }
 
@@ -94,6 +94,8 @@ export const JobCategorySuggest = forwardRef<HTMLInputElement, Props>(
               onSelect={onSelect}
               showConfidence={showConfidence}
               tone={tone}
+              client={client}
+              schemeId={schemeId}
             />
           )
         )}

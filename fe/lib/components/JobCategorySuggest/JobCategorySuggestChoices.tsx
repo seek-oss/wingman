@@ -1,3 +1,4 @@
+import { ApolloClient } from '@apollo/client';
 import {
   RadioGroup,
   RadioItem,
@@ -12,13 +13,16 @@ import type {
   JobCategorySuggestionChoiceAttributesFragment,
 } from '../../types/seek.graphql';
 import { flattenResourceByKey } from '../../utils';
+import { JobCategorySelect } from '../JobCategorySelect/JobCategorySelect';
 
 interface Props {
+  schemeId: string;
   choices: JobCategorySuggestionChoiceAttributesFragment[];
-  name?: string;
-  onSelect?: (
+  onSelect: (
     jobCategorySuggestionChoice: JobCategorySuggestionChoiceAttributesFragment,
   ) => void;
+  client?: ApolloClient<unknown>;
+  name?: string;
   showConfidence?: boolean;
   tone?: ComponentProps<typeof RadioGroup>['tone'];
 }
@@ -31,11 +35,24 @@ const getJobCategoryName = (jobCategory: JobCategory): string =>
 
 const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
   (
-    { choices, name, onSelect, showConfidence = false, ...restProps },
+    {
+      client,
+      schemeId,
+      choices,
+      name,
+      onSelect,
+      showConfidence = false,
+      ...restProps
+    },
     forwardedRef,
   ) => {
-    const [selectedJobCategory, setSelectedJobCategory] =
-      useState<JobCategory>();
+    const suggestions = choices.map((choice) => ({
+      key: choice.jobCategory.id.value,
+      label: getJobCategoryName(choice.jobCategory),
+      confidence: choice.confidence,
+    }));
+
+    const [selectedJobCategory, setSelectedJobCategory] = useState<string>();
 
     const handleChoiceSelect = (event: React.FormEvent<HTMLInputElement>) => {
       const choiceId = event.currentTarget.value;
@@ -44,9 +61,9 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
         (choice) => choice.jobCategory.id.value === choiceId,
       );
 
-      setSelectedJobCategory(jobCategorySuggest?.jobCategory);
+      setSelectedJobCategory(choiceId);
 
-      if (onSelect && jobCategorySuggest) {
+      if (jobCategorySuggest) {
         onSelect(jobCategorySuggest);
       }
     };
@@ -54,33 +71,51 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
     return (
       <Stack space="small">
         <Text weight="strong">Category</Text>
-
         <RadioGroup
           {...restProps}
-          id="job-category-suggest-select"
           name={name}
+          id="job-category-suggest-select"
           onChange={handleChoiceSelect}
-          value={selectedJobCategory?.id.value ?? ''}
+          value={selectedJobCategory ?? ''}
         >
-          {choices.map((choice) => {
-            const { jobCategory, confidence } = choice;
-            const { id } = jobCategory;
-            return (
-              <RadioItem
-                key={id.value}
-                label={getJobCategoryName(jobCategory)}
-                ref={forwardedRef}
-                value={id.value}
-              >
-                {showConfidence && (
-                  <Text tone="secondary" size="small">
-                    <Strong>Confidence score:</Strong>{' '}
-                    {`${(confidence * 100).toFixed(2)}%`}
-                  </Text>
-                )}
-              </RadioItem>
-            );
-          })}
+          <>
+            {suggestions.map((choice) => {
+              const { label, confidence, key } = choice;
+              return (
+                <RadioItem
+                  key={key}
+                  label={label}
+                  ref={forwardedRef}
+                  value={key}
+                >
+                  {showConfidence && (
+                    <Text tone="secondary" size="small">
+                      <Strong>Confidence score:</Strong>{' '}
+                      {`${(confidence * 100).toFixed(2)}%`}
+                    </Text>
+                  )}
+                </RadioItem>
+              );
+            })}
+          </>
+          <RadioItem key="Other" label="Other" ref={forwardedRef} value="Other">
+            {selectedJobCategory === 'Other' && (
+              <JobCategorySelect
+                client={client}
+                id="job-category-suggest-select-other"
+                onSelect={(jobCategory, type) => {
+                  /**
+                   * Only child job categories are suitable for job posting
+                   */
+                  if (type === 'child') {
+                    onSelect({ jobCategory, confidence: 1 });
+                  }
+                }}
+                schemeId={schemeId}
+                hideLabel
+              />
+            )}
+          </RadioItem>
         </RadioGroup>
       </Stack>
     );

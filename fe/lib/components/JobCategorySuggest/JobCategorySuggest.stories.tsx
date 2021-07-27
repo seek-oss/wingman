@@ -6,6 +6,7 @@ import { boolean, select } from 'sku/@storybook/addon-knobs';
 import { storiesOf } from 'sku/@storybook/react';
 
 import { ApolloMockProvider } from '../../testing/ApolloMockProvider';
+import { mockJobCategories } from '../JobCategorySelect/__fixtures__/jobCategories';
 
 import { JobCategorySuggest } from './JobCategorySuggest';
 import { mockJobCategorySuggest } from './__fixtures__/jobCategorySuggest';
@@ -44,6 +45,7 @@ storiesOf('JobCategories', module)
         schemeId="seekAnz"
         reserveMessageSpace={boolean('reserveMessageSpace', false)}
         tone={tone}
+        onSelect={() => {}}
       />
     );
   })
@@ -52,6 +54,7 @@ storiesOf('JobCategories', module)
       resolvers={{
         Query: {
           jobCategorySuggestions: () => mockJobCategorySuggest,
+          jobCategories: () => mockJobCategories,
         },
       }}
     >
