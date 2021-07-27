@@ -45,6 +45,7 @@ storiesOf('JobCategories', module)
         schemeId="seekAnz"
         reserveMessageSpace={boolean('reserveMessageSpace', false)}
         tone={tone}
+        onSelect={() => {}}
       />
     );
   })
