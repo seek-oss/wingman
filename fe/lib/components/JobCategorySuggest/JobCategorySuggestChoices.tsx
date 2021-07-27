@@ -10,7 +10,6 @@ import React, { ComponentProps, forwardRef, useState } from 'react';
 
 import type {
   JobCategory,
-  JobCategoryAttributesFragment,
   JobCategorySuggestionChoiceAttributesFragment,
 } from '../../types/seek.graphql';
 import { flattenResourceByKey } from '../../utils';
@@ -109,7 +108,7 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
               <JobCategorySelect
                 client={client}
                 id="job-category-suggest-select-other"
-                onSelect={(jobCategory: JobCategoryAttributesFragment) => {
+                onSelect={(jobCategory) => {
                   onSelect({ jobCategory, confidence: 1 });
                 }}
                 schemeId={schemeId}
