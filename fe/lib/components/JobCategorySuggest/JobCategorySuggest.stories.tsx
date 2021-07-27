@@ -6,10 +6,10 @@ import { boolean, select } from 'sku/@storybook/addon-knobs';
 import { storiesOf } from 'sku/@storybook/react';
 
 import { ApolloMockProvider } from '../../testing/ApolloMockProvider';
-
-import { mockJobCategorySuggest } from './__fixtures__/jobCategorySuggest';
-import { JobCategorySuggest } from './JobCategorySuggest';
 import { mockJobCategories } from '../JobCategorySelect/__fixtures__/jobCategories';
+
+import { JobCategorySuggest } from './JobCategorySuggest';
+import { mockJobCategorySuggest } from './__fixtures__/jobCategorySuggest';
 
 storiesOf('JobCategories', module)
   .add('Job Category Suggest', () => {
