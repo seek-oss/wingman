@@ -1,4 +1,4 @@
-import { AsyncExecutor } from '@graphql-tools/delegate';
+import { AsyncExecutor } from '@graphql-tools/utils';
 import { introspectSchema, wrapSchema } from '@graphql-tools/wrap';
 import { GraphQLSchema, print } from 'graphql';
 import fetch from 'node-fetch';
