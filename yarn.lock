@@ -4296,9 +4296,9 @@
     eslint-visitor-keys "^2.0.0"
 
 "@vanilla-extract/babel-plugin@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@vanilla-extract/babel-plugin/-/babel-plugin-1.0.0.tgz#bdf8e13f40f761680d47001e61856869b1143b90"
-  integrity sha512-UBbycdnKDvpWVOv1j6F8Iod+FhOW2W4Fv+GVT3D/Woq2SleO2JSv/OEDoyerkN1mcCkJCVPuXnVYEdeRdxZgeQ==
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@vanilla-extract/babel-plugin/-/babel-plugin-1.0.1.tgz#63323b4312295767b5da71fb0ff474a17f2714ea"
+  integrity sha512-D58DcjUDticrtbDWell+6MZp0BtdVHjnkuhvR2+gwxq998WhNVh35ElITGAGEpgvzOtApImM7H20zPn1xfeQlw==
   dependencies:
     "@babel/core" "^7.13.10"
     "@babel/template" "^7.12.13"
@@ -4309,10 +4309,10 @@
   resolved "https://registry.yarnpkg.com/@vanilla-extract/css-utils/-/css-utils-0.1.1.tgz#f4f58f85347d8a841ef74c60db111ec264011860"
   integrity sha512-9fDV8IhSfzgDd9Z+64jVcS38S2dVc6c1eOd+hgO8zPMRba6rEB8kEjg5+AQ3xPCdzl1m8olqFHnfQRNOn1OXuA==
 
-"@vanilla-extract/css@1.1.2", "@vanilla-extract/css@^1.0.0", "@vanilla-extract/css@^1.1.0":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@vanilla-extract/css/-/css-1.1.2.tgz#ce00e32a3cdb4adf19e3193c08652a95fc8a7b12"
-  integrity sha512-ZroX0o25EiRbcgsK/ul9AEq+zlZpyKRI/yrxlTzEnRtqjBuUsFP1U34rUApK13qzHKGjEtGAI17H73bkf6NACQ==
+"@vanilla-extract/css@1.2.1", "@vanilla-extract/css@^1.0.0", "@vanilla-extract/css@^1.1.0", "@vanilla-extract/css@^1.2.0":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@vanilla-extract/css/-/css-1.2.1.tgz#7928f964a13094b2c23622b935d96310cd8dc388"
+  integrity sha512-YANTzzYQCplZRwoZvUa+2iSE2McS/ug8EqOdejeLssRlsQAv213XU1xB8OjZbtRAwXVbl3mWbvbvBZEfNtctBw==
   dependencies:
     "@emotion/hash" "^0.8.0"
     "@vanilla-extract/private" "^1.0.1"
@@ -4323,12 +4323,12 @@
     dedent "^0.7.0"
     deep-object-diff "^1.1.0"
 
-"@vanilla-extract/integration@^1.0.0":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@vanilla-extract/integration/-/integration-1.0.1.tgz#48ebe910f29b0da88e9876286f4d0b658a6f27ae"
-  integrity sha512-dm1dLFewXCVXuXe+3BPb1iK/EFubxkzevLOepMY8z+wUIUv0xS8PdccY3n7vXPTsSNg5f3Bm3IkaL2ynj+LcJA==
+"@vanilla-extract/integration@^1.0.0", "@vanilla-extract/integration@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@vanilla-extract/integration/-/integration-1.1.0.tgz#7a766608327ffad25896b8d509b9acae07ccbcbc"
+  integrity sha512-VzDodGcoPv8loAyqIPya+UuFOr2c6D4rJ4uhIe4hms94FXZ+0qxPOXvFs7PNamt83M1zkInIj+0kEAHFC1D1gg==
   dependencies:
-    "@vanilla-extract/css" "^1.0.0"
+    "@vanilla-extract/css" "^1.2.0"
     chalk "^4.1.1"
     dedent "^0.7.0"
     esbuild "^0.11.16"
@@ -4343,16 +4343,16 @@
   integrity sha512-ABrFJGSmF7a1M+eDTsIeAErPhIeRyBY3ypyLQPc4bUVEK1mvF7F2gx4fTP81pm12bkS0GhjSJtM854lcPWhB+w==
 
 "@vanilla-extract/sprinkles@^0.4.3":
-  version "0.4.3"
-  resolved "https://registry.yarnpkg.com/@vanilla-extract/sprinkles/-/sprinkles-0.4.3.tgz#dfc6f25b1311aba64a482f11009c146887a4191a"
-  integrity sha512-IiqHQLemhdTacOsNBB4o3iKwGIBD/jwODeBAbdwxiledpKupX59LR6RXFGSskr+5RYbK8Q1o/d4Qn3m88lij/w==
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/@vanilla-extract/sprinkles/-/sprinkles-0.4.4.tgz#067364a997f71f152286a160f45babd06afbc24e"
+  integrity sha512-uz77Up4oFXYM2jXg3F+Oqz4dnvOTBan28T8mVK1u0i3DTJHV9MuStknP89gcsPMa1irOsgxv06P7aVEg0QR5xQ==
 
 "@vanilla-extract/webpack-plugin@^1.0.0":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@vanilla-extract/webpack-plugin/-/webpack-plugin-1.0.3.tgz#765c27a644c5f9a3356c50036a88e8cc004088f1"
-  integrity sha512-lU68fxYa+AtBcWlSzGVR7tinoOBy77iqUdHhU66O8rFp2NAySQBSUDpuMvd96gRmDNP3o5kq7B4tJvnMWzMEuA==
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@vanilla-extract/webpack-plugin/-/webpack-plugin-1.1.0.tgz#9761dbfeb24271c6ca541fca311551413a79462e"
+  integrity sha512-HOcW7TYipzIBor+HruGW96fW9suWA5fgSHdsxngROm/F7AUk6SjAk/AOFD6kq4CLIG33d6ZryjRSPjb9STrfxw==
   dependencies:
-    "@vanilla-extract/integration" "^1.0.0"
+    "@vanilla-extract/integration" "^1.1.0"
     chalk "^4.1.1"
     debug "^4.3.1"
     loader-utils "^2.0.0"
