@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.22.2
+
+### Patch Changes
+
+- 2ab6363: Update apollo client to 3.4.1
+
 ## 0.22.1
 
 ### Patch Changes
