@@ -22,7 +22,7 @@
     "@types/koa": "2.13.4",
     "@types/koa__router": "8.0.7",
     "@types/lru-cache": "5.1.1",
-    "@types/node-fetch": "2.5.11",
+    "@types/node-fetch": "2.5.12",
     "@types/supertest": "2.0.11",
     "nock": "13.1.1",
     "skuba": "3.14.3",
