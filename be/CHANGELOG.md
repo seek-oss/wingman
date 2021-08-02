@@ -1,5 +1,13 @@
 # wingman-be
 
+## 0.3.0
+
+### Minor Changes
+
+- 021699f: **deps:** Apollo Server 3
+
+  See the [Migrating to Apollo Server 3](https://www.apollographql.com/docs/apollo-server/migration) guide for more information.
+
 ## 0.2.6
 
 ### Patch Changes
