@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.22.1
+
+### Patch Changes
+
+- 2aeb109: Remove `ssr` flag from graphql queries
+
 ## 0.22.0
 
 ### Minor Changes
