@@ -56,7 +56,6 @@ export const JobCategorySuggest = forwardRef<HTMLInputElement, Props>(
     ] = useLazyQuery<JobCategorySuggestQuery>(JOB_CATEGORY_SUGGEST, {
       client,
       fetchPolicy: 'no-cache',
-      ssr: false,
     });
 
     const [debounceJobCategorySuggestInput] = useDebounce(

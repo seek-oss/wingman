@@ -59,7 +59,6 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
         {
           ...(client && { client }),
           fetchPolicy: 'no-cache',
-          ssr: false,
           onCompleted: (data) => {
             if (
               data.locationSuggestions &&
@@ -85,7 +84,6 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       {
         ...(client && { client }),
         fetchPolicy: 'no-cache',
-        ssr: false,
       },
     );
 
