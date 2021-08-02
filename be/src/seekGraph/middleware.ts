@@ -1,3 +1,9 @@
+/* eslint-disable new-cap */
+
+import {
+  ApolloServerPluginLandingPageDisabled,
+  ApolloServerPluginLandingPageGraphQLPlayground,
+} from 'apollo-server-core';
 import { ApolloServer } from 'apollo-server-koa';
 import { Middleware } from 'koa';
 
@@ -25,13 +31,17 @@ export const createSeekGraphMiddleware = async ({
 
   const server = new ApolloServer({
     context: createContext,
-    engine: false,
     introspection: debug,
     debug,
-    playground: debug,
+    plugins: [
+      debug
+        ? ApolloServerPluginLandingPageGraphQLPlayground()
+        : ApolloServerPluginLandingPageDisabled(),
+    ],
     schema,
-    subscriptions: false,
   });
+
+  await server.start();
 
   return server.getMiddleware({ path });
 };
