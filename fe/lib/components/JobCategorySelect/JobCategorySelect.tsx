@@ -52,7 +52,6 @@ export const JobCategorySelect = forwardRef<HTMLInputElement, Props>(
     } = useQuery<JobCategoriesQuery>(JOB_CATEGORIES, {
       ...(client && { client }),
       fetchPolicy: 'no-cache',
-      ssr: false,
       variables: {
         schemeId,
       },
