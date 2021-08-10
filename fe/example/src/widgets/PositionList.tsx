@@ -75,6 +75,7 @@ export const PositionList = ({ children }: Props) => {
         <Columns alignY="center" space="gutter">
           <Column>
             <SearchField
+              aria-label="Position name"
               autoFocus
               id="nameSearch"
               onChange={(event) => setNameSearch(event.currentTarget.value)}

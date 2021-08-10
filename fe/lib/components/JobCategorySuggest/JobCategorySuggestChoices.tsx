@@ -70,9 +70,12 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
 
     return (
       <Stack space="small">
-        <Text weight="strong">Category</Text>
+        <Text id="job-category-suggest-select-label" weight="strong">
+          Category
+        </Text>
         <RadioGroup
           {...restProps}
+          aria-labelledby="job-category-suggest-select-label"
           name={name}
           id="job-category-suggest-select"
           onChange={handleChoiceSelect}

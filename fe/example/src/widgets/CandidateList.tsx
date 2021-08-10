@@ -126,6 +126,7 @@ export const CandidateList = ({ candidates }: Props) => {
         <Columns alignY="center" space="gutter">
           <Column>
             <SearchField
+              aria-label="Candidate name"
               autoFocus
               id="nameSearch"
               onChange={(event) => setNameSearch(event.currentTarget.value)}

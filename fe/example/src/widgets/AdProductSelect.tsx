@@ -46,6 +46,7 @@ export const AdProductSelect = ({ onChange }: Props) => {
           >
             <Stack space="gutter">
               <RadioGroup
+                aria-label="Ad product"
                 id={`adProduct${product.name}`}
                 onChange={() => changeProduct(product.name)}
                 value={selection ?? ''}

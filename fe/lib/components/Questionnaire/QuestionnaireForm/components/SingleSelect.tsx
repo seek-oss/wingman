@@ -25,8 +25,11 @@ const SingleSelect = ({
   return (
     <Card>
       <Stack space="medium">
-        <Text size="large">{title}</Text>
+        <Text id={componentId('single-select-label', id)} size="large">
+          {title}
+        </Text>
         <RadioGroup
+          aria-labelledby={componentId('single-select-label', id)}
           id={componentId('single-select', id)}
           onChange={onChange}
           value={value}

@@ -16,7 +16,7 @@ import type {
 import JobCategorySelectInput from './JobCategorySelectInput';
 import { JOB_CATEGORIES } from './queries';
 
-interface FieldProps extends ComponentPropsWithRef<typeof Dropdown> {}
+type FieldProps = ComponentPropsWithRef<typeof Dropdown>;
 type JobCategoryType = 'parent' | 'child';
 
 interface Props extends Omit<FieldProps, 'value' | 'onChange' | 'children'> {

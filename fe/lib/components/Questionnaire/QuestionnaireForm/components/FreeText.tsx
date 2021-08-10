@@ -1,6 +1,8 @@
 import { Card, Stack, Text, Textarea } from 'braid-design-system';
 import React from 'react';
 
+import { componentId } from './componentId';
+
 interface FreeTextProps {
   value: string;
   setValue: (value: string) => void;
@@ -14,8 +16,15 @@ const FreeText = ({ value, setValue, title }: FreeTextProps) => {
   return (
     <Card>
       <Stack space="medium">
-        <Text size="large">{title}</Text>
-        <Textarea id="id" value={value} onChange={onChange} />
+        <Text id={componentId('free-text-label', title)} size="large">
+          {title}
+        </Text>
+        <Textarea
+          aria-labelledby={componentId('free-text-label', title)}
+          id={componentId('free-text', title)}
+          value={value}
+          onChange={onChange}
+        />
       </Stack>
     </Card>
   );

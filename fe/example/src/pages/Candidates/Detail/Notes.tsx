@@ -26,6 +26,7 @@ export const CandidateNotes = ({ children: candidate }: Props) => {
       <Card>
         <Stack space="gutter">
           <Textarea
+            aria-label="Note"
             id="addNote"
             onChange={(event) => setNoteText(event.currentTarget.value)}
             value={noteText}
