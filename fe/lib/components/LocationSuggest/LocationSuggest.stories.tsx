@@ -38,6 +38,7 @@ storiesOf('Locations', module)
     return (
       <LocationSuggest
         id="locationSuggest"
+        label="Location"
         message={message}
         reserveMessageSpace={boolean('reserveMessageSpace', false)}
         schemeId="seekAnz"

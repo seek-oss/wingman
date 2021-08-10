@@ -21,13 +21,14 @@ import type {
 import LocationSuggestInput from './LocationSuggestInput';
 import { LOCATION_SUGGEST, NEAREST_LOCATIONS } from './queries';
 
-interface FieldProps extends ComponentPropsWithRef<typeof TextField> {}
+type FieldProps = ComponentPropsWithRef<typeof TextField>;
 
 interface Props extends Omit<FieldProps, 'value' | 'onChange'> {
   client?: ApolloClient<unknown>;
   debounceDelay?: number;
   first?: number;
   hirerId?: string;
+  label: string;
   onSelect?: (location?: Location) => void;
   schemeId: string;
   usageTypeCode?: string;

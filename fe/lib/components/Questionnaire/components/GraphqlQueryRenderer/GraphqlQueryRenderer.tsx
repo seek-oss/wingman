@@ -126,6 +126,7 @@ export const GraphqlQueryRenderer = ({
   return (
     <Stack space="large">
       <RadioGroup
+        aria-label="GraphQL query"
         id="graphql-query-renderer-pane"
         onChange={(event) =>
           setVisiblePane(event.currentTarget.value as VisiblePane)

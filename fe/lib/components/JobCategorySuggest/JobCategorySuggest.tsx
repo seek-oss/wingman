@@ -18,7 +18,7 @@ import type {
 import JobCategorySuggestChoices from './JobCategorySuggestChoices';
 import { JOB_CATEGORY_SUGGEST } from './queries';
 
-interface RadioProps extends ComponentPropsWithRef<typeof RadioGroup> {}
+type RadioProps = ComponentPropsWithRef<typeof RadioGroup>;
 
 interface Props extends Partial<Omit<RadioProps, 'id'>> {
   positionProfile: JobCategorySuggestionPositionProfileInput;

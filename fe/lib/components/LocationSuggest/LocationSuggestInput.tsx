@@ -40,6 +40,7 @@ const createHighlights = (string: string, input: string) => {
 };
 
 interface Props {
+  label: string;
   isLoading: boolean;
   locationSuggestions?: LocationSuggestion[];
   onChange: (textInput: string) => void;
