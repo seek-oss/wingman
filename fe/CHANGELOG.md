@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.23.0
+
+### Minor Changes
+
+- 34f117b: Update for Braid 30.3
+
 ## 0.22.2
 
 ### Patch Changes
