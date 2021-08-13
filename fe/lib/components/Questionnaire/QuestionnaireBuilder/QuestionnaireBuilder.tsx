@@ -25,12 +25,20 @@ interface QuestionnaireBuilderProps {
   hirerId: string;
   graphqlInput?: GraphqlComponentInput[];
   onChange?: (mutationVariables: QuestionnaireCreateInput) => void;
+
+  /**
+   * Controls if the raw GraphQL mutation & variables should be shown
+   *
+   * Defaults to `true`
+   */
+  showGraphqlOutput?: boolean;
 }
 
 export const QuestionnaireBuilder = ({
   hirerId,
   graphqlInput,
   onChange,
+  showGraphqlOutput,
 }: QuestionnaireBuilderProps) => {
   const [formBuilderState, setFormBuilderState] = useState<FormComponent[]>([]);
 
@@ -65,16 +73,18 @@ export const QuestionnaireBuilder = ({
           </Column>
         </Columns>
 
-        <Card>
-          <Stack space="large">
-            <Heading level="3">GraphQL Output</Heading>
+        {showGraphqlOutput !== false && (
+          <Card>
+            <Stack space="large">
+              <Heading level="3">GraphQL Output</Heading>
 
-            <GraphqlQueryRenderer
-              components={formBuilderState}
-              hirerId={hirerId}
-            />
-          </Stack>
-        </Card>
+              <GraphqlQueryRenderer
+                components={formBuilderState}
+                hirerId={hirerId}
+              />
+            </Stack>
+          </Card>
+        )}
       </Stack>
     </ContentBlock>
   );
