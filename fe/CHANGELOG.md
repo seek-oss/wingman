@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.24.0
+
+### Minor Changes
+
+- 2ecd8d7: **QuestionnaireBuilder**: Make questionnaire builder's GraphQL dump optional
+
 ## 0.23.0
 
 ### Minor Changes
