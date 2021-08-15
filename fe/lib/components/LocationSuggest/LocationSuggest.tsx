@@ -11,6 +11,8 @@ import { useDebounce } from 'use-debounce';
 import type {
   GeoLocationInput,
   Location,
+  LocationQuery,
+  LocationQueryVariables,
   LocationSuggestion,
   NearestLocationsQuery,
   NearestLocationsQueryVariables,
@@ -19,7 +21,7 @@ import type {
 } from '../../types/seek.graphql';
 
 import LocationSuggestInput from './LocationSuggestInput';
-import { LOCATION_SUGGEST, NEAREST_LOCATIONS } from './queries';
+import { LOCATION_SUGGEST, NEAREST_LOCATIONS, LOCATION } from './queries';
 
 type FieldProps = ComponentPropsWithRef<typeof TextField>;
 
@@ -32,6 +34,7 @@ interface Props extends Omit<FieldProps, 'value' | 'onChange'> {
   onSelect?: (location?: Location) => void;
   schemeId: string;
   usageTypeCode?: string;
+  initialValue?: string;
 }
 
 export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
@@ -44,6 +47,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       onSelect,
       schemeId,
       usageTypeCode = 'PositionPosting',
+      initialValue,
 
       message,
       name,
@@ -88,6 +92,19 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       },
     );
 
+    const [
+      getLocation,
+      {
+        data: locationData,
+      },
+    ] = useLazyQuery<LocationQuery, LocationQueryVariables>(
+      LOCATION,
+      {
+        ...(client && { client }),
+        fetchPolicy: 'no-cache',
+      },
+    );
+
     const [selectedLocationId, setSelectedLocationId] = useState('');
     const [locationSuggestInput, setLocationSuggestInput] = useState('');
     const [locationSuggestResults, setLocationSuggestResults] =
@@ -95,6 +112,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
     const [detectLocationError, setDetectLocationError] = useState<string>();
 
     const [placeholder, setPlaceholder] = useState('');
+    const [initialLocation, setInitialLocation] = useState<Location | undefined>();
     const [debounceLocationSuggestInput] = useDebounce(
       locationSuggestInput,
       debounceDelay,
@@ -140,6 +158,24 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
     ]);
 
     useEffect(() => {
+      if (initialValue) {
+        getLocation({
+          variables: {
+            id: initialValue
+          },
+        });
+      }
+    }, [initialValue, getLocation]);
+
+    useEffect(() => {
+      setInitialLocation(locationData?.location ?? undefined);
+      if (locationData?.location) {
+        setSelectedLocationId(locationData?.location.id.value);
+      }
+      
+    }, [locationData])
+
+    useEffect(() => {
       if (suggestData?.locationSuggestions) {
         setLocationSuggestResults(suggestData.locationSuggestions);
       }
@@ -175,6 +211,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
             placeholder={placeholder}
             setDetectLocationError={setDetectLocationError}
             tone={tone}
+            initialLocation={initialLocation}
           />
 
           <input

@@ -8,7 +8,7 @@ import {
   IconSearch,
   TextField,
 } from 'braid-design-system';
-import React, { ComponentProps, useState } from 'react';
+import React, { ComponentProps, useEffect, useState } from 'react';
 
 import type {
   GeoLocationInput,
@@ -50,6 +50,7 @@ interface Props {
   placeholder: string;
   setDetectLocationError: (err?: string) => void;
   tone: ComponentProps<typeof TextField>['tone'];
+  initialLocation?: Location;
 }
 
 const LocationSuggestInput = ({
@@ -62,16 +63,21 @@ const LocationSuggestInput = ({
   placeholder,
   setDetectLocationError,
   tone,
+  initialLocation,
   ...restProps
 }: Props) => {
   const initialLocationSuggest = {
-    text: '',
-    value: '',
+    text: initialLocation?.contextualName ?? '',
+    value: initialLocation?.id.value ?? '',
   };
 
   const [locationSuggest, setLocationSuggest] = useState(
     initialLocationSuggest,
   );
+
+  useEffect(() => {
+    setLocationSuggest(initialLocationSuggest);
+  }, [initialLocation])
 
   const mappedSuggestions = mapLocationsToSuggestions(locationSuggestions);
 
