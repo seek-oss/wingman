@@ -3,6 +3,7 @@ import { FieldMessage, Stack, TextField } from 'braid-design-system';
 import React, {
   ComponentPropsWithRef,
   forwardRef,
+  useCallback,
   useEffect,
   useState,
 } from 'react';
@@ -11,8 +12,6 @@ import { useDebounce } from 'use-debounce';
 import type {
   GeoLocationInput,
   Location,
-  LocationQuery,
-  LocationQueryVariables,
   LocationSuggestion,
   NearestLocationsQuery,
   NearestLocationsQueryVariables,
@@ -92,14 +91,6 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       },
     );
 
-    const [getLocation, { data: locationData }] = useLazyQuery<
-      LocationQuery,
-      LocationQueryVariables
-    >(LOCATION, {
-      ...(client && { client }),
-      fetchPolicy: 'no-cache',
-    });
-
     const [selectedLocationId, setSelectedLocationId] = useState('');
     const [locationSuggestInput, setLocationSuggestInput] = useState('');
     const [locationSuggestResults, setLocationSuggestResults] =
@@ -154,22 +145,35 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       getLocationSuggest,
     ]);
 
-    useEffect(() => {
-      if (initialValue) {
-        getLocation({
-          variables: {
-            id: initialValue,
-          },
-        });
+    const loadInitialLocation = useCallback(async () => {
+      if (!initialValue || initialLocation?.id.value === initialValue) {
+        return;
       }
-    }, [initialValue, getLocation]);
+
+      if (!client) {
+        return;
+      }
+      const { data } = await client.query({
+        ...(client && { client }),
+        fetchPolicy: 'no-cache',
+        query: LOCATION,
+        variables: { id: initialValue },
+      });
+
+      if (!data.location) {
+        return;
+      }
+
+      setInitialLocation(data.location);
+
+      if (!selectedLocationId) {
+        setSelectedLocationId(data.location.id.value);
+      }
+    }, [initialValue, client, selectedLocationId, initialLocation]);
 
     useEffect(() => {
-      setInitialLocation(locationData?.location ?? undefined);
-      if (locationData?.location) {
-        setSelectedLocationId(locationData?.location.id.value);
-      }
-    }, [locationData]);
+      loadInitialLocation();
+    });
 
     useEffect(() => {
       if (suggestData?.locationSuggestions) {
