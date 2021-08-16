@@ -2,4 +2,4 @@
 'wingman-fe': minor
 ---
 
-**LocationSuggestInput:** Allow `LocationSuggestInput` to load initial location
+**LocationSuggestInput:** Support loading an initial location
