@@ -37,6 +37,7 @@ storiesOf('JobCategories', module)
     return (
       <JobCategorySelect
         id="jobCategories"
+        label="Category"
         message={message}
         schemeId="seekAnz"
         reserveMessageSpace={boolean('reserveMessageSpace', false)}
