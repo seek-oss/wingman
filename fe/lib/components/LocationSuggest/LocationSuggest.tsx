@@ -21,7 +21,7 @@ import type {
 } from '../../types/seek.graphql';
 
 import LocationSuggestInput from './LocationSuggestInput';
-import { LOCATION_SUGGEST, NEAREST_LOCATIONS, LOCATION } from './queries';
+import { LOCATION, LOCATION_SUGGEST, NEAREST_LOCATIONS } from './queries';
 
 type FieldProps = ComponentPropsWithRef<typeof TextField>;
 
@@ -92,18 +92,13 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       },
     );
 
-    const [
-      getLocation,
-      {
-        data: locationData,
-      },
-    ] = useLazyQuery<LocationQuery, LocationQueryVariables>(
-      LOCATION,
-      {
-        ...(client && { client }),
-        fetchPolicy: 'no-cache',
-      },
-    );
+    const [getLocation, { data: locationData }] = useLazyQuery<
+      LocationQuery,
+      LocationQueryVariables
+    >(LOCATION, {
+      ...(client && { client }),
+      fetchPolicy: 'no-cache',
+    });
 
     const [selectedLocationId, setSelectedLocationId] = useState('');
     const [locationSuggestInput, setLocationSuggestInput] = useState('');
@@ -112,7 +107,9 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
     const [detectLocationError, setDetectLocationError] = useState<string>();
 
     const [placeholder, setPlaceholder] = useState('');
-    const [initialLocation, setInitialLocation] = useState<Location | undefined>();
+    const [initialLocation, setInitialLocation] = useState<
+      Location | undefined
+    >();
     const [debounceLocationSuggestInput] = useDebounce(
       locationSuggestInput,
       debounceDelay,
@@ -161,7 +158,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       if (initialValue) {
         getLocation({
           variables: {
-            id: initialValue
+            id: initialValue,
           },
         });
       }
@@ -172,8 +169,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       if (locationData?.location) {
         setSelectedLocationId(locationData?.location.id.value);
       }
-      
-    }, [locationData])
+    }, [locationData]);
 
     useEffect(() => {
       if (suggestData?.locationSuggestions) {

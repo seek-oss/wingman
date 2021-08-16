@@ -77,7 +77,7 @@ const LocationSuggestInput = ({
 
   useEffect(() => {
     setLocationSuggest(initialLocationSuggest);
-  }, [initialLocation])
+  }, [initialLocation]);
 
   const mappedSuggestions = mapLocationsToSuggestions(locationSuggestions);
 
