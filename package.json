@@ -8,7 +8,7 @@
     "@graphql-codegen/schema-ast": "2.0.0",
     "@graphql-codegen/typescript": "2.0.0",
     "@graphql-codegen/typescript-operations": "2.0.1",
-    "concurrently": "6.2.0",
+    "concurrently": "6.2.1",
     "graphql": "15.5.1"
   },
   "private": true,
