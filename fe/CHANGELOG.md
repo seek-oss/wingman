@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.25.0
+
+### Minor Changes
+
+- 3072d56: **JobCategorySelect:** Require `label` prop
+
 ## 0.24.0
 
 ### Minor Changes
