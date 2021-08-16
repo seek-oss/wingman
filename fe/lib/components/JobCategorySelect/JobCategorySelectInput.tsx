@@ -5,7 +5,7 @@ import type {
   JobCategoriesQuery,
   JobCategoryAttributesFragment,
 } from '../../types/seek.graphql';
-import { findObjectByOid } from '../../utils';
+import { findObjectByChildOid, findObjectByOid } from '../../utils';
 
 type AllJobCategories = JobCategoriesQuery['jobCategories'];
 type AnyJobCategory = JobCategoryAttributesFragment;
@@ -15,20 +15,23 @@ interface Props {
   onSelect: (jobCategory: AnyJobCategory, type: 'parent' | 'child') => void;
   tone: ComponentProps<typeof Dropdown>['tone'];
   hideLabel?: boolean;
+  initialJobCategory?: AnyJobCategory;
 }
 
 const JobCategorySelectInput = ({
   jobCategories,
   onSelect,
   hideLabel,
+  initialJobCategory,
   ...restProps
 }: Props) => {
   const [selectedParentCategoryId, setSelectedParentCategoryId] = useState('');
   const [selectedChildCategoryId, setSelectedChildCategoryId] = useState('');
   const [childCategories, setChildCategories] = useState<AnyJobCategory[]>();
+  const [isInitialJobCategory, setIsInitialJobCategory] = useState<boolean>();
 
   useEffect(() => {
-    if (selectedParentCategoryId !== '') {
+    if (selectedParentCategoryId !== '' && !isInitialJobCategory) {
       const parentCategory = findObjectByOid(
         jobCategories,
         selectedParentCategoryId,
@@ -42,6 +45,24 @@ const JobCategorySelectInput = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedParentCategoryId]);
+
+  useEffect(() => {
+    if (initialJobCategory) {
+      setIsInitialJobCategory(true);
+      const parentCategory = findObjectByChildOid(
+        jobCategories,
+        initialJobCategory.id.value,
+      );
+
+      if (parentCategory?.children) {
+        setSelectedParentCategoryId(parentCategory.id.value);
+        setChildCategories(parentCategory.children);
+        setSelectedChildCategoryId(initialJobCategory.id.value);
+        onSelect(parentCategory, 'parent');
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialJobCategory]);
 
   useEffect(() => {
     if (selectedChildCategoryId !== '' && childCategories) {
@@ -64,9 +85,10 @@ const JobCategorySelectInput = ({
           aria-label={hideLabel ? 'Category' : undefined}
           id="jobCategoriesSelect"
           label={hideLabel ? undefined : 'Category'}
-          onChange={(event) =>
-            setSelectedParentCategoryId(event.currentTarget.value)
-          }
+          onChange={(event) => {
+            setSelectedParentCategoryId(event.currentTarget.value);
+            setIsInitialJobCategory(false);
+          }}
           placeholder="Select a category"
           value={selectedParentCategoryId}
         >
@@ -83,9 +105,10 @@ const JobCategorySelectInput = ({
             {...restProps}
             id="subJobCategoriesSelect"
             label={hideLabel ? undefined : 'Subcategory'}
-            onChange={(event) =>
-              setSelectedChildCategoryId(event.currentTarget.value)
-            }
+            onChange={(event) => {
+              setSelectedChildCategoryId(event.currentTarget.value);
+              setIsInitialJobCategory(false);
+            }}
             placeholder="Select a subcategory"
             value={selectedChildCategoryId}
           >

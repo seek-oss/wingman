@@ -29,6 +29,7 @@ interface Props extends Partial<Omit<RadioProps, 'id'>> {
   client?: ApolloClient<unknown>;
   debounceDelay?: number;
   showConfidence?: boolean;
+  initialValue?: string;
 }
 
 export const JobCategorySuggest = forwardRef<HTMLInputElement, Props>(
@@ -40,6 +41,7 @@ export const JobCategorySuggest = forwardRef<HTMLInputElement, Props>(
       positionProfile,
       schemeId,
       showConfidence,
+      initialValue,
 
       message,
       name,
@@ -90,6 +92,7 @@ export const JobCategorySuggest = forwardRef<HTMLInputElement, Props>(
               choices={suggestData.jobCategorySuggestions}
               name={name}
               ref={forwardedRef}
+              initialValue={initialValue}
               onSelect={onSelect}
               showConfidence={showConfidence}
               tone={tone}

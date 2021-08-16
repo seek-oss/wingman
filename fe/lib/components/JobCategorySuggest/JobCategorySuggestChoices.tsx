@@ -24,6 +24,7 @@ interface Props {
   client?: ApolloClient<unknown>;
   name?: string;
   showConfidence?: boolean;
+  initialValue?: string;
   tone?: ComponentProps<typeof RadioGroup>['tone'];
 }
 
@@ -42,6 +43,7 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
       name,
       onSelect,
       showConfidence = false,
+      initialValue,
       ...restProps
     },
     forwardedRef,
@@ -67,6 +69,17 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
         onSelect(jobCategorySuggest);
       }
     };
+
+    if (initialValue && selectedJobCategory === undefined) {
+      setSelectedJobCategory('Other');
+
+      const jobCategorySuggest = choices.find(
+        (choice) => choice.jobCategory.id.value === 'Other',
+      );
+      if (jobCategorySuggest) {
+        onSelect(jobCategorySuggest);
+      }
+    }
 
     return (
       <Stack space="small">
@@ -107,6 +120,7 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
                 client={client}
                 label="Category"
                 id="job-category-suggest-select-other"
+                initialValue={initialValue}
                 onSelect={(jobCategory, type) => {
                   /**
                    * Only child job categories are suitable for job posting
