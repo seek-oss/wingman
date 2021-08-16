@@ -76,7 +76,12 @@ const LocationSuggestInput = ({
   );
 
   useEffect(() => {
-    setLocationSuggest(initialLocationSuggest);
+    if (initialLocation) {
+      setLocationSuggest({
+        text: initialLocation.contextualName,
+        value: initialLocation.id.value,
+      });
+    }
   }, [initialLocation]);
 
   const mappedSuggestions = mapLocationsToSuggestions(locationSuggestions);
