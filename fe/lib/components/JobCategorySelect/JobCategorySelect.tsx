@@ -21,6 +21,7 @@ type JobCategoryType = 'parent' | 'child';
 
 interface Props extends Omit<FieldProps, 'value' | 'onChange' | 'children'> {
   client?: ApolloClient<unknown>;
+  label: string;
   onSelect?: (
     jobCategory: JobCategoryAttributesFragment,
     type: JobCategoryType,
@@ -40,7 +41,6 @@ export const JobCategorySelect = forwardRef<HTMLInputElement, Props>(
       name,
       reserveMessageSpace,
       tone,
-      hideLabel,
       ...restProps
     },
     forwardedRef,
@@ -86,7 +86,6 @@ export const JobCategorySelect = forwardRef<HTMLInputElement, Props>(
                 jobCategories={categoriesData.jobCategories}
                 onSelect={handleJobCategoriesSelect}
                 tone={tone}
-                hideLabel={hideLabel}
               />
             )
           )}

@@ -105,6 +105,7 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
             {selectedJobCategory === 'Other' && (
               <JobCategorySelect
                 client={client}
+                label="Category"
                 id="job-category-suggest-select-other"
                 onSelect={(jobCategory, type) => {
                   /**

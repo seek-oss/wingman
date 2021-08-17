@@ -61,6 +61,7 @@ const JobCategorySelectInput = ({
       <Column>
         <Dropdown
           {...restProps}
+          aria-label={hideLabel ? 'Category' : undefined}
           id="jobCategoriesSelect"
           label={hideLabel ? undefined : 'Category'}
           onChange={(event) =>
