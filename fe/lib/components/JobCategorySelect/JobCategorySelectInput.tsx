@@ -41,6 +41,16 @@ const JobCategorySelectInput = ({
     }
   };
 
+  const handleChildCategorySelect = (childCategoryId: string) => {
+    if (childCategories) {
+      const childCategory = findObjectByOid(childCategories, childCategoryId);
+      setSelectedChildCategoryId(childCategoryId);
+      if (childCategory) {
+        onSelect(childCategory, 'child');
+      }
+    }
+  };
+
   useEffect(() => {
     if (initialValue) {
       for (const parentCategory of jobCategories) {
@@ -66,19 +76,6 @@ const JobCategorySelectInput = ({
     }
   }, [initialValue, jobCategories]);
 
-  useEffect(() => {
-    if (selectedChildCategoryId !== '' && childCategories) {
-      const childCategory = findObjectByOid(
-        childCategories,
-        selectedChildCategoryId,
-      );
-      if (childCategory) {
-        onSelect(childCategory, 'child');
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedChildCategoryId, childCategories]);
-
   return (
     <Columns space="small">
       <Column>
@@ -87,9 +84,9 @@ const JobCategorySelectInput = ({
           aria-label={hideLabel ? 'Category' : undefined}
           id="jobCategoriesSelect"
           label={hideLabel ? undefined : 'Category'}
-          onChange={(event) => {
-            handleParentCategorySelect(event.currentTarget.value);
-          }}
+          onChange={(event) =>
+            handleParentCategorySelect(event.currentTarget.value)
+          }
           placeholder="Select a category"
           value={selectedParentCategoryId}
         >
@@ -106,9 +103,9 @@ const JobCategorySelectInput = ({
             {...restProps}
             id="subJobCategoriesSelect"
             label={hideLabel ? undefined : 'Subcategory'}
-            onChange={(event) => {
-              setSelectedChildCategoryId(event.currentTarget.value);
-            }}
+            onChange={(event) =>
+              handleChildCategorySelect(event.currentTarget.value)
+            }
             placeholder="Select a subcategory"
             value={selectedChildCategoryId}
           >
