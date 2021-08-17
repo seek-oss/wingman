@@ -27,7 +27,7 @@
     "nock": "13.1.1",
     "skuba": "3.14.4",
     "skuba-dive": "1.2.0",
-    "supertest": "6.1.4"
+    "supertest": "6.1.5"
   },
   "files": [
     "lib/**/*.d.ts",
