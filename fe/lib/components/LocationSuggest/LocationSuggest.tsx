@@ -146,7 +146,11 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
     ]);
 
     const loadInitialLocation = useCallback(async () => {
-      if (!initialValue || initialLocation?.id.value === initialValue) {
+      if (
+        !initialValue ||
+        initialLocation?.id.value === initialValue ||
+        selectedLocationId
+      ) {
         return;
       }
 
