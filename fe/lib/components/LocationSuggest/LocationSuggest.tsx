@@ -27,7 +27,7 @@ import { LOCATION, LOCATION_SUGGEST, NEAREST_LOCATIONS } from './queries';
 type FieldProps = ComponentPropsWithRef<typeof TextField>;
 
 interface Props extends Omit<FieldProps, 'value' | 'onChange'> {
-  client?: ApolloClient<unknown>;
+  client: ApolloClient<unknown>;
   debounceDelay?: number;
   first?: number;
   hirerId?: string;
@@ -154,9 +154,6 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
         return;
       }
 
-      if (!client) {
-        return;
-      }
       const { data } = await client.query<
         LocationQuery,
         LocationQueryVariables
