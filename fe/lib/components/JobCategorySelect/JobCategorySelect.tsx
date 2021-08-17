@@ -88,7 +88,7 @@ export const JobCategorySelect = forwardRef<HTMLInputElement, Props>(
                 jobCategories={categoriesData.jobCategories}
                 onSelect={handleJobCategoriesSelect}
                 tone={tone}
-                initialJobCategoryId={initialValue}
+                initialValue={initialValue}
               />
             )
           )}
