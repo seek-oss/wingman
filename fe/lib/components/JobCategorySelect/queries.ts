@@ -27,6 +27,9 @@ export const JOB_CATEGORY = gql`
       children {
         ...jobCategoryAttributes
       }
+      parent {
+        ...jobCategoryAttributes
+      }
     }
   }
   ${JOB_CATEGORY_ATTRIBUTES}

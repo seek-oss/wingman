@@ -3,9 +3,10 @@ import React, { ComponentProps, useEffect, useState } from 'react';
 
 import type {
   JobCategoriesQuery,
+  JobCategory,
   JobCategoryAttributesFragment,
 } from '../../types/seek.graphql';
-import { findObjectByChildOid, findObjectByOid } from '../../utils';
+import { findObjectByOid } from '../../utils';
 
 type AllJobCategories = JobCategoriesQuery['jobCategories'];
 type AnyJobCategory = JobCategoryAttributesFragment;
@@ -15,7 +16,7 @@ interface Props {
   onSelect: (jobCategory: AnyJobCategory, type: 'parent' | 'child') => void;
   tone: ComponentProps<typeof Dropdown>['tone'];
   hideLabel?: boolean;
-  initialJobCategory?: AnyJobCategory;
+  initialJobCategory?: JobCategory;
 }
 
 const JobCategorySelectInput = ({
@@ -47,11 +48,11 @@ const JobCategorySelectInput = ({
   }, [selectedParentCategoryId]);
 
   useEffect(() => {
-    if (initialJobCategory) {
+    if (initialJobCategory?.parent && !initialJobCategory?.children) {
       setIsInitialJobCategory(true);
-      const parentCategory = findObjectByChildOid(
+      const parentCategory = findObjectByOid(
         jobCategories,
-        initialJobCategory.id.value,
+        initialJobCategory.parent.id.value,
       );
 
       if (parentCategory?.children) {
