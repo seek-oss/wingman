@@ -100,9 +100,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
     const [detectLocationError, setDetectLocationError] = useState<string>();
 
     const [placeholder, setPlaceholder] = useState('');
-    const [initialLocation, setInitialLocation] = useState<
-      Location | undefined
-    >();
+    const [initialLocation, setInitialLocation] = useState<Location>();
     const [debounceLocationSuggestInput] = useDebounce(
       locationSuggestInput,
       debounceDelay,
@@ -156,9 +154,9 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
         return;
       }
       const { data } = await client.query<
-      LocationQuery,
-      LocationQueryVariables
-    >({
+        LocationQuery,
+        LocationQueryVariables
+      >({
         ...(client && { client }),
         fetchPolicy: 'no-cache',
         query: LOCATION,
@@ -178,7 +176,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
 
     useEffect(() => {
       loadInitialLocation();
-    });
+    }, [loadInitialLocation]);
 
     useEffect(() => {
       if (suggestData?.locationSuggestions) {
