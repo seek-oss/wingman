@@ -19,18 +19,3 @@ export const JOB_CATEGORIES = gql`
   }
   ${JOB_CATEGORY_ATTRIBUTES}
 `;
-
-export const JOB_CATEGORY = gql`
-  query jobCategory($id: String!) {
-    jobCategory(id: $id) {
-      ...jobCategoryAttributes
-      children {
-        ...jobCategoryAttributes
-      }
-      parent {
-        ...jobCategoryAttributes
-      }
-    }
-  }
-  ${JOB_CATEGORY_ATTRIBUTES}
-`;

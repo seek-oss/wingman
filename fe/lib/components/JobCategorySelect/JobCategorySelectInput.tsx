@@ -15,14 +15,14 @@ interface Props {
   onSelect: (jobCategory: AnyJobCategory, type: 'parent' | 'child') => void;
   tone: ComponentProps<typeof Dropdown>['tone'];
   hideLabel?: boolean;
-  initialJobCategoryId?: string;
+  initialValue?: string;
 }
 
 const JobCategorySelectInput = ({
   jobCategories,
   onSelect,
   hideLabel,
-  initialJobCategoryId,
+  initialValue,
   ...restProps
 }: Props) => {
   const [selectedParentCategoryId, setSelectedParentCategoryId] = useState('');
@@ -47,21 +47,21 @@ const JobCategorySelectInput = ({
   }, [selectedParentCategoryId]);
 
   useEffect(() => {
-    if (initialJobCategoryId && selectedParentCategoryId === '') {
+    if (initialValue && selectedParentCategoryId === '') {
       setIsInitialJobCategory(true);
       for (const parentCategory of jobCategories) {
         if (!parentCategory.children) {
           continue;
         }
 
-        if (parentCategory.id.value === initialJobCategoryId) {
+        if (parentCategory.id.value === initialValue) {
           setChildCategories(parentCategory.children);
           setSelectedParentCategoryId(parentCategory.id.value);
           return;
         }
 
         for (const childCategory of parentCategory.children) {
-          if (childCategory.id.value === initialJobCategoryId) {
+          if (childCategory.id.value === initialValue) {
             setChildCategories(parentCategory.children);
             setSelectedParentCategoryId(parentCategory.id.value);
             setSelectedChildCategoryId(childCategory.id.value);
@@ -70,7 +70,7 @@ const JobCategorySelectInput = ({
         }
       }
     }
-  }, [initialJobCategoryId, jobCategories, selectedParentCategoryId]);
+  }, [initialValue, jobCategories, selectedParentCategoryId]);
 
   useEffect(() => {
     if (selectedChildCategoryId !== '' && childCategories) {
