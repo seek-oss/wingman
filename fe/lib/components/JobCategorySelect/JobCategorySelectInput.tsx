@@ -28,27 +28,21 @@ const JobCategorySelectInput = ({
   const [selectedParentCategoryId, setSelectedParentCategoryId] = useState('');
   const [selectedChildCategoryId, setSelectedChildCategoryId] = useState('');
   const [childCategories, setChildCategories] = useState<AnyJobCategory[]>();
-  const [isInitialJobCategory, setIsInitialJobCategory] = useState<boolean>();
 
-  useEffect(() => {
-    if (selectedParentCategoryId !== '' && !isInitialJobCategory) {
-      const parentCategory = findObjectByOid(
-        jobCategories,
-        selectedParentCategoryId,
-      );
+  const handleParentCategorySelect = (parentCategoryId: string) => {
+    const parentCategory = findObjectByOid(jobCategories, parentCategoryId);
 
-      if (parentCategory?.children) {
-        setChildCategories(parentCategory.children);
-        setSelectedChildCategoryId('');
-        onSelect(parentCategory, 'parent');
-      }
+    setSelectedParentCategoryId(parentCategoryId);
+
+    if (parentCategory?.children) {
+      setChildCategories(parentCategory.children);
+      setSelectedChildCategoryId('');
+      onSelect(parentCategory, 'parent');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedParentCategoryId]);
+  };
 
   useEffect(() => {
-    if (initialValue && selectedParentCategoryId === '') {
-      setIsInitialJobCategory(true);
+    if (initialValue) {
       for (const parentCategory of jobCategories) {
         if (!parentCategory.children) {
           continue;
@@ -70,7 +64,7 @@ const JobCategorySelectInput = ({
         }
       }
     }
-  }, [initialValue, jobCategories, selectedParentCategoryId]);
+  }, [initialValue, jobCategories]);
 
   useEffect(() => {
     if (selectedChildCategoryId !== '' && childCategories) {
@@ -94,8 +88,7 @@ const JobCategorySelectInput = ({
           id="jobCategoriesSelect"
           label={hideLabel ? undefined : 'Category'}
           onChange={(event) => {
-            setSelectedParentCategoryId(event.currentTarget.value);
-            setIsInitialJobCategory(false);
+            handleParentCategorySelect(event.currentTarget.value);
           }}
           placeholder="Select a category"
           value={selectedParentCategoryId}
@@ -115,7 +108,6 @@ const JobCategorySelectInput = ({
             label={hideLabel ? undefined : 'Subcategory'}
             onChange={(event) => {
               setSelectedChildCategoryId(event.currentTarget.value);
-              setIsInitialJobCategory(false);
             }}
             placeholder="Select a subcategory"
             value={selectedChildCategoryId}
