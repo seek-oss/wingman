@@ -3,7 +3,6 @@ import React, { ComponentProps, useEffect, useState } from 'react';
 
 import type {
   JobCategoriesQuery,
-  JobCategory,
   JobCategoryAttributesFragment,
 } from '../../types/seek.graphql';
 import { findObjectByOid } from '../../utils';
@@ -16,14 +15,14 @@ interface Props {
   onSelect: (jobCategory: AnyJobCategory, type: 'parent' | 'child') => void;
   tone: ComponentProps<typeof Dropdown>['tone'];
   hideLabel?: boolean;
-  initialJobCategory?: JobCategory;
+  initialJobCategoryId?: string;
 }
 
 const JobCategorySelectInput = ({
   jobCategories,
   onSelect,
   hideLabel,
-  initialJobCategory,
+  initialJobCategoryId,
   ...restProps
 }: Props) => {
   const [selectedParentCategoryId, setSelectedParentCategoryId] = useState('');
@@ -48,22 +47,30 @@ const JobCategorySelectInput = ({
   }, [selectedParentCategoryId]);
 
   useEffect(() => {
-    if (initialJobCategory?.parent && !initialJobCategory?.children) {
+    if (initialJobCategoryId && selectedParentCategoryId === '') {
       setIsInitialJobCategory(true);
-      const parentCategory = findObjectByOid(
-        jobCategories,
-        initialJobCategory.parent.id.value,
-      );
+      for (const parentCategory of jobCategories) {
+        if (!parentCategory.children) {
+          continue;
+        }
 
-      if (parentCategory?.children) {
-        setSelectedParentCategoryId(parentCategory.id.value);
-        setChildCategories(parentCategory.children);
-        setSelectedChildCategoryId(initialJobCategory.id.value);
-        onSelect(parentCategory, 'parent');
+        if (parentCategory.id.value === initialJobCategoryId) {
+          setChildCategories(parentCategory.children);
+          setSelectedParentCategoryId(parentCategory.id.value);
+          return;
+        }
+
+        for (const childCategory of parentCategory.children) {
+          if (childCategory.id.value === initialJobCategoryId) {
+            setChildCategories(parentCategory.children);
+            setSelectedParentCategoryId(parentCategory.id.value);
+            setSelectedChildCategoryId(childCategory.id.value);
+            return;
+          }
+        }
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialJobCategory]);
+  }, [initialJobCategoryId, jobCategories, selectedParentCategoryId]);
 
   useEffect(() => {
     if (selectedChildCategoryId !== '' && childCategories) {
