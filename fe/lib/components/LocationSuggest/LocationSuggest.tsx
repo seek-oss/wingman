@@ -12,6 +12,8 @@ import { useDebounce } from 'use-debounce';
 import type {
   GeoLocationInput,
   Location,
+  LocationQuery,
+  LocationQueryVariables,
   LocationSuggestion,
   NearestLocationsQuery,
   NearestLocationsQueryVariables,
@@ -153,7 +155,10 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       if (!client) {
         return;
       }
-      const { data } = await client.query({
+      const { data } = await client.query<
+      LocationQuery,
+      LocationQueryVariables
+    >({
         ...(client && { client }),
         fetchPolicy: 'no-cache',
         query: LOCATION,
