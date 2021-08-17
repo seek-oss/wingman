@@ -54,7 +54,9 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
       confidence: choice.confidence,
     }));
 
-    const [selectedJobCategory, setSelectedJobCategory] = useState<string>();
+    const [selectedJobCategory, setSelectedJobCategory] = useState<
+      string | undefined
+    >(initialValue ? 'Other' : undefined);
 
     const handleChoiceSelect = (event: React.FormEvent<HTMLInputElement>) => {
       const choiceId = event.currentTarget.value;
@@ -69,17 +71,6 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
         onSelect(jobCategorySuggest);
       }
     };
-
-    if (initialValue && selectedJobCategory === undefined) {
-      setSelectedJobCategory('Other');
-
-      const jobCategorySuggest = choices.find(
-        (choice) => choice.jobCategory.id.value === 'Other',
-      );
-      if (jobCategorySuggest) {
-        onSelect(jobCategorySuggest);
-      }
-    }
 
     return (
       <Stack space="small">
