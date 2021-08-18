@@ -11,6 +11,21 @@ import { JobCategorySelect } from './JobCategorySelect';
 import { mockJobCategories } from './__fixtures__/jobCategories';
 
 storiesOf('JobCategories', module)
+  .addDecorator((story) => (
+    <ApolloMockProvider
+      resolvers={{
+        Query: {
+          jobCategories: () => mockJobCategories,
+        },
+      }}
+    >
+      <BraidLoadableProvider themeName="apac">
+        <Box paddingX="gutter" paddingY="large">
+          {story()}
+        </Box>
+      </BraidLoadableProvider>
+    </ApolloMockProvider>
+  ))
   .add('Job Category Select', () => {
     const requiredValidation = 'Please select a category.';
 
@@ -44,19 +59,4 @@ storiesOf('JobCategories', module)
         tone={tone}
       />
     );
-  })
-  .addDecorator((story) => (
-    <ApolloMockProvider
-      resolvers={{
-        Query: {
-          jobCategories: () => mockJobCategories,
-        },
-      }}
-    >
-      <BraidLoadableProvider themeName="apac">
-        <Box paddingX="gutter" paddingY="large">
-          {story()}
-        </Box>
-      </BraidLoadableProvider>
-    </ApolloMockProvider>
-  ));
+  });

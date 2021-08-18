@@ -36,16 +36,16 @@ const sampleQuestions: FormComponent[] = [
 ];
 
 storiesOf('QuestionnaireBuilder', module)
-  .add('GraphqlQueryRenderer', () => (
-    <GraphqlQueryRenderer
-      components={sampleQuestions}
-      hirerId="Test:hirer:id"
-    />
-  ))
   .addDecorator((story) => (
     <BraidLoadableProvider themeName="apac">
       <Box paddingX="gutter" paddingY="large">
         {story()}
       </Box>
     </BraidLoadableProvider>
+  ))
+  .add('GraphqlQueryRenderer', () => (
+    <GraphqlQueryRenderer
+      components={sampleQuestions}
+      hirerId="Test:hirer:id"
+    />
   ));

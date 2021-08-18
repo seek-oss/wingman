@@ -8,6 +8,13 @@ import { storiesOf } from 'sku/@storybook/react';
 import { SpecifiedPersonForm } from './SpecifiedPersonForm';
 
 storiesOf('SpecifiedPerson', module)
+  .addDecorator((story) => (
+    <BraidLoadableProvider themeName="apac">
+      <Box paddingX="gutter" paddingY="large">
+        {story()}
+      </Box>
+    </BraidLoadableProvider>
+  ))
   .add('SpecifiedPersonForm', () => {
     const [count, setCount] = useState(0);
     const [json, setJson] = useState('');
@@ -28,11 +35,4 @@ storiesOf('SpecifiedPerson', module)
         <CodeBlock language="json">{json}</CodeBlock>
       </Stack>
     );
-  })
-  .addDecorator((story) => (
-    <BraidLoadableProvider themeName="apac">
-      <Box paddingX="gutter" paddingY="large">
-        {story()}
-      </Box>
-    </BraidLoadableProvider>
-  ));
+  });
