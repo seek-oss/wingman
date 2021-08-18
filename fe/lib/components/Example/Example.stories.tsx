@@ -8,14 +8,14 @@ import { storiesOf } from 'sku/@storybook/react';
 import { Example } from './Example';
 
 storiesOf('Example', module)
-  .add('Default', () => <Example />)
-  .add('Custom message', () => (
-    <Example message={`${text('message', 'Hello There.')}`} />
-  ))
   .addDecorator((story) => (
     <BraidLoadableProvider themeName="apac">
       <Box paddingX="gutter" paddingY="large">
         {story()}
       </Box>
     </BraidLoadableProvider>
+  ))
+  .add('Default', () => <Example />)
+  .add('Custom message', () => (
+    <Example message={`${text('message', 'Hello There.')}`} />
   ));
