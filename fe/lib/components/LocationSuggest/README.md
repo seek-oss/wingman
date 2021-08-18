@@ -43,9 +43,12 @@ Extends:
 
 ```javascript
 import { LocationSuggest } from 'wingman-fe';
+import { useApolloClient } from '@apollo/client';
+
+const client = useApolloClient();
 
 // Higher component in tree wraps children in apollo provider
-<LocationSuggest schemeId="seekAnz" />;
+<LocationSuggest schemeId="seekAnz" client={client} />;
 ```
 
 #### Default usage with Apollo Client

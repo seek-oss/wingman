@@ -3,6 +3,7 @@ import { FieldMessage, Stack, TextField } from 'braid-design-system';
 import React, {
   ComponentPropsWithRef,
   forwardRef,
+  useCallback,
   useEffect,
   useState,
 } from 'react';
@@ -11,6 +12,8 @@ import { useDebounce } from 'use-debounce';
 import type {
   GeoLocationInput,
   Location,
+  LocationQuery,
+  LocationQueryVariables,
   LocationSuggestion,
   NearestLocationsQuery,
   NearestLocationsQueryVariables,
@@ -19,12 +22,12 @@ import type {
 } from '../../types/seek.graphql';
 
 import LocationSuggestInput from './LocationSuggestInput';
-import { LOCATION_SUGGEST, NEAREST_LOCATIONS } from './queries';
+import { LOCATION, LOCATION_SUGGEST, NEAREST_LOCATIONS } from './queries';
 
 type FieldProps = ComponentPropsWithRef<typeof TextField>;
 
 interface Props extends Omit<FieldProps, 'value' | 'onChange'> {
-  client?: ApolloClient<unknown>;
+  client: ApolloClient<unknown>;
   debounceDelay?: number;
   first?: number;
   hirerId?: string;
@@ -32,6 +35,7 @@ interface Props extends Omit<FieldProps, 'value' | 'onChange'> {
   onSelect?: (location?: Location) => void;
   schemeId: string;
   usageTypeCode?: string;
+  initialValue?: string;
 }
 
 export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
@@ -44,6 +48,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       onSelect,
       schemeId,
       usageTypeCode = 'PositionPosting',
+      initialValue,
 
       message,
       name,
@@ -95,6 +100,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
     const [detectLocationError, setDetectLocationError] = useState<string>();
 
     const [placeholder, setPlaceholder] = useState('');
+    const [initialLocation, setInitialLocation] = useState<Location>();
     const [debounceLocationSuggestInput] = useDebounce(
       locationSuggestInput,
       debounceDelay,
@@ -139,6 +145,40 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
       getLocationSuggest,
     ]);
 
+    const loadInitialLocation = useCallback(async () => {
+      if (
+        !initialValue ||
+        initialLocation?.id.value === initialValue ||
+        selectedLocationId
+      ) {
+        return;
+      }
+
+      const { data } = await client.query<
+        LocationQuery,
+        LocationQueryVariables
+      >({
+        ...(client && { client }),
+        fetchPolicy: 'no-cache',
+        query: LOCATION,
+        variables: { id: initialValue },
+      });
+
+      if (!data.location) {
+        return;
+      }
+
+      setInitialLocation(data.location);
+
+      if (!selectedLocationId) {
+        setSelectedLocationId(data.location.id.value);
+      }
+    }, [initialValue, client, selectedLocationId, initialLocation]);
+
+    useEffect(() => {
+      loadInitialLocation();
+    }, [loadInitialLocation]);
+
     useEffect(() => {
       if (suggestData?.locationSuggestions) {
         setLocationSuggestResults(suggestData.locationSuggestions);
@@ -175,6 +215,7 @@ export const LocationSuggest = forwardRef<HTMLInputElement, Props>(
             placeholder={placeholder}
             setDetectLocationError={setDetectLocationError}
             tone={tone}
+            initialLocation={initialLocation}
           />
 
           <input
