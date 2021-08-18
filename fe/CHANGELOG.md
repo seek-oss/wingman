@@ -1,5 +1,12 @@
 # wingman-fe
 
+## 0.26.0
+
+### Minor Changes
+
+- 034b907: **JobCategorySelectInput:** Support loading an initial category
+- 9b8b8c4: **LocationSuggestInput:** Support loading an initial location
+
 ## 0.25.0
 
 ### Minor Changes
