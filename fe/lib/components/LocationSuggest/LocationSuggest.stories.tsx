@@ -1,5 +1,6 @@
 import 'braid-design-system/reset';
 
+import { useApolloClient } from '@apollo/client';
 import { boolean, select } from '@storybook/addon-knobs';
 import { Box, BraidLoadableProvider } from 'braid-design-system';
 import React from 'react';
@@ -11,42 +12,45 @@ import { LocationSuggest } from './LocationSuggest';
 import { mockLocationSuggest } from './__fixtures__/locationSuggest';
 import { mockNearestLocations } from './__fixtures__/nearestLocations';
 
+const Story = () => {
+  const client = useApolloClient();
+  const requiredValidation = 'Please select a location.';
+
+  const message = select(
+    'message',
+    {
+      undefined,
+      requiredValidation,
+    },
+    undefined,
+  );
+
+  const tone = select(
+    'tone',
+    {
+      undefined,
+      critical: 'critical',
+      neutral: 'neutral',
+      positive: 'positive',
+    },
+    undefined,
+  );
+
+  return (
+    <LocationSuggest
+      client={client}
+      id="locationSuggest"
+      label="Location"
+      message={message}
+      reserveMessageSpace={boolean('reserveMessageSpace', false)}
+      schemeId="seekAnz"
+      tone={tone}
+    />
+  );
+};
+
 storiesOf('Locations', module)
-  .add('Locations Suggest', () => {
-    const requiredValidation = 'Please select a location.';
-
-    const message = select(
-      'message',
-      {
-        undefined,
-        requiredValidation,
-      },
-      undefined,
-    );
-
-    const tone = select(
-      'tone',
-      {
-        undefined,
-        critical: 'critical',
-        neutral: 'neutral',
-        positive: 'positive',
-      },
-      undefined,
-    );
-
-    return (
-      <LocationSuggest
-        id="locationSuggest"
-        label="Location"
-        message={message}
-        reserveMessageSpace={boolean('reserveMessageSpace', false)}
-        schemeId="seekAnz"
-        tone={tone}
-      />
-    );
-  })
-  .addDecorator((story) => (
+  .add('Locations Suggest', () => (
     <ApolloMockProvider
       resolvers={{
         Query: {
@@ -55,10 +59,13 @@ storiesOf('Locations', module)
         },
       }}
     >
-      <BraidLoadableProvider themeName="apac">
-        <Box paddingX="gutter" paddingY="large">
-          {story()}
-        </Box>
-      </BraidLoadableProvider>
+      <Story />
     </ApolloMockProvider>
+  ))
+  .addDecorator((story) => (
+    <BraidLoadableProvider themeName="apac">
+      <Box paddingX="gutter" paddingY="large">
+        {story()}
+      </Box>
+    </BraidLoadableProvider>
   ));
