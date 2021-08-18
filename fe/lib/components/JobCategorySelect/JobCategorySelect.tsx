@@ -27,6 +27,7 @@ interface Props extends Omit<FieldProps, 'value' | 'onChange' | 'children'> {
     type: JobCategoryType,
   ) => void;
   schemeId: string;
+  initialValue?: string;
   hideLabel?: boolean;
 }
 
@@ -36,6 +37,7 @@ export const JobCategorySelect = forwardRef<HTMLInputElement, Props>(
       client,
       onSelect,
       schemeId,
+      initialValue,
 
       message,
       name,
@@ -86,6 +88,7 @@ export const JobCategorySelect = forwardRef<HTMLInputElement, Props>(
                 jobCategories={categoriesData.jobCategories}
                 onSelect={handleJobCategoriesSelect}
                 tone={tone}
+                initialValue={initialValue}
               />
             )
           )}

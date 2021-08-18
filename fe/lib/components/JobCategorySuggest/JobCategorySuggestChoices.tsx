@@ -24,6 +24,7 @@ interface Props {
   client?: ApolloClient<unknown>;
   name?: string;
   showConfidence?: boolean;
+  initialValue?: string;
   tone?: ComponentProps<typeof RadioGroup>['tone'];
 }
 
@@ -42,6 +43,7 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
       name,
       onSelect,
       showConfidence = false,
+      initialValue,
       ...restProps
     },
     forwardedRef,
@@ -52,7 +54,9 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
       confidence: choice.confidence,
     }));
 
-    const [selectedJobCategory, setSelectedJobCategory] = useState<string>();
+    const [selectedJobCategory, setSelectedJobCategory] = useState<
+      string | undefined
+    >(initialValue ? 'Other' : undefined);
 
     const handleChoiceSelect = (event: React.FormEvent<HTMLInputElement>) => {
       const choiceId = event.currentTarget.value;
@@ -107,6 +111,7 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
                 client={client}
                 label="Category"
                 id="job-category-suggest-select-other"
+                initialValue={initialValue}
                 onSelect={(jobCategory, type) => {
                   /**
                    * Only child job categories are suitable for job posting

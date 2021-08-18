@@ -15,46 +15,66 @@ interface Props {
   onSelect: (jobCategory: AnyJobCategory, type: 'parent' | 'child') => void;
   tone: ComponentProps<typeof Dropdown>['tone'];
   hideLabel?: boolean;
+  initialValue?: string;
 }
 
 const JobCategorySelectInput = ({
   jobCategories,
   onSelect,
   hideLabel,
+  initialValue,
   ...restProps
 }: Props) => {
   const [selectedParentCategoryId, setSelectedParentCategoryId] = useState('');
   const [selectedChildCategoryId, setSelectedChildCategoryId] = useState('');
   const [childCategories, setChildCategories] = useState<AnyJobCategory[]>();
 
-  useEffect(() => {
-    if (selectedParentCategoryId !== '') {
-      const parentCategory = findObjectByOid(
-        jobCategories,
-        selectedParentCategoryId,
-      );
+  const handleParentCategorySelect = (parentCategoryId: string) => {
+    const parentCategory = findObjectByOid(jobCategories, parentCategoryId);
 
-      if (parentCategory?.children) {
-        setChildCategories(parentCategory.children);
-        setSelectedChildCategoryId('');
-        onSelect(parentCategory, 'parent');
-      }
+    setSelectedParentCategoryId(parentCategoryId);
+
+    if (parentCategory?.children) {
+      setChildCategories(parentCategory.children);
+      setSelectedChildCategoryId('');
+      onSelect(parentCategory, 'parent');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedParentCategoryId]);
+  };
 
-  useEffect(() => {
-    if (selectedChildCategoryId !== '' && childCategories) {
-      const childCategory = findObjectByOid(
-        childCategories,
-        selectedChildCategoryId,
-      );
+  const handleChildCategorySelect = (childCategoryId: string) => {
+    if (childCategories) {
+      const childCategory = findObjectByOid(childCategories, childCategoryId);
+      setSelectedChildCategoryId(childCategoryId);
       if (childCategory) {
         onSelect(childCategory, 'child');
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedChildCategoryId, childCategories]);
+  };
+
+  useEffect(() => {
+    if (initialValue) {
+      for (const parentCategory of jobCategories) {
+        if (!parentCategory.children) {
+          continue;
+        }
+
+        if (parentCategory.id.value === initialValue) {
+          setChildCategories(parentCategory.children);
+          setSelectedParentCategoryId(parentCategory.id.value);
+          return;
+        }
+
+        for (const childCategory of parentCategory.children) {
+          if (childCategory.id.value === initialValue) {
+            setChildCategories(parentCategory.children);
+            setSelectedParentCategoryId(parentCategory.id.value);
+            setSelectedChildCategoryId(childCategory.id.value);
+            return;
+          }
+        }
+      }
+    }
+  }, [initialValue, jobCategories]);
 
   return (
     <Columns space="small">
@@ -65,7 +85,7 @@ const JobCategorySelectInput = ({
           id="jobCategoriesSelect"
           label={hideLabel ? undefined : 'Category'}
           onChange={(event) =>
-            setSelectedParentCategoryId(event.currentTarget.value)
+            handleParentCategorySelect(event.currentTarget.value)
           }
           placeholder="Select a category"
           value={selectedParentCategoryId}
@@ -84,7 +104,7 @@ const JobCategorySelectInput = ({
             id="subJobCategoriesSelect"
             label={hideLabel ? undefined : 'Subcategory'}
             onChange={(event) =>
-              setSelectedChildCategoryId(event.currentTarget.value)
+              handleChildCategorySelect(event.currentTarget.value)
             }
             placeholder="Select a subcategory"
             value={selectedChildCategoryId}
