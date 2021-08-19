@@ -1,0 +1,9 @@
+/storybook/**/*
+/testing/**/*
+
+**/*.stories.ts
+**/*.stories.tsx
+**/*.test.ts
+**/*.test.ts.snap
+**/*.test.tsx
+**/*.test.tsx.snap
