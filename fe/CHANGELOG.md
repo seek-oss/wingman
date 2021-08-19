@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 0.26.1
+
+### Patch Changes
+
+- 4b8c216: **QuestionnaireBuilder:** Drop requirement for Node.js `Buffer` polyfill
+
 ## 0.26.0
 
 ### Minor Changes
