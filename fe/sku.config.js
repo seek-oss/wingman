@@ -50,13 +50,14 @@ module.exports = {
         rules: [
           {
             test: /\.graphql?$/i,
-            use: [
-              {
-                loader: 'raw-loader',
-              },
-            ],
+            type: 'asset/source',
           },
         ],
+      },
+      resolve: {
+        fallback: {
+          path: require.resolve('path-browserify'),
+        },
       },
     }),
 };

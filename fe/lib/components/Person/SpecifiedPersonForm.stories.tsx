@@ -7,7 +7,7 @@ import { storiesOf } from 'sku/@storybook/react';
 
 import { SpecifiedPersonForm } from './SpecifiedPersonForm';
 
-storiesOf('SpecifiedPerson', module)
+storiesOf('SpecifiedPersonForm', module)
   .addDecorator((story) => (
     <BraidLoadableProvider themeName="apac">
       <Box paddingX="gutter" paddingY="large">
