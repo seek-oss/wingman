@@ -10,7 +10,7 @@ import { ApolloMockProvider } from '../../testing/ApolloMockProvider';
 import { JobCategorySelect } from './JobCategorySelect';
 import { mockJobCategories } from './__fixtures__/jobCategories';
 
-storiesOf('JobCategories', module)
+storiesOf('JobCategorySelect', module)
   .addDecorator((story) => (
     <ApolloMockProvider
       resolvers={{
@@ -26,7 +26,7 @@ storiesOf('JobCategories', module)
       </BraidLoadableProvider>
     </ApolloMockProvider>
   ))
-  .add('Job Category Select', () => {
+  .add('JobCategorySelect', () => {
     const requiredValidation = 'Please select a category.';
 
     const message = select(

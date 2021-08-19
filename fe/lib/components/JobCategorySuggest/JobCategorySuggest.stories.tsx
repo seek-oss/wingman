@@ -1,8 +1,8 @@
 import 'braid-design-system/reset';
 
+import { boolean, select } from '@storybook/addon-knobs';
 import { Box, BraidLoadableProvider } from 'braid-design-system';
 import React from 'react';
-import { boolean, select } from 'sku/@storybook/addon-knobs';
 import { storiesOf } from 'sku/@storybook/react';
 
 import { ApolloMockProvider } from '../../testing/ApolloMockProvider';
@@ -11,7 +11,7 @@ import { mockJobCategories } from '../JobCategorySelect/__fixtures__/jobCategori
 import { JobCategorySuggest } from './JobCategorySuggest';
 import { mockJobCategorySuggest } from './__fixtures__/jobCategorySuggest';
 
-storiesOf('JobCategories', module)
+storiesOf('JobCategorySuggest', module)
   .addDecorator((story) => (
     <ApolloMockProvider
       resolvers={{
@@ -28,7 +28,7 @@ storiesOf('JobCategories', module)
       </BraidLoadableProvider>
     </ApolloMockProvider>
   ))
-  .add('Job Category Suggest', () => {
+  .add('JobCategorySuggest', () => {
     const requiredValidation = 'Please select a category.';
 
     const message = select(

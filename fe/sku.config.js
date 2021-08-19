@@ -25,6 +25,7 @@ module.exports = {
   compilePackages: ['scoobie'],
   orderImports: true,
   rootResolution: false,
+  storybookAddons: ['@storybook/addon-knobs'],
 
   dangerouslySetESLintConfig: (skuEslintConfig) => ({
     ...skuEslintConfig,
@@ -50,13 +51,14 @@ module.exports = {
         rules: [
           {
             test: /\.graphql?$/i,
-            use: [
-              {
-                loader: 'raw-loader',
-              },
-            ],
+            type: 'asset/source',
           },
         ],
+      },
+      resolve: {
+        fallback: {
+          path: require.resolve('path-browserify'),
+        },
       },
     }),
 };

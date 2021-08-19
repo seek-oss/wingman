@@ -49,7 +49,7 @@ const Story = () => {
   );
 };
 
-storiesOf('Locations', module)
+storiesOf('LocationSuggest', module)
   .addDecorator((story) => (
     <ApolloMockProvider
       resolvers={{
@@ -66,4 +66,4 @@ storiesOf('Locations', module)
       </BraidLoadableProvider>
     </ApolloMockProvider>
   ))
-  .add('Locations Suggest', () => <Story />);
+  .add('LocationSuggest', () => <Story />);
