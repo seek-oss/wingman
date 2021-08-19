@@ -25,6 +25,7 @@ module.exports = {
   compilePackages: ['scoobie'],
   orderImports: true,
   rootResolution: false,
+  storybookAddons: ['@storybook/addon-knobs'],
 
   dangerouslySetESLintConfig: (skuEslintConfig) => ({
     ...skuEslintConfig,
