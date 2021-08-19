@@ -1,12 +1,10 @@
 import 'braid-design-system/reset';
+import React, { ComponentProps } from 'react';
 
-import { Box, BraidLoadableProvider } from 'braid-design-system';
-import React from 'react';
-import { storiesOf } from 'sku/@storybook/react';
-
+import { withBraidProvider } from '../../../../storybook/decorators';
 import type { FormComponent } from '../../types';
 
-import { GraphqlQueryRenderer } from './GraphqlQueryRenderer';
+import { GraphqlQueryRenderer as Component } from './GraphqlQueryRenderer';
 
 const sampleQuestions: FormComponent[] = [
   {
@@ -35,17 +33,17 @@ const sampleQuestions: FormComponent[] = [
   },
 ];
 
-storiesOf('QuestionnaireBuilder', module)
-  .addDecorator((story) => (
-    <BraidLoadableProvider themeName="apac">
-      <Box paddingX="gutter" paddingY="large">
-        {story()}
-      </Box>
-    </BraidLoadableProvider>
-  ))
-  .add('GraphqlQueryRenderer', () => (
-    <GraphqlQueryRenderer
-      components={sampleQuestions}
-      hirerId="Test:hirer:id"
-    />
-  ));
+export default {
+  args: {
+    components: sampleQuestions,
+    hirerId: 'seekAnzPublicTest:organization:seek:93WyyF1h',
+  },
+  component: Component,
+  decorators: [withBraidProvider],
+  title: 'Job Posting/Questionnaires/GraphqlQueryRenderer',
+};
+
+type Args = ComponentProps<typeof Component>;
+
+export const GraphqlQueryRenderer = (args: Args) => <Component {...args} />;
+GraphqlQueryRenderer.storyName = 'GraphqlQueryRenderer';

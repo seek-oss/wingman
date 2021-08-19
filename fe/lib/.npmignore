@@ -1,0 +1,6 @@
+/testing/**/*
+
+**/*.test.ts
+**/*.test.ts.snap
+**/*.test.tsx
+**/*.test.tsx.snap

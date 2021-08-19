@@ -1,23 +1,22 @@
 import 'braid-design-system/reset';
 
-import { boolean } from '@storybook/addon-knobs';
-import { Box, BraidLoadableProvider } from 'braid-design-system';
-import React from 'react';
-import { storiesOf } from 'sku/@storybook/react';
+import React, { ComponentProps } from 'react';
 
-import { QuestionnaireBuilder } from './QuestionnaireBuilder/QuestionnaireBuilder';
+import { withBraidProvider } from '../../storybook/decorators';
 
-storiesOf('QuestionnaireBuilder', module)
-  .addDecorator((story) => (
-    <BraidLoadableProvider themeName="apac">
-      <Box paddingX="gutter" paddingY="large">
-        {story()}
-      </Box>
-    </BraidLoadableProvider>
-  ))
-  .add('QuestionnaireBuilder', () => (
-    <QuestionnaireBuilder
-      hirerId="seekAnzPublicTest:organization:seek:93WyyF1h"
-      showGraphqlOutput={boolean('showGraphqlOutput', true)}
-    />
-  ));
+import { QuestionnaireBuilder as Component } from './QuestionnaireBuilder/QuestionnaireBuilder';
+
+export default {
+  args: {
+    hirerId: 'seekAnzPublicTest:organization:seek:93WyyF1h',
+    showGraphqlOutput: true,
+  },
+  component: Component,
+  decorators: [withBraidProvider],
+  title: 'Job Posting/Questionnaires/QuestionnaireBuilder',
+};
+
+type Args = ComponentProps<typeof Component>;
+
+export const QuestionnaireBuilder = (args: Args) => <Component {...args} />;
+QuestionnaireBuilder.storyName = 'QuestionnaireBuilder';

@@ -1,69 +1,47 @@
 import 'braid-design-system/reset';
 
-import { useApolloClient } from '@apollo/client';
-import { boolean, select } from '@storybook/addon-knobs';
-import { Box, BraidLoadableProvider } from 'braid-design-system';
-import React from 'react';
-import { storiesOf } from 'sku/@storybook/react';
+import React, { ComponentProps } from 'react';
 
-import { ApolloMockProvider } from '../../testing/ApolloMockProvider';
+import { defaultArgTypes, defaultArgs } from '../../storybook/controls';
+import { withBraidProvider } from '../../storybook/decorators';
+import { createApolloMockClient } from '../../testing/ApolloMockProvider';
 
-import { LocationSuggest } from './LocationSuggest';
+import { LocationSuggest as Component } from './LocationSuggest';
 import { mockLocationSuggest } from './__fixtures__/locationSuggest';
 import { mockNearestLocations } from './__fixtures__/nearestLocations';
 
-const Story = () => {
-  const client = useApolloClient();
-  const requiredValidation = 'Please select a location.';
-
-  const message = select(
-    'message',
-    {
-      undefined,
-      requiredValidation,
+export default {
+  args: {
+    id: 'locationSuggest',
+    label: 'Location',
+    message: 'undefined',
+    reserveMessageSpace: false,
+    schemeId: 'seekAnz',
+    tone: defaultArgs.tone,
+  },
+  argTypes: {
+    message: {
+      control: { type: 'radio' },
+      mapping: { undefined, requiredValidation: 'Please select a location.' },
+      options: ['undefined', 'requiredValidation'],
     },
-    undefined,
-  );
-
-  const tone = select(
-    'tone',
-    {
-      undefined,
-      critical: 'critical',
-      neutral: 'neutral',
-      positive: 'positive',
-    },
-    undefined,
-  );
-
-  return (
-    <LocationSuggest
-      client={client}
-      id="locationSuggest"
-      label="Location"
-      message={message}
-      reserveMessageSpace={boolean('reserveMessageSpace', false)}
-      schemeId="seekAnz"
-      tone={tone}
-    />
-  );
+    tone: defaultArgTypes.tone,
+  },
+  component: Component,
+  decorators: [withBraidProvider],
+  title: 'Job Posting/Locations/LocationSuggest',
 };
 
-storiesOf('LocationSuggest', module)
-  .addDecorator((story) => (
-    <ApolloMockProvider
-      resolvers={{
-        Query: {
-          nearestLocations: () => mockNearestLocations,
-          locationSuggestions: () => mockLocationSuggest,
-        },
-      }}
-    >
-      <BraidLoadableProvider themeName="apac">
-        <Box paddingX="gutter" paddingY="large">
-          {story()}
-        </Box>
-      </BraidLoadableProvider>
-    </ApolloMockProvider>
-  ))
-  .add('LocationSuggest', () => <Story />);
+type Args = ComponentProps<typeof Component>;
+
+export const LocationSuggest = ({ client: _client, ...args }: Args) => {
+  const client = createApolloMockClient({
+    Query: {
+      nearestLocations: () => mockNearestLocations,
+      locationSuggestions: () => mockLocationSuggest,
+    },
+  });
+
+  return <Component {...args} client={client} />;
+};
+LocationSuggest.storyName = 'LocationSuggest';

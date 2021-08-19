@@ -1,62 +1,46 @@
 import 'braid-design-system/reset';
 
-import { boolean, select } from '@storybook/addon-knobs';
-import { Box, BraidLoadableProvider } from 'braid-design-system';
-import React from 'react';
-import { storiesOf } from 'sku/@storybook/react';
+import React, { ComponentProps } from 'react';
 
-import { ApolloMockProvider } from '../../testing/ApolloMockProvider';
+import { defaultArgTypes, defaultArgs } from '../../storybook/controls';
+import {
+  createWithApolloProvider,
+  withBraidProvider,
+} from '../../storybook/decorators';
 
-import { JobCategorySelect } from './JobCategorySelect';
+import { JobCategorySelect as Component } from './JobCategorySelect';
 import { mockJobCategories } from './__fixtures__/jobCategories';
 
-storiesOf('JobCategorySelect', module)
-  .addDecorator((story) => (
-    <ApolloMockProvider
-      resolvers={{
-        Query: {
-          jobCategories: () => mockJobCategories,
-        },
-      }}
-    >
-      <BraidLoadableProvider themeName="apac">
-        <Box paddingX="gutter" paddingY="large">
-          {story()}
-        </Box>
-      </BraidLoadableProvider>
-    </ApolloMockProvider>
-  ))
-  .add('JobCategorySelect', () => {
-    const requiredValidation = 'Please select a category.';
-
-    const message = select(
-      'message',
-      {
-        undefined,
-        requiredValidation,
+export default {
+  args: {
+    id: 'jobCategories',
+    label: 'Category',
+    message: 'undefined',
+    reserveMessageSpace: false,
+    schemeId: 'seekAnz',
+    tone: defaultArgs.tone,
+  },
+  argTypes: {
+    message: {
+      control: { type: 'radio' },
+      mapping: { undefined, requiredValidation: 'Please select a category.' },
+      options: ['undefined', 'requiredValidation'],
+    },
+    tone: defaultArgTypes.tone,
+  },
+  component: Component,
+  decorators: [
+    createWithApolloProvider({
+      Query: {
+        jobCategories: () => mockJobCategories,
       },
-      undefined,
-    );
+    }),
+    withBraidProvider,
+  ],
+  title: 'Job Posting/Job categories/JobCategorySelect',
+};
 
-    const tone = select(
-      'tone',
-      {
-        undefined,
-        critical: 'critical',
-        neutral: 'neutral',
-        positive: 'positive',
-      },
-      undefined,
-    );
+type Args = ComponentProps<typeof Component>;
 
-    return (
-      <JobCategorySelect
-        id="jobCategories"
-        label="Category"
-        message={message}
-        schemeId="seekAnz"
-        reserveMessageSpace={boolean('reserveMessageSpace', false)}
-        tone={tone}
-      />
-    );
-  });
+export const JobCategorySelect = (args: Args) => <Component {...args} />;
+JobCategorySelect.storyName = 'JobCategorySelect';

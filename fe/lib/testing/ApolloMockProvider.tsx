@@ -5,12 +5,9 @@ import React, { ReactNode } from 'react';
 
 import typeDefs from '../types/seekSchema.graphql';
 
-interface Props {
-  children: ReactNode;
-  resolvers: Parameters<typeof makeExecutableSchema>[0]['resolvers'];
-}
+type Resolvers = Parameters<typeof makeExecutableSchema>[0]['resolvers'];
 
-export const ApolloMockProvider = ({ children, resolvers }: Props) => {
+export const createApolloMockClient = (resolvers: Resolvers) => {
   const schema = makeExecutableSchema({
     resolvers,
     typeDefs,
@@ -20,6 +17,17 @@ export const ApolloMockProvider = ({ children, resolvers }: Props) => {
     cache: new InMemoryCache(),
     link: new SchemaLink({ schema }),
   });
+
+  return client;
+};
+
+interface Props {
+  children: ReactNode;
+  resolvers: Resolvers;
+}
+
+export const ApolloMockProvider = ({ children, resolvers }: Props) => {
+  const client = createApolloMockClient(resolvers);
 
   return <ApolloProvider client={client}>{children}</ApolloProvider>;
 };
