@@ -49,7 +49,7 @@
     "build": "skuba build",
     "format": "skuba format",
     "lint": "skuba lint",
-    "start": "ENVIRONMENT=local skuba start",
+    "start": "ENVIRONMENT=local skuba start --port 9090",
     "test": "skuba test"
   },
   "skuba": {
