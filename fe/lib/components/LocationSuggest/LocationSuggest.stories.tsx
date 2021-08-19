@@ -3,7 +3,7 @@ import 'braid-design-system/reset';
 import React, { ComponentProps } from 'react';
 
 import { defaultArgTypes, defaultArgs } from '../../storybook/controls';
-import { DesignDecorator } from '../../storybook/decorators';
+import { withBraidProvider } from '../../storybook/decorators';
 import { createApolloMockClient } from '../../testing/ApolloMockProvider';
 
 import { LocationSuggest as Component } from './LocationSuggest';
@@ -28,7 +28,7 @@ export default {
     tone: defaultArgTypes.tone,
   },
   component: Component,
-  decorators: [DesignDecorator],
+  decorators: [withBraidProvider],
   title: 'Job Posting/Locations/LocationSuggest',
 };
 

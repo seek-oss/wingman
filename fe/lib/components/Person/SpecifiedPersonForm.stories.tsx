@@ -4,7 +4,7 @@ import { Stack, Text } from 'braid-design-system';
 import React, { ComponentProps, useState } from 'react';
 import { CodeBlock, InlineCode } from 'scoobie';
 
-import { DesignDecorator } from '../../storybook/decorators';
+import { withBraidProvider } from '../../storybook/decorators';
 
 import { SpecifiedPersonForm as Component } from './SpecifiedPersonForm';
 
@@ -19,7 +19,7 @@ export default {
     },
   },
   component: Component,
-  decorators: [DesignDecorator],
+  decorators: [withBraidProvider],
   title: 'Job Posting/Position openings/SpecifiedPersonForm',
 };
 

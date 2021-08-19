@@ -4,8 +4,8 @@ import React, { ComponentProps } from 'react';
 
 import { defaultArgTypes, defaultArgs } from '../../storybook/controls';
 import {
-  DesignDecorator,
-  createApolloDecorator,
+  createWithApolloProvider,
+  withBraidProvider,
 } from '../../storybook/decorators';
 
 import { JobCategorySelect as Component } from './JobCategorySelect';
@@ -30,12 +30,12 @@ export default {
   },
   component: Component,
   decorators: [
-    DesignDecorator,
-    createApolloDecorator({
+    createWithApolloProvider({
       Query: {
         jobCategories: () => mockJobCategories,
       },
     }),
+    withBraidProvider,
   ],
   title: 'Job Posting/Job categories/JobCategorySelect',
 };

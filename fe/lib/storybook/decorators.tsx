@@ -38,7 +38,7 @@ const BraidStorybookProvider = ({ children }: ProviderProps) => (
 
 type DecoratorFn = Parameters<typeof addDecorator>[0];
 
-export const DesignDecorator: DecoratorFn = (story) => (
+export const withBraidProvider: DecoratorFn = (story) => (
   <BraidStorybookProvider>
     <ContentBlock>
       <Box paddingX="gutter" paddingY="large">
@@ -48,7 +48,7 @@ export const DesignDecorator: DecoratorFn = (story) => (
   </BraidStorybookProvider>
 );
 
-export const createApolloDecorator =
+export const createWithApolloProvider =
   (
     resolvers: ComponentProps<typeof ApolloMockProvider>['resolvers'],
   ): DecoratorFn =>

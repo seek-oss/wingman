@@ -1,7 +1,7 @@
 import 'braid-design-system/reset';
 import React, { ComponentProps } from 'react';
 
-import { DesignDecorator } from '../../../../storybook/decorators';
+import { withBraidProvider } from '../../../../storybook/decorators';
 import type { FormComponent } from '../../types';
 
 import { GraphqlQueryRenderer as Component } from './GraphqlQueryRenderer';
@@ -39,7 +39,7 @@ export default {
     hirerId: 'seekAnzPublicTest:organization:seek:93WyyF1h',
   },
   component: Component,
-  decorators: [DesignDecorator],
+  decorators: [withBraidProvider],
   title: 'Job Posting/Questionnaires/GraphqlQueryRenderer',
 };
 

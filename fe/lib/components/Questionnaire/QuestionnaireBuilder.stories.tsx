@@ -2,7 +2,7 @@ import 'braid-design-system/reset';
 
 import React, { ComponentProps } from 'react';
 
-import { DesignDecorator } from '../../storybook/decorators';
+import { withBraidProvider } from '../../storybook/decorators';
 
 import { QuestionnaireBuilder as Component } from './QuestionnaireBuilder/QuestionnaireBuilder';
 
@@ -12,7 +12,7 @@ export default {
     showGraphqlOutput: true,
   },
   component: Component,
-  decorators: [DesignDecorator],
+  decorators: [withBraidProvider],
   title: 'Job Posting/Questionnaires/QuestionnaireBuilder',
 };
 
