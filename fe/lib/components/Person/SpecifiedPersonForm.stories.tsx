@@ -1,8 +1,6 @@
 import 'braid-design-system/reset';
 
-import { Stack, Text } from 'braid-design-system';
-import React, { ComponentProps, useState } from 'react';
-import { CodeBlock, InlineCode } from 'scoobie';
+import React, { ComponentProps } from 'react';
 
 import {
   BraidArgs,
@@ -26,6 +24,7 @@ export default {
   },
   argTypes: {
     braidThemeName: defaultArgTypes.braidThemeName,
+    onCreate: { action: 'onCreate' },
   },
   component: Component,
   title: 'Job Posting/Position openings/SpecifiedPersonForm',
@@ -33,32 +32,9 @@ export default {
 
 type Args = ComponentProps<typeof Component> & BraidArgs;
 
-export const SpecifiedPersonForm = ({
-  braidThemeName,
-  onCreate: _onCreate,
-  ...args
-}: Args) => {
-  const [count, setCount] = useState(0);
-  const [json, setJson] = useState('');
-
-  return (
-    <BraidStorybookProvider braidThemeName={braidThemeName}>
-      <Stack space="large">
-        <Component
-          {...args}
-          onCreate={(values) => {
-            setCount((c) => c + 1);
-            setJson(JSON.stringify(values, null, 2));
-          }}
-        />
-
-        <Text>
-          <InlineCode>onCreate</InlineCode>: {String(count)}
-        </Text>
-
-        <CodeBlock language="json">{json}</CodeBlock>
-      </Stack>
-    </BraidStorybookProvider>
-  );
-};
+export const SpecifiedPersonForm = ({ braidThemeName, ...args }: Args) => (
+  <BraidStorybookProvider braidThemeName={braidThemeName}>
+    <Component {...args} />
+  </BraidStorybookProvider>
+);
 SpecifiedPersonForm.storyName = 'SpecifiedPersonForm';
