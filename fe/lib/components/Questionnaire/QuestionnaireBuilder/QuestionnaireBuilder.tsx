@@ -58,7 +58,7 @@ export const QuestionnaireBuilder = ({
   return (
     <ContentBlock>
       <Stack space="medium" dividers>
-        <Columns space="large">
+        <Columns collapseBelow="tablet" space="large">
           <Column>
             <FormBuilder
               externalFormState={formBuilderState}
