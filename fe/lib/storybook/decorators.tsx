@@ -1,9 +1,3 @@
-/**
- * `@storybook/addon-controls` is not currently usable in decorators.
- *
- * {@link https://github.com/storybookjs/storybook/issues/11984}
- */
-import { select } from '@storybook/addon-knobs';
 import { Box, BraidLoadableProvider, ContentBlock } from 'braid-design-system';
 import React, { ComponentProps, ReactNode } from 'react';
 import { addDecorator } from 'sku/@storybook/react';
@@ -11,42 +5,24 @@ import { addDecorator } from 'sku/@storybook/react';
 import { ApolloMockProvider } from '../testing/ApolloMockProvider';
 
 interface ProviderProps {
+  braidThemeName: string;
   children: ReactNode;
 }
 
-const BraidStorybookProvider = ({ children }: ProviderProps) => (
-  <BraidLoadableProvider
-    themeName={select(
-      'BraidLoadableProvider.themeName',
-      [
-        'apac',
-        'catho',
-        'docs',
-        'jobsDb',
-        'jobStreet',
-        'occ',
-        'seekAnz',
-        'seekBusiness',
-        'wireframe',
-      ],
-      'apac',
-    )}
-  >
-    {children}
+export const BraidStorybookProvider = ({
+  braidThemeName,
+  children,
+}: ProviderProps) => (
+  <BraidLoadableProvider themeName={braidThemeName}>
+    <ContentBlock>
+      <Box paddingX="gutter" paddingY="large">
+        {children}
+      </Box>
+    </ContentBlock>
   </BraidLoadableProvider>
 );
 
 type DecoratorFn = Parameters<typeof addDecorator>[0];
-
-export const withBraidProvider: DecoratorFn = (story) => (
-  <BraidStorybookProvider>
-    <ContentBlock>
-      <Box paddingX="gutter" paddingY="large">
-        {story()}
-      </Box>
-    </ContentBlock>
-  </BraidStorybookProvider>
-);
 
 export const createWithApolloProvider =
   (
