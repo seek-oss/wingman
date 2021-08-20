@@ -1,5 +1,5 @@
 ---
-'wingman-fe': minor
+'wingman-fe': major
 ---
 
 **QuestionnaireCreateInput:** Remove export
@@ -7,7 +7,7 @@
 A similar type can be derived from component props:
 
 ```typescript
-import {ComponentProps} from 'react';
+import { ComponentProps } from 'react';
 
-type Input = ComponentProps<typeof QuestionnaireBuilder>['graphqlInput']
+type Input = ComponentProps<typeof QuestionnaireBuilder>['graphqlInput'];
 ```
