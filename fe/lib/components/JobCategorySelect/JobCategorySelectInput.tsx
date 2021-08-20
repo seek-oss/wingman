@@ -77,11 +77,11 @@ const JobCategorySelectInput = ({
   }, [initialValue, jobCategories]);
 
   return (
-    <Columns space="small">
+    <Columns collapseBelow="tablet" space="small">
       <Column>
         <Dropdown
           {...restProps}
-          aria-label={hideLabel ? 'Category' : undefined}
+          aria-label="Category"
           id="jobCategoriesSelect"
           label={hideLabel ? undefined : 'Category'}
           onChange={(event) =>
@@ -101,6 +101,7 @@ const JobCategorySelectInput = ({
         {childCategories && (
           <Dropdown
             {...restProps}
+            aria-label="Subcategory"
             id="subJobCategoriesSelect"
             label={hideLabel ? undefined : 'Subcategory'}
             onChange={(event) =>

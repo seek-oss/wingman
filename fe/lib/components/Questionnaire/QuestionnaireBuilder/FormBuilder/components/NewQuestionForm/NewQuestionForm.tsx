@@ -134,7 +134,7 @@ export default ({ hideForm, initialValues }: NewQuestionFormProps) => {
         <Stack space="large">
           <Box>
             <Heading level="3">
-              {initialValues.value ? 'Edit' : 'New'} Question
+              {initialValues.value ? 'Edit' : 'New'} question
             </Heading>
           </Box>
 

@@ -90,7 +90,7 @@ export default ({
         <Stack space="large">
           <Box>
             <Heading level="3">
-              {initialValues.value ? 'Edit' : 'New'} Privacy Consent
+              {initialValues.value ? 'Edit' : 'New'} privacy consent
             </Heading>
           </Box>
           <Controller

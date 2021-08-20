@@ -138,7 +138,7 @@ const LocationSuggestInput = ({
   };
 
   return (
-    <Columns space="small" alignY="bottom">
+    <Columns alignY="bottom" collapseBelow="tablet" space="small">
       <Column>
         <Autosuggest
           {...restProps}
@@ -160,7 +160,7 @@ const LocationSuggestInput = ({
           tone={tone === 'critical' ? tone : undefined}
           variant="soft"
         >
-          Detect <IconLocation />
+          <IconLocation /> Detect
         </Button>
       </Column>
     </Columns>
