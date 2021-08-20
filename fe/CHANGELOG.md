@@ -1,5 +1,17 @@
 # wingman-fe
 
+## 0.26.2
+
+### Patch Changes
+
+- ffedfbb: **JobCategorySelect:** Collapse columns on mobile
+- ffedfbb: **QuestionnaireBuilder:** Sentence case headings
+- ffedfbb: **QuestionnaireBuilder:** Collapse columns on mobile
+- ffedfbb: **LocationSuggest:** Collapse columns on mobile
+- 9163efa: **pkg:** Exclude test files
+- 0200fc0: **deps:** Remove `content-disposition`
+- 4dc8f49: **Example:** Remove placeholder component
+
 ## 0.26.1
 
 ### Patch Changes
