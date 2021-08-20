@@ -7,14 +7,10 @@ import {
   defaultArgTypes,
   defaultArgs,
 } from '../../storybook/controls';
-import {
-  BraidStorybookProvider,
-  createWithApolloProvider,
-} from '../../storybook/decorators';
-import { mockJobCategories } from '../JobCategorySelect/__fixtures__/jobCategories';
+import { BraidStorybookProvider } from '../../storybook/decorators';
 
 import { JobCategorySuggest as Component } from './JobCategorySuggest';
-import { mockJobCategorySuggest } from './__fixtures__/jobCategorySuggest';
+import { MockJobCategorySuggest } from './JobCategorySuggest.mock';
 
 export default {
   args: {
@@ -39,14 +35,6 @@ export default {
     tone: defaultArgTypes.tone,
   },
   component: Component,
-  decorators: [
-    createWithApolloProvider({
-      Query: {
-        jobCategorySuggestions: () => mockJobCategorySuggest,
-        jobCategories: () => mockJobCategories,
-      },
-    }),
-  ],
   title: 'Job Posting/Job categories/JobCategorySuggest',
 };
 
@@ -54,7 +42,7 @@ type Args = ComponentProps<typeof Component> & BraidArgs;
 
 export const JobCategorySuggest = ({ braidThemeName, ...args }: Args) => (
   <BraidStorybookProvider braidThemeName={braidThemeName}>
-    <Component {...args} />
+    <MockJobCategorySuggest {...args} />
   </BraidStorybookProvider>
 );
 JobCategorySuggest.storyName = 'JobCategorySuggest';

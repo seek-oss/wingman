@@ -1,8 +1,5 @@
 import { Box, BraidLoadableProvider, ContentBlock } from 'braid-design-system';
-import React, { ComponentProps, ReactNode } from 'react';
-import { addDecorator } from 'sku/@storybook/react';
-
-import { ApolloMockProvider } from '../testing/ApolloMockProvider';
+import React, { ReactNode } from 'react';
 
 interface ProviderProps {
   braidThemeName: string;
@@ -21,12 +18,3 @@ export const BraidStorybookProvider = ({
     </ContentBlock>
   </BraidLoadableProvider>
 );
-
-type DecoratorFn = Parameters<typeof addDecorator>[0];
-
-export const createWithApolloProvider =
-  (
-    resolvers: ComponentProps<typeof ApolloMockProvider>['resolvers'],
-  ): DecoratorFn =>
-  (story) =>
-    <ApolloMockProvider resolvers={resolvers}>{story()}</ApolloMockProvider>;

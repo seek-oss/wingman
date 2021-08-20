@@ -19,7 +19,8 @@ import { JOB_CATEGORIES } from './queries';
 type FieldProps = ComponentPropsWithRef<typeof Dropdown>;
 type JobCategoryType = 'parent' | 'child';
 
-interface Props extends Omit<FieldProps, 'value' | 'onChange' | 'children'> {
+export interface JobCategorySelectProps
+  extends Omit<FieldProps, 'value' | 'onChange' | 'children'> {
   client?: ApolloClient<unknown>;
   label: string;
   onSelect?: (
@@ -31,7 +32,10 @@ interface Props extends Omit<FieldProps, 'value' | 'onChange' | 'children'> {
   hideLabel?: boolean;
 }
 
-export const JobCategorySelect = forwardRef<HTMLInputElement, Props>(
+export const JobCategorySelect = forwardRef<
+  HTMLInputElement,
+  JobCategorySelectProps
+>(
   (
     {
       client,

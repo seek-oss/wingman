@@ -20,7 +20,8 @@ import { JOB_CATEGORY_SUGGEST } from './queries';
 
 type RadioProps = ComponentPropsWithRef<typeof RadioGroup>;
 
-interface Props extends Partial<Omit<RadioProps, 'id'>> {
+export interface JobCategorySuggestProps
+  extends Partial<Omit<RadioProps, 'id'>> {
   positionProfile: JobCategorySuggestionPositionProfileInput;
   schemeId: string;
   onSelect: (
@@ -32,7 +33,10 @@ interface Props extends Partial<Omit<RadioProps, 'id'>> {
   initialValue?: string;
 }
 
-export const JobCategorySuggest = forwardRef<HTMLInputElement, Props>(
+export const JobCategorySuggest = forwardRef<
+  HTMLInputElement,
+  JobCategorySuggestProps
+>(
   (
     {
       client,
