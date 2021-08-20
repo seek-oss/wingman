@@ -32,6 +32,7 @@ export default {
       mapping: { undefined, requiredValidation: 'Please select a category.' },
       options: ['undefined', 'requiredValidation'],
     },
+    showStorybookAction: defaultArgTypes.showStorybookAction,
     tone: defaultArgTypes.tone,
   },
   component: Component,

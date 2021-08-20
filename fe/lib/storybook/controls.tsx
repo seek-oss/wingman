@@ -13,6 +13,10 @@ export const defaultArgTypes = {
     name: 'Braid theme',
     options: ['apac', 'docs', 'wireframe'],
   },
+  showStorybookAction: {
+    control: { type: 'boolean' },
+    name: 'Mock showStorybookAction',
+  },
   tone: {
     control: { type: 'radio' },
     mapping: {
