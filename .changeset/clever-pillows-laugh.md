@@ -2,4 +2,4 @@
 'wingman-fe': minor
 ---
 
-**QuestionnaireQueryOutput:** Export component
+**QuestionnaireQueryOutput:** Add component

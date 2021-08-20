@@ -8,11 +8,9 @@ import {
   defaultArgs,
 } from '../../storybook/controls';
 import { BraidStorybookProvider } from '../../storybook/decorators';
-import { createApolloMockClient } from '../../testing/ApolloMockProvider';
 
 import { LocationSuggest as Component } from './LocationSuggest';
-import { mockLocationSuggest } from './__fixtures__/locationSuggest';
-import { mockNearestLocations } from './__fixtures__/nearestLocations';
+import { MockLocationSuggest } from './LocationSuggest.mock';
 
 export default {
   args: {
@@ -39,22 +37,9 @@ export default {
 
 type Args = ComponentProps<typeof Component> & BraidArgs;
 
-export const LocationSuggest = ({
-  braidThemeName,
-  client: _client,
-  ...args
-}: Args) => {
-  const client = createApolloMockClient({
-    Query: {
-      nearestLocations: () => mockNearestLocations,
-      locationSuggestions: () => mockLocationSuggest,
-    },
-  });
-
-  return (
-    <BraidStorybookProvider braidThemeName={braidThemeName}>
-      <Component {...args} client={client} />
-    </BraidStorybookProvider>
-  );
-};
+export const LocationSuggest = ({ braidThemeName, client, ...args }: Args) => (
+  <BraidStorybookProvider braidThemeName={braidThemeName}>
+    <MockLocationSuggest {...args} />
+  </BraidStorybookProvider>
+);
 LocationSuggest.storyName = 'LocationSuggest';

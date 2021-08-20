@@ -3,11 +3,11 @@ import { SchemaLink } from '@apollo/client/link/schema';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import React, { ReactNode } from 'react';
 
-import { typeDefs } from '../types/seekApi.typeDefs';
+import { typeDefs } from '../../types/seekApi.typeDefs';
 
 type Resolvers = Parameters<typeof makeExecutableSchema>[0]['resolvers'];
 
-export const createApolloMockClient = (resolvers: Resolvers) => {
+const createApolloMockClient = (resolvers: Resolvers) => {
   const schema = makeExecutableSchema({
     resolvers,
     typeDefs,
