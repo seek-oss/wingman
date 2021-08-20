@@ -3,7 +3,7 @@ import type {
   FreeTextQuestion,
   PrivacyConsent,
   SelectionQuestion,
-} from '../../../lib/components/Questionnaire';
+} from '../../../lib/private/questionnaires/types';
 
 import { faker } from './faker';
 
