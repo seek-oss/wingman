@@ -2,10 +2,14 @@ import 'braid-design-system/reset';
 
 import React, { ComponentProps } from 'react';
 
-import { defaultArgTypes, defaultArgs } from '../../storybook/controls';
 import {
+  BraidArgs,
+  defaultArgTypes,
+  defaultArgs,
+} from '../../storybook/controls';
+import {
+  BraidStorybookProvider,
   createWithApolloProvider,
-  withBraidProvider,
 } from '../../storybook/decorators';
 
 import { JobCategorySelect as Component } from './JobCategorySelect';
@@ -13,6 +17,7 @@ import { mockJobCategories } from './__fixtures__/jobCategories';
 
 export default {
   args: {
+    braidThemeName: defaultArgs.braidThemeName,
     id: 'jobCategories',
     label: 'Category',
     message: 'undefined',
@@ -21,6 +26,7 @@ export default {
     tone: defaultArgs.tone,
   },
   argTypes: {
+    braidThemeName: defaultArgTypes.braidThemeName,
     message: {
       control: { type: 'radio' },
       mapping: { undefined, requiredValidation: 'Please select a category.' },
@@ -35,12 +41,15 @@ export default {
         jobCategories: () => mockJobCategories,
       },
     }),
-    withBraidProvider,
   ],
   title: 'Job Posting/Job categories/JobCategorySelect',
 };
 
-type Args = ComponentProps<typeof Component>;
+type Args = ComponentProps<typeof Component> & BraidArgs;
 
-export const JobCategorySelect = (args: Args) => <Component {...args} />;
+export const JobCategorySelect = ({ braidThemeName, ...args }: Args) => (
+  <BraidStorybookProvider braidThemeName={braidThemeName}>
+    <Component {...args} />
+  </BraidStorybookProvider>
+);
 JobCategorySelect.storyName = 'JobCategorySelect';

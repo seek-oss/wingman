@@ -2,8 +2,12 @@ import 'braid-design-system/reset';
 
 import React, { ComponentProps } from 'react';
 
-import { defaultArgTypes, defaultArgs } from '../../storybook/controls';
-import { withBraidProvider } from '../../storybook/decorators';
+import {
+  BraidArgs,
+  defaultArgTypes,
+  defaultArgs,
+} from '../../storybook/controls';
+import { BraidStorybookProvider } from '../../storybook/decorators';
 import { createApolloMockClient } from '../../testing/ApolloMockProvider';
 
 import { LocationSuggest as Component } from './LocationSuggest';
@@ -12,6 +16,7 @@ import { mockNearestLocations } from './__fixtures__/nearestLocations';
 
 export default {
   args: {
+    braidThemeName: defaultArgs.braidThemeName,
     id: 'locationSuggest',
     label: 'Location',
     message: 'undefined',
@@ -20,6 +25,7 @@ export default {
     tone: defaultArgs.tone,
   },
   argTypes: {
+    braidThemeName: defaultArgTypes.braidThemeName,
     message: {
       control: { type: 'radio' },
       mapping: { undefined, requiredValidation: 'Please select a location.' },
@@ -28,13 +34,16 @@ export default {
     tone: defaultArgTypes.tone,
   },
   component: Component,
-  decorators: [withBraidProvider],
   title: 'Job Posting/Locations/LocationSuggest',
 };
 
-type Args = ComponentProps<typeof Component>;
+type Args = ComponentProps<typeof Component> & BraidArgs;
 
-export const LocationSuggest = ({ client: _client, ...args }: Args) => {
+export const LocationSuggest = ({
+  braidThemeName,
+  client: _client,
+  ...args
+}: Args) => {
   const client = createApolloMockClient({
     Query: {
       nearestLocations: () => mockNearestLocations,
@@ -42,6 +51,10 @@ export const LocationSuggest = ({ client: _client, ...args }: Args) => {
     },
   });
 
-  return <Component {...args} client={client} />;
+  return (
+    <BraidStorybookProvider braidThemeName={braidThemeName}>
+      <Component {...args} client={client} />
+    </BraidStorybookProvider>
+  );
 };
 LocationSuggest.storyName = 'LocationSuggest';
