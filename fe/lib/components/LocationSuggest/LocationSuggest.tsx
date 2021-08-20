@@ -19,7 +19,7 @@ import type {
   NearestLocationsQueryVariables,
   SuggestLocationsQuery,
   SuggestLocationsQueryVariables,
-} from '../../types/seek.graphql';
+} from '../../types/seekApi.graphql';
 
 import LocationSuggestInput from './LocationSuggestInput';
 import { LOCATION, LOCATION_SUGGEST, NEAREST_LOCATIONS } from './queries';

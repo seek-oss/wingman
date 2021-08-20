@@ -14,7 +14,7 @@ import type {
   GeoLocationInput,
   Location,
   LocationSuggestion,
-} from '../../types/seek.graphql';
+} from '../../types/seekApi.graphql';
 
 interface Suggestion {
   text: string;

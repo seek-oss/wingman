@@ -215,16 +215,9 @@ export interface ApplicationMethodInput {
    * A URL of an external application form.
    *
    * When this is provided, SEEK's native apply form will be disabled and the candidate will be redirected to the supplied URL.
+   * This requires that the hirer has an `HiringOrganizationApiCapabilities.applicationMethodCodes` that includes `ApplicationUri`.
    */
   applicationUri?: Maybe<WebUrlInput>;
-  /**
-   * The email address to direct candidate applications to.
-   *
-   * This field has a maximum length of 100 bytes in UTF-8 encoding.
-   *
-   * This is deprecated. Do not use this field. This has been replaced by Application Export.
-   */
-  applicationEmail?: Maybe<EmailInput>;
 }
 
 /**
@@ -533,8 +526,8 @@ export interface ApplicationQuestionnaireComponentInput {
    *
    * Currently, two codes are defined:
    *
-   * - `PrivacyConsent` which corresponds to the `privacyConsent` property.
-   * - `Question` which corresponds to the `question` property.
+   * - `PrivacyConsent` corresponds to the `privacyConsent` field.
+   * - `Question` corresponds to the `question` field.
    */
   componentTypeCode: Scalars['String'];
   /**
@@ -710,7 +703,7 @@ export interface CandidateApplicationCreatedEvent extends Event {
   /**
    * The data source for the event.
    *
-   * Currently, only the `seekAnz` and `seekAnzPublicTest` schemes generate `CandidateApplicationCreated` events.
+   * Currently, only the `seekAnz` and `seekAnzPublicTest` schemes emit `CandidateApplicationCreated` events.
    */
   schemeId: Scalars['String'];
   /** The type of event, i.e. `CandidateApplicationCreated`. */
@@ -837,6 +830,8 @@ export interface CandidateProcessActionInput {
    * The free-form description of the action.
    *
    * This is required for a process history action of an uploaded candidate.
+   *
+   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
   description?: Maybe<Scalars['String']>;
   /**
@@ -1107,7 +1102,7 @@ export interface CandidateProfilePurchasedEvent extends Event {
   /**
    * The data source for the event.
    *
-   * Currently, only the `seekAnz` and `seekAnzPublicTest` schemes generate `CandidateProfilePurchased` events.
+   * Currently, only the `seekAnz` and `seekAnzPublicTest` schemes emit `CandidateProfilePurchased` events.
    */
   schemeId: Scalars['String'];
   /** The type of event, i.e. `CandidateProfilePurchased`. */
@@ -1419,16 +1414,16 @@ export interface CreatePositionOpeningPositionOpeningInput {
   statusCode?: Maybe<Scalars['String']>;
 }
 
-/** A collection of information about where and how to post a job ad. */
+/** Information about how to post a job ad and where to direct its candidate applications. */
 export interface CreatePostingInstructionInput {
   /**
    * A SEEK ANZ advertisement type code.
    *
    * Currently, three codes are defined:
    *
-   * - `Classic` indicates a Classic advertisement.
-   * - `StandOut` indicates a StandOut advertisement.
-   * - `Premium` indicates a Premium advertisement.
+   * - `Classic` indicates a Classic job ad.
+   * - `StandOut` indicates a StandOut job ad.
+   * - `Premium` indicates a Premium job ad.
    *
    * Scheme requirements:
    *
@@ -1442,7 +1437,9 @@ export interface CreatePostingInstructionInput {
    * Scheme requirements:
    *
    * - For the `seekAnz` scheme this must be no more than 30 days in the future.
-   *   If the end date is not specified it will default to the maximum period of 30 days.
+   *
+   *   If the end date is not specified it will default to the maximum period of 30 calendar days.
+   *   The precise end date can be queried from the `PostingInstruction.end` field once the job ad goes live.
    */
   end?: Maybe<Scalars['DateTime']>;
   /**
@@ -1456,7 +1453,7 @@ export interface CreatePostingInstructionInput {
    * An array of methods for applying to the position.
    *
    * If no methods are provided, SEEK's native apply form will be used to receive candidate applications.
-   * Native applications will raise a `CandidateApplicationCreated` event that points to a `CandidateProfile` object.
+   * Native applications will emit a `CandidateApplicationCreated` event that points to a `CandidateProfile` object.
    *
    * Scheme requirements:
    *
@@ -1471,7 +1468,7 @@ export interface CreatePostingInstructionInput {
    *
    * - For the `seekAnz` scheme, this field's behavior is dependent on the `SeekAnzAdProductFeatures` of the product set in the `seekAnzAdvertisementType` field.
    *
-   *   When the product's `SeekAnzAdProductFeatures`.`brandingIndicator` value is false, this field will be silently ignored.
+   *   When the product's `SeekAnzAdProductFeatures.brandingIndicator` value is false, this field will be silently ignored.
    */
   brandingId?: Maybe<Scalars['String']>;
 }
@@ -1876,7 +1873,7 @@ export interface Event {
   /**
    * The data source for the event.
    *
-   * Currently, only the `seekAnz` and `seekAnzPublicTest` schemes generate events.
+   * Currently, only the `seekAnz` and `seekAnzPublicTest` schemes emit events.
    */
   schemeId: Scalars['String'];
   /**
@@ -2010,6 +2007,55 @@ export interface GeoLocationInput {
   longitude: Scalars['Float'];
 }
 
+/** The event signaling that a hirer relationship has been added or removed. */
+export interface HirerRelationshipChangedEvent extends Event {
+  __typename?: 'HirerRelationshipChangedEvent';
+  /** The identifier for the `Event`. */
+  id: ObjectIdentifier;
+  /**
+   * The data source for the event.
+   *
+   * Currently, only the `seekAnz` and `seekAnzPublicTest` schemes emit `HirerRelationshipChanged` events.
+   */
+  schemeId: Scalars['String'];
+  /** The type of event, i.e. `HirerRelationshipChanged`. */
+  typeCode: Scalars['String'];
+  /**
+   * The date & time the hirer relationship was changed.
+   *
+   * This field has weak ordering guarantees, so it should not be used as a pagination argument.
+   */
+  createDateTime: Scalars['DateTime'];
+  /** The identifier for the hiring organization for whom the relationship was changed. */
+  hirerId: Scalars['String'];
+  /**
+   * The optional hiring organization for whom the relationship was changed.
+   *
+   * This will only be accessible if there is an active relationship between the partner and hirer.
+   * If all relationships have been removed with the hirer this field will be return a `FORBIDDEN` error.
+   */
+  hirer?: Maybe<HiringOrganization>;
+  /**
+   * A page of webhook attempts for the current event matching the specified criteria.
+   *
+   * A maximum of 100 webhook attempts can be returned in a single page.
+   * Additional webhook attempts can be queried using a pagination cursor.
+   *
+   * The result list is returned in ascending creation date & time order.
+   * It starts from the earliest known attempt if no pagination arguments are provided.
+   */
+  webhookAttempts: WebhookAttemptsConnection;
+}
+
+/** The event signaling that a hirer relationship has been added or removed. */
+export interface HirerRelationshipChangedEventWebhookAttemptsArgs {
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  filter?: Maybe<WebhookAttemptsFilterInput>;
+}
+
 /** An organization hiring for an open position. */
 export interface HiringOrganization {
   __typename?: 'HiringOrganization';
@@ -2095,7 +2141,7 @@ export interface HiringOrganizationsFilterInput {
   /**
    * Filters on relationship types between the hirer and requesting partner.
    *
-   * See the `HiringOrganizationApiCapabilities` documentation for a list of supported event types.
+   * See the `HiringOrganizationApiCapabilities.relationshipTypeCodes` documentation for a list of relationship types.
    *
    * If this is not provided then all related hirers are returned.
    */
@@ -2133,7 +2179,11 @@ export interface JobCategory {
 /** A job category with information of the suggested choice. */
 export interface JobCategorySuggestionChoice {
   __typename?: 'JobCategorySuggestionChoice';
-  /** The job category information of the suggestion choice. */
+  /**
+   * The job category information of the suggestion choice.
+   *
+   * This will be a child job category suitable for posting a position profile.
+   */
   jobCategory: JobCategory;
   /**
    * The confidence in the returned job category based on the suggestion input.
@@ -2226,7 +2276,7 @@ export interface Mutation {
   /** Replaces an existing position opening's person contacts. */
   updatePositionOpeningPersonContacts?: Maybe<UpdatePositionOpeningPersonContactsPayload>;
   /**
-   * Update the status of a position opening.
+   * Updates the status of a position opening.
    *
    * This status is provided to help hirers manage position openings.
    * The SEEK API does not use the position opening's status itself.
@@ -2263,26 +2313,26 @@ export interface Mutation {
   /** Deletes an unposted position profile. */
   deleteUnpostedPositionProfile?: Maybe<DeleteUnpostedPositionProfilePayload>;
   /**
-   * Delete an uploaded candidate and their profile from SEEK's systems.
+   * Deletes an uploaded candidate and their profile from SEEK's systems.
    *
    * This will also delete all `CandidateProcessHistoryItem`s belonging to the candidate profile.
    */
   deleteUploadedCandidate?: Maybe<DeleteUploadedCandidatePayload>;
-  /** Upload a candidate and their profile into SEEK's systems. */
+  /** Uploads a candidate and their profile into SEEK's systems. */
   uploadCandidate: UploadCandidatePayload;
-  /** Update the personal details of an uploaded candidate. */
+  /** Updates the personal details of an uploaded candidate. */
   updateUploadedCandidatePerson?: Maybe<UpdateUploadedCandidatePersonPayload>;
-  /** Update the actions associated with an uploaded candidate profile. */
+  /** Updates the actions associated with an uploaded candidate profile. */
   updateUploadedCandidateProfileActions?: Maybe<UpdateUploadedCandidateProfileActionsPayload>;
-  /** Update the dates associated with an uploaded candidate profile. */
+  /** Updates the dates associated with an uploaded candidate profile. */
   updateUploadedCandidateProfileDates?: Maybe<UpdateUploadedCandidateProfileDatesPayload>;
-  /** Update the position preferences associated with an uploaded candidate profile. */
+  /** Updates the position preferences associated with an uploaded candidate profile. */
   updateUploadedCandidateProfilePositionPreferences?: Maybe<UpdateUploadedCandidateProfilePositionPreferencesPayload>;
-  /** Add a process history item to an uploaded candidate's profile. */
+  /** Adds a process history item to an uploaded candidate's profile. */
   createCandidateProcessHistoryItem: CreateCandidateProcessHistoryItemPayload;
-  /** Delete a candidate process history item from SEEK's systems. */
+  /** Deletes a candidate process history item from SEEK's systems. */
   deleteCandidateProcessHistoryItem?: Maybe<DeleteCandidateProcessHistoryItemPayload>;
-  /** Update a candidate process history item. */
+  /** Updates a candidate process history item. */
   updateCandidateProcessHistoryItem?: Maybe<UpdateCandidateProcessHistoryItemPayload>;
   /** Creates a new webhook subscription. */
   createWebhookSubscription: CreateWebhookSubscriptionPayload;
@@ -2915,10 +2965,10 @@ export interface PositionProfile {
   /**
    * The set of questions presented to candidates during an application.
    *
-   * The questionnaire responses will be available as `seekQuestionnaireSubmission` on the application's `CandidateProfile`.
+   * The questionnaire responses will be available as `CandidateProfile.seekQuestionnaireSubmission` on the candidate's application profile.
    */
   seekApplicationQuestionnaire?: Maybe<ApplicationQuestionnaire>;
-  /** The video to render within the advertisement. */
+  /** The video to render within the job ad. */
   seekVideo?: Maybe<SeekVideo>;
   /** The instructions related to posting the job ad. */
   postingInstructions: Array<PostingInstruction>;
@@ -2940,7 +2990,7 @@ export interface PositionProfileClosedEvent extends Event {
   /**
    * The data source for the event.
    *
-   * Currently, only the `seekAnz` and `seekAnzPublicTest` schemes generate `PositionProfileClosed` events.
+   * Currently, only the `seekAnz` and `seekAnzPublicTest` schemes emit `PositionProfileClosed` events.
    */
   schemeId: Scalars['String'];
   /** The type of event, i.e. `PositionProfileClosed`. */
@@ -2948,7 +2998,7 @@ export interface PositionProfileClosedEvent extends Event {
   /**
    * The date & time the `PositionProfile` was closed.
    *
-   * `PositionProfile`s are closed automatically when they reach their `PostingInstruction`'s `end` date.
+   * `PositionProfile`s are closed automatically when they reach their `PostingInstruction.end` date.
    * They can also be closed early using the `closePostedPositionProfile` mutation.
    *
    * This field has weak ordering guarantees, so it should not be used as a pagination argument.
@@ -2991,7 +3041,7 @@ export interface PositionProfilePostedEvent extends Event {
   /**
    * The data source for the event.
    *
-   * Currently, only the `seekAnz` and `seekAnzPublicTest` schemes generate `PositionProfilePosted` events.
+   * Currently, only the `seekAnz` and `seekAnzPublicTest` schemes emit `PositionProfilePosted` events.
    */
   schemeId: Scalars['String'];
   /** The type of event, i.e. `PositionProfilePosted`. */
@@ -3189,10 +3239,10 @@ export interface PostPositionProfileForOpeningPositionProfileInput {
   /**
    * The identifier for the `ApplicationQuestionnaire` containing the set of questions to present to candidates during an application.
    *
-   * The questionnaire responses will be available as `seekQuestionnaireSubmission` on the application's `CandidateProfile`.
+   * The questionnaire responses will be available as `CandidateProfile.seekQuestionnaireSubmission` on the candidate's application profile.
    */
   seekApplicationQuestionnaireId?: Maybe<Scalars['String']>;
-  /** The video to render within the advertisement. */
+  /** The video to render within the job ad. */
   seekVideo?: Maybe<SeekVideoInput>;
   /**
    * The instructions related to posting the job ad.
@@ -3316,10 +3366,10 @@ export interface PostPositionPositionProfileInput {
   /**
    * The identifier for the `ApplicationQuestionnaire` containing the set of questions to present to candidates during an application.
    *
-   * The questionnaire responses will be available as `seekQuestionnaireSubmission` on the application's `CandidateProfile`.
+   * The questionnaire responses will be available as `CandidateProfile.seekQuestionnaireSubmission` on the candidate's application profile.
    */
   seekApplicationQuestionnaireId?: Maybe<Scalars['String']>;
-  /** The video to render within the advertisement. */
+  /** The video to render within the job ad. */
   seekVideo?: Maybe<SeekVideoInput>;
   /**
    * The instructions related to posting the job ad.
@@ -3416,10 +3466,10 @@ export interface PostedPositionProfile extends PositionProfile {
   /**
    * The set of questions presented to candidates during an application.
    *
-   * The questionnaire responses will be available as `seekQuestionnaireSubmission` on the application's `CandidateProfile`.
+   * The questionnaire responses will be available as `CandidateProfile.seekQuestionnaireSubmission` on the candidate's application profile.
    */
   seekApplicationQuestionnaire?: Maybe<ApplicationQuestionnaire>;
-  /** The video to render within the advertisement. */
+  /** The video to render within the job ad. */
   seekVideo?: Maybe<SeekVideo>;
   /** The instructions related to posting the job ad. */
   postingInstructions: Array<PostingInstruction>;
@@ -3433,7 +3483,7 @@ export interface PostedPositionProfile extends PositionProfile {
   seekPartnerMetadata?: Maybe<Scalars['String']>;
 }
 
-/** A collection of information about where and how to post a job ad. */
+/** Information about how to post a job ad and where to direct its candidate applications. */
 export interface PostingInstruction {
   __typename?: 'PostingInstruction';
   /** The start date of the posting. */
@@ -3445,9 +3495,9 @@ export interface PostingInstruction {
    *
    * Currently, three codes are defined:
    *
-   * - `Classic` indicates a Classic advertisement.
-   * - `StandOut` indicates a StandOut advertisement.
-   * - `Premium` indicates a Premium advertisement.
+   * - `Classic` indicates a Classic job ad.
+   * - `StandOut` indicates a StandOut job ad.
+   * - `Premium` indicates a Premium job ad.
    *
    * For positions in other schemes this will be `null`.
    */
@@ -3456,7 +3506,7 @@ export interface PostingInstruction {
    * An array of methods for applying to the position.
    *
    * If no methods are provided, SEEK's native apply form will be used to receive candidate applications.
-   * Native applications will raise a `CandidateApplicationCreated` event that points to a `CandidateProfile` object.
+   * Native applications will emit a `CandidateApplicationCreated` event that points to a `CandidateProfile` object.
    */
   applicationMethods: Array<ApplicationMethod>;
   /**
@@ -3526,13 +3576,13 @@ export interface PostingRequesterInput {
 export interface PreferredLocation {
   __typename?: 'PreferredLocation';
   /** The address that represents the preferred location. */
-  referenceLocation?: Maybe<Address>;
+  referenceLocation: Address;
 }
 
 /** A candidate's preferences in the location of a position. */
 export interface PreferredLocationInput {
   /** The address that represents the preferred location. */
-  referenceLocation?: Maybe<AddressInput>;
+  referenceLocation: AddressInput;
 }
 
 /**
@@ -3579,18 +3629,28 @@ export interface Query {
    * When provided with a browser token this will additionally return the scoped SEEK hirer.
    */
   self: SelfOrganizations;
-  /** A page of advertisement brandings associated with the specified `hirerId`. */
+  /**
+   * A page of advertisement brandings associated with the specified `hirerId`.
+   *
+   * This query accepts browser tokens that include the `query:advertisement-brandings` scope.
+   */
   advertisementBrandings: AdvertisementBrandingsConnection;
-  /** The advertisement branding for the given `id`. */
+  /**
+   * The advertisement branding for the given `id`.
+   *
+   * This query accepts browser tokens that include the `query:advertisement-brandings` scope.
+   */
   advertisementBranding?: Maybe<AdvertisementBranding>;
   /**
-   * Ad products available when creating an advertisement.
+   * Ad products available when initially posting a job ad.
    *
    * This query accepts browser tokens that include the `query:ad-products` scope.
    */
   seekAnzHirerAdvertisementCreationProducts?: Maybe<Array<SeekAnzAdProduct>>;
   /**
-   * Ad products available when updating an advertisement.
+   * Ad products available when updating a live job ad.
+   *
+   * Use this query when you have the `PositionProfile.profileId` for the live job ad.
    *
    * This query accepts browser tokens that include the `query:ad-products` scope.
    */
@@ -3598,9 +3658,9 @@ export interface Query {
     Array<SeekAnzAdProduct>
   >;
   /**
-   * Ad products available when updating an advertisement.
+   * Ad products available when updating a job ad.
    *
-   * Use this query while you don't have an identifier for the live `PositionProfile`.
+   * Use this query when you don't have the `PositionProfile.profileId` for the live job ad.
    *
    * This query accepts browser tokens that include the `query:ad-products` scope.
    */
@@ -4058,10 +4118,10 @@ export interface RemunerationAmountInput {
    * For the `seekAnz` scheme, a single currency is accepted in each location:
    *
    * - `NZD` is used by locations in New Zealand.
-   *   These are `Location`s that have a `countryCode` of `NZ`.
+   *   These are locations that have a `Location.countryCode` of `NZ`.
    *
    * - `GBP` is used by locations in the UK & Ireland.
-   *   These are `Location`s that have a `countryCode` of `GB` or `IE`.
+   *   These are locations that have a `Location.countryCode` of `GB` or `IE`.
    *
    * - `AUD` is used by all other locations.
    */
@@ -4136,12 +4196,18 @@ export interface RemunerationPackageInput {
 /** A salary or compensation range for a position. */
 export interface RemunerationRange {
   __typename?: 'RemunerationRange';
-  /** The minimum amount an organization is willing to pay for a position. */
+  /**
+   * The minimum amount an organization is willing to pay for a position.
+   *
+   * The value must be greater than 0.
+   */
   minimumAmount: RemunerationAmount;
   /**
    * The maximum amount an organization is willing to pay for a position.
    *
    * A 'null' value indicates the organization has not specified an upper bound for the range.
+   *
+   * If specified, the value must be greater than or equal to the value of `minimumAmount`.
    */
   maximumAmount?: Maybe<RemunerationAmount>;
   /**
@@ -4157,12 +4223,18 @@ export interface RemunerationRange {
 
 /** A salary or compensation range for a position. */
 export interface RemunerationRangeInput {
-  /** The minimum amount an organization is willing to pay for a position. */
+  /**
+   * The minimum amount an organization is willing to pay for a position.
+   *
+   * The value must be greater than 0.
+   */
   minimumAmount: RemunerationAmountInput;
   /**
    * The maximum amount an organization is willing to pay for a position.
    *
    * A `null` value indicates the organization has not specified an upper bound for the range.
+   *
+   * If specified, the value must be greater than or equal to the value of `minimumAmount`.
    */
   maximumAmount?: Maybe<RemunerationAmountInput>;
   /**
@@ -4173,9 +4245,9 @@ export interface RemunerationRangeInput {
    * - `Hour` is used to express hourly rates.
    * - `Year` is used to express annual salaries or commissions.
    *
-   * The specified value must correspond to the specified `RemunerationPackageInput`.`basisCode`.
-   * When `RemunerationPackageInput`.`basisCode` equals `Hourly`, the `RemunerationRangeInput`.`intervalCode` must be `Hour`.
-   * For all other `RemunerationPackageInput`.`basisCode`s, the `RemunerationRangeInput`.`intervalCode` must be `Year`.
+   * The specified value must correspond to the specified `RemunerationPackageInput.basisCode`.
+   * When `RemunerationPackageInput.basisCode` equals `Hourly`, the `RemunerationRangeInput.intervalCode` must be `Hour`.
+   * For all other `RemunerationPackageInput.basisCode`s, the `RemunerationRangeInput.intervalCode` must be `Year`.
    */
   intervalCode: Scalars['String'];
 }
@@ -4234,11 +4306,13 @@ export interface SeekAnzAdProduct {
    * - `Classic` indicates a Classic ad.
    * - `StandOut` indicates a StandOut ad.
    * - `Premium` indicates a Premium ad.
+   *
+   * This value should be provided as `PostingInstruction.seekAnzAdvertisementType` when posting or updating the job ad.
    */
   advertisementTypeCode: Scalars['String'];
-  /** The ad product name. */
+  /** The human-readable ad product name. */
   name: Scalars['String'];
-  /** The description of the ad product. */
+  /** The human-readable description of the ad product. */
   description: Scalars['String'];
   /** The price component of the ad product. */
   price: SeekAnzAdProductPrice;
@@ -4246,31 +4320,38 @@ export interface SeekAnzAdProduct {
   enabledIndicator: Scalars['Boolean'];
   /** How the ad product would be paid. */
   checkoutEstimate: SeekAnzAdProductCheckoutEstimate;
-  /** Messages that may be shown to hirer. */
+  /** The messages that may be shown to hirer. */
   messages: Array<SeekAnzAdProductMessage>;
-  /** Features this product supports. */
+  /** The features this product supports. */
   features: SeekAnzAdProductFeatures;
 }
 
 /**
- * The input parameter for a draft advertisement.
+ * The proposed state of a job ad.
  *
- * This input is used in querying of both creation and modification of ad products.
+ * This contains the `PositionProfile` fields relevant to querying ad products.
  */
 export interface SeekAnzAdProductAdvertisementDraftInput {
   /**
-   * The type of ad product.
+   * The type of the ad product.
    *
    * Currently, three codes are defined:
    *
    * - `Classic` indicates a Classic ad.
    * - `StandOut` indicates a StandOut ad.
    * - `Premium` indicates a Premium ad.
+   *
+   * This field is unused and may be omitted from the input.
    */
   typeCode?: Maybe<Scalars['String']>;
-  /** The hirer's job reference. */
+  /**
+   * The hirer's job reference.
+   *
+   * This field is used for tracing & debugging.
+   * It does not impact the available ad products or their pricing.
+   */
   hirerJobReference?: Maybe<Scalars['String']>;
-  /** The position title. */
+  /** A short phrase describing the position as it would be listed on a business card or in a company directory. */
   positionTitle?: Maybe<Scalars['String']>;
   /** The identifier for the `JobCategory`. */
   jobCategoryId?: Maybe<Scalars['String']>;
@@ -4278,10 +4359,14 @@ export interface SeekAnzAdProductAdvertisementDraftInput {
   positionLocationId?: Maybe<Scalars['String']>;
 }
 
-/** The input parameter for the `seekAnzHirerAdvertisementModificationProductsAlt` query. */
+/**
+ * The state of a live job ad as persisted by an integration partner.
+ *
+ * This contains the `PositionProfile` fields relevant to querying ad products.
+ */
 export interface SeekAnzAdProductAdvertisementInput {
   /**
-   * The type of ad product.
+   * The type of the ad product.
    *
    * Currently, three codes are defined:
    *
@@ -4292,9 +4377,14 @@ export interface SeekAnzAdProductAdvertisementInput {
   typeCode: Scalars['String'];
   /** The identifier for the `PositionProfile`. */
   id?: Maybe<Scalars['String']>;
-  /** The hirer's job reference. */
+  /**
+   * The hirer's job reference.
+   *
+   * This field is used for tracing & debugging.
+   * It does not impact the available ad product or their pricing.
+   */
   hirerJobReference?: Maybe<Scalars['String']>;
-  /** The position title. */
+  /** A short phrase describing the position as it would be listed on a business card or in a company directory. */
   positionTitle: Scalars['String'];
   /** The identifier for the `JobCategory`. */
   jobCategoryId: Scalars['String'];
@@ -4307,19 +4397,19 @@ export interface SeekAnzAdProductCheckoutEstimate {
   __typename?: 'SeekAnzAdProductCheckoutEstimate';
   /** The amount left to be paid. */
   paymentDueExcludingTax?: Maybe<CurrencyMinorUnit>;
-  /** Checkout estimate summary. */
+  /** The human-readable checkout estimate summary. */
   summary: Scalars['String'];
-  /** Contract component of the checkout estimate. */
+  /** The contract component of the checkout estimate. */
   contractConsumption?: Maybe<SeekAnzAdProductContractConsumption>;
 }
 
 /** The details of changes to the hirer's contract consumption. */
 export interface SeekAnzAdProductContractConsumption {
   __typename?: 'SeekAnzAdProductContractConsumption';
-  /** Summary of contract consumption. */
+  /** The human-readable summary of contract consumption. */
   summary: Scalars['String'];
   /**
-   * Type of contract consumption.
+   * The type of contract consumption.
    *
    * Currently, three codes are defined:
    *
@@ -4330,13 +4420,18 @@ export interface SeekAnzAdProductContractConsumption {
   typeCode: Scalars['String'];
 }
 
-/** The indicators of supported ad product features. */
+/**
+ * The features supported by an ad product.
+ *
+ * These are features that have a dynamic impact on an integration partner's job posting flow.
+ * Ad products may have additional features that are implemented entirely within SEEK's systems.
+ */
 export interface SeekAnzAdProductFeatures {
   __typename?: 'SeekAnzAdProductFeatures';
   /**
-   * Whether the product supports branding.
+   * Whether the product supports advertisement branding.
    *
-   * When false, the `PostingInstruction`'s `brandingId` field will be ignored.
+   * When false, the `PostingInstruction.brandingId` field will be ignored.
    */
   brandingIndicator: Scalars['Boolean'];
   /**
@@ -4372,13 +4467,12 @@ export interface SeekAnzAdProductMessage {
   /**
    * The visibility of the message.
    *
-   * Currently, three codes are defined:
+   * Currently, two codes are defined:
    * - `ProductSelected` indicates the message should be visible when the product is selected.
-   * - `ProductNotSelected` indicates the message should be visible when the product is not selected.
    * - `Always` indicates the message should be always visible.
    */
   visibilityCode: Scalars['String'];
-  /** The content of the message. */
+  /** The human-readable content of the message. */
   content: Scalars['String'];
 }
 
@@ -4387,7 +4481,7 @@ export interface SeekAnzAdProductPrice {
   __typename?: 'SeekAnzAdProductPrice';
   /** The product price without tax. */
   amountExcludingTax?: Maybe<CurrencyMinorUnit>;
-  /** Descriptive summary of the product price. */
+  /** The human-readable summary of the product price. */
   summary: Scalars['String'];
   /** Whether the price can be shown to the hirer. */
   visibleForHirerIndicator: Scalars['Boolean'];
@@ -4396,15 +4490,17 @@ export interface SeekAnzAdProductPrice {
 }
 
 /** The role of an attachment within a profile. */
-export enum SeekAttachmentRole {
+export const SeekAttachmentRole = {
   /** A resume or CV. */
-  Resume = 'RESUME',
+  Resume: 'RESUME',
   /** A cover letter specific to a position opening. */
-  CoverLetter = 'COVER_LETTER',
+  CoverLetter: 'COVER_LETTER',
   /** A document supporting a position-specific selection criteria. */
-  SelectionCriteria = 'SELECTION_CRITERIA',
-}
+  SelectionCriteria: 'SELECTION_CRITERIA',
+} as const;
 
+export type SeekAttachmentRole =
+  typeof SeekAttachmentRole[keyof typeof SeekAttachmentRole];
 /** The source system for the process history item. */
 export interface SeekProcessHistoryItemSource {
   __typename?: 'SeekProcessHistoryItemSource';
@@ -4418,7 +4514,7 @@ export interface SeekProcessHistoryItemSourceInput {
   name: Scalars['String'];
 }
 
-/** A collection of information about the video to display alongside advertisement details. */
+/** An externally hosted video to display alongside advertisement details. */
 export interface SeekVideo {
   __typename?: 'SeekVideo';
   /** The URL of the video. */
@@ -4434,7 +4530,7 @@ export interface SeekVideo {
   seekAnzPositionCode?: Maybe<Scalars['String']>;
 }
 
-/** A collection of information about the video to display alongside advertisement details. */
+/** An externally hosted video to display alongside advertisement details. */
 export interface SeekVideoInput {
   /**
    * The URL of the video to display.
@@ -4579,10 +4675,10 @@ export interface UnpostedPositionProfile extends PositionProfile {
   /**
    * The set of questions presented to candidates during an application.
    *
-   * The questionnaire responses will be available as `seekQuestionnaireSubmission` on the application's `CandidateProfile`.
+   * The questionnaire responses will be available as `CandidateProfile.seekQuestionnaireSubmission` on the candidate's application profile.
    */
   seekApplicationQuestionnaire?: Maybe<ApplicationQuestionnaire>;
-  /** The video to render within the advertisement. */
+  /** The video to render within the job ad. */
   seekVideo?: Maybe<SeekVideo>;
   /** The instructions related to posting the job ad. */
   postingInstructions: Array<PostingInstruction>;
@@ -4798,16 +4894,12 @@ export interface UpdatePostedPositionProfilePositionProfileInput {
    */
   positionLocation: Array<Scalars['String']>;
   /**
-   * The identifier for the `ApplicationQuestionnaire` containing the set of questions to present to candidates during an application.
+   * This field is deprecated and must be omitted from all inputs.
    *
-   * The questionnaire responses will be available as `seekQuestionnaireSubmission` on the application's `CandidateProfile`.
-   *
-   * Scheme requirements:
-   *
-   * - For the `seekAnz` scheme, this field is ignored.
+   * Do not explicitly set to `null` or any other value.
    */
   seekApplicationQuestionnaireId?: Maybe<Scalars['String']>;
-  /** The video to render within the advertisement. */
+  /** The video to render within the job ad. */
   seekVideo?: Maybe<SeekVideoInput>;
   /**
    * The instructions related to posting the job ad.
@@ -4834,16 +4926,16 @@ export interface UpdatePostedPositionProfilePositionProfilePayload {
   profileId: ObjectIdentifier;
 }
 
-/** A collection of information about where and how to post a job ad. */
+/** Information about how to post a job ad and where to direct its candidate applications. */
 export interface UpdatePostingInstructionInput {
   /**
    * A SEEK ANZ advertisement type code.
    *
    * Currently, three codes are defined:
    *
-   * - `Classic` indicates a Classic advertisement.
-   * - `StandOut` indicates a StandOut advertisement.
-   * - `Premium` indicates a Premium advertisement.
+   * - `Classic` indicates a Classic job ad.
+   * - `StandOut` indicates a StandOut job ad.
+   * - `Premium` indicates a Premium job ad.
    *
    * Scheme requirements:
    *
@@ -4851,13 +4943,21 @@ export interface UpdatePostingInstructionInput {
    * - For other schemes, set this to `null`.
    */
   seekAnzAdvertisementType?: Maybe<Scalars['String']>;
-  /** The end date of the posting. */
+  /**
+   * The end date of the posting.
+   *
+   * Scheme requirements:
+   *
+   * - For the `seekAnz` scheme this must be no more than 30 days after the job ad was initially posted.
+   *
+   *   If an end date is not specified the job ad's existing end date will be preserved.
+   */
   end?: Maybe<Scalars['DateTime']>;
   /**
    * An array of methods for applying to the position.
    *
    * If no methods are provided, SEEK's native apply form will be used to receive candidate applications.
-   * Native applications will raise a `CandidateApplicationCreated` event that points to a `CandidateProfile` object.
+   * Native applications will emit a `CandidateApplicationCreated` event that points to a `CandidateProfile` object.
    *
    * Scheme requirements:
    *
@@ -4872,7 +4972,7 @@ export interface UpdatePostingInstructionInput {
    *
    * - For the `seekAnz` scheme, this field's behavior is dependent on the `SeekAnzAdProductFeatures` of the product set in the `seekAnzAdvertisementType` field.
    *
-   *   When the product's `SeekAnzAdProductFeatures`.`brandingIndicator` value is false, this field will be silently ignored.
+   *   When the product's `SeekAnzAdProductFeatures.brandingIndicator` value is false, this field will be silently ignored.
    */
   brandingId?: Maybe<Scalars['String']>;
 }
@@ -5224,6 +5324,15 @@ export interface UploadCandidatePayloadSuccess {
    * The uploaded candidate profile is available in the `profiles` field.
    */
   candidate: Candidate;
+  /**
+   * The details of the process history items uploaded alongside the candidate.
+   *
+   * The upload operation is atomic;
+   * if you receive an `UploadCandidatePayload_Success` payload,
+   * all process history items were successfully uploaded.
+   * Input order is preserved to allow your software to record the `id` assigned to each item.
+   */
+  candidateProcessHistoryItems: Array<CandidateProcessHistoryItem>;
   /** The details of the hiring organization that uploaded the candidate and their profile. */
   hiringOrganization: HiringOrganization;
 }
@@ -5372,11 +5481,11 @@ export interface WebhookAttemptsFilterInput {
    */
   beforeDateTime?: Maybe<Scalars['DateTime']>;
   /**
-   * The types of webhook attempts to retrieve.
+   * The high-level HTTP result of the webhook attempts to retrieve.
    *
-   * See the `WebhookAttempt` documentation for a list of possible description codes.
+   * See the `WebhookRequest.descriptionCode` documentation for a list of possible description codes.
    *
-   * If this is not provided then attempts of all types will be returned.
+   * If this is not provided then all attempts will be returned regardless of their result.
    */
   descriptionCodes?: Maybe<Array<Scalars['String']>>;
 }
@@ -5470,11 +5579,11 @@ export interface WebhookRequestFilterInput {
    */
   beforeDateTime?: Maybe<Scalars['DateTime']>;
   /**
-   * The types of webhook requests to retrieve.
+   * The high-level HTTP result of the webhook requests to retrieve.
    *
-   * See the `WebhookRequest` documentation for a list of possible description codes.
+   * See the `WebhookRequest.descriptionCode` documentation for a list of possible description codes.
    *
-   * If this is not provided then requests of all types will be returned.
+   * If this is not provided then all requests will be returned regardless of their result.
    */
   descriptionCodes?: Maybe<Array<Scalars['String']>>;
 }
@@ -5687,7 +5796,7 @@ export interface WebhookSubscriptionReplaysFilterInput {
   /**
    * The replay status to filter by.
    *
-   * See the `WebhookSubscriptionReplay` documentation for a list of possible status codes.
+   * See the `WebhookSubscriptionReplay.statusCode` documentation for a list of possible status codes.
    *
    * If this is not provided then replays of all statuses will be returned.
    */
@@ -5726,7 +5835,7 @@ export interface WebhookSubscriptionsFilterInput {
   /**
    * The event types of webhook subscriptions to retrieve.
    *
-   * See the `WebhookSubscription` documentation for a list of supported event types.
+   * See `Event` implementations for a list of supported values.
    *
    * If this is not provided then events of all types will be returned.
    */
@@ -5741,36 +5850,50 @@ export interface WebhookSubscriptionsFilterInput {
 
 export type JobCategoryAttributesFragment = {
   __typename?: 'JobCategory';
-} & Pick<JobCategory, 'name'> & {
-    id: { __typename?: 'ObjectIdentifier' } & Pick<ObjectIdentifier, 'value'>;
-  };
+  name: string;
+  id: { __typename?: 'ObjectIdentifier'; value: string };
+};
 
 export type JobCategoriesQueryVariables = Exact<{
   schemeId: Scalars['String'];
 }>;
 
-export type JobCategoriesQuery = { __typename?: 'Query' } & {
-  jobCategories: Array<
-    { __typename?: 'JobCategory' } & {
-      children?: Maybe<
-        Array<{ __typename?: 'JobCategory' } & JobCategoryAttributesFragment>
-      >;
-    } & JobCategoryAttributesFragment
-  >;
+export type JobCategoriesQuery = {
+  jobCategories: Array<{
+    __typename?: 'JobCategory';
+    name: string;
+    children?: Maybe<
+      Array<{
+        __typename?: 'JobCategory';
+        name: string;
+        id: { __typename?: 'ObjectIdentifier'; value: string };
+      }>
+    >;
+    id: { __typename?: 'ObjectIdentifier'; value: string };
+  }>;
 };
 
 export type JobCategorySuggestionChoiceAttributesFragment = {
   __typename?: 'JobCategorySuggestionChoice';
-} & Pick<JobCategorySuggestionChoice, 'confidence'> & {
-    jobCategory: { __typename?: 'JobCategory' } & {
-      parent?: Maybe<
-        { __typename?: 'JobCategory' } & JobCategoryAttributesFragment
-      >;
-      children?: Maybe<
-        Array<{ __typename?: 'JobCategory' } & JobCategoryAttributesFragment>
-      >;
-    } & JobCategoryAttributesFragment;
+  confidence: number;
+  jobCategory: {
+    __typename?: 'JobCategory';
+    name: string;
+    parent?: Maybe<{
+      __typename?: 'JobCategory';
+      name: string;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    }>;
+    children?: Maybe<
+      Array<{
+        __typename?: 'JobCategory';
+        name: string;
+        id: { __typename?: 'ObjectIdentifier'; value: string };
+      }>
+    >;
+    id: { __typename?: 'ObjectIdentifier'; value: string };
   };
+};
 
 export type JobCategorySuggestQueryVariables = Exact<{
   positionProfile: JobCategorySuggestionPositionProfileInput;
@@ -5778,51 +5901,128 @@ export type JobCategorySuggestQueryVariables = Exact<{
   first?: Maybe<Scalars['Int']>;
 }>;
 
-export type JobCategorySuggestQuery = { __typename?: 'Query' } & {
-  jobCategorySuggestions: Array<
-    {
-      __typename?: 'JobCategorySuggestionChoice';
-    } & JobCategorySuggestionChoiceAttributesFragment
-  >;
+export type JobCategorySuggestQuery = {
+  jobCategorySuggestions: Array<{
+    __typename?: 'JobCategorySuggestionChoice';
+    confidence: number;
+    jobCategory: {
+      __typename?: 'JobCategory';
+      name: string;
+      parent?: Maybe<{
+        __typename?: 'JobCategory';
+        name: string;
+        id: { __typename?: 'ObjectIdentifier'; value: string };
+      }>;
+      children?: Maybe<
+        Array<{
+          __typename?: 'JobCategory';
+          name: string;
+          id: { __typename?: 'ObjectIdentifier'; value: string };
+        }>
+      >;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    };
+  }>;
 };
 
-export type LocationAttributesFragment = { __typename?: 'Location' } & Pick<
-  Location,
-  'name' | 'contextualName' | 'countryCode'
-> & {
-    id: { __typename?: 'ObjectIdentifier' } & Pick<ObjectIdentifier, 'value'>;
-  };
+export type LocationAttributesFragment = {
+  __typename?: 'Location';
+  name: string;
+  contextualName: string;
+  countryCode: string;
+  id: { __typename?: 'ObjectIdentifier'; value: string };
+};
 
-export type NestedLocationAttributesFragment = { __typename?: 'Location' } & {
-  parent?: Maybe<
-    { __typename?: 'Location' } & {
-      parent?: Maybe<
-        { __typename?: 'Location' } & {
-          parent?: Maybe<
-            { __typename?: 'Location' } & {
-              parent?: Maybe<
-                { __typename?: 'Location' } & {
-                  parent?: Maybe<
-                    { __typename?: 'Location' } & LocationAttributesFragment
-                  >;
-                } & LocationAttributesFragment
-              >;
-            } & LocationAttributesFragment
-          >;
-        } & LocationAttributesFragment
-      >;
-    } & LocationAttributesFragment
-  >;
-} & LocationAttributesFragment;
+export type NestedLocationAttributesFragment = {
+  __typename?: 'Location';
+  name: string;
+  contextualName: string;
+  countryCode: string;
+  parent?: Maybe<{
+    __typename?: 'Location';
+    name: string;
+    contextualName: string;
+    countryCode: string;
+    parent?: Maybe<{
+      __typename?: 'Location';
+      name: string;
+      contextualName: string;
+      countryCode: string;
+      parent?: Maybe<{
+        __typename?: 'Location';
+        name: string;
+        contextualName: string;
+        countryCode: string;
+        parent?: Maybe<{
+          __typename?: 'Location';
+          name: string;
+          contextualName: string;
+          countryCode: string;
+          parent?: Maybe<{
+            __typename?: 'Location';
+            name: string;
+            contextualName: string;
+            countryCode: string;
+            id: { __typename?: 'ObjectIdentifier'; value: string };
+          }>;
+          id: { __typename?: 'ObjectIdentifier'; value: string };
+        }>;
+        id: { __typename?: 'ObjectIdentifier'; value: string };
+      }>;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    }>;
+    id: { __typename?: 'ObjectIdentifier'; value: string };
+  }>;
+  id: { __typename?: 'ObjectIdentifier'; value: string };
+};
 
 export type LocationQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
-export type LocationQuery = { __typename?: 'Query' } & {
-  location?: Maybe<
-    { __typename?: 'Location' } & NestedLocationAttributesFragment
-  >;
+export type LocationQuery = {
+  location?: Maybe<{
+    __typename?: 'Location';
+    name: string;
+    contextualName: string;
+    countryCode: string;
+    parent?: Maybe<{
+      __typename?: 'Location';
+      name: string;
+      contextualName: string;
+      countryCode: string;
+      parent?: Maybe<{
+        __typename?: 'Location';
+        name: string;
+        contextualName: string;
+        countryCode: string;
+        parent?: Maybe<{
+          __typename?: 'Location';
+          name: string;
+          contextualName: string;
+          countryCode: string;
+          parent?: Maybe<{
+            __typename?: 'Location';
+            name: string;
+            contextualName: string;
+            countryCode: string;
+            parent?: Maybe<{
+              __typename?: 'Location';
+              name: string;
+              contextualName: string;
+              countryCode: string;
+              id: { __typename?: 'ObjectIdentifier'; value: string };
+            }>;
+            id: { __typename?: 'ObjectIdentifier'; value: string };
+          }>;
+          id: { __typename?: 'ObjectIdentifier'; value: string };
+        }>;
+        id: { __typename?: 'ObjectIdentifier'; value: string };
+      }>;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    }>;
+    id: { __typename?: 'ObjectIdentifier'; value: string };
+  }>;
 };
 
 export type SuggestLocationsQueryVariables = Exact<{
@@ -5833,15 +6033,53 @@ export type SuggestLocationsQueryVariables = Exact<{
   first?: Maybe<Scalars['Int']>;
 }>;
 
-export type SuggestLocationsQuery = { __typename?: 'Query' } & {
+export type SuggestLocationsQuery = {
   locationSuggestions?: Maybe<
-    Array<
-      { __typename?: 'LocationSuggestion' } & {
-        location: {
+    Array<{
+      __typename?: 'LocationSuggestion';
+      location: {
+        __typename?: 'Location';
+        name: string;
+        contextualName: string;
+        countryCode: string;
+        parent?: Maybe<{
           __typename?: 'Location';
-        } & NestedLocationAttributesFragment;
-      }
-    >
+          name: string;
+          contextualName: string;
+          countryCode: string;
+          parent?: Maybe<{
+            __typename?: 'Location';
+            name: string;
+            contextualName: string;
+            countryCode: string;
+            parent?: Maybe<{
+              __typename?: 'Location';
+              name: string;
+              contextualName: string;
+              countryCode: string;
+              parent?: Maybe<{
+                __typename?: 'Location';
+                name: string;
+                contextualName: string;
+                countryCode: string;
+                parent?: Maybe<{
+                  __typename?: 'Location';
+                  name: string;
+                  contextualName: string;
+                  countryCode: string;
+                  id: { __typename?: 'ObjectIdentifier'; value: string };
+                }>;
+                id: { __typename?: 'ObjectIdentifier'; value: string };
+              }>;
+              id: { __typename?: 'ObjectIdentifier'; value: string };
+            }>;
+            id: { __typename?: 'ObjectIdentifier'; value: string };
+          }>;
+          id: { __typename?: 'ObjectIdentifier'; value: string };
+        }>;
+        id: { __typename?: 'ObjectIdentifier'; value: string };
+      };
+    }>
   >;
 };
 
@@ -5851,8 +6089,49 @@ export type NearestLocationsQueryVariables = Exact<{
   first?: Maybe<Scalars['Int']>;
 }>;
 
-export type NearestLocationsQuery = { __typename?: 'Query' } & {
+export type NearestLocationsQuery = {
   nearestLocations?: Maybe<
-    Array<{ __typename?: 'Location' } & NestedLocationAttributesFragment>
+    Array<{
+      __typename?: 'Location';
+      name: string;
+      contextualName: string;
+      countryCode: string;
+      parent?: Maybe<{
+        __typename?: 'Location';
+        name: string;
+        contextualName: string;
+        countryCode: string;
+        parent?: Maybe<{
+          __typename?: 'Location';
+          name: string;
+          contextualName: string;
+          countryCode: string;
+          parent?: Maybe<{
+            __typename?: 'Location';
+            name: string;
+            contextualName: string;
+            countryCode: string;
+            parent?: Maybe<{
+              __typename?: 'Location';
+              name: string;
+              contextualName: string;
+              countryCode: string;
+              parent?: Maybe<{
+                __typename?: 'Location';
+                name: string;
+                contextualName: string;
+                countryCode: string;
+                id: { __typename?: 'ObjectIdentifier'; value: string };
+              }>;
+              id: { __typename?: 'ObjectIdentifier'; value: string };
+            }>;
+            id: { __typename?: 'ObjectIdentifier'; value: string };
+          }>;
+          id: { __typename?: 'ObjectIdentifier'; value: string };
+        }>;
+        id: { __typename?: 'ObjectIdentifier'; value: string };
+      }>;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    }>
   >;
 };

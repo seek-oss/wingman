@@ -3,7 +3,7 @@ import { SchemaLink } from '@apollo/client/link/schema';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import React, { ReactNode } from 'react';
 
-import typeDefs from '../types/seekSchema.graphql';
+import { typeDefs } from '../types/seekApi.typeDefs';
 
 type Resolvers = Parameters<typeof makeExecutableSchema>[0]['resolvers'];
 

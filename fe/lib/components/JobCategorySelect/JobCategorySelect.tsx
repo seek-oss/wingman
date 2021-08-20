@@ -11,7 +11,7 @@ import React, { ComponentPropsWithRef, forwardRef, useState } from 'react';
 import type {
   JobCategoriesQuery,
   JobCategoryAttributesFragment,
-} from '../../types/seek.graphql';
+} from '../../types/seekApi.graphql';
 
 import JobCategorySelectInput from './JobCategorySelectInput';
 import { JOB_CATEGORIES } from './queries';

@@ -4,7 +4,7 @@ import React, { ComponentProps, useEffect, useState } from 'react';
 import type {
   JobCategoriesQuery,
   JobCategoryAttributesFragment,
-} from '../../types/seek.graphql';
+} from '../../types/seekApi.graphql';
 import { findObjectByOid } from '../../utils';
 
 type AllJobCategories = JobCategoriesQuery['jobCategories'];

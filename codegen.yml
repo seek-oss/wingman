@@ -1,31 +1,24 @@
+schema: https://graphql.seek.com/graphql
+
 generates:
-  ./fe/lib/types/seek.graphql.ts:
-    schema: ${SEEK_SCHEMA_PATH:https://graphql.seek.com/graphql}
-    documents:
-      - fe/lib/components/**/queries.ts
+  ./fe/lib/types/seekApi.graphql.ts:
+    documents: fe/lib/components/**/queries.ts
     plugins:
       - typescript
       - typescript-operations
-
-  ./fe/lib/types/seekFragmentTypes.ts:
-    schema: ${SEEK_SCHEMA_PATH:https://graphql.seek.com/graphql}
-    plugins:
-      - fragment-matcher
     config:
-      module: es2015
+      enumsAsConst: true
+      scalars:
+        Date: string
+        DateTime: string
+        HistoryDate: string
+      skipTypeNameForRoot: true
 
-  ./fe/lib/types/seekSchema.graphql:
-    schema: ${SEEK_SCHEMA_PATH:https://graphql.seek.com/graphql}
+  ./fe/lib/types/seekApi.typeDefs.ts:
     plugins:
-      - schema-ast
-    config:
-      includeDirectives: true
+      - typescript-typedefs.js
 
 config:
-  scalars:
-    DateTime: string
-    Date: string
-    HistoryDate: string
-  declarationKind: 'interface'
+  declarationKind: interface
   namingConvention:
     transformUnderscore: true

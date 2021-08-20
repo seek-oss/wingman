@@ -10,7 +10,7 @@ import {
 import React from 'react';
 
 import { useFields } from '../../hooks/Fields/Fields';
-import type { SpecifiedPersonInput } from '../../types/seek.graphql';
+import type { SpecifiedPersonInput } from '../../types/seekApi.graphql';
 
 type FieldId =
   | 'specifiedPersonRoleCode'
