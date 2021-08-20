@@ -1,49 +1,58 @@
 import { Card, Column, Columns, Stack, Text } from 'braid-design-system';
 import React, { useContext, useState } from 'react';
 
-import type { PrivacyConsent } from '../../../types';
+import type {
+  FreeTextQuestion,
+  SelectionQuestion,
+} from '../../../../private/questionnaires/types';
 import { StateContext, actionCreators } from '../state/formBuilderState';
 
-import NewPrivacyConsentForm from './NewPrivacyConsentForm/NewPrivacyConsentForm';
+import NewQuestionForm from './NewQuestionForm/NewQuestionForm';
 import QuestionEntryMenu from './QuestionEntryMenu';
 
-interface PrivacyConsentEntryProps {
-  privacyConsent: PrivacyConsent;
+const questionTypeDisplayNames = {
+  FreeText: 'Free text',
+  SingleSelect: 'Single select',
+  MultiSelect: 'Multi select',
+} as const;
+
+interface QuestionListEntryProps {
+  question: FreeTextQuestion | SelectionQuestion;
 }
 
-const PrivacyConsentEntry = ({ privacyConsent }: PrivacyConsentEntryProps) => {
+const QuestionListEntry = ({ question }: QuestionListEntryProps) => {
   const { dispatch } = useContext(StateContext);
   const [showEditForm, setShowEditForm] = useState(false);
 
-  const onClickDelete = (questionToDelete: PrivacyConsent) => () => {
-    actionCreators.delete(dispatch)(questionToDelete.value);
-  };
+  const onClickDelete =
+    (questionToDelete: FreeTextQuestion | SelectionQuestion) => () => {
+      actionCreators.delete(dispatch)(questionToDelete.value);
+    };
 
   const onClickEdit = () => {
     setShowEditForm(true);
   };
 
   return showEditForm ? (
-    <NewPrivacyConsentForm
+    <NewQuestionForm
       hideForm={() => setShowEditForm(false)}
-      initialValues={privacyConsent}
+      initialValues={question}
     />
   ) : (
     <Card>
       <Columns alignY="center" space="small">
         <Column>
           <Stack space="small">
-            <Text size="large">Privacy consent</Text>
+            <Text size="large">{question.questionHtml}</Text>
             <Text tone="secondary" size="small">
-              {privacyConsent.descriptionHtml ??
-                privacyConsent.privacyPolicyUrl.url}
+              {questionTypeDisplayNames[question.responseTypeCode]}
             </Text>
           </Stack>
         </Column>
 
         <Column width="content">
           <QuestionEntryMenu
-            onClickDelete={onClickDelete(privacyConsent)}
+            onClickDelete={onClickDelete(question)}
             onClickEdit={onClickEdit}
           />
         </Column>
@@ -52,4 +61,4 @@ const PrivacyConsentEntry = ({ privacyConsent }: PrivacyConsentEntryProps) => {
   );
 };
 
-export default PrivacyConsentEntry;
+export default QuestionListEntry;

@@ -10,8 +10,11 @@ import {
 import React, { useContext } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
-import { createResolver } from '../../../../../../utils';
-import type { PrivacyConsent, WebUrl } from '../../../../types';
+import type {
+  PrivacyConsent,
+  WebUrl,
+} from '../../../../../private/questionnaires/types';
+import { createResolver } from '../../../../../utils';
 import { StateContext, actionCreators } from '../../state/formBuilderState';
 
 interface NewPrivacyConsentForm {

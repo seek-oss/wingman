@@ -9,7 +9,7 @@ import {
 } from '../../storybook/controls';
 import { BraidStorybookProvider } from '../../storybook/decorators';
 
-import { QuestionnaireBuilder as Component } from './QuestionnaireBuilder/QuestionnaireBuilder';
+import { QuestionnaireBuilder as Component } from './QuestionnaireBuilder';
 
 export default {
   args: {

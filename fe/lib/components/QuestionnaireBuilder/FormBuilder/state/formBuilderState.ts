@@ -8,7 +8,7 @@ import type {
   QuestionType,
   ResponseChoice,
   SelectionQuestion,
-} from '../../../types';
+} from '../../../../private/questionnaires/types';
 
 export interface DeleteComponentAction {
   type: 'DELETE_COMPONENT';

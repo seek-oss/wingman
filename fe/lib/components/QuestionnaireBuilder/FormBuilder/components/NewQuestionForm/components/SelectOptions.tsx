@@ -10,8 +10,8 @@ import {
 import React, { useMemo, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
-import { createResolver } from '../../../../../../../utils';
-import type { ResponseChoice } from '../../../../../types';
+import type { ResponseChoice } from '../../../../../../private/questionnaires/types';
+import { createResolver } from '../../../../../../utils';
 
 import DisplayOption from './DisplayOption';
 

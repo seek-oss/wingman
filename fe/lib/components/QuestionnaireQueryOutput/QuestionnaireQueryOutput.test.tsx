@@ -1,6 +1,6 @@
-import type { FormComponent } from '../../types';
+import type { FormComponent } from '../../private/questionnaires/types';
 
-import { convertComponentsToMutationVariables } from './GraphqlQueryRenderer';
+import { convertComponentsToMutationVariables } from './QuestionnaireQueryOutput';
 
 describe('convertComponentsToMutationVariables', () => {
   describe('when converting components to mutation variables', () => {

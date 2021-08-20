@@ -10,18 +10,21 @@ import {
 } from 'braid-design-system';
 import React, { useEffect, useState } from 'react';
 
+import { mapGraphqlToFormComponent } from '../../private/questionnaires/mapping';
+import type {
+  FormComponent,
+  GraphqlComponentInput,
+} from '../../private/questionnaires/types';
 import { QuestionnaireForm } from '../QuestionnaireForm/QuestionnaireForm';
 import {
-  GraphqlQueryRenderer,
   QuestionnaireCreateInput,
+  QuestionnaireQueryOutput,
   convertComponentsToMutationVariables,
-} from '../components/GraphqlQueryRenderer/GraphqlQueryRenderer';
-import { mapGraphqlToFormComponent } from '../mapping';
-import type { FormComponent, GraphqlComponentInput } from '../types';
+} from '../QuestionnaireQueryOutput/QuestionnaireQueryOutput';
 
 import { FormBuilder } from './FormBuilder/FormBuilder';
 
-interface QuestionnaireBuilderProps {
+export interface QuestionnaireBuilderProps {
   hirerId: string;
   graphqlInput?: GraphqlComponentInput[];
   onChange?: (mutationVariables: QuestionnaireCreateInput) => void;
@@ -78,7 +81,7 @@ export const QuestionnaireBuilder = ({
             <Stack space="large">
               <Heading level="3">GraphQL Output</Heading>
 
-              <GraphqlQueryRenderer
+              <QuestionnaireQueryOutput
                 components={formBuilderState}
                 hirerId={hirerId}
               />

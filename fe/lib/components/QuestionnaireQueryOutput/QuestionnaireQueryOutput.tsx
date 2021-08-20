@@ -8,8 +8,12 @@ import {
 import React, { useState } from 'react';
 import { CodeBlock } from 'scoobie';
 
-import { MAX_NUMBER_OF_COMPONENTS } from '../../constants';
-import type { FormComponent, PrivacyConsent, Question } from '../../types';
+import { MAX_NUMBER_OF_COMPONENTS } from '../../private/questionnaires/constants';
+import type {
+  FormComponent,
+  PrivacyConsent,
+  Question,
+} from '../../private/questionnaires/types';
 
 type MutationQuestionnaireComponents =
   | {
@@ -111,15 +115,15 @@ const renderVariablesPane = (components: FormComponent[], hirerId: string) => {
   return <Text>You need to add some questions first</Text>;
 };
 
-interface GraphqlQueryRendererProps {
+interface QuestionnaireQueryOutputProps {
   components: FormComponent[];
   hirerId: string;
 }
 
-export const GraphqlQueryRenderer = ({
+export const QuestionnaireQueryOutput = ({
   components,
   hirerId,
-}: GraphqlQueryRendererProps) => {
+}: QuestionnaireQueryOutputProps) => {
   type VisiblePane = 'variables' | 'mutation';
   const [visiblePane, setVisiblePane] = useState<VisiblePane>('variables');
 

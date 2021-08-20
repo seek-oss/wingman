@@ -10,13 +10,13 @@ import {
 import React, { useContext, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
-import { createResolver } from '../../../../../../utils';
 import type {
   FreeTextQuestion,
   QuestionType,
   ResponseChoice,
   SelectionQuestion,
-} from '../../../../types';
+} from '../../../../../private/questionnaires/types';
+import { createResolver } from '../../../../../utils';
 import { StateContext, actionCreators } from '../../state/formBuilderState';
 
 import QuestionInputFields from './components/QuestionInputFields';

@@ -8,17 +8,20 @@ import {
 } from 'braid-design-system';
 import React, { useState } from 'react';
 
-import { MutationVariableInput, validateQueryInput } from '../types';
+import {
+  MutationVariableInput,
+  validateQueryInput,
+} from '../../private/questionnaires/types';
 
-interface FormBuilderQueryInputProps {
+interface QuestionnaireQueryInputProps {
   id: string;
   onChange: (variables: MutationVariableInput) => void;
 }
 
-export const FormBuilderQueryInput = ({
+export const QuestionnaireQueryInput = ({
   id,
   onChange,
-}: FormBuilderQueryInputProps) => {
+}: QuestionnaireQueryInputProps) => {
   const [input, setInput] = useState('');
 
   const [queryInputError, setQueryInputError] = useState<string>('');

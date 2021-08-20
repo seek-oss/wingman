@@ -1,15 +1,15 @@
 import 'braid-design-system/reset';
 import React, { ComponentProps } from 'react';
 
+import type { FormComponent } from '../../private/questionnaires/types';
 import {
   BraidArgs,
   defaultArgTypes,
   defaultArgs,
-} from '../../../../storybook/controls';
-import { BraidStorybookProvider } from '../../../../storybook/decorators';
-import type { FormComponent } from '../../types';
+} from '../../storybook/controls';
+import { BraidStorybookProvider } from '../../storybook/decorators';
 
-import { GraphqlQueryRenderer as Component } from './GraphqlQueryRenderer';
+import { QuestionnaireQueryOutput as Component } from './QuestionnaireQueryOutput';
 
 const sampleQuestions: FormComponent[] = [
   {
@@ -48,14 +48,14 @@ export default {
     braidThemeName: defaultArgTypes.braidThemeName,
   },
   component: Component,
-  title: 'Job Posting/Questionnaires/GraphqlQueryRenderer',
+  title: 'Job Posting/Questionnaires/QuestionnaireQueryOutput',
 };
 
 type Args = ComponentProps<typeof Component> & BraidArgs;
 
-export const GraphqlQueryRenderer = ({ braidThemeName, ...args }: Args) => (
+export const QuestionnaireQueryOutput = ({ braidThemeName, ...args }: Args) => (
   <BraidStorybookProvider braidThemeName={braidThemeName}>
     <Component {...args} />
   </BraidStorybookProvider>
 );
-GraphqlQueryRenderer.storyName = 'GraphqlQueryRenderer';
+QuestionnaireQueryOutput.storyName = 'QuestionnaireQueryOutput';

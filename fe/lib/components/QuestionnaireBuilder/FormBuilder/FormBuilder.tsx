@@ -10,12 +10,12 @@ import {
 } from 'braid-design-system';
 import React, { useEffect, useReducer, useState } from 'react';
 
-import { MAX_NUMBER_OF_COMPONENTS } from '../../constants';
+import { MAX_NUMBER_OF_COMPONENTS } from '../../../private/questionnaires/constants';
 import type {
   FormComponent,
   PrivacyConsent,
   SelectionQuestion,
-} from '../../types';
+} from '../../../private/questionnaires/types';
 
 import NewPrivacyConsentForm from './components/NewPrivacyConsentForm/NewPrivacyConsentForm';
 import NewQuestionForm from './components/NewQuestionForm/NewQuestionForm';
