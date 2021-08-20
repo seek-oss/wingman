@@ -47,16 +47,14 @@ module.exports = {
 
   dangerouslySetWebpackConfig: (skuWebpackConfig) =>
     merge(skuWebpackConfig, {
-      module: {
-        rules: [
-          {
-            test: /\.graphql?$/i,
-            type: 'asset/source',
-          },
-        ],
-      },
       resolve: {
         fallback: {
+          /**
+           * We don't have a reasonable browser-compatible package for parsing
+           * `Content-Disposition` headers 😞.
+           *
+           * {@link https://github.com/jshttp/content-disposition}
+           */
           path: require.resolve('path-browserify'),
         },
       },

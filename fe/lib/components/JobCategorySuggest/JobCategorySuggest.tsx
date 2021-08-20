@@ -13,7 +13,7 @@ import type {
   JobCategorySuggestQuery,
   JobCategorySuggestionChoiceAttributesFragment,
   JobCategorySuggestionPositionProfileInput,
-} from '../../types/seek.graphql';
+} from '../../types/seekApi.graphql';
 
 import JobCategorySuggestChoices from './JobCategorySuggestChoices';
 import { JOB_CATEGORY_SUGGEST } from './queries';

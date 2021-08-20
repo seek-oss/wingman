@@ -9,7 +9,7 @@ import type {
   Question,
   SelectionQuestion,
 } from '../../private/questionnaires/types';
-import type { ApplicationQuestionnaireComponent } from '../../types/seek.graphql';
+import type { ApplicationQuestionnaireComponent } from '../../types/seekApi.graphql';
 
 import FreeText from './components/FreeText';
 import MultiSelect from './components/MultiSelect';

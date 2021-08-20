@@ -2,7 +2,7 @@ import type {
   ApplicationPrivacyConsent,
   ApplicationQuestion,
   ApplicationQuestionnaireComponent,
-} from '../../types/seek.graphql';
+} from '../../types/seekApi.graphql';
 
 import type {
   FormComponent,
