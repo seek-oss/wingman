@@ -29,6 +29,7 @@ export default {
       mapping: { undefined, requiredValidation: 'Please select a location.' },
       options: ['undefined', 'requiredValidation'],
     },
+    showStorybookAction: defaultArgTypes.showStorybookAction,
     tone: defaultArgTypes.tone,
   },
   component: Component,
