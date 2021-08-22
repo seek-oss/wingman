@@ -1,5 +1,45 @@
 # wingman-fe
 
+## 1.0.0
+
+### Major Changes
+
+- 23d6e1d: **QuestionnaireCreateInput:** Remove type
+
+  A similar type can be derived via component props:
+
+  ```typescript
+  import { ComponentProps } from 'react';
+  import { QuestionnaireBuilder } from 'wingman-fe';
+
+  type Input = ComponentProps<typeof QuestionnaireBuilder>['graphqlInput'];
+  ```
+
+- 23d6e1d: **FormBuilderQueryInput:** Rename to QuestionnaireQueryInput
+
+  ```diff
+  - import { FormBuilderQueryInput } from 'wingman-fe';
+  + import { QuestionnaireQueryInput } from 'wingman-fe';
+  ```
+
+### Minor Changes
+
+- 23d6e1d: **QuestionnaireQueryOutput:** Add component
+
+  This can be used to provide the GraphQL mutation and variables corresponding to a built questionnaire.
+
+- 7d0480b: **MockJobCategorySelect, MockJobCategorySuggest, MockLocationSuggest:** Add components
+
+  These can be used to provide an interactive preview of each component without a live connection to the SEEK API.
+
+- 7d0480b: **ApolloMockProvider:** Add component
+
+  This can be used to supply custom GraphQL resolvers to a component. The provider is automatically seeded with the GraphQL `typeDefs` of the SEEK API.
+
+- 191963f: **MockJobCategorySelect, MockJobCategorySuggest, MockLocationSuggest:** Add `showStorybookAction` prop
+
+  This can be used to toggle a deep link into Storybook.
+
 ## 0.26.2
 
 ### Patch Changes
