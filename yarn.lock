@@ -18178,10 +18178,10 @@ schema-utils@^3.0.0, schema-utils@^3.1.0:
     ajv "^6.12.5"
     ajv-keywords "^3.5.2"
 
-scoobie@8.2.6:
-  version "8.2.6"
-  resolved "https://registry.yarnpkg.com/scoobie/-/scoobie-8.2.6.tgz#340602bf701b87162dccc399413d451c9ecd164b"
-  integrity sha512-qYSXVXwVDPA7eLyRe5vpM+QbX1nWZufl5Tadb4PZchjyLXbB9+GUzPtNtoCvB+hiLfjSY1t/4qeQ6ytGwtXiSA==
+scoobie@9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/scoobie/-/scoobie-9.0.0.tgz#557caacb5afd7a745bda78abe25bceefd28ab8d9"
+  integrity sha512-Q6s314IJYa9fzxy+6iVn73UNmWmA4hWODQLDDNhWtILLZahlaRBJ0y2sDf6HTaFgSnXr/Z4Xglt63o2v9MBdGg==
   dependencies:
     "@mdx-js/loader" "^1.6.22"
     "@mdx-js/react" "^1.6.22"
@@ -18192,7 +18192,6 @@ scoobie@8.2.6:
     "@vanilla-extract/css-utils" "^0.1.1"
     capsize "^2.0.0"
     clsx "^1.1.1"
-    file-loader "^6.2.0"
     find-up "^5.0.0"
     fs-extra "^10.0.0"
     polished "^4.1.3"
@@ -18201,8 +18200,8 @@ scoobie@8.2.6:
     react-router-hash-link "^2.4.3"
     refractor "^3.4.0"
     remark-slug "^6.1.0"
-    svgo "^1.3.2"
-    svgo-loader "^2.2.2"
+    svgo "^2.4.0"
+    svgo-loader "^3.0.0"
     unist-util-visit "^2.0.3"
     webpack-merge "^5.8.0"
     which "^2.0.2"
@@ -19461,14 +19460,6 @@ supports-hyperlinks@^2.0.0, supports-hyperlinks@^2.1.0:
     has-flag "^4.0.0"
     supports-color "^7.0.0"
 
-svgo-loader@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/svgo-loader/-/svgo-loader-2.2.2.tgz#5f54e3e0d77c36a84c42bcb42e812c4db534bf96"
-  integrity sha512-UeE/4yZEK96LoYqvxwh8YqCOJCjXwRY9K6YT99vXE+nYhs/W8hAY2hNf5zg/lRsyKshJkR79V+4beV3cbGL40Q==
-  dependencies:
-    js-yaml "^3.13.1"
-    loader-utils "^1.0.3"
-
 svgo-loader@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/svgo-loader/-/svgo-loader-3.0.0.tgz#9112db53005bf3432dbb020542cd69b20a0d1e52"
@@ -19477,7 +19468,7 @@ svgo-loader@^3.0.0:
     loader-utils "^1.0.3"
     svgo "^2.2.0"
 
-svgo@^1.0.0, svgo@^1.3.2:
+svgo@^1.0.0:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/svgo/-/svgo-1.3.2.tgz#b6dc511c063346c9e415b81e43401145b96d4167"
   integrity sha512-yhy/sQYxR5BkC98CY7o31VGsg014AKLEPxdfhora76l36hD9Rdy5NZA/Ocn6yayNPgSamYdtX2rFJdcv07AYVw==
@@ -19496,7 +19487,7 @@ svgo@^1.0.0, svgo@^1.3.2:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-svgo@^2.2.0, svgo@^2.3.0:
+svgo@^2.2.0, svgo@^2.3.0, svgo@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/svgo/-/svgo-2.4.0.tgz#0c42653101fd668692c0f69b55b8d7b182ef422b"
   integrity sha512-W25S1UUm9Lm9VnE0TvCzL7aso/NCzDEaXLaElCUO/KaVitw0+IBicSVfM1L1c0YHK5TOFh73yQ2naCpVHEQ/OQ==
