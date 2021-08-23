@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 2.0.1
+
+### Patch Changes
+
+- 8de368c: **QuestionnaireBuilder:** Remove divider between components
+
 ## 2.0.0
 
 ### Major Changes
