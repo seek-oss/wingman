@@ -1,5 +1,58 @@
 # wingman-fe
 
+## 2.0.0
+
+### Major Changes
+
+- dfa8c0a: **QuestionnaireBuilder:** Remove width constraint
+
+  This component no longer bundles its own width constraint. You can wrap it in a standard Braid [ContentBlock](https://seek-oss.github.io/braid-design-system/components/ContentBlock/) to restore the previous behaviour.
+
+  ```diff
+  + import { ContentBlock } from 'braid-design-system';
+
+  + <ContentBlock>
+      <QuestionnaireBuilder />
+  + </ContentBlock>
+  ```
+
+- dfa8c0a: **QuestionnaireBuilder:** Remove Braid reset
+
+  This component no longer imports the [Braid reset](https://github.com/seek-oss/braid-design-system#setup) itself, which was unintended behaviour. You should be importing this before [BraidProvider](https://seek-oss.github.io/braid-design-system/components/BraidProvider) in your app:
+
+  ```diff
+  + import 'braid-design-system/reset';
+
+  import { BraidProvider } from 'braid-design-system';
+  ```
+
+- dfa8c0a: **QuestionnaireBuilder:** Add `wrapper` prop
+
+  This component no longer renders a [Card](https://seek-oss.github.io/braid-design-system/components/Card/) wrapper around its children by default. This “unwrapped” default state can be useful when nested inside a component that manages its own space, like a [Dialog](https://seek-oss.github.io/braid-design-system/components/Dialog/) or [Drawer](https://seek-oss.github.io/braid-design-system/components/Drawer/).
+
+  You can restore the previous behaviour by setting the prop to its built-in `card` preset, though note that this defaults to rounded corners:
+
+  ```diff
+  - <QuestionnaireBuilder />
+  + <QuestionnaireBuilder wrapper="card" />
+  ```
+
+- 39c1907: **deps:** Require Braid 30.4+ and Scoobie 9+
+- dfa8c0a: **QuestionnaireBuilder:** Default `showGraphqlOutput` to false
+
+  You can restore the previous behaviour by setting the prop:
+
+  ```diff
+  - <QuestionnaireBuilder />
+  + <QuestionnaireBuilder showGraphqlOutput />
+  ```
+
+### Minor Changes
+
+- dfa8c0a: **QuestionnaireBuilder:** Make form preview more compact
+
+  This more closely aligns with SEEK's native apply form in production.
+
 ## 1.0.0
 
 ### Major Changes
