@@ -1,4 +1,4 @@
-import { Card, Column, Columns, Stack, Text } from 'braid-design-system';
+import { Column, Columns, Stack, Text } from 'braid-design-system';
 import React, { useContext, useState } from 'react';
 
 import type { PrivacyConsent } from '../../../../private/questionnaires/types';
@@ -29,26 +29,24 @@ const PrivacyConsentEntry = ({ privacyConsent }: PrivacyConsentEntryProps) => {
       initialValues={privacyConsent}
     />
   ) : (
-    <Card>
-      <Columns alignY="center" space="small">
-        <Column>
-          <Stack space="small">
-            <Text size="large">Privacy consent</Text>
-            <Text tone="secondary" size="small">
-              {privacyConsent.descriptionHtml ??
-                privacyConsent.privacyPolicyUrl.url}
-            </Text>
-          </Stack>
-        </Column>
+    <Columns alignY="center" space="small">
+      <Column>
+        <Stack space="small">
+          <Text size="large">Privacy consent</Text>
+          <Text tone="secondary" size="small">
+            {privacyConsent.descriptionHtml ??
+              privacyConsent.privacyPolicyUrl.url}
+          </Text>
+        </Stack>
+      </Column>
 
-        <Column width="content">
-          <QuestionEntryMenu
-            onClickDelete={onClickDelete(privacyConsent)}
-            onClickEdit={onClickEdit}
-          />
-        </Column>
-      </Columns>
-    </Card>
+      <Column width="content">
+        <QuestionEntryMenu
+          onClickDelete={onClickDelete(privacyConsent)}
+          onClickEdit={onClickEdit}
+        />
+      </Column>
+    </Columns>
   );
 };
 

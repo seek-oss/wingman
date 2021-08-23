@@ -1,6 +1,5 @@
 import {
   Alert,
-  Card,
   Column,
   Columns,
   IconAdd,
@@ -100,19 +99,17 @@ export const FormBuilder = ({
 
     return (
       state.length < MAX_NUMBER_OF_COMPONENTS && (
-        <Card key="questionCard">
-          <Text>
-            <TextLinkButton onClick={onClickAddQuestion}>
-              <Columns alignY="center" space="small">
-                <Column>Add a question</Column>
+        <Text key="questionCard">
+          <TextLinkButton onClick={onClickAddQuestion}>
+            <Columns alignY="center" space="small">
+              <Column>Add a question</Column>
 
-                <Column width="content">
-                  <IconAdd />
-                </Column>
-              </Columns>
-            </TextLinkButton>
-          </Text>
-        </Card>
+              <Column width="content">
+                <IconAdd />
+              </Column>
+            </Columns>
+          </TextLinkButton>
+        </Text>
       )
     );
   };
@@ -143,19 +140,17 @@ export const FormBuilder = ({
 
     return (
       state.length < MAX_NUMBER_OF_COMPONENTS && (
-        <Card key="privacyConsentCard">
-          <Text>
-            <TextLinkButton onClick={onClickAddPrivacyConsent}>
-              <Columns alignY="center" space="small">
-                <Column>Add a privacy consent</Column>
+        <Text key="privacyConsentCard">
+          <TextLinkButton onClick={onClickAddPrivacyConsent}>
+            <Columns alignY="center" space="small">
+              <Column>Add a privacy consent</Column>
 
-                <Column width="content">
-                  <IconAdd />
-                </Column>
-              </Columns>
-            </TextLinkButton>
-          </Text>
-        </Card>
+              <Column width="content">
+                <IconAdd />
+              </Column>
+            </Columns>
+          </TextLinkButton>
+        </Text>
       )
     );
   };
@@ -169,7 +164,7 @@ export const FormBuilder = ({
 
   return (
     <StateContext.Provider value={{ dispatch, state }}>
-      <Stack space="none" dividers>
+      <Stack space="large" dividers>
         {state.map((component) => renderEntries(component))}
         {displayFormOrAddButton()}
         {displayPrivacyConsentAddButton()}

@@ -1,5 +1,4 @@
 import {
-  Card,
   Checkbox,
   IconNewWindow,
   Stack,
@@ -19,26 +18,24 @@ const PrivacyConsentRenderer = ({ privacy }: PrivacyConsentRendererProps) => {
   const handleClick = () => setChecked(!checked);
 
   return (
-    <Card>
-      <Stack space="medium">
-        <Checkbox
-          id="privacyConsentCheckbox"
-          label={
-            /**
-             * {@link https://developer.seek.com/schema/#/named-type/ApplicationPrivacyConsentInput}
-             */
-            privacy.descriptionHtml ?? 'Do you agree to the privacy policy?'
-          }
-          onChange={handleClick}
-          checked={checked}
-        />
-        <Text>
-          <TextLink hitArea="large" href={privacy.privacyPolicyUrl.url}>
-            Click here to view <IconNewWindow />
-          </TextLink>
-        </Text>
-      </Stack>
-    </Card>
+    <Stack space="medium">
+      <Checkbox
+        id="privacyConsentCheckbox"
+        label={
+          /**
+           * {@link https://developer.seek.com/schema/#/named-type/ApplicationPrivacyConsentInput}
+           */
+          privacy.descriptionHtml ?? 'Do you agree to the privacy policy?'
+        }
+        onChange={handleClick}
+        checked={checked}
+      />
+      <Text>
+        <TextLink hitArea="large" href={privacy.privacyPolicyUrl.url}>
+          Click here to view <IconNewWindow />
+        </TextLink>
+      </Text>
+    </Stack>
   );
 };
 
