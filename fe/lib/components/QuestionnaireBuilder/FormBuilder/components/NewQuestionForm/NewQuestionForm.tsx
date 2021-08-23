@@ -2,7 +2,6 @@ import {
   Actions,
   Box,
   Button,
-  Card,
   Dropdown,
   Heading,
   Stack,
@@ -130,52 +129,50 @@ export default ({ hideForm, initialValues }: NewQuestionFormProps) => {
 
   return (
     <form onSubmit={handleSubmit(createQuestion)}>
-      <Card>
-        <Stack space="large">
-          <Box>
-            <Heading level="3">
-              {initialValues.value ? 'Edit' : 'New'} question
-            </Heading>
-          </Box>
+      <Stack space="large">
+        <Box>
+          <Heading level="3">
+            {initialValues.value ? 'Edit' : 'New'} question
+          </Heading>
+        </Box>
 
-          <Controller
-            control={control}
-            defaultValue={initialValues.responseTypeCode}
-            name="questionType"
-            render={({ field }) => (
-              <Dropdown
-                {...field}
-                id={field.name}
-                label="Type"
-                message={errors.questionType?.message}
-                placeholder="Select a question type"
-                tone={errors.questionType ? 'critical' : undefined}
-                value={questionTypeValue ?? ''}
-              >
-                <option value="FreeText">Free Text</option>
-                <option value="SingleSelect">Single Select</option>
-                <option value="MultiSelect">Multi Select</option>
-              </Dropdown>
-            )}
+        <Controller
+          control={control}
+          defaultValue={initialValues.responseTypeCode}
+          name="questionType"
+          render={({ field }) => (
+            <Dropdown
+              {...field}
+              id={field.name}
+              label="Type"
+              message={errors.questionType?.message}
+              placeholder="Select a question type"
+              tone={errors.questionType ? 'critical' : undefined}
+              value={questionTypeValue ?? ''}
+            >
+              <option value="FreeText">Free Text</option>
+              <option value="SingleSelect">Single Select</option>
+              <option value="MultiSelect">Multi Select</option>
+            </Dropdown>
+          )}
+        />
+
+        {questionTypeValue ? (
+          <QuestionInputFields
+            questionType={questionTypeValue}
+            state={aggregatedState}
           />
+        ) : null}
 
-          {questionTypeValue ? (
-            <QuestionInputFields
-              questionType={questionTypeValue}
-              state={aggregatedState}
-            />
-          ) : null}
-
-          <Box>
-            <Actions>
-              <Button type="submit">Save</Button>
-              <Button onClick={hideForm} variant="transparent">
-                Cancel
-              </Button>
-            </Actions>
-          </Box>
-        </Stack>
-      </Card>
+        <Box>
+          <Actions>
+            <Button type="submit">Save</Button>
+            <Button onClick={hideForm} variant="transparent">
+              Cancel
+            </Button>
+          </Actions>
+        </Box>
+      </Stack>
     </form>
   );
 };

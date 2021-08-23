@@ -104,7 +104,7 @@ export const QuestionnaireForm = (props: RenderSchemaProps) => {
     : null;
 
   return (
-    <Stack space="medium">
+    <Stack space="large">
       {questions}
       {privacy}
     </Stack>

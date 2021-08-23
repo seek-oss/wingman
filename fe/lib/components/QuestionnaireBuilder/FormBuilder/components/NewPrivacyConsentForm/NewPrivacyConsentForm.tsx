@@ -2,7 +2,6 @@ import {
   Actions,
   Box,
   Button,
-  Card,
   Heading,
   Stack,
   TextField,
@@ -89,54 +88,52 @@ export default ({
 
   return (
     <form onSubmit={handleSubmit(saveThisPrivacyConsent)}>
-      <Card>
-        <Stack space="large">
-          <Box>
-            <Heading level="3">
-              {initialValues.value ? 'Edit' : 'New'} privacy consent
-            </Heading>
-          </Box>
-          <Controller
-            render={({ field }) => (
-              <TextField
-                id="url"
-                label="URL"
-                message={errors.url?.message}
-                tone={errors.url ? 'critical' : undefined}
-                {...field}
-              />
-            )}
-            control={control}
-            name="url"
-            defaultValue={initialValues.privacyPolicyUrl.url}
-          />
-          <Controller
-            render={({ field }) => (
-              <TextField
-                id="description"
-                label="Description"
-                message={errors.description?.message}
-                tone={errors.description ? 'critical' : undefined}
-                {...field}
-              />
-            )}
-            control={control}
-            name="description"
-            defaultValue={
-              initialValues.descriptionHtml ||
-              'Do you agree to the privacy policy?'
-            }
-          />
-          <Box>
-            <Actions>
-              <Button type="submit">Save</Button>
-              <Button onClick={hideForm} variant="transparent">
-                Cancel
-              </Button>
-            </Actions>
-          </Box>
-        </Stack>
-      </Card>
+      <Stack space="large">
+        <Box>
+          <Heading level="3">
+            {initialValues.value ? 'Edit' : 'New'} privacy consent
+          </Heading>
+        </Box>
+        <Controller
+          render={({ field }) => (
+            <TextField
+              id="url"
+              label="URL"
+              message={errors.url?.message}
+              tone={errors.url ? 'critical' : undefined}
+              {...field}
+            />
+          )}
+          control={control}
+          name="url"
+          defaultValue={initialValues.privacyPolicyUrl.url}
+        />
+        <Controller
+          render={({ field }) => (
+            <TextField
+              id="description"
+              label="Description"
+              message={errors.description?.message}
+              tone={errors.description ? 'critical' : undefined}
+              {...field}
+            />
+          )}
+          control={control}
+          name="description"
+          defaultValue={
+            initialValues.descriptionHtml ||
+            'Do you agree to the privacy policy?'
+          }
+        />
+        <Box>
+          <Actions>
+            <Button type="submit">Save</Button>
+            <Button onClick={hideForm} variant="transparent">
+              Cancel
+            </Button>
+          </Actions>
+        </Box>
+      </Stack>
     </form>
   );
 };

@@ -1,4 +1,4 @@
-import { Card, Checkbox, Stack, Text } from 'braid-design-system';
+import { Checkbox, Stack, Text } from 'braid-design-system';
 import React from 'react';
 
 import { componentId } from './componentId';
@@ -30,24 +30,22 @@ const MultiSelect = ({
         setValue(newValues);
       }
     };
+
   return (
-    <Card>
-      <Stack space="medium">
-        <Text size="large">{title}</Text>
-        <Stack space="small">
-          {options.map((choice) => (
-            <Checkbox
-              checked={value && value.includes(choice)}
-              id={componentId('multi-select', id, choice)}
-              key={choice}
-              label={choice}
-              reserveMessageSpace={false}
-              onChange={onChange(choice)}
-            />
-          ))}
-        </Stack>
-      </Stack>
-    </Card>
+    <Stack space="medium">
+      <Text weight="strong">{title}</Text>
+
+      {options.map((choice) => (
+        <Checkbox
+          checked={value && value.includes(choice)}
+          id={componentId('multi-select', id, choice)}
+          key={choice}
+          label={choice}
+          reserveMessageSpace={false}
+          onChange={onChange(choice)}
+        />
+      ))}
+    </Stack>
   );
 };
 

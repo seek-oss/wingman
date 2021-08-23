@@ -112,7 +112,7 @@ const renderVariablesPane = (components: FormComponent[], hirerId: string) => {
     );
   }
 
-  return <Text>You need to add some questions first</Text>;
+  return <Text>You need to add some questions first.</Text>;
 };
 
 interface QuestionnaireQueryOutputProps {

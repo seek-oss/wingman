@@ -1,6 +1,7 @@
 import 'braid-design-system/reset';
 
-import React, { ComponentProps } from 'react';
+import { Box } from 'braid-design-system';
+import React, { ComponentProps, ReactNode } from 'react';
 
 import {
   BraidArgs,
@@ -11,14 +12,34 @@ import { BraidStorybookProvider } from '../../storybook/decorators';
 
 import { QuestionnaireBuilder as Component } from './QuestionnaireBuilder';
 
+interface CustomWrapperProps {
+  children: ReactNode;
+}
+
+const CustomWrapper = ({ children }: CustomWrapperProps) => (
+  <Box
+    background="promoteLight"
+    borderRadius="xlarge"
+    boxShadow="small"
+    padding="gutter"
+  >
+    {children}
+  </Box>
+);
+
 export default {
   args: {
     braidThemeName: defaultArgs.braidThemeName,
     hirerId: 'seekAnzPublicTest:organization:seek:93WyyF1h',
-    showGraphqlOutput: true,
+    wrapper: 'undefined',
   },
   argTypes: {
     braidThemeName: defaultArgTypes.braidThemeName,
+    wrapper: {
+      control: { type: 'radio' },
+      mapping: { undefined, card: 'card', custom: CustomWrapper },
+      options: ['undefined', 'card', 'custom'],
+    },
   },
   component: Component,
   title: 'Job Posting/Questionnaires/QuestionnaireBuilder',
