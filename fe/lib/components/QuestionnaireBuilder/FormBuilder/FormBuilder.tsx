@@ -164,7 +164,7 @@ export const FormBuilder = ({
 
   return (
     <StateContext.Provider value={{ dispatch, state }}>
-      <Stack space="large" dividers>
+      <Stack space="large">
         {state.map((component) => renderEntries(component))}
         {displayFormOrAddButton()}
         {displayPrivacyConsentAddButton()}
