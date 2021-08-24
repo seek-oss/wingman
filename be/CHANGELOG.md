@@ -1,5 +1,11 @@
 # wingman-be
 
+## 0.4.1
+
+### Patch Changes
+
+- eed480d: Properly pipe through `seekApiUrlOverride`
+
 ## 0.4.0
 
 ### Minor Changes
