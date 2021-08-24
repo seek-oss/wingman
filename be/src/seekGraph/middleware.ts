@@ -23,10 +23,12 @@ export const createSeekGraphMiddleware = async ({
   debug,
   path,
   userAgent,
+  seekApiUrlOverride,
 }: SeekGraphMiddlewareOptions): Promise<Middleware> => {
   const schema = await createSchema({
     getPartnerToken,
     userAgent,
+    seekApiUrlOverride,
   });
 
   const server = new ApolloServer({
