@@ -19,6 +19,14 @@ export interface BrowserTokenMiddlewareOptions {
   callback?: (ctx: Context, event: BrowserTokenEvent) => void | Promise<void>;
   getPartnerToken: GetPartnerToken<{ hirerId: string; partnerToken: string }>;
   userAgent: string;
+
+  /**
+   * Override for the browser token authentication endpoint
+   *
+   * This is used by SEEK for internal testing. External consumers should omit
+   * this option.
+   */
+  browserTokenUrlOverride?: string;
 }
 
 export const BrowserTokenRequest = t.Record({

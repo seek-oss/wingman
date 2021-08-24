@@ -21,6 +21,7 @@ interface CacheItem {
 }
 
 interface CacheKey {
+  browserTokenUrl: string;
   hirerId: string;
   scope: string;
 }
@@ -36,6 +37,7 @@ const _createBrowserTokenMiddleware = ({
   callback,
   getPartnerToken,
   userAgent,
+  browserTokenUrlOverride,
 }: BrowserTokenMiddlewareOptions): Middleware =>
   async function BrowserTokenMiddleware(ctx) {
     const requestResult = BrowserTokenRequest.validate(ctx.request.body);
@@ -48,7 +50,11 @@ const _createBrowserTokenMiddleware = ({
 
     const { hirerId, partnerToken } = await wrapRetriever(ctx, getPartnerToken);
 
-    const cachedItem = tokenCache.get(cacheKey({ hirerId, scope }));
+    const browserTokenUrl = browserTokenUrlOverride ?? SEEK_BROWSER_TOKEN_URL;
+
+    const cachedItem = tokenCache.get(
+      cacheKey({ browserTokenUrl, hirerId, scope }),
+    );
 
     if (typeof cachedItem !== 'undefined') {
       const event: BrowserTokenEvent = {
@@ -79,7 +85,7 @@ const _createBrowserTokenMiddleware = ({
       userId: hirerId,
     };
 
-    const fetchResponse = await fetch(SEEK_BROWSER_TOKEN_URL, {
+    const fetchResponse = await fetch(browserTokenUrl, {
       body: JSON.stringify(seekApiRequest),
       headers: {
         Authorization: `Bearer ${partnerToken}`,
@@ -113,7 +119,11 @@ const _createBrowserTokenMiddleware = ({
     };
 
     // Write off the token at its half life. This is a bit mean.
-    tokenCache.set(cacheKey({ hirerId, scope }), freshItem, expiresInMs / 2);
+    tokenCache.set(
+      cacheKey({ browserTokenUrl, hirerId, scope }),
+      freshItem,
+      expiresInMs / 2,
+    );
 
     const event: BrowserTokenEvent = {
       type: 'RETRIEVED',
