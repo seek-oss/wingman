@@ -10,11 +10,15 @@ import { SeekGraphMiddlewareOptions } from './types';
 
 type Options = Pick<
   SeekGraphMiddlewareOptions,
-  'getPartnerToken' | 'userAgent'
+  'getPartnerToken' | 'userAgent' | 'seekApiUrlOverride'
 >;
 
 const createExecutor =
-  ({ getPartnerToken, userAgent }: Options): AsyncExecutor =>
+  ({
+    getPartnerToken,
+    userAgent,
+    seekApiUrlOverride,
+  }: Options): AsyncExecutor =>
   async ({ document, variables, context }) => {
     // The shape of context depends on framework and Apollo Server configuration.
     // We perform runtime validation in the `createContext` function.
@@ -30,7 +34,9 @@ const createExecutor =
 
     const query = print(document);
 
-    const fetchResult = await fetch(SEEK_API_URL, {
+    const seekApiUrl = seekApiUrlOverride ?? SEEK_API_URL;
+
+    const fetchResult = await fetch(seekApiUrl, {
       body: JSON.stringify({ query, variables }),
       headers: {
         ...authHeaders,
