@@ -1,5 +1,14 @@
 # wingman-be
 
+## 0.4.0
+
+### Minor Changes
+
+- 1343b31: **middleware**: Support overriding SEEK API URLs
+
+  This is to support resurrecting some of SEEK's internal staging environment.
+  External consumers should be able to ignore this.
+
 ## 0.3.0
 
 ### Minor Changes
