@@ -52,8 +52,13 @@ const createExecutor =
 export const createSchema = async ({
   getPartnerToken,
   userAgent,
+  seekApiUrlOverride,
 }: Options): Promise<GraphQLSchema> => {
-  const executor = createExecutor({ getPartnerToken, userAgent });
+  const executor = createExecutor({
+    getPartnerToken,
+    userAgent,
+    seekApiUrlOverride,
+  });
 
   const schema = await introspectSchema(executor);
 
