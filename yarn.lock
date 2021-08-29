@@ -4607,10 +4607,10 @@
   resolved "https://registry.yarnpkg.com/@vanilla-extract/css-utils/-/css-utils-0.1.1.tgz#f4f58f85347d8a841ef74c60db111ec264011860"
   integrity sha512-9fDV8IhSfzgDd9Z+64jVcS38S2dVc6c1eOd+hgO8zPMRba6rEB8kEjg5+AQ3xPCdzl1m8olqFHnfQRNOn1OXuA==
 
-"@vanilla-extract/css@1.2.3", "@vanilla-extract/css@^1.0.0", "@vanilla-extract/css@^1.2.0", "@vanilla-extract/css@^1.2.3":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@vanilla-extract/css/-/css-1.2.3.tgz#1db483f6a92a666d493cdce91feaed59fb37353c"
-  integrity sha512-khzCBgxHk8fYvTuHbQ349ewKhSQ9qwjUC8RPHM0287ZJubFQCL9wMv/a0+3aKbtUYN3rG5dLW5lGDXJE28tS+g==
+"@vanilla-extract/css@1.3.0", "@vanilla-extract/css@^1.0.0", "@vanilla-extract/css@^1.2.0", "@vanilla-extract/css@^1.2.3":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@vanilla-extract/css/-/css-1.3.0.tgz#4e1e5751043ae9abc0f4b7a0e9cff2f078eb823f"
+  integrity sha512-JcXz0k7Xh7dxWxrUBktPdjojGnMlfEjiQIDHYtM1bJhWiInenvWujjwDR7TFoijBGSj5ovZjCH6twXPOvCz1Ww==
   dependencies:
     "@emotion/hash" "^0.8.0"
     "@vanilla-extract/private" "^1.0.1"
