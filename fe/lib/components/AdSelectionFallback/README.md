@@ -1,7 +1,7 @@
 # AdSelectionFallback
 
 A fallback component that allows a hirer to select an advertisement type when the Ad Selection Panel errors or times out.
-Returns a [`CreatePostingInstruction.includeseekAnzAdvertisementType`] that can be supplied to a [SEEK API posting mutation].
+Returns a [`CreatePostingInstruction.seekAnzAdvertisementType`] that can be supplied to a [SEEK API posting mutation].
 
 See [Ad Selection Panel › Fallback] on the Developer Site for more details.
 
@@ -38,7 +38,7 @@ const AdSelection = ({ onSelect }: Props) => {
 };
 ```
 
-[`createpostinginstruction.includeseekanzadvertisementtype`]: https://developer.seek.com/schema/#/named-type/CreatePostingInstructionInput/field/seekAnzAdvertisementType
+[`createpostinginstruction.seekanzadvertisementtype`]: https://developer.seek.com/schema/#/named-type/CreatePostingInstructionInput/field/seekAnzAdvertisementType
 [`id` global attribute]: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id
 [ad selection panel › fallback]: https://developer.seek.com/use-cases/job-posting/ad-selection/panel#fallback
 [seek api posting mutation]: https://developer.seek.com/use-cases/job-posting/managing-job-ads/posting-a-job-ad
