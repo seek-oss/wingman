@@ -1,15 +1,18 @@
 import { Dropdown } from 'braid-design-system';
-import React, { useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 
 type AdvertisementType = 'Classic' | 'StandOut' | 'Premium';
 
-interface Props {
+export interface AdSelectionFallbackProps {
   hideLabel?: boolean;
   id: string;
   onSelect: (type: AdvertisementType) => void;
 }
 
-export const AdSelectionFallback = ({ hideLabel, id, onSelect }: Props) => {
+export const AdSelectionFallback = forwardRef<
+  HTMLSelectElement,
+  AdSelectionFallbackProps
+>(({ hideLabel, id, onSelect }, ref) => {
   const [advertisementType, setAdvertisementType] =
     useState<AdvertisementType>();
 
@@ -23,6 +26,7 @@ export const AdSelectionFallback = ({ hideLabel, id, onSelect }: Props) => {
         setAdvertisementType(selection);
         onSelect(selection);
       }}
+      ref={ref}
       placeholder="Select an ad type"
       value={advertisementType ?? ''}
     >
@@ -31,4 +35,4 @@ export const AdSelectionFallback = ({ hideLabel, id, onSelect }: Props) => {
       <option>Premium</option>
     </Dropdown>
   );
-};
+});
