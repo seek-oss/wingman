@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 2.1.0
+
+### Minor Changes
+
+- 5292c07: **AdSelectionFallback:** Add component
+
 ## 2.0.1
 
 ### Patch Changes
