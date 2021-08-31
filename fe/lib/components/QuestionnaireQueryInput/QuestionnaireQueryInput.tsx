@@ -35,10 +35,11 @@ export const QuestionnaireQueryInput = ({
       setShowError(false);
     } catch (err) {
       setShowError(true);
-      if (err.name === 'ValidationError') {
-        setQueryInputError(`${err.name}: ${err.key} is invalid`);
-      } else {
+
+      if (err instanceof Error) {
         setQueryInputError(`${err.name}: ${err.message}`);
+      } else {
+        throw err;
       }
     }
   };
