@@ -18,6 +18,12 @@ generates:
     plugins:
       - typescript-typedefs.js
 
+  ./fe/lib/types/apolloHelpers.ts:
+    plugins:
+      - typescript-apollo-client-helpers
+    config:
+      useTypeImports: true
+
 config:
   declarationKind: interface
   namingConvention:
