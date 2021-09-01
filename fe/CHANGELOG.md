@@ -1,5 +1,16 @@
 # wingman-fe
 
+## 2.2.0
+
+### Minor Changes
+
+- f5ffa36: **MockAdSelectionFallback:** Add component
+
+### Patch Changes
+
+- f5ffa36: **AdSelectionFallback:** Forward ref
+- 3104e9c: **QuestionnaireQueryInput:** Fix rendering GraphQL query input validation errors
+
 ## 2.1.0
 
 ### Minor Changes
