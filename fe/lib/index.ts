@@ -17,3 +17,5 @@ export { QuestionnaireQueryInput } from './components/QuestionnaireQueryInput/Qu
 export { QuestionnaireQueryOutput } from './components/QuestionnaireQueryOutput/QuestionnaireQueryOutput';
 
 export { SpecifiedPersonForm } from './components/SpecifiedPersonForm/SpecifiedPersonForm';
+
+export { apolloTypePolicies } from './types/apolloTypePolicies';

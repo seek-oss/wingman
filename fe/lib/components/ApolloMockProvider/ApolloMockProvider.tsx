@@ -3,6 +3,7 @@ import { SchemaLink } from '@apollo/client/link/schema';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import React, { ReactNode } from 'react';
 
+import { apolloTypePolicies } from '../../types/apolloTypePolicies';
 import { typeDefs } from '../../types/seekApi.typeDefs';
 
 type Resolvers = Parameters<typeof makeExecutableSchema>[0]['resolvers'];
@@ -14,7 +15,7 @@ const createApolloMockClient = (resolvers: Resolvers) => {
   });
 
   const client = new ApolloClient({
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({ typePolicies: apolloTypePolicies }),
     link: new SchemaLink({ schema }),
   });
 
