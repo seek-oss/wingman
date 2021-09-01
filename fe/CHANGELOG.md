@@ -1,5 +1,13 @@
 # wingman-fe
 
+## 2.3.0
+
+### Minor Changes
+
+- f5b3df1: **apolloTypePolicies:** Add experimental Apollo client type policies
+
+  This should enable cached pagination to work correctly against the SEEK API.
+
 ## 2.2.0
 
 ### Minor Changes
