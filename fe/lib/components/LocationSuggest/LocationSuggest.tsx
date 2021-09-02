@@ -67,7 +67,7 @@ export const LocationSuggest = forwardRef<
       useLazyQuery<SuggestLocationsQuery, SuggestLocationsQueryVariables>(
         LOCATION_SUGGEST,
         {
-          ...(client && { client }),
+          client,
           fetchPolicy: 'no-cache',
           onCompleted: (data) => {
             if (
@@ -92,7 +92,7 @@ export const LocationSuggest = forwardRef<
     ] = useLazyQuery<NearestLocationsQuery, NearestLocationsQueryVariables>(
       NEAREST_LOCATIONS,
       {
-        ...(client && { client }),
+        client,
         fetchPolicy: 'no-cache',
       },
     );
@@ -162,7 +162,6 @@ export const LocationSuggest = forwardRef<
         LocationQuery,
         LocationQueryVariables
       >({
-        ...(client && { client }),
         fetchPolicy: 'no-cache',
         query: LOCATION,
         variables: { id: initialValue },
