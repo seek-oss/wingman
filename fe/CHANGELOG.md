@@ -1,5 +1,25 @@
 # wingman-fe
 
+## 3.0.1
+
+### Patch Changes
+
+- 4f47c07: **LocationSuggest:** Remove no-op client spreads
+- 367d0ba: **apolloTypePolicies**: Add Apollo type policies for ontologies
+
+  This enables safely caching locations & job categories when they're directly queried.
+
+- f119f68: **apolloTypePolicies:** Add additional Apollo type policies
+
+  This adds a policy for `ApplicationQuestionnaire` and objects that are only accessible with a partner token.
+
+- 5d1ee4c: **JobCategorySelect, JobCategorySuggest, LocationSuggest:** Rationalise fetch policies
+
+  This removes an explicit fetch policy except for the realtime suggestion queries.
+
+  This can cause problems if you're not using an appropriate cache policy for the SEEK API.
+  You can either use our `apolloTypePolicies` or set a default cache policy of `no-fetch` for the `client` you pass to the component.
+
 ## 3.0.0
 
 ### Major Changes
