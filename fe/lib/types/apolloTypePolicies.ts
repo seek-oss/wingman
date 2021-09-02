@@ -216,6 +216,10 @@ export const apolloTypePolicies: TypedTypePolicies = {
   HiringOrganizationEdge: seekApiEdge('id'),
   HiringOrganizationsConnection: seekApiConnection('id'),
 
+  JobCategory: seekApiObject('id'),
+
+  Location: seekApiObject('id'),
+
   PositionOpening: seekApiObject('documentId'),
   PositionOpeningEdge: seekApiEdge('documentId'),
   PositionOpeningsConnection: seekApiConnection('documentId'),
