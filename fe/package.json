@@ -7,7 +7,6 @@
     "@graphql-tools/schema": "^8.1.2",
     "@types/uuid": "^8.3.1",
     "autosuggest-highlight": "^3.1.1",
-    "graphql": "^15.5.1",
     "react-hook-form": "^7.0.0",
     "runtypes": "^6.3.2",
     "use-debounce": "^7.0.0",
@@ -46,6 +45,7 @@
   "name": "wingman-fe",
   "peerDependencies": {
     "braid-design-system": ">= 30.4",
+    "graphql": ">= 15 < 16",
     "react": ">= 17 < 18",
     "scoobie": ">= 9"
   },
