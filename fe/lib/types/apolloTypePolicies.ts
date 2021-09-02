@@ -154,9 +154,9 @@ const seekApiObject = (
 });
 
 /**
- * Custom Apollo cache type policies to support paginated lists of objects.
+ * Custom Apollo cache type policies to support SEEK API conventions.
  *
- * These lists support bidirectional pagination, creates, edits and deletes.
+ * For pagination queries this supports bidirectional pagination, creates, edits and deletes.
  * Some implementation specifics are detailed below.
  *
  * ---
@@ -195,6 +195,10 @@ export const apolloTypePolicies: TypedTypePolicies = {
   AdvertisementBrandingEdge: seekApiEdge('id'),
   AdvertisementBrandingsConnection: seekApiConnection('id'),
 
+  ApplicationQuestionnaire: seekApiObject('id'),
+
+  Candidate: seekApiObject('documentId'),
+
   CandidateProcessHistoryItem: seekApiObject('id'),
   CandidateProcessHistoryItemEdge: seekApiEdge('id'),
   CandidateProcessHistoryItemConnection: seekApiConnection('id'),
@@ -224,6 +228,8 @@ export const apolloTypePolicies: TypedTypePolicies = {
   PositionOpeningEdge: seekApiEdge('documentId'),
   PositionOpeningsConnection: seekApiConnection('documentId'),
 
+  PositionProfile: seekApiObject('profileId'),
+
   Query: {
     fields: {
       advertisementBrandings: {
@@ -249,6 +255,8 @@ export const apolloTypePolicies: TypedTypePolicies = {
       },
     },
   },
+
+  WebhookAttempt: seekApiObject('id'),
 
   WebhookRequest: seekApiObject(['requestId']),
   WebhookRequestEdge: seekApiEdge(['requestId']),
