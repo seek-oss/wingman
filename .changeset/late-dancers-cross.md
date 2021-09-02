@@ -4,4 +4,4 @@
 
 **apolloTypePolicies:** Add additional Apollo type policies
 
-This adds a policy `ApplicationQuestionnaire` and objects that are only accessible with a partner token.
+This adds a policy for `ApplicationQuestionnaire` and objects that are only accessible with a partner token.
