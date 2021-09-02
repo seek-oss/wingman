@@ -1,5 +1,13 @@
 # wingman-fe
 
+## 3.0.0
+
+### Major Changes
+
+- b422dc0: **deps:** Move `graphql` to a peer dependency
+
+  If your project does not already include `graphql@15` as a direct dependency it needs to be added.
+
 ## 2.3.0
 
 ### Minor Changes
