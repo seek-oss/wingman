@@ -57,7 +57,6 @@ export const JobCategorySelect = forwardRef<
       error: categoriesError,
     } = useQuery<JobCategoriesQuery>(JOB_CATEGORIES, {
       ...(client && { client }),
-      fetchPolicy: 'no-cache',
       variables: {
         schemeId,
       },

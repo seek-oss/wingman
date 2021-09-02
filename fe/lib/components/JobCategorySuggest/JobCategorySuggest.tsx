@@ -61,6 +61,7 @@ export const JobCategorySuggest = forwardRef<
       { data: suggestData, error: suggestError, loading: suggestLoading },
     ] = useLazyQuery<JobCategorySuggestQuery>(JOB_CATEGORY_SUGGEST, {
       client,
+      // Avoid polluting the Apollo cache with partial searches
       fetchPolicy: 'no-cache',
     });
 

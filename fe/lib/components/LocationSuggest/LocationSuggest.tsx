@@ -68,6 +68,7 @@ export const LocationSuggest = forwardRef<
         LOCATION_SUGGEST,
         {
           client,
+          // Avoid polluting the Apollo cache with partial searches
           fetchPolicy: 'no-cache',
           onCompleted: (data) => {
             if (
@@ -93,7 +94,6 @@ export const LocationSuggest = forwardRef<
       NEAREST_LOCATIONS,
       {
         client,
-        fetchPolicy: 'no-cache',
       },
     );
 
@@ -162,7 +162,6 @@ export const LocationSuggest = forwardRef<
         LocationQuery,
         LocationQueryVariables
       >({
-        fetchPolicy: 'no-cache',
         query: LOCATION,
         variables: { id: initialValue },
       });
