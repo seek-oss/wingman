@@ -17,7 +17,7 @@ export const readNestedStringField = (
 };
 
 /**
- * Creates a type policy for a SEEK API connection.
+ * Creates a type policy for an infinitely scrolled SEEK API connection.
  *
  * The SEEK API follows the Relay Cursor Connections Specification, which has a
  * standard `node` field on each edge. We identify each edge by its underlying
@@ -38,7 +38,7 @@ export const readNestedStringField = (
  * @param keyFields - Field path that uniquely identifies a node in the
  *                    connection.
  */
-const seekApiConnection = (
+const infiniteScrollConnection = (
   keyFields: 'documentId' | 'id' | 'profileId' | string[],
 ) => ({
   fields: {
@@ -153,6 +153,19 @@ const seekApiObject = (
     : ([keyFields, ['value']] as any),
 });
 
+interface ApolloTypePolicyOptions {
+  /**
+   * Determines the cache behaviour of paginated queries
+   *
+   * The default `conservative` policy caches each pagination query separately
+   * and does not attempt to merge pages.
+   *
+   * The `infinite-scroll` policy is suitable for implementing infinitely
+   * scrolling pagination using `fetchMore`.
+   */
+  paginationPolicy?: 'conservative' | 'infinite-scroll';
+}
+
 /**
  * Custom Apollo cache type policies to support SEEK API conventions.
  *
@@ -168,8 +181,8 @@ const seekApiObject = (
  * Changing the value of an argument will cause the results to be stored
  * separately from the previous query.
  *
- * To implement an infinite scrolling list, `after` and `before` are omitted to
- * make Apollo reuse its cache of previously-requested pages.
+ * When using the `infinite-scroll` pagination policy, `after` and `before` are
+ * omitted to make Apollo reuse its cache of previously-requested pages.
  *
  * {@link https://www.apollographql.com/docs/react/pagination/key-args}
  *
@@ -187,96 +200,112 @@ const seekApiObject = (
  * `merge`
  *
  * The `merge` function specifies custom logic for combining two instances of a
- * type. The `seekApiConnection` helper function uses this to implement
- * paginated lists.
+ * type. The `infiniteScrollConnection` helper function uses this to implement
+ * infinitely scrolling paginated lists.
  */
-export const apolloTypePolicies: TypedTypePolicies = {
-  AdvertisementBranding: seekApiObject('id'),
-  AdvertisementBrandingEdge: seekApiEdge('id'),
-  AdvertisementBrandingsConnection: seekApiConnection('id'),
+export const apolloTypePolicies = ({
+  paginationPolicy = 'conservative',
+}: ApolloTypePolicyOptions = {}): TypedTypePolicies => {
+  const paginationKeyArgs =
+    paginationPolicy === 'conservative'
+      ? ['after', 'before', 'first', 'last']
+      : ['first', 'last'];
 
-  ApplicationQuestionnaire: seekApiObject('id'),
+  const seekApiConnection =
+    paginationPolicy === 'conservative'
+      ? // Don't apply any field policy
+        () => ({})
+      : // Merge pages together and re-order backwards pagination
+        infiniteScrollConnection;
 
-  Candidate: seekApiObject('documentId'),
+  return {
+    AdvertisementBranding: seekApiObject('id'),
+    AdvertisementBrandingEdge: seekApiEdge('id'),
+    AdvertisementBrandingsConnection: seekApiConnection('id'),
 
-  CandidateProcessHistoryItem: seekApiObject('id'),
-  CandidateProcessHistoryItemEdge: seekApiEdge('id'),
-  CandidateProcessHistoryItemConnection: seekApiConnection('id'),
+    ApplicationQuestionnaire: seekApiObject('id'),
 
-  CandidateProfile: {
-    ...seekApiObject('profileId'),
-    fields: {
-      seekProcessHistory: {
-        keyArgs: ['first'],
+    Candidate: seekApiObject('documentId'),
+
+    CandidateProcessHistoryItem: seekApiObject('id'),
+    CandidateProcessHistoryItemEdge: seekApiEdge('id'),
+    CandidateProcessHistoryItemConnection: seekApiConnection('id'),
+
+    CandidateProfile: {
+      ...seekApiObject('profileId'),
+      fields: {
+        seekProcessHistory: {
+          keyArgs: paginationKeyArgs,
+        },
       },
     },
-  },
 
-  Event: seekApiObject('id'),
-  EventEdge: seekApiEdge('id'),
-  EventsConnection: seekApiConnection('id'),
+    Event: seekApiObject('id'),
+    EventEdge: seekApiEdge('id'),
+    EventsConnection: seekApiConnection('id'),
 
-  HiringOrganization: seekApiObject('id'),
-  HiringOrganizationEdge: seekApiEdge('id'),
-  HiringOrganizationsConnection: seekApiConnection('id'),
+    HiringOrganization: seekApiObject('id'),
+    HiringOrganizationEdge: seekApiEdge('id'),
+    HiringOrganizationsConnection: seekApiConnection('id'),
 
-  JobCategory: seekApiObject('id'),
+    JobCategory: seekApiObject('id'),
 
-  Location: seekApiObject('id'),
+    Location: seekApiObject('id'),
 
-  PositionOpening: seekApiObject('documentId'),
-  PositionOpeningEdge: seekApiEdge('documentId'),
-  PositionOpeningsConnection: seekApiConnection('documentId'),
+    PositionOpening: seekApiObject('documentId'),
+    PositionOpeningEdge: seekApiEdge('documentId'),
+    PositionOpeningsConnection: seekApiConnection('documentId'),
 
-  PositionProfile: seekApiObject('profileId'),
+    PositionProfile: seekApiObject('profileId'),
 
-  Query: {
-    fields: {
-      advertisementBrandings: {
-        keyArgs: ['filter', 'first', 'hirerId', 'last'],
-      },
-      events: {
-        keyArgs: ['filter', 'first', 'last', 'schemeId'],
-      },
-      hiringOrganizations: {
-        keyArgs: ['filter', 'first', 'last', 'schemeId'],
-      },
-      positionOpenings: {
-        keyArgs: ['filter', 'first', 'hirerId', 'last'],
-      },
-      webhookAttemptsForEvent: {
-        keyArgs: ['eventId', 'filter', 'first', 'last'],
-      },
-      webhookRequestsForSubscription: {
-        keyArgs: ['filter', 'first', 'last'],
-      },
-      webhookSubscriptions: {
-        keyArgs: ['filter', 'first', 'last', 'schemeId'],
-      },
-    },
-  },
-
-  WebhookAttempt: seekApiObject('id'),
-
-  WebhookRequest: seekApiObject(['requestId']),
-  WebhookRequestEdge: seekApiEdge(['requestId']),
-  WebhookRequestsConnection: seekApiConnection(['requestId']),
-
-  WebhookSubscription: {
-    ...seekApiObject('id'),
-    fields: {
-      webhookRequests: {
-        keyArgs: ['filter', 'first', 'last'],
-      },
-      webhookSubscriptionReplays: {
-        keyArgs: ['filter', 'first', 'last'],
+    Query: {
+      fields: {
+        advertisementBrandings: {
+          keyArgs: ['filter', 'hirerId', ...paginationKeyArgs],
+        },
+        events: {
+          keyArgs: ['filter', 'schemeId', ...paginationKeyArgs],
+        },
+        hiringOrganizations: {
+          keyArgs: ['filter', 'schemeId', ...paginationKeyArgs],
+        },
+        positionOpenings: {
+          keyArgs: ['filter', 'hirerId', ...paginationKeyArgs],
+        },
+        webhookAttemptsForEvent: {
+          keyArgs: ['eventId', 'filter', ...paginationKeyArgs],
+        },
+        webhookRequestsForSubscription: {
+          keyArgs: ['filter', ...paginationKeyArgs],
+        },
+        webhookSubscriptions: {
+          keyArgs: ['filter', 'schemeId', ...paginationKeyArgs],
+        },
       },
     },
-  },
-  WebhookSubscriptionEdge: seekApiEdge('id'),
-  WebhookSubscriptionsConnection: seekApiConnection('id'),
 
-  WebhookSubscriptionReplay: seekApiObject('id'),
-  WebhookSubscriptionReplayEdge: seekApiEdge('id'),
-  WebhookSubscriptionReplaysConnection: seekApiConnection('id'),
+    WebhookAttempt: seekApiObject('id'),
+
+    WebhookRequest: seekApiObject(['requestId']),
+    WebhookRequestEdge: seekApiEdge(['requestId']),
+    WebhookRequestsConnection: seekApiConnection(['requestId']),
+
+    WebhookSubscription: {
+      ...seekApiObject('id'),
+      fields: {
+        webhookRequests: {
+          keyArgs: ['filter', ...paginationKeyArgs],
+        },
+        webhookSubscriptionReplays: {
+          keyArgs: ['filter', ...paginationKeyArgs],
+        },
+      },
+    },
+    WebhookSubscriptionEdge: seekApiEdge('id'),
+    WebhookSubscriptionsConnection: seekApiConnection('id'),
+
+    WebhookSubscriptionReplay: seekApiObject('id'),
+    WebhookSubscriptionReplayEdge: seekApiEdge('id'),
+    WebhookSubscriptionReplaysConnection: seekApiConnection('id'),
+  };
 };
