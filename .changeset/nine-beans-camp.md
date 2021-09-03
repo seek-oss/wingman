@@ -1,5 +1,5 @@
 ---
-'wingman-fe': patch
+'wingman-fe': major
 ---
 
 **apolloTypePolicies:**: Disable infinite scrolling opinions by default

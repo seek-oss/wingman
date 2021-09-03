@@ -15,7 +15,7 @@ const createApolloMockClient = (resolvers: Resolvers) => {
   });
 
   const client = new ApolloClient({
-    cache: new InMemoryCache({ typePolicies: apolloTypePolicies }),
+    cache: new InMemoryCache({ typePolicies: apolloTypePolicies() }),
     link: new SchemaLink({ schema }),
   });
 
