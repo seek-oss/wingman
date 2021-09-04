@@ -24,6 +24,7 @@ describe('createBrowserTokenMiddleware', () => {
     const middleware = createBrowserTokenMiddleware({
       getPartnerToken,
       userAgent: 'abc/1.2.3',
+      acceptedScopes: ['query:accepted', 'mutate:accepted'],
     });
 
     return new Koa().use(errorHandler).use(middleware);
@@ -60,7 +61,7 @@ describe('createBrowserTokenMiddleware', () => {
     return agent()
       .post('/')
       .set('aUtHoRiZaTiOn', 'in')
-      .send({ scope: 'arbitrary' })
+      .send({ scope: 'query:accepted' })
       .expect(200, VALID_BROWSER_TOKEN_RESPONSE);
   });
 
@@ -78,7 +79,7 @@ describe('createBrowserTokenMiddleware', () => {
     await agent()
       .post('/')
       .set('aUtHoRiZaTiOn', 'in')
-      .send({ scope: 'arbitrary' })
+      .send({ scope: 'query:accepted' })
       .expect(200, VALID_BROWSER_TOKEN_RESPONSE);
 
     expect(fetchSpy).toBeCalledTimes(1);
@@ -86,7 +87,7 @@ describe('createBrowserTokenMiddleware', () => {
     const response = await agent()
       .post('/')
       .set('aUtHoRiZaTiOn', 'in')
-      .send({ scope: 'arbitrary' })
+      .send({ scope: 'query:accepted' })
       .expect(200);
 
     expect(response.body).toEqual({
@@ -99,7 +100,7 @@ describe('createBrowserTokenMiddleware', () => {
     await agent()
       .post('/')
       .set('aUtHoRiZaTiOn', 'in')
-      .send({ scope: 'intentional' })
+      .send({ scope: 'mutate:accepted' })
       .expect(200);
 
     expect(fetchSpy).toBeCalledTimes(2);
@@ -117,11 +118,35 @@ describe('createBrowserTokenMiddleware', () => {
         ),
       ));
 
+  it('blocks a single unacceptable scope', () =>
+    agent()
+      .post('/')
+      .set('aUtHoRiZaTiOn', 'in')
+      .send({ scope: 'query:rejected' })
+      .expect(403)
+      .expect(({ text }) =>
+        expect(text).toMatchInlineSnapshot(
+          `"Requested scope \`query:rejected\` is not accepted by the backend configuration"`,
+        ),
+      ));
+
+  it('blocks a mixture of acceptable and unacceptable scopes', () =>
+    agent()
+      .post('/')
+      .set('aUtHoRiZaTiOn', 'in')
+      .send({ scope: 'mutate:accepted query:rejected' })
+      .expect(403)
+      .expect(({ text }) =>
+        expect(text).toMatchInlineSnapshot(
+          `"Requested scope \`query:rejected\` is not accepted by the backend configuration"`,
+        ),
+      ));
+
   it('blocks an unknown user', () =>
     agent()
       .post('/')
       .set('aUtHoRiZaTiOn', 'hacker')
-      .send({ scope: 'arbitrary' })
+      .send({ scope: 'query:accepted' })
       .expect(401, 'Nice try'));
 
   it('fails on invalid response from the SEEK API', () => {
@@ -133,7 +158,7 @@ describe('createBrowserTokenMiddleware', () => {
     return agent()
       .post('/')
       .set('aUtHoRiZaTiOn', 'in')
-      .send({ scope: 'arbitrary' })
+      .send({ scope: 'query:accepted' })
       .expect(500);
   });
 });

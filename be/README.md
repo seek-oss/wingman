@@ -106,6 +106,13 @@ const createApp = () => {
   const middleware = createBrowserTokenMiddleware({
     getPartnerToken,
     userAgent: 'my-service/1.2.3',
+
+    acceptedScopes: [
+      'query:advertisement-brandings',
+      'query:ad-products',
+      'query:ontologies',
+      'query:organizations',
+    ],
   });
 
   return new Koa().use(middleware);

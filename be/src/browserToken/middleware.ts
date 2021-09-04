@@ -37,6 +37,7 @@ const _createBrowserTokenMiddleware = ({
   callback,
   getPartnerToken,
   userAgent,
+  acceptedScopes,
   browserTokenUrlOverride,
 }: BrowserTokenMiddlewareOptions): Middleware =>
   async function BrowserTokenMiddleware(ctx) {
@@ -47,6 +48,20 @@ const _createBrowserTokenMiddleware = ({
     }
 
     const { scope } = requestResult.value;
+
+    if (acceptedScopes) {
+      // This is a lax parsing of scopes compared to what's required by RFC 6749
+      // However, if anything funny is passed here it'll be rejected by the SEEK
+      // API's browser token endpoint.
+      for (const requestedScope of scope.split(' ')) {
+        if (!acceptedScopes.includes(requestedScope)) {
+          ctx.throw(
+            403,
+            `Requested scope \`${requestedScope}\` is not accepted by the backend configuration`,
+          );
+        }
+      }
+    }
 
     const { hirerId, partnerToken } = await wrapRetriever(ctx, getPartnerToken);
 

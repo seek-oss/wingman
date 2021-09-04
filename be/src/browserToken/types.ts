@@ -21,6 +21,16 @@ export interface BrowserTokenMiddlewareOptions {
   userAgent: string;
 
   /**
+   * List of scope names the frontend can request
+   *
+   * This can be used to prevent users from requesting browser tokens with more
+   * permissions than required by your frontend. This check is in addition to
+   * the access control checks performed by the SEEK API based on hirer
+   * relationships.
+   */
+  acceptedScopes?: string[];
+
+  /**
    * Override for the browser token authentication endpoint
    *
    * This is used by SEEK for internal testing. External consumers should omit
