@@ -50,7 +50,7 @@ const FreeTextQuestion = t.Record({
 
 const ResponseChoice = t.Record({
   text: t.String,
-  value: t.String.nullable().optional(),
+  value: t.String,
   preferredIndicator: t.Boolean,
 });
 
