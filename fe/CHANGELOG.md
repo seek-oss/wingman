@@ -1,5 +1,15 @@
 # wingman-fe
 
+## 4.0.1
+
+### Patch Changes
+
+- 77f6e22: **QuestionnaireBuilder:** Make question choice input value non-null
+
+  In the SEEK API `ApplicationQuestionChoiceInput.value` is non-null while `ApplicationQuestionChoice.value` is nullable.
+
+  Our choice input Runtype had this as nullable which is incorrect.
+
 ## 4.0.0
 
 ### Major Changes
