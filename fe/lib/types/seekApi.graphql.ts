@@ -1050,8 +1050,18 @@ export interface CandidateProfile {
   profileId: ObjectIdentifier;
   /** The date & time the candidate was associated with the position. */
   createDateTime: Scalars['DateTime'];
-  /** The positions this candidate has applied for. */
+  /** The position openings associated with this candidate profile. */
   associatedPositionOpenings: Array<AssociatedPositionOpening>;
+  /**
+   * The primary position profile for this candidate profile.
+   *
+   * This is a convenience field to avoid an extra hop through `associatedPositionOpenings`.
+   *
+   * - For candidate applications, this is the job ad that the candidate applied to.
+   * - For purchased profiles, this is the unposted position profile that the purchase is scoped to.
+   * - For uploaded candidate profiles, this is always `null`.
+   */
+  associatedPositionProfile?: Maybe<PositionProfile>;
   /** The attachments related to the candidate's profile. */
   attachments: Array<Attachment>;
   /** The employment history of the candidate. */
@@ -2985,6 +2995,18 @@ export interface PositionProfile {
    * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
   seekPartnerMetadata?: Maybe<Scalars['String']>;
+  /**
+   * Whether the position profile was created by the requesting partner.
+   *
+   * If your software cannot ingest objects that are created by another source,
+   * this can be used to filter out such position profiles.
+   *
+   * This indicator is unavailable where we cannot cheaply determine the source
+   * of the position profile.
+   * `null` values should not be filtered out.
+   * See specific implementations for further details.
+   */
+  seekCreatedBySelfIndicator?: Maybe<Scalars['Boolean']>;
 }
 
 /** The event signaling that a posted `PositionProfile` has been closed. */
@@ -3486,6 +3508,16 @@ export interface PostedPositionProfile extends PositionProfile {
    * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
   seekPartnerMetadata?: Maybe<Scalars['String']>;
+  /**
+   * Whether the job ad was initially posted by the requesting partner.
+   *
+   * If your software cannot ingest objects that are created by another source,
+   * this can be used to filter out such job ads and their associated applications.
+   *
+   * This indicator is unavailable for job ads posted before September 2021.
+   * `null` values should not be filtered out.
+   */
+  seekCreatedBySelfIndicator?: Maybe<Scalars['Boolean']>;
 }
 
 /** Information about how to post a job ad and where to direct its candidate applications. */
@@ -4171,8 +4203,12 @@ export interface RemunerationPackageInput {
    * Currently, four codes are defined:
    *
    * - `CommissionOnly` employment is paid exclusively a results-based commission.
+   *   This payment basis is deprecated and should not be used by new integrations.
+   *
    * - `Hourly` employment is paid for the number of hours worked.
+   *
    * - `Salaried` employment is paid on an annual basis.
+   *
    * - `SalariedPlusCommission` employment is paid on an annual basis plus a results-based commission.
    */
   basisCode: Scalars['String'];
@@ -4695,6 +4731,15 @@ export interface UnpostedPositionProfile extends PositionProfile {
    * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
   seekPartnerMetadata?: Maybe<Scalars['String']>;
+  /**
+   * Whether the position profile was created by the requesting partner.
+   *
+   * If your software cannot ingest objects that are created by another source,
+   * this can be used to filter out such position profiles.
+   *
+   * This indicator is never `null` for unposted position profiles.
+   */
+  seekCreatedBySelfIndicator?: Maybe<Scalars['Boolean']>;
 }
 
 /** The input parameter for the `updateCandidateProcessHistoryItem` mutation. */
@@ -5852,6 +5897,82 @@ export interface WebhookSubscriptionsFilterInput {
    */
   hirerIds?: Maybe<Array<Scalars['String']>>;
 }
+
+export type AdvertisementBrandingFieldsFragment = {
+  __typename?: 'AdvertisementBranding';
+  name: string;
+  id: { __typename?: 'ObjectIdentifier'; value: string };
+  images: Array<{
+    __typename?: 'AdvertisementBrandingImage';
+    typeCode: string;
+    url: string;
+  }>;
+};
+
+export type AdvertisementBrandingEdgeFieldsFragment = {
+  __typename?: 'AdvertisementBrandingEdge';
+  node: {
+    __typename?: 'AdvertisementBranding';
+    name: string;
+    id: { __typename?: 'ObjectIdentifier'; value: string };
+    images: Array<{
+      __typename?: 'AdvertisementBrandingImage';
+      typeCode: string;
+      url: string;
+    }>;
+  };
+};
+
+export type AdvertisementBrandingQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+export type AdvertisementBrandingQuery = {
+  advertisementBranding?: Maybe<{
+    __typename?: 'AdvertisementBranding';
+    name: string;
+    id: { __typename?: 'ObjectIdentifier'; value: string };
+    images: Array<{
+      __typename?: 'AdvertisementBrandingImage';
+      typeCode: string;
+      url: string;
+    }>;
+  }>;
+};
+
+export type AdvertisementBrandingsQueryVariables = Exact<{
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  hirerId: Scalars['String'];
+}>;
+
+export type AdvertisementBrandingsQuery = {
+  advertisementBrandings: {
+    __typename?: 'AdvertisementBrandingsConnection';
+    pageInfo: {
+      __typename?: 'PageInfo';
+      hasNextPage: boolean;
+      hasPreviousPage: boolean;
+      startCursor?: Maybe<string>;
+      endCursor?: Maybe<string>;
+    };
+    edges: Array<{
+      __typename?: 'AdvertisementBrandingEdge';
+      node: {
+        __typename?: 'AdvertisementBranding';
+        name: string;
+        id: { __typename?: 'ObjectIdentifier'; value: string };
+        images: Array<{
+          __typename?: 'AdvertisementBrandingImage';
+          typeCode: string;
+          url: string;
+        }>;
+      };
+    }>;
+  };
+};
 
 export type JobCategoryAttributesFragment = {
   __typename?: 'JobCategory';

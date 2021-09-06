@@ -349,6 +349,7 @@ export type CandidateProfileKeySpecifier = (
   | 'profileId'
   | 'createDateTime'
   | 'associatedPositionOpenings'
+  | 'associatedPositionProfile'
   | 'attachments'
   | 'employment'
   | 'education'
@@ -367,6 +368,7 @@ export type CandidateProfileFieldPolicy = {
   profileId?: FieldPolicy<any> | FieldReadFunction<any>;
   createDateTime?: FieldPolicy<any> | FieldReadFunction<any>;
   associatedPositionOpenings?: FieldPolicy<any> | FieldReadFunction<any>;
+  associatedPositionProfile?: FieldPolicy<any> | FieldReadFunction<any>;
   attachments?: FieldPolicy<any> | FieldReadFunction<any>;
   employment?: FieldPolicy<any> | FieldReadFunction<any>;
   education?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -962,6 +964,7 @@ export type PositionProfileKeySpecifier = (
   | 'seekVideo'
   | 'postingInstructions'
   | 'seekPartnerMetadata'
+  | 'seekCreatedBySelfIndicator'
   | PositionProfileKeySpecifier
 )[];
 export type PositionProfileFieldPolicy = {
@@ -983,6 +986,7 @@ export type PositionProfileFieldPolicy = {
   seekVideo?: FieldPolicy<any> | FieldReadFunction<any>;
   postingInstructions?: FieldPolicy<any> | FieldReadFunction<any>;
   seekPartnerMetadata?: FieldPolicy<any> | FieldReadFunction<any>;
+  seekCreatedBySelfIndicator?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type PositionProfileClosedEventKeySpecifier = (
   | 'id'
@@ -1094,6 +1098,7 @@ export type PostedPositionProfileKeySpecifier = (
   | 'seekVideo'
   | 'postingInstructions'
   | 'seekPartnerMetadata'
+  | 'seekCreatedBySelfIndicator'
   | PostedPositionProfileKeySpecifier
 )[];
 export type PostedPositionProfileFieldPolicy = {
@@ -1115,6 +1120,7 @@ export type PostedPositionProfileFieldPolicy = {
   seekVideo?: FieldPolicy<any> | FieldReadFunction<any>;
   postingInstructions?: FieldPolicy<any> | FieldReadFunction<any>;
   seekPartnerMetadata?: FieldPolicy<any> | FieldReadFunction<any>;
+  seekCreatedBySelfIndicator?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type PostingInstructionKeySpecifier = (
   | 'start'
@@ -1398,6 +1404,7 @@ export type UnpostedPositionProfileKeySpecifier = (
   | 'seekVideo'
   | 'postingInstructions'
   | 'seekPartnerMetadata'
+  | 'seekCreatedBySelfIndicator'
   | UnpostedPositionProfileKeySpecifier
 )[];
 export type UnpostedPositionProfileFieldPolicy = {
@@ -1420,6 +1427,7 @@ export type UnpostedPositionProfileFieldPolicy = {
   seekVideo?: FieldPolicy<any> | FieldReadFunction<any>;
   postingInstructions?: FieldPolicy<any> | FieldReadFunction<any>;
   seekPartnerMetadata?: FieldPolicy<any> | FieldReadFunction<any>;
+  seekCreatedBySelfIndicator?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type UpdateCandidateProcessHistoryItemPayloadKeySpecifier = (
   | 'candidateProcessHistoryItem'
