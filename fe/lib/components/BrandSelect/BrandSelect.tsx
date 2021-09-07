@@ -19,8 +19,8 @@ import {
 import { PaginatedBrands } from './PaginatedBrands';
 import { ADVERTISEMENT_BRANDINGS } from './queries';
 
-interface BrandSelectProps {
-  client: ApolloClient<unknown>;
+export interface BrandSelectProps {
+  client?: ApolloClient<unknown>;
   hirerId: string;
   errorMessage?: string;
   initialBrandId?: string;
