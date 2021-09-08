@@ -44,7 +44,7 @@ export const BrandSelect = ({
       first: PAGE_SIZE,
     });
 
-  const { data, previousData, loading } = useQuery<
+  const { data, previousData, loading, error } = useQuery<
     AdvertisementBrandingsQuery,
     AdvertisementBrandingsQueryVariables
   >(ADVERTISEMENT_BRANDINGS, {
@@ -101,6 +101,14 @@ export const BrandSelect = ({
           tone="critical"
         />
       ) : null}
+
+      {error && (
+        <FieldMessage
+          id="brandingSelectError"
+          message="Sorry, we couldn’t fetch brands. Please try again."
+          tone="critical"
+        />
+      )}
     </Stack>
   );
 };
