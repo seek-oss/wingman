@@ -20,7 +20,7 @@ export const mockPaginatedBrands = {
           },
           {
             typeCode: 'CoverImage',
-            url: 'https://image-service-cdn.seek.com.au/092f3e7154538e84fbc39b169f8e6e74d9c3655e',
+            url: '',
           },
         ],
       },
@@ -31,11 +31,11 @@ export const mockPaginatedBrands = {
           value:
             'global:advertisementBranding:hirerBranding:4pkLmqYhoSxSKmfcKMbDG6',
         },
-        name: 'SEEK - macbook & glasses (green)',
+        name: 'SEEK - macbook & glasses (green) - no logo',
         images: [
           {
             typeCode: 'OriginalLogo',
-            url: 'https://image-service-cdn.seek.com.au/27ecca452d06d960b596aa40380f0d06c56b6ba8',
+            url: '',
           },
           {
             typeCode: 'CoverImage',

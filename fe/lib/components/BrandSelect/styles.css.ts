@@ -11,6 +11,9 @@ const coverImageProps = style({
   paddingTop: vars.borderWidth.large,
 });
 
+const CHECKERED_IMAGE =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAAF0lEQVQoz2NgQANXGlAhwwhRMFL9jQYAcVGqAVQXe6gAAAAASUVORK5CYII=';
+
 export const coverImage = style([
   coverImageProps,
   {
@@ -21,8 +24,7 @@ export const coverImage = style([
 export const missingCoverImage = style([
   coverImageProps,
   {
-    backgroundImage:
-      "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAAF0lEQVQoz2NgQANXGlAhwwhRMFL9jQYAcVGqAVQXe6gAAAAASUVORK5CYII=')",
+    backgroundImage: `url(${CHECKERED_IMAGE})`,
   },
 ]);
 
@@ -31,6 +33,13 @@ export const originalLogo = style({
   objectFit: 'contain',
   width: calc.multiply(vars.grid, 20),
 });
+
+export const missingLogoImage = style([
+  originalLogo,
+  {
+    backgroundImage: `url(${CHECKERED_IMAGE})`,
+  },
+]);
 
 export const brand = style({
   /**

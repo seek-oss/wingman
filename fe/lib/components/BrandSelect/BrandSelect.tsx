@@ -4,7 +4,6 @@ import {
   Heading,
   Inline,
   Loader,
-  Secondary,
   Stack,
   Text,
 } from 'braid-design-system';
@@ -85,7 +84,7 @@ export const BrandSelect = ({
   return renderedData && brands.length >= 1 ? (
     <Stack space="medium">
       <Heading level="4" weight={'regular'}>
-        Brand <Secondary>(optional)</Secondary>
+        Brand
       </Heading>
 
       <PaginatedBrands

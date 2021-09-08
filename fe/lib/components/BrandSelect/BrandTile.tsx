@@ -9,9 +9,6 @@ import {
 
 import * as styles from './styles.css';
 
-const GREY_PIXEL =
-  'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==';
-
 interface Props {
   brand: AdvertisementBrandingFieldsFragment;
   isSelected?: boolean;
@@ -52,16 +49,27 @@ const OriginalLogo = ({
 }: {
   image?: AdvertisementBrandingImage;
   brandName: string;
-}) => (
-  <Box
-    alt={`${brandName} original logo`}
-    className={styles.originalLogo}
-    component="img"
-    display="block"
-    src={image?.url ?? GREY_PIXEL}
-    width="full"
-  />
-);
+}) =>
+  image?.url ? (
+    <Box
+      alt={`${brandName} original logo`}
+      className={styles.originalLogo}
+      component="img"
+      display="block"
+      src={image.url}
+      width="full"
+    />
+  ) : (
+    <Box
+      alignItems="center"
+      className={styles.missingLogoImage}
+      display="flex"
+      justifyContent="center"
+      width="full"
+    >
+      <Text>No logo</Text>
+    </Box>
+  );
 
 export const BrandTile = ({ brand, isSelected, onSelect }: Props) => (
   <Box
