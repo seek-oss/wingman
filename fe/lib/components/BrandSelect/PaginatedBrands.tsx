@@ -14,7 +14,7 @@ import {
 import { BrandTiles } from './BrandTiles';
 
 interface Props {
-  data: AdvertisementBrandingsQuery;
+  data: AdvertisementBrandingsQuery | undefined;
   pageSize: number;
   selectedBrandId?: string;
   onPagination: OnClickHandler;
@@ -28,13 +28,14 @@ export const PaginatedBrands = ({
   onPagination,
   onSelect,
 }: Props) => {
-  const hasAtLeastOneBrand = data.advertisementBrandings?.edges.length > 0;
+  const brands = data?.advertisementBrandings?.edges || [];
+  const hasAtLeastOneBrand = data && brands.length > 0;
 
   if (!hasAtLeastOneBrand) {
     return (
       <Notice tone="info">
         <Text>
-          You have no brands. Create a new one in the{' '}
+          You have no brand. Create a new one in the{' '}
           <SmartTextLink href="https://talent.seek.com.au/account/branding">
             SEEK AdCentre
           </SmartTextLink>

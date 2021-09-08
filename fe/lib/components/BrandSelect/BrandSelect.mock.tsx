@@ -26,7 +26,7 @@ export const MockBrandSelect = ({
       space="medium"
       storybookPath={
         showStorybookAction
-          ? '/story/job-posting-brand-brandselect--brand-select'
+          ? '/story/job-posting-branding-brandselect--brand-select'
           : undefined
       }
     >

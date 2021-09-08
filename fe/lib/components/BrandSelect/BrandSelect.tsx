@@ -53,7 +53,6 @@ export const BrandSelect = ({
   });
 
   const [selectedBrandId, setSelectedBrandId] = useState(initialBrandId);
-
   const handleBrandSelect = (brand: AdvertisementBrandingFieldsFragment) => {
     const nextBrandId =
       // Allow unselecting a brand by clicking it again
@@ -70,8 +69,6 @@ export const BrandSelect = ({
   // Otherwise, we change size to show the loader which is jarring
   const renderedData = data ?? previousData;
 
-  const brands = renderedData?.advertisementBrandings?.edges || [];
-
   if (loading && !renderedData) {
     return (
       <Inline space="small">
@@ -81,10 +78,10 @@ export const BrandSelect = ({
     );
   }
 
-  return renderedData && brands.length >= 1 ? (
+  return (
     <Stack space="medium">
       <Heading level="4" weight={'regular'}>
-        Brand
+        Branding
       </Heading>
 
       <PaginatedBrands
@@ -99,17 +96,11 @@ export const BrandSelect = ({
 
       {errorMessage ? (
         <FieldMessage
-          id="brandsErrorMessage"
+          id="brandingErrorMessage"
           message={errorMessage}
           tone="critical"
         />
       ) : null}
     </Stack>
-  ) : (
-    <FieldMessage
-      id="noBrandsMesssage"
-      message="You have no brands to add to your job ad"
-      tone="neutral"
-    />
   );
 };
