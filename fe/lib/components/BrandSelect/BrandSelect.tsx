@@ -14,9 +14,7 @@ import {
   AdvertisementBrandingFieldsFragment,
   AdvertisementBrandingsQuery,
   AdvertisementBrandingsQueryVariables,
-  JobCategoriesQuery,
 } from '../../types/seekApi.graphql';
-import { JOB_CATEGORIES } from '../JobCategorySelect/queries';
 
 import { PaginatedBrands } from './PaginatedBrands';
 import { ADVERTISEMENT_BRANDINGS } from './queries';
@@ -47,7 +45,6 @@ export const BrandSelect = ({
       first: PAGE_SIZE,
     });
 
-  console.log('variables', variables);
   const { data, previousData, loading } = useQuery<
     AdvertisementBrandingsQuery,
     AdvertisementBrandingsQueryVariables
@@ -55,16 +52,6 @@ export const BrandSelect = ({
     ...(client && { client }),
     variables,
   });
-
-  const { data: categoriesData } = useQuery<JobCategoriesQuery>(
-    JOB_CATEGORIES,
-    {
-      ...(client && { client }),
-      variables: {
-        schemeId: 'seekANZ',
-      },
-    },
-  );
 
   const [selectedBrandId, setSelectedBrandId] = useState(initialBrandId);
 
@@ -86,7 +73,6 @@ export const BrandSelect = ({
 
   const brands = renderedData?.advertisementBrandings?.edges || [];
 
-  console.log('renderedData', client, renderedData, categoriesData);
   if (loading && !renderedData) {
     return (
       <Inline space="small">
