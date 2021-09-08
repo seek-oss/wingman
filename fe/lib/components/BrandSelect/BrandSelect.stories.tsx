@@ -26,6 +26,11 @@ export default {
   argTypes: {
     braidThemeName: defaultArgTypes.braidThemeName,
     showStorybookAction: defaultArgTypes.showStorybookAction,
+    mockHasNextPage: {
+      name: 'Has next brands page',
+      control: { type: 'radio' },
+      options: [true, false],
+    },
   },
   component: Component,
 
