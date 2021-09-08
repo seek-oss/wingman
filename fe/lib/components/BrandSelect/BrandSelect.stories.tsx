@@ -20,6 +20,7 @@ export default {
     message: 'undefined',
     reserveMessageSpace: false,
     schemeId: 'global',
+    hirerId: 'seekAnz:organization:seek:kLDHs7W7',
     tone: defaultArgs.tone,
   },
   argTypes: {
