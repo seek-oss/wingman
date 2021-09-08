@@ -49,27 +49,16 @@ const OriginalLogo = ({
 }: {
   image?: AdvertisementBrandingImage;
   brandName: string;
-}) =>
-  image?.url ? (
-    <Box
-      alt={`${brandName} original logo`}
-      className={styles.originalLogo}
-      component="img"
-      display="block"
-      src={image.url}
-      width="full"
-    />
-  ) : (
-    <Box
-      alignItems="center"
-      className={styles.missingLogoImage}
-      display="flex"
-      justifyContent="center"
-      width="full"
-    >
-      <Text>No logo</Text>
-    </Box>
-  );
+}) => (
+  <Box
+    alt={`${brandName} original logo`}
+    className={styles.originalLogo}
+    component="img"
+    display="block"
+    src={image?.url}
+    width="full"
+  />
+);
 
 export const BrandTile = ({ brand, isSelected, onSelect }: Props) => (
   <Box

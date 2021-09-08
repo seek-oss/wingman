@@ -31,11 +31,11 @@ export const mockPaginatedBrands = {
           value:
             'global:advertisementBranding:hirerBranding:4pkLmqYhoSxSKmfcKMbDG6',
         },
-        name: 'SEEK - macbook & glasses (green) - no logo',
+        name: 'SEEK - macbook & glasses (green)',
         images: [
           {
             typeCode: 'OriginalLogo',
-            url: '',
+            url: 'https://image-service-cdn.seek.com.au/27ecca452d06d960b596aa40380f0d06c56b6ba8',
           },
           {
             typeCode: 'CoverImage',

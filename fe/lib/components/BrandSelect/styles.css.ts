@@ -34,13 +34,6 @@ export const originalLogo = style({
   width: calc.multiply(vars.grid, 20),
 });
 
-export const missingLogoImage = style([
-  originalLogo,
-  {
-    backgroundImage: `url(${CHECKERED_IMAGE})`,
-  },
-]);
-
 export const brand = style({
   /**
    * {@link https://github.com/seek-oss/braid-design-system/blob/v30.4.2/lib/css/atoms/atomicProperties.ts#L13}
