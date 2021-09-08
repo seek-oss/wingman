@@ -17,25 +17,17 @@ export default {
     braidThemeName: defaultArgs.braidThemeName,
     id: 'brands',
     label: 'Brand',
-    message: 'undefined',
     reserveMessageSpace: false,
     schemeId: 'global',
     hirerId: 'seekAnz:organization:seek:kLDHs7W7',
-    tone: defaultArgs.tone,
   },
   argTypes: {
     braidThemeName: defaultArgTypes.braidThemeName,
-    message: {
-      control: { type: 'radio' },
-      mapping: { undefined, requiredValidation: 'Please select a brand.' },
-      options: ['undefined', 'requiredValidation'],
-    },
     showStorybookAction: defaultArgTypes.showStorybookAction,
-    tone: defaultArgTypes.tone,
   },
   component: Component,
 
-  title: 'Job Posting/Brand/BrandSelect',
+  title: 'Job Posting/Branding/BrandSelect',
 };
 
 type Args = ComponentProps<typeof Component> & BraidArgs;
