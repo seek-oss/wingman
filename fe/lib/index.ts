@@ -10,6 +10,8 @@ export { MockJobCategorySuggest } from './components/JobCategorySuggest/JobCateg
 
 export { LocationSuggest } from './components/LocationSuggest/LocationSuggest';
 export { MockLocationSuggest } from './components/LocationSuggest/LocationSuggest.mock';
+export { BrandSelect } from './components/BrandSelect/BrandSelect';
+export { MockBrandSelect } from './components/BrandSelect/BrandSelect.mock';
 
 export { QuestionnaireBuilder } from './components/QuestionnaireBuilder/QuestionnaireBuilder';
 export { QuestionnaireForm } from './components/QuestionnaireForm/QuestionnaireForm';
