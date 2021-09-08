@@ -3,12 +3,15 @@ import React from 'react';
 import { SmartTextLink } from 'scoobie';
 
 import {
+  ConnectionPagination,
+  OnClickHandler,
+} from '../../private/ConnectionPagination';
+import {
   AdvertisementBrandingFieldsFragment,
   AdvertisementBrandingsQuery,
 } from '../../types/seekApi.graphql';
-import { ConnectionPagination, OnClickHandler } from '../ConnectionPagination';
 
-import { BrandGrid } from './BrandGrid';
+import { BrandTitles } from './BrandTitles';
 
 interface Props {
   data: AdvertisementBrandingsQuery;
@@ -48,7 +51,7 @@ export const PaginatedBrands = ({
       pageSize={pageSize}
     >
       {(edges) => (
-        <BrandGrid
+        <BrandTitles
           edges={edges}
           selectedBrandId={selectedBrandId}
           onSelect={onSelect}

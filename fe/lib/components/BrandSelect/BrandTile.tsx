@@ -1,11 +1,11 @@
 import { Box, Stack, Text } from 'braid-design-system';
 import React from 'react';
 
+import { CopyableOid } from '../../private/CopyableOid';
 import {
   AdvertisementBrandingFieldsFragment,
   AdvertisementBrandingImage,
 } from '../../types/seekApi.graphql';
-import { CopyableOid } from '../CopyableOid';
 
 import * as styles from './styles.css';
 

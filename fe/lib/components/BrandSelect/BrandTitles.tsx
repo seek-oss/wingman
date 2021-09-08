@@ -1,5 +1,6 @@
 import { Tiles } from 'braid-design-system';
 import React from 'react';
+
 import {
   AdvertisementBrandingEdgeFieldsFragment,
   AdvertisementBrandingFieldsFragment,
@@ -13,7 +14,7 @@ interface Props {
   onSelect?: (selectedBrand: AdvertisementBrandingFieldsFragment) => void;
 }
 
-export const BrandGrid = ({ edges, selectedBrandId, onSelect }: Props) => (
+export const BrandTitles = ({ edges, selectedBrandId, onSelect }: Props) => (
   <Tiles columns={[1, 2, 2]} space="small">
     {edges.map(({ node }) => (
       <BrandTile
