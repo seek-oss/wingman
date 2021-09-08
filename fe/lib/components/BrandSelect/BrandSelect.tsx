@@ -93,7 +93,7 @@ export const BrandSelect = ({
         pageSize={PAGE_SIZE}
         selectedBrandId={selectedBrandId}
         onPagination={(args) => {
-          setVariables({ hirerId, ...args });
+          setVariables({ ...args, hirerId });
         }}
         onSelect={handleBrandSelect}
       />

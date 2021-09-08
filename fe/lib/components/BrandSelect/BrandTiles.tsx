@@ -14,7 +14,7 @@ interface Props {
   onSelect?: (selectedBrand: AdvertisementBrandingFieldsFragment) => void;
 }
 
-export const BrandTitles = ({ edges, selectedBrandId, onSelect }: Props) => (
+export const BrandTiles = ({ edges, selectedBrandId, onSelect }: Props) => (
   <Tiles columns={[1, 2, 2]} space="small">
     {edges.map(({ node }) => (
       <BrandTile

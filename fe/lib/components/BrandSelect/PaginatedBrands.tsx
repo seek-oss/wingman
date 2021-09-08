@@ -11,7 +11,7 @@ import {
   AdvertisementBrandingsQuery,
 } from '../../types/seekApi.graphql';
 
-import { BrandTitles } from './BrandTitles';
+import { BrandTiles } from './BrandTiles';
 
 interface Props {
   data: AdvertisementBrandingsQuery;
@@ -51,7 +51,7 @@ export const PaginatedBrands = ({
       pageSize={pageSize}
     >
       {(edges) => (
-        <BrandTitles
+        <BrandTiles
           edges={edges}
           selectedBrandId={selectedBrandId}
           onSelect={onSelect}
