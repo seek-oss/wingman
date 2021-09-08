@@ -16,7 +16,6 @@ module.exports = {
     '/candidates',
     '/positions/detail/$id',
     '/positions',
-    '/positions/brandings',
     '/positions/new',
     '/positions/questionnaires',
   ],

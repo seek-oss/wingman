@@ -17,7 +17,6 @@ import type { AdProductName } from '../data/adProducts';
 import { useLocalStorage } from '../hooks/localStorage';
 
 import { AdProductSelect } from './AdProductSelect';
-import { BrandingSelect } from './BrandingSelect';
 import { QuestionnaireSelect } from './QuestionnaireSelect';
 
 import * as styles from './NewAdForm.css';
@@ -166,15 +165,6 @@ export const NewAdForm = ({ initial }: Props) => {
             </Column>
           </Columns>
         ) : undefined}
-
-        <Stack space="xsmall">
-          <FieldLabel htmlFor={false} label="Branding" />
-
-          <Box borderRadius="standard" className={styles.fieldBorder}>
-            {/* TODO: save and restore in field state */}
-            <BrandingSelect />
-          </Box>
-        </Stack>
 
         <Stack space="xsmall">
           <FieldLabel htmlFor={false} label="Questionnaire" />
