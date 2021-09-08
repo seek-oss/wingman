@@ -7,7 +7,7 @@ import {
   Stack,
   Text,
 } from 'braid-design-system';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   AdvertisementBrandingFieldsFragment,
@@ -53,6 +53,11 @@ export const BrandSelect = ({
   });
 
   const [selectedBrandId, setSelectedBrandId] = useState(initialBrandId);
+
+  useEffect(() => {
+    setSelectedBrandId(initialBrandId);
+  }, [initialBrandId]);
+
   const handleBrandSelect = (brand: AdvertisementBrandingFieldsFragment) => {
     const nextBrandId =
       // Allow unselecting a brand by clicking it again

@@ -20,6 +20,8 @@ export default {
     reserveMessageSpace: false,
     schemeId: 'global',
     hirerId: 'seekAnz:organization:seek:kLDHs7W7',
+    initialBrandId:
+      'global:advertisementBranding:hirerBranding:4pkLmqYhoSxSKmfcKMbDG6',
   },
   argTypes: {
     braidThemeName: defaultArgTypes.braidThemeName,
