@@ -22,15 +22,6 @@ const ADVERTISEMENT_BRANDING_EDGE_FIELDS = gql`
   ${ADVERTISEMENT_BRANDING_FIELDS}
 `;
 
-export const ADVERTISEMENT_BRANDING = gql`
-  query AdvertisementBranding($id: String!) {
-    advertisementBranding(id: $id) {
-      ...advertisementBrandingFields
-    }
-  }
-  ${ADVERTISEMENT_BRANDING_FIELDS}
-`;
-
 export const ADVERTISEMENT_BRANDINGS = gql`
   query AdvertisementBrandings(
     $after: String
