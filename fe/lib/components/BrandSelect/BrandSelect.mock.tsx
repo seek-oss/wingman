@@ -37,7 +37,6 @@ export const MockBrandSelect = ({
           if (!mockHasNextPage) {
             return mockPaginatedBrandsOnlyOnePage;
           }
-
           if (
             args.after === endCursorPaginatedBrandsFirstPage ||
             args.before === startCursorPaginatedBrandsLastPage
@@ -49,7 +48,7 @@ export const MockBrandSelect = ({
           }
 
           if (
-            args.before ||
+            !args.before ||
             args.before === startCursorPaginatedBrandsSecondPage
           ) {
             return mockPaginatedBrandsFirstPage;
