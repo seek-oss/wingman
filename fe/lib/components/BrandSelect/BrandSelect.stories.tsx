@@ -18,7 +18,6 @@ export default {
     id: 'brands',
     label: 'Brand',
     reserveMessageSpace: false,
-    schemeId: 'global',
     hirerId: 'seekAnz:organization:seek:kLDHs7W7',
     initialBrandId:
       'global:advertisementBranding:hirerBranding:4pkLmqYhoSxSKmfcKMbDG6',
