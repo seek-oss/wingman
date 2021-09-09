@@ -105,7 +105,7 @@ const BrandingForm = () => {
             id="brandingId"
             label="Brandings"
             onChange={(selectedBrandId) =>
-              setValue('brandingId', selectedBrandId,)
+              setValue('brandingId', selectedBrandId)
             }
             hirerId="seekAnz:organization:seek:kLDHs7W7"
           />
