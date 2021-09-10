@@ -19,12 +19,14 @@ import {
 interface Props extends BrandSelectProps {
   showStorybookAction?: boolean;
   mockHasNextPage?: boolean;
+  pageSize?: number;
 }
 
 export const MockBrandSelect = ({
   client: _client,
   showStorybookAction,
   mockHasNextPage,
+  pageSize = 4,
   ...props
 }: Props) => (
   <ApolloMockProvider
@@ -35,23 +37,23 @@ export const MockBrandSelect = ({
           args: AdvertisementBrandingsQueryVariables,
         ) => {
           if (!mockHasNextPage) {
-            return mockPaginatedBrandsOnlyOnePage;
+            return mockPaginatedBrandsOnlyOnePage(pageSize);
           }
           if (
             args.after === endCursorPaginatedBrandsFirstPage ||
             args.before === startCursorPaginatedBrandsLastPage
           ) {
-            return mockPaginatedBrandsSecondPage;
+            return mockPaginatedBrandsSecondPage(pageSize);
           }
           if (args.after === endCursorPaginatedBrandsSecondPage) {
-            return mockPaginatedBrandsLastPage;
+            return mockPaginatedBrandsLastPage(pageSize);
           }
 
           if (
             !args.before ||
             args.before === startCursorPaginatedBrandsSecondPage
           ) {
-            return mockPaginatedBrandsFirstPage;
+            return mockPaginatedBrandsFirstPage(pageSize);
           }
         },
       },
@@ -65,7 +67,7 @@ export const MockBrandSelect = ({
           : undefined
       }
     >
-      <BrandSelect {...props} />
+      <BrandSelect {...props} pageSize={pageSize} />
     </MockComponentActions>
   </ApolloMockProvider>
 );

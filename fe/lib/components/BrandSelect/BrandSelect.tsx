@@ -23,6 +23,7 @@ export interface BrandSelectProps {
   hirerId: string;
   errorMessage?: string;
   initialBrandId?: string;
+  pageSize?: number;
   /**
    * Type definition from the `Controller` component that's provided by `react-hook-form`.
    */
@@ -35,13 +36,12 @@ export const BrandSelect = ({
   errorMessage,
   onChange,
   initialBrandId,
+  pageSize = 4,
 }: BrandSelectProps) => {
-  const PAGE_SIZE = 4;
-
   const [variables, setVariables] =
     useState<AdvertisementBrandingsQueryVariables>({
       hirerId,
-      first: PAGE_SIZE,
+      first: pageSize,
     });
 
   const { data, previousData, loading, error } = useQuery<
@@ -91,7 +91,7 @@ export const BrandSelect = ({
 
       <PaginatedBrands
         data={renderedData}
-        pageSize={PAGE_SIZE}
+        pageSize={pageSize}
         selectedBrandId={selectedBrandId}
         onPagination={(args) => {
           setVariables({ ...args, hirerId });

@@ -20,6 +20,7 @@ export default {
     hirerId: 'seekAnz:organization:seek:kLDHs7W7',
     initialBrandId:
       'global:advertisementBranding:hirerBranding:4pkLmqYhoSxSKmfcKMbDG6',
+    pageSize: 4,
   },
   argTypes: {
     braidThemeName: defaultArgTypes.braidThemeName,
@@ -27,6 +28,11 @@ export default {
     mockHasNextPage: {
       name: 'Has next brands page',
       control: { type: 'boolean' },
+    },
+    pageSize: {
+      name: 'Page size',
+      control: { type: 'radio' },
+      options: [4, 6],
     },
   },
   component: Component,
