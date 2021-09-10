@@ -25,11 +25,11 @@ export const mockPaginatedBrandsOnlyOnePage = {
           value:
             'global:advertisementBranding:hirerBranding:MjHScMntyZKfPPKv37EqAn',
         },
-        name: 'Evil Corp - no cover image',
+        name: 'Seek logo - no cover image',
         images: [
           {
             typeCode: 'OriginalLogo',
-            url: 'https://image-service-cdn.seek.com.au/8ac4cc174c590cebc676f827e4fd40e9a32dbd8f',
+            url: 'https://image-service-cdn.seek.com.au/27ecca452d06d960b596aa40380f0d06c56b6ba8',
           },
           {
             typeCode: 'CoverImage',
@@ -44,7 +44,7 @@ export const mockPaginatedBrandsOnlyOnePage = {
           value:
             'global:advertisementBranding:hirerBranding:4pkLmqYhoSxSKmfcKMbDG6',
         },
-        name: 'SEEK - macbook & glasses (green)',
+        name: 'Seek logo - macbook (green)',
         images: [
           {
             typeCode: 'OriginalLogo',
@@ -63,15 +63,15 @@ export const mockPaginatedBrandsOnlyOnePage = {
           value:
             'global:advertisementBranding:hirerBranding:CNEHkUP51vvPyYuBwfQw7u',
         },
-        name: 'SEEK - keepcup and black briefcase',
+        name: 'Seek logo - notebook',
         images: [
           {
             typeCode: 'OriginalLogo',
-            url: 'https://image-service-cdn.seek.com.au/c992ad63df1d614b878006689b15c513a5d34921',
+            url: 'https://image-service-cdn.seek.com.au/27ecca452d06d960b596aa40380f0d06c56b6ba8',
           },
           {
             typeCode: 'CoverImage',
-            url: 'https://image-service-cdn.seek.com.au/6982ec4631478a84e338817906a17196d41484ee',
+            url: 'https://image-service-cdn.seek.com.au/3715be0437f2badc4c50f877396241b1f0af112e',
           },
         ],
       },
@@ -82,15 +82,15 @@ export const mockPaginatedBrandsOnlyOnePage = {
           value:
             'global:advertisementBranding:hirerBranding:MD2FWYzmVd4p5Bs1pFEddd',
         },
-        name: 'SEEK - keyboard, calculator & notebook',
+        name: 'Seek logo - laptop',
         images: [
           {
             typeCode: 'OriginalLogo',
-            url: 'https://image-service-cdn.seek.com.au/4b32cf3355bcdbbdf10294aa6101687de16c0588',
+            url: 'https://image-service-cdn.seek.com.au/27ecca452d06d960b596aa40380f0d06c56b6ba8',
           },
           {
             typeCode: 'CoverImage',
-            url: 'https://image-service-cdn.seek.com.au/3715be0437f2badc4c50f877396241b1f0af112e',
+            url: 'https://image-service-cdn.seek.com.au/f33d107cd083880157439477e7790edd629ed50a',
           },
         ],
       },
@@ -112,11 +112,11 @@ export const mockPaginatedBrandsFirstPage = {
           value:
             'global:advertisementBranding:hirerBranding:MjHScMntyZKfPPKv37EqAn',
         },
-        name: 'Evil Corp - no cover image',
+        name: ' Seek logo - no cover image',
         images: [
           {
             typeCode: 'OriginalLogo',
-            url: 'https://image-service-cdn.seek.com.au/8ac4cc174c590cebc676f827e4fd40e9a32dbd8f',
+            url: 'https://image-service-cdn.seek.com.au/27ecca452d06d960b596aa40380f0d06c56b6ba8',
           },
           {
             typeCode: 'CoverImage',
@@ -131,7 +131,7 @@ export const mockPaginatedBrandsFirstPage = {
           value:
             'global:advertisementBranding:hirerBranding:4pkLmqYhoSxSKmfcKMbDG6',
         },
-        name: 'SEEK - macbook & glasses (green)',
+        name: ' Seek logo - macbook (green)',
         images: [
           {
             typeCode: 'OriginalLogo',
@@ -150,15 +150,15 @@ export const mockPaginatedBrandsFirstPage = {
           value:
             'global:advertisementBranding:hirerBranding:CNEHkUP51vvPyYuBwfQw7u',
         },
-        name: 'SEEK - keepcup and black briefcase',
+        name: 'Seek logo - notebook',
         images: [
           {
             typeCode: 'OriginalLogo',
-            url: 'https://image-service-cdn.seek.com.au/c992ad63df1d614b878006689b15c513a5d34921',
+            url: 'https://image-service-cdn.seek.com.au/27ecca452d06d960b596aa40380f0d06c56b6ba8',
           },
           {
             typeCode: 'CoverImage',
-            url: 'https://image-service-cdn.seek.com.au/6982ec4631478a84e338817906a17196d41484ee',
+            url: 'https://image-service-cdn.seek.com.au/3715be0437f2badc4c50f877396241b1f0af112e',
           },
         ],
       },
@@ -169,15 +169,15 @@ export const mockPaginatedBrandsFirstPage = {
           value:
             'global:advertisementBranding:hirerBranding:MD2FWYzmVd4p5Bs1pFEddd',
         },
-        name: 'SEEK - keyboard, calculator & notebook',
+        name: ' Seek logo - laptop',
         images: [
           {
             typeCode: 'OriginalLogo',
-            url: 'https://image-service-cdn.seek.com.au/4b32cf3355bcdbbdf10294aa6101687de16c0588',
+            url: 'https://image-service-cdn.seek.com.au/27ecca452d06d960b596aa40380f0d06c56b6ba8',
           },
           {
             typeCode: 'CoverImage',
-            url: 'https://image-service-cdn.seek.com.au/3715be0437f2badc4c50f877396241b1f0af112e',
+            url: 'https://image-service-cdn.seek.com.au/f33d107cd083880157439477e7790edd629ed50a',
           },
         ],
       },
@@ -199,15 +199,15 @@ export const mockPaginatedBrandsSecondPage = {
           value:
             'global:advertisementBranding:hirerBranding:4YsFiFRekSvuKjLzRUtmZH',
         },
-        name: 'RyanAir - plane',
+        name: 'Seek logo - pens',
         images: [
           {
             typeCode: 'OriginalLogo',
-            url: 'https://image-service-cdn.seek.com.au/6057509549dc838d6c3c518f0557c77fdbbdb1a7',
+            url: 'https://image-service-cdn.seek.com.au/27ecca452d06d960b596aa40380f0d06c56b6ba8',
           },
           {
             typeCode: 'CoverImage',
-            url: 'https://image-service-cdn.seek.com.au/d41de53cab6df901401b054a1185c786b7ac6526',
+            url: 'https://image-service-cdn.seek.com.au/dfa45197f30daae1985dc0b7abcfdd72c264e18f/',
           },
         ],
       },
@@ -218,11 +218,11 @@ export const mockPaginatedBrandsSecondPage = {
           value:
             'global:advertisementBranding:hirerBranding:2P8WhewQF4dnZNYRKMDv1r',
         },
-        name: 'RyanAir - blue cover image',
+        name: 'Seek logo - blue cover',
         images: [
           {
             typeCode: 'OriginalLogo',
-            url: 'https://image-service-cdn.seek.com.au/2a4d048b3844bd5f771d0b22d55e3bab125c53a6',
+            url: 'https://image-service-cdn.seek.com.au/27ecca452d06d960b596aa40380f0d06c56b6ba8',
           },
           {
             typeCode: 'CoverImage',
@@ -237,7 +237,7 @@ export const mockPaginatedBrandsSecondPage = {
           value:
             'global:advertisementBranding:hirerBranding:VQ9aAzkhogAMSw3AF31stC',
         },
-        name: 'SEEK EDC',
+        name: 'Seek logo blue - backpack',
         images: [
           {
             typeCode: 'OriginalLogo',
@@ -256,15 +256,15 @@ export const mockPaginatedBrandsSecondPage = {
           value:
             'global:advertisementBranding:hirerBranding:D557J8rpyMKpP9DxrWg2s',
         },
-        name: 'Vicinity Research Test',
+        name: 'Seek logo blue - sunset',
         images: [
           {
             typeCode: 'OriginalLogo',
-            url: 'https://image-service-cdn.seek.com.au/3681be7f69896fe765b83f8e68e9a9ffc10ec463',
+            url: 'https://image-service-cdn.seek.com.au/f154d446456c99cc3100df6df37676935f8bc340',
           },
           {
             typeCode: 'CoverImage',
-            url: 'https://image-service-cdn.seek.com.au/e9465179f03c690a90df96f200a57922a3acdb43',
+            url: 'https://image-service-cdn.seek.com.au/bfe8d1571d426699af6d26742ffb835b27e279e2',
           },
         ],
       },
@@ -286,15 +286,15 @@ export const mockPaginatedBrandsLastPage = {
           value:
             'global:advertisementBranding:hirerBranding:qVe8DCsXJP9zNHsmcmEyL',
         },
-        name: 'Spotlight - test',
+        name: 'Seek logo - Town',
         images: [
           {
             typeCode: 'OriginalLogo',
-            url: 'https://image-service-cdn.seek.com.au/3898c15b5a25be008943b96e33ed52cb2a638530',
+            url: 'https://image-service-cdn.seek.com.au/27ecca452d06d960b596aa40380f0d06c56b6ba8',
           },
           {
             typeCode: 'CoverImage',
-            url: 'https://image-service-cdn.seek.com.au/e1bf1f1b00dcdc9f70e7452ac47d319e7dc15685',
+            url: 'https://image-service-cdn.seek.com.au/2df39384e6fe569f73073fe138027b6c0a1e7658',
           },
         ],
       },
@@ -305,15 +305,15 @@ export const mockPaginatedBrandsLastPage = {
           value:
             'global:advertisementBranding:hirerBranding:7yQLDLdqz9phfe9j1GHDgn',
         },
-        name: 'Car sales research test',
+        name: 'Seek logo - Beach',
         images: [
           {
             typeCode: 'OriginalLogo',
-            url: 'https://image-service-cdn.seek.com.au/ddd3210f24034102cd16a4f5266ff2d47f5324ad',
+            url: 'https://image-service-cdn.seek.com.au/27ecca452d06d960b596aa40380f0d06c56b6ba8',
           },
           {
             typeCode: 'CoverImage',
-            url: 'https://image-service-cdn.seek.com.au/6738b6b7478f28388f13b009ed40594f45ff9905',
+            url: 'https://image-service-cdn.seek.com.au/02eb0c5634bb43fccaac3adafef4e13a8d4fc1e8',
           },
         ],
       },
@@ -324,15 +324,15 @@ export const mockPaginatedBrandsLastPage = {
           value:
             'global:advertisementBranding:hirerBranding:33Y863h6sCnrCFk97w9bvg',
         },
-        name: 'AMA Group',
+        name: 'Seek logo - Flower',
         images: [
           {
             typeCode: 'OriginalLogo',
-            url: 'https://image-service-cdn.seek.com.au/953366f5bddc47ae3f0b3c9ab4b31d70dbaa9b66',
+            url: 'https://image-service-cdn.seek.com.au/27ecca452d06d960b596aa40380f0d06c56b6ba8',
           },
           {
             typeCode: 'CoverImage',
-            url: 'https://image-service-cdn.seek.com.au/48b638dd6fd5f7a8fa519426484497fc1e590b2d',
+            url: 'https://image-service-cdn.seek.com.au/8aa4053b6236031aaa2c2082b304e20adc6c61ba',
           },
         ],
       },
