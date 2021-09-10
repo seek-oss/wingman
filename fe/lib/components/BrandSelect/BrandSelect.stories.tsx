@@ -17,7 +17,6 @@ export default {
     braidThemeName: defaultArgs.braidThemeName,
     id: 'brands',
     label: 'Brand',
-    reserveMessageSpace: false,
     hirerId: 'seekAnz:organization:seek:kLDHs7W7',
     initialBrandId:
       'global:advertisementBranding:hirerBranding:4pkLmqYhoSxSKmfcKMbDG6',
@@ -27,8 +26,7 @@ export default {
     showStorybookAction: defaultArgTypes.showStorybookAction,
     mockHasNextPage: {
       name: 'Has next brands page',
-      control: { type: 'radio' },
-      options: [true, false],
+      control: { type: 'boolean' },
     },
   },
   component: Component,
