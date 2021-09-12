@@ -10,7 +10,7 @@ export const createResolver =
     fn: (values: T, errors: FieldErrors<T>) => void,
   ): Resolver<T> =>
   (values) => {
-    const errors: FieldErrors<T> = {};
+    const errors = {} as FieldErrors<T>;
 
     fn(values as T, errors);
 
