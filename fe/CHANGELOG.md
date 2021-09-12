@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 4.0.2
+
+### Patch Changes
+
+- 0b6826a: Work around type error in `react-hook-form` resolver
+
 ## 4.0.1
 
 ### Patch Changes
