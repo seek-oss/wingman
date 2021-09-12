@@ -15,9 +15,7 @@ import { MockBrandSelect } from './BrandSelect.mock';
 export default {
   args: {
     braidThemeName: defaultArgs.braidThemeName,
-    id: 'brands',
-    label: 'Brand',
-    hirerId: 'seekAnzPublicTest:organization:seek:93WyyF1h',
+    hirerId: 'seekAnz:organization:seek:kLDHs7W7',
     initialBrandId:
       'global:advertisementBranding:hirerBranding:4pkLmqYhoSxSKmfcKMbDG6',
     pageSize: 4,

@@ -27,14 +27,14 @@ export interface BrandSelectProps {
   /**
    * Type definition from the `Controller` component that's provided by `react-hook-form`.
    */
-  onChange: (...event: any[]) => void;
+  onSelect: (brandId?: string) => void;
 }
 
 export const BrandSelect = ({
   client,
   hirerId,
   errorMessage,
-  onChange,
+  onSelect,
   initialBrandId,
   pageSize = 4,
 }: BrandSelectProps) => {
@@ -63,8 +63,8 @@ export const BrandSelect = ({
       // Allow unselecting a brand by clicking it again
       brand.id.value === selectedBrandId ? undefined : brand.id.value;
 
-    if (onChange) {
-      onChange(nextBrandId);
+    if (onSelect) {
+      onSelect(nextBrandId);
     }
 
     setSelectedBrandId(nextBrandId);
