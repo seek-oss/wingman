@@ -1,6 +1,6 @@
 # BrandSelect
 
-A BrandSelect component that provides a full list of advertisement brandings associated with the specified hirer.
+A BrandSelect component that provides a paginated selection of brands associated with the specified hirer.
 
 ## Installation
 
@@ -22,7 +22,7 @@ Required
 Optional:
 
 - `client`: An `ApolloClient` instance. By default BrandSelect uses the client passed down via context, but a different client can be passed in.
-- `onChange`: Callback function that is supplied a [Brand identifier](https://developer.seek.com/schema/#/named-type/AdvertisementBranding/field/id) on brand selection.
+- `onChange`: Callback function that is supplied an [AdvertisementBranding identifier](https://developer.seek.com/schema/#/named-type/AdvertisementBranding/field/id) on brand selection.
 
 Extends:
 

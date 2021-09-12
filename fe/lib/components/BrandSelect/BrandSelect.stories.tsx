@@ -17,7 +17,7 @@ export default {
     braidThemeName: defaultArgs.braidThemeName,
     id: 'brands',
     label: 'Brand',
-    hirerId: 'seekAnz:organization:seek:kLDHs7W7',
+    hirerId: 'seekAnzPublicTest:organization:seek:93WyyF1h',
     initialBrandId:
       'global:advertisementBranding:hirerBranding:4pkLmqYhoSxSKmfcKMbDG6',
     pageSize: 4,
@@ -30,7 +30,6 @@ export default {
       control: { type: 'boolean' },
     },
     pageSize: {
-      name: 'Page size',
       control: { type: 'radio' },
       options: [4, 6],
     },
