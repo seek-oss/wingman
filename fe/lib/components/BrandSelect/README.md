@@ -22,11 +22,9 @@ Required
 Optional:
 
 - `client`: An `ApolloClient` instance. By default BrandSelect uses the client passed down via context, but a different client can be passed in.
-- `onChange`: Callback function that is supplied an [AdvertisementBranding identifier](https://developer.seek.com/schema/#/named-type/AdvertisementBranding/field/id) on brand selection.
-
-Extends:
-
-- You may pass through various HTML input field props including: `id`, `name`, `label`
+- `onSelect`: Callback function that is supplied an [AdvertisementBranding identifier](https://developer.seek.com/schema/#/named-type/AdvertisementBranding/field/id) on brand selection.
+- `pageSize`: A number of branding per page.
+- `initialBrandId`: An initial [AdvertisementBranding identifier](https://developer.seek.com/schema/#/named-type/AdvertisementBranding/field/id) to be selected in a paginated list of advertisement brandings.
 
 ### Usage
 
@@ -55,7 +53,7 @@ const client = new ApolloClient({
 <BrandSelect hirerId="seekAnz:organization:seek:kLDHs7W7" client={client} />;
 ```
 
-#### onChange callback usage
+#### onSelect callback usage
 
 ```javascript
 import React, { useState } from 'react';
@@ -70,7 +68,7 @@ const BrandingForm = () => {
       <BrandingForm
         schemeId="seekAnz"
         client={client}
-        onChange={setBrandingId}
+        onSelect={setBrandingId}
       />
       Your selected branding id is: {brandingId}
     </div>
@@ -104,7 +102,7 @@ const BrandingForm = () => {
             client={client}
             id="brandingId"
             label="Brandings"
-            onChange={(selectedBrandId) =>
+            onSelect={(selectedBrandId) =>
               setValue('brandingId', selectedBrandId)
             }
             hirerId="seekAnz:organization:seek:kLDHs7W7"
