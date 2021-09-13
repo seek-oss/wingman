@@ -34,7 +34,7 @@ export interface ServerContext {
 const DEFAULT_CLIENT_CONTEXT: UserContext = {
   server: false,
   preferences: {
-    devTools: false,
+    devTools: true,
   },
   user: USERS[0],
 };

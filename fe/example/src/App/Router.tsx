@@ -6,6 +6,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { AdminPage } from '../pages/Admin/Admin';
 import { CandidateDetailPage } from '../pages/Candidates/Detail';
 import { CandidateListPage } from '../pages/Candidates/List';
+import { HomePage } from '../pages/Home';
 import { OopsPage } from '../pages/Oops';
 import { PositionDetailPage } from '../pages/Positions/Detail';
 import { PositionListPage } from '../pages/Positions/List';
@@ -14,6 +15,9 @@ import { PositionQuestionnairePage } from '../pages/Positions/Questionnaires';
 
 export const Router = () => (
   <Switch>
+    <Route exact path="/">
+      <HomePage />
+    </Route>
     <Route exact path="/admin">
       <AdminPage />
     </Route>
