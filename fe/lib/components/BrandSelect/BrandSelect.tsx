@@ -21,7 +21,6 @@ import { ADVERTISEMENT_BRANDINGS } from './queries';
 export interface BrandSelectProps {
   client?: ApolloClient<unknown>;
   hirerId: string;
-  errorMessage?: string;
   initialBrandId?: string;
   pageSize?: number;
   /**
@@ -33,7 +32,6 @@ export interface BrandSelectProps {
 export const BrandSelect = ({
   client,
   hirerId,
-  errorMessage,
   onSelect,
   initialBrandId,
   pageSize = 4,
@@ -98,14 +96,6 @@ export const BrandSelect = ({
         }}
         onSelect={handleBrandSelect}
       />
-
-      {errorMessage ? (
-        <FieldMessage
-          id="brandingErrorMessage"
-          message={errorMessage}
-          tone="critical"
-        />
-      ) : null}
 
       {error && (
         <FieldMessage

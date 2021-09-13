@@ -10,7 +10,6 @@ import {
   endCursorPaginatedBrandsSecondPage,
   mockPaginatedBrandsFirstPage,
   mockPaginatedBrandsLastPage,
-  mockPaginatedBrandsOnlyOnePage,
   mockPaginatedBrandsSecondPage,
   startCursorPaginatedBrandsLastPage,
   startCursorPaginatedBrandsSecondPage,
@@ -18,14 +17,12 @@ import {
 
 interface Props extends BrandSelectProps {
   showStorybookAction?: boolean;
-  mockHasNextPage?: boolean;
   pageSize?: number;
 }
 
 export const MockBrandSelect = ({
   client: _client,
   showStorybookAction,
-  mockHasNextPage,
   pageSize = 4,
   ...props
 }: Props) => (
@@ -36,9 +33,6 @@ export const MockBrandSelect = ({
           root,
           args: AdvertisementBrandingsQueryVariables,
         ) => {
-          if (!mockHasNextPage) {
-            return mockPaginatedBrandsOnlyOnePage(pageSize);
-          }
           if (
             args.after === endCursorPaginatedBrandsFirstPage ||
             args.before === startCursorPaginatedBrandsLastPage

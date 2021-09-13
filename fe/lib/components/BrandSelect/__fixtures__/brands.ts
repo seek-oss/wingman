@@ -222,15 +222,6 @@ const mockBrands = [
     },
   },
 ];
-export const mockPaginatedBrandsOnlyOnePage = (pageSize: number) => ({
-  pageInfo: {
-    hasNextPage: false,
-    hasPreviousPage: false,
-    startCursor: 'global:advertisementBrandingCursor:indirectBranding:11111111',
-    endCursor: 'global:advertisementBrandingCursor:indirectBranding:2VeXEUas',
-  },
-  edges: mockBrands.slice(0, pageSize),
-});
 
 export const mockPaginatedBrandsFirstPage = (pageSize: number) => ({
   pageInfo: {
