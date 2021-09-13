@@ -3,6 +3,9 @@ export { ApolloMockProvider } from './components/ApolloMockProvider/ApolloMockPr
 export { AdSelectionFallback } from './components/AdSelectionFallback/AdSelectionFallback';
 export { MockAdSelectionFallback } from './components/AdSelectionFallback/AdSelectionFallback.mock';
 
+export { BrandSelect } from './components/BrandSelect/BrandSelect';
+export { MockBrandSelect } from './components/BrandSelect/BrandSelect.mock';
+
 export { JobCategorySelect } from './components/JobCategorySelect/JobCategorySelect';
 export { MockJobCategorySelect } from './components/JobCategorySelect/JobCategorySelect.mock';
 export { JobCategorySuggest } from './components/JobCategorySuggest/JobCategorySuggest';

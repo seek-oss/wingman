@@ -15,15 +15,9 @@ export const typeDefs = gql`
   """
   type Address {
     """
-    The street line address.
+    The city or suburb of the address.
     """
-    line: String
-    """
-    An array of additional address lines.
-
-    These may include an apartment or suite number.
-    """
-    extendedLines: [AddressComponent!]!
+    city: String
     """
     The two-letter ISO 3166-1:2013 country code, in uppercase.
     """
@@ -35,21 +29,27 @@ export const typeDefs = gql`
     """
     countrySubDivisions: [AddressComponent!]!
     """
-    The city or suburb of the address.
+    An array of additional address lines.
+
+    These may include an apartment or suite number.
     """
-    city: String
+    extendedLines: [AddressComponent!]!
     """
-    The postal code of the address.
+    The formatted representation of the whole address for display purposes.
     """
-    postalCode: String
+    formattedAddress: String
     """
     The geographical coordinates of the address.
     """
     geoLocation: GeoLocation
     """
-    The formatted representation of the whole address for display purposes.
+    The street line address.
     """
-    formattedAddress: String
+    line: String
+    """
+    The postal code of the address.
+    """
+    postalCode: String
   }
 
   """
@@ -95,17 +95,9 @@ export const typeDefs = gql`
   """
   input AddressInput {
     """
-    The street line address.
+    The city or suburb of the address.
     """
-    line: String
-    """
-    An array of additional address lines.
-
-    These may include an apartment or suite number.
-
-    A maximum of 5 extended lines may be provided.
-    """
-    extendedLines: [AddressComponentInput!]!
+    city: String!
     """
     The two-letter ISO 3166-1:2013 country code, in uppercase.
     """
@@ -119,25 +111,33 @@ export const typeDefs = gql`
     """
     countrySubDivisions: [AddressComponentInput!]!
     """
-    The city or suburb of the address.
-    """
-    city: String!
-    """
-    The postal code of the address.
+    An array of additional address lines.
 
-    This field has a maximum length of 50 bytes in UTF-8 encoding.
+    These may include an apartment or suite number.
+
+    A maximum of 5 extended lines may be provided.
     """
-    postalCode: String!
-    """
-    The geographical coordinates of the address.
-    """
-    geoLocation: GeoLocationInput
+    extendedLines: [AddressComponentInput!]!
     """
     The formatted representation of the whole address for display purposes.
 
     This field has a maximum length of 1,000 bytes in UTF-8 encoding.
     """
     formattedAddress: String
+    """
+    The geographical coordinates of the address.
+    """
+    geoLocation: GeoLocationInput
+    """
+    The street line address.
+    """
+    line: String
+    """
+    The postal code of the address.
+
+    This field has a maximum length of 50 bytes in UTF-8 encoding.
+    """
+    postalCode: String!
   }
 
   """
@@ -149,21 +149,21 @@ export const typeDefs = gql`
   """
   type AdvertisementBranding {
     """
+    The organization that has the advertisement branding.
+    """
+    hirer: HiringOrganization!
+    """
     The identifier for the \`AdvertisementBranding\`.
     """
     id: ObjectIdentifier!
-    """
-    The advertisement branding name.
-    """
-    name: String!
     """
     A list of images associated with the advertisement branding.
     """
     images: [AdvertisementBrandingImage!]!
     """
-    The organization that has the advertisement branding.
+    The advertisement branding name.
     """
-    hirer: HiringOrganization!
+    name: String!
   }
 
   """
@@ -225,16 +225,16 @@ export const typeDefs = gql`
   """
   type ApplicationMethod {
     """
+    The email address that candidate applications are directed to.
+    """
+    applicationEmail: Email
+      @deprecated(reason: "This has been replaced by Application Export")
+    """
     A URL of an external application form.
 
     When this is provided, SEEK's native apply form will be disabled and the candidate will be redirected to the supplied URL.
     """
     applicationUri: WebUrl
-    """
-    The email address that candidate applications are directed to.
-    """
-    applicationEmail: Email
-      @deprecated(reason: "This has been replaced by Application Export")
   }
 
   """
@@ -259,25 +259,11 @@ export const typeDefs = gql`
   """
   type ApplicationPrivacyConsent implements ApplicationQuestionnaireComponent {
     """
-    The identifier for the \`ApplicationQuestionnaireComponent\`.
-    """
-    id: ObjectIdentifier!
-    """
     The type of the component.
 
     This is always \`PrivacyConsent\`.
     """
     componentTypeCode: String!
-    """
-    A partner provided unique reference ID to the question.
-
-    This can be used to correlate the question with the submitted question components.
-    """
-    value: String
-    """
-    The URL of the privacy policy to show to the candidate.
-    """
-    privacyPolicyUrl: WebUrl!
     """
     The HTML snippet to prompt the candidate for consent.
 
@@ -286,6 +272,20 @@ export const typeDefs = gql`
     This is optional and will default to 'Do you agree to the privacy policy?'.
     """
     descriptionHtml: String
+    """
+    The identifier for the \`ApplicationQuestionnaireComponent\`.
+    """
+    id: ObjectIdentifier!
+    """
+    The URL of the privacy policy to show to the candidate.
+    """
+    privacyPolicyUrl: WebUrl!
+    """
+    A partner provided unique reference ID to the question.
+
+    This can be used to correlate the question with the submitted question components.
+    """
+    value: String
   }
 
   """
@@ -303,18 +303,6 @@ export const typeDefs = gql`
     """
     componentTypeCode: String!
     """
-    A partner provided unique reference ID to the consent component.
-
-    This can be used to correlate the consent component with the submitted response.
-    """
-    value: String
-    """
-    The URL of the privacy policy to show to the candidate.
-
-    The \`url\` field has a maximum length of 1,000 bytes in UTF-8 encoding.
-    """
-    privacyPolicyUrl: WebUrlInput!
-    """
     The HTML snippet to prompt the candidate for consent.
 
     Unsupported tags will be silently stripped when creating a questionnaire.
@@ -322,6 +310,18 @@ export const typeDefs = gql`
     This is optional and will default to 'Do you agree to the privacy policy?'.
     """
     descriptionHtml: String
+    """
+    The URL of the privacy policy to show to the candidate.
+
+    The \`url\` field has a maximum length of 1,000 bytes in UTF-8 encoding.
+    """
+    privacyPolicyUrl: WebUrlInput!
+    """
+    A partner provided unique reference ID to the consent component.
+
+    This can be used to correlate the consent component with the submitted response.
+    """
+    value: String
   }
 
   """
@@ -351,27 +351,27 @@ export const typeDefs = gql`
   """
   type ApplicationQuestion implements ApplicationQuestionnaireComponent {
     """
-    The identifier for the \`ApplicationQuestionnaireComponent\`.
-    """
-    id: ObjectIdentifier!
-    """
     The type of the component.
 
     This is always \`Question\`.
     """
     componentTypeCode: String!
     """
-    A partner provided unique reference ID to the question.
-
-    This can be used to correlate the question with the submitted question components.
+    The identifier for the \`ApplicationQuestionnaireComponent\`.
     """
-    value: String
+    id: ObjectIdentifier!
     """
     The HTML snippet of the question being asked to the candidate.
 
     Unsupported tags will be silently stripped when creating a questionnaire.
     """
     questionHtml: String!
+    """
+    The collection of possible responses.
+
+    For \`SingleSelect\` and \`MultiSelect\` this must contain at least one element.
+    """
+    responseChoice: [ApplicationQuestionChoice!]
     """
     The type of the question response.
 
@@ -383,11 +383,11 @@ export const typeDefs = gql`
     """
     responseTypeCode: String!
     """
-    The collection of possible responses.
+    A partner provided unique reference ID to the question.
 
-    For \`SingleSelect\` and \`MultiSelect\` this must contain at least one element.
+    This can be used to correlate the question with the submitted question components.
     """
-    responseChoice: [ApplicationQuestionChoice!]
+    value: String
   }
 
   """
@@ -395,15 +395,15 @@ export const typeDefs = gql`
   """
   type ApplicationQuestionAnswer {
     """
+    The text value of the selected answer.
+    """
+    answer: String!
+    """
     The questionnaire choice for the current answer.
 
     For \`FreeText\` questions this will be \`null\`.
     """
     choice: ApplicationQuestionChoice
-    """
-    The text value of the selected answer.
-    """
-    answer: String!
   }
 
   """
@@ -415,6 +415,12 @@ export const typeDefs = gql`
     """
     id: ObjectIdentifier!
     """
+    Whether this choice is preferred when scoring the answers.
+
+    This is not displayed to the candidate.
+    """
+    preferredIndicator: Boolean!
+    """
     Text of the choice displayed to the candidate.
     """
     text: String!
@@ -424,18 +430,18 @@ export const typeDefs = gql`
     This can be used to correlate the question with the submitted answers.
     """
     value: String
-    """
-    Whether this choice is preferred when scoring the answers.
-
-    This is not displayed to the candidate.
-    """
-    preferredIndicator: Boolean!
   }
 
   """
   A possible response to an \`ApplicationQuestion\`.
   """
   input ApplicationQuestionChoiceInput {
+    """
+    Whether this choice is preferred when scoring the answers.
+
+    This is not displayed to the candidate.
+    """
+    preferredIndicator: Boolean!
     """
     Text of the choice displayed to the candidate.
     """
@@ -447,12 +453,6 @@ export const typeDefs = gql`
     This must be unique within the questionnaire.
     """
     value: String!
-    """
-    Whether this choice is preferred when scoring the answers.
-
-    This is not displayed to the candidate.
-    """
-    preferredIndicator: Boolean!
   }
 
   """
@@ -474,6 +474,12 @@ export const typeDefs = gql`
     """
     questionHtml: String!
     """
+    The collection of possible responses.
+
+    For \`SingleSelect\` and \`MultiSelect\` this must contain at least one element.
+    """
+    responseChoice: [ApplicationQuestionChoiceInput!]
+    """
     The type of the question response.
 
     Currently, three codes are defined:
@@ -490,18 +496,18 @@ export const typeDefs = gql`
     This must be unique within the questionnaire.
     """
     value: String!
-    """
-    The collection of possible responses.
-
-    For \`SingleSelect\` and \`MultiSelect\` this must contain at least one element.
-    """
-    responseChoice: [ApplicationQuestionChoiceInput!]
   }
 
   """
   A candidate's response to a question in the questionnaire.
   """
   type ApplicationQuestionResponse implements ApplicationQuestionnaireComponentResponse {
+    """
+    The answers provided by the candidate.
+
+    For \`SingleSelect\` and \`FreeText\` this will be a single element array.
+    """
+    answers: [ApplicationQuestionAnswer!]!
     """
     The question this is responding to.
     """
@@ -512,12 +518,6 @@ export const typeDefs = gql`
     This is always \`Question\`.
     """
     componentTypeCode: String!
-    """
-    The answers provided by the candidate.
-
-    For \`SingleSelect\` and \`FreeText\` this will be a single element array.
-    """
-    answers: [ApplicationQuestionAnswer!]!
     """
     How well the candidate answered the question against the hirer's preferences.
 
@@ -538,13 +538,13 @@ export const typeDefs = gql`
   """
   type ApplicationQuestionnaire {
     """
-    The identifier for the \`ApplicationQuestionnaire\`.
-    """
-    id: ObjectIdentifier!
-    """
     The array of components in the order they are presented to the candidate.
     """
     components: [ApplicationQuestionnaireComponent!]!
+    """
+    The identifier for the \`ApplicationQuestionnaire\`.
+    """
+    id: ObjectIdentifier!
   }
 
   """
@@ -555,10 +555,6 @@ export const typeDefs = gql`
   """
   interface ApplicationQuestionnaireComponent {
     """
-    The identifier for the \`ApplicationQuestionnaireComponent\`.
-    """
-    id: ObjectIdentifier!
-    """
     The type of the component.
 
     Currently, two codes are defined:
@@ -567,6 +563,10 @@ export const typeDefs = gql`
     - \`Question\` which corresponds to the \`ApplicationQuestion\` type.
     """
     componentTypeCode: String!
+    """
+    The identifier for the \`ApplicationQuestionnaireComponent\`.
+    """
+    id: ObjectIdentifier!
     """
     A partner provided unique reference ID to the component.
 
@@ -589,17 +589,17 @@ export const typeDefs = gql`
     """
     componentTypeCode: String!
     """
-    A question component of an \`ApplicationQuestionnaire\`.
-
-    This must be provided if the \`componentTypeCode\` is \`Question\`.
-    """
-    question: ApplicationQuestionInput
-    """
     A privacy consent component of an \`ApplicationQuestionnaire\`.
 
     This must be provided if the \`componentTypeCode\` is \`PrivacyConsent\`.
     """
     privacyConsent: ApplicationPrivacyConsentInput
+    """
+    A question component of an \`ApplicationQuestionnaire\`.
+
+    This must be provided if the \`componentTypeCode\` is \`Question\`.
+    """
+    question: ApplicationQuestionInput
   }
 
   """
@@ -651,16 +651,22 @@ export const typeDefs = gql`
   """
   type AssociatedPositionOpening {
     """
+    Whether the candidate applied to this associated position.
+
+    This is \`false\` for purchased profiles from the Proactive Sourcing use case.
+    """
+    candidateAppliedIndicator: Boolean
+    """
+    The position opening that the candidate is associated with.
+    """
+    positionOpening: PositionOpening!
+    """
     The identifier for the \`PositionOpening\`.
 
     This is included for HR-JSON compatibility;
     GraphQL users should use the \`positionOpening\` nested object instead.
     """
     positionOpeningId: ObjectIdentifier!
-    """
-    The position opening that the candidate is associated with.
-    """
-    positionOpening: PositionOpening!
     """
     A resource identifier for the position.
 
@@ -674,12 +680,6 @@ export const typeDefs = gql`
       this is the object identifier of the relevant unposted position profile.
     """
     positionUri: String!
-    """
-    Whether the candidate applied to this associated position.
-
-    This is \`false\` for purchased profiles from the Proactive Sourcing use case.
-    """
-    candidateAppliedIndicator: Boolean
   }
 
   """
@@ -687,24 +687,21 @@ export const typeDefs = gql`
   """
   type Attachment {
     """
+    An array of human readable descriptions of the attachment.
+
+    Resumes & cover letters can be programmatically identified using the  \`seekRoleCode\` field.
+    """
+    descriptions: [String!]!
+    """
     The identifier for the \`Attachment\`.
 
     This is unique across all attachments.
     """
     id: ObjectIdentifier!
     """
-    A download URL for the attachment.
-
-    This URL accepts partner tokens or browser tokens that include the \`download:candidate-profile-attachments\` scope.
-    This is guaranteed to be an absolute URL with an origin of \`https://graphql.seek.com\`.
+    The role of the attachment within a profile.
     """
-    url: String!
-    """
-    An array of human readable descriptions of the attachment.
-
-    Resumes & cover letters can be programmatically identified using the  \`seekRoleCode\` field.
-    """
-    descriptions: [String!]!
+    seekRole: SeekAttachmentRole @deprecated(reason: "Use seekRoleCode")
     """
     The role of the attachment within a profile.
 
@@ -718,9 +715,12 @@ export const typeDefs = gql`
     """
     seekRoleCode: String
     """
-    The role of the attachment within a profile.
+    A download URL for the attachment.
+
+    This URL accepts partner tokens or browser tokens that include the \`download:candidate-profile-attachments\` scope.
+    This is guaranteed to be an absolute URL with an origin of \`https://graphql.seek.com\`.
     """
-    seekRole: SeekAttachmentRole @deprecated(reason: "Use seekRoleCode")
+    url: String!
   }
 
   """
@@ -730,22 +730,15 @@ export const typeDefs = gql`
   """
   type Candidate {
     """
+    Instructions on how this candidate should be distributed.
+    """
+    distributionGuidelines: DistributionGuidelines!
+    """
     The identifier for the \`Candidate\`.
 
     This is unique for a given hirer & person.
     """
     documentId: ObjectIdentifier!
-    """
-    The candidate's primary email address.
-
-    The value is only set for candidates with \`CandidateSource\` value \`PartnerUpload\`.
-    Values will be unique within a given hirer.
-    """
-    seekPrimaryEmailAddress: String
-    """
-    Instructions on how this candidate should be distributed.
-    """
-    distributionGuidelines: DistributionGuidelines!
     """
     Information to identify the person,
     including their name and methods of communicating with the person.
@@ -757,6 +750,13 @@ export const typeDefs = gql`
     Each submitted application for a position will have an associated profile.
     """
     profiles: [CandidateProfile!]!
+    """
+    The candidate's primary email address.
+
+    The value is only set for candidates with \`CandidateSource\` value \`PartnerUpload\`.
+    Values will be unique within a given hirer.
+    """
+    seekPrimaryEmailAddress: String
   }
 
   """
@@ -766,6 +766,32 @@ export const typeDefs = gql`
   Each application will trigger a new event with a distinct \`id\`.
   """
   type CandidateApplicationCreatedEvent implements Event {
+    """
+    The \`Candidate\` that applied for the position opening.
+
+    This will include the candidate's personal details along with all application profiles for a single hirer.
+    """
+    candidate: Candidate!
+    """
+    The \`CandidateProfile\` associated with the application.
+    """
+    candidateApplicationProfile: CandidateProfile!
+    """
+    The identifier for the specific \`CandidateProfile\` associated with the application.
+
+    This can be used to retrieve structured candidate details with the \`candidateProfile\` query.
+    """
+    candidateApplicationProfileId: String!
+    """
+    The identifier for the \`Candidate\` that applied for the position opening.
+    """
+    candidateId: String!
+    """
+    The date & time the application was accepted from the candidate.
+
+    This field has weak ordering guarantees, so it should not be used as a pagination argument.
+    """
+    createDateTime: DateTime!
     """
     The identifier for the \`Event\`.
     """
@@ -780,32 +806,6 @@ export const typeDefs = gql`
     The type of event, i.e. \`CandidateApplicationCreated\`.
     """
     typeCode: String!
-    """
-    The date & time the application was accepted from the candidate.
-
-    This field has weak ordering guarantees, so it should not be used as a pagination argument.
-    """
-    createDateTime: DateTime!
-    """
-    The identifier for the specific \`CandidateProfile\` associated with the application.
-
-    This can be used to retrieve structured candidate details with the \`candidateProfile\` query.
-    """
-    candidateApplicationProfileId: String!
-    """
-    The identifier for the \`Candidate\` that applied for the position opening.
-    """
-    candidateId: String!
-    """
-    The \`Candidate\` that applied for the position opening.
-
-    This will include the candidate's personal details along with all application profiles for a single hirer.
-    """
-    candidate: Candidate!
-    """
-    The \`CandidateProfile\` associated with the application.
-    """
-    candidateApplicationProfile: CandidateProfile!
     """
     A page of webhook attempts for the current event matching the specified criteria.
 
@@ -829,6 +829,10 @@ export const typeDefs = gql`
       """
       before: String
       """
+      The additional \`WebhookAttempt\`-specific criteria to filter by.
+      """
+      filter: WebhookAttemptsFilterInput
+      """
       The upper limit of webhook attempts to return from the start of the list.
 
       Defaults to 10 if neither \`first\` nor \`last\` are specified.
@@ -845,10 +849,6 @@ export const typeDefs = gql`
       \`first\` and \`last\` cannot be specified in the same query.
       """
       last: Int
-      """
-      The additional \`WebhookAttempt\`-specific criteria to filter by.
-      """
-      filter: WebhookAttemptsFilterInput
     ): WebhookAttemptsConnection!
   }
 
@@ -857,13 +857,13 @@ export const typeDefs = gql`
   """
   type CandidatePerson {
     """
-    The person's name.
-    """
-    name: PersonName!
-    """
     Methods of communication with the person.
     """
     communication: Communication!
+    """
+    The person's name.
+    """
+    name: PersonName!
   }
 
   """
@@ -871,13 +871,13 @@ export const typeDefs = gql`
   """
   input CandidatePersonInput {
     """
-    The person's name.
-    """
-    name: PersonNameInput!
-    """
     Methods of communication with the person.
     """
     communication: CommunicationInput!
+    """
+    The person's name.
+    """
+    name: PersonNameInput!
   }
 
   """
@@ -971,18 +971,6 @@ export const typeDefs = gql`
   """
   type CandidateProcessHistoryItem {
     """
-    The identifier for the \`CandidateProcessHistoryItem\`.
-    """
-    id: ObjectIdentifier!
-    """
-    The \`CandidateProfile\` that the \`CandidateProcessHistoryItem\` relates to.
-    """
-    candidateProfile: CandidateProfile!
-    """
-    The date & time the action was executed.
-    """
-    actionDate: DateTime!
-    """
     The executed action that constitutes this history item.
 
     This action may or may not trigger a change in the status of the underlying process.
@@ -991,11 +979,17 @@ export const typeDefs = gql`
     """
     action: CandidateProcessAction!
     """
-    The current status of the underlying process.
-
-    For example, a candidate in an application process may progress through a series of statuses like applied, interviewed, offered, hired.
+    The date & time the action was executed.
     """
-    status: CandidateProcessStatus
+    actionDate: DateTime!
+    """
+    The \`CandidateProfile\` that the \`CandidateProcessHistoryItem\` relates to.
+    """
+    candidateProfile: CandidateProfile!
+    """
+    The identifier for the \`CandidateProcessHistoryItem\`.
+    """
+    id: ObjectIdentifier!
     """
     The position profile that the history item relates to.
 
@@ -1005,15 +999,21 @@ export const typeDefs = gql`
     """
     positionProfile: PositionProfile
     """
+    The parties that executed the action.
+    """
+    primaryParties: [CandidateProcessParty!]!
+    """
     The underlying source for the item.
 
     For example, items related to an application process would note the job board or other channel that sourced the application.
     """
     seekSource: SeekProcessHistoryItemSource
     """
-    The parties that executed the action.
+    The current status of the underlying process.
+
+    For example, a candidate in an application process may progress through a series of statuses like applied, interviewed, offered, hired.
     """
-    primaryParties: [CandidateProcessParty!]!
+    status: CandidateProcessStatus
   }
 
   """
@@ -1053,10 +1053,6 @@ export const typeDefs = gql`
   """
   input CandidateProcessHistoryItemInput {
     """
-    The date & time the action was executed.
-    """
-    actionDate: DateTime!
-    """
     The executed action that constitutes this history item.
 
     This action may or may not trigger a change in the status of the underlying process.
@@ -1065,11 +1061,9 @@ export const typeDefs = gql`
     """
     action: CandidateProcessActionInput!
     """
-    The current status of the underlying process.
-
-    For example, a candidate in an application process may progress through a series of statuses like applied, interviewed, offered, hired.
+    The date & time the action was executed.
     """
-    status: CandidateProcessStatusInput
+    actionDate: DateTime!
     """
     The position profile that the history item relates to.
 
@@ -1077,6 +1071,13 @@ export const typeDefs = gql`
     such as a general interview with a recruiter.
     """
     positionProfile: CandidateProcessHistoryItem_PositionProfileInput
+    """
+    The parties that executed the action.
+
+    At least one party is required for a process history item of an uploaded candidate.
+    A maximum of 10 primary parties may be provided.
+    """
+    primaryParties: [CandidateProcessPartyInput!]!
     """
     The underlying source for the item.
 
@@ -1086,12 +1087,11 @@ export const typeDefs = gql`
     """
     seekSource: SeekProcessHistoryItemSourceInput
     """
-    The parties that executed the action.
+    The current status of the underlying process.
 
-    At least one party is required for a process history item of an uploaded candidate.
-    A maximum of 10 primary parties may be provided.
+    For example, a candidate in an application process may progress through a series of statuses like applied, interviewed, offered, hired.
     """
-    primaryParties: [CandidateProcessPartyInput!]!
+    status: CandidateProcessStatusInput
   }
 
   """
@@ -1111,13 +1111,13 @@ export const typeDefs = gql`
   """
   type CandidateProcessParty {
     """
-    The individual person that is contributing to the workflow process.
-    """
-    person: SpecifiedPerson
-    """
     The organization that is contributing to the workflow process.
     """
     organization: Organization
+    """
+    The individual person that is contributing to the workflow process.
+    """
+    person: SpecifiedPerson
   }
 
   """
@@ -1127,13 +1127,13 @@ export const typeDefs = gql`
   """
   input CandidateProcessPartyInput {
     """
-    The individual person that is contributing to the workflow process.
-    """
-    person: SpecifiedPersonInput
-    """
     The organization that is contributing to the workflow process.
     """
     organization: OrganizationInput
+    """
+    The individual person that is contributing to the workflow process.
+    """
+    person: SpecifiedPersonInput
   }
 
   """
@@ -1187,49 +1187,49 @@ export const typeDefs = gql`
   """
   type CandidateProfile {
     """
+    The position openings associated with this candidate profile.
+    """
+    associatedPositionOpenings: [AssociatedPositionOpening!]!
+    """
+    The primary position profile for this candidate profile.
+
+    This is a convenience field to avoid an extra hop through \`associatedPositionOpenings\`.
+
+    - For candidate applications, this is the job ad that the candidate applied to.
+    - For purchased profiles, this is the unposted position profile that the purchase is scoped to.
+    - For uploaded candidate profiles, this is always \`null\`.
+    """
+    associatedPositionProfile: PositionProfile
+    """
+    The attachments related to the candidate's profile.
+    """
+    attachments: [Attachment!]!
+    """
     The \`Candidate\` that this profile relates to.
 
     This contains the candidate's personal details along with all their profiles for the same hirer.
     """
     candidate: Candidate!
     """
-    The identifier for the \`CandidateProfile\`.
-
-    This profile can be queried at any time by passing this identifier string to \`candidateProfile\`.
+    The sources from which the candidate was obtained from.
     """
-    profileId: ObjectIdentifier!
-    """
-    The date & time the candidate was associated with the position.
-    """
-    createDateTime: DateTime!
-    """
-    The positions this candidate has applied for.
-    """
-    associatedPositionOpenings: [AssociatedPositionOpening!]!
-    """
-    The attachments related to the candidate's profile.
-    """
-    attachments: [Attachment!]!
-    """
-    The employment history of the candidate.
-    """
-    employment: [EmployerHistory!]!
-    """
-    The education history of the candidate.
-    """
-    education: [EducationAttendance!]!
-    """
-    The skills or competencies of the candidate.
-    """
-    qualifications: [PersonCompetency!]!
+    candidateSources: [CandidateSource!]!
     """
     The certifications and licenses the candidate holds.
     """
     certifications: [Certification!]!
     """
-    The sources from which the candidate was obtained from.
+    The date & time the candidate was associated with the position.
     """
-    candidateSources: [CandidateSource!]!
+    createDateTime: DateTime!
+    """
+    The education history of the candidate.
+    """
+    education: [EducationAttendance!]!
+    """
+    The employment history of the candidate.
+    """
+    employment: [EmployerHistory!]!
     """
     The candidate's preferences in an ideal position.
 
@@ -1238,9 +1238,15 @@ export const typeDefs = gql`
     """
     positionPreferences: [PositionPreference!]!
     """
-    The date & time the candidate profile was last updated.
+    The identifier for the \`CandidateProfile\`.
+
+    This profile can be queried at any time by passing this identifier string to \`candidateProfile\`.
     """
-    updateDateTime: DateTime!
+    profileId: ObjectIdentifier!
+    """
+    The skills or competencies of the candidate.
+    """
+    qualifications: [PersonCompetency!]!
     """
     A list of executable actions linked to the candidate profile.
     """
@@ -1272,12 +1278,30 @@ export const typeDefs = gql`
     The completed candidate submission for the position profile's questionnaire.
     """
     seekQuestionnaireSubmission: ApplicationQuestionnaireSubmission
+    """
+    The date & time the candidate profile was last updated.
+    """
+    updateDateTime: DateTime!
   }
 
   """
   The event signaling that a \`CandidateProfile\` has been purchased.
   """
   type CandidateProfilePurchasedEvent implements Event {
+    """
+    The \`CandidateProfile\` that was purchased.
+    """
+    candidateProfile: CandidateProfile!
+    """
+    The identifier for the \`CandidateProfile\` that was purchased.
+    """
+    candidateProfileId: String!
+    """
+    The date & time the \`CandidateProfile\` was purchased.
+
+    This field has weak ordering guarantees, so it should not be used as a pagination argument.
+    """
+    createDateTime: DateTime!
     """
     The identifier for the \`Event\`.
     """
@@ -1292,20 +1316,6 @@ export const typeDefs = gql`
     The type of event, i.e. \`CandidateProfilePurchased\`.
     """
     typeCode: String!
-    """
-    The date & time the \`CandidateProfile\` was purchased.
-
-    This field has weak ordering guarantees, so it should not be used as a pagination argument.
-    """
-    createDateTime: DateTime!
-    """
-    The identifier for the \`CandidateProfile\` that was purchased.
-    """
-    candidateProfileId: String!
-    """
-    The \`CandidateProfile\` that was purchased.
-    """
-    candidateProfile: CandidateProfile!
     """
     A page of webhook attempts for the current event matching the specified criteria.
 
@@ -1329,6 +1339,10 @@ export const typeDefs = gql`
       """
       before: String
       """
+      The additional \`WebhookAttempt\`-specific criteria to filter by.
+      """
+      filter: WebhookAttemptsFilterInput
+      """
       The upper limit of webhook attempts to return from the start of the list.
 
       Defaults to 10 if neither \`first\` nor \`last\` are specified.
@@ -1345,10 +1359,6 @@ export const typeDefs = gql`
       \`first\` and \`last\` cannot be specified in the same query.
       """
       last: Int
-      """
-      The additional \`WebhookAttempt\`-specific criteria to filter by.
-      """
-      filter: WebhookAttemptsFilterInput
     ): WebhookAttemptsConnection!
   }
 
@@ -1377,32 +1387,6 @@ export const typeDefs = gql`
   """
   type Certification {
     """
-    The free text name of the certification.
-    """
-    name: String!
-    """
-    The time period for which the certification is effective.
-
-    This will be \`null\` if the expiration date is unknown or not provided.
-    """
-    effectiveTimePeriod: EffectiveTimePeriod
-    """
-    The date the certification was last issued.
-
-    This will be \`null\` if the issue date is unknown or not provided.
-    """
-    issued: HistoryDate
-    """
-    The date the certification was issued.
-
-    This will be \`null\` if the issue date is unknown or not provided.
-    """
-    issueDate: HistoryDate @deprecated(reason: "Use \`issued\`.")
-    """
-    The organization that issued the certification.
-    """
-    issuingAuthority: Organization
-    """
     Human readable descriptions of the certification.
 
     This can contain multiple descriptions from two different sources:
@@ -1411,6 +1395,32 @@ export const typeDefs = gql`
     2. Human readable descriptions automatically generated from SEEK's internal structured data.
     """
     descriptions: [String!]!
+    """
+    The time period for which the certification is effective.
+
+    This will be \`null\` if the expiration date is unknown or not provided.
+    """
+    effectiveTimePeriod: EffectiveTimePeriod
+    """
+    The date the certification was issued.
+
+    This will be \`null\` if the issue date is unknown or not provided.
+    """
+    issueDate: HistoryDate @deprecated(reason: "Use \`issued\`.")
+    """
+    The date the certification was last issued.
+
+    This will be \`null\` if the issue date is unknown or not provided.
+    """
+    issued: HistoryDate
+    """
+    The organization that issued the certification.
+    """
+    issuingAuthority: Organization
+    """
+    The free text name of the certification.
+    """
+    name: String!
   }
 
   """
@@ -1458,11 +1468,11 @@ export const typeDefs = gql`
   """
   type Communication {
     """
-    An array of phone numbers for the person.
+    An array of physical addresses for the person.
 
-    The phone numbers are ordered in descending preference.
+    The physical addresses are ordered in descending preference.
     """
-    phone: [Phone!]!
+    address: [Address!]!
     """
     An array of email addresses for the person.
 
@@ -1470,11 +1480,11 @@ export const typeDefs = gql`
     """
     email: [Email!]!
     """
-    An array of physical addresses for the person.
+    An array of phone numbers for the person.
 
-    The physical addresses are ordered in descending preference.
+    The phone numbers are ordered in descending preference.
     """
-    address: [Address!]!
+    phone: [Phone!]!
   }
 
   """
@@ -1482,13 +1492,13 @@ export const typeDefs = gql`
   """
   input CommunicationInput {
     """
-    An array of phone numbers for the person.
+    An array of physical addresses for the person.
 
-    The phone numbers are ordered in descending preference.
+    The physical addresses are ordered in descending preference.
 
-    A maximum of 5 phone numbers may be provided.
+    A maximum of 5 physical addresses may be provided.
     """
-    phone: [PhoneInput!]!
+    address: [AddressInput!]
     """
     An array of email addresses for the person.
 
@@ -1498,13 +1508,13 @@ export const typeDefs = gql`
     """
     email: [EmailInput!]!
     """
-    An array of physical addresses for the person.
+    An array of phone numbers for the person.
 
-    The physical addresses are ordered in descending preference.
+    The phone numbers are ordered in descending preference.
 
-    A maximum of 5 physical addresses may be provided.
+    A maximum of 5 phone numbers may be provided.
     """
-    address: [AddressInput!]
+    phone: [PhoneInput!]!
   }
 
   """
@@ -1532,15 +1542,15 @@ export const typeDefs = gql`
   """
   input CreateApplicationQuestionnaire_ApplicationQuestionnaireInput {
     """
+    The array of components in the order they are presented to the candidate.
+    """
+    components: [ApplicationQuestionnaireComponentInput!]!
+    """
     The identifier for the \`HiringOrganization\` that will own the questionnaire.
 
     Hirers can only associate position profiles with questionnaires they own.
     """
     hirerId: String!
-    """
-    The array of components in the order they are presented to the candidate.
-    """
-    components: [ApplicationQuestionnaireComponentInput!]!
   }
 
   """
@@ -1548,13 +1558,13 @@ export const typeDefs = gql`
   """
   input CreateCandidateProcessHistoryItemInput {
     """
-    The details of the \`CandidateProfile\` that the \`CandidateProcessHistoryItem\` belongs to.
-    """
-    candidateProfile: CreateCandidateProcessHistoryItem_CandidateProfileInput!
-    """
     The details of the \`CandidateProcessHistoryItem\` to be added to the \`CandidateProfile\`.
     """
     candidateProcessHistoryItem: CreateCandidateProcessHistoryItem_CandidateProcessHistoryItemInput!
+    """
+    The details of the \`CandidateProfile\` that the \`CandidateProcessHistoryItem\` belongs to.
+    """
+    candidateProfile: CreateCandidateProcessHistoryItem_CandidateProfileInput!
   }
 
   """
@@ -1569,13 +1579,13 @@ export const typeDefs = gql`
   """
   type CreateCandidateProcessHistoryItemPayload_Conflict {
     """
-    The details of the conflicting \`CandidateProcessHistoryItem\`.
-    """
-    conflictingCandidateProcessHistoryItem: CandidateProcessHistoryItem!
-    """
     The \`CandidateProfile\` that the \`CandidateProcessHistoryItem\` belongs to.
     """
     candidateProfile: CandidateProfile!
+    """
+    The details of the conflicting \`CandidateProcessHistoryItem\`.
+    """
+    conflictingCandidateProcessHistoryItem: CandidateProcessHistoryItem!
   }
 
   """
@@ -1597,17 +1607,6 @@ export const typeDefs = gql`
   """
   input CreateCandidateProcessHistoryItem_CandidateProcessHistoryItemInput {
     """
-    An identifier to ensure that multiple candidate process history items are not created on retries.
-
-    The identifier must be unique within the given candidate profile.
-    The same identifier must be provided when retrying after create failures.
-    """
-    idempotencyId: String!
-    """
-    The date & time the action was executed.
-    """
-    actionDate: DateTime!
-    """
     The executed action that constitutes this history item.
 
     This action may or may not trigger a change in the status of the underlying process.
@@ -1616,11 +1615,16 @@ export const typeDefs = gql`
     """
     action: CandidateProcessActionInput!
     """
-    The current status of the underlying process.
-
-    For example, a candidate in an application process may progress through a series of statuses like applied, interviewed, offered, hired.
+    The date & time the action was executed.
     """
-    status: CandidateProcessStatusInput
+    actionDate: DateTime!
+    """
+    An identifier to ensure that multiple candidate process history items are not created on retries.
+
+    The identifier must be unique within the given candidate profile.
+    The same identifier must be provided when retrying after create failures.
+    """
+    idempotencyId: String!
     """
     The position profile that the history item relates to.
 
@@ -1628,6 +1632,10 @@ export const typeDefs = gql`
     such as a general interview with a recruiter.
     """
     positionProfile: CandidateProcessHistoryItem_PositionProfileInput
+    """
+    The parties that executed the action.
+    """
+    primaryParties: [CandidateProcessPartyInput!]!
     """
     The underlying source for the item.
 
@@ -1637,9 +1645,11 @@ export const typeDefs = gql`
     """
     seekSource: SeekProcessHistoryItemSourceInput
     """
-    The parties that executed the action.
+    The current status of the underlying process.
+
+    For example, a candidate in an application process may progress through a series of statuses like applied, interviewed, offered, hired.
     """
-    primaryParties: [CandidateProcessPartyInput!]!
+    status: CandidateProcessStatusInput
   }
 
   """
@@ -1707,40 +1717,6 @@ export const typeDefs = gql`
   """
   input CreatePostingInstructionInput {
     """
-    A SEEK ANZ advertisement type code.
-
-    Currently, three codes are defined:
-
-    - \`Classic\` indicates a Classic job ad.
-    - \`StandOut\` indicates a StandOut job ad.
-    - \`Premium\` indicates a Premium job ad.
-
-    Scheme requirements:
-
-    - For the \`seekAnz\` scheme, this field is required.
-    - For other schemes, set this to \`null\`.
-    """
-    seekAnzAdvertisementType: String
-    """
-    The end date of the posting.
-
-    Scheme requirements:
-
-    - For the \`seekAnz\` scheme this must be no more than 30 days in the future.
-
-      If the end date is not specified it will default to the maximum period of 30 calendar days.
-      The precise end date can be queried from the \`PostingInstruction.end\` field once the job ad goes live.
-    """
-    end: DateTime
-    """
-    An identifier to ensure that multiple ads are not created on retries.
-
-    A unique identifier needs to be generated by your software for each position profile.
-    The same identifier must be provided when retrying after create failures.
-    Your identifiers are isolated from and will not conflict with those generated by other recruitment software providers.
-    """
-    idempotencyId: String!
-    """
     An array of methods for applying to the position.
 
     If no methods are provided, SEEK's native apply form will be used to receive candidate applications.
@@ -1762,6 +1738,40 @@ export const typeDefs = gql`
       When the product's \`SeekAnzAdProductFeatures.brandingIndicator\` value is false, this field will be silently ignored.
     """
     brandingId: String
+    """
+    The end date of the posting.
+
+    Scheme requirements:
+
+    - For the \`seekAnz\` scheme this must be no more than 30 days in the future.
+
+      If the end date is not specified it will default to the maximum period of 30 calendar days.
+      The precise end date can be queried from the \`PostingInstruction.end\` field once the job ad goes live.
+    """
+    end: DateTime
+    """
+    An identifier to ensure that multiple ads are not created on retries.
+
+    A unique identifier needs to be generated by your software for each position profile.
+    The same identifier must be provided when retrying after create failures.
+    Your identifiers are isolated from and will not conflict with those generated by other recruitment software providers.
+    """
+    idempotencyId: String!
+    """
+    A SEEK ANZ advertisement type code.
+
+    Currently, three codes are defined:
+
+    - \`Classic\` indicates a Classic job ad.
+    - \`StandOut\` indicates a StandOut job ad.
+    - \`Premium\` indicates a Premium job ad.
+
+    Scheme requirements:
+
+    - For the \`seekAnz\` scheme, this field is required.
+    - For other schemes, set this to \`null\`.
+    """
+    seekAnzAdvertisementType: String
   }
 
   """
@@ -1789,47 +1799,37 @@ export const typeDefs = gql`
   """
   input CreateUnpostedPositionProfileForOpeningPositionProfileInput {
     """
-    The identifier for the \`PositionOpening\` that this position profile belongs to.
-    """
-    positionOpeningId: String!
-    """
-    A human-readable name given to the profile.
+    An array of \`JobCategory\` identifiers.
 
-    This in addition to the \`positionTitle\` can help identify the profile to an end user.
+    A maximum of 10 job categories may be provided.
     """
-    profileName: String
+    jobCategories: [String!]!
     """
-    A short phrase describing the position as it would be listed on a business card or in a company directory.
-
-    This field has a maximum length of 80 bytes in UTF-8 encoding.
+    The salary or compensation offered for the position.
     """
-    positionTitle: String!
-    """
-    The identifier for the \`HiringOrganization\` that has the position.
-
-    This should contain exactly one element that matches the \`postingRequester\` on the position opening.
-    """
-    positionOrganizations: [String!]!
-    """
-    An optional hirer-provided opaque job reference.
-
-    This field has a maximum length of 50 bytes in UTF-8 encoding.
-    """
-    seekHirerJobReference: String
-    """
-    An optional opaque billing reference.
-
-    SEEK does not use this field on unposted position profiles.
-
-    This field has a maximum length of 50 bytes in UTF-8 encoding.
-    """
-    seekBillingReference: String
+    offeredRemunerationPackage: RemunerationPackageInput!
     """
     An array of formatted position profile descriptions.
 
     A maximum of 10 formatted descriptions may be provided.
     """
     positionFormattedDescriptions: [PositionFormattedDescriptionInput!]!
+    """
+    An array of \`Location\` identifiers.
+
+    A maximum of 10 locations may be provided.
+    """
+    positionLocation: [String!]!
+    """
+    The identifier for the \`PositionOpening\` that this position profile belongs to.
+    """
+    positionOpeningId: String!
+    """
+    The identifier for the \`HiringOrganization\` that has the position.
+
+    This should contain exactly one element that matches the \`postingRequester\` on the position opening.
+    """
+    positionOrganizations: [String!]!
     """
     An array of codes for the offered schedules for the position.
 
@@ -1840,21 +1840,31 @@ export const typeDefs = gql`
     """
     positionScheduleTypeCodes: [String!]
     """
-    The salary or compensation offered for the position.
-    """
-    offeredRemunerationPackage: RemunerationPackageInput!
-    """
-    An array of \`JobCategory\` identifiers.
+    A short phrase describing the position as it would be listed on a business card or in a company directory.
 
-    A maximum of 10 job categories may be provided.
+    This field has a maximum length of 80 bytes in UTF-8 encoding.
     """
-    jobCategories: [String!]!
+    positionTitle: String!
     """
-    An array of \`Location\` identifiers.
+    A human-readable name given to the profile.
 
-    A maximum of 10 locations may be provided.
+    This in addition to the \`positionTitle\` can help identify the profile to an end user.
     """
-    positionLocation: [String!]!
+    profileName: String
+    """
+    An optional opaque billing reference.
+
+    SEEK does not use this field on unposted position profiles.
+
+    This field has a maximum length of 50 bytes in UTF-8 encoding.
+    """
+    seekBillingReference: String
+    """
+    An optional hirer-provided opaque job reference.
+
+    This field has a maximum length of 50 bytes in UTF-8 encoding.
+    """
+    seekHirerJobReference: String
     """
     An optional field for storing additional data with a \`PositionProfile\`.
 
@@ -1916,12 +1926,6 @@ export const typeDefs = gql`
     """
     eventTypeCode: String!
     """
-    The data source for the event.
-
-    Currently, only \`seekAnz\` and \`seekAnzPublicTest\` are supported.
-    """
-    schemeId: String!
-    """
     The optional hirer ID to receive events from.
 
     By default webhook subscriptions will send events from all hirers the partner has access to.
@@ -1929,15 +1933,26 @@ export const typeDefs = gql`
     """
     hirerId: String
     """
-    The subscriber-owned URL where events will be sent to.
-    """
-    url: String!
-    """
     The maximum number of events that will be sent in each HTTP request.
 
     This number must be between 1 and 10 inclusive. Defaults to 10.
     """
     maxEventsPerAttempt: Int
+    """
+    The data source for the event.
+
+    Currently, only \`seekAnz\` and \`seekAnzPublicTest\` are supported.
+    """
+    schemeId: String!
+    """
+    The secret for signing webhooks.
+
+    This must be specified if \`signingAlgorithmCode\` is not \`None\`.
+    It is used as the key to generate a message authentication code for each request.
+
+    The secret should be a random string with high entropy that is not reused for any other purpose.
+    """
+    secret: String
     """
     The algorithm for signing webhooks.
 
@@ -1953,14 +1968,9 @@ export const typeDefs = gql`
     """
     signingAlgorithmCode: String!
     """
-    The secret for signing webhooks.
-
-    This must be specified if \`signingAlgorithmCode\` is not \`None\`.
-    It is used as the key to generate a message authentication code for each request.
-
-    The secret should be a random string with high entropy that is not reused for any other purpose.
+    The subscriber-owned URL where events will be sent to.
     """
-    secret: String
+    url: String!
   }
 
   """
@@ -1970,15 +1980,15 @@ export const typeDefs = gql`
   """
   type CurrencyMinorUnit {
     """
+    The three-letter ISO 4217 currency code, in uppercase.
+    """
+    currency: String!
+    """
     A non-negative integer in the minor currency unit for the ISO currency code.
 
     For example, this is the number of cents in dollar-denominated currencies.
     """
     value: Int!
-    """
-    The three-letter ISO 4217 currency code, in uppercase.
-    """
-    currency: String!
   }
 
   """
@@ -2177,19 +2187,19 @@ export const typeDefs = gql`
   """
   type EducationAttendance {
     """
-    The institution the person attended.
-    """
-    institution: Organization!
-    """
-    The degrees which were awarded or in process at the institution.
-    """
-    educationDegrees: [EducationDegree!]!
-    """
     Additional free text descriptions of the person's attendance at the institution.
 
     This typically includes activities, honours, awards or specialities achieved during their study.
     """
     descriptions: [String!]!
+    """
+    The degrees which were awarded or in process at the institution.
+    """
+    educationDegrees: [EducationDegree!]!
+    """
+    The institution the person attended.
+    """
+    institution: Organization!
   }
 
   """
@@ -2197,9 +2207,12 @@ export const typeDefs = gql`
   """
   type EducationDegree {
     """
-    The name of the degree.
+    The date the degree was granted or is expected to be granted.
+
+    This may only contain a year and optional month, e.g. \`2020\` or \`2020-06\`.
+    If the date isn't known this will be \`null\`.
     """
-    name: String!
+    date: HistoryDate
     """
     The granted status of the degree.
 
@@ -2210,12 +2223,9 @@ export const typeDefs = gql`
     """
     degreeGrantedStatus: String!
     """
-    The date the degree was granted or is expected to be granted.
-
-    This may only contain a year and optional month, e.g. \`2020\` or \`2020-06\`.
-    If the date isn't known this will be \`null\`.
+    The name of the degree.
     """
-    date: HistoryDate
+    name: String!
   }
 
   """
@@ -2275,6 +2285,15 @@ export const typeDefs = gql`
   """
   interface Event {
     """
+    The date & time the event was created.
+
+    This is commonly linked to the creation of an object that can be retrieved from the SEEK API.
+
+    The data source for this field differs by event type and scheme.
+    This field has weak ordering guarantees, so it should not be used as a pagination argument.
+    """
+    createDateTime: DateTime!
+    """
     The identifier for the \`Event\`.
     """
     id: ObjectIdentifier!
@@ -2290,15 +2309,6 @@ export const typeDefs = gql`
     See \`Event\` implementations for a list of supported values.
     """
     typeCode: String!
-    """
-    The date & time the event was created.
-
-    This is commonly linked to the creation of an object that can be retrieved from the SEEK API.
-
-    The data source for this field differs by event type and scheme.
-    This field has weak ordering guarantees, so it should not be used as a pagination argument.
-    """
-    createDateTime: DateTime!
     """
     A page of webhook attempts for the current event matching the specified criteria.
 
@@ -2322,6 +2332,10 @@ export const typeDefs = gql`
       """
       before: String
       """
+      The additional \`WebhookAttempt\`-specific criteria to filter by.
+      """
+      filter: WebhookAttemptsFilterInput
+      """
       The upper limit of webhook attempts to return from the start of the list.
 
       Defaults to 10 if neither \`first\` nor \`last\` are specified.
@@ -2338,10 +2352,6 @@ export const typeDefs = gql`
       \`first\` and \`last\` cannot be specified in the same query.
       """
       last: Int
-      """
-      The additional \`WebhookAttempt\`-specific criteria to filter by.
-      """
-      filter: WebhookAttemptsFilterInput
     ): WebhookAttemptsConnection!
   }
 
@@ -2457,6 +2467,23 @@ export const typeDefs = gql`
   """
   type HirerRelationshipChangedEvent implements Event {
     """
+    The date & time the hirer relationship was changed.
+
+    This field has weak ordering guarantees, so it should not be used as a pagination argument.
+    """
+    createDateTime: DateTime!
+    """
+    The optional hiring organization for whom the relationship was changed.
+
+    This will only be accessible if there is an active relationship between the partner and hirer.
+    If all relationships have been removed with the hirer this field will be return a \`FORBIDDEN\` error.
+    """
+    hirer: HiringOrganization
+    """
+    The identifier for the hiring organization for whom the relationship was changed.
+    """
+    hirerId: String!
+    """
     The identifier for the \`Event\`.
     """
     id: ObjectIdentifier!
@@ -2470,23 +2497,6 @@ export const typeDefs = gql`
     The type of event, i.e. \`HirerRelationshipChanged\`.
     """
     typeCode: String!
-    """
-    The date & time the hirer relationship was changed.
-
-    This field has weak ordering guarantees, so it should not be used as a pagination argument.
-    """
-    createDateTime: DateTime!
-    """
-    The identifier for the hiring organization for whom the relationship was changed.
-    """
-    hirerId: String!
-    """
-    The optional hiring organization for whom the relationship was changed.
-
-    This will only be accessible if there is an active relationship between the partner and hirer.
-    If all relationships have been removed with the hirer this field will be return a \`FORBIDDEN\` error.
-    """
-    hirer: HiringOrganization
     """
     A page of webhook attempts for the current event matching the specified criteria.
 
@@ -2510,6 +2520,10 @@ export const typeDefs = gql`
       """
       before: String
       """
+      The additional \`WebhookAttempt\`-specific criteria to filter by.
+      """
+      filter: WebhookAttemptsFilterInput
+      """
       The upper limit of webhook attempts to return from the start of the list.
 
       Defaults to 10 if neither \`first\` nor \`last\` are specified.
@@ -2526,10 +2540,6 @@ export const typeDefs = gql`
       \`first\` and \`last\` cannot be specified in the same query.
       """
       last: Int
-      """
-      The additional \`WebhookAttempt\`-specific criteria to filter by.
-      """
-      filter: WebhookAttemptsFilterInput
     ): WebhookAttemptsConnection!
   }
 
@@ -2546,18 +2556,18 @@ export const typeDefs = gql`
     """
     name: String!
     """
-    The capabilities of the requesting partner to act on behalf of the hiring organization.
-
-    This will be \`null\` for agencies; the SEEK API does not support acting on behalf of an agency.
-    """
-    seekApiCapabilities: HiringOrganizationApiCapabilities
-    """
     The legacy SEEK ANZ advertiser ID.
 
     This is a numeric identifier used by legacy Job Posting & Application Export APIs in the \`seekAnz\` scheme.
     For organizations in other schemes this will be \`null\`.
     """
     seekAnzAdvertiserId: Int
+    """
+    The capabilities of the requesting partner to act on behalf of the hiring organization.
+
+    This will be \`null\` for agencies; the SEEK API does not support acting on behalf of an agency.
+    """
+    seekApiCapabilities: HiringOrganizationApiCapabilities
   }
 
   """
@@ -2566,6 +2576,17 @@ export const typeDefs = gql`
   This provides a read-only view of the configuration of a SEEK hirer for the current partner.
   """
   type HiringOrganizationApiCapabilities {
+    """
+    The supported methods of applying to job ads posted by the hirer.
+
+    All SEEK hirers can use SEEK's native apply functionality by omitting the \`ApplicationMethod\` object when posting.
+    This enumerates additional application methods SEEK has configured for the hirer.
+
+    Currently, one code is defined:
+
+    - \`ApplicationUri\` indicates that job ads can link out to an external apply form.
+    """
+    applicationMethodCodes: [String!]!
     """
     The active relationship types between the requesting partner and the hirer.
 
@@ -2578,17 +2599,6 @@ export const typeDefs = gql`
     - \`ProactiveSourcing\` enables hirers to proactively search for and connect with suitable candidates.
     """
     relationshipTypeCodes: [String!]!
-    """
-    The supported methods of applying to job ads posted by the hirer.
-
-    All SEEK hirers can use SEEK's native apply functionality by omitting the \`ApplicationMethod\` object when posting.
-    This enumerates additional application methods SEEK has configured for the hirer.
-
-    Currently, one code is defined:
-
-    - \`ApplicationUri\` indicates that job ads can link out to an external apply form.
-    """
-    applicationMethodCodes: [String!]!
   }
 
   """
@@ -2628,6 +2638,12 @@ export const typeDefs = gql`
   """
   input HiringOrganizationsFilterInput {
     """
+    Filters on hirer names containing the provided case-insensitive substring.
+
+    This is intended to support ad-hoc searches for hirers by name.
+    """
+    nameSearch: String
+    """
     Filters on relationship types between the hirer and requesting partner.
 
     See the \`HiringOrganizationApiCapabilities.relationshipTypeCodes\` documentation for a list of relationship types.
@@ -2635,12 +2651,6 @@ export const typeDefs = gql`
     If this is not provided then all related hirers are returned.
     """
     relationshipTypeCodes: [String!]
-    """
-    Filters on hirer names containing the provided case-insensitive substring.
-
-    This is intended to support ad-hoc searches for hirers by name.
-    """
-    nameSearch: String
   }
 
   """
@@ -2657,9 +2667,19 @@ export const typeDefs = gql`
   """
   type JobCategory {
     """
+    An array of child job categories.
+
+    These are more specific categories that belong to this general classification.
+    """
+    children: [JobCategory!]
+    """
     The identifier for the \`JobCategory\`.
     """
     id: ObjectIdentifier!
+    """
+    Name of the job category.
+    """
+    name: String!
     """
     The parent job category.
 
@@ -2667,16 +2687,6 @@ export const typeDefs = gql`
     It will be \`null\` for root categories that do not belong to a more general classification.
     """
     parent: JobCategory
-    """
-    An array of child job categories.
-
-    These are more specific categories that belong to this general classification.
-    """
-    children: [JobCategory!]
-    """
-    Name of the job category.
-    """
-    name: String!
   }
 
   """
@@ -2684,17 +2694,17 @@ export const typeDefs = gql`
   """
   type JobCategorySuggestionChoice {
     """
-    The job category information of the suggestion choice.
-
-    This will be a child job category suitable for posting a position profile.
-    """
-    jobCategory: JobCategory!
-    """
     The confidence in the returned job category based on the suggestion input.
 
     This is a floating point value ranging from 0 (lowest) to 1 (highest).
     """
     confidence: Float!
+    """
+    The job category information of the suggestion choice.
+
+    This will be a child job category suitable for posting a position profile.
+    """
+    jobCategory: JobCategory!
   }
 
   """
@@ -2702,9 +2712,12 @@ export const typeDefs = gql`
   """
   input JobCategorySuggestionPositionProfileInput {
     """
-    The position title.
+    The descriptions for the position profile.
+
+    Currently, only the \`AdvertisementDetails\` description is used.
+    Other descriptions will be accepted but are ignored when determining the relevance of suggestion.
     """
-    positionTitle: String!
+    positionFormattedDescriptions: [PositionFormattedDescriptionInput!]
     """
     An array of identifiers for the position's \`Location\`s.
     """
@@ -2716,12 +2729,9 @@ export const typeDefs = gql`
     """
     positionOrganizations: [String!]
     """
-    The descriptions for the position profile.
-
-    Currently, only the \`AdvertisementDetails\` description is used.
-    Other descriptions will be accepted but are ignored when determining the relevance of suggestion.
+    The position title.
     """
-    positionFormattedDescriptions: [PositionFormattedDescriptionInput!]
+    positionTitle: String!
   }
 
   """
@@ -2729,23 +2739,9 @@ export const typeDefs = gql`
   """
   type Location {
     """
-    The identifier for the \`Location\`.
-    """
-    id: ObjectIdentifier!
-    """
-    The parent location.
-    """
-    parent: Location
-    """
     An array of child locations.
     """
     children: [Location!]
-    """
-    The location name, e.g. "Richmond".
-
-    This name is ambiguous without the context of its parent location.
-    """
-    name: String!
     """
     The contextual name of the location, e.g. "Richmond VIC 3121 AU".
 
@@ -2756,6 +2752,20 @@ export const typeDefs = gql`
     The two-letter ISO 3166-1:2013 country code, in uppercase.
     """
     countryCode: String!
+    """
+    The identifier for the \`Location\`.
+    """
+    id: ObjectIdentifier!
+    """
+    The location name, e.g. "Richmond".
+
+    This name is ambiguous without the context of its parent location.
+    """
+    name: String!
+    """
+    The parent location.
+    """
+    parent: Location
   }
 
   """
@@ -2779,6 +2789,15 @@ export const typeDefs = gql`
     """
     _empty: String @deprecated(reason: "Placeholder only")
     """
+    Closes an existing posted position profile.
+
+    The job ad will be removed from the job board and no refund will be issued.
+    The \`PositionProfile\` and its associated candidate applications will be available for 6 months after its close date.
+    """
+    closePostedPositionProfile(
+      input: ClosePostedPositionProfileInput!
+    ): ClosePostedPositionProfilePayload
+    """
     Creates a new questionnaire.
 
     This mutation accepts browser tokens that include the \`mutate:application-questionnaires\` scope.
@@ -2786,6 +2805,12 @@ export const typeDefs = gql`
     createApplicationQuestionnaire(
       input: CreateApplicationQuestionnaireInput!
     ): CreateApplicationQuestionnairePayload!
+    """
+    Adds a process history item to an uploaded candidate's profile.
+    """
+    createCandidateProcessHistoryItem(
+      input: CreateCandidateProcessHistoryItemInput!
+    ): CreateCandidateProcessHistoryItemPayload!
     """
     Creates a new position opening.
 
@@ -2795,6 +2820,80 @@ export const typeDefs = gql`
     createPositionOpening(
       input: CreatePositionOpeningInput!
     ): CreatePositionOpeningPayload!
+    """
+    Creates a new unposted position profile for an opening.
+    """
+    createUnpostedPositionProfileForOpening(
+      input: CreateUnpostedPositionProfileForOpeningInput!
+    ): CreateUnpostedPositionProfileForOpeningPayload!
+    """
+    Creates a new webhook subscription.
+    """
+    createWebhookSubscription(
+      input: CreateWebhookSubscriptionInput!
+    ): CreateWebhookSubscriptionPayload!
+    """
+    Deletes a candidate process history item from SEEK's systems.
+    """
+    deleteCandidateProcessHistoryItem(
+      input: DeleteCandidateProcessHistoryItemInput!
+    ): DeleteCandidateProcessHistoryItemPayload
+    """
+    Deletes an empty position opening.
+
+    Each position profile that belongs to a position opening must be deleted before the position opening can be deleted.
+    """
+    deletePositionOpening(
+      input: DeletePositionOpeningInput!
+    ): DeletePositionOpeningPayload
+    """
+    Deletes an unposted position profile.
+    """
+    deleteUnpostedPositionProfile(
+      input: DeleteUnpostedPositionProfileInput!
+    ): DeleteUnpostedPositionProfilePayload
+    """
+    Deletes an uploaded candidate and their profile from SEEK's systems.
+
+    This will also delete all \`CandidateProcessHistoryItem\`s belonging to the candidate profile.
+    """
+    deleteUploadedCandidate(
+      input: DeleteUploadedCandidateInput!
+    ): DeleteUploadedCandidatePayload
+    """
+    Deletes an existing webhook subscription.
+    """
+    deleteWebhookSubscription(
+      input: DeleteWebhookSubscriptionInput!
+    ): DeleteWebhookSubscriptionPayload
+    """
+    Asynchronously posts a job ad for a new position opening.
+
+    This combines the \`createPositionOpening\` & \`postPositionProfileForOpening\` mutations in a single operation.
+    """
+    postPosition(input: PostPositionInput!): PostPositionPayload!
+    """
+    Asynchronously posts a job ad for an existing position opening.
+    """
+    postPositionProfileForOpening(
+      input: PostPositionProfileForOpeningInput!
+    ): PostPositionProfileForOpeningPayload!
+    """
+    Replays a webhook subscription.
+
+    This causes any matching events to be requeued for delivery.
+
+    Resending occurs asynchronously in a background task.
+    """
+    replayWebhookSubscription(
+      input: ReplayWebhookSubscriptionInput!
+    ): ReplayWebhookSubscriptionPayload
+    """
+    Updates a candidate process history item.
+    """
+    updateCandidateProcessHistoryItem(
+      input: UpdateCandidateProcessHistoryItemInput!
+    ): UpdateCandidateProcessHistoryItemPayload
     """
     Replaces an existing position opening's person contacts.
     """
@@ -2811,20 +2910,6 @@ export const typeDefs = gql`
       input: UpdatePositionOpeningStatusInput!
     ): UpdatePositionOpeningStatusPayload
     """
-    Deletes an empty position opening.
-
-    Each position profile that belongs to a position opening must be deleted before the position opening can be deleted.
-    """
-    deletePositionOpening(
-      input: DeletePositionOpeningInput!
-    ): DeletePositionOpeningPayload
-    """
-    Asynchronously posts a job ad for an existing position opening.
-    """
-    postPositionProfileForOpening(
-      input: PostPositionProfileForOpeningInput!
-    ): PostPositionProfileForOpeningPayload!
-    """
     Asynchronously updates a live job ad.
 
     The position profile's existing fields will be replaced with the provided input fields.
@@ -2834,50 +2919,11 @@ export const typeDefs = gql`
       input: UpdatePostedPositionProfileInput!
     ): UpdatePostedPositionProfilePayload
     """
-    Closes an existing posted position profile.
-
-    The job ad will be removed from the job board and no refund will be issued.
-    The \`PositionProfile\` and its associated candidate applications will be available for 6 months after its close date.
-    """
-    closePostedPositionProfile(
-      input: ClosePostedPositionProfileInput!
-    ): ClosePostedPositionProfilePayload
-    """
-    Asynchronously posts a job ad for a new position opening.
-
-    This combines the \`createPositionOpening\` & \`postPositionProfileForOpening\` mutations in a single operation.
-    """
-    postPosition(input: PostPositionInput!): PostPositionPayload!
-    """
-    Creates a new unposted position profile for an opening.
-    """
-    createUnpostedPositionProfileForOpening(
-      input: CreateUnpostedPositionProfileForOpeningInput!
-    ): CreateUnpostedPositionProfileForOpeningPayload!
-    """
     Updates an existing unposted position profile.
     """
     updateUnpostedPositionProfile(
       input: UpdateUnpostedPositionProfileInput!
     ): UpdateUnpostedPositionProfilePayload
-    """
-    Deletes an unposted position profile.
-    """
-    deleteUnpostedPositionProfile(
-      input: DeleteUnpostedPositionProfileInput!
-    ): DeleteUnpostedPositionProfilePayload
-    """
-    Deletes an uploaded candidate and their profile from SEEK's systems.
-
-    This will also delete all \`CandidateProcessHistoryItem\`s belonging to the candidate profile.
-    """
-    deleteUploadedCandidate(
-      input: DeleteUploadedCandidateInput!
-    ): DeleteUploadedCandidatePayload
-    """
-    Uploads a candidate and their profile into SEEK's systems.
-    """
-    uploadCandidate(input: UploadCandidateInput!): UploadCandidatePayload!
     """
     Updates the personal details of an uploaded candidate.
     """
@@ -2903,30 +2949,6 @@ export const typeDefs = gql`
       input: UpdateUploadedCandidateProfilePositionPreferencesInput!
     ): UpdateUploadedCandidateProfilePositionPreferencesPayload
     """
-    Adds a process history item to an uploaded candidate's profile.
-    """
-    createCandidateProcessHistoryItem(
-      input: CreateCandidateProcessHistoryItemInput!
-    ): CreateCandidateProcessHistoryItemPayload!
-    """
-    Deletes a candidate process history item from SEEK's systems.
-    """
-    deleteCandidateProcessHistoryItem(
-      input: DeleteCandidateProcessHistoryItemInput!
-    ): DeleteCandidateProcessHistoryItemPayload
-    """
-    Updates a candidate process history item.
-    """
-    updateCandidateProcessHistoryItem(
-      input: UpdateCandidateProcessHistoryItemInput!
-    ): UpdateCandidateProcessHistoryItemPayload
-    """
-    Creates a new webhook subscription.
-    """
-    createWebhookSubscription(
-      input: CreateWebhookSubscriptionInput!
-    ): CreateWebhookSubscriptionPayload!
-    """
     Updates an existing webhook subscription's delivery configuration.
 
     This modifies fields related to the URL and payload of an existing webhook subscription.
@@ -2948,21 +2970,9 @@ export const typeDefs = gql`
       input: UpdateWebhookSubscriptionSigningConfigurationInput!
     ): UpdateWebhookSubscriptionSigningConfigurationPayload
     """
-    Deletes an existing webhook subscription.
+    Uploads a candidate and their profile into SEEK's systems.
     """
-    deleteWebhookSubscription(
-      input: DeleteWebhookSubscriptionInput!
-    ): DeleteWebhookSubscriptionPayload
-    """
-    Replays a webhook subscription.
-
-    This causes any matching events to be requeued for delivery.
-
-    Resending occurs asynchronously in a background task.
-    """
-    replayWebhookSubscription(
-      input: ReplayWebhookSubscriptionInput!
-    ): ReplayWebhookSubscriptionPayload
+    uploadCandidate(input: UploadCandidateInput!): UploadCandidatePayload!
   }
 
   """
@@ -3004,21 +3014,21 @@ export const typeDefs = gql`
   """
   type PageInfo {
     """
-    Whether there is a previous page of results at the time of retrieval.
+    An opaque string cursor for retrieving the next page of results.
     """
-    hasPreviousPage: Boolean!
+    endCursor: String
     """
     Whether there is a next page of results at the time of retrieval.
     """
     hasNextPage: Boolean!
     """
+    Whether there is a previous page of results at the time of retrieval.
+    """
+    hasPreviousPage: Boolean!
+    """
     An opaque string cursor for retrieving the previous page of results.
     """
     startCursor: String
-    """
-    An opaque string cursor for retrieving the next page of results.
-    """
-    endCursor: String
   }
 
   """
@@ -3046,6 +3056,10 @@ export const typeDefs = gql`
   """
   type PersonName {
     """
+    The family name (or surname) of a person, if provided.
+    """
+    family: String
+    """
     The formatted name of a person, as it would be written out together.
     """
     formattedName: String!
@@ -3053,16 +3067,16 @@ export const typeDefs = gql`
     The given name of a person, if provided.
     """
     given: String
-    """
-    The family name (or surname) of a person, if provided.
-    """
-    family: String
   }
 
   """
   The name of a person associated with an object.
   """
   input PersonNameInput {
+    """
+    The optional family name (or surname) of a person.
+    """
+    family: String
     """
     The formatted name of a person, as it would be written out together.
     """
@@ -3071,10 +3085,6 @@ export const typeDefs = gql`
     The optional given name of a person.
     """
     given: String
-    """
-    The optional family name (or surname) of a person.
-    """
-    family: String
   }
 
   """
@@ -3102,13 +3112,13 @@ export const typeDefs = gql`
   """
   type PositionFormattedDescription {
     """
-    The description type.
-    """
-    descriptionId: PositionFormattedDescriptionIdentifier!
-    """
     The HTML content of the description.
     """
     content: String!
+    """
+    The description type.
+    """
+    descriptionId: PositionFormattedDescriptionIdentifier!
   }
 
   """
@@ -3137,21 +3147,6 @@ export const typeDefs = gql`
   """
   input PositionFormattedDescriptionInput {
     """
-    The description type.
-
-    Currently, three identifiers are defined:
-
-    - \`AdvertisementDetails\` is the detailed description of the position that appears on the job ad.
-    - \`SearchBulletPoint\` is a highlight or selling point of the position that appears in search results.
-      SEEK ANZ allows up to three search bullet points when \`SeekAnzAdProductFeatures\`'s \`searchBulletPointsIndicator\` is true.
-    - \`SearchSummary\` is a short description that appears in search results.
-
-    Scheme requirements:
-
-    - The \`seekAnz\` scheme requires \`AdvertisementDetails\` and \`SearchSummary\` to be included.
-    """
-    descriptionId: String!
-    """
     The HTML content of the description.
 
     The maximum length differs by \`descriptionId\`:
@@ -3178,6 +3173,21 @@ export const typeDefs = gql`
       Other descriptions will have all HTML tags stripped.
     """
     content: String!
+    """
+    The description type.
+
+    Currently, three identifiers are defined:
+
+    - \`AdvertisementDetails\` is the detailed description of the position that appears on the job ad.
+    - \`SearchBulletPoint\` is a highlight or selling point of the position that appears in search results.
+      SEEK ANZ allows up to three search bullet points when \`SeekAnzAdProductFeatures\`'s \`searchBulletPointsIndicator\` is true.
+    - \`SearchSummary\` is a short description that appears in search results.
+
+    Scheme requirements:
+
+    - The \`seekAnz\` scheme requires \`AdvertisementDetails\` and \`SearchSummary\` to be included.
+    """
+    descriptionId: String!
   }
 
   """
@@ -3185,11 +3195,13 @@ export const typeDefs = gql`
   """
   type PositionHistory {
     """
-    The start date of the position.
-
-    This may only contain the year and month, e.g. \`2019-01\`.
+    Whether the person is still working at the organization, if known.
     """
-    start: HistoryDate!
+    current: Boolean
+    """
+    An array of descriptions of the person's responsibilities, skills and achievements in the position.
+    """
+    descriptions: [String!]!
     """
     The end date of the position if known.
 
@@ -3197,17 +3209,15 @@ export const typeDefs = gql`
     """
     end: HistoryDate
     """
-    Whether the person is still working at the organization, if known.
+    The start date of the position.
+
+    This may only contain the year and month, e.g. \`2019-01\`.
     """
-    current: Boolean
+    start: HistoryDate!
     """
     The title that the person held for this position.
     """
     title: String!
-    """
-    An array of descriptions of the person's responsibilities, skills and achievements in the position.
-    """
-    descriptions: [String!]!
   }
 
   """
@@ -3216,6 +3226,30 @@ export const typeDefs = gql`
   This is a container object that groups multiple \`PositionProfile\`s together along with their owner.
   """
   type PositionOpening {
+    """
+    The identifier for the \`PositionOpening\`.
+    """
+    documentId: ObjectIdentifier!
+    """
+    An array of profiles for the position opening.
+
+    Each profile represents a posted job ad or an unposted internal requisition associated with this opening.
+    """
+    positionProfiles: [PositionProfile!]!
+    """
+    The party that owns the position opening.
+
+    This may be different from the hiring organization if the position opening is created by a recruitment agency.
+    """
+    postingRequester: PostingRequester!
+    """
+    An optional field for storing additional data with a \`PositionOpening\`.
+
+    The metadata is not used by SEEK and won't be seen by hirers or candidates.
+
+    This field has a maximum length of 1,000 bytes in UTF-8 encoding.
+    """
+    seekPartnerMetadata: String
     """
     The status of the position opening.
 
@@ -3226,30 +3260,6 @@ export const typeDefs = gql`
     - \`Closed\` indicates the position opening has been closed.
     """
     statusCode: String!
-    """
-    The identifier for the \`PositionOpening\`.
-    """
-    documentId: ObjectIdentifier!
-    """
-    An optional field for storing additional data with a \`PositionOpening\`.
-
-    The metadata is not used by SEEK and won't be seen by hirers or candidates.
-
-    This field has a maximum length of 1,000 bytes in UTF-8 encoding.
-    """
-    seekPartnerMetadata: String
-    """
-    The party that owns the position opening.
-
-    This may be different from the hiring organization if the position opening is created by a recruitment agency.
-    """
-    postingRequester: PostingRequester!
-    """
-    An array of profiles for the position opening.
-
-    Each profile represents a posted job ad or an unposted internal requisition associated with this opening.
-    """
-    positionProfiles: [PositionProfile!]!
   }
 
   """
@@ -3335,49 +3345,29 @@ export const typeDefs = gql`
   """
   interface PositionProfile {
     """
-    The identifier for the \`PositionProfile\`.
+    The occupational categories of the job.
     """
-    profileId: ObjectIdentifier!
+    jobCategories: [JobCategory!]!
+    """
+    The salary or compensation offered for the position.
+    """
+    offeredRemunerationPackage: RemunerationPackage!
+    """
+    An array of formatted position profile descriptions.
+    """
+    positionFormattedDescriptions: [PositionFormattedDescription!]!
+    """
+    The locations of the position.
+    """
+    positionLocation: [Location!]!
     """
     The \`PositionOpening\` that this profile was created under.
     """
     positionOpening: PositionOpening!
     """
-    The type of position profile.
-
-    See \`PositionProfile\` implementations for a list of supported values.
-    """
-    seekTypeCode: String!
-    """
-    A short phrase describing the position as it would be listed on a business card or in a company directory.
-    """
-    positionTitle: String!
-    """
     The organization which has the position.
     """
     positionOrganizations: [HiringOrganization!]!
-    """
-    An optional hirer-provided opaque job reference.
-    """
-    seekHirerJobReference: String
-    """
-    An optional opaque billing reference.
-
-    This appears on the invoice when SEEK bills the hirer for a job ad.
-    """
-    seekBillingReference: String
-    """
-    A unique resource identifier the position profile.
-
-    - For posted position profiles, this is the public web URL of the posted job ad.
-
-    - For unposted position profiles, this is the profile's object identifier.
-    """
-    positionUri: String!
-    """
-    An array of formatted position profile descriptions.
-    """
-    positionFormattedDescriptions: [PositionFormattedDescription!]!
     """
     An array of codes for the offered schedules for the position.
 
@@ -3390,9 +3380,25 @@ export const typeDefs = gql`
     """
     positionScheduleTypeCodes: [String!]
     """
-    The salary or compensation offered for the position.
+    A short phrase describing the position as it would be listed on a business card or in a company directory.
     """
-    offeredRemunerationPackage: RemunerationPackage!
+    positionTitle: String!
+    """
+    A unique resource identifier the position profile.
+
+    - For posted position profiles, this is the public web URL of the posted job ad.
+
+    - For unposted position profiles, this is the profile's object identifier.
+    """
+    positionUri: String!
+    """
+    The instructions related to posting the job ad.
+    """
+    postingInstructions: [PostingInstruction!]!
+    """
+    The identifier for the \`PositionProfile\`.
+    """
+    profileId: ObjectIdentifier!
     """
     A work type code for the \`seekAnz\` scheme.
 
@@ -3407,27 +3413,33 @@ export const typeDefs = gql`
     """
     seekAnzWorkTypeCode: String
     """
-    The occupational categories of the job.
-    """
-    jobCategories: [JobCategory!]!
-    """
-    The locations of the position.
-    """
-    positionLocation: [Location!]!
-    """
     The set of questions presented to candidates during an application.
 
     The questionnaire responses will be available as \`CandidateProfile.seekQuestionnaireSubmission\` on the candidate's application profile.
     """
     seekApplicationQuestionnaire: ApplicationQuestionnaire
     """
-    The video to render within the job ad.
+    An optional opaque billing reference.
+
+    This appears on the invoice when SEEK bills the hirer for a job ad.
     """
-    seekVideo: SeekVideo
+    seekBillingReference: String
     """
-    The instructions related to posting the job ad.
+    Whether the position profile was created by the requesting partner.
+
+    If your software cannot ingest objects that are created by another source,
+    this can be used to filter out such position profiles.
+
+    This indicator is unavailable where we cannot cheaply determine the source
+    of the position profile.
+    \`null\` values should not be filtered out.
+    See specific implementations for further details.
     """
-    postingInstructions: [PostingInstruction!]!
+    seekCreatedBySelfIndicator: Boolean
+    """
+    An optional hirer-provided opaque job reference.
+    """
+    seekHirerJobReference: String
     """
     An optional field for storing additional data with a \`PositionProfile\`.
 
@@ -3436,6 +3448,16 @@ export const typeDefs = gql`
     This field has a maximum length of 1,000 bytes in UTF-8 encoding.
     """
     seekPartnerMetadata: String
+    """
+    The type of position profile.
+
+    See \`PositionProfile\` implementations for a list of supported values.
+    """
+    seekTypeCode: String!
+    """
+    The video to render within the job ad.
+    """
+    seekVideo: SeekVideo
   }
 
   """
@@ -3443,9 +3465,28 @@ export const typeDefs = gql`
   """
   type PositionProfileClosedEvent implements Event {
     """
+    The date & time the \`PositionProfile\` was closed.
+
+    \`PositionProfile\`s are closed automatically when they reach their \`PostingInstruction.end\` date.
+    They can also be closed early using the \`closePostedPositionProfile\` mutation.
+
+    This field has weak ordering guarantees, so it should not be used as a pagination argument.
+    """
+    createDateTime: DateTime!
+    """
     The identifier for the \`Event\`.
     """
     id: ObjectIdentifier!
+    """
+    The \`PositionProfile\` that was closed.
+
+    This may return null if the \`PositionProfile\` has been closed for an extended period of time.
+    """
+    positionProfile: PostedPositionProfile
+    """
+    The identifier for the \`PositionProfile\` that was closed.
+    """
+    positionProfileId: String!
     """
     The data source for the event.
 
@@ -3457,25 +3498,6 @@ export const typeDefs = gql`
     """
     typeCode: String!
     """
-    The date & time the \`PositionProfile\` was closed.
-
-    \`PositionProfile\`s are closed automatically when they reach their \`PostingInstruction.end\` date.
-    They can also be closed early using the \`closePostedPositionProfile\` mutation.
-
-    This field has weak ordering guarantees, so it should not be used as a pagination argument.
-    """
-    createDateTime: DateTime!
-    """
-    The identifier for the \`PositionProfile\` that was closed.
-    """
-    positionProfileId: String!
-    """
-    The \`PositionProfile\` that was closed.
-
-    This may return null if the \`PositionProfile\` has been closed for an extended period of time.
-    """
-    positionProfile: PostedPositionProfile
-    """
     A page of webhook attempts for the current event matching the specified criteria.
 
     A maximum of 100 webhook attempts can be returned in a single page.
@@ -3498,6 +3520,10 @@ export const typeDefs = gql`
       """
       before: String
       """
+      The additional \`WebhookAttempt\`-specific criteria to filter by.
+      """
+      filter: WebhookAttemptsFilterInput
+      """
       The upper limit of webhook attempts to return from the start of the list.
 
       Defaults to 10 if neither \`first\` nor \`last\` are specified.
@@ -3514,10 +3540,6 @@ export const typeDefs = gql`
       \`first\` and \`last\` cannot be specified in the same query.
       """
       last: Int
-      """
-      The additional \`WebhookAttempt\`-specific criteria to filter by.
-      """
-      filter: WebhookAttemptsFilterInput
     ): WebhookAttemptsConnection!
   }
 
@@ -3526,9 +3548,25 @@ export const typeDefs = gql`
   """
   type PositionProfilePostedEvent implements Event {
     """
+    The date & time the \`PositionProfile\` was considered as successfully posted inside of SEEK's internal systems.
+
+    This field has weak ordering guarantees, so it should not be used as a pagination argument.
+    """
+    createDateTime: DateTime!
+    """
     The identifier for the \`Event\`.
     """
     id: ObjectIdentifier!
+    """
+    The \`PositionProfile\` that was posted.
+
+    This may return null if the \`PositionProfile\` has been closed for an extended period of time.
+    """
+    positionProfile: PostedPositionProfile
+    """
+    The identifier for the \`PositionProfile\` that was posted.
+    """
+    positionProfileId: String!
     """
     The data source for the event.
 
@@ -3540,22 +3578,6 @@ export const typeDefs = gql`
     """
     typeCode: String!
     """
-    The date & time the \`PositionProfile\` was considered as successfully posted inside of SEEK's internal systems.
-
-    This field has weak ordering guarantees, so it should not be used as a pagination argument.
-    """
-    createDateTime: DateTime!
-    """
-    The identifier for the \`PositionProfile\` that was posted.
-    """
-    positionProfileId: String!
-    """
-    The \`PositionProfile\` that was posted.
-
-    This may return null if the \`PositionProfile\` has been closed for an extended period of time.
-    """
-    positionProfile: PostedPositionProfile
-    """
     A page of webhook attempts for the current event matching the specified criteria.
 
     A maximum of 100 webhook attempts can be returned in a single page.
@@ -3578,6 +3600,10 @@ export const typeDefs = gql`
       """
       before: String
       """
+      The additional \`WebhookAttempt\`-specific criteria to filter by.
+      """
+      filter: WebhookAttemptsFilterInput
+      """
       The upper limit of webhook attempts to return from the start of the list.
 
       Defaults to 10 if neither \`first\` nor \`last\` are specified.
@@ -3594,10 +3620,6 @@ export const typeDefs = gql`
       \`first\` and \`last\` cannot be specified in the same query.
       """
       last: Int
-      """
-      The additional \`WebhookAttempt\`-specific criteria to filter by.
-      """
-      filter: WebhookAttemptsFilterInput
     ): WebhookAttemptsConnection!
   }
 
@@ -3619,8 +3641,8 @@ export const typeDefs = gql`
   The response from the \`postPosition\` mutation.
   """
   union PostPositionPayload =
-      PostPositionPayload_Success
-    | PostPositionPayload_Conflict
+      PostPositionPayload_Conflict
+    | PostPositionPayload_Success
 
   """
   The conflict result for the \`postPosition\` mutation.
@@ -3669,8 +3691,8 @@ export const typeDefs = gql`
   The response from the \`postPositionProfileForOpening\` mutation.
   """
   union PostPositionProfileForOpeningPayload =
-      PostPositionProfileForOpeningPayload_Success
-    | PostPositionProfileForOpeningPayload_Conflict
+      PostPositionProfileForOpeningPayload_Conflict
+    | PostPositionProfileForOpeningPayload_Success
 
   """
   The conflict result for the \`postPositionProfileForOpening\` mutation.
@@ -3702,15 +3724,33 @@ export const typeDefs = gql`
   """
   input PostPositionProfileForOpeningPositionProfileInput {
     """
+    An array of \`JobCategory\` identifiers.
+
+    Scheme requirements:
+
+    - The \`seekAnz\` scheme requires exactly one element.
+    """
+    jobCategories: [String!]!
+    """
+    The salary or compensation offered for the position.
+    """
+    offeredRemunerationPackage: RemunerationPackageInput!
+    """
+    An array of formatted position profile descriptions.
+    """
+    positionFormattedDescriptions: [PositionFormattedDescriptionInput!]!
+    """
+    An array of \`Location\` identifiers.
+
+    Scheme requirements:
+
+    - The \`seekAnz\` scheme requires exactly one element.
+    """
+    positionLocation: [String!]!
+    """
     The identifier for the \`PositionOpening\` that this position profile belongs to.
     """
     positionOpeningId: String!
-    """
-    A short phrase describing the position as it would be listed on a business card or in a company directory.
-
-    This field has a maximum length of 80 bytes in UTF-8 encoding.
-    """
-    positionTitle: String!
     """
     An array of identifiers for the \`HiringOrganization\`s that have the position.
 
@@ -3719,24 +3759,6 @@ export const typeDefs = gql`
     - The \`seekAnz\` scheme requires exactly one element.
     """
     positionOrganizations: [String!]!
-    """
-    An optional hirer-provided opaque job reference.
-
-    This field has a maximum length of 50 bytes in UTF-8 encoding.
-    """
-    seekHirerJobReference: String
-    """
-    An optional opaque billing reference.
-
-    This appears on the invoice when SEEK bills the hirer for the job ad.
-
-    This field has a maximum length of 50 bytes in UTF-8 encoding.
-    """
-    seekBillingReference: String
-    """
-    An array of formatted position profile descriptions.
-    """
-    positionFormattedDescriptions: [PositionFormattedDescriptionInput!]!
     """
     An array of codes for the offered schedules for the position.
 
@@ -3749,9 +3771,19 @@ export const typeDefs = gql`
     """
     positionScheduleTypeCodes: [String!]
     """
-    The salary or compensation offered for the position.
+    A short phrase describing the position as it would be listed on a business card or in a company directory.
+
+    This field has a maximum length of 80 bytes in UTF-8 encoding.
     """
-    offeredRemunerationPackage: RemunerationPackageInput!
+    positionTitle: String!
+    """
+    The instructions related to posting the job ad.
+
+    Scheme requirements:
+
+    - The \`seekAnz\` scheme requires exactly one element.
+    """
+    postingInstructions: [CreatePostingInstructionInput!]!
     """
     A SEEK ANZ work type code.
 
@@ -3771,39 +3803,25 @@ export const typeDefs = gql`
     """
     seekAnzWorkTypeCode: String
     """
-    An array of \`JobCategory\` identifiers.
-
-    Scheme requirements:
-
-    - The \`seekAnz\` scheme requires exactly one element.
-    """
-    jobCategories: [String!]!
-    """
-    An array of \`Location\` identifiers.
-
-    Scheme requirements:
-
-    - The \`seekAnz\` scheme requires exactly one element.
-    """
-    positionLocation: [String!]!
-    """
     The identifier for the \`ApplicationQuestionnaire\` containing the set of questions to present to candidates during an application.
 
     The questionnaire responses will be available as \`CandidateProfile.seekQuestionnaireSubmission\` on the candidate's application profile.
     """
     seekApplicationQuestionnaireId: String
     """
-    The video to render within the job ad.
-    """
-    seekVideo: SeekVideoInput
-    """
-    The instructions related to posting the job ad.
+    An optional opaque billing reference.
 
-    Scheme requirements:
+    This appears on the invoice when SEEK bills the hirer for the job ad.
 
-    - The \`seekAnz\` scheme requires exactly one element.
+    This field has a maximum length of 50 bytes in UTF-8 encoding.
     """
-    postingInstructions: [CreatePostingInstructionInput!]!
+    seekBillingReference: String
+    """
+    An optional hirer-provided opaque job reference.
+
+    This field has a maximum length of 50 bytes in UTF-8 encoding.
+    """
+    seekHirerJobReference: String
     """
     An optional field for storing additional data with a \`PositionProfile\`.
 
@@ -3812,6 +3830,10 @@ export const typeDefs = gql`
     This field has a maximum length of 1,000 bytes in UTF-8 encoding.
     """
     seekPartnerMetadata: String
+    """
+    The video to render within the job ad.
+    """
+    seekVideo: SeekVideoInput
   }
 
   """
@@ -3834,7 +3856,7 @@ export const typeDefs = gql`
     Scheme restrictions:
 
     - The \`seekAnz\` scheme creates the position opening asynchronously.
-      This identifier will initially reference an missing object;
+      This identifier will initially reference a missing object;
       the object should be created within a few minutes.
     """
     documentId: ObjectIdentifier!
@@ -3845,11 +3867,29 @@ export const typeDefs = gql`
   """
   input PostPosition_PositionProfileInput {
     """
-    A short phrase describing the position as it would be listed on a business card or in a company directory.
+    An array of \`JobCategory\` identifiers.
 
-    This field has a maximum length of 80 bytes in UTF-8 encoding.
+    Scheme requirements:
+
+    - The \`seekAnz\` scheme requires exactly one element.
     """
-    positionTitle: String!
+    jobCategories: [String!]!
+    """
+    The salary or compensation offered for the position.
+    """
+    offeredRemunerationPackage: RemunerationPackageInput!
+    """
+    An array of formatted position profile descriptions.
+    """
+    positionFormattedDescriptions: [PositionFormattedDescriptionInput!]!
+    """
+    An array of \`Location\` identifiers.
+
+    Scheme requirements:
+
+    - The \`seekAnz\` scheme requires exactly one element.
+    """
+    positionLocation: [String!]!
     """
     An array of identifiers for the \`HiringOrganization\`s that have the position.
 
@@ -3858,24 +3898,6 @@ export const typeDefs = gql`
     - The \`seekAnz\` scheme requires exactly one element.
     """
     positionOrganizations: [String!]!
-    """
-    An optional hirer-provided opaque job reference.
-
-    This field has a maximum length of 50 bytes in UTF-8 encoding.
-    """
-    seekHirerJobReference: String
-    """
-    An optional opaque billing reference.
-
-    This appears on the invoice when SEEK bills the hirer for the job ad.
-
-    This field has a maximum length of 50 bytes in UTF-8 encoding.
-    """
-    seekBillingReference: String
-    """
-    An array of formatted position profile descriptions.
-    """
-    positionFormattedDescriptions: [PositionFormattedDescriptionInput!]!
     """
     An array of codes for the offered schedules for the position.
 
@@ -3888,9 +3910,19 @@ export const typeDefs = gql`
     """
     positionScheduleTypeCodes: [String!]
     """
-    The salary or compensation offered for the position.
+    A short phrase describing the position as it would be listed on a business card or in a company directory.
+
+    This field has a maximum length of 80 bytes in UTF-8 encoding.
     """
-    offeredRemunerationPackage: RemunerationPackageInput!
+    positionTitle: String!
+    """
+    The instructions related to posting the job ad.
+
+    Scheme requirements:
+
+    - The \`seekAnz\` scheme requires exactly one element.
+    """
+    postingInstructions: [CreatePostingInstructionInput!]!
     """
     A SEEK ANZ work type code.
 
@@ -3910,39 +3942,25 @@ export const typeDefs = gql`
     """
     seekAnzWorkTypeCode: String
     """
-    An array of \`JobCategory\` identifiers.
-
-    Scheme requirements:
-
-    - The \`seekAnz\` scheme requires exactly one element.
-    """
-    jobCategories: [String!]!
-    """
-    An array of \`Location\` identifiers.
-
-    Scheme requirements:
-
-    - The \`seekAnz\` scheme requires exactly one element.
-    """
-    positionLocation: [String!]!
-    """
     The identifier for the \`ApplicationQuestionnaire\` containing the set of questions to present to candidates during an application.
 
     The questionnaire responses will be available as \`CandidateProfile.seekQuestionnaireSubmission\` on the candidate's application profile.
     """
     seekApplicationQuestionnaireId: String
     """
-    The video to render within the job ad.
-    """
-    seekVideo: SeekVideoInput
-    """
-    The instructions related to posting the job ad.
+    An optional opaque billing reference.
 
-    Scheme requirements:
+    This appears on the invoice when SEEK bills the hirer for the job ad.
 
-    - The \`seekAnz\` scheme requires exactly one element.
+    This field has a maximum length of 50 bytes in UTF-8 encoding.
     """
-    postingInstructions: [CreatePostingInstructionInput!]!
+    seekBillingReference: String
+    """
+    An optional hirer-provided opaque job reference.
+
+    This field has a maximum length of 50 bytes in UTF-8 encoding.
+    """
+    seekHirerJobReference: String
     """
     An optional field for storing additional data with a \`PositionProfile\`.
 
@@ -3951,6 +3969,10 @@ export const typeDefs = gql`
     This field has a maximum length of 1,000 bytes in UTF-8 encoding.
     """
     seekPartnerMetadata: String
+    """
+    The video to render within the job ad.
+    """
+    seekVideo: SeekVideoInput
   }
 
   """
@@ -3963,7 +3985,7 @@ export const typeDefs = gql`
     Scheme restrictions:
 
     - The \`seekAnz\` scheme creates the position profile asynchronously.
-      This identifier will initially reference an missing object;
+      This identifier will initially reference a missing object;
       the object should be created within a few minutes.
     """
     profileId: ObjectIdentifier!
@@ -3976,43 +3998,29 @@ export const typeDefs = gql`
   """
   type PostedPositionProfile implements PositionProfile {
     """
-    The identifier for the \`PositionProfile\`.
+    The occupational categories of the job.
     """
-    profileId: ObjectIdentifier!
+    jobCategories: [JobCategory!]!
+    """
+    The salary or compensation offered for the position.
+    """
+    offeredRemunerationPackage: RemunerationPackage!
+    """
+    An array of formatted position profile descriptions.
+    """
+    positionFormattedDescriptions: [PositionFormattedDescription!]!
+    """
+    The locations of the position.
+    """
+    positionLocation: [Location!]!
     """
     The \`PositionOpening\` that this profile was created under.
     """
     positionOpening: PositionOpening!
     """
-    The type of position profile, i.e. \`PostedPositionProfile\`.
-    """
-    seekTypeCode: String!
-    """
-    A short phrase describing the position as it would be listed on a business card or in a company directory.
-    """
-    positionTitle: String!
-    """
     The organization which has the position.
     """
     positionOrganizations: [HiringOrganization!]!
-    """
-    An optional hirer-provided opaque job reference.
-    """
-    seekHirerJobReference: String
-    """
-    An optional opaque billing reference.
-
-    This appears on the invoice when SEEK bills the hirer for the job ad.
-    """
-    seekBillingReference: String
-    """
-    The public web URL of the posted job ad.
-    """
-    positionUri: String!
-    """
-    An array of formatted position profile descriptions.
-    """
-    positionFormattedDescriptions: [PositionFormattedDescription!]!
     """
     An array of codes for the offered schedules for the position.
 
@@ -4025,9 +4033,21 @@ export const typeDefs = gql`
     """
     positionScheduleTypeCodes: [String!]
     """
-    The salary or compensation offered for the position.
+    A short phrase describing the position as it would be listed on a business card or in a company directory.
     """
-    offeredRemunerationPackage: RemunerationPackage!
+    positionTitle: String!
+    """
+    The public web URL of the posted job ad.
+    """
+    positionUri: String!
+    """
+    The instructions related to posting the job ad.
+    """
+    postingInstructions: [PostingInstruction!]!
+    """
+    The identifier for the \`PositionProfile\`.
+    """
+    profileId: ObjectIdentifier!
     """
     A work type code for the \`seekAnz\` scheme.
 
@@ -4042,27 +4062,31 @@ export const typeDefs = gql`
     """
     seekAnzWorkTypeCode: String
     """
-    The occupational categories of the job.
-    """
-    jobCategories: [JobCategory!]!
-    """
-    The locations of the position.
-    """
-    positionLocation: [Location!]!
-    """
     The set of questions presented to candidates during an application.
 
     The questionnaire responses will be available as \`CandidateProfile.seekQuestionnaireSubmission\` on the candidate's application profile.
     """
     seekApplicationQuestionnaire: ApplicationQuestionnaire
     """
-    The video to render within the job ad.
+    An optional opaque billing reference.
+
+    This appears on the invoice when SEEK bills the hirer for the job ad.
     """
-    seekVideo: SeekVideo
+    seekBillingReference: String
     """
-    The instructions related to posting the job ad.
+    Whether the job ad was initially posted by the requesting partner.
+
+    If your software cannot ingest objects that are created by another source,
+    this can be used to filter out such job ads and their associated applications.
+
+    This indicator is unavailable for job ads posted before September 2021.
+    \`null\` values should not be filtered out.
     """
-    postingInstructions: [PostingInstruction!]!
+    seekCreatedBySelfIndicator: Boolean
+    """
+    An optional hirer-provided opaque job reference.
+    """
+    seekHirerJobReference: String
     """
     An optional field for storing additional data with a \`PositionProfile\`.
 
@@ -4071,6 +4095,14 @@ export const typeDefs = gql`
     This field has a maximum length of 1,000 bytes in UTF-8 encoding.
     """
     seekPartnerMetadata: String
+    """
+    The type of position profile, i.e. \`PostedPositionProfile\`.
+    """
+    seekTypeCode: String!
+    """
+    The video to render within the job ad.
+    """
+    seekVideo: SeekVideo
   }
 
   """
@@ -4078,9 +4110,23 @@ export const typeDefs = gql`
   """
   type PostingInstruction {
     """
-    The start date of the posting.
+    An array of methods for applying to the position.
+
+    If no methods are provided, SEEK's native apply form will be used to receive candidate applications.
+    Native applications will emit a \`CandidateApplicationCreated\` event that points to a \`CandidateProfile\` object.
     """
-    start: DateTime!
+    applicationMethods: [ApplicationMethod!]!
+    """
+    The branding applied to the posted job ad.
+    """
+    branding: AdvertisementBranding
+    """
+    The identifier for the \`AdvertisementBranding\` applied to the posted job ad.
+
+    This is included for HR-JSON compatibility;
+    GraphQL users should use the \`branding\` nested object instead.
+    """
+    brandingId: String
     """
     The end date of the posting.
     """
@@ -4098,23 +4144,9 @@ export const typeDefs = gql`
     """
     seekAnzAdvertisementType: String
     """
-    An array of methods for applying to the position.
-
-    If no methods are provided, SEEK's native apply form will be used to receive candidate applications.
-    Native applications will emit a \`CandidateApplicationCreated\` event that points to a \`CandidateProfile\` object.
+    The start date of the posting.
     """
-    applicationMethods: [ApplicationMethod!]!
-    """
-    The identifier for the \`AdvertisementBranding\` applied to the posted job ad.
-
-    This is included for HR-JSON compatibility;
-    GraphQL users should use the \`branding\` nested object instead.
-    """
-    brandingId: String
-    """
-    The branding applied to the posted job ad.
-    """
-    branding: AdvertisementBranding
+    start: DateTime!
   }
 
   """
@@ -4132,12 +4164,9 @@ export const typeDefs = gql`
     """
     name: String!
     """
-    The legacy SEEK ANZ advertiser ID.
-
-    This is a numeric identifier used by legacy Job Posting & Application Export APIs in the \`seekAnz\` scheme.
-    For hirers or agencies in other schemes this will be \`null\`.
+    Specific contact people for the position opening at the party.
     """
-    seekAnzAdvertiserId: Int
+    personContacts: [SpecifiedPerson!]!
     """
     The role of the owner of the position opening.
 
@@ -4148,9 +4177,12 @@ export const typeDefs = gql`
     """
     roleCode: String!
     """
-    Specific contact people for the position opening at the party.
+    The legacy SEEK ANZ advertiser ID.
+
+    This is a numeric identifier used by legacy Job Posting & Application Export APIs in the \`seekAnz\` scheme.
+    For hirers or agencies in other schemes this will be \`null\`.
     """
-    personContacts: [SpecifiedPerson!]!
+    seekAnzAdvertiserId: Int
   }
 
   """
@@ -4162,6 +4194,13 @@ export const typeDefs = gql`
     """
     id: String!
     """
+    Specific contact people for the position opening at the party.
+
+    The name and email address of at least one contact person must be provided.
+    A maximum of 10 contact people may be provided.
+    """
+    personContacts: [SpecifiedPersonInput!]!
+    """
     The role of the owner of the position opening.
 
     Currently, one code is defined:
@@ -4169,13 +4208,6 @@ export const typeDefs = gql`
     - \`Company\` indicates a company hiring on behalf of themselves.
     """
     roleCode: String!
-    """
-    Specific contact people for the position opening at the party.
-
-    The name and email address of at least one contact person must be provided.
-    A maximum of 10 contact people may be provided.
-    """
-    personContacts: [SpecifiedPersonInput!]!
   }
 
   """
@@ -4205,96 +4237,16 @@ export const typeDefs = gql`
   """
   type Query {
     """
-    The API version.
-    """
-    version: String!
-    """
-    The hiring organization for the given \`id\`.
+    The advertisement branding for the given \`id\`.
 
-    This query accepts browser tokens that include the \`query:organizations\` scope.
+    This query accepts browser tokens that include the \`query:advertisement-brandings\` scope.
     """
-    hiringOrganization(
+    advertisementBranding(
       """
-      The value of \`HiringOrganization.id\` for the requested object.
+      The value of \`AdvertisementBranding.id\` for the requested object.
       """
       id: String!
-    ): HiringOrganization
-    """
-    A page of hirers that have an active relationship with the requesting partner.
-
-    This will not return agencies; it's not possible to have a relationship with an agency.
-
-    A maximum of 100 hirers can be returned in a single page.
-    Additional hirers can be queried using a pagination cursor.
-
-    The result list is ordered alphabetically by the hirer's name.
-
-    This query accepts browser tokens that include the \`query:organizations\` scope.
-    It will only return the single hirer that the browser token is scoped to.
-    """
-    hiringOrganizations(
-      """
-      The scheme of the hirers.
-
-      Currently, only \`seekAnz\` and \`seekAnzPublicTest\` are supported.
-      """
-      schemeId: String!
-      """
-      An opaque cursor to the earlier bounding hirer.
-
-      Resulting hirers will be alphabetically later than this cursor.
-      """
-      after: String
-      """
-      An opaque cursor to the later bounding hirers.
-
-      Resulting hirers will be alphabetically earlier than this cursor.
-      """
-      before: String
-      """
-      The upper limit of hirers to return from the start of the list.
-
-      Defaults to 10 if neither \`first\` nor \`last\` are specified.
-      Excess hirers will be trimmed from the end of the list.
-
-      \`first\` and \`last\` cannot be specified in the same query.
-      """
-      first: Int
-      """
-      The upper limit of hirers to return from the end of the list.
-
-      Excess hirers will be trimmed from the start of the list.
-
-      \`first\` and \`last\` cannot be specified in the same query.
-      """
-      last: Int
-      """
-      The additional \`HiringOrganization\`-specific criteria to filter by.
-      """
-      filter: HiringOrganizationsFilterInput
-    ): HiringOrganizationsConnection!
-    """
-    A hiring organization corresponding to the given SEEK ANZ advertiser ID.
-
-    This query accepts browser tokens that include the \`query:organizations\` scope.
-    """
-    seekAnzAdvertiser(
-      """
-      The legacy SEEK ANZ advertiser ID.
-
-      This is a numeric identifier used by legacy Job Posting & Application Export APIs in the \`seekAnz\` scheme.
-      """
-      id: Int!
-    ): HiringOrganization
-    """
-    The organizations the query's access token can act on behalf of.
-
-    For all token types this returns the name of the integration partner.
-
-    This query accepts browser tokens that include the \`query:organizations\` scope.
-    When provided with a browser token this will additionally return the scoped SEEK hirer.
-    """
-    self: SelfOrganizations!
+    ): AdvertisementBranding
     """
     A page of advertisement brandings associated with the specified \`hirerId\`.
 
@@ -4323,6 +4275,10 @@ export const typeDefs = gql`
       """
       first: Int
       """
+      The identifier for the \`HiringOrganization\`.
+      """
+      hirerId: String!
+      """
       The upper limit of advertisement brandings to return from the end of the list.
 
       Excess advertisement brandings will be trimmed from the start of the list.
@@ -4330,204 +4286,7 @@ export const typeDefs = gql`
       \`first\` and \`last\` cannot be specified in the same query.
       """
       last: Int
-      """
-      The identifier for the \`HiringOrganization\`.
-      """
-      hirerId: String!
     ): AdvertisementBrandingsConnection!
-    """
-    The advertisement branding for the given \`id\`.
-
-    This query accepts browser tokens that include the \`query:advertisement-brandings\` scope.
-    """
-    advertisementBranding(
-      """
-      The value of \`AdvertisementBranding.id\` for the requested object.
-      """
-      id: String!
-    ): AdvertisementBranding
-    """
-    Ad products available when initially posting a job ad.
-
-    This query accepts browser tokens that include the \`query:ad-products\` scope.
-    """
-    seekAnzHirerAdvertisementCreationProducts(
-      """
-      The identifier for the \`HiringOrganization\` that will post the job ad.
-      """
-      hirerId: String!
-      """
-      The proposed state of the job ad to be posted.
-      """
-      draftAdvertisement: SeekAnzAdProductAdvertisementDraftInput!
-    ): [SeekAnzAdProduct!]
-    """
-    Ad products available when updating a live job ad.
-
-    Use this query when you have the \`PositionProfile.profileId\` for the live job ad.
-
-    This query accepts browser tokens that include the \`query:ad-products\` scope.
-    """
-    seekAnzHirerAdvertisementModificationProducts(
-      """
-      The identifier for the \`HiringOrganization\` that posted the live job ad.
-      """
-      hirerId: String!
-      """
-      The value of \`PositionProfile.profileId\` for the live job ad.
-      """
-      advertisementId: String!
-      """
-      The proposed state of the updated job ad.
-      """
-      draftAdvertisement: SeekAnzAdProductAdvertisementDraftInput!
-    ): [SeekAnzAdProduct!]
-    """
-    Ad products available when updating a job ad.
-
-    Use this query when you don't have the \`PositionProfile.profileId\` for the live job ad.
-
-    This query accepts browser tokens that include the \`query:ad-products\` scope.
-    """
-    seekAnzHirerAdvertisementModificationProductsAlt(
-      """
-      The identifier for the \`HiringOrganization\` that posted the live job ad.
-      """
-      hirerId: String!
-      """
-      The state of the live job ad on SEEK's job board.
-
-      This depends on your software persisting & updating the state of the live job ad.
-      The \`seekAnzHirerAdvertisementModificationProducts\` query is recommended if you have a \`PositionProfile.profileId\` for the live job ad.
-      """
-      advertisement: SeekAnzAdProductAdvertisementInput!
-      """
-      The proposed state of the updated job ad.
-      """
-      draftAdvertisement: SeekAnzAdProductAdvertisementDraftInput!
-    ): [SeekAnzAdProduct!]
-    """
-    A location node with the given location \`id\`.
-
-    This query accepts browser tokens that include the \`query:ontologies\` scope.
-    """
-    location(
-      """
-      The value of \`Location.id\` for the requested object.
-      """
-      id: String!
-    ): Location
-    """
-    An array of location nodes relevant to the text provided.
-
-    This query accepts browser tokens that include the \`query:ontologies\` scope.
-    """
-    locationSuggestions(
-      """
-      The context that the location suggestions will be used for.
-
-      The only supported value is \`PositionPosting\` which returns locations for the purposes of posting a position profile.
-      Additional values will be added in the future.
-      """
-      usageTypeCode: String!
-      """
-      The scheme for the location dataset to query.
-
-      Currently, only \`seekAnz\` and \`seekAnzPublicTest\` are supported.
-      """
-      schemeId: String!
-      """
-      The identifier for the \`HiringOrganization\` used to provide location suggestions weighted by the hirer's SEEK-configured domicile.
-
-      This field is ignored when its scheme doesn't match \`schemeId\`.
-      """
-      hirerId: String
-      """
-      Hirer-provided text used for the location suggestions.
-
-      This currently expects a substring of a location's name (e.g. a suburb or city name).
-      Postcodes and street addresses are not supported.
-      """
-      text: String!
-      """
-      A non-negative limit to the number of locations to return.
-
-      Defaults to 20.
-      """
-      first: Int
-    ): [LocationSuggestion!]
-    """
-    An array of locations relevant to the provided geolocation ordered by distance.
-
-    This query accepts browser tokens that include the \`query:ontologies\` scope.
-    """
-    nearestLocations(
-      """
-      The scheme for the location dataset to query.
-
-      Currently, only \`seekAnz\` and \`seekAnzPublicTest\` are supported.
-      """
-      schemeId: String!
-      """
-      The geolocation coordinates input used for the location suggestions.
-      """
-      geoLocation: GeoLocationInput!
-      """
-      A non-negative limit to the number of locations to return.
-
-      Defaults to the maximum value of 10.
-      """
-      first: Int
-    ): [Location!]
-    """
-    The job category for the given \`id\`.
-
-    This query accepts browser tokens that include the \`query:ontologies\` scope.
-    """
-    jobCategory(
-      """
-      The value of \`JobCategory.id\` for the requested object.
-      """
-      id: String!
-    ): JobCategory
-    """
-    A list of top-level job categories for the provided scheme.
-
-    This query accepts browser tokens that include the \`query:ontologies\` scope.
-    """
-    jobCategories(
-      """
-      The scheme of the job categories.
-
-      Currently, only \`seekAnz\` and \`seekAnzPublicTest\` are supported.
-      """
-      schemeId: String!
-    ): [JobCategory!]!
-    """
-    An array of suggested job categories for the provided partial \`PositionProfile\`.
-
-    This query accepts browser tokens that include the \`query:ontologies\` scope.
-    """
-    jobCategorySuggestions(
-      """
-      The partial position profile to suggest a job category for.
-
-      This should include the same field values that will eventually be used to create or post the \`PositionProfile\`.
-      """
-      positionProfile: JobCategorySuggestionPositionProfileInput!
-      """
-      The scheme of the suggested job categories.
-
-      Currently, only \`seekAnz\` and \`seekAnzPublicTest\` are supported.
-      """
-      schemeId: String!
-      """
-      A non-negative limit to the number of job categories to return.
-
-      Defaults to 10.
-      """
-      first: Int
-    ): [JobCategorySuggestionChoice!]!
     """
     An application questionnaire with the given \`id\`.
 
@@ -4541,64 +4300,6 @@ export const typeDefs = gql`
       """
       id: String!
     ): ApplicationQuestionnaire
-    """
-    A position opening with the given \`id\`.
-    """
-    positionOpening(
-      """
-      The value of \`PositionOpening.documentId\` for the requested object.
-      """
-      id: String!
-    ): PositionOpening
-    """
-    A position profile with the given \`id\`.
-    """
-    positionProfile(
-      """
-      The value of \`PositionProfile.profileId\` for the requested object.
-      """
-      id: String!
-    ): PositionProfile
-    """
-    A page of position openings for the given \`hirerId\`.
-
-    Currently, only position openings in the \`global\` and \`globalPublicTest\` schemes are returned.
-
-    A maximum of 20 position openings can be returned in a single page.
-    Additional position openings can be queried using a pagination cursor.
-    """
-    positionOpenings(
-      """
-      The identifier for the \`HiringOrganization\` to retrieve position openings for.
-      """
-      hirerId: String!
-      """
-      An opaque cursor to the earlier bounding page.
-
-      Resulting position openings will _succeed_ this cursor.
-      """
-      after: String
-      """
-      The upper limit of position openings to return from the start of the list.
-
-      Defaults to 10 if \`first\` is not specified.
-      Excess position openings will be trimmed from the end of the list.
-      """
-      first: Int
-      """
-      The additional \`PositionOpening\`-specific criteria to filter by.
-      """
-      filter: PositionOpeningsFilterInput
-    ): PositionOpeningConnection!
-    """
-    The \`CandidateProfile\` for the given \`id\`.
-    """
-    candidateProfile(
-      """
-      The value of \`CandidateProfile.profileId\` for the requested object.
-      """
-      id: String!
-    ): CandidateProfile
     """
     The candidate for the given \`id\`.
 
@@ -4619,6 +4320,15 @@ export const typeDefs = gql`
       """
       id: String!
     ): CandidateProcessHistoryItem
+    """
+    The \`CandidateProfile\` for the given \`id\`.
+    """
+    candidateProfile(
+      """
+      The value of \`CandidateProfile.profileId\` for the requested object.
+      """
+      id: String!
+    ): CandidateProfile
     """
     The event for the given \`id\`.
     """
@@ -4651,6 +4361,10 @@ export const typeDefs = gql`
       """
       before: String
       """
+      The additional \`Event\`-specific criteria to filter by.
+      """
+      filter: EventsFilterInput
+      """
       The upper limit of events to return from the start of the list.
 
       Defaults to 10 if neither \`first\` nor \`last\` are specified.
@@ -4668,16 +4382,334 @@ export const typeDefs = gql`
       """
       last: Int
       """
-      The additional \`Event\`-specific criteria to filter by.
-      """
-      filter: EventsFilterInput
-      """
       The data source for the event.
 
       Currently, only \`seekAnz\` and \`seekAnzPublicTest\` are supported.
       """
       schemeId: String!
     ): EventsConnection!
+    """
+    The hiring organization for the given \`id\`.
+
+    This query accepts browser tokens that include the \`query:organizations\` scope.
+    """
+    hiringOrganization(
+      """
+      The value of \`HiringOrganization.id\` for the requested object.
+      """
+      id: String!
+    ): HiringOrganization
+    """
+    A page of hirers that have an active relationship with the requesting partner.
+
+    This will not return agencies; it's not possible to have a relationship with an agency.
+
+    A maximum of 100 hirers can be returned in a single page.
+    Additional hirers can be queried using a pagination cursor.
+
+    The result list is ordered alphabetically by the hirer's name.
+
+    This query accepts browser tokens that include the \`query:organizations\` scope.
+    It will only return the single hirer that the browser token is scoped to.
+    """
+    hiringOrganizations(
+      """
+      An opaque cursor to the earlier bounding hirer.
+
+      Resulting hirers will be alphabetically later than this cursor.
+      """
+      after: String
+      """
+      An opaque cursor to the later bounding hirers.
+
+      Resulting hirers will be alphabetically earlier than this cursor.
+      """
+      before: String
+      """
+      The additional \`HiringOrganization\`-specific criteria to filter by.
+      """
+      filter: HiringOrganizationsFilterInput
+      """
+      The upper limit of hirers to return from the start of the list.
+
+      Defaults to 10 if neither \`first\` nor \`last\` are specified.
+      Excess hirers will be trimmed from the end of the list.
+
+      \`first\` and \`last\` cannot be specified in the same query.
+      """
+      first: Int
+      """
+      The upper limit of hirers to return from the end of the list.
+
+      Excess hirers will be trimmed from the start of the list.
+
+      \`first\` and \`last\` cannot be specified in the same query.
+      """
+      last: Int
+      """
+      The scheme of the hirers.
+
+      Currently, only \`seekAnz\` and \`seekAnzPublicTest\` are supported.
+      """
+      schemeId: String!
+    ): HiringOrganizationsConnection!
+    """
+    A list of top-level job categories for the provided scheme.
+
+    This query accepts browser tokens that include the \`query:ontologies\` scope.
+    """
+    jobCategories(
+      """
+      The scheme of the job categories.
+
+      Currently, only \`seekAnz\` and \`seekAnzPublicTest\` are supported.
+      """
+      schemeId: String!
+    ): [JobCategory!]!
+    """
+    The job category for the given \`id\`.
+
+    This query accepts browser tokens that include the \`query:ontologies\` scope.
+    """
+    jobCategory(
+      """
+      The value of \`JobCategory.id\` for the requested object.
+      """
+      id: String!
+    ): JobCategory
+    """
+    An array of suggested job categories for the provided partial \`PositionProfile\`.
+
+    This query accepts browser tokens that include the \`query:ontologies\` scope.
+    """
+    jobCategorySuggestions(
+      """
+      A non-negative limit to the number of job categories to return.
+
+      Defaults to 10.
+      """
+      first: Int
+      """
+      The partial position profile to suggest a job category for.
+
+      This should include the same field values that will eventually be used to create or post the \`PositionProfile\`.
+      """
+      positionProfile: JobCategorySuggestionPositionProfileInput!
+      """
+      The scheme of the suggested job categories.
+
+      Currently, only \`seekAnz\` and \`seekAnzPublicTest\` are supported.
+      """
+      schemeId: String!
+    ): [JobCategorySuggestionChoice!]!
+    """
+    A location node with the given location \`id\`.
+
+    This query accepts browser tokens that include the \`query:ontologies\` scope.
+    """
+    location(
+      """
+      The value of \`Location.id\` for the requested object.
+      """
+      id: String!
+    ): Location
+    """
+    An array of location nodes relevant to the text provided.
+
+    This query accepts browser tokens that include the \`query:ontologies\` scope.
+    """
+    locationSuggestions(
+      """
+      A non-negative limit to the number of locations to return.
+
+      Defaults to 20.
+      """
+      first: Int
+      """
+      The identifier for the \`HiringOrganization\` used to provide location suggestions weighted by the hirer's SEEK-configured domicile.
+
+      This field is ignored when its scheme doesn't match \`schemeId\`.
+      """
+      hirerId: String
+      """
+      The scheme for the location dataset to query.
+
+      Currently, only \`seekAnz\` and \`seekAnzPublicTest\` are supported.
+      """
+      schemeId: String!
+      """
+      Hirer-provided text used for the location suggestions.
+
+      This currently expects a substring of a location's name (e.g. a suburb or city name).
+      Postcodes and street addresses are not supported.
+      """
+      text: String!
+      """
+      The context that the location suggestions will be used for.
+
+      The only supported value is \`PositionPosting\` which returns locations for the purposes of posting a position profile.
+      Additional values will be added in the future.
+      """
+      usageTypeCode: String!
+    ): [LocationSuggestion!]
+    """
+    An array of locations relevant to the provided geolocation ordered by distance.
+
+    This query accepts browser tokens that include the \`query:ontologies\` scope.
+    """
+    nearestLocations(
+      """
+      A non-negative limit to the number of locations to return.
+
+      Defaults to the maximum value of 10.
+      """
+      first: Int
+      """
+      The geolocation coordinates input used for the location suggestions.
+      """
+      geoLocation: GeoLocationInput!
+      """
+      The scheme for the location dataset to query.
+
+      Currently, only \`seekAnz\` and \`seekAnzPublicTest\` are supported.
+      """
+      schemeId: String!
+    ): [Location!]
+    """
+    A position opening with the given \`id\`.
+    """
+    positionOpening(
+      """
+      The value of \`PositionOpening.documentId\` for the requested object.
+      """
+      id: String!
+    ): PositionOpening
+    """
+    A page of position openings for the given \`hirerId\`.
+
+    Currently, only position openings in the \`global\` and \`globalPublicTest\` schemes are returned.
+
+    A maximum of 20 position openings can be returned in a single page.
+    Additional position openings can be queried using a pagination cursor.
+    """
+    positionOpenings(
+      """
+      An opaque cursor to the earlier bounding page.
+
+      Resulting position openings will _succeed_ this cursor.
+      """
+      after: String
+      """
+      The additional \`PositionOpening\`-specific criteria to filter by.
+      """
+      filter: PositionOpeningsFilterInput
+      """
+      The upper limit of position openings to return from the start of the list.
+
+      Defaults to 10 if \`first\` is not specified.
+      Excess position openings will be trimmed from the end of the list.
+      """
+      first: Int
+      """
+      The identifier for the \`HiringOrganization\` to retrieve position openings for.
+      """
+      hirerId: String!
+    ): PositionOpeningConnection!
+    """
+    A position profile with the given \`id\`.
+    """
+    positionProfile(
+      """
+      The value of \`PositionProfile.profileId\` for the requested object.
+      """
+      id: String!
+    ): PositionProfile
+    """
+    A hiring organization corresponding to the given SEEK ANZ advertiser ID.
+
+    This query accepts browser tokens that include the \`query:organizations\` scope.
+    """
+    seekAnzAdvertiser(
+      """
+      The legacy SEEK ANZ advertiser ID.
+
+      This is a numeric identifier used by legacy Job Posting & Application Export APIs in the \`seekAnz\` scheme.
+      """
+      id: Int!
+    ): HiringOrganization
+    """
+    Ad products available when initially posting a job ad.
+
+    This query accepts browser tokens that include the \`query:ad-products\` scope.
+    """
+    seekAnzHirerAdvertisementCreationProducts(
+      """
+      The proposed state of the job ad to be posted.
+      """
+      draftAdvertisement: SeekAnzAdProductAdvertisementDraftInput!
+      """
+      The identifier for the \`HiringOrganization\` that will post the job ad.
+      """
+      hirerId: String!
+    ): [SeekAnzAdProduct!]
+    """
+    Ad products available when updating a live job ad.
+
+    Use this query when you have the \`PositionProfile.profileId\` for the live job ad.
+
+    This query accepts browser tokens that include the \`query:ad-products\` scope.
+    """
+    seekAnzHirerAdvertisementModificationProducts(
+      """
+      The value of \`PositionProfile.profileId\` for the live job ad.
+      """
+      advertisementId: String!
+      """
+      The proposed state of the updated job ad.
+      """
+      draftAdvertisement: SeekAnzAdProductAdvertisementDraftInput!
+      """
+      The identifier for the \`HiringOrganization\` that posted the live job ad.
+      """
+      hirerId: String!
+    ): [SeekAnzAdProduct!]
+    """
+    Ad products available when updating a job ad.
+
+    Use this query when you don't have the \`PositionProfile.profileId\` for the live job ad.
+
+    This query accepts browser tokens that include the \`query:ad-products\` scope.
+    """
+    seekAnzHirerAdvertisementModificationProductsAlt(
+      """
+      The state of the live job ad on SEEK's job board.
+
+      This depends on your software persisting & updating the state of the live job ad.
+      The \`seekAnzHirerAdvertisementModificationProducts\` query is recommended if you have a \`PositionProfile.profileId\` for the live job ad.
+      """
+      advertisement: SeekAnzAdProductAdvertisementInput!
+      """
+      The proposed state of the updated job ad.
+      """
+      draftAdvertisement: SeekAnzAdProductAdvertisementDraftInput!
+      """
+      The identifier for the \`HiringOrganization\` that posted the live job ad.
+      """
+      hirerId: String!
+    ): [SeekAnzAdProduct!]
+    """
+    The organizations the query's access token can act on behalf of.
+
+    For all token types this returns the name of the integration partner.
+
+    This query accepts browser tokens that include the \`query:organizations\` scope.
+    When provided with a browser token this will additionally return the scoped SEEK hirer.
+    """
+    self: SelfOrganizations!
+    """
+    The API version.
+    """
+    version: String!
     """
     A page of webhook attempts matching the specified criteria generated by a selected event.
 
@@ -4701,6 +4733,14 @@ export const typeDefs = gql`
       """
       before: String
       """
+      The identifier for the \`Event\` that generated the attempts.
+      """
+      eventId: String!
+      """
+      The additional \`WebhookAttempt\`-specific criteria to filter by.
+      """
+      filter: WebhookAttemptsFilterInput
+      """
       The upper limit of webhook attempts to return from the start of the list.
 
       Defaults to 10 if neither \`first\` nor \`last\` are specified.
@@ -4717,83 +4757,26 @@ export const typeDefs = gql`
       \`first\` and \`last\` cannot be specified in the same query.
       """
       last: Int
-      """
-      The additional \`WebhookAttempt\`-specific criteria to filter by.
-      """
-      filter: WebhookAttemptsFilterInput
-      """
-      The identifier for the \`Event\` that generated the attempts.
-      """
-      eventId: String!
     ): WebhookAttemptsConnection!
     """
-    The webhook subscription for the given \`id\`.
+    The webhook request for the given \`requestId\`.
     """
-    webhookSubscription(
+    webhookRequest(
       """
-      The value of \`WebhookSubscription.id\` for the requested object.
-      """
-      id: String!
-    ): WebhookSubscription
-    """
-    A page of webhook subscriptions matching the specified criteria.
+      The request ID.
 
-    A maximum of 100 webhook subscriptions can be returned in a single page.
-    Additional webhook subscriptions can be queried using a pagination cursor.
+      This is included in the HTTP request as an \`X-Request-Id\` custom header.
+      """
+      requestId: String!
+      """
+      The scheme ID of the \`WebhookSubscription\` that generated the request.
 
-    The result list is returned in ascending creation date & time order.
-    It starts from the earliest known subscription if no pagination arguments are provided.
-    """
-    webhookSubscriptions(
-      """
-      An opaque cursor to the earlier bounding webhook subscription.
-
-      Resulting webhook subscriptions will _succeed_ this cursor.
-      """
-      after: String
-      """
-      An opaque cursor to the later bounding webhook subscription.
-
-      Resulting webhook subscriptions will _precede_ this cursor.
-      """
-      before: String
-      """
-      The upper limit of webhook subscriptions to return from the start of the list.
-
-      Defaults to 10 if neither \`first\` nor \`last\` are specified.
-      Excess webhook subscriptions will be trimmed from the end of the list.
-
-      \`first\` and \`last\` cannot be specified in the same query.
-      """
-      first: Int
-      """
-      The upper limit of webhook subscriptions to return from the end of the list.
-
-      Excess webhook subscriptions will be trimmed from the start of the list.
-
-      \`first\` and \`last\` cannot be specified in the same query.
-      """
-      last: Int
-      """
-      The additional \`WebhookSubscription\`-specific criteria to filter by.
-      """
-      filter: WebhookSubscriptionsFilterInput
-      """
-      The data source for the webhook subscription's events.
+      This is used to determine which data source includes the \`requestId\`.
 
       Currently, only \`seekAnz\` and \`seekAnzPublicTest\` are supported.
       """
       schemeId: String!
-    ): WebhookSubscriptionsConnection!
-    """
-    The webhook subscription replay for the given \`id\`.
-    """
-    webhookSubscriptionReplay(
-      """
-      The value of \`WebhookSubscriptionReplay.id\` for the requested object.
-      """
-      id: String!
-    ): WebhookSubscriptionReplay
+    ): WebhookRequest
     """
     A page of webhook requests matching the specified criteria generated by a selected subscription.
 
@@ -4817,6 +4800,10 @@ export const typeDefs = gql`
       """
       before: String
       """
+      The additional \`WebhookRequest\`-specific criteria to filter by.
+      """
+      filter: WebhookRequestFilterInput
+      """
       The upper limit of webhook requests to return from the start of the list.
 
       Defaults to 10 if neither \`first\` nor \`last\` are specified.
@@ -4834,33 +4821,78 @@ export const typeDefs = gql`
       """
       last: Int
       """
-      The additional \`WebhookRequest\`-specific criteria to filter by.
-      """
-      filter: WebhookRequestFilterInput
-      """
       The identifier for the \`WebhookSubscription\` that generated the requests.
       """
       subscriptionId: String!
     ): WebhookRequestsConnection!
     """
-    The webhook request for the given \`requestId\`.
+    The webhook subscription for the given \`id\`.
     """
-    webhookRequest(
+    webhookSubscription(
       """
-      The scheme ID of the \`WebhookSubscription\` that generated the request.
+      The value of \`WebhookSubscription.id\` for the requested object.
+      """
+      id: String!
+    ): WebhookSubscription
+    """
+    The webhook subscription replay for the given \`id\`.
+    """
+    webhookSubscriptionReplay(
+      """
+      The value of \`WebhookSubscriptionReplay.id\` for the requested object.
+      """
+      id: String!
+    ): WebhookSubscriptionReplay
+    """
+    A page of webhook subscriptions matching the specified criteria.
 
-      This is used to determine which data source includes the \`requestId\`.
+    A maximum of 100 webhook subscriptions can be returned in a single page.
+    Additional webhook subscriptions can be queried using a pagination cursor.
+
+    The result list is returned in ascending creation date & time order.
+    It starts from the earliest known subscription if no pagination arguments are provided.
+    """
+    webhookSubscriptions(
+      """
+      An opaque cursor to the earlier bounding webhook subscription.
+
+      Resulting webhook subscriptions will _succeed_ this cursor.
+      """
+      after: String
+      """
+      An opaque cursor to the later bounding webhook subscription.
+
+      Resulting webhook subscriptions will _precede_ this cursor.
+      """
+      before: String
+      """
+      The additional \`WebhookSubscription\`-specific criteria to filter by.
+      """
+      filter: WebhookSubscriptionsFilterInput
+      """
+      The upper limit of webhook subscriptions to return from the start of the list.
+
+      Defaults to 10 if neither \`first\` nor \`last\` are specified.
+      Excess webhook subscriptions will be trimmed from the end of the list.
+
+      \`first\` and \`last\` cannot be specified in the same query.
+      """
+      first: Int
+      """
+      The upper limit of webhook subscriptions to return from the end of the list.
+
+      Excess webhook subscriptions will be trimmed from the start of the list.
+
+      \`first\` and \`last\` cannot be specified in the same query.
+      """
+      last: Int
+      """
+      The data source for the webhook subscription's events.
 
       Currently, only \`seekAnz\` and \`seekAnzPublicTest\` are supported.
       """
       schemeId: String!
-      """
-      The request ID.
-
-      This is included in the HTTP request as an \`X-Request-Id\` custom header.
-      """
-      requestId: String!
-    ): WebhookRequest
+    ): WebhookSubscriptionsConnection!
   }
 
   """
@@ -4868,27 +4900,21 @@ export const typeDefs = gql`
   """
   type RemunerationAmount {
     """
+    The three-letter ISO 4217 currency code, in uppercase.
+    """
+    currency: String!
+    """
     A non-negative float in the major currency unit for the ISO currency code.
 
     For example, this is the number of dollars in dollar-denominated currencies.
     """
     value: Float!
-    """
-    The three-letter ISO 4217 currency code, in uppercase.
-    """
-    currency: String!
   }
 
   """
   A monetary amount of remuneration in a specified currency.
   """
   input RemunerationAmountInput {
-    """
-    A non-negative float in the major currency unit for the ISO currency code.
-
-    For example, this is the number of dollars in dollar-denominated currencies.
-    """
-    value: Float!
     """
     The three-letter ISO 4217 currency code, in uppercase.
 
@@ -4903,6 +4929,12 @@ export const typeDefs = gql`
     - \`AUD\` is used by all other locations.
     """
     currency: String!
+    """
+    A non-negative float in the major currency unit for the ISO currency code.
+
+    For example, this is the number of dollars in dollar-denominated currencies.
+    """
+    value: Float!
   }
 
   """
@@ -4921,12 +4953,6 @@ export const typeDefs = gql`
     """
     basisCode: String!
     """
-    An array of offered salary ranges.
-
-    The \`seekAnz\` scheme will always have a single element containing the amount for the \`basisCode\`.
-    """
-    ranges: [RemunerationRange!]!
-    """
     Human readable descriptions of the remuneration package.
 
     The \`seekAnz\` scheme will be limited to a single element.
@@ -4934,6 +4960,12 @@ export const typeDefs = gql`
     An empty array signifies that no salary descriptions exist for the remuneration package.
     """
     descriptions: [String!]!
+    """
+    An array of offered salary ranges.
+
+    The \`seekAnz\` scheme will always have a single element containing the amount for the \`basisCode\`.
+    """
+    ranges: [RemunerationRange!]!
   }
 
   """
@@ -4946,20 +4978,15 @@ export const typeDefs = gql`
     Currently, four codes are defined:
 
     - \`CommissionOnly\` employment is paid exclusively a results-based commission.
+      This payment basis is deprecated and should not be used by new integrations.
+
     - \`Hourly\` employment is paid for the number of hours worked.
+
     - \`Salaried\` employment is paid on an annual basis.
+
     - \`SalariedPlusCommission\` employment is paid on an annual basis plus a results-based commission.
     """
     basisCode: String!
-    """
-    An array of offered salary ranges.
-
-    Scheme requirements:
-
-    - The \`global\` scheme has a maximum of 10 elements for \`UnpostedPositionProfile\`s.
-    - The \`seekAnz\` scheme is limited to a single element containing the amount for the \`basisCode\`.
-    """
-    ranges: [RemunerationRangeInput!]!
     """
     Human readable descriptions of the remuneration package.
 
@@ -4971,26 +4998,21 @@ export const typeDefs = gql`
     An empty array must be provided to signify the absence of salary descriptions.
     """
     descriptions: [String!]!
+    """
+    An array of offered salary ranges.
+
+    Scheme requirements:
+
+    - The \`global\` scheme has a maximum of 10 elements for \`UnpostedPositionProfile\`s.
+    - The \`seekAnz\` scheme is limited to a single element containing the amount for the \`basisCode\`.
+    """
+    ranges: [RemunerationRangeInput!]!
   }
 
   """
   A salary or compensation range for a position.
   """
   type RemunerationRange {
-    """
-    The minimum amount an organization is willing to pay for a position.
-
-    The value must be greater than 0.
-    """
-    minimumAmount: RemunerationAmount!
-    """
-    The maximum amount an organization is willing to pay for a position.
-
-    A 'null' value indicates the organization has not specified an upper bound for the range.
-
-    If specified, the value must be greater than or equal to the value of \`minimumAmount\`.
-    """
-    maximumAmount: RemunerationAmount
     """
     The interval the remuneration amounts are calculated over.
 
@@ -5000,26 +5022,26 @@ export const typeDefs = gql`
     - \`Year\` is used to express annual salaries or commissions.
     """
     intervalCode: String!
+    """
+    The maximum amount an organization is willing to pay for a position.
+
+    A 'null' value indicates the organization has not specified an upper bound for the range.
+
+    If specified, the value must be greater than or equal to the value of \`minimumAmount\`.
+    """
+    maximumAmount: RemunerationAmount
+    """
+    The minimum amount an organization is willing to pay for a position.
+
+    The value must be greater than 0.
+    """
+    minimumAmount: RemunerationAmount!
   }
 
   """
   A salary or compensation range for a position.
   """
   input RemunerationRangeInput {
-    """
-    The minimum amount an organization is willing to pay for a position.
-
-    The value must be greater than 0.
-    """
-    minimumAmount: RemunerationAmountInput!
-    """
-    The maximum amount an organization is willing to pay for a position.
-
-    A \`null\` value indicates the organization has not specified an upper bound for the range.
-
-    If specified, the value must be greater than or equal to the value of \`minimumAmount\`.
-    """
-    maximumAmount: RemunerationAmountInput
     """
     The interval the remuneration amounts are calculated over.
 
@@ -5033,6 +5055,20 @@ export const typeDefs = gql`
     For all other \`RemunerationPackageInput.basisCode\`s, the \`RemunerationRangeInput.intervalCode\` must be \`Year\`.
     """
     intervalCode: String!
+    """
+    The maximum amount an organization is willing to pay for a position.
+
+    A \`null\` value indicates the organization has not specified an upper bound for the range.
+
+    If specified, the value must be greater than or equal to the value of \`minimumAmount\`.
+    """
+    maximumAmount: RemunerationAmountInput
+    """
+    The minimum amount an organization is willing to pay for a position.
+
+    The value must be greater than 0.
+    """
+    minimumAmount: RemunerationAmountInput!
   }
 
   """
@@ -5040,13 +5076,13 @@ export const typeDefs = gql`
   """
   input ReplayWebhookSubscriptionInput {
     """
-    The details of the webhook subscription to be replayed.
-    """
-    webhookSubscription: ReplayWebhookSubscription_SubscriptionInput!
-    """
     The additional fields to filter which events are to be replayed.
     """
     filter: ReplayWebhookSubscription_FilterInput
+    """
+    The details of the webhook subscription to be replayed.
+    """
+    webhookSubscription: ReplayWebhookSubscription_SubscriptionInput!
   }
 
   """
@@ -5064,12 +5100,6 @@ export const typeDefs = gql`
   """
   input ReplayWebhookSubscription_FilterInput {
     """
-    Whether to include all events, or only events that have failed to be delivered.
-
-    Defaults to false if no value is provided.
-    """
-    replayDeliveredEventsIndicator: Boolean
-    """
     The earliest event to replay.
 
     Defaults to the first event if no value is provided.
@@ -5081,6 +5111,12 @@ export const typeDefs = gql`
     Defaults to the last event if no value is provided.
     """
     createdBeforeDateTime: DateTime
+    """
+    Whether to include all events, or only events that have failed to be delivered.
+
+    Defaults to false if no value is provided.
+    """
+    replayDeliveredEventsIndicator: Boolean
   }
 
   """
@@ -5110,33 +5146,33 @@ export const typeDefs = gql`
     """
     advertisementTypeCode: String!
     """
-    The human-readable ad product name.
+    How the ad product would be paid.
     """
-    name: String!
+    checkoutEstimate: SeekAnzAdProductCheckoutEstimate!
     """
     The human-readable description of the ad product.
     """
     description: String!
     """
-    The price component of the ad product.
-    """
-    price: SeekAnzAdProductPrice!
-    """
     Whether the ad product is enabled.
     """
     enabledIndicator: Boolean!
     """
-    How the ad product would be paid.
+    The features this product supports.
     """
-    checkoutEstimate: SeekAnzAdProductCheckoutEstimate!
+    features: SeekAnzAdProductFeatures!
     """
     The messages that may be shown to hirer.
     """
     messages: [SeekAnzAdProductMessage!]!
     """
-    The features this product supports.
+    The human-readable ad product name.
     """
-    features: SeekAnzAdProductFeatures!
+    name: String!
+    """
+    The price component of the ad product.
+    """
+    price: SeekAnzAdProductPrice!
   }
 
   """
@@ -5145,6 +5181,25 @@ export const typeDefs = gql`
   This contains the \`PositionProfile\` fields relevant to querying ad products.
   """
   input SeekAnzAdProductAdvertisementDraftInput {
+    """
+    The hirer's job reference.
+
+    This field is used for tracing & debugging.
+    It does not impact the available ad products or their pricing.
+    """
+    hirerJobReference: String
+    """
+    The identifier for the \`JobCategory\`.
+    """
+    jobCategoryId: String
+    """
+    The identifier for the position's \`Location\`.
+    """
+    positionLocationId: String
+    """
+    A short phrase describing the position as it would be listed on a business card or in a company directory.
+    """
+    positionTitle: String
     """
     The type of the ad product.
 
@@ -5157,25 +5212,6 @@ export const typeDefs = gql`
     This field is unused and may be omitted from the input.
     """
     typeCode: String
-    """
-    The hirer's job reference.
-
-    This field is used for tracing & debugging.
-    It does not impact the available ad products or their pricing.
-    """
-    hirerJobReference: String
-    """
-    A short phrase describing the position as it would be listed on a business card or in a company directory.
-    """
-    positionTitle: String
-    """
-    The identifier for the \`JobCategory\`.
-    """
-    jobCategoryId: String
-    """
-    The identifier for the position's \`Location\`.
-    """
-    positionLocationId: String
   }
 
   """
@@ -5184,6 +5220,29 @@ export const typeDefs = gql`
   This contains the \`PositionProfile\` fields relevant to querying ad products.
   """
   input SeekAnzAdProductAdvertisementInput {
+    """
+    The hirer's job reference.
+
+    This field is used for tracing & debugging.
+    It does not impact the available ad product or their pricing.
+    """
+    hirerJobReference: String
+    """
+    The identifier for the \`PositionProfile\`.
+    """
+    id: String
+    """
+    The identifier for the \`JobCategory\`.
+    """
+    jobCategoryId: String!
+    """
+    The identifier for the position's \`Location\`.
+    """
+    positionLocationId: String!
+    """
+    A short phrase describing the position as it would be listed on a business card or in a company directory.
+    """
+    positionTitle: String!
     """
     The type of the ad product.
 
@@ -5194,35 +5253,16 @@ export const typeDefs = gql`
     - \`Premium\` indicates a Premium ad.
     """
     typeCode: String!
-    """
-    The identifier for the \`PositionProfile\`.
-    """
-    id: String
-    """
-    The hirer's job reference.
-
-    This field is used for tracing & debugging.
-    It does not impact the available ad product or their pricing.
-    """
-    hirerJobReference: String
-    """
-    A short phrase describing the position as it would be listed on a business card or in a company directory.
-    """
-    positionTitle: String!
-    """
-    The identifier for the \`JobCategory\`.
-    """
-    jobCategoryId: String!
-    """
-    The identifier for the position's \`Location\`.
-    """
-    positionLocationId: String!
   }
 
   """
   The details of the outstanding payment.
   """
   type SeekAnzAdProductCheckoutEstimate {
+    """
+    The contract component of the checkout estimate.
+    """
+    contractConsumption: SeekAnzAdProductContractConsumption
     """
     The amount left to be paid.
     """
@@ -5231,10 +5271,6 @@ export const typeDefs = gql`
     The human-readable checkout estimate summary.
     """
     summary: String!
-    """
-    The contract component of the checkout estimate.
-    """
-    contractConsumption: SeekAnzAdProductContractConsumption
   }
 
   """
@@ -5283,15 +5319,9 @@ export const typeDefs = gql`
   """
   type SeekAnzAdProductMessage {
     """
-    The type of message.
-
-    Currently, four codes are defined:
-    - \`PricingError\` indicates a message relating to a pricing error.
-    - \`PremiumPerformanceChange\` indicates a message relating to an impact on premium ad performance.
-    - \`UpdatePricingIncrease\` indicates a message relating to a price increase in update mode for SEEK contracts.
-    - \`ProductUnavailable\` indicates a message relating to an unavailable product.
+    The human-readable content of the message.
     """
-    typeCode: String!
+    content: String!
     """
     The severity of the message.
 
@@ -5302,6 +5332,16 @@ export const typeDefs = gql`
     """
     severityCode: String!
     """
+    The type of message.
+
+    Currently, four codes are defined:
+    - \`PricingError\` indicates a message relating to a pricing error.
+    - \`PremiumPerformanceChange\` indicates a message relating to an impact on premium ad performance.
+    - \`UpdatePricingIncrease\` indicates a message relating to a price increase in update mode for SEEK contracts.
+    - \`ProductUnavailable\` indicates a message relating to an unavailable product.
+    """
+    typeCode: String!
+    """
     The visibility of the message.
 
     Currently, two codes are defined:
@@ -5309,10 +5349,6 @@ export const typeDefs = gql`
     - \`Always\` indicates the message should be always visible.
     """
     visibilityCode: String!
-    """
-    The human-readable content of the message.
-    """
-    content: String!
   }
 
   """
@@ -5328,13 +5364,13 @@ export const typeDefs = gql`
     """
     summary: String!
     """
-    Whether the price can be shown to the hirer.
-    """
-    visibleForHirerIndicator: Boolean!
-    """
     Whether taxes will be added when purchased.
     """
     taxedIndicator: Boolean!
+    """
+    Whether the price can be shown to the hirer.
+    """
+    visibleForHirerIndicator: Boolean!
   }
 
   """
@@ -5342,13 +5378,13 @@ export const typeDefs = gql`
   """
   enum SeekAttachmentRole {
     """
-    A resume or CV.
-    """
-    RESUME
-    """
     A cover letter specific to a position opening.
     """
     COVER_LETTER
+    """
+    A resume or CV.
+    """
+    RESUME
     """
     A document supporting a position-specific selection criteria.
     """
@@ -5380,10 +5416,6 @@ export const typeDefs = gql`
   """
   type SeekVideo {
     """
-    The URL of the video.
-    """
-    url: String!
-    """
     The position relative to the advertisement details where the video is rendered.
 
     Currently, two codes are defined:
@@ -5392,12 +5424,25 @@ export const typeDefs = gql`
     - \`Below\` indicates the video will render below the advertisement details.
     """
     seekAnzPositionCode: String
+    """
+    The URL of the video.
+    """
+    url: String!
   }
 
   """
   An externally hosted video to display alongside advertisement details.
   """
   input SeekVideoInput {
+    """
+    The position relative to the advertisement details where the video should be rendered.
+
+    Currently, two codes are defined:
+
+    - \`Above\` indicates the video will render above the advertisement details.
+    - \`Below\` indicates the video will render below the advertisement details.
+    """
+    seekAnzPositionCode: String
     """
     The URL of the video to display.
 
@@ -5410,15 +5455,6 @@ export const typeDefs = gql`
         - \`https://youtu.be/aAgePQvHBQM\`
     """
     url: String!
-    """
-    The position relative to the advertisement details where the video should be rendered.
-
-    Currently, two codes are defined:
-
-    - \`Above\` indicates the video will render above the advertisement details.
-    - \`Below\` indicates the video will render below the advertisement details.
-    """
-    seekAnzPositionCode: String
   }
 
   """
@@ -5426,15 +5462,15 @@ export const typeDefs = gql`
   """
   type SelfOrganizations {
     """
-    The partner organization making the request.
-    """
-    partner: PartnerOrganization!
-    """
     The hirer the browser token is scoped to.
 
     This will be \`null\` when queried with a partner token.
     """
     hirer: HiringOrganization
+    """
+    The partner organization making the request.
+    """
+    partner: PartnerOrganization!
   }
 
   """
@@ -5442,13 +5478,13 @@ export const typeDefs = gql`
   """
   type SpecifiedPerson {
     """
-    The person's name.
-    """
-    name: PersonName!
-    """
     Methods of communication with the person.
     """
     communication: Communication!
+    """
+    The person's name.
+    """
+    name: PersonName!
     """
     The role of the person.
 
@@ -5465,13 +5501,13 @@ export const typeDefs = gql`
   """
   input SpecifiedPersonInput {
     """
-    The person's name.
-    """
-    name: PersonNameInput!
-    """
     Methods of communication with the person.
     """
     communication: CommunicationInput!
+    """
+    The person's name.
+    """
+    name: PersonNameInput!
     """
     The role of the person.
 
@@ -5490,51 +5526,29 @@ export const typeDefs = gql`
   """
   type UnpostedPositionProfile implements PositionProfile {
     """
-    The identifier for the \`PositionProfile\`.
+    The occupational categories of the job.
     """
-    profileId: ObjectIdentifier!
+    jobCategories: [JobCategory!]!
     """
-    A human-readable name given to the profile.
-
-    This in addition to the \`positionTitle\` can help identify the profile to an end user.
+    The salary or compensation offered for the position.
     """
-    profileName: String
+    offeredRemunerationPackage: RemunerationPackage!
+    """
+    An array of formatted position profile descriptions.
+    """
+    positionFormattedDescriptions: [PositionFormattedDescription!]!
+    """
+    The locations of the position.
+    """
+    positionLocation: [Location!]!
     """
     The \`PositionOpening\` that this profile was created under.
     """
     positionOpening: PositionOpening!
     """
-    The type of position profile, i.e. \`UnpostedPositionProfile\`.
-    """
-    seekTypeCode: String!
-    """
-    A short phrase describing the position as it would be listed on a business card or in a company directory.
-    """
-    positionTitle: String!
-    """
     The organization which has the position.
     """
     positionOrganizations: [HiringOrganization!]!
-    """
-    An optional hirer-provided opaque job reference.
-    """
-    seekHirerJobReference: String
-    """
-    An optional opaque billing reference.
-
-    SEEK does not use this field on unposted position profiles.
-    """
-    seekBillingReference: String
-    """
-    The object identifier for the \`PositionProfile\`.
-
-    This is duplicated from the \`profileId\` field to satisfy the \`PositionProfile\` interface.
-    """
-    positionUri: String!
-    """
-    An array of formatted position profile descriptions.
-    """
-    positionFormattedDescriptions: [PositionFormattedDescription!]!
     """
     An array of codes for the offered schedules for the position.
 
@@ -5547,9 +5561,29 @@ export const typeDefs = gql`
     """
     positionScheduleTypeCodes: [String!]
     """
-    The salary or compensation offered for the position.
+    A short phrase describing the position as it would be listed on a business card or in a company directory.
     """
-    offeredRemunerationPackage: RemunerationPackage!
+    positionTitle: String!
+    """
+    The object identifier for the \`PositionProfile\`.
+
+    This is duplicated from the \`profileId\` field to satisfy the \`PositionProfile\` interface.
+    """
+    positionUri: String!
+    """
+    The instructions related to posting the job ad.
+    """
+    postingInstructions: [PostingInstruction!]!
+    """
+    The identifier for the \`PositionProfile\`.
+    """
+    profileId: ObjectIdentifier!
+    """
+    A human-readable name given to the profile.
+
+    This in addition to the \`positionTitle\` can help identify the profile to an end user.
+    """
+    profileName: String
     """
     A work type code for the \`seekAnz\` scheme.
 
@@ -5564,27 +5598,30 @@ export const typeDefs = gql`
     """
     seekAnzWorkTypeCode: String
     """
-    The occupational categories of the job.
-    """
-    jobCategories: [JobCategory!]!
-    """
-    The locations of the position.
-    """
-    positionLocation: [Location!]!
-    """
     The set of questions presented to candidates during an application.
 
     The questionnaire responses will be available as \`CandidateProfile.seekQuestionnaireSubmission\` on the candidate's application profile.
     """
     seekApplicationQuestionnaire: ApplicationQuestionnaire
     """
-    The video to render within the job ad.
+    An optional opaque billing reference.
+
+    SEEK does not use this field on unposted position profiles.
     """
-    seekVideo: SeekVideo
+    seekBillingReference: String
     """
-    The instructions related to posting the job ad.
+    Whether the position profile was created by the requesting partner.
+
+    If your software cannot ingest objects that are created by another source,
+    this can be used to filter out such position profiles.
+
+    This indicator is never \`null\` for unposted position profiles.
     """
-    postingInstructions: [PostingInstruction!]!
+    seekCreatedBySelfIndicator: Boolean
+    """
+    An optional hirer-provided opaque job reference.
+    """
+    seekHirerJobReference: String
     """
     An optional field for storing additional data with a \`PositionProfile\`.
 
@@ -5593,6 +5630,14 @@ export const typeDefs = gql`
     This field has a maximum length of 1,000 bytes in UTF-8 encoding.
     """
     seekPartnerMetadata: String
+    """
+    The type of position profile, i.e. \`UnpostedPositionProfile\`.
+    """
+    seekTypeCode: String!
+    """
+    The video to render within the job ad.
+    """
+    seekVideo: SeekVideo
   }
 
   """
@@ -5620,14 +5665,6 @@ export const typeDefs = gql`
   """
   input UpdateCandidateProcessHistoryItem_CandidateProcessHistoryItemInput {
     """
-    The identifier for the \`CandidateProcessHistoryItem\` to be updated.
-    """
-    id: String!
-    """
-    The date & time the action was executed.
-    """
-    actionDate: DateTime!
-    """
     The executed action that constitutes this history item.
 
     This action may or may not trigger a change in the status of the underlying process.
@@ -5636,11 +5673,13 @@ export const typeDefs = gql`
     """
     action: CandidateProcessActionInput!
     """
-    The current status of the underlying process.
-
-    For example, a candidate in an application process may progress through a series of statuses like applied, interviewed, offered, hired.
+    The date & time the action was executed.
     """
-    status: CandidateProcessStatusInput
+    actionDate: DateTime!
+    """
+    The identifier for the \`CandidateProcessHistoryItem\` to be updated.
+    """
+    id: String!
     """
     The position profile that the history item relates to.
 
@@ -5648,6 +5687,10 @@ export const typeDefs = gql`
     such as a general interview with a recruiter.
     """
     positionProfile: CandidateProcessHistoryItem_PositionProfileInput
+    """
+    The parties that executed the action.
+    """
+    primaryParties: [CandidateProcessPartyInput!]!
     """
     The underlying source for the item.
 
@@ -5657,9 +5700,11 @@ export const typeDefs = gql`
     """
     seekSource: SeekProcessHistoryItemSourceInput
     """
-    The parties that executed the action.
+    The current status of the underlying process.
+
+    For example, a candidate in an application process may progress through a series of statuses like applied, interviewed, offered, hired.
     """
-    primaryParties: [CandidateProcessPartyInput!]!
+    status: CandidateProcessStatusInput
   }
 
   """
@@ -5764,15 +5809,29 @@ export const typeDefs = gql`
   """
   input UpdatePostedPositionProfile_PositionProfileInput {
     """
-    The identifier for the posted \`PositionProfile\` to update.
-    """
-    profileId: String!
-    """
-    A short phrase describing the position as it would be listed on a business card or in a company directory.
+    An array of \`JobCategory\` identifiers.
 
-    This field has a maximum length of 80 bytes in UTF-8 encoding.
+    Scheme requirements:
+
+    - The \`seekAnz\` scheme requires exactly one element.
     """
-    positionTitle: String!
+    jobCategories: [String!]!
+    """
+    The salary or compensation offered for the position.
+    """
+    offeredRemunerationPackage: RemunerationPackageInput!
+    """
+    An array of formatted position profile descriptions.
+    """
+    positionFormattedDescriptions: [PositionFormattedDescriptionInput!]!
+    """
+    An array of \`Location\` identifiers.
+
+    Scheme requirements:
+
+    - The \`seekAnz\` scheme requires exactly one element.
+    """
+    positionLocation: [String!]!
     """
     An array of identifiers for the \`HiringOrganization\`s that have the position.
 
@@ -5781,24 +5840,6 @@ export const typeDefs = gql`
     - The \`seekAnz\` scheme requires exactly one element.
     """
     positionOrganizations: [String!]!
-    """
-    An optional hirer-provided opaque job reference.
-
-    This field has a maximum length of 50 bytes in UTF-8 encoding.
-    """
-    seekHirerJobReference: String
-    """
-    An optional opaque billing reference.
-
-    This appears on the invoice when SEEK bills the hirer for the job ad.
-
-    This field has a maximum length of 50 bytes in UTF-8 encoding.
-    """
-    seekBillingReference: String
-    """
-    An array of formatted position profile descriptions.
-    """
-    positionFormattedDescriptions: [PositionFormattedDescriptionInput!]!
     """
     An array of codes for the offered schedules for the position.
 
@@ -5811,9 +5852,23 @@ export const typeDefs = gql`
     """
     positionScheduleTypeCodes: [String!]
     """
-    The salary or compensation offered for the position.
+    A short phrase describing the position as it would be listed on a business card or in a company directory.
+
+    This field has a maximum length of 80 bytes in UTF-8 encoding.
     """
-    offeredRemunerationPackage: RemunerationPackageInput!
+    positionTitle: String!
+    """
+    The instructions related to posting the job ad.
+
+    Scheme requirements:
+
+    - The \`seekAnz\` scheme requires exactly one element.
+    """
+    postingInstructions: [UpdatePostingInstructionInput!]!
+    """
+    The identifier for the posted \`PositionProfile\` to update.
+    """
+    profileId: String!
     """
     A SEEK ANZ work type code.
 
@@ -5833,39 +5888,25 @@ export const typeDefs = gql`
     """
     seekAnzWorkTypeCode: String
     """
-    An array of \`JobCategory\` identifiers.
-
-    Scheme requirements:
-
-    - The \`seekAnz\` scheme requires exactly one element.
-    """
-    jobCategories: [String!]!
-    """
-    An array of \`Location\` identifiers.
-
-    Scheme requirements:
-
-    - The \`seekAnz\` scheme requires exactly one element.
-    """
-    positionLocation: [String!]!
-    """
     This field is deprecated and must be omitted from all inputs.
 
     Do not explicitly set to \`null\` or any other value.
     """
     seekApplicationQuestionnaireId: String
     """
-    The video to render within the job ad.
-    """
-    seekVideo: SeekVideoInput
-    """
-    The instructions related to posting the job ad.
+    An optional opaque billing reference.
 
-    Scheme requirements:
+    This appears on the invoice when SEEK bills the hirer for the job ad.
 
-    - The \`seekAnz\` scheme requires exactly one element.
+    This field has a maximum length of 50 bytes in UTF-8 encoding.
     """
-    postingInstructions: [UpdatePostingInstructionInput!]!
+    seekBillingReference: String
+    """
+    An optional hirer-provided opaque job reference.
+
+    This field has a maximum length of 50 bytes in UTF-8 encoding.
+    """
+    seekHirerJobReference: String
     """
     An optional field for storing additional data with a \`PositionProfile\`.
 
@@ -5874,6 +5915,10 @@ export const typeDefs = gql`
     This field has a maximum length of 1,000 bytes in UTF-8 encoding.
     """
     seekPartnerMetadata: String
+    """
+    The video to render within the job ad.
+    """
+    seekVideo: SeekVideoInput
   }
 
   """
@@ -5890,31 +5935,6 @@ export const typeDefs = gql`
   Information about how to post a job ad and where to direct its candidate applications.
   """
   input UpdatePostingInstructionInput {
-    """
-    A SEEK ANZ advertisement type code.
-
-    Currently, three codes are defined:
-
-    - \`Classic\` indicates a Classic job ad.
-    - \`StandOut\` indicates a StandOut job ad.
-    - \`Premium\` indicates a Premium job ad.
-
-    Scheme requirements:
-
-    - For the \`seekAnz\` scheme, this field is required.
-    - For other schemes, set this to \`null\`.
-    """
-    seekAnzAdvertisementType: String
-    """
-    The end date of the posting.
-
-    Scheme requirements:
-
-    - For the \`seekAnz\` scheme this must be no more than 30 days after the job ad was initially posted.
-
-      If an end date is not specified the job ad's existing end date will be preserved.
-    """
-    end: DateTime
     """
     An array of methods for applying to the position.
 
@@ -5937,6 +5957,31 @@ export const typeDefs = gql`
       When the product's \`SeekAnzAdProductFeatures.brandingIndicator\` value is false, this field will be silently ignored.
     """
     brandingId: String
+    """
+    The end date of the posting.
+
+    Scheme requirements:
+
+    - For the \`seekAnz\` scheme this must be no more than 30 days after the job ad was initially posted.
+
+      If an end date is not specified the job ad's existing end date will be preserved.
+    """
+    end: DateTime
+    """
+    A SEEK ANZ advertisement type code.
+
+    Currently, three codes are defined:
+
+    - \`Classic\` indicates a Classic job ad.
+    - \`StandOut\` indicates a StandOut job ad.
+    - \`Premium\` indicates a Premium job ad.
+
+    Scheme requirements:
+
+    - For the \`seekAnz\` scheme, this field is required.
+    - For other schemes, set this to \`null\`.
+    """
+    seekAnzAdvertisementType: String
   }
 
   """
@@ -5964,41 +6009,27 @@ export const typeDefs = gql`
   """
   input UpdateUnpostedPositionProfile_PositionProfileInput {
     """
-    The identifier for the unposted \`PositionProfile\` to update.
-    """
-    profileId: String!
-    """
-    A human-readable name given to the profile.
+    An array of \`JobCategory\` identifiers.
 
-    This in addition to the \`positionTitle\` can help identify the profile to an end user.
+    A maximum of 10 job categories may be provided.
     """
-    profileName: String
+    jobCategories: [String!]!
     """
-    A short phrase describing the position as it would be listed on a business card or in a company directory.
-
-    This field has a maximum length of 80 bytes in UTF-8 encoding.
+    The salary or compensation offered for the position.
     """
-    positionTitle: String!
-    """
-    An optional hirer-provided opaque job reference.
-
-    This field has a maximum length of 50 bytes in UTF-8 encoding.
-    """
-    seekHirerJobReference: String
-    """
-    An optional opaque billing reference.
-
-    SEEK does not use this field on unposted position profiles.
-
-    This field has a maximum length of 50 bytes in UTF-8 encoding.
-    """
-    seekBillingReference: String
+    offeredRemunerationPackage: RemunerationPackageInput!
     """
     An array of formatted position profile descriptions.
 
     A maximum of 10 formatted descriptions may be provided.
     """
     positionFormattedDescriptions: [PositionFormattedDescriptionInput!]!
+    """
+    An array of \`Location\` identifiers.
+
+    A maximum of 10 locations may be provided.
+    """
+    positionLocation: [String!]!
     """
     An array of codes for the offered schedules for the position.
 
@@ -6009,21 +6040,35 @@ export const typeDefs = gql`
     """
     positionScheduleTypeCodes: [String!]
     """
-    The salary or compensation offered for the position.
-    """
-    offeredRemunerationPackage: RemunerationPackageInput!
-    """
-    An array of \`JobCategory\` identifiers.
+    A short phrase describing the position as it would be listed on a business card or in a company directory.
 
-    A maximum of 10 job categories may be provided.
+    This field has a maximum length of 80 bytes in UTF-8 encoding.
     """
-    jobCategories: [String!]!
+    positionTitle: String!
     """
-    An array of \`Location\` identifiers.
+    The identifier for the unposted \`PositionProfile\` to update.
+    """
+    profileId: String!
+    """
+    A human-readable name given to the profile.
 
-    A maximum of 10 locations may be provided.
+    This in addition to the \`positionTitle\` can help identify the profile to an end user.
     """
-    positionLocation: [String!]!
+    profileName: String
+    """
+    An optional opaque billing reference.
+
+    SEEK does not use this field on unposted position profiles.
+
+    This field has a maximum length of 50 bytes in UTF-8 encoding.
+    """
+    seekBillingReference: String
+    """
+    An optional hirer-provided opaque job reference.
+
+    This field has a maximum length of 50 bytes in UTF-8 encoding.
+    """
+    seekHirerJobReference: String
     """
     An optional field for storing additional data with a \`PositionProfile\`.
 
@@ -6162,16 +6207,16 @@ export const typeDefs = gql`
   """
   input UpdateUploadedCandidateProfileDates_CandidateProfileInput {
     """
-    The identifier for the uploaded \`CandidateProfile\` to be updated.
-    """
-    profileId: String!
-    """
     When the candidate profile was first created in the partner system.
 
     Expects a RFC 3339 compliant date time.
     Millisecond precision is optional, and set to 0 if not provided.
     """
     createDateTime: DateTime!
+    """
+    The identifier for the uploaded \`CandidateProfile\` to be updated.
+    """
+    profileId: String!
     """
     When the candidate profile was last updated in the partner system.
 
@@ -6208,15 +6253,15 @@ export const typeDefs = gql`
   """
   input UpdateUploadedCandidateProfilePositionPreferences_CandidateProfileInput {
     """
-    The identifier for the uploaded \`CandidateProfile\` to be updated.
-    """
-    profileId: String!
-    """
     The candidate's preferences in an ideal position.
 
     \`ProactiveSourcing\` candidates may have 0–1 position preferences.
     """
     positionPreferences: [PositionPreferenceInput!]!
+    """
+    The identifier for the uploaded \`CandidateProfile\` to be updated.
+    """
+    profileId: String!
   }
 
   """
@@ -6268,15 +6313,15 @@ export const typeDefs = gql`
     """
     id: String!
     """
-    The subscriber-owned URL where events will be sent to.
-    """
-    url: String!
-    """
     The maximum number of events that will be sent in each HTTP request.
 
     This number must be between 1 and 10 inclusive. Defaults to 10.
     """
     maxEventsPerAttempt: Int
+    """
+    The subscriber-owned URL where events will be sent to.
+    """
+    url: String!
   }
 
   """
@@ -6308,6 +6353,15 @@ export const typeDefs = gql`
     """
     id: String!
     """
+    The secret for signing webhooks.
+
+    This must be specified if \`signingAlgorithmCode\` is not \`None\`.
+    It is used as the key to generate a message authentication code for each request.
+
+    The secret should be a random string with high entropy that is not reused for any other purpose.
+    """
+    secret: String
+    """
     The algorithm for signing webhooks.
 
     Currently, two codes are defined:
@@ -6321,15 +6375,6 @@ export const typeDefs = gql`
     Regular comparison methods like the \`==\` operator are susceptible to timing attacks.
     """
     signingAlgorithmCode: String!
-    """
-    The secret for signing webhooks.
-
-    This must be specified if \`signingAlgorithmCode\` is not \`None\`.
-    It is used as the key to generate a message authentication code for each request.
-
-    The secret should be a random string with high entropy that is not reused for any other purpose.
-    """
-    secret: String
   }
 
   """
@@ -6403,13 +6448,6 @@ export const typeDefs = gql`
   """
   input UploadCandidate_CandidateInput {
     """
-    The candidate's primary email address.
-
-    The value must match one of the candidate's email addresses.
-    Duplicate uploads will result in a \`BAD_USER_INPUT\` error.
-    """
-    seekPrimaryEmailAddress: String!
-    """
     Instructions on how this candidate should be distributed.
 
     Currently, one product code is defined for uploaded candidates:
@@ -6424,6 +6462,13 @@ export const typeDefs = gql`
     and one of the provided values must match \`seekPrimaryEmailAddress\`.
     """
     person: CandidatePersonInput!
+    """
+    The candidate's primary email address.
+
+    The value must match one of the candidate's email addresses.
+    Duplicate uploads will result in a \`BAD_USER_INPUT\` error.
+    """
+    seekPrimaryEmailAddress: String!
   }
 
   """
@@ -6438,19 +6483,6 @@ export const typeDefs = gql`
     """
     createDateTime: DateTime!
     """
-    When the candidate profile was last updated in the partner system.
-
-    Expects a RFC 3339 compliant date time.
-    Millisecond precision is optional, and set to 0 if not provided.
-    """
-    updateDateTime: DateTime!
-    """
-    The workflow process history of the candidate.
-
-    A maximum of 20 process history items may be provided on initial upload.
-    """
-    seekProcessHistory: [CandidateProcessHistoryItemInput!]!
-    """
     The candidate's preferences in an ideal position.
 
     \`ProactiveSourcing\` candidates may have 0–1 position preferences.
@@ -6463,6 +6495,19 @@ export const typeDefs = gql`
     Currently, only a \`ViewProfile\` action type is defined to provide a URL to view the candidate's profile.
     """
     seekActions: [CandidateProcessActionInput!]!
+    """
+    The workflow process history of the candidate.
+
+    A maximum of 20 process history items may be provided on initial upload.
+    """
+    seekProcessHistory: [CandidateProcessHistoryItemInput!]!
+    """
+    When the candidate profile was last updated in the partner system.
+
+    Expects a RFC 3339 compliant date time.
+    Millisecond precision is optional, and set to 0 if not provided.
+    """
+    updateDateTime: DateTime!
   }
 
   """
@@ -6500,10 +6545,6 @@ export const typeDefs = gql`
   """
   type WebhookAttempt {
     """
-    The identifier for the \`WebhookAttempt\`.
-    """
-    id: ObjectIdentifier!
-    """
     The date & time that the webhook attempt was acknowledged or timed out.
     """
     createDateTime: DateTime!
@@ -6512,15 +6553,19 @@ export const typeDefs = gql`
     """
     event: Event!
     """
+    The identifier for the \`WebhookAttempt\`.
+    """
+    id: ObjectIdentifier!
+    """
+    The HTTP request containing the webhook attempt.
+    """
+    webhookRequest: WebhookRequest!
+    """
     The webhook subscription that was the target of the delivery attempt.
 
     This will be \`null\` if the subscription has since been deleted.
     """
     webhookSubscription: WebhookSubscription
-    """
-    The HTTP request containing the webhook attempt.
-    """
-    webhookRequest: WebhookRequest!
   }
 
   """
@@ -6590,26 +6635,15 @@ export const typeDefs = gql`
   """
   type WebhookRequest {
     """
-    The identifier for the HTTP request.
+    The list of events that were attempted to be delivered in the request body.
+    """
+    attempts: [WebhookAttempt!]!
+    """
+    The date & time the HTTP request occurred.
 
-    This is included in the request as an \`X-Request-Id\` custom header.
+    This field has weak ordering guarantees, so it should not be used as a pagination argument.
     """
-    requestId: String!
-    """
-    The webhook subscription that was the target of the HTTP request.
-
-    This will be \`null\` if the subscription has since been deleted.
-    """
-    webhookSubscription: WebhookSubscription
-    """
-    The HTTP status code returned by the subscription endpoint.
-
-    When an HTTP response wasn't received a synthetic status code will be generated:
-
-    - For \`InvalidUrl\` the status code will be set to \`400\`.
-    - For \`RequestTimeout\` the status code will be set to \`504\`.
-    """
-    statusCode: Int!
+    createDateTime: DateTime!
     """
     The high-level description of the HTTP request's result.
 
@@ -6628,15 +6662,26 @@ export const typeDefs = gql`
     """
     latencyMs: Int
     """
-    The date & time the HTTP request occurred.
+    The identifier for the HTTP request.
 
-    This field has weak ordering guarantees, so it should not be used as a pagination argument.
+    This is included in the request as an \`X-Request-Id\` custom header.
     """
-    createDateTime: DateTime!
+    requestId: String!
     """
-    The list of events that were attempted to be delivered in the request body.
+    The HTTP status code returned by the subscription endpoint.
+
+    When an HTTP response wasn't received a synthetic status code will be generated:
+
+    - For \`InvalidUrl\` the status code will be set to \`400\`.
+    - For \`RequestTimeout\` the status code will be set to \`504\`.
     """
-    attempts: [WebhookAttempt!]!
+    statusCode: Int!
+    """
+    The webhook subscription that was the target of the HTTP request.
+
+    This will be \`null\` if the subscription has since been deleted.
+    """
+    webhookSubscription: WebhookSubscription
   }
 
   """
@@ -6706,28 +6751,17 @@ export const typeDefs = gql`
   """
   type WebhookSubscription {
     """
-    The identifier for the \`WebhookSubscription\`.
+    The date & time the webhook subscription was created.
+
+    Initial \`afterDateTime\` and \`beforeDateTime\` filters apply to this field.
     """
-    id: ObjectIdentifier!
+    createDateTime: DateTime!
     """
     The type of event.
 
     See \`Event\` implementations for a list of supported values.
     """
     eventTypeCode: String!
-    """
-    The data source for the event.
-
-    Currently, only \`seekAnz\` and \`seekAnzPublicTest\` are supported.
-    """
-    schemeId: String!
-    """
-    The optional hirer ID to receive events from.
-
-    By default webhook subscriptions will send events from all hirers the partner has access to.
-    A non-null \`hirerId\` indicates that this subscription is filtered to a single hirer.
-    """
-    hirerId: ObjectIdentifier
     """
     The optional hirer associated with this webhook subscription.
 
@@ -6738,15 +6772,28 @@ export const typeDefs = gql`
     """
     hirer: HiringOrganization
     """
-    The subscriber-owned URL where events are sent to.
+    The optional hirer ID to receive events from.
+
+    By default webhook subscriptions will send events from all hirers the partner has access to.
+    A non-null \`hirerId\` indicates that this subscription is filtered to a single hirer.
     """
-    url: String!
+    hirerId: ObjectIdentifier
+    """
+    The identifier for the \`WebhookSubscription\`.
+    """
+    id: ObjectIdentifier!
     """
     The maximum number of events that will be sent in each HTTP request.
 
     This number is between 1 and 10 inclusive. Defaults to 10.
     """
     maxEventsPerAttempt: Int!
+    """
+    The data source for the event.
+
+    Currently, only \`seekAnz\` and \`seekAnzPublicTest\` are supported.
+    """
+    schemeId: String!
     """
     The algorithm for signing webhooks.
 
@@ -6762,15 +6809,13 @@ export const typeDefs = gql`
     """
     signingAlgorithmCode: String!
     """
-    The date & time the webhook subscription was created.
-
-    Initial \`afterDateTime\` and \`beforeDateTime\` filters apply to this field.
-    """
-    createDateTime: DateTime!
-    """
     The date & time the webhook subscription was last updated.
     """
     updateDateTime: DateTime!
+    """
+    The subscriber-owned URL where events are sent to.
+    """
+    url: String!
     """
     A page of webhook requests for the subscription matching the specified criteria.
 
@@ -6794,6 +6839,10 @@ export const typeDefs = gql`
       """
       before: String
       """
+      The additional \`WebhookRequest\`-specific criteria to filter by.
+      """
+      filter: WebhookRequestFilterInput
+      """
       The upper limit of webhook requests to return from the start of the list.
 
       Defaults to 10 if neither \`first\` nor \`last\` are specified.
@@ -6810,10 +6859,6 @@ export const typeDefs = gql`
       \`first\` and \`last\` cannot be specified in the same query.
       """
       last: Int
-      """
-      The additional \`WebhookRequest\`-specific criteria to filter by.
-      """
-      filter: WebhookRequestFilterInput
     ): WebhookRequestsConnection!
     """
     A page of replays for the current webhook subscription matching the specified criteria.
@@ -6838,6 +6883,10 @@ export const typeDefs = gql`
       """
       before: String
       """
+      The additional \`WebhookSubscriptionReplay\`-specific criteria to filter by.
+      """
+      filter: WebhookSubscriptionReplaysFilterInput
+      """
       The upper limit of webhook subscription replays to return from the start of the list.
 
       Defaults to 10 if neither \`first\` nor \`last\` are specified.
@@ -6854,10 +6903,6 @@ export const typeDefs = gql`
       \`first\` and \`last\` cannot be specified in the same query.
       """
       last: Int
-      """
-      The additional \`WebhookSubscriptionReplay\`-specific criteria to filter by.
-      """
-      filter: WebhookSubscriptionReplaysFilterInput
     ): WebhookSubscriptionReplaysConnection!
   }
 
@@ -6882,13 +6927,24 @@ export const typeDefs = gql`
   """
   type WebhookSubscriptionReplay {
     """
+    The date & time that the webhook subscription replay was created.
+    """
+    createDateTime: DateTime!
+    """
     The identifier for the \`WebhookSubscriptionReplay\`.
     """
     id: ObjectIdentifier!
     """
-    The date & time that the webhook subscription replay was created.
+    The current status of the replay.
+
+    Currently, the following status codes are defined:
+
+    - \`Submitted\`
+    - \`Running\`
+    - \`Completed\`
+    - \`Cancelled\`
     """
-    createDateTime: DateTime!
+    statusCode: String!
     """
     The date & time that the subscription replay was last updated.
 
@@ -6901,17 +6957,6 @@ export const typeDefs = gql`
     This will be \`null\` if the subscription has since been deleted.
     """
     webhookSubscription: WebhookSubscription
-    """
-    The current status of the replay.
-
-    Currently, the following status codes are defined:
-
-    - \`Submitted\`
-    - \`Running\`
-    - \`Completed\`
-    - \`Cancelled\`
-    """
-    statusCode: String!
   }
 
   """
