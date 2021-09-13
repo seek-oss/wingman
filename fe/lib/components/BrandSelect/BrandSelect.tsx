@@ -39,6 +39,15 @@ export const BrandSelect = ({
       first: pageSize,
     });
 
+  useEffect(
+    () =>
+      setVariables({
+        hirerId,
+        first: pageSize,
+      }),
+    [hirerId, pageSize],
+  );
+
   const { data, previousData, loading, error } = useQuery<
     AdvertisementBrandingsQuery,
     AdvertisementBrandingsQueryVariables

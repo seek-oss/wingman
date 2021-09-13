@@ -23,10 +23,6 @@ export default {
   argTypes: {
     braidThemeName: defaultArgTypes.braidThemeName,
     showStorybookAction: defaultArgTypes.showStorybookAction,
-    pageSize: {
-      control: { type: 'radio' },
-      options: [4, 6],
-    },
   },
   component: Component,
 

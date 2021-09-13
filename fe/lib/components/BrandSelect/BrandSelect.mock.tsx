@@ -2,18 +2,11 @@ import React from 'react';
 
 import { MockComponentActions } from '../../private/MockComponentActions/MockComponentActions';
 import { AdvertisementBrandingsQueryVariables } from '../../types/seekApi.graphql';
+import { createCursorConnection } from '../../utils/createCursorConnection';
 import { ApolloMockProvider } from '../ApolloMockProvider/ApolloMockProvider';
 
 import { BrandSelect, BrandSelectProps } from './BrandSelect';
-import {
-  endCursorPaginatedBrandsFirstPage,
-  endCursorPaginatedBrandsSecondPage,
-  mockPaginatedBrandsFirstPage,
-  mockPaginatedBrandsLastPage,
-  mockPaginatedBrandsSecondPage,
-  startCursorPaginatedBrandsLastPage,
-  startCursorPaginatedBrandsSecondPage,
-} from './__fixtures__/brands';
+import { mockBrands } from './__fixtures__/brands';
 
 interface Props extends BrandSelectProps {
   showStorybookAction?: boolean;
@@ -23,33 +16,16 @@ interface Props extends BrandSelectProps {
 export const MockBrandSelect = ({
   client: _client,
   showStorybookAction,
-  pageSize = 4,
+  pageSize,
   ...props
 }: Props) => (
   <ApolloMockProvider
     resolvers={{
       Query: {
         advertisementBrandings: (
-          root,
+          _root,
           args: AdvertisementBrandingsQueryVariables,
-        ) => {
-          if (
-            args.after === endCursorPaginatedBrandsFirstPage ||
-            args.before === startCursorPaginatedBrandsLastPage
-          ) {
-            return mockPaginatedBrandsSecondPage(pageSize);
-          }
-          if (args.after === endCursorPaginatedBrandsSecondPage) {
-            return mockPaginatedBrandsLastPage(pageSize);
-          }
-
-          if (
-            !args.before ||
-            args.before === startCursorPaginatedBrandsSecondPage
-          ) {
-            return mockPaginatedBrandsFirstPage(pageSize);
-          }
-        },
+        ) => createCursorConnection(mockBrands, args),
       },
     }}
   >
