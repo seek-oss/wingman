@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 4.1.0
+
+### Minor Changes
+
+- 470428c: **BrandSelect:** Add component
+
 ## 4.0.2
 
 ### Patch Changes
