@@ -18,7 +18,7 @@ const mockBrands = [
         value:
           'global:advertisementBranding:hirerBranding:MjHScMntyZKfPPKv37EqAn',
       },
-      name: ' Seek logo - no cover image',
+      name: 'SEEK logo - No cover image',
       images: [
         {
           typeCode: 'OriginalLogo',
@@ -37,7 +37,7 @@ const mockBrands = [
         value:
           'global:advertisementBranding:hirerBranding:4pkLmqYhoSxSKmfcKMbDG6',
       },
-      name: ' Seek logo - macbook (green)',
+      name: 'SEEK logo - MacBook (green)',
       images: [
         {
           typeCode: 'OriginalLogo',
@@ -56,7 +56,7 @@ const mockBrands = [
         value:
           'global:advertisementBranding:hirerBranding:CNEHkUP51vvPyYuBwfQw7u',
       },
-      name: 'Seek logo - notebook',
+      name: 'SEEK logo - Notebook',
       images: [
         {
           typeCode: 'OriginalLogo',
@@ -75,7 +75,7 @@ const mockBrands = [
         value:
           'global:advertisementBranding:hirerBranding:MD2FWYzmVd4p5Bs1pFEddd',
       },
-      name: ' Seek logo - laptop',
+      name: 'SEEK logo - Laptop',
       images: [
         {
           typeCode: 'OriginalLogo',
@@ -94,7 +94,7 @@ const mockBrands = [
         value:
           'global:advertisementBranding:hirerBranding:4YsFiFRekSvuKjLzRUtmZH',
       },
-      name: 'Seek logo - pens',
+      name: 'SEEK logo - Pens',
       images: [
         {
           typeCode: 'OriginalLogo',
@@ -113,7 +113,7 @@ const mockBrands = [
         value:
           'global:advertisementBranding:hirerBranding:2P8WhewQF4dnZNYRKMDv1r',
       },
-      name: 'Seek logo - blue cover',
+      name: 'SEEK logo - Blue cover',
       images: [
         {
           typeCode: 'OriginalLogo',
@@ -132,7 +132,7 @@ const mockBrands = [
         value:
           'global:advertisementBranding:hirerBranding:VQ9aAzkhogAMSw3AF31stC',
       },
-      name: 'Seek logo blue - backpack',
+      name: 'SEEK blue logo - Backpack',
       images: [
         {
           typeCode: 'OriginalLogo',
@@ -151,7 +151,7 @@ const mockBrands = [
         value:
           'global:advertisementBranding:hirerBranding:D557J8rpyMKpP9DxrWg2s',
       },
-      name: 'Seek logo blue - sunset',
+      name: 'SEEK blue logo - Sunset',
       images: [
         {
           typeCode: 'OriginalLogo',
@@ -170,7 +170,7 @@ const mockBrands = [
         value:
           'global:advertisementBranding:hirerBranding:qVe8DCsXJP9zNHsmcmEyL',
       },
-      name: 'Seek logo - Town',
+      name: 'SEEK logo - Town',
       images: [
         {
           typeCode: 'OriginalLogo',
@@ -189,7 +189,7 @@ const mockBrands = [
         value:
           'global:advertisementBranding:hirerBranding:7yQLDLdqz9phfe9j1GHDgn',
       },
-      name: 'Seek logo - Beach',
+      name: 'SEEK logo - Beach',
       images: [
         {
           typeCode: 'OriginalLogo',
@@ -208,7 +208,7 @@ const mockBrands = [
         value:
           'global:advertisementBranding:hirerBranding:33Y863h6sCnrCFk97w9bvg',
       },
-      name: 'Seek logo - Flower',
+      name: 'SEEK logo - Flower',
       images: [
         {
           typeCode: 'OriginalLogo',

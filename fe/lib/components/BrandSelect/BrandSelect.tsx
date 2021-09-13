@@ -23,9 +23,6 @@ export interface BrandSelectProps {
   hirerId: string;
   initialBrandId?: string;
   pageSize?: number;
-  /**
-   * Type definition from the `Controller` component that's provided by `react-hook-form`.
-   */
   onSelect: (brandId?: string) => void;
 }
 
@@ -83,7 +80,7 @@ export const BrandSelect = ({
 
   return (
     <Stack space="medium">
-      <Heading level="4" weight={'regular'}>
+      <Heading level="4">
         Branding
       </Heading>
 
