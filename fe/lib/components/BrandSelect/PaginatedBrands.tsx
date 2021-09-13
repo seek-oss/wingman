@@ -28,8 +28,7 @@ export const PaginatedBrands = ({
   onPagination,
   onSelect,
 }: Props) => {
-  const brands = data?.advertisementBrandings?.edges || [];
-  const hasAtLeastOneBrand = data && brands.length > 0;
+  const hasAtLeastOneBrand = data?.advertisementBrandings?.edges.length;
 
   if (!hasAtLeastOneBrand) {
     return (
