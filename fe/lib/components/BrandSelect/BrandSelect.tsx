@@ -80,9 +80,7 @@ export const BrandSelect = ({
 
   return (
     <Stack space="medium">
-      <Heading level="4">
-        Branding
-      </Heading>
+      <Heading level="4">Branding</Heading>
 
       <PaginatedBrands
         data={renderedData}

@@ -65,9 +65,7 @@ const BrandingForm = () => {
   const [brandingId, setBrandingId] = useState();
   return (
     <div>
-      <BrandSelect
-        onSelect={setBrandingId}
-      />
+      <BrandSelect onSelect={setBrandingId} />
       Your selected branding id is: {brandingId}
     </div>
   );
