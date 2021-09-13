@@ -10,7 +10,7 @@ yarn add wingman-fe
 
 ## Brand Select Widget
 
-The BrandSelect widget abstracts the `advertisementBrandings` query on SEEK API and provides a select input that returns a full list of advertisement brandings associated with the specified hirer.
+The BrandSelect widget abstracts the `advertisementBrandings` query on SEEK API and provides a select input that returns a paginated list of advertisement brandings associated with the specified hirer.
 Read more about underlying [`advertisementBrandings` query](https://developer.seek.com/schema/#/query/advertisementBrandings).
 
 ### Properties
@@ -65,9 +65,7 @@ const BrandingForm = () => {
   const [brandingId, setBrandingId] = useState();
   return (
     <div>
-      <BrandingForm
-        schemeId="seekAnz"
-        client={client}
+      <BrandSelect
         onSelect={setBrandingId}
       />
       Your selected branding id is: {brandingId}
@@ -99,9 +97,6 @@ const BrandingForm = () => {
         render={({ field }) => (
           <BrandSelect
             {...field}
-            client={client}
-            id="brandingId"
-            label="Brandings"
             onSelect={(selectedBrandId) =>
               setValue('brandingId', selectedBrandId)
             }
