@@ -1,21 +1,14 @@
 import {
   Box,
-  Checkbox,
   Heading,
-  IconAdd,
-  IconDocument,
   IconEducation,
   IconHome,
-  IconImage,
   IconNewWindow,
-  IconPeople,
-  IconSecurity,
-  IconShare,
   IconSocialGitHub,
-  IconWorkExperience,
   Link,
   Stack,
   Text,
+  Toggle,
 } from 'braid-design-system';
 import React, { Fragment, ReactNode } from 'react';
 import { NavLink } from 'react-router-dom';
@@ -95,7 +88,8 @@ export const Sidebar = () => (
           </SidebarLink>
         </Box>
 
-        <Box paddingY="gutter">
+        {/* TODO: rebuild from shared components. */}
+        {/* <Box paddingY="gutter">
           <SidebarLink to="/positions">
             <IconWorkExperience /> Positions
           </SidebarLink>
@@ -120,16 +114,16 @@ export const Sidebar = () => (
           <SidebarLink to="/accounts">
             <IconShare /> Switch account
           </SidebarLink>
-        </Box>
-
+        </Box> */}
         <ClientOnly>
           {({ preferences, setPreferences }) => (
             <Box paddingY="gutter">
               <Box padding="gutter">
-                <Checkbox
-                  checked={preferences.devTools}
+                <Toggle
+                  align="justify"
                   id="devTools"
                   label="Dev tools"
+                  on={preferences.devTools}
                   onChange={() =>
                     setPreferences({
                       devTools: !preferences.devTools,
@@ -139,9 +133,10 @@ export const Sidebar = () => (
               </Box>
               {preferences.devTools ? (
                 <Fragment>
-                  <SidebarLink to="/admin">
+                  {/* TODO: rebuild from shared components. */}
+                  {/* <SidebarLink to="/admin">
                     <IconSecurity /> Admin
-                  </SidebarLink>
+                  </SidebarLink> */}
 
                   <SidebarLink to="https://seek-oss.github.io/wingman/storybook/index.html">
                     <IconEducation /> Storybook
