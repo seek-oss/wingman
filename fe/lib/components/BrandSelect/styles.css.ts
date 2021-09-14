@@ -9,6 +9,12 @@ const coverImageProps = style({
   paddingLeft: vars.borderWidth.large,
   paddingRight: vars.borderWidth.large,
   paddingTop: vars.borderWidth.large,
+  selectors: {
+    // Firefox has a flash of unstyled alt text while loading images as of v93.
+    '&:-moz-loading': {
+      visibility: 'hidden',
+    },
+  },
 });
 
 const CHECKERED_IMAGE =
@@ -32,6 +38,12 @@ export const originalLogo = style({
   height: calc.multiply(vars.grid, 20),
   objectFit: 'contain',
   width: calc.multiply(vars.grid, 20),
+  selectors: {
+    // Firefox has a flash of unstyled alt text while loading images as of v93.
+    '&:-moz-loading': {
+      visibility: 'hidden',
+    },
+  },
 });
 
 export const brand = style({
