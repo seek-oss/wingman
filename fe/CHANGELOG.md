@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 4.1.1
+
+### Patch Changes
+
+- 8b6fb60: **BrandSelect:** Avoid FOUC when loading images in Firefox
+
 ## 4.1.0
 
 ### Minor Changes
