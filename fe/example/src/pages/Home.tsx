@@ -21,7 +21,7 @@ export const HomePage = () => (
         >
           <Stack space="medium">
             <Text>
-              We’re still constructing publicly-accessible sample site for
+              We’re still constructing a publicly-accessible sample site for
               recruitment software providers to reference when developing
               against the SEEK API.
             </Text>
