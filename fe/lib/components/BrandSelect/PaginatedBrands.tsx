@@ -19,6 +19,7 @@ interface Props {
   selectedBrandId?: string;
   onPagination: OnClickHandler;
   onSelect?: (selectedBrand: AdvertisementBrandingFieldsFragment) => void;
+  showCopyableOid?: boolean;
 }
 
 export const PaginatedBrands = ({
@@ -27,6 +28,7 @@ export const PaginatedBrands = ({
   selectedBrandId,
   onPagination,
   onSelect,
+  showCopyableOid,
 }: Props) => {
   const hasAtLeastOneBrand = data?.advertisementBrandings?.edges.length;
 
@@ -55,6 +57,7 @@ export const PaginatedBrands = ({
           edges={edges}
           selectedBrandId={selectedBrandId}
           onSelect={onSelect}
+          showCopyableOid={showCopyableOid}
         />
       )}
     </ConnectionPagination>

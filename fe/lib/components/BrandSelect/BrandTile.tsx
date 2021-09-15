@@ -13,6 +13,7 @@ interface Props {
   brand: AdvertisementBrandingFieldsFragment;
   isSelected?: boolean;
   onSelect?: (selectedBrand: AdvertisementBrandingFieldsFragment) => void;
+  showCopyableOid?: boolean;
 }
 
 const CoverImage = ({
@@ -60,7 +61,12 @@ const OriginalLogo = ({
   />
 );
 
-export const BrandTile = ({ brand, isSelected, onSelect }: Props) => (
+export const BrandTile = ({
+  brand,
+  isSelected,
+  onSelect,
+  showCopyableOid,
+}: Props) => (
   <Box
     borderRadius="large"
     boxShadow={isSelected ? 'borderFormAccentLarge' : undefined}
@@ -85,7 +91,9 @@ export const BrandTile = ({ brand, isSelected, onSelect }: Props) => (
         />
         <Text>{brand.name}</Text>
 
-        {!onSelect && <CopyableOid size="small">{brand.id.value}</CopyableOid>}
+        {showCopyableOid && (
+          <CopyableOid size="small">{brand.id.value}</CopyableOid>
+        )}
       </Stack>
     </Box>
   </Box>

@@ -22,9 +22,11 @@ Required
 Optional:
 
 - `client`: An `ApolloClient` instance. By default BrandSelect uses the client passed down via context, but a different client can be passed in.
-- `onSelect`: Callback function that is supplied an [AdvertisementBranding identifier](https://developer.seek.com/schema/#/named-type/AdvertisementBranding/field/id) on brand selection.
 - `pageSize`: A number of branding per page.
 - `initialBrandId`: An initial [AdvertisementBranding identifier](https://developer.seek.com/schema/#/named-type/AdvertisementBranding/field/id) to be selected in a paginated list of advertisement brandings.
+- `showCopyableOid`: A flag to show a button `Copy OID` in each brand tile
+- `onSelect`: Callback function that is supplied an [AdvertisementBranding identifier](https://developer.seek.com/schema/#/named-type/AdvertisementBranding/field/id) on brand selection.
+- `onBrandingQueryResponse`: Callback function that is supplied an [AdvertisementBrandingsConnection](https://developer.seek.com/schema/#/named-type/AdvertisementBrandingsConnection) on the [advertisementBrandings query](https://developer.seek.com/schema/#/query/advertisementBrandings) response.
 
 ### Usage
 
@@ -67,6 +69,25 @@ const BrandingForm = () => {
     <div>
       <BrandSelect onSelect={setBrandingId} />
       Your selected branding id is: {brandingId}
+    </div>
+  );
+};
+```
+
+#### onBrandingQueryResponse callback usage
+
+```javascript
+import React, { useState } from 'react';
+import { BrandSelect } from 'wingman-fe';
+
+// client set-up as per the previous example
+
+const BrandingForm = () => {
+  const [brandingQueryResponse, setBrandingQueryResponse] = useState();
+  return (
+    <div>
+      <BrandSelect onBrandingQueryResponse={setBrandingQueryResponse} />
+      SEEK API Response is: {brandingQueryResponse}
     </div>
   );
 };
