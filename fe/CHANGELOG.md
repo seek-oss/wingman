@@ -1,5 +1,15 @@
 # wingman-fe
 
+## 4.2.0
+
+### Minor Changes
+
+- ca3d0a5: Update **BrandSelect** props
+
+  - Change `onSelect` to optional
+  - Add `onBrandingQueryResponse` callback to return SEEK API Response
+  - Add `showCopyableOid` flag
+
 ## 4.1.1
 
 ### Patch Changes
