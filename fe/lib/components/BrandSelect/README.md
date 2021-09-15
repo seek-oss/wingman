@@ -34,9 +34,9 @@ Optional:
 - `onBrandingQueryResponse`: Callback function that is supplied an [AdvertisementBrandingsConnection] on the [advertisementBrandings query] response.
   This can be used to render or log the SEEK API response for debugging.
 
-[AdvertisementBranding identifier]: https://developer.seek.com/schema/#/named-type/AdvertisementBranding/field/id 
-[AdvertisementBrandingsConnection]: https://developer.seek.com/schema/#/named-type/AdvertisementBrandingsConnection
-[advertisementBrandings query]: https://developer.seek.com/schema/#/query/advertisementBrandings 
+[advertisementbranding identifier]: https://developer.seek.com/schema/#/named-type/AdvertisementBranding/field/id
+[advertisementbrandingsconnection]: https://developer.seek.com/schema/#/named-type/AdvertisementBrandingsConnection
+[advertisementbrandings query]: https://developer.seek.com/schema/#/query/advertisementBrandings
 
 ### Usage
 
