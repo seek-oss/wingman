@@ -22,11 +22,21 @@ Required
 Optional:
 
 - `client`: An `ApolloClient` instance. By default BrandSelect uses the client passed down via context, but a different client can be passed in.
-- `pageSize`: A number of branding per page.
-- `initialBrandId`: An initial [AdvertisementBranding identifier](https://developer.seek.com/schema/#/named-type/AdvertisementBranding/field/id) to be selected in a paginated list of advertisement brandings.
-- `showCopyableOid`: A flag to show a button `Copy OID` in each brand tile
-- `onSelect`: Callback function that is supplied an [AdvertisementBranding identifier](https://developer.seek.com/schema/#/named-type/AdvertisementBranding/field/id) on brand selection.
-- `onBrandingQueryResponse`: Callback function that is supplied an [AdvertisementBrandingsConnection](https://developer.seek.com/schema/#/named-type/AdvertisementBrandingsConnection) on the [advertisementBrandings query](https://developer.seek.com/schema/#/query/advertisementBrandings) response.
+- `pageSize`: The number of brands per page.
+
+- `initialBrandId`: An initial [AdvertisementBranding identifier] to be selected in the paginated list of brands.
+
+- `onSelect`: Callback function that is supplied an [AdvertisementBranding identifier] when the user selects a brand.
+
+- `showCopyableOid`: A flag to show a "Copy OID" button on each brand tile.
+  This is intended for developer use and should not appear in a production job posting flow.
+
+- `onBrandingQueryResponse`: Callback function that is supplied an [AdvertisementBrandingsConnection] on the [advertisementBrandings query] response.
+  This can be used to render or log the SEEK API response for debugging.
+
+[AdvertisementBranding identifier]: https://developer.seek.com/schema/#/named-type/AdvertisementBranding/field/id 
+[AdvertisementBrandingsConnection]: https://developer.seek.com/schema/#/named-type/AdvertisementBrandingsConnection
+[advertisementBrandings query]: https://developer.seek.com/schema/#/query/advertisementBrandings 
 
 ### Usage
 
