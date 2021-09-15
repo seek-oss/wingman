@@ -23,14 +23,18 @@ export interface BrandSelectProps {
   hirerId: string;
   initialBrandId?: string;
   pageSize?: number;
-  onSelect: (brandId?: string) => void;
+  showCopyableOid?: boolean;
+  onSelect?: (brandId?: string) => void;
+  onBrandingQueryResponse?: (responseData: AdvertisementBrandingsQuery) => void;
 }
 
 export const BrandSelect = ({
   client,
   hirerId,
-  onSelect,
   initialBrandId,
+  showCopyableOid = false,
+  onSelect,
+  onBrandingQueryResponse,
   pageSize = 4,
 }: BrandSelectProps) => {
   const [variables, setVariables] =
@@ -78,6 +82,10 @@ export const BrandSelect = ({
   // Otherwise, we change size to show the loader which is jarring
   const renderedData = data ?? previousData;
 
+  if (renderedData && onBrandingQueryResponse) {
+    onBrandingQueryResponse(renderedData);
+  }
+
   if (loading && !renderedData) {
     return (
       <Inline space="small">
@@ -99,6 +107,7 @@ export const BrandSelect = ({
           setVariables({ ...args, hirerId });
         }}
         onSelect={handleBrandSelect}
+        showCopyableOid={showCopyableOid}
       />
 
       {error && (

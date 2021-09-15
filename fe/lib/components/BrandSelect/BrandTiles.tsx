@@ -12,9 +12,15 @@ interface Props {
   edges: AdvertisementBrandingEdgeFieldsFragment[];
   selectedBrandId?: string;
   onSelect?: (selectedBrand: AdvertisementBrandingFieldsFragment) => void;
+  showCopyableOid?: boolean;
 }
 
-export const BrandTiles = ({ edges, selectedBrandId, onSelect }: Props) => (
+export const BrandTiles = ({
+  edges,
+  selectedBrandId,
+  onSelect,
+  showCopyableOid,
+}: Props) => (
   <Tiles columns={[1, 2, 2]} space="small">
     {edges.map(({ node }) => (
       <BrandTile
@@ -22,6 +28,7 @@ export const BrandTiles = ({ edges, selectedBrandId, onSelect }: Props) => (
         brand={node}
         isSelected={selectedBrandId === node.id.value}
         onSelect={onSelect}
+        showCopyableOid={showCopyableOid}
       />
     ))}
   </Tiles>
