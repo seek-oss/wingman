@@ -1,6 +1,6 @@
 import { calc } from '@vanilla-extract/css-utils';
-import { vars } from 'braid-design-system/css';
 import { Box, Dropdown, Stack } from 'braid-design-system';
+import { vars } from 'braid-design-system/css';
 import React, { ComponentProps, useEffect, useRef, useState } from 'react';
 
 import type {
@@ -9,7 +9,7 @@ import type {
 } from '../../types/seekApi.graphql';
 import { findObjectByOid } from '../../utils';
 
-import { wrapper } from './styles.css';
+import { categoryLink, childCategoryStyling } from './styles.css';
 
 type AllJobCategories = JobCategoriesQuery['jobCategories'];
 type AnyJobCategory = JobCategoryAttributesFragment;
@@ -82,6 +82,22 @@ const JobCategorySelectInput = ({
   }, [initialValue, jobCategories]);
 
   const dropDownHeight = parentRef.current?.clientHeight;
+  const dropDownWidth = parentRef.current?.clientWidth
+    ? `${parentRef.current?.clientWidth}px`
+    : '0px';
+
+  let height = '0px';
+  if (dropDownHeight) {
+    const stackSpacing = calc.multiply(vars.space.xsmall, 2);
+    const dropdownPaddingTopSpacing = vars.space.xsmall;
+
+    height = calc.add(
+      `${dropDownHeight}px`,
+      stackSpacing,
+      dropdownPaddingTopSpacing,
+      `${dropDownHeight! / 2}px`,
+    );
+  }
 
   return (
     <Box position="relative">
@@ -107,19 +123,13 @@ const JobCategorySelectInput = ({
         {childCategories && Boolean(dropDownHeight) && (
           <React.Fragment>
             <Box
-              className={wrapper}
+              className={categoryLink}
               style={{
-                width: parentRef.current?.clientWidth / 2 ?? 0,
-                height: calc.add(
-                  `${dropDownHeight}px`,
-                  vars.space.small,
-                  vars.space.xsmall,
-                  vars.space.xxsmall,
-                  `${dropDownHeight! / 2}px`,
-                ),
+                width: calc.divide(dropDownWidth, 5),
+                height,
               }}
             />
-            <Box paddingLeft="xxlarge">
+            <Box className={childCategoryStyling}>
               <Dropdown
                 {...restProps}
                 aria-label="Subcategory"
