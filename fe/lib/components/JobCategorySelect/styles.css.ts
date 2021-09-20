@@ -5,7 +5,7 @@ import { vars } from 'braid-design-system/css';
 export const categoryLink = style({
   position: 'absolute',
   marginLeft: vars.space.large,
-  top: '-10px', // Arbitrary number to hide the curvature of the border
+  top: '-10px', // Arbitrary pixels used to hide the curvature of the border
   zIndex: -1,
   borderLeftStyle: 'solid',
   borderLeftWidth: vars.borderWidth.standard,

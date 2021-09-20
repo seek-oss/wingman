@@ -86,15 +86,14 @@ const JobCategorySelectInput = ({
     ? `${parentRef.current?.clientWidth}px`
     : '0px';
 
-  let height = '0px';
-  if (dropDownHeight) {
-    height = calc.add(
-      vars.space.small, // Top padding allocated to wrapping `Box`
-      vars.space.xsmall, // Top padding allocated to Dropdown
-      '10px',
-      `${dropDownHeight / 2}px`,
-    );
-  }
+  const categoryLinkHeight = dropDownHeight
+    ? calc.add(
+        vars.space.small, // Padding associated to parent `Box`
+        vars.space.xsmall, // Padding associated to Dropdown
+        '10px', // Arbitrary pixels used to hide the curvature of the border
+        `${dropDownHeight / 2}px`,
+      )
+    : '0px';
 
   return (
     <Stack space="none">
@@ -116,39 +115,36 @@ const JobCategorySelectInput = ({
           </option>
         ))}
       </Dropdown>
-      <Box position="relative" paddingTop="small">
-        {childCategories && Boolean(dropDownHeight) && (
-          <React.Fragment>
-            <Box
-              className={categoryLink}
-              style={{
-                width: calc.divide(dropDownWidth, 5), // Divide by 5 to minimise width a lot
-                height,
-              }}
-            />
-            <Box className={childCategoryStyling}>
-              <Dropdown
-                {...restProps}
-                aria-label="Subcategory"
-                id="subJobCategoriesSelect"
-                label={undefined}
-                // label={hideLabel ? undefined : 'Subcategory'}
-                onChange={(event) =>
-                  handleChildCategorySelect(event.currentTarget.value)
-                }
-                placeholder="Select a subcategory"
-                value={selectedChildCategoryId}
-              >
-                {childCategories.map(({ name, id }) => (
-                  <option key={id.value} value={id.value}>
-                    {name}
-                  </option>
-                ))}
-              </Dropdown>
-            </Box>
-          </React.Fragment>
-        )}
-      </Box>
+      {childCategories && (
+        <Box position="relative" paddingTop="small">
+          <Box
+            className={categoryLink}
+            style={{
+              width: calc.divide(dropDownWidth, 5), // Divide by an arbitrary number to minimise width
+              height: categoryLinkHeight,
+            }}
+          />
+          <Box className={childCategoryStyling}>
+            <Dropdown
+              {...restProps}
+              aria-label="Subcategory"
+              id="subJobCategoriesSelect"
+              label={undefined}
+              onChange={(event) =>
+                handleChildCategorySelect(event.currentTarget.value)
+              }
+              placeholder="Select a subcategory"
+              value={selectedChildCategoryId}
+            >
+              {childCategories.map(({ name, id }) => (
+                <option key={id.value} value={id.value}>
+                  {name}
+                </option>
+              ))}
+            </Dropdown>
+          </Box>
+        </Box>
+      )}
     </Stack>
   );
 };
