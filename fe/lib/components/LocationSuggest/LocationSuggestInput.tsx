@@ -160,7 +160,7 @@ const LocationSuggestInput = ({
           tone={tone === 'critical' ? tone : undefined}
           variant="soft"
         >
-          <IconLocation /> Detect
+          Detect location <IconLocation /> 
         </Button>
       </Column>
     </Columns>
