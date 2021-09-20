@@ -126,7 +126,6 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
                 onSelect({ jobCategory, confidence: 1 });
               }
             }}
-            embedded
             schemeId={schemeId}
             hideLabel
           />

@@ -5,7 +5,7 @@ import { vars } from 'braid-design-system/css';
 export const categoryLink = style({
   position: 'absolute',
   marginLeft: vars.space.large,
-  top: vars.space.xsmall, // Parent dropdown has a `paddingTop` of xsmall
+  top: '-10px', // Arbitrary number to hide the curvature of the border
   zIndex: -1,
   borderLeftStyle: 'solid',
   borderLeftWidth: vars.borderWidth.standard,

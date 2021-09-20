@@ -88,44 +88,41 @@ const JobCategorySelectInput = ({
 
   let height = '0px';
   if (dropDownHeight) {
-    const stackSpacing = calc.multiply(vars.space.xsmall, 2);
-    const dropdownPaddingTopSpacing = vars.space.xsmall;
-
     height = calc.add(
-      `${dropDownHeight}px`,
-      stackSpacing,
-      dropdownPaddingTopSpacing,
-      `${dropDownHeight! / 2}px`,
+      vars.space.small, // Top padding allocated to wrapping `Box`
+      vars.space.xsmall, // Top padding allocated to Dropdown
+      '10px',
+      `${dropDownHeight / 2}px`,
     );
   }
 
   return (
-    <Box position="relative">
-      <Stack space="xsmall">
-        <Dropdown
-          {...restProps}
-          ref={parentRef}
-          aria-label="Category"
-          id="jobCategoriesSelect"
-          label={hideLabel ? undefined : 'Category'}
-          onChange={(event) =>
-            handleParentCategorySelect(event.currentTarget.value)
-          }
-          placeholder="Select a category"
-          value={selectedParentCategoryId}
-        >
-          {jobCategories.map(({ name, id }) => (
-            <option key={id.value} value={id.value}>
-              {name}
-            </option>
-          ))}
-        </Dropdown>
+    <Stack space="none">
+      <Dropdown
+        {...restProps}
+        ref={parentRef}
+        aria-label="Category"
+        id="jobCategoriesSelect"
+        label={hideLabel ? undefined : 'Category'}
+        onChange={(event) =>
+          handleParentCategorySelect(event.currentTarget.value)
+        }
+        placeholder="Select a category"
+        value={selectedParentCategoryId}
+      >
+        {jobCategories.map(({ name, id }) => (
+          <option key={id.value} value={id.value}>
+            {name}
+          </option>
+        ))}
+      </Dropdown>
+      <Box position="relative" paddingTop="small">
         {childCategories && Boolean(dropDownHeight) && (
           <React.Fragment>
             <Box
               className={categoryLink}
               style={{
-                width: calc.divide(dropDownWidth, 5),
+                width: calc.divide(dropDownWidth, 5), // Divide by 5 to minimise width a lot
                 height,
               }}
             />
@@ -134,7 +131,8 @@ const JobCategorySelectInput = ({
                 {...restProps}
                 aria-label="Subcategory"
                 id="subJobCategoriesSelect"
-                label={hideLabel ? undefined : 'Subcategory'}
+                label={undefined}
+                // label={hideLabel ? undefined : 'Subcategory'}
                 onChange={(event) =>
                   handleChildCategorySelect(event.currentTarget.value)
                 }
@@ -150,8 +148,8 @@ const JobCategorySelectInput = ({
             </Box>
           </React.Fragment>
         )}
-      </Stack>
-    </Box>
+      </Box>
+    </Stack>
   );
 };
 
