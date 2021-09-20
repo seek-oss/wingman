@@ -30,6 +30,11 @@ export interface JobCategorySelectProps
   schemeId: string;
   initialValue?: string;
   hideLabel?: boolean;
+
+  /**
+   * Whether job category select component is embedded in the job category suggest component.
+   */
+  embedded?: boolean;
 }
 
 export const JobCategorySelect = forwardRef<
@@ -47,6 +52,7 @@ export const JobCategorySelect = forwardRef<
       name,
       reserveMessageSpace,
       tone,
+      embedded,
       ...restProps
     },
     forwardedRef,

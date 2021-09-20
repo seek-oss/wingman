@@ -105,27 +105,32 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
               );
             })}
           </>
-          <RadioItem key="Other" label="Other" ref={forwardedRef} value="Other">
-            {selectedJobCategory === 'Other' && (
-              <JobCategorySelect
-                client={client}
-                label="Category"
-                id="job-category-suggest-select-other"
-                initialValue={initialValue}
-                onSelect={(jobCategory, type) => {
-                  /**
-                   * Only child job categories are suitable for job posting
-                   */
-                  if (type === 'child') {
-                    onSelect({ jobCategory, confidence: 1 });
-                  }
-                }}
-                schemeId={schemeId}
-                hideLabel
-              />
-            )}
-          </RadioItem>
+          <RadioItem
+            key="Other"
+            label="Choose a different category"
+            ref={forwardedRef}
+            value="Other"
+          />
         </RadioGroup>
+        {selectedJobCategory === 'Other' && (
+          <JobCategorySelect
+            client={client}
+            label="Category"
+            id="job-category-suggest-select-other"
+            initialValue={initialValue}
+            onSelect={(jobCategory, type) => {
+              /**
+               * Only child job categories are suitable for job posting
+               */
+              if (type === 'child') {
+                onSelect({ jobCategory, confidence: 1 });
+              }
+            }}
+            embedded
+            schemeId={schemeId}
+            hideLabel
+          />
+        )}
       </Stack>
     );
   },
