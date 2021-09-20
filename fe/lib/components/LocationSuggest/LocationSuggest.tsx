@@ -245,7 +245,7 @@ export const LocationSuggest = forwardRef<
         {suggestError && (
           <FieldMessage
             id="locationSuggestError"
-            message={suggestError}
+            message={suggestError.message}
             tone="critical"
           />
         )}
@@ -253,7 +253,7 @@ export const LocationSuggest = forwardRef<
         {nearestLocationsError && (
           <FieldMessage
             id="locationSuggestNearestLocationsError"
-            message={nearestLocationsError}
+            message={nearestLocationsError.message}
             tone="critical"
           />
         )}
