@@ -19,6 +19,8 @@ export { QuestionnaireForm } from './components/QuestionnaireForm/QuestionnaireF
 export { QuestionnaireQueryInput } from './components/QuestionnaireQueryInput/QuestionnaireQueryInput';
 export { QuestionnaireQueryOutput } from './components/QuestionnaireQueryOutput/QuestionnaireQueryOutput';
 
+export { SalaryDetails } from './components/SalaryDetails/SalaryDetails';
+export { MockSalaryDetails } from './components/SalaryDetails/SalaryDetails.mock';
 export { SpecifiedPersonForm } from './components/SpecifiedPersonForm/SpecifiedPersonForm';
 
 export { apolloTypePolicies } from './types/apolloTypePolicies';
