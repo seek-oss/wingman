@@ -1,11 +1,15 @@
-import { Column, Columns, Dropdown } from 'braid-design-system';
-import React, { ComponentProps, useEffect, useState } from 'react';
+import { calc } from '@vanilla-extract/css-utils';
+import { Box, Dropdown, Stack } from 'braid-design-system';
+import { vars } from 'braid-design-system/css';
+import React, { ComponentProps, useEffect, useRef, useState } from 'react';
 
 import type {
   JobCategoriesQuery,
   JobCategoryAttributesFragment,
 } from '../../types/seekApi.graphql';
 import { findObjectByOid } from '../../utils';
+
+import { categoryLink, childCategoryStyling } from './styles.css';
 
 type AllJobCategories = JobCategoriesQuery['jobCategories'];
 type AnyJobCategory = JobCategoryAttributesFragment;
@@ -28,6 +32,7 @@ const JobCategorySelectInput = ({
   const [selectedParentCategoryId, setSelectedParentCategoryId] = useState('');
   const [selectedChildCategoryId, setSelectedChildCategoryId] = useState('');
   const [childCategories, setChildCategories] = useState<AnyJobCategory[]>();
+  const parentRef = useRef<HTMLSelectElement>(null);
 
   const handleParentCategorySelect = (parentCategoryId: string) => {
     const parentCategory = findObjectByOid(jobCategories, parentCategoryId);
@@ -76,49 +81,71 @@ const JobCategorySelectInput = ({
     }
   }, [initialValue, jobCategories]);
 
+  const dropDownHeight = parentRef.current?.clientHeight;
+  const dropDownWidth = parentRef.current?.clientWidth
+    ? `${parentRef.current?.clientWidth}px`
+    : '0px';
+
+  const categoryLinkHeight = dropDownHeight
+    ? calc.add(
+        vars.space.small, // Padding associated to parent `Box`
+        vars.space.xsmall, // Padding associated to Dropdown
+        '10px', // Arbitrary pixels used to hide the curvature of the border
+        `${dropDownHeight / 2}px`,
+      )
+    : '0px';
+
   return (
-    <Columns collapseBelow="tablet" space="small">
-      <Column>
-        <Dropdown
-          {...restProps}
-          aria-label="Category"
-          id="jobCategoriesSelect"
-          label={hideLabel ? undefined : 'Category'}
-          onChange={(event) =>
-            handleParentCategorySelect(event.currentTarget.value)
-          }
-          placeholder="Select a category"
-          value={selectedParentCategoryId}
-        >
-          {jobCategories.map(({ name, id }) => (
-            <option key={id.value} value={id.value}>
-              {name}
-            </option>
-          ))}
-        </Dropdown>
-      </Column>
-      <Column>
-        {childCategories && (
-          <Dropdown
-            {...restProps}
-            aria-label="Subcategory"
-            id="subJobCategoriesSelect"
-            label={hideLabel ? undefined : 'Subcategory'}
-            onChange={(event) =>
-              handleChildCategorySelect(event.currentTarget.value)
-            }
-            placeholder="Select a subcategory"
-            value={selectedChildCategoryId}
-          >
-            {childCategories.map(({ name, id }) => (
-              <option key={id.value} value={id.value}>
-                {name}
-              </option>
-            ))}
-          </Dropdown>
-        )}
-      </Column>
-    </Columns>
+    <Stack space="none">
+      <Dropdown
+        {...restProps}
+        ref={parentRef}
+        aria-label="Category"
+        id="jobCategoriesSelect"
+        label={hideLabel ? undefined : 'Category'}
+        onChange={(event) =>
+          handleParentCategorySelect(event.currentTarget.value)
+        }
+        placeholder="Select a category"
+        value={selectedParentCategoryId}
+      >
+        {jobCategories.map(({ name, id }) => (
+          <option key={id.value} value={id.value}>
+            {name}
+          </option>
+        ))}
+      </Dropdown>
+      {childCategories && (
+        <Box position="relative" paddingTop="small">
+          <Box
+            className={categoryLink}
+            style={{
+              width: calc.divide(dropDownWidth, 5), // Divide by an arbitrary number to minimise width
+              height: categoryLinkHeight,
+            }}
+          />
+          <Box className={childCategoryStyling}>
+            <Dropdown
+              {...restProps}
+              aria-label="Subcategory"
+              id="subJobCategoriesSelect"
+              label={undefined}
+              onChange={(event) =>
+                handleChildCategorySelect(event.currentTarget.value)
+              }
+              placeholder="Select a subcategory"
+              value={selectedChildCategoryId}
+            >
+              {childCategories.map(({ name, id }) => (
+                <option key={id.value} value={id.value}>
+                  {name}
+                </option>
+              ))}
+            </Dropdown>
+          </Box>
+        </Box>
+      )}
+    </Stack>
   );
 };
 
