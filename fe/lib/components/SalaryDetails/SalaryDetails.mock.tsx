@@ -4,11 +4,13 @@ import { MockComponentActions } from '../../private/MockComponentActions/MockCom
 
 import { SalaryDetails } from './SalaryDetails';
 
+interface MockSalaryDetailsProps {
+  showStorybookAction?: boolean;
+}
+
 export const MockSalaryDetails = ({
   showStorybookAction,
-}: {
-  showStorybookAction: boolean;
-}) => (
+}: MockSalaryDetailsProps) => (
   <MockComponentActions
     space="medium"
     storybookPath={
