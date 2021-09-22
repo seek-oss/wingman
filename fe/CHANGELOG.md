@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 4.3.1
+
+### Patch Changes
+
+- 1f9ca96: Fix linking line being hidden for job category suggest
+
 ## 4.3.0
 
 ### Minor Changes
