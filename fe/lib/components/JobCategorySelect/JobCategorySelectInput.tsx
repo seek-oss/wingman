@@ -82,15 +82,11 @@ const JobCategorySelectInput = ({
   }, [initialValue, jobCategories]);
 
   const dropDownHeight = parentRef.current?.clientHeight;
-  const dropDownWidth = parentRef.current?.clientWidth
-    ? `${parentRef.current?.clientWidth}px`
-    : '0px';
 
   const categoryLinkHeight = dropDownHeight
     ? calc.add(
         vars.space.small, // Padding associated to parent `Box`
         vars.space.xsmall, // Padding associated to Dropdown
-        '10px', // Arbitrary pixels used to hide the curvature of the border
         `${dropDownHeight / 2}px`,
       )
     : '0px';
@@ -119,10 +115,7 @@ const JobCategorySelectInput = ({
         <Box position="relative" paddingTop="small">
           <Box
             className={categoryLink}
-            style={{
-              width: calc.divide(dropDownWidth, 5), // Divide by an arbitrary number to minimise width
-              height: categoryLinkHeight,
-            }}
+            style={{ height: categoryLinkHeight }}
           />
           <Box className={childCategoryStyling}>
             <Dropdown

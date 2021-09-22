@@ -4,16 +4,16 @@ import { vars } from 'braid-design-system/css';
 
 export const categoryLink = style({
   position: 'absolute',
+  width: vars.space.xlarge,
   marginLeft: vars.space.large,
-  top: '-10px', // Arbitrary pixels used to hide the curvature of the border
-  zIndex: -1,
+  top: 0,
   borderLeftStyle: 'solid',
   borderLeftWidth: vars.borderWidth.standard,
   borderLeftColor: vars.borderColor.field,
   borderBottomWidth: vars.borderWidth.standard,
   borderBottomStyle: 'solid',
   borderBottomColor: vars.borderColor.field,
-  borderRadius: vars.borderRadius.standard,
+  borderBottomLeftRadius: vars.borderRadius.standard,
 });
 
 export const childCategoryStyling = style({
