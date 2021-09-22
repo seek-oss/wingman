@@ -6,7 +6,7 @@ import {
   Strong,
   Text,
 } from 'braid-design-system';
-import React, { ComponentProps, forwardRef, useState } from 'react';
+import React, { ComponentProps, forwardRef, useEffect, useState } from 'react';
 
 import type {
   JobCategory,
@@ -57,6 +57,14 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
     const [selectedJobCategory, setSelectedJobCategory] = useState<
       string | undefined
     >(initialValue ? 'Other' : undefined);
+
+    useEffect(() => {
+      const [firstChoice] = choices;
+      if (!initialValue && firstChoice.confidence > 0.5) {
+        setSelectedJobCategory(firstChoice.jobCategory.id.value);
+        onSelect(firstChoice);
+      }
+    }, [choices, initialValue, onSelect]);
 
     const handleChoiceSelect = (event: React.FormEvent<HTMLInputElement>) => {
       const choiceId = event.currentTarget.value;
