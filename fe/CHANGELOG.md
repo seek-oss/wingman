@@ -1,5 +1,22 @@
 # wingman-fe
 
+## 4.3.1
+
+### Patch Changes
+
+- 1f9ca96: Fix linking line being hidden for job category suggest
+
+## 4.3.0
+
+### Minor Changes
+
+- df4085c: Align job category select component to UX guide
+
+### Patch Changes
+
+- a236b31: **LocationSuggest:** Update detect location button copy to align with UX guide
+- 208ffa9: **LocationSuggest:** Fix location suggest and nearest location error messages
+
 ## 4.2.0
 
 ### Minor Changes
