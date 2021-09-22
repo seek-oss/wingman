@@ -2,4 +2,4 @@
 'wingman-fe': minor
 ---
 
-Auto-select first job category suggestion
+**JobCategorySuggest:** Auto-select first job category suggestion
