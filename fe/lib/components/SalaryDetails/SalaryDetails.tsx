@@ -2,9 +2,9 @@ import {
   Column,
   Columns,
   Heading,
+  Inline,
   RadioGroup,
   RadioItem,
-  Secondary,
   Stack,
   Text,
   TextField,
@@ -15,6 +15,7 @@ interface SalaryDetailsProps {
   initialPayType?: string;
   initialMinimumPay?: number;
   initialMaximumPay?: number;
+  onBlur: (key: string, value: string) => void;
 }
 
 export const SalaryDetails = (props: SalaryDetailsProps) => {
@@ -22,6 +23,8 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
 
   const [payType, setPayType] = useState('annualSalary');
   const [payInformation, setPayInformation] = useState('');
+
+  const exceededCharLimit = payInformation.length > 50;
 
   return (
     <Stack space="xlarge">
@@ -39,7 +42,10 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
       </RadioGroup>
 
       <Stack space="small">
-        <Heading level="4">Pay range</Heading>
+        <Text weight="strong">Pay range</Text>
+        <Text size="small" tone="secondary">
+          Select a pay range to offer candidates.
+        </Text>
         <Columns space="medium">
           <Column>
             <TextField
@@ -63,33 +69,27 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
       </Stack>
 
       <Stack space="small">
-        <Heading level="4">
-          Customise the pay information displayed on your ad{' '}
-          <Secondary>(Optional)</Secondary>
-        </Heading>
+        <Inline space="small">
+          <Text weight="strong">Pay shown on your ad</Text>
+          <Text tone="secondary">(Optional)</Text>
+        </Inline>
+
         <TextField
           id="customisePayInfo"
           aria-label="customise-pay-information"
-          onChange={({ currentTarget }) => {
-            // @TODO: Marry up with character limit
-            setPayInformation(currentTarget.value);
-          }}
+          onChange={({ currentTarget }) =>
+            setPayInformation(currentTarget.value)
+          }
           value={payInformation}
           placeholder={'Example content'}
+          tone={exceededCharLimit ? 'critical' : 'neutral'}
+          message={
+            exceededCharLimit
+              ? 'Maximum character limit is 50'
+              : 'e.g $50,000 + car + annual bonus'
+          }
           characterLimit={50}
         />
-        <Columns space="none">
-          <Column>
-            <Text size="xsmall" tone="secondary">
-              e.g $50,000 + car + annual bonus
-            </Text>
-          </Column>
-          <Column width="content">
-            <Text size="xsmall" tone="secondary">
-              Blah
-            </Text>
-          </Column>
-        </Columns>
       </Stack>
     </Stack>
   );
