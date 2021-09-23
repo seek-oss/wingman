@@ -7,9 +7,10 @@ interface PayTypeLabels {
 }
 
 export interface SalaryError {
-  payType?: { message?: string };
-  minPay?: { message?: string };
-  maxPay?: { message?: string };
+  payType?: { message: string };
+  minPay?: { message: string };
+  maxPay?: { message: string };
+  payShownOnAd?: { message: string };
 }
 
 export interface PayTypeChange {

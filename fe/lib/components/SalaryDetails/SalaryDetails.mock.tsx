@@ -2,15 +2,13 @@ import React from 'react';
 
 import { MockComponentActions } from '../../private/MockComponentActions/MockComponentActions';
 
-import { SalaryDetails } from './SalaryDetails';
+import { SalaryDetails, SalaryDetailsProps } from './SalaryDetails';
 
-interface MockSalaryDetailsProps {
+interface Props extends SalaryDetailsProps {
   showStorybookAction?: boolean;
 }
 
-export const MockSalaryDetails = ({
-  showStorybookAction,
-}: MockSalaryDetailsProps) => (
+export const MockSalaryDetails = ({ showStorybookAction, ...props }: Props) => (
   <MockComponentActions
     space="medium"
     storybookPath={
@@ -19,6 +17,6 @@ export const MockSalaryDetails = ({
         : undefined
     }
   >
-    <SalaryDetails currency="AUD" onBlur={() => {}} />
+    <SalaryDetails {...props} />
   </MockComponentActions>
 );

@@ -1,6 +1,6 @@
 import 'braid-design-system/reset';
 
-import React from 'react';
+import React, { ComponentProps } from 'react';
 
 import {
   BraidArgs,
@@ -16,6 +16,12 @@ export default {
   args: {
     braidThemeName: defaultArgs.braidThemeName,
     wrapper: 'undefined',
+    currency: 'AUD',
+    initialMinimumPay: '',
+    initialMaximumPay: '',
+    initialPayType: 'Salaried',
+    errors: undefined,
+    onBlur: () => {},
   },
   argTypes: {
     braidThemeName: defaultArgTypes.braidThemeName,
@@ -29,11 +35,11 @@ export default {
   title: 'Job Posting/SalaryDetails/SalaryDetails',
 };
 
-type Args = BraidArgs;
+type Args = ComponentProps<typeof SalaryDetailsComponent> & BraidArgs;
 
-export const SalaryDetails = ({ braidThemeName }: Args) => (
+export const SalaryDetails = ({ braidThemeName, ...args }: Args) => (
   <BraidStorybookProvider braidThemeName={braidThemeName}>
-    <MockSalaryDetails />
+    <MockSalaryDetails {...args} />
   </BraidStorybookProvider>
 );
 

@@ -5,6 +5,7 @@ import {
   RadioGroup,
   RadioItem,
   Stack,
+  Text,
   TextField,
 } from 'braid-design-system';
 import React, { useState } from 'react';
@@ -24,7 +25,7 @@ const MAX_CHAR_LIMIT = 50;
 
 type OnBlur = PayTypeChange | PayAmountChange | PayDescriptionChange;
 
-interface SalaryDetailsProps {
+export interface SalaryDetailsProps {
   currency: Currency;
   initialMinimumPay?: string;
   initialMaximumPay?: string;
@@ -50,9 +51,9 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
 
   const exceededCharLimit = payInformation.length > MAX_CHAR_LIMIT;
   const payShownOnAdTone =
-    errors?.payType?.message || exceededCharLimit ? 'critical' : 'neutral';
+    errors?.payShownOnAd?.message || exceededCharLimit ? 'critical' : 'neutral';
   const payShownOnAdMessage =
-    errors?.payType?.message ?? exceededCharLimit
+    errors?.payShownOnAd?.message ?? exceededCharLimit
       ? `Maximum character limit is ${MAX_CHAR_LIMIT}`
       : 'e.g $50,000 + car + annual bonus';
 
@@ -76,41 +77,46 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
         ))}
       </RadioGroup>
 
-      <Columns space="medium" alignY="bottom">
-        <Column>
-          <TextField
-            id="minPay"
-            label={`Pay range ${currencies[currency]}`}
-            description="Select a pay range to offer candidates."
-            onChange={({ currentTarget: { value } }) => setMinPay(value)}
-            onBlur={({ currentTarget: { value } }) =>
-              onBlur({ key: 'minPay', value })
-            }
-            onClear={() => onBlur({ key: 'minPay', value: '' })}
-            value={minPay}
-            tone={errors?.minPay?.message ? 'critical' : 'neutral'}
-            message={errors?.minPay?.message}
-            placeholder="Minimum"
-            type="number"
-          />
-        </Column>
-        <Column>
-          <TextField
-            id="maxPay"
-            aria-label="maximum-pay"
-            onChange={({ currentTarget: { value } }) => setMaxPay(value)}
-            onBlur={({ currentTarget: { value } }) =>
-              onBlur({ key: 'maxPay', value })
-            }
-            onClear={() => onBlur({ key: 'maxPay', value: '' })}
-            value={maxPay}
-            tone={errors?.maxPay?.message ? 'critical' : 'neutral'}
-            message={errors?.maxPay?.message}
-            placeholder="Maximum"
-            type="number"
-          />
-        </Column>
-      </Columns>
+      <Stack space="small">
+        <Text weight="strong">Pay range {currencies[currency]}</Text>
+        <Text size="small" tone="secondary">
+          Select a pay range to offer candidates.
+        </Text>
+        <Columns space="medium" collapseBelow="tablet">
+          <Column width="1/2">
+            <TextField
+              id="minPay"
+              aria-label="minimum-pay"
+              onChange={({ currentTarget: { value } }) => setMinPay(value)}
+              onBlur={({ currentTarget: { value } }) =>
+                onBlur({ key: 'minPay', value })
+              }
+              onClear={() => onBlur({ key: 'minPay', value: '' })}
+              value={minPay}
+              tone={errors?.minPay?.message ? 'critical' : 'neutral'}
+              message={errors?.minPay?.message}
+              placeholder="Minimum"
+              type="number"
+            />
+          </Column>
+          <Column width="1/2">
+            <TextField
+              id="maxPay"
+              aria-label="maximum-pay"
+              onChange={({ currentTarget: { value } }) => setMaxPay(value)}
+              onBlur={({ currentTarget: { value } }) =>
+                onBlur({ key: 'maxPay', value })
+              }
+              onClear={() => onBlur({ key: 'maxPay', value: '' })}
+              value={maxPay}
+              tone={errors?.maxPay?.message ? 'critical' : 'neutral'}
+              message={errors?.maxPay?.message}
+              placeholder="Maximum"
+              type="number"
+            />
+          </Column>
+        </Columns>
+      </Stack>
 
       <TextField
         id="payShownOnAd"
