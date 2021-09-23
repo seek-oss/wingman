@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 4.4.0
+
+### Minor Changes
+
+- **JobCategorySuggest:** Auto-select first job category suggestion ([#602](https://github.com/seek-oss/wingman/pull/602))
+
 ## 4.3.1
 
 ### Patch Changes
