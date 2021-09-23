@@ -23,15 +23,15 @@ import {
 
 const MAX_CHAR_LIMIT = 50;
 
-type OnBlur = PayTypeChange | PayAmountChange | PayDescriptionChange;
-
 export interface SalaryDetailsProps {
   currency: Currency;
   initialMinimumPay?: string;
   initialMaximumPay?: string;
   initialPayType?: PayType;
   errors?: SalaryError;
-  onBlur: ({ key, value }: OnBlur) => void;
+  onBlur: (
+    item: PayTypeChange | PayAmountChange | PayDescriptionChange,
+  ) => void;
 }
 
 export const SalaryDetails = (props: SalaryDetailsProps) => {
@@ -65,7 +65,7 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
         value={payType}
         onChange={({ currentTarget: { value } }) => {
           setPayType(value as PayType);
-          onBlur({ key: 'payType', value: value as PayType });
+          onBlur({ key: 'payType', type: value as PayType });
         }}
         tone={errors?.payType?.message ? 'critical' : 'neutral'}
         message={errors?.payType?.message}
@@ -88,9 +88,9 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
               aria-label="minimum-pay"
               onChange={({ currentTarget: { value } }) => setMinPay(value)}
               onBlur={({ currentTarget: { value } }) =>
-                onBlur({ key: 'minPay', value })
+                onBlur({ key: 'minPay', amount: value })
               }
-              onClear={() => onBlur({ key: 'minPay', value: '' })}
+              onClear={() => onBlur({ key: 'minPay', amount: '' })}
               value={minPay}
               tone={errors?.minPay?.message ? 'critical' : 'neutral'}
               message={errors?.minPay?.message}
@@ -104,9 +104,9 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
               aria-label="maximum-pay"
               onChange={({ currentTarget: { value } }) => setMaxPay(value)}
               onBlur={({ currentTarget: { value } }) =>
-                onBlur({ key: 'maxPay', value })
+                onBlur({ key: 'maxPay', amount: value })
               }
-              onClear={() => onBlur({ key: 'maxPay', value: '' })}
+              onClear={() => onBlur({ key: 'maxPay', amount: '' })}
               value={maxPay}
               tone={errors?.maxPay?.message ? 'critical' : 'neutral'}
               message={errors?.maxPay?.message}
@@ -123,9 +123,9 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
         secondaryLabel="Optional"
         onChange={({ currentTarget }) => setPayInformation(currentTarget.value)}
         onBlur={({ currentTarget: { value } }) =>
-          onBlur({ key: 'payShownOnAd', value })
+          onBlur({ key: 'payShownOnAd', description: value })
         }
-        onClear={() => onBlur({ key: 'payShownOnAd', value: '' })}
+        onClear={() => onBlur({ key: 'payShownOnAd', description: '' })}
         value={payInformation}
         placeholder={'Example content'}
         tone={payShownOnAdTone}
