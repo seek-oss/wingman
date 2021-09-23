@@ -2,29 +2,59 @@ import {
   Column,
   Columns,
   Heading,
-  Inline,
   RadioGroup,
   RadioItem,
   Stack,
-  Text,
   TextField,
 } from 'braid-design-system';
 import React, { useState } from 'react';
 
+import {
+  Currency,
+  PayAmountChange,
+  PayDescriptionChange,
+  PayType,
+  PayTypeChange,
+  SalaryError,
+  currencies,
+  payTypes,
+} from './types';
+
+const MAX_CHAR_LIMIT = 50;
+
+type OnBlur = PayTypeChange | PayAmountChange | PayDescriptionChange;
+
 interface SalaryDetailsProps {
-  initialPayType?: string;
-  initialMinimumPay?: number;
-  initialMaximumPay?: number;
-  onBlur: (key: string, value: string) => void;
+  currency: Currency;
+  initialMinimumPay?: string;
+  initialMaximumPay?: string;
+  initialPayType?: PayType;
+  errors?: SalaryError;
+  onBlur: ({ key, value }: OnBlur) => void;
 }
 
 export const SalaryDetails = (props: SalaryDetailsProps) => {
-  const {} = props;
+  const {
+    currency,
+    errors,
+    initialMinimumPay,
+    initialMaximumPay,
+    initialPayType,
+    onBlur,
+  } = props;
 
-  const [payType, setPayType] = useState('annualSalary');
+  const [minPay, setMinPay] = useState(initialMinimumPay ?? '');
+  const [maxPay, setMaxPay] = useState(initialMaximumPay ?? '');
+  const [payType, setPayType] = useState(initialPayType ?? 'Salaried');
   const [payInformation, setPayInformation] = useState('');
 
-  const exceededCharLimit = payInformation.length > 50;
+  const exceededCharLimit = payInformation.length > MAX_CHAR_LIMIT;
+  const payShownOnAdTone =
+    errors?.payType?.message || exceededCharLimit ? 'critical' : 'neutral';
+  const payShownOnAdMessage =
+    errors?.payType?.message ?? exceededCharLimit
+      ? `Maximum character limit is ${MAX_CHAR_LIMIT}`
+      : 'e.g $50,000 + car + annual bonus';
 
   return (
     <Stack space="xlarge">
@@ -33,64 +63,70 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
       <RadioGroup
         id="payType"
         value={payType}
-        onChange={({ currentTarget: { value } }) => setPayType(value)}
+        onChange={({ currentTarget: { value } }) => {
+          setPayType(value as PayType);
+          onBlur({ key: 'payType', value: value as PayType });
+        }}
+        tone={errors?.payType?.message ? 'critical' : 'neutral'}
+        message={errors?.payType?.message}
         label="Pay type"
       >
-        <RadioItem label="Annual salary" value="annualSalary" />
-        <RadioItem label="Hourly rate" value="hourlyRate" />
-        <RadioItem label="Annual and commision" value="annualCommision" />
+        {payTypes.map(({ label, value }) => (
+          <RadioItem key={value} label={label} value={value} />
+        ))}
       </RadioGroup>
 
-      <Stack space="small">
-        <Text weight="strong">Pay range</Text>
-        <Text size="small" tone="secondary">
-          Select a pay range to offer candidates.
-        </Text>
-        <Columns space="medium">
-          <Column>
-            <TextField
-              id="minPay"
-              aria-label="maximum-pay"
-              onChange={() => {}}
-              value={''}
-              placeholder={'Minimum'}
-            />
-          </Column>
-          <Column>
-            <TextField
-              id="maxPay"
-              aria-label="maximum-pay"
-              onChange={() => {}}
-              value={''}
-              placeholder={'Maximum'}
-            />
-          </Column>
-        </Columns>
-      </Stack>
+      <Columns space="medium" alignY="bottom">
+        <Column>
+          <TextField
+            id="minPay"
+            label={`Pay range ${currencies[currency]}`}
+            description="Select a pay range to offer candidates."
+            onChange={({ currentTarget: { value } }) => setMinPay(value)}
+            onBlur={({ currentTarget: { value } }) =>
+              onBlur({ key: 'minPay', value })
+            }
+            onClear={() => onBlur({ key: 'minPay', value: '' })}
+            value={minPay}
+            tone={errors?.minPay?.message ? 'critical' : 'neutral'}
+            message={errors?.minPay?.message}
+            placeholder="Minimum"
+            type="number"
+          />
+        </Column>
+        <Column>
+          <TextField
+            id="maxPay"
+            aria-label="maximum-pay"
+            onChange={({ currentTarget: { value } }) => setMaxPay(value)}
+            onBlur={({ currentTarget: { value } }) =>
+              onBlur({ key: 'maxPay', value })
+            }
+            onClear={() => onBlur({ key: 'maxPay', value: '' })}
+            value={maxPay}
+            tone={errors?.maxPay?.message ? 'critical' : 'neutral'}
+            message={errors?.maxPay?.message}
+            placeholder="Maximum"
+            type="number"
+          />
+        </Column>
+      </Columns>
 
-      <Stack space="small">
-        <Inline space="small">
-          <Text weight="strong">Pay shown on your ad</Text>
-          <Text tone="secondary">(Optional)</Text>
-        </Inline>
-
-        <TextField
-          id="customisePayInfo"
-          aria-label="customise-pay-information"
-          onChange={({ currentTarget }) =>
-            setPayInformation(currentTarget.value)
-          }
-          value={payInformation}
-          placeholder={'Example content'}
-          tone={exceededCharLimit ? 'critical' : 'neutral'}
-          message={
-            exceededCharLimit
-              ? 'Maximum character limit is 50'
-              : 'e.g $50,000 + car + annual bonus'
-          }
-          characterLimit={50}
-        />
-      </Stack>
+      <TextField
+        id="payShownOnAd"
+        label="Pay shown on your ad"
+        secondaryLabel="Optional"
+        onChange={({ currentTarget }) => setPayInformation(currentTarget.value)}
+        onBlur={({ currentTarget: { value } }) =>
+          onBlur({ key: 'payShownOnAd', value })
+        }
+        onClear={() => onBlur({ key: 'payShownOnAd', value: '' })}
+        value={payInformation}
+        placeholder={'Example content'}
+        tone={payShownOnAdTone}
+        message={payShownOnAdMessage}
+        characterLimit={MAX_CHAR_LIMIT}
+      />
     </Stack>
   );
 };

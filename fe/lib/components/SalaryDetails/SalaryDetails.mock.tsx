@@ -19,6 +19,6 @@ export const MockSalaryDetails = ({
         : undefined
     }
   >
-    <SalaryDetails />
+    <SalaryDetails currency="AUD" onBlur={() => {}} />
   </MockComponentActions>
 );
