@@ -15,7 +15,6 @@ import { MockSalaryDetails } from './SalaryDetails.mock';
 export default {
   args: {
     braidThemeName: defaultArgs.braidThemeName,
-    wrapper: 'undefined',
     currency: 'AUD',
     initialMinimumPay: '',
     initialMaximumPay: '',
@@ -25,10 +24,31 @@ export default {
   },
   argTypes: {
     braidThemeName: defaultArgTypes.braidThemeName,
-    wrapper: {
+    showStorybookAction: defaultArgTypes.showStorybookAction,
+    errors: {
       control: { type: 'radio' },
-      mapping: { undefined, card: 'card' },
-      options: ['undefined', 'card', 'custom'],
+      mapping: {
+        undefined,
+        'Pay type errored': {
+          payType: { message: 'Error posting with chosen pay type' },
+        },
+        'Minimum pay errored': {
+          minPay: { message: 'Minimum pay must be greater than 0' },
+        },
+        'Maximum pay errored': {
+          maxPay: { message: 'Maximum pay must be less than 1,000,000' },
+        },
+        'Pay shown on ad errored': {
+          payShownOnAd: { message: 'Maximum character limit exceeded!' },
+        },
+      },
+      options: [
+        'undefined',
+        'Pay type errored',
+        'Minimum pay errored',
+        'Maximum pay errored',
+        'Pay shown on ad errored',
+      ],
     },
   },
   component: SalaryDetailsComponent,

@@ -52,10 +52,9 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
   const exceededCharLimit = payInformation.length > MAX_CHAR_LIMIT;
   const payShownOnAdTone =
     errors?.payShownOnAd?.message || exceededCharLimit ? 'critical' : 'neutral';
-  const payShownOnAdMessage =
-    errors?.payShownOnAd?.message ?? exceededCharLimit
-      ? `Maximum character limit is ${MAX_CHAR_LIMIT}`
-      : 'e.g $50,000 + car + annual bonus';
+  const payShownOnAdMessage = exceededCharLimit
+    ? `Maximum character limit is ${MAX_CHAR_LIMIT}`
+    : 'e.g $50,000 + car + annual bonus';
 
   return (
     <Stack space="xlarge">
@@ -130,7 +129,7 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
         value={payInformation}
         placeholder={'Example content'}
         tone={payShownOnAdTone}
-        message={payShownOnAdMessage}
+        message={errors?.payShownOnAd?.message ?? payShownOnAdMessage}
         characterLimit={MAX_CHAR_LIMIT}
       />
     </Stack>
