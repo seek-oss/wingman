@@ -1,34 +1,34 @@
 export type Currency = 'AUD' | 'NZD' | 'GBP';
-export type PayType = 'Salaried' | 'Hourly' | 'SalariedPlusCommission';
+export type SalaryType = 'Salaried' | 'Hourly' | 'SalariedPlusCommission';
 
 export interface SalaryError {
-  payType?: { message: string };
-  minPay?: { message: string };
-  maxPay?: { message: string };
-  payShownOnAd?: { message: string };
+  salaryType?: { message: string };
+  minimumPay?: { message: string };
+  maximumPay?: { message: string };
+  salaryDescription?: { message: string };
 }
 
-export interface PayTypeChange {
-  key: 'payType';
-  type: PayType;
+export interface SalaryTypeChange {
+  key: 'salaryType';
+  type: SalaryType;
 }
 
 export interface PayAmountChange {
-  key: 'minPay' | 'maxPay';
+  key: 'minimumPay' | 'maximumPay';
   amount: string;
 }
 
-export interface PayDescriptionChange {
-  key: 'payShownOnAd';
+export interface SalaryDescriptionChange {
+  key: 'salaryDescription';
   description: string;
 }
 
-interface PayTypeRadioItem {
+interface SalaryTypeRadioItem {
   label: string;
-  value: PayType;
+  value: SalaryType;
 }
 
-export const payTypes: PayTypeRadioItem[] = [
+export const salaryTypes: SalaryTypeRadioItem[] = [
   { label: 'Annual salary', value: 'Salaried' },
   { label: 'Hourly rate', value: 'Hourly' },
   { label: 'Annual and commision', value: 'SalariedPlusCommission' },

@@ -19,8 +19,9 @@ Optional:
 
 - `initialMinimumPay`: A default value to initially render for the minimum pay.
 - `initialMaximumPay`: A default value to initially render for the maximum pay.
-- `initialPayType`: A default value to initially render for the pay type.
-- `errors`: An object of errors mapping to either `payType`, `minPay`, `maxPay` or `payShownOnAd` that contain an error message.
+- `initialSalaryType`: A default value to initially render for the salary type.
+- `initialSalaryDescription`: A default value to initially render for the salary description.
+- `errors`: An object of errors mapping to either `payType`, `minimumPay`, `maximumPay` or `salaryDescription` that contain an error message.
 
 ### Validation
 
@@ -41,13 +42,13 @@ const PostingForm = () => {
       case 'payType':
         setJobAd({ ...jobAd, [item.key]: item.type })
         return;
-      case 'minPay':
+      case 'minimumPay':
         setJobAd({ ...jobAd, [item.key]: item.amount })
         return;
-      case 'maxPay':
+      case 'maximumPay':
         setJobAd({ ...jobAd, [item.key]: item.amount })
         return;
-      case 'payShownOnAd':
+      case 'salaryDescription':
         setJobAd({ ...jobAd, [item.key]: item.description })
         return;
     }
@@ -55,7 +56,7 @@ const PostingForm = () => {
 
   return (
     <div>
-      <SalaryDetails currency="AUD" onBlur={}>
+      <SalaryDetails currency="AUD" onBlur={onBlur}>
     </div>
   );
 };

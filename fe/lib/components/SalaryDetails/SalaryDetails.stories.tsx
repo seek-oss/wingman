@@ -18,7 +18,7 @@ export default {
     currency: 'AUD',
     initialMinimumPay: '',
     initialMaximumPay: '',
-    initialPayType: 'Salaried',
+    initialSalaryType: 'Salaried',
     errors: undefined,
     onBlur: () => {},
   },
@@ -30,16 +30,16 @@ export default {
       mapping: {
         undefined,
         'Pay type errored': {
-          payType: { message: 'Error posting with chosen pay type' },
+          salaryType: { message: 'Error posting with chosen pay type' },
         },
         'Minimum pay errored': {
-          minPay: { message: 'Minimum pay must be greater than 0' },
+          minimumPay: { message: 'Minimum pay must be greater than 0' },
         },
         'Maximum pay errored': {
-          maxPay: { message: 'Maximum pay must be less than 1,000,000' },
+          maximumPay: { message: 'Maximum pay must be less than 1,000,000' },
         },
         'Pay shown on ad errored': {
-          payShownOnAd: { message: 'Maximum character limit exceeded!' },
+          salaryDescription: { message: 'Maximum character limit exceeded!' },
         },
       },
       options: [

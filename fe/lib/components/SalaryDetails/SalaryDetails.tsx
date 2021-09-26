@@ -13,12 +13,12 @@ import React, { useState } from 'react';
 import {
   Currency,
   PayAmountChange,
-  PayDescriptionChange,
-  PayType,
-  PayTypeChange,
+  SalaryDescriptionChange,
   SalaryError,
+  SalaryType,
+  SalaryTypeChange,
   currencies,
-  payTypes,
+  salaryTypes,
 } from './types';
 
 const MAX_CHAR_LIMIT = 50;
@@ -27,10 +27,11 @@ export interface SalaryDetailsProps {
   currency: Currency;
   initialMinimumPay?: string;
   initialMaximumPay?: string;
-  initialPayType?: PayType;
+  initialSalaryDescription?: string;
+  initialSalaryType?: SalaryType;
   errors?: SalaryError;
   onBlur: (
-    item: PayTypeChange | PayAmountChange | PayDescriptionChange,
+    item: SalaryTypeChange | PayAmountChange | SalaryDescriptionChange,
   ) => void;
 }
 
@@ -40,18 +41,23 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
     errors,
     initialMinimumPay,
     initialMaximumPay,
-    initialPayType,
+    initialSalaryType,
+    initialSalaryDescription,
     onBlur,
   } = props;
 
   const [minPay, setMinPay] = useState(initialMinimumPay ?? '');
   const [maxPay, setMaxPay] = useState(initialMaximumPay ?? '');
-  const [payType, setPayType] = useState(initialPayType ?? 'Salaried');
-  const [payInformation, setPayInformation] = useState('');
+  const [salaryType, setSalaryType] = useState(initialSalaryType ?? 'Salaried');
+  const [salaryDescription, setSalaryDescription] = useState(
+    initialSalaryDescription ?? '',
+  );
 
-  const exceededCharLimit = payInformation.length > MAX_CHAR_LIMIT;
+  const exceededCharLimit = salaryDescription.length > MAX_CHAR_LIMIT;
   const payShownOnAdTone =
-    errors?.payShownOnAd?.message || exceededCharLimit ? 'critical' : 'neutral';
+    errors?.salaryDescription?.message || exceededCharLimit
+      ? 'critical'
+      : 'neutral';
   const payShownOnAdMessage = exceededCharLimit
     ? `Maximum character limit is ${MAX_CHAR_LIMIT}`
     : 'e.g $50,000 + car + annual bonus';
@@ -61,17 +67,17 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
       <Heading level="3">Pay details</Heading>
 
       <RadioGroup
-        id="payType"
-        value={payType}
+        id="salaryType"
+        value={salaryType}
         onChange={({ currentTarget: { value } }) => {
-          setPayType(value as PayType);
-          onBlur({ key: 'payType', type: value as PayType });
+          setSalaryType(value as SalaryType);
+          onBlur({ key: 'salaryType', type: value as SalaryType });
         }}
-        tone={errors?.payType?.message ? 'critical' : 'neutral'}
-        message={errors?.payType?.message}
+        tone={errors?.salaryType?.message ? 'critical' : 'neutral'}
+        message={errors?.salaryType?.message}
         label="Pay type"
       >
-        {payTypes.map(({ label, value }) => (
+        {salaryTypes.map(({ label, value }) => (
           <RadioItem key={value} label={label} value={value} />
         ))}
       </RadioGroup>
@@ -84,32 +90,32 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
         <Columns space="medium" collapseBelow="tablet">
           <Column width="1/2">
             <TextField
-              id="minPay"
+              id="minimumPay"
               aria-label="minimum-pay"
               onChange={({ currentTarget: { value } }) => setMinPay(value)}
               onBlur={({ currentTarget: { value } }) =>
-                onBlur({ key: 'minPay', amount: value })
+                onBlur({ key: 'minimumPay', amount: value })
               }
-              onClear={() => onBlur({ key: 'minPay', amount: '' })}
+              onClear={() => onBlur({ key: 'minimumPay', amount: '' })}
               value={minPay}
-              tone={errors?.minPay?.message ? 'critical' : 'neutral'}
-              message={errors?.minPay?.message}
+              tone={errors?.minimumPay?.message ? 'critical' : 'neutral'}
+              message={errors?.minimumPay?.message}
               placeholder="Minimum"
               type="number"
             />
           </Column>
           <Column width="1/2">
             <TextField
-              id="maxPay"
+              id="maximumPay"
               aria-label="maximum-pay"
               onChange={({ currentTarget: { value } }) => setMaxPay(value)}
               onBlur={({ currentTarget: { value } }) =>
-                onBlur({ key: 'maxPay', amount: value })
+                onBlur({ key: 'maximumPay', amount: value })
               }
-              onClear={() => onBlur({ key: 'maxPay', amount: '' })}
+              onClear={() => onBlur({ key: 'maximumPay', amount: '' })}
               value={maxPay}
-              tone={errors?.maxPay?.message ? 'critical' : 'neutral'}
-              message={errors?.maxPay?.message}
+              tone={errors?.maximumPay?.message ? 'critical' : 'neutral'}
+              message={errors?.maximumPay?.message}
               placeholder="Maximum"
               type="number"
             />
@@ -118,18 +124,20 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
       </Stack>
 
       <TextField
-        id="payShownOnAd"
+        id="salaryDescription"
         label="Pay shown on your ad"
         secondaryLabel="Optional"
-        onChange={({ currentTarget }) => setPayInformation(currentTarget.value)}
-        onBlur={({ currentTarget: { value } }) =>
-          onBlur({ key: 'payShownOnAd', description: value })
+        onChange={({ currentTarget }) =>
+          setSalaryDescription(currentTarget.value)
         }
-        onClear={() => onBlur({ key: 'payShownOnAd', description: '' })}
-        value={payInformation}
+        onBlur={({ currentTarget: { value } }) =>
+          onBlur({ key: 'salaryDescription', description: value })
+        }
+        onClear={() => onBlur({ key: 'salaryDescription', description: '' })}
+        value={salaryDescription}
         placeholder={'Example content'}
         tone={payShownOnAdTone}
-        message={errors?.payShownOnAd?.message ?? payShownOnAdMessage}
+        message={errors?.salaryDescription?.message ?? payShownOnAdMessage}
         characterLimit={MAX_CHAR_LIMIT}
       />
     </Stack>
