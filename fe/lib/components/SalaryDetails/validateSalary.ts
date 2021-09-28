@@ -10,28 +10,28 @@ interface Validation {
 }
 
 export const validateSalaryType = (errors?: SalaryError): Validation => {
-  if (errors?.salaryType?.message) {
+  if (errors?.basisCode?.message) {
     return {
       tone: 'critical',
-      message: errors.salaryType.message,
+      message: errors.basisCode.message,
     };
   }
 
   return { tone: 'neutral' };
 };
 
-export const validateMinimumPay = (
-  minPay: string,
+export const validateMinAmount = (
+  minAmount: string,
   errors?: SalaryError,
 ): Validation => {
-  if (errors?.minimumPay?.message) {
+  if (errors?.minimumAmount?.message) {
     return {
       tone: 'critical',
-      message: errors.minimumPay.message,
+      message: errors.minimumAmount.message,
     };
   }
 
-  if (Boolean(minPay) && Number(minPay) < 0) {
+  if (Boolean(minAmount) && Number(minAmount) < 0) {
     return {
       tone: 'critical',
       message: 'Minimum pay must be greater than 0',
@@ -41,19 +41,23 @@ export const validateMinimumPay = (
   return { tone: 'neutral' };
 };
 
-export const validateMaximumPay = (
-  minPay: string,
-  maxPay: string,
+export const validateMaxAmount = (
+  minAmount: string,
+  maxAmount: string,
   errors?: SalaryError,
 ): Validation => {
-  if (errors?.maximumPay?.message) {
+  if (errors?.maximumAmount?.message) {
     return {
       tone: 'critical',
-      message: errors.maximumPay.message,
+      message: errors.maximumAmount.message,
     };
   }
 
-  if (Boolean(minPay) && Boolean(maxPay) && Number(maxPay) < Number(minPay)) {
+  if (
+    Boolean(minAmount) &&
+    Boolean(maxAmount) &&
+    Number(maxAmount) < Number(minAmount)
+  ) {
     return {
       tone: 'critical',
       message: 'Maximum pay must be greater than minimum',
@@ -63,18 +67,18 @@ export const validateMaximumPay = (
   return { tone: 'neutral' };
 };
 
-export const validateSalaryDescription = (
-  salaryDescription: string,
+export const validateDescription = (
+  description: string,
   errors?: SalaryError,
 ): Validation => {
-  if (errors?.salaryDescription?.message) {
+  if (errors?.description?.message) {
     return {
       tone: 'critical',
-      message: errors.salaryDescription.message,
+      message: errors.description.message,
     };
   }
 
-  if (salaryDescription.length > MAX_CHAR_LIMIT) {
+  if (description.length > MAX_CHAR_LIMIT) {
     return {
       tone: 'critical',
       message: `Maximum character limit is ${MAX_CHAR_LIMIT}`,

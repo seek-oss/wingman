@@ -21,9 +21,9 @@ import {
   salaryTypes,
 } from './types';
 import {
-  validateMaximumPay,
-  validateMinimumPay,
-  validateSalaryDescription,
+  validateDescription,
+  validateMaxAmount,
+  validateMinAmount,
   validateSalaryType,
 } from './validateSalary';
 
@@ -31,10 +31,10 @@ export const MAX_CHAR_LIMIT = 50;
 
 export interface SalaryDetailsProps {
   currency: Currency;
-  initialMinimumPay?: string;
-  initialMaximumPay?: string;
-  initialSalaryDescription?: string;
-  initialSalaryType?: SalaryType;
+  initialMinimumAmount?: string;
+  initialMaximumAmount?: string;
+  initialDescription?: string;
+  initialBasisCode?: SalaryType;
   errors?: SalaryError;
   onBlur: (
     item: SalaryTypeChange | PayAmountChange | SalaryDescriptionChange,
@@ -45,31 +45,30 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
   const {
     currency,
     errors,
-    initialMinimumPay,
-    initialMaximumPay,
-    initialSalaryType,
-    initialSalaryDescription,
+    initialMinimumAmount,
+    initialMaximumAmount,
+    initialBasisCode,
+    initialDescription,
     onBlur,
   } = props;
 
-  const [minPay, setMinPay] = useState(initialMinimumPay ?? '');
+  const [minAmount, setMinAmount] = useState(initialMinimumAmount ?? '');
 
-  // `blurredMaxPay` is used to validate the maximum pay only after a user has tabbed off the text field
-  const [{ maxPay, blurredMaxPay }, setMaxPay] = useState({
-    maxPay: initialMaximumPay ?? '',
-    blurredMaxPay: initialMaximumPay ?? '',
+  // `blurredMaxAmount` is used to validate the maximum pay only after a user has tabbed off the text field
+  const [{ maxAmount, blurredMaxAmount }, setMaxPay] = useState({
+    maxAmount: initialMaximumAmount ?? '',
+    blurredMaxAmount: initialMaximumAmount ?? '',
   });
-  const [salaryType, setSalaryType] = useState(initialSalaryType ?? 'Salaried');
-  const [salaryDescription, setSalaryDescription] = useState(
-    initialSalaryDescription ?? '',
-  );
+  const [salaryType, setSalaryType] = useState(initialBasisCode ?? 'Salaried');
+  const [description, setDescription] = useState(initialDescription ?? '');
 
-  const minPayValidation = validateMinimumPay(minPay, errors);
-  const maxPayValidation = validateMaximumPay(minPay, blurredMaxPay, errors);
-  const salaryDescriptionValidation = validateSalaryDescription(
-    salaryDescription,
+  const minAmountValidation = validateMinAmount(minAmount, errors);
+  const maxAmountValidation = validateMaxAmount(
+    minAmount,
+    blurredMaxAmount,
     errors,
   );
+  const descriptionValidation = validateDescription(description, errors);
   const salaryTypeValidation = validateSalaryType(errors);
 
   return (
@@ -80,8 +79,16 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
         id="salaryType"
         value={salaryType}
         onChange={({ currentTarget: { value } }) => {
-          setSalaryType(value as SalaryType);
-          onBlur({ key: 'salaryType', type: value as SalaryType });
+          const type = value as SalaryType;
+
+          setSalaryType(type);
+          onBlur({
+            key: 'basisCode',
+            salary: {
+              code:type,
+              interval: type === 'Hourly' ? 'Hour' : 'Year',
+            },
+          });
         }}
         tone={salaryTypeValidation.tone}
         message={salaryTypeValidation.message}
@@ -100,35 +107,35 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
         <Columns space="medium" collapseBelow="tablet">
           <Column width="1/2">
             <TextField
-              id="minimumPay"
-              aria-label="minimum-pay"
-              onChange={({ currentTarget: { value } }) => setMinPay(value)}
+              id="minimumAmount"
+              aria-label="minimum-amount"
+              onChange={({ currentTarget: { value } }) => setMinAmount(value)}
               onBlur={({ currentTarget: { value } }) =>
-                onBlur({ key: 'minimumPay', amount: value })
+                onBlur({ key: 'minimumAmount', amount: value })
               }
-              onClear={() => onBlur({ key: 'minimumPay', amount: '' })}
-              value={minPay}
-              tone={minPayValidation.tone}
-              message={minPayValidation.message}
+              onClear={() => onBlur({ key: 'minimumAmount', amount: '' })}
+              value={minAmount}
+              tone={minAmountValidation.tone}
+              message={minAmountValidation.message}
               placeholder="Minimum"
               type="number"
             />
           </Column>
           <Column width="1/2">
             <TextField
-              id="maximumPay"
-              aria-label="maximum-pay"
+              id="maximumAmount"
+              aria-label="maximum-amount"
               onChange={({ currentTarget: { value } }) => {
-                setMaxPay({ maxPay: value, blurredMaxPay });
+                setMaxPay({ maxAmount: value, blurredMaxAmount });
               }}
               onBlur={({ currentTarget: { value } }) => {
-                setMaxPay({ maxPay, blurredMaxPay: value });
-                onBlur({ key: 'maximumPay', amount: value });
+                setMaxPay({ maxAmount, blurredMaxAmount: value });
+                onBlur({ key: 'maximumAmount', amount: value });
               }}
-              onClear={() => onBlur({ key: 'maximumPay', amount: '' })}
-              value={maxPay}
-              tone={maxPayValidation.tone}
-              message={maxPayValidation.message}
+              onClear={() => onBlur({ key: 'maximumAmount', amount: '' })}
+              value={maxAmount}
+              tone={maxAmountValidation.tone}
+              message={maxAmountValidation.message}
               placeholder="Maximum"
               type="number"
             />
@@ -140,19 +147,16 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
         id="salaryDescription"
         label="Pay shown on your ad"
         secondaryLabel="Optional"
-        onChange={({ currentTarget }) =>
-          setSalaryDescription(currentTarget.value)
-        }
+        onChange={({ currentTarget }) => setDescription(currentTarget.value)}
         onBlur={({ currentTarget: { value } }) =>
-          onBlur({ key: 'salaryDescription', description: value })
+          onBlur({ key: 'description', description: value })
         }
-        onClear={() => onBlur({ key: 'salaryDescription', description: '' })}
-        value={salaryDescription}
+        onClear={() => onBlur({ key: 'description', description: '' })}
+        value={description}
         placeholder={'Example content'}
-        tone={salaryDescriptionValidation.tone}
+        tone={descriptionValidation.tone}
         message={
-          salaryDescriptionValidation.message ??
-          'e.g $50,000 + car + annual bonus'
+          descriptionValidation.message ?? 'e.g $50,000 + car + annual bonus'
         }
         characterLimit={MAX_CHAR_LIMIT}
       />

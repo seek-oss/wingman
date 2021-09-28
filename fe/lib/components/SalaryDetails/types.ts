@@ -1,25 +1,29 @@
 export type Currency = 'AUD' | 'NZD' | 'GBP';
 export type SalaryType = 'Salaried' | 'Hourly' | 'SalariedPlusCommission';
+export type Interval = 'Hour' | 'Year';
 
 export interface SalaryError {
-  salaryType?: { message: string };
-  minimumPay?: { message: string };
-  maximumPay?: { message: string };
-  salaryDescription?: { message: string };
+  basisCode?: { message: string };
+  minimumAmount?: { message: string };
+  maximumAmount?: { message: string };
+  description?: { message: string };
 }
 
 export interface SalaryTypeChange {
-  key: 'salaryType';
-  type: SalaryType;
+  key: 'basisCode';
+  salary: {
+    code: SalaryType;
+    interval: Interval;
+  };
 }
 
 export interface PayAmountChange {
-  key: 'minimumPay' | 'maximumPay';
+  key: 'minimumAmount' | 'maximumAmount';
   amount: string;
 }
 
 export interface SalaryDescriptionChange {
-  key: 'salaryDescription';
+  key: 'description';
   description: string;
 }
 

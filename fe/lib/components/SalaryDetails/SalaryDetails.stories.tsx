@@ -16,9 +16,9 @@ export default {
   args: {
     braidThemeName: defaultArgs.braidThemeName,
     currency: 'AUD',
-    initialMinimumPay: '',
-    initialMaximumPay: '',
-    initialSalaryType: 'Salaried',
+    initialMinimumAmount: '',
+    initialMaximumAmount: '',
+    initialBasisCode: 'Salaried',
     errors: undefined,
     onBlur: () => {},
   },
