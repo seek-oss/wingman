@@ -1,5 +1,13 @@
 # wingman-fe
 
+## 4.5.0
+
+### Minor Changes
+
+- **MockComponents:** Add GitHub links to mock component actions ([#609](https://github.com/seek-oss/wingman/pull/609))
+
+  The existence of Wingman is still a bit mysterious. This adds an explicit link from our `MockComponentActions` to the relevant directory on GitHub.
+
 ## 4.4.0
 
 ### Minor Changes
