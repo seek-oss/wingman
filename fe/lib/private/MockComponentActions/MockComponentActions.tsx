@@ -45,7 +45,7 @@ export const MockComponentActions = ({
             rel="noreferrer"
             target="_blank"
             tone="brandAccent"
-            variant="soft"
+            variant="transparent"
           >
             <IconSocialGitHub /> View on GitHub
           </ButtonLink>
