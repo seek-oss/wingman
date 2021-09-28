@@ -16,6 +16,7 @@ export const MockSalaryDetails = ({ showStorybookAction, ...props }: Props) => (
         ? '/story/job-posting-salary-details-salarydetails--salary-details'
         : undefined
     }
+    sourcePath="lib/components/SalaryDetails"
   >
     <SalaryDetails {...props} />
   </MockComponentActions>
