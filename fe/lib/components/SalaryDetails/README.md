@@ -1,6 +1,6 @@
 # SalaryDetails
 
-A Salary Details component that contains information on the pay type, range and description.
+A Salary Details component that contains information on the salary type, range and description.
 
 ## Installation
 
@@ -17,16 +17,19 @@ Required:
 
 Optional:
 
-- `initialMinimumPay`: A default value to initially render for the minimum pay.
-- `initialMaximumPay`: A default value to initially render for the maximum pay.
-- `initialSalaryType`: A default value to initially render for the salary type.
-- `initialSalaryDescription`: A default value to initially render for the salary description.
+- `initialMinimumPay`: A default value for the minimum pay.
+- `initialMaximumPay`: A default value for the maximum pay.
+- `initialSalaryType`: A default value for the salary type.
+- `initialSalaryDescription`: A default value for the salary description.
 - `errors`: An object of errors mapping to either `salaryType`, `minimumPay`, `maximumPay` or `salaryDescription` that contain an error message.
 
 ### Validation
 
-The Salary Details component has some very light validation on the maximum character limit associated with the pay description.
-It will render an error message if the field exceeds the maximuim character limit.
+The Salary Details component has some basic UI validation rules:
+
+- The salary description contains a maximum of 50 characters.
+- The minimum pay must be greater than 0.
+- The maximum pay must be greater than the minimum pay.
 
 ### Usage
 

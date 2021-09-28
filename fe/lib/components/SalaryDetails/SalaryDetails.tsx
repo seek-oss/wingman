@@ -54,7 +54,7 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
 
   const [minPay, setMinPay] = useState(initialMinimumPay ?? '');
 
-  // Add blurredMaxPay as a mechanism to only validate once a user has lost focus on the text field
+  // `blurredMaxPay` is used to validate the maximum pay only after a user has tabbed off the text field
   const [{ maxPay, blurredMaxPay }, setMaxPay] = useState({
     maxPay: initialMaximumPay ?? '',
     blurredMaxPay: initialMaximumPay ?? '',
