@@ -85,7 +85,7 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
           onBlur({
             key: 'basisCode',
             salary: {
-              code:type,
+              code: type,
               interval: type === 'Hourly' ? 'Hour' : 'Year',
             },
           });
