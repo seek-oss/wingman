@@ -36,6 +36,7 @@ export const MockBrandSelect = ({
           ? '/story/job-posting-branding-brandselect--brand-select'
           : undefined
       }
+      sourcePath="lib/components/BrandSelect"
     >
       <BrandSelect {...props} pageSize={pageSize} />
     </MockComponentActions>
