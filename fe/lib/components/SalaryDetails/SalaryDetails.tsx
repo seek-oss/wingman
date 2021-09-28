@@ -20,8 +20,14 @@ import {
   currencies,
   salaryTypes,
 } from './types';
+import {
+  validateMaximumPay,
+  validateMinimumPay,
+  validateSalaryDescription,
+  validateSalaryType,
+} from './validateSalary';
 
-const MAX_CHAR_LIMIT = 50;
+export const MAX_CHAR_LIMIT = 50;
 
 export interface SalaryDetailsProps {
   currency: Currency;
@@ -47,20 +53,24 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
   } = props;
 
   const [minPay, setMinPay] = useState(initialMinimumPay ?? '');
-  const [maxPay, setMaxPay] = useState(initialMaximumPay ?? '');
+
+  // Add blurredMaxPay as a mechanism to only validate once a user has lost focus on the text field
+  const [{ maxPay, blurredMaxPay }, setMaxPay] = useState({
+    maxPay: initialMaximumPay ?? '',
+    blurredMaxPay: initialMaximumPay ?? '',
+  });
   const [salaryType, setSalaryType] = useState(initialSalaryType ?? 'Salaried');
   const [salaryDescription, setSalaryDescription] = useState(
     initialSalaryDescription ?? '',
   );
 
-  const exceededCharLimit = salaryDescription.length > MAX_CHAR_LIMIT;
-  const payShownOnAdTone =
-    errors?.salaryDescription?.message || exceededCharLimit
-      ? 'critical'
-      : 'neutral';
-  const payShownOnAdMessage = exceededCharLimit
-    ? `Maximum character limit is ${MAX_CHAR_LIMIT}`
-    : 'e.g $50,000 + car + annual bonus';
+  const minPayValidation = validateMinimumPay(minPay, errors);
+  const maxPayValidation = validateMaximumPay(minPay, blurredMaxPay, errors);
+  const salaryDescriptionValidation = validateSalaryDescription(
+    salaryDescription,
+    errors,
+  );
+  const salaryTypeValidation = validateSalaryType(errors);
 
   return (
     <Stack space="xlarge">
@@ -73,8 +83,8 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
           setSalaryType(value as SalaryType);
           onBlur({ key: 'salaryType', type: value as SalaryType });
         }}
-        tone={errors?.salaryType?.message ? 'critical' : 'neutral'}
-        message={errors?.salaryType?.message}
+        tone={salaryTypeValidation.tone}
+        message={salaryTypeValidation.message}
         label="Pay type"
       >
         {salaryTypes.map(({ label, value }) => (
@@ -98,8 +108,8 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
               }
               onClear={() => onBlur({ key: 'minimumPay', amount: '' })}
               value={minPay}
-              tone={errors?.minimumPay?.message ? 'critical' : 'neutral'}
-              message={errors?.minimumPay?.message}
+              tone={minPayValidation.tone}
+              message={minPayValidation.message}
               placeholder="Minimum"
               type="number"
             />
@@ -108,14 +118,17 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
             <TextField
               id="maximumPay"
               aria-label="maximum-pay"
-              onChange={({ currentTarget: { value } }) => setMaxPay(value)}
-              onBlur={({ currentTarget: { value } }) =>
-                onBlur({ key: 'maximumPay', amount: value })
-              }
+              onChange={({ currentTarget: { value } }) => {
+                setMaxPay({ maxPay: value, blurredMaxPay });
+              }}
+              onBlur={({ currentTarget: { value } }) => {
+                setMaxPay({ maxPay, blurredMaxPay: value });
+                onBlur({ key: 'maximumPay', amount: value });
+              }}
               onClear={() => onBlur({ key: 'maximumPay', amount: '' })}
               value={maxPay}
-              tone={errors?.maximumPay?.message ? 'critical' : 'neutral'}
-              message={errors?.maximumPay?.message}
+              tone={maxPayValidation.tone}
+              message={maxPayValidation.message}
               placeholder="Maximum"
               type="number"
             />
@@ -136,8 +149,11 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
         onClear={() => onBlur({ key: 'salaryDescription', description: '' })}
         value={salaryDescription}
         placeholder={'Example content'}
-        tone={payShownOnAdTone}
-        message={errors?.salaryDescription?.message ?? payShownOnAdMessage}
+        tone={salaryDescriptionValidation.tone}
+        message={
+          salaryDescriptionValidation.message ??
+          'e.g $50,000 + car + annual bonus'
+        }
         characterLimit={MAX_CHAR_LIMIT}
       />
     </Stack>
