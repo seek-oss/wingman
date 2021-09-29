@@ -27,7 +27,6 @@ Optional:
 
 The Salary Details component has some basic UI validation rules:
 
-- The salary description contains a maximum of 50 characters.
 - The minimum pay must be greater than 0.
 - The maximum pay must be greater than the minimum pay.
 
@@ -37,24 +36,24 @@ The Salary Details component has some basic UI validation rules:
 import React, { useState } from 'react';
 import { SalaryDetails } from 'wingman-fe';
 
-const buildRenumerationPackageInput = (renumeration) => ({
-  basisCode: renumeration.basisCode,
+const buildRemunerationPackageInput = (remuneration) => ({
+  basisCode: remuneration.basisCode,
   ranges: [{
-    intervalCode: renumeration.intervalCode,
+    intervalCode: remuneration.intervalCode,
     minimumAmount: {
-      currency: renumeration.currency,
-      value: Number(renumeration.minimumAmount),
+      currency: remuneration.currency,
+      value: Number(remuneration.minimumAmount),
     },
-    maximumAmount: renumeration.maximumAmount ?? {
-      currency: renumeration.currency,
-      value: Number(renumeration.maximumAmount),
+    maximumAmount: remuneration.maximumAmount ?? {
+      currency: remuneration.currency,
+      value: Number(remuneration.maximumAmount),
     },
   }],
-  descriptions: [renumeration.description],
+  descriptions: [remuneration.description],
 })
 
 const PostingForm = () => {
-  const [renumeration, setRenumeration] = useState({
+  const [remuneration, setRemuneration] = useState({
     basisCode: '',
     currency: 'AUD',
     intervalCode: '',
@@ -66,30 +65,30 @@ const PostingForm = () => {
   const onBlur = (item) => {
     switch (item.key) {
       case 'basisCode':
-        setRenumeration({
-          ...renumeration,
+        setRemuneration({
+          ...remuneration,
           basisCode: item.salary.code,
           intervalCode: item.salary.interval,
         });
         break;
 
       case 'minimumAmount':
-        setRenumeration({
-          ...renumeration,
+        setRemuneration({
+          ...remuneration,
           minimumAmount: item.amount,
         });
         break;
 
       case 'maximumAmount':
-        setRenumeration({
-          ...renumeration,
+        setRemuneration({
+          ...remuneration,
           maximumAmount: item.amount,
         });
         break;
 
       case 'description':
-        setRenumeration({
-          ...renumeration,
+        setRemuneration({
+          ...remuneration,
           description: item.description,
         });
         break;
