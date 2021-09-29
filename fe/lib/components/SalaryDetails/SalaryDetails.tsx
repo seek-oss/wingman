@@ -153,7 +153,6 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
         }
         onClear={() => onBlur({ key: 'description', description: '' })}
         value={description}
-        placeholder={'Example content'}
         tone={descriptionValidation.tone}
         message={descriptionValidation.message ?? 'E.g. $50,000 + annual bonus'}
         characterLimit={MAX_CHAR_LIMIT}
