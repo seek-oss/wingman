@@ -27,8 +27,6 @@ import {
   validateSalaryType,
 } from './validateSalary';
 
-export const MAX_CHAR_LIMIT = 50;
-
 export interface SalaryDetailsProps {
   currency: Currency;
   initialMinimumAmount?: string;
@@ -68,7 +66,7 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
     blurredMaxAmount,
     errors,
   );
-  const descriptionValidation = validateDescription(description, errors);
+  const descriptionValidation = validateDescription(errors);
   const salaryTypeValidation = validateSalaryType(errors);
 
   return (
@@ -102,7 +100,7 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
       <Stack space="small">
         <Text weight="strong">Pay range {currencies[currency]}</Text>
         <Text size="small" tone="secondary">
-          Select a pay range to offer candidates.
+          Enter a pay range to offer candidates
         </Text>
         <Columns space="medium" collapseBelow="tablet">
           <Column width="1/2">
@@ -146,7 +144,7 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
       <TextField
         id="salaryDescription"
         label="Pay shown on your ad"
-        secondaryLabel="Optional"
+        secondaryLabel="optional"
         onChange={({ currentTarget }) => setDescription(currentTarget.value)}
         onBlur={({ currentTarget: { value } }) =>
           onBlur({ key: 'description', description: value })
@@ -155,10 +153,7 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
         value={description}
         placeholder={'Example content'}
         tone={descriptionValidation.tone}
-        message={
-          descriptionValidation.message ?? 'e.g $50,000 + car + annual bonus'
-        }
-        characterLimit={MAX_CHAR_LIMIT}
+        message={descriptionValidation.message ?? 'E.g. $50,000 + annual bonus'}
       />
     </Stack>
   );

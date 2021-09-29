@@ -1,7 +1,6 @@
 import { TextField } from 'braid-design-system';
 import { ComponentProps } from 'react';
 
-import { MAX_CHAR_LIMIT } from './SalaryDetails';
 import { SalaryError } from './types';
 
 interface Validation {
@@ -67,21 +66,11 @@ export const validateMaxAmount = (
   return { tone: 'neutral' };
 };
 
-export const validateDescription = (
-  description: string,
-  errors?: SalaryError,
-): Validation => {
+export const validateDescription = (errors?: SalaryError): Validation => {
   if (errors?.description?.message) {
     return {
       tone: 'critical',
       message: errors.description.message,
-    };
-  }
-
-  if (description.length > MAX_CHAR_LIMIT) {
-    return {
-      tone: 'critical',
-      message: `Maximum character limit is ${MAX_CHAR_LIMIT}`,
     };
   }
 
