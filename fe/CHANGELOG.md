@@ -1,5 +1,13 @@
 # wingman-fe
 
+## 4.6.2
+
+### Patch Changes
+
+- **MockSalaryDetails:** Increase spacing on mock component actions ([#619](https://github.com/seek-oss/wingman/pull/619))
+
+* **Mock\*:** Control "View on GitHub" links with `showStorybookAction` ([#617](https://github.com/seek-oss/wingman/pull/617))
+
 ## 4.6.1
 
 ### Patch Changes
