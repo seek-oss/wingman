@@ -27,33 +27,29 @@ export const MockComponentActions = ({
   <Stack space={space}>
     {children}
 
-    {showStorybookAction && (storybookPath || sourcePath) ? (
+    {showStorybookAction ? (
       <Actions size="small">
-        {storybookPath ? (
-          <ButtonLink
-            href={`https://seek-oss.github.io/wingman/storybook/?path=${encodeURIComponent(
-              storybookPath,
-            )}`}
-            rel="noreferrer"
-            target="_blank"
-            tone="brandAccent"
-            variant="ghost"
-          >
-            <IconEducation /> Open in Storybook
-          </ButtonLink>
-        ) : null}
+        <ButtonLink
+          href={`https://seek-oss.github.io/wingman/storybook/?path=${encodeURIComponent(
+            storybookPath,
+          )}`}
+          rel="noreferrer"
+          target="_blank"
+          tone="brandAccent"
+          variant="ghost"
+        >
+          <IconEducation /> Open in Storybook
+        </ButtonLink>
 
-        {sourcePath ? (
-          <ButtonLink
-            href={`https://github.com/seek-oss/wingman/tree/master/fe/${sourcePath}`}
-            rel="noreferrer"
-            target="_blank"
-            tone="brandAccent"
-            variant="transparent"
-          >
-            <IconSocialGitHub /> View on GitHub
-          </ButtonLink>
-        ) : null}
+        <ButtonLink
+          href={`https://github.com/seek-oss/wingman/tree/master/fe/${sourcePath}`}
+          rel="noreferrer"
+          target="_blank"
+          tone="brandAccent"
+          variant="transparent"
+        >
+          <IconSocialGitHub /> View on GitHub
+        </ButtonLink>
       </Actions>
     ) : null}
   </Stack>
