@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 4.6.1
+
+### Patch Changes
+
+- Remove placeholder for salary description ([#615](https://github.com/seek-oss/wingman/pull/615))
+
 ## 4.6.0
 
 ### Minor Changes
