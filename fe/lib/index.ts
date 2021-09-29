@@ -21,6 +21,7 @@ export { QuestionnaireQueryOutput } from './components/QuestionnaireQueryOutput/
 
 export { SalaryDetails } from './components/SalaryDetails/SalaryDetails';
 export { MockSalaryDetails } from './components/SalaryDetails/SalaryDetails.mock';
+
 export { SpecifiedPersonForm } from './components/SpecifiedPersonForm/SpecifiedPersonForm';
 
 export { apolloTypePolicies } from './types/apolloTypePolicies';
