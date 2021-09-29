@@ -1,5 +1,15 @@
 # wingman-fe
 
+## 4.6.0
+
+### Minor Changes
+
+- Add interactive salary component ([#611](https://github.com/seek-oss/wingman/pull/611))
+
+### Patch Changes
+
+- Add character limit to salary description ([#614](https://github.com/seek-oss/wingman/pull/614))
+
 ## 4.5.0
 
 ### Minor Changes
