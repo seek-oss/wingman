@@ -27,7 +27,7 @@ export const MockComponentActions = ({
   <Stack space={space}>
     {children}
 
-    {showStorybookAction ? (
+    {showStorybookAction && (
       <Actions size="small">
         <ButtonLink
           href={`https://seek-oss.github.io/wingman/storybook/?path=${encodeURIComponent(
@@ -51,6 +51,6 @@ export const MockComponentActions = ({
           <IconSocialGitHub /> View on GitHub
         </ButtonLink>
       </Actions>
-    ) : null}
+    )}
   </Stack>
 );
