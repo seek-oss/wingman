@@ -36,10 +36,9 @@ export const MockLocationSuggest = forwardRef<HTMLInputElement, Props>(
     >
       <MockComponentActions
         space="medium"
+        showStorybookAction={showStorybookAction}
         storybookPath={
-          showStorybookAction
-            ? '/story/job-posting-locations-locationsuggest--location-suggest'
-            : undefined
+          '/story/job-posting-locations-locationsuggest--location-suggest'
         }
         sourcePath="lib/components/LocationSuggestion"
       >

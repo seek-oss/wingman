@@ -10,20 +10,24 @@ import React, { ComponentProps } from 'react';
 interface MockComponentActionsProps {
   children: ComponentProps<typeof Stack>['children'];
   space: ComponentProps<typeof Stack>['space'];
-  storybookPath?: string;
-  sourcePath?: string;
+
+  showStorybookAction: boolean | undefined;
+  storybookPath: string;
+  sourcePath: string;
 }
 
 export const MockComponentActions = ({
   children,
   space,
+
+  showStorybookAction,
   storybookPath,
   sourcePath,
 }: MockComponentActionsProps) => (
   <Stack space={space}>
     {children}
 
-    {storybookPath || sourcePath ? (
+    {showStorybookAction && (storybookPath || sourcePath) ? (
       <Actions size="small">
         {storybookPath ? (
           <ButtonLink
