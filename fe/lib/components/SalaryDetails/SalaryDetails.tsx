@@ -27,6 +27,8 @@ import {
   validateSalaryType,
 } from './validateSalary';
 
+export const MAX_CHAR_LIMIT = 50;
+
 export interface SalaryDetailsProps {
   currency: Currency;
   initialMinimumAmount?: string;
@@ -66,7 +68,7 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
     blurredMaxAmount,
     errors,
   );
-  const descriptionValidation = validateDescription(errors);
+  const descriptionValidation = validateDescription(description, errors);
   const salaryTypeValidation = validateSalaryType(errors);
 
   return (
@@ -154,6 +156,7 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
         placeholder={'Example content'}
         tone={descriptionValidation.tone}
         message={descriptionValidation.message ?? 'E.g. $50,000 + annual bonus'}
+        characterLimit={MAX_CHAR_LIMIT}
       />
     </Stack>
   );
