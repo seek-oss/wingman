@@ -30,16 +30,16 @@ export default {
       mapping: {
         undefined,
         'Pay type errored': {
-          salaryType: { message: 'Invalid pay type set' },
+          basisCode: { message: 'Invalid pay type set' },
         },
         'Minimum pay errored': {
-          minimumPay: { message: 'Minimum pay must be greater than 0' },
+          minimumAmount: { message: 'Minimum pay must be greater than 0' },
         },
         'Maximum pay errored': {
-          maximumPay: { message: 'Maximum pay must be a reasonable number' },
+          maximumAmount: { message: 'Maximum pay must be a reasonable number' },
         },
         'Pay shown on ad errored': {
-          salaryDescription: { message: 'Maximum character limit exceeded' },
+          description: { message: 'Maximum character limit exceeded' },
         },
       },
       options: [
