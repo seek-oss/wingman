@@ -22,9 +22,7 @@ export const MockJobCategorySelect = forwardRef<HTMLInputElement, Props>(
       <MockComponentActions
         space="medium"
         showStorybookAction={showStorybookAction}
-        storybookPath={
-          '/story/job-posting-job-categories-jobcategoryselect--job-category-select'
-        }
+        storybookPath="/story/job-posting-job-categories-jobcategoryselect--job-category-select"
         sourcePath="lib/components/JobCategorySelect"
       >
         <JobCategorySelect {...props} ref={ref} />
