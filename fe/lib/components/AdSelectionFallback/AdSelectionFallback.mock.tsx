@@ -15,11 +15,8 @@ export const MockAdSelectionFallback = forwardRef<HTMLSelectElement, Props>(
   ({ showStorybookAction, ...props }, ref) => (
     <MockComponentActions
       space="medium"
-      storybookPath={
-        showStorybookAction
-          ? '/story/job-posting-ad-selection-adselectionfallback--ad-selection-fallback'
-          : undefined
-      }
+      showStorybookAction={showStorybookAction}
+      storybookPath="/story/job-posting-ad-selection-adselectionfallback--ad-selection-fallback"
       sourcePath="lib/components/AdSelectionFallback"
     >
       <AdSelectionFallback {...props} ref={ref} />

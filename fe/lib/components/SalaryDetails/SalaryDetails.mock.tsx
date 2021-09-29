@@ -11,11 +11,8 @@ interface Props extends SalaryDetailsProps {
 export const MockSalaryDetails = ({ showStorybookAction, ...props }: Props) => (
   <MockComponentActions
     space="medium"
-    storybookPath={
-      showStorybookAction
-        ? '/story/job-posting-salary-details-salarydetails--salary-details'
-        : undefined
-    }
+    showStorybookAction={showStorybookAction}
+    storybookPath="/story/job-posting-salary-details-salarydetails--salary-details"
     sourcePath="lib/components/SalaryDetails"
   >
     <SalaryDetails {...props} />
