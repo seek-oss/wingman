@@ -1,8 +1,10 @@
 import {
+  Actions,
   Box,
   Button,
   Column,
   Columns,
+  IconPersonAdd,
   Stack,
   Strong,
   Text,
@@ -109,7 +111,7 @@ export const SpecifiedPersonForm = ({
           <TextDropdown
             options={[
               {
-                text: 'Hiring Manager',
+                text: 'Hiring manager',
                 value: 'HiringManager',
               },
               {
@@ -134,7 +136,11 @@ export const SpecifiedPersonForm = ({
       <TextField {...fieldProps('specifiedPersonEmailAddress')} />
       <TextField {...fieldProps('specifiedPersonPhoneNumber')} />
 
-      <Button onClick={addContact}>Add contact</Button>
+      <Actions>
+        <Button onClick={addContact}>
+          <IconPersonAdd /> Add contact
+        </Button>
+      </Actions>
     </Stack>
   );
 };
