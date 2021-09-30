@@ -102,7 +102,7 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
       <Stack space="small">
         <Text weight="strong">Pay range {currencies[currency]}</Text>
         <Text size="small" tone="secondary">
-          Enter a pay range to offer candidates
+          Enter a pay range to offer candidates (this will not show on your ad)
         </Text>
         <Columns space="medium" collapseBelow="tablet">
           <Column width="1/2">
