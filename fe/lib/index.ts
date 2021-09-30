@@ -23,5 +23,6 @@ export { SalaryDetails } from './components/SalaryDetails/SalaryDetails';
 export { MockSalaryDetails } from './components/SalaryDetails/SalaryDetails.mock';
 
 export { SpecifiedPersonForm } from './components/SpecifiedPersonForm/SpecifiedPersonForm';
+export { MockSpecifiedPersonForm } from './components/SpecifiedPersonForm/SpecifiedPersonForm.mock';
 
 export { apolloTypePolicies } from './types/apolloTypePolicies';

@@ -9,7 +9,7 @@ import {
 } from '../../storybook/controls';
 import { BraidStorybookProvider } from '../../storybook/decorators';
 
-import { SpecifiedPersonForm as Component } from './SpecifiedPersonForm';
+import { MockSpecifiedPersonForm } from './SpecifiedPersonForm.mock';
 
 export default {
   args: {
@@ -24,17 +24,18 @@ export default {
   },
   argTypes: {
     braidThemeName: defaultArgTypes.braidThemeName,
+    showStorybookAction: defaultArgTypes.showStorybookAction,
     onCreate: { action: 'onCreate' },
   },
-  component: Component,
+  component: MockSpecifiedPersonForm,
   title: 'Job Posting/Position openings/SpecifiedPersonForm',
 };
 
-type Args = ComponentProps<typeof Component> & BraidArgs;
+type Args = ComponentProps<typeof MockSpecifiedPersonForm> & BraidArgs;
 
 export const SpecifiedPersonForm = ({ braidThemeName, ...args }: Args) => (
   <BraidStorybookProvider braidThemeName={braidThemeName}>
-    <Component {...args} />
+    <MockSpecifiedPersonForm {...args} />
   </BraidStorybookProvider>
 );
 SpecifiedPersonForm.storyName = 'SpecifiedPersonForm';
