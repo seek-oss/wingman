@@ -52,7 +52,7 @@ export default {
     },
   },
   component: SalaryDetailsComponent,
-  title: 'Job Posting/SalaryDetails/SalaryDetails',
+  title: 'Job Posting/Salary details/SalaryDetails',
 };
 
 type Args = ComponentProps<typeof SalaryDetailsComponent> & BraidArgs;
