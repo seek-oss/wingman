@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 4.6.4
+
+### Patch Changes
+
+- Update wording for pay range ([#625](https://github.com/seek-oss/wingman/pull/625))
+
 ## 4.6.3
 
 ### Patch Changes
