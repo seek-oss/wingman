@@ -23,7 +23,7 @@ type FieldId =
   | 'specifiedPersonEmailAddress'
   | 'specifiedPersonPhoneNumber';
 
-interface Props {
+export interface SpecifiedPersonFormProps {
   initialValues?: InitialValues;
   onCreate: (person: SpecifiedPersonInput) => void;
 }
@@ -68,7 +68,7 @@ interface InitialValues {
 export const SpecifiedPersonForm = ({
   initialValues = {},
   onCreate,
-}: Props) => {
+}: SpecifiedPersonFormProps) => {
   const { fieldProps, fieldValues } = useFields<FieldId>({
     specifiedPersonRoleCode: {
       label: 'Hirer role',
