@@ -1,6 +1,8 @@
 import {
   Box,
   Button,
+  Column,
+  Columns,
   Stack,
   Strong,
   Text,
@@ -119,8 +121,16 @@ export const SpecifiedPersonForm = ({
           />
         </Text>
       </Box>
-      <TextField {...fieldProps('specifiedPersonGivenName')} />
-      <TextField {...fieldProps('specifiedPersonFamilyName')} />
+
+      <Columns collapseBelow="desktop" space="medium">
+        <Column>
+          <TextField {...fieldProps('specifiedPersonGivenName')} />
+        </Column>
+        <Column>
+          <TextField {...fieldProps('specifiedPersonFamilyName')} />
+        </Column>
+      </Columns>
+
       <TextField {...fieldProps('specifiedPersonEmailAddress')} />
       <TextField {...fieldProps('specifiedPersonPhoneNumber')} />
 
