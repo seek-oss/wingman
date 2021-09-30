@@ -1,5 +1,13 @@
 # wingman-fe
 
+## 4.6.3
+
+### Patch Changes
+
+- **SpecifiedPersonForm:** Wrap "Add contact" button in `Actions` ([#623](https://github.com/seek-oss/wingman/pull/623))
+
+* **SpecifiedPersonForm:** Show name components on the same row on desktop ([#621](https://github.com/seek-oss/wingman/pull/621))
+
 ## 4.6.2
 
 ### Patch Changes
