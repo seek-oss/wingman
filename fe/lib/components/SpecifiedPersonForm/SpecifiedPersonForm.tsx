@@ -4,11 +4,11 @@ import {
   Button,
   Column,
   Columns,
+  IconPersonAdd,
   Stack,
   Strong,
   Text,
   TextDropdown,
-  IconPersonAdd,
   TextField,
 } from 'braid-design-system';
 import React from 'react';
