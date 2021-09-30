@@ -133,8 +133,8 @@ export const SpecifiedPersonForm = ({
         </Column>
       </Columns>
 
-      <TextField {...fieldProps('specifiedPersonEmailAddress')} />
-      <TextField {...fieldProps('specifiedPersonPhoneNumber')} />
+      <TextField type="email" {...fieldProps('specifiedPersonEmailAddress')} />
+      <TextField type="tel" {...fieldProps('specifiedPersonPhoneNumber')} />
 
       <Actions>
         <Button onClick={addContact}>
