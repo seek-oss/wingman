@@ -1,4 +1,5 @@
 import {
+  Actions,
   Box,
   Button,
   Column,
@@ -134,7 +135,9 @@ export const SpecifiedPersonForm = ({
       <TextField {...fieldProps('specifiedPersonEmailAddress')} />
       <TextField {...fieldProps('specifiedPersonPhoneNumber')} />
 
-      <Button onClick={addContact}>Add contact</Button>
+      <Actions>
+        <Button onClick={addContact}>Add contact</Button>
+      </Actions>
     </Stack>
   );
 };
