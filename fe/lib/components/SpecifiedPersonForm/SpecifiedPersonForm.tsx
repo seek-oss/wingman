@@ -8,6 +8,7 @@ import {
   Strong,
   Text,
   TextDropdown,
+  IconPersonAdd,
   TextField,
 } from 'braid-design-system';
 import React from 'react';
@@ -110,7 +111,7 @@ export const SpecifiedPersonForm = ({
           <TextDropdown
             options={[
               {
-                text: 'Hiring Manager',
+                text: 'Hiring manager',
                 value: 'HiringManager',
               },
               {
@@ -136,7 +137,9 @@ export const SpecifiedPersonForm = ({
       <TextField {...fieldProps('specifiedPersonPhoneNumber')} />
 
       <Actions>
-        <Button onClick={addContact}>Add contact</Button>
+        <Button onClick={addContact}>
+          <IconPersonAdd /> Add contact
+        </Button>
       </Actions>
     </Stack>
   );
