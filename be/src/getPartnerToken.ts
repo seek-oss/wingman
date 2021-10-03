@@ -26,6 +26,6 @@ export const wrapRetriever = async <T>(
     // This is a bit of a hack. Consider either exposing the full Koa context to
     // the retriever function, or standardising error behaviour so that we don’t
     // handle unexpected errors and expose internal workings to the client.
-    return ctx.throw(401, err);
+    return ctx.throw(401, err instanceof Error ? err : String(err));
   }
 };

@@ -20,7 +20,7 @@ const wrapRetriever = async (
     // This is a bit of a hack. Consider either exposing the full Koa context to
     // `getSigningSecret`, or standardising error behaviour so that we don’t
     // handle unexpected errors and expose internal workings to the client.
-    return ctx.throw(400, err);
+    return ctx.throw(400, err instanceof Error ? err : String(err));
   }
 };
 

@@ -7,9 +7,7 @@ export const errorHandler: Middleware = async (ctx, next) => {
   try {
     /* eslint-disable-next-line @typescript-eslint/no-unsafe-return */
     return await next();
-  } catch (anyErr) {
-    const err = anyErr as unknown;
-
+  } catch (err) {
     if (!isRecord(err) || typeof err.status !== 'number') {
       ctx.status = 500;
       ctx.body = err;
