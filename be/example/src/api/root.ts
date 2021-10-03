@@ -9,9 +9,7 @@ export const rootMiddleware: Middleware = async (ctx, next) => {
 
     /* eslint-disable-next-line no-console */
     console.log(ctx.method, ctx.url, ctx.status);
-  } catch (anyErr) {
-    const err = anyErr as unknown;
-
+  } catch (err) {
     /* eslint-disable-next-line no-console */
     console.error(ctx.method, ctx.url, ctx.status, err);
 
