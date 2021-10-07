@@ -1,5 +1,19 @@
 # wingman-fe
 
+## 4.7.0
+
+### Minor Changes
+
+- **MockSpecifiedPersonForm:** Add wrapper around `SpecifiedPersonForm` with Storybook & GitHub button links ([#627](https://github.com/seek-oss/wingman/pull/627))
+
+### Patch Changes
+
+- **apolloTypePolicies:** Fix `webhookRequestsForSubscription` type policy ([#631](https://github.com/seek-oss/wingman/pull/631))
+
+  This was not including the `subscriptionId` as a key which would cause request pages to be cached cross-subscription.
+
+* **SpecifiedPersonForm:** Set input types for email & phone fields ([#629](https://github.com/seek-oss/wingman/pull/629))
+
 ## 4.6.4
 
 ### Patch Changes
