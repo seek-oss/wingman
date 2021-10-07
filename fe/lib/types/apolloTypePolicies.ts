@@ -276,7 +276,7 @@ export const apolloTypePolicies = ({
           keyArgs: ['eventId', 'filter', ...paginationKeyArgs],
         },
         webhookRequestsForSubscription: {
-          keyArgs: ['filter', ...paginationKeyArgs],
+          keyArgs: ['filter', 'subscriptionId', ...paginationKeyArgs],
         },
         webhookSubscriptions: {
           keyArgs: ['filter', 'schemeId', ...paginationKeyArgs],
