@@ -13,8 +13,8 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "6.3.8",
-    "@testing-library/react": "12.1.1",
+    "@storybook/addon-essentials": "6.3.10",
+    "@testing-library/react": "12.1.2",
     "@types/content-disposition": "0.5.4",
     "@types/faker": "5.5.8",
     "@types/react": "17.0.27",
@@ -24,7 +24,7 @@
     "braid-design-system": "30.4.3",
     "clsx": "1.1.1",
     "content-disposition": "0.5.3",
-    "date-fns": "2.24.0",
+    "date-fns": "2.25.0",
     "faker": "5.5.3",
     "path-browserify": "1.0.1",
     "query-string": "7.0.1",
