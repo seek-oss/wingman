@@ -10576,6 +10576,11 @@ fsevents@^2.1.2, fsevents@^2.3.2, fsevents@~2.3.2:
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.3.2.tgz#8a526f78b8fdf4623b709e0b975c52c24c02fd1a"
   integrity sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==
 
+function-arguments@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/function-arguments/-/function-arguments-1.0.9.tgz#baa49e8930e3b296d7977618d1a228950972b3c2"
+  integrity sha512-1Q6pDUjG3uve/ecbHEFpKUUOiPJzg6MZQV51f8c5pqlw1V6KCePQiztzOpQpdR/jnVJPXL2Q02xX1vNV22xx2Q==
+
 function-bind@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
@@ -18771,10 +18776,10 @@ skuba-dive@1.2.0:
     module-alias "^2.2.2"
     source-map-support "^0.5.16"
 
-skuba@3.15.1:
-  version "3.15.1"
-  resolved "https://registry.yarnpkg.com/skuba/-/skuba-3.15.1.tgz#b0c3704d378a7785ee5eab34dbfe7d0603fe99ea"
-  integrity sha512-s8CyMO2sFoZ9GhppmIK+KYdMwgmAofeEGz9njRbqjNnX0OvyZV4mU0NTzOaSB0+u8DfLhUxIviZqw89A2YQshQ==
+skuba@3.15.2:
+  version "3.15.2"
+  resolved "https://registry.yarnpkg.com/skuba/-/skuba-3.15.2.tgz#c0df2d88ba76fe0d824254cad29997ae65627242"
+  integrity sha512-slSfCXofUGeIX6YzjskeXPcY1yHx4s1O8hR2bNWJnlEBPjp7nOZiBoLUXXEF8ELJ95IpEPc5vcGAw2ZGdJ0tLw==
   dependencies:
     "@types/jest" "^27.0.1"
     chalk "^4.1.0"
@@ -18786,6 +18791,7 @@ skuba@3.15.1:
     execa "^5.0.0"
     fdir "^5.0.0"
     fs-extra "^10.0.0"
+    function-arguments "^1.0.9"
     get-port "^5.1.1"
     ignore "^5.1.8"
     is-installed-globally "^0.4.0"
@@ -18797,7 +18803,6 @@ skuba@3.15.1:
     normalize-package-data "^3.0.0"
     npm-run-path "^4.0.1"
     npm-which "^3.0.1"
-    p-limit "3.1.0"
     picomatch "^2.2.2"
     prettier "2.4.1"
     read-pkg-up "^7.0.1"
