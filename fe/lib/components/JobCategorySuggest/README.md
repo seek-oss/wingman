@@ -46,7 +46,11 @@ const positionProfile = {
 }
 
 // Higher component in tree wraps children in apollo provider
-<JobCategorySuggest schemeId="seekAnz" positionProfile={positionProfile} />;
+<JobCategorySuggest
+  schemeId="seekAnz"
+  positionTitle={positionTitle}
+  positionLocation={positionLocation}
+/>;
 ```
 
 #### Default usage with Apollo Client
@@ -76,7 +80,8 @@ const positionProfile = {
 <JobCategorySuggest
   schemeId="seekAnz"
   client={client}
-  positionProfile={positionProfile}
+  positionTitle={positionTitle}
+  positionLocation={positionLocation}
 />;
 ```
 
@@ -97,7 +102,8 @@ const JobCategoryForm = () => {
         schemeId="seekAnz"
         client={client}
         onSelect={jobCategorySuggest}
-        positionProfile={positionProfile}
+        positionTitle={positionTitle}
+        positionLocation={positionLocation}
       />
       <p>
         Your selected job category is: {jobCategorySuggest.JobCategory.name}
@@ -142,7 +148,8 @@ const JobCategoryForm = () => {
                 shouldValidate: true,
               })
             }
-            positionProfile={positionProfile}
+            positionTitle={positionTitle}
+            positionLocation={positionLocation}
             schemeId="seekAnz"
           />
         )}

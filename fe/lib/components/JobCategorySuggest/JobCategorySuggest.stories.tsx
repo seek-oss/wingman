@@ -17,10 +17,8 @@ export default {
     braidThemeName: defaultArgs.braidThemeName,
     message: 'undefined',
     onSelect: () => {},
-    positionProfile: {
-      positionTitle: `Senior Developer`,
-      positionLocation: ['seekAnzPublicTest:location:seek:2FqwWaaMV'],
-    },
+    positionTitle: `Senior Developer`,
+    positionLocation: ['seekAnzPublicTest:location:seek:2FqwWaaMV'],
     reserveMessageSpace: false,
     schemeId: 'seekAnz',
     tone: defaultArgs.tone,

@@ -12,7 +12,6 @@ import { useDebounce } from 'use-debounce';
 import type {
   JobCategorySuggestQuery,
   JobCategorySuggestionChoiceAttributesFragment,
-  JobCategorySuggestionPositionProfileInput,
 } from '../../types/seekApi.graphql';
 
 import JobCategorySuggestChoices from './JobCategorySuggestChoices';
@@ -22,7 +21,8 @@ type RadioProps = ComponentPropsWithRef<typeof RadioGroup>;
 
 export interface JobCategorySuggestProps
   extends Partial<Omit<RadioProps, 'id'>> {
-  positionProfile: JobCategorySuggestionPositionProfileInput;
+  positionTitle: string;
+  positionLocation: string[];
   schemeId: string;
   onSelect: (
     jobCategorySuggestionChoice: JobCategorySuggestionChoiceAttributesFragment,
@@ -42,7 +42,8 @@ export const JobCategorySuggest = forwardRef<
       client,
       debounceDelay = 250,
       onSelect,
-      positionProfile,
+      positionTitle,
+      positionLocation,
       schemeId,
       showConfidence,
       initialValue,
@@ -65,23 +66,28 @@ export const JobCategorySuggest = forwardRef<
       fetchPolicy: 'no-cache',
     });
 
-    const [debounceJobCategorySuggestInput] = useDebounce(
-      positionProfile,
+    const [debouncePositionTitle] = useDebounce(positionTitle, debounceDelay);
+
+    const [debouncePositionLocation] = useDebounce(
+      positionLocation,
       debounceDelay,
     );
 
     useEffect(() => {
-      if (debounceJobCategorySuggestInput) {
+      if (debouncePositionTitle && debouncePositionLocation) {
         getCategorySuggestion({
           variables: {
-            positionProfile: debounceJobCategorySuggestInput,
+            positionProfile: {
+              positionTitle: debouncePositionTitle,
+              positionLocation: debouncePositionLocation,
+            },
             schemeId,
             first: 5,
           },
         });
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [schemeId, debounceJobCategorySuggestInput]);
+    }, [schemeId, debouncePositionTitle, debouncePositionLocation]);
 
     return (
       <Stack space="small">
