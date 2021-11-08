@@ -45,7 +45,7 @@
   "name": "wingman-fe",
   "peerDependencies": {
     "braid-design-system": ">= 30.4",
-    "graphql": ">= 15 < 16",
+    "graphql": ">= 15 < 17",
     "react": ">= 17 < 18",
     "scoobie": ">= 9"
   },
