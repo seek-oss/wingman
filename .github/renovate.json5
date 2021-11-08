@@ -29,14 +29,3 @@
     },
   ],
 }
-
-
-
-  packageRules: [
-    {
-      matchManagers: ['npm'],
-      matchPackageNames: ['graphql'],
-
-      allowedVersions: '< 16',
-    },
-  ],
