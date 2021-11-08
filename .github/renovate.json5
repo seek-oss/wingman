@@ -12,5 +12,31 @@
 
       enabled: false,
     },
+    {
+      matchManagers: ['npm'],
+      matchPackageNames: ['graphql'],
+
+      // apollographql/apollo-client#8991
+      // apollographql/apollo-server#5605
+      allowedVersions: '< 16',
+    },
+    {
+      matchManagers: ['npm'],
+      matchPackageNames: ['react-router-dom'],
+
+      // pbeshai/use-query-params#108
+      allowedVersions: '< 6',
+    },
   ],
 }
+
+
+
+  packageRules: [
+    {
+      matchManagers: ['npm'],
+      matchPackageNames: ['graphql'],
+
+      allowedVersions: '< 16',
+    },
+  ],
