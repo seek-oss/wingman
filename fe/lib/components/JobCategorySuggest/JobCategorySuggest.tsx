@@ -7,6 +7,7 @@ import {
   Text,
 } from 'braid-design-system';
 import React, { ComponentPropsWithRef, forwardRef, useEffect } from 'react';
+import isDeepEqual from 'react-fast-compare';
 import { useDebounce } from 'use-debounce';
 
 import type {
@@ -32,22 +33,6 @@ export interface JobCategorySuggestProps
   showConfidence?: boolean;
   initialValue?: string;
 }
-
-const propsAreEqual = (
-  prevProps: JobCategorySuggestProps,
-  nextProps: JobCategorySuggestProps,
-) =>
-  prevProps.schemeId === nextProps.schemeId &&
-  prevProps.onSelect === nextProps.onSelect &&
-  prevProps.client === nextProps.client &&
-  prevProps.debounceDelay === nextProps.debounceDelay &&
-  prevProps.showConfidence === nextProps.showConfidence &&
-  prevProps.initialValue === nextProps.initialValue &&
-  // This is a bit lazy, but the partner's frontend will serialise this as JSON
-  // when passing to the SEEK API. This should only cause false positives if the
-  // property order changes.
-  JSON.stringify(prevProps.positionProfile) ===
-    JSON.stringify(nextProps.positionProfile);
 
 export const JobCategorySuggest = React.memo(
   forwardRef<HTMLInputElement, JobCategorySuggestProps>(
@@ -143,5 +128,5 @@ export const JobCategorySuggest = React.memo(
       );
     },
   ),
-  propsAreEqual,
+  isDeepEqual,
 );
