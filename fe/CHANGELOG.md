@@ -1,5 +1,13 @@
 # wingman-fe
 
+## 4.7.2
+
+### Patch Changes
+
+- **JobCategorySuggest:** Don't lose selected job category on re-render ([#658](https://github.com/seek-oss/wingman/pull/658))
+
+  If the user selects a job category their selection will now be preserved when the component re-renders.
+
 ## 4.7.1
 
 ### Patch Changes
