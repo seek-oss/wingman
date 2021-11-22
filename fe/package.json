@@ -25,7 +25,7 @@
     "braid-design-system": "30.7.0",
     "clsx": "1.1.1",
     "content-disposition": "0.5.3",
-    "date-fns": "2.25.0",
+    "date-fns": "2.26.0",
     "faker": "5.5.3",
     "path-browserify": "1.0.1",
     "query-string": "7.0.1",
