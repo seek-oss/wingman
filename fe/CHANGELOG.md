@@ -1,5 +1,13 @@
 # wingman-fe
 
+## 4.7.1
+
+### Patch Changes
+
+- **JobCategorySuggest:** Don't rerender on no-op props changes ([#656](https://github.com/seek-oss/wingman/pull/656))
+
+  This avoids re-querying the SEEK API and re-displaying suggestions unless there's a meaningful change to our props.
+
 ## 4.7.0
 
 ### Minor Changes
