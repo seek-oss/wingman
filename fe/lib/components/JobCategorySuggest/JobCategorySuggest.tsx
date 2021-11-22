@@ -1,4 +1,4 @@
-import { ApolloClient, useLazyQuery } from '@apollo/client';
+import { ApolloClient, useQuery } from '@apollo/client';
 import {
   FieldMessage,
   Loader,
@@ -6,7 +6,7 @@ import {
   Stack,
   Text,
 } from 'braid-design-system';
-import React, { ComponentPropsWithRef, forwardRef, useEffect } from 'react';
+import React, { ComponentPropsWithRef, forwardRef } from 'react';
 import isDeepEqual from 'react-fast-compare';
 import { useDebounce } from 'use-debounce';
 
@@ -55,32 +55,25 @@ export const JobCategorySuggest = React.memo(
       },
       forwardedRef,
     ) => {
-      const [
-        getCategorySuggestion,
-        { data: suggestData, error: suggestError, loading: suggestLoading },
-      ] = useLazyQuery<JobCategorySuggestQuery>(JOB_CATEGORY_SUGGEST, {
-        client,
-        // Avoid polluting the Apollo cache with partial searches
-        fetchPolicy: 'no-cache',
-      });
-
       const [debounceJobCategorySuggestInput] = useDebounce(
         positionProfile,
         debounceDelay,
       );
 
-      useEffect(() => {
-        if (debounceJobCategorySuggestInput) {
-          getCategorySuggestion({
-            variables: {
-              positionProfile: debounceJobCategorySuggestInput,
-              schemeId,
-              first: 5,
-            },
-          });
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [schemeId, debounceJobCategorySuggestInput]);
+      const {
+        data: suggestData,
+        error: suggestError,
+        loading: suggestLoading,
+      } = useQuery<JobCategorySuggestQuery>(JOB_CATEGORY_SUGGEST, {
+        client,
+        // Avoid polluting the Apollo cache with partial searches
+        fetchPolicy: 'no-cache',
+        variables: {
+          positionProfile: debounceJobCategorySuggestInput,
+          schemeId,
+          first: 5,
+        },
+      });
 
       return (
         <Stack space="small">
