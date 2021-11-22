@@ -33,97 +33,115 @@ export interface JobCategorySuggestProps
   initialValue?: string;
 }
 
-export const JobCategorySuggest = forwardRef<
-  HTMLInputElement,
-  JobCategorySuggestProps
->(
-  (
-    {
-      client,
-      debounceDelay = 250,
-      onSelect,
-      positionProfile,
-      schemeId,
-      showConfidence,
-      initialValue,
+const propsAreEqual = (
+  prevProps: JobCategorySuggestProps,
+  nextProps: JobCategorySuggestProps,
+) =>
+  prevProps.schemeId === nextProps.schemeId &&
+  prevProps.onSelect === nextProps.onSelect &&
+  prevProps.client === nextProps.client &&
+  prevProps.debounceDelay === nextProps.debounceDelay &&
+  prevProps.showConfidence === nextProps.showConfidence &&
+  prevProps.initialValue === nextProps.initialValue &&
+  // This is a bit lazy, but the partner's frontend will serialise this as JSON
+  // when passing to the SEEK API. This should only cause false positives if the
+  // property order changes.
+  JSON.stringify(prevProps.positionProfile) ===
+    JSON.stringify(nextProps.positionProfile);
 
-      message,
-      name,
-      reserveMessageSpace,
-      tone,
+export const JobCategorySuggest = React.memo(
+  forwardRef<HTMLInputElement, JobCategorySuggestProps>(
+    (
+      {
+        client,
+        debounceDelay = 250,
+        onSelect,
+        positionProfile,
+        schemeId,
+        showConfidence,
+        initialValue,
 
-      ...restProps
-    },
-    forwardedRef,
-  ) => {
-    const [
-      getCategorySuggestion,
-      { data: suggestData, error: suggestError, loading: suggestLoading },
-    ] = useLazyQuery<JobCategorySuggestQuery>(JOB_CATEGORY_SUGGEST, {
-      client,
-      // Avoid polluting the Apollo cache with partial searches
-      fetchPolicy: 'no-cache',
-    });
+        message,
+        name,
+        reserveMessageSpace,
+        tone,
 
-    const [debounceJobCategorySuggestInput] = useDebounce(
-      positionProfile,
-      debounceDelay,
-    );
+        ...restProps
+      },
+      forwardedRef,
+    ) => {
+      const [
+        getCategorySuggestion,
+        { data: suggestData, error: suggestError, loading: suggestLoading },
+      ] = useLazyQuery<JobCategorySuggestQuery>(JOB_CATEGORY_SUGGEST, {
+        client,
+        // Avoid polluting the Apollo cache with partial searches
+        fetchPolicy: 'no-cache',
+      });
 
-    useEffect(() => {
-      if (debounceJobCategorySuggestInput) {
-        getCategorySuggestion({
-          variables: {
-            positionProfile: debounceJobCategorySuggestInput,
-            schemeId,
-            first: 5,
-          },
-        });
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [schemeId, debounceJobCategorySuggestInput]);
+      const [debounceJobCategorySuggestInput] = useDebounce(
+        positionProfile,
+        debounceDelay,
+      );
 
-    return (
-      <Stack space="small">
-        {suggestLoading ? (
-          <Stack space="medium">
-            <Text>Loading suggested categories</Text>
-            <Loader size="xsmall" />
-          </Stack>
-        ) : (
-          suggestData?.jobCategorySuggestions && (
-            <JobCategorySuggestChoices
-              {...restProps}
-              choices={suggestData.jobCategorySuggestions}
-              name={name}
-              ref={forwardedRef}
-              initialValue={initialValue}
-              onSelect={onSelect}
-              showConfidence={showConfidence}
+      useEffect(() => {
+        if (debounceJobCategorySuggestInput) {
+          getCategorySuggestion({
+            variables: {
+              positionProfile: debounceJobCategorySuggestInput,
+              schemeId,
+              first: 5,
+            },
+          });
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [schemeId, debounceJobCategorySuggestInput]);
+
+      return (
+        <Stack space="small">
+          {suggestLoading ? (
+            <Stack space="medium">
+              <Text>Loading suggested categories</Text>
+              <Loader size="xsmall" />
+            </Stack>
+          ) : (
+            suggestData?.jobCategorySuggestions && (
+              <JobCategorySuggestChoices
+                {...restProps}
+                choices={suggestData.jobCategorySuggestions}
+                name={name}
+                ref={forwardedRef}
+                initialValue={initialValue}
+                onSelect={onSelect}
+                showConfidence={showConfidence}
+                tone={tone}
+                client={client}
+                schemeId={schemeId}
+              />
+            )
+          )}
+
+          {message || reserveMessageSpace ? (
+            <FieldMessage
+              id="jobCategorySuggestMessage"
+              message={message}
+              reserveMessageSpace={
+                suggestError ? undefined : reserveMessageSpace
+              }
               tone={tone}
-              client={client}
-              schemeId={schemeId}
             />
-          )
-        )}
+          ) : null}
 
-        {message || reserveMessageSpace ? (
-          <FieldMessage
-            id="jobCategorySuggestMessage"
-            message={message}
-            reserveMessageSpace={suggestError ? undefined : reserveMessageSpace}
-            tone={tone}
-          />
-        ) : null}
-
-        {suggestError && (
-          <FieldMessage
-            id="jobCategorySuggestError"
-            message="Sorry, we couldn’t fetch category suggestions. Please try again."
-            tone="critical"
-          />
-        )}
-      </Stack>
-    );
-  },
+          {suggestError && (
+            <FieldMessage
+              id="jobCategorySuggestError"
+              message="Sorry, we couldn’t fetch category suggestions. Please try again."
+              tone="critical"
+            />
+          )}
+        </Stack>
+      );
+    },
+  ),
+  propsAreEqual,
 );
