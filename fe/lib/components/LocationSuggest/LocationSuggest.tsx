@@ -1,9 +1,8 @@
-import { ApolloClient, useLazyQuery } from '@apollo/client';
+import { ApolloClient, useLazyQuery, useQuery } from '@apollo/client';
 import { FieldMessage, Stack, TextField } from 'braid-design-system';
 import React, {
   ComponentPropsWithRef,
   forwardRef,
-  useCallback,
   useEffect,
   useState,
 } from 'react';
@@ -14,7 +13,6 @@ import type {
   Location,
   LocationQuery,
   LocationQueryVariables,
-  LocationSuggestion,
   NearestLocationsQuery,
   NearestLocationsQueryVariables,
   SuggestLocationsQuery,
@@ -63,25 +61,55 @@ export const LocationSuggest = forwardRef<
     },
     forwardedRef,
   ) => {
-    const [getLocationSuggest, { data: suggestData, error: suggestError }] =
-      useLazyQuery<SuggestLocationsQuery, SuggestLocationsQueryVariables>(
-        LOCATION_SUGGEST,
-        {
-          client,
-          // Avoid polluting the Apollo cache with partial searches
-          fetchPolicy: 'no-cache',
-          onCompleted: (data) => {
-            if (
-              data.locationSuggestions &&
-              data.locationSuggestions.length > 0 &&
-              Boolean(detectLocationError)
-            ) {
-              // Reset any errors on a successful location search
-              setDetectLocationError('');
-            }
-          },
+    const [selectedLocationId, setSelectedLocationId] = useState('');
+    const [locationSuggestInput, setLocationSuggestInput] = useState('');
+    const [detectLocationError, setDetectLocationError] = useState<string>();
+
+    const [placeholder, setPlaceholder] = useState('');
+    const [debounceLocationSuggestInput] = useDebounce(
+      locationSuggestInput,
+      debounceDelay,
+    );
+
+    const {
+      data: suggestData,
+      previousData: previousSuggestData,
+      error: suggestError,
+    } = useQuery<SuggestLocationsQuery, SuggestLocationsQueryVariables>(
+      LOCATION_SUGGEST,
+      {
+        variables: {
+          usageTypeCode,
+          schemeId,
+          hirerId,
+          first,
+          text: debounceLocationSuggestInput,
         },
-      );
+        skip: !Boolean(debounceLocationSuggestInput),
+
+        client,
+        // Avoid polluting the Apollo cache with partial searches
+        fetchPolicy: 'no-cache',
+        onCompleted: (data) => {
+          if (
+            data.locationSuggestions?.length &&
+            Boolean(detectLocationError)
+          ) {
+            // Reset any errors on a successful location search
+            setDetectLocationError('');
+          }
+        },
+      },
+    );
+
+    const { data: initialLocation } = useQuery<
+      LocationQuery,
+      LocationQueryVariables
+    >(LOCATION, {
+      variables: { id: initialValue ?? '' },
+      skip: initialValue === undefined,
+      client,
+    });
 
     const [
       nearestLocations,
@@ -95,19 +123,6 @@ export const LocationSuggest = forwardRef<
       {
         client,
       },
-    );
-
-    const [selectedLocationId, setSelectedLocationId] = useState('');
-    const [locationSuggestInput, setLocationSuggestInput] = useState('');
-    const [locationSuggestResults, setLocationSuggestResults] =
-      useState<LocationSuggestion[]>();
-    const [detectLocationError, setDetectLocationError] = useState<string>();
-
-    const [placeholder, setPlaceholder] = useState('');
-    const [initialLocation, setInitialLocation] = useState<Location>();
-    const [debounceLocationSuggestInput] = useDebounce(
-      locationSuggestInput,
-      debounceDelay,
     );
 
     const handleLocationSelect = (selectedLocation?: Location) => {
@@ -129,65 +144,6 @@ export const LocationSuggest = forwardRef<
     };
 
     useEffect(() => {
-      if (debounceLocationSuggestInput) {
-        getLocationSuggest({
-          variables: {
-            usageTypeCode,
-            schemeId,
-            hirerId,
-            first,
-            text: debounceLocationSuggestInput,
-          },
-        });
-      }
-    }, [
-      usageTypeCode,
-      schemeId,
-      hirerId,
-      first,
-      debounceLocationSuggestInput,
-      getLocationSuggest,
-    ]);
-
-    const loadInitialLocation = useCallback(async () => {
-      if (
-        !initialValue ||
-        initialLocation?.id.value === initialValue ||
-        selectedLocationId
-      ) {
-        return;
-      }
-
-      const { data } = await client.query<
-        LocationQuery,
-        LocationQueryVariables
-      >({
-        query: LOCATION,
-        variables: { id: initialValue },
-      });
-
-      if (!data.location) {
-        return;
-      }
-
-      setInitialLocation(data.location);
-
-      if (!selectedLocationId) {
-        setSelectedLocationId(data.location.id.value);
-      }
-    }, [initialValue, client, selectedLocationId, initialLocation]);
-
-    useEffect(() => {
-      loadInitialLocation();
-    }, [loadInitialLocation]);
-
-    useEffect(() => {
-      if (suggestData?.locationSuggestions) {
-        setLocationSuggestResults(suggestData.locationSuggestions);
-      }
-    }, [suggestData]);
-
-    useEffect(() => {
       if (nearestLocationsData?.nearestLocations) {
         // The closest SEEK location returned for the geolocation input
         const closestLocation = nearestLocationsData.nearestLocations[0];
@@ -206,7 +162,12 @@ export const LocationSuggest = forwardRef<
           <LocationSuggestInput
             {...restProps}
             isLoading={nearestLocationsLoading}
-            locationSuggestions={locationSuggestResults}
+            locationSuggestions={
+              // Keep showing previous suggestions while we're loading
+              suggestData?.locationSuggestions ??
+              previousSuggestData?.locationSuggestions ??
+              undefined
+            }
             onChange={setLocationSuggestInput}
             onClear={() => {
               setSelectedLocationId('');
@@ -217,7 +178,7 @@ export const LocationSuggest = forwardRef<
             placeholder={placeholder}
             setDetectLocationError={setDetectLocationError}
             tone={tone}
-            initialLocation={initialLocation}
+            initialLocation={initialLocation?.location ?? undefined}
           />
 
           <input
