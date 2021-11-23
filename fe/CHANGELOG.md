@@ -1,5 +1,13 @@
 # wingman-fe
 
+## 4.7.3
+
+### Patch Changes
+
+- **LocationSuggest:** Refactor to use functional queries ([#662](https://github.com/seek-oss/wingman/pull/662))
+
+  This avoids throwing `AbortError` while using `LocationSuggest` in development mode
+
 ## 4.7.2
 
 ### Patch Changes
