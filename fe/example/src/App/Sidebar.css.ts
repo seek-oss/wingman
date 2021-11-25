@@ -21,7 +21,7 @@ export const linkContainer = composeStyles(
       },
 
       [`${link}:not(${activeLink}):hover &`]: {
-        background: vars.backgroundColor.selection,
+        background: vars.backgroundColor.formAccentSoft,
       },
 
       [`${link}:active &`]: {

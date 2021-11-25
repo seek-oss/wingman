@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const Header = ({ children }: Props) => (
-  <Box background="card" padding="gutter">
+  <Box background="surface" padding="gutter">
     {children}
   </Box>
 );

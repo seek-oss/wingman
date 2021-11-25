@@ -19,7 +19,7 @@ interface AppProps {
 
 const Content = () => (
   <Box display="flex">
-    <Box background="card" className={styles.rightBorder} flexShrink={0}>
+    <Box background="surface" className={styles.rightBorder} flexShrink={0}>
       <Sidebar />
     </Box>
 

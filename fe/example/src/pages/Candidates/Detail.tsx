@@ -173,7 +173,7 @@ const CandidateDetails = () => {
         </Heading>
       </Header>
 
-      <Box background="card" padding="gutter">
+      <Box background="surface" padding="gutter">
         <Stack space="gutter">
           {preferences.devTools ? (
             <Text>
@@ -187,7 +187,7 @@ const CandidateDetails = () => {
       </Box>
 
       <TabsProvider id="candidate">
-        <Box background="card">
+        <Box background="surface">
           <Tabs gutter="gutter" label="Candidate" reserveHitArea>
             {tabs}
           </Tabs>
