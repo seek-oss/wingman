@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 5.0.0
+
+### Major Changes
+
+- Upgrading Braid to 31.0.0 ([#665](https://github.com/seek-oss/wingman/pull/665))
+
 ## 4.7.3
 
 ### Patch Changes
