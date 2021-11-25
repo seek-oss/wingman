@@ -7,6 +7,8 @@ export const defaultArgs = {
   tone: 'undefined',
 };
 
+export type BraidThemeOptions = 'apac' | 'docs' | 'wireframe';
+
 export const defaultArgTypes = {
   braidThemeName: {
     control: { type: 'radio' },
