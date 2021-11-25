@@ -4580,13 +4580,13 @@
   resolved "https://registry.yarnpkg.com/@vanilla-extract/css-utils/-/css-utils-0.1.1.tgz#f4f58f85347d8a841ef74c60db111ec264011860"
   integrity sha512-9fDV8IhSfzgDd9Z+64jVcS38S2dVc6c1eOd+hgO8zPMRba6rEB8kEjg5+AQ3xPCdzl1m8olqFHnfQRNOn1OXuA==
 
-"@vanilla-extract/css@1.6.3", "@vanilla-extract/css@^1.2.3", "@vanilla-extract/css@^1.6.1", "@vanilla-extract/css@^1.6.2":
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/@vanilla-extract/css/-/css-1.6.3.tgz#61c601d9806c5e7a993a18526258cf257db73b05"
-  integrity sha512-Jp2bRQfN7O0PY//pnfnjMENXexow7okwHlbQW3nwv+8uFkUVFtjc1+aZcNklYu5fZjGWDFLJhDLHShDN0XmYFg==
+"@vanilla-extract/css@1.6.4", "@vanilla-extract/css@^1.2.3", "@vanilla-extract/css@^1.6.1", "@vanilla-extract/css@^1.6.2":
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/@vanilla-extract/css/-/css-1.6.4.tgz#dc29c7795dd51282d96acf12142f77ab01d420d4"
+  integrity sha512-1d9TtujuON4ncIA4FsdUizly6djDx12JoK2Qv/i2YqvQl15NBXI+1OJyZazwieatGMbkkofOtz28PjE69vKuug==
   dependencies:
     "@emotion/hash" "^0.8.0"
-    "@vanilla-extract/private" "^1.0.1"
+    "@vanilla-extract/private" "^1.0.2"
     chalk "^4.1.1"
     css-what "^5.0.1"
     cssesc "^3.0.0"
@@ -4609,10 +4609,10 @@
     lodash "^4.17.21"
     outdent "^0.8.0"
 
-"@vanilla-extract/private@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@vanilla-extract/private/-/private-1.0.1.tgz#c9479cebea7e7fbb07a1fe5b5c988a8753ef04ed"
-  integrity sha512-ABrFJGSmF7a1M+eDTsIeAErPhIeRyBY3ypyLQPc4bUVEK1mvF7F2gx4fTP81pm12bkS0GhjSJtM854lcPWhB+w==
+"@vanilla-extract/private@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@vanilla-extract/private/-/private-1.0.2.tgz#524069e0cd68df11bbcb41a4ea176b9b55de76c2"
+  integrity sha512-JCJsvqcFiLsRgtLw1WQmEa6xVUoknAjFBlf3ubS/Pdm7SGe9m8xGB/8ZRErYAN+2OJX+f3ROGnDN6kGLhmQv7w==
 
 "@vanilla-extract/sprinkles@^1.3.0":
   version "1.3.1"
