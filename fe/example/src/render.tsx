@@ -13,7 +13,7 @@ interface RenderContext {
 }
 
 const skuRender: Render<RenderContext> = {
-  renderApp: ({ SkuProvider, route, site }) => {
+  renderApp: ({ SkuProvider, route }) => {
     const isGitHubPages = Boolean(process.env.IS_GITHUB_PAGES);
 
     const basename = isGitHubPages ? 'wingman' : '';
@@ -22,7 +22,7 @@ const skuRender: Render<RenderContext> = {
       <SkuProvider>
         <UserProvider server={true}>
           <StaticRouter basename={basename} location={route}>
-            <App site={site} />
+            <App />
           </StaticRouter>
         </UserProvider>
       </SkuProvider>,

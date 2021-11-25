@@ -13,7 +13,7 @@ export const HomePage = () => (
     <ContentBlock>
       <Box padding="gutter">
         <Box
-          background="card"
+          background="surface"
           borderRadius="xlarge"
           boxShadow="borderInfoLight"
           paddingX="gutter"

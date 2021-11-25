@@ -50,7 +50,7 @@ export const brand = style({
   /**
    * {@link https://github.com/seek-oss/braid-design-system/blob/v30.4.2/lib/css/atoms/atomicProperties.ts#L13}
    */
-  boxShadow: `inset 0 0 0 ${vars.borderWidth.large} ${vars.borderColor.standard}`,
+  boxShadow: `inset 0 0 0 ${vars.borderWidth.large} ${vars.borderColor.neutralLight}`,
 });
 
 export const selectableBrand = style({

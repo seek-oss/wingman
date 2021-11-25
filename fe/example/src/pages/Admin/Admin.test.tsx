@@ -1,5 +1,6 @@
 import { render, waitFor } from '@testing-library/react';
-import { BraidTestProvider, ToastProvider } from 'braid-design-system';
+import { ToastProvider } from 'braid-design-system';
+import { BraidTestProvider } from 'braid-design-system/test';
 import React from 'react';
 
 import { BrowserTokenProvider } from '../../../../lib/hooks';

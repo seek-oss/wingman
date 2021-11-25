@@ -6,11 +6,11 @@ import { App } from './App/App';
 import { UserProvider } from './hooks/user';
 import type { ClientContext } from './types';
 
-export default ({ basename, site }: ClientContext) => {
+export default ({ basename }: ClientContext) => {
   hydrate(
     <UserProvider server={false}>
       <BrowserRouter basename={basename}>
-        <App site={site} />
+        <App />
       </BrowserRouter>
     </UserProvider>,
     document.getElementById('app'),

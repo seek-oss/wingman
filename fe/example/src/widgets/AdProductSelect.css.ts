@@ -7,6 +7,6 @@ export const productCard = style({
   borderWidth: vars.borderWidth.standard,
 
   ':hover': {
-    borderColor: vars.borderColor.formHover,
+    borderColor: vars.borderColor.formAccent,
   },
 });

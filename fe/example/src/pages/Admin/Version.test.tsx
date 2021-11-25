@@ -1,5 +1,5 @@
 import { render, waitFor } from '@testing-library/react';
-import { BraidTestProvider } from 'braid-design-system';
+import { BraidTestProvider } from 'braid-design-system/test';
 import React from 'react';
 
 import * as seekGraph from '../../api/seekGraph';

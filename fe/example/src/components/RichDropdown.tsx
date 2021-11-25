@@ -22,7 +22,7 @@ const Item = <T extends unknown>({
 }: ItemProps<T>) => (
   <Box
     alignItems="center"
-    background="card"
+    background="surface"
     className={styles.selectionHover}
     component="button"
     cursor="pointer"

@@ -60,7 +60,7 @@ const PositionDetailTabs = ({
       selectedItem={selectedTab}
       onChange={(_, selectedItem) => setSelectedTab(selectedItem)}
     >
-      <Box background="card">
+      <Box background="surface">
         <Tabs gutter="gutter" label="Position" reserveHitArea>
           <Tab
             item="candidates"
@@ -161,7 +161,7 @@ const PositionDetails = () => {
         </Heading>
       </Header>
 
-      <Box background="card" padding="gutter">
+      <Box background="surface" padding="gutter">
         <Stack space="medium">
           {preferences.devTools ? (
             <Text>

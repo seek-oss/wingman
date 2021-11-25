@@ -43,7 +43,7 @@ const TableHead = <T extends BaseRow>({ columns }: Props<T>) => (
 );
 
 const TableBody = <T extends BaseRow>({ columns, rows }: Props<T>) => (
-  <Box background="card" component="tbody">
+  <Box background="surface" component="tbody">
     {rows.map((row) => (
       <Box className={styles.row} component="tr" key={row.id}>
         {columns.map((column) => (

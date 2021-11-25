@@ -7,6 +7,6 @@ export const fieldBorder = style({
   borderStyle: 'solid',
 
   ':hover': {
-    borderColor: vars.borderColor.formHover,
+    borderColor: vars.borderColor.formAccent,
   },
 });

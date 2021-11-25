@@ -1,6 +1,7 @@
 import 'braid-design-system/reset';
 
-import { Box, BraidLoadableProvider, ToastProvider } from 'braid-design-system';
+import { Box, BraidProvider, ToastProvider } from 'braid-design-system';
+import apac from 'braid-design-system/themes/apac';
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { QueryParamProvider } from 'use-query-params';
@@ -13,13 +14,9 @@ import { Sidebar } from './Sidebar';
 
 import * as styles from './App.css';
 
-interface AppProps {
-  site: string;
-}
-
 const Content = () => (
   <Box display="flex">
-    <Box background="card" className={styles.rightBorder} flexShrink={0}>
+    <Box background="surface" className={styles.rightBorder} flexShrink={0}>
       <Sidebar />
     </Box>
 
@@ -29,8 +26,9 @@ const Content = () => (
   </Box>
 );
 
-export const App = ({ site }: AppProps) => (
-  <BraidLoadableProvider themeName={site}>
+export const App = () => (
+  // Default to `apac` theme for example wingman app
+  <BraidProvider theme={apac}>
     <ToastProvider>
       <BrowserTokenProvider baseUrl={BE_BASE_URL}>
         <QueryParamProvider ReactRouterRoute={Route}>
@@ -38,5 +36,5 @@ export const App = ({ site }: AppProps) => (
         </QueryParamProvider>
       </BrowserTokenProvider>
     </ToastProvider>
-  </BraidLoadableProvider>
+  </BraidProvider>
 );
