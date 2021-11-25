@@ -18292,10 +18292,10 @@ schema-utils@^3.0.0, schema-utils@^3.1.0, schema-utils@^3.1.1:
     ajv "^6.12.5"
     ajv-keywords "^3.5.2"
 
-scoobie@10.0.2:
-  version "10.0.2"
-  resolved "https://registry.yarnpkg.com/scoobie/-/scoobie-10.0.2.tgz#621c33383a8e5f81fcd871038509811bc1e463a6"
-  integrity sha512-yLZXQTG56cCNg/8ZH+0zjMK/a9bLYk46o8uummBhfPbX1BzwIQs0/CDVs/oXfp8JET8UmZuq/QjHRgB/UV7k6g==
+scoobie@11.0.0:
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/scoobie/-/scoobie-11.0.0.tgz#b1e2d1c0a9b8806b11078236c70885ae16da7fd5"
+  integrity sha512-Kwnaff1QobRTZBLvHudsJ2lAAUxWLzDvBNvin+NdNPCBadbTRaMukqPa9qxjTQr1n+Oe7QDOZPJu1JrrrBgl3A==
   dependencies:
     "@mdx-js/loader" "^1.6.22"
     "@mdx-js/react" "^1.6.22"
