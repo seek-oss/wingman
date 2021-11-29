@@ -27,7 +27,7 @@ Optional:
 - `client`: An `ApolloClient` instance. By default `JobCategorySuggest` uses the client passed down via context, but a different client can be passed in.
 - `debounceDelay`: The delay in milliseconds between job category suggest calls to reduce overhead. Defaults to `250`.
 - `initialValue`: The id of a jobCategory to pre-select in the component - for example 'seekAnz:jobCategory:seek:vpzp83Sf'. This is useful when editing an existing entity with a saved Job Category that has been loaded from a data store.
-- `onSelect`: Callback function that is supplied a [SEEK JobCategorySuggestionChoice](https://developer.seek.com/schema/#/definitions/JobCategorySuggestionChoice) on job category selection.
+- `onSelect`: Callback function that is supplied a [SEEK JobCategorySuggestionChoice](https://developer.seek.com/schema/#/named-type/JobCategorySuggestionChoice) on job category selection.
 - `showConfidence`: Boolean toggle that enables to the associated confidence score of the suggested job category to be displayed on selection. Defaults to `false`.
 
 Extends:
