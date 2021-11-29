@@ -19,8 +19,8 @@ Read more about underlying [`jobCategorySuggestions` query](https://developer.se
 
 Required
 
-- `schemeId`: The scheme for the job category dataset to query.
 - `positionProfile`: Matches the shape of [`JobCategorySuggestionPositionProfileInput`](https://developer.seek.com/schema/#/definitions/JobCategorySuggestionPositionProfileInput). Including a `positionFormattedDescriptions` with `descriptionId` of `AdvertisementDetails` will increase the accuracy of the suggested job categories.
+- `schemeId`: The scheme for the job category dataset to query.
 
 Optional:
 

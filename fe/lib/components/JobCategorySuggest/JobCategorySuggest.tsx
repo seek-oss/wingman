@@ -23,15 +23,15 @@ type RadioProps = ComponentPropsWithRef<typeof RadioGroup>;
 
 export interface JobCategorySuggestProps
   extends Partial<Omit<RadioProps, 'id' | 'value'>> {
-  positionProfile: JobCategorySuggestionPositionProfileInput;
-  schemeId: string;
+  client?: ApolloClient<unknown>;
+  debounceDelay?: number;
+  initialValue?: string;
   onSelect: (
     jobCategorySuggestionChoice: JobCategorySuggestionChoiceAttributesFragment,
   ) => void;
-  client?: ApolloClient<unknown>;
-  debounceDelay?: number;
+  positionProfile: JobCategorySuggestionPositionProfileInput;
+  schemeId: string;
   showConfidence?: boolean;
-  initialValue?: string;
 }
 
 export const JobCategorySuggest = React.memo(
