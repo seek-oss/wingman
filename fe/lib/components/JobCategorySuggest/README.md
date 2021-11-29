@@ -32,7 +32,7 @@ Optional:
 
 Extends:
 
-- You may pass through various HTML input field props including: `id`, `name`, `label`
+- You may pass through the standard HTML input fields `name` and `required`.
 
 ### Usage
 
@@ -101,7 +101,7 @@ const JobCategoryForm = () => {
         positionProfile={positionProfile}
       />
       <p>
-        Your selected job category is: {jobCategorySuggest.JobCategory.name}
+        Your selected job category is: {jobCategorySuggest.jobCategory.name}
       </p>
       <p>
         The confidence score of this category is {jobCategorySuggest.confidence}
