@@ -22,7 +22,7 @@ import { JOB_CATEGORY_SUGGEST } from './queries';
 type RadioProps = ComponentPropsWithRef<typeof RadioGroup>;
 
 export interface JobCategorySuggestProps
-  extends Partial<Omit<RadioProps, 'id'>> {
+  extends Partial<Omit<RadioProps, 'id' | 'value'>> {
   positionProfile: JobCategorySuggestionPositionProfileInput;
   schemeId: string;
   onSelect: (
