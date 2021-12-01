@@ -19,19 +19,20 @@ Read more about underlying [`jobCategorySuggestions` query](https://developer.se
 
 Required
 
-- `schemeId`: The scheme for the job category dataset to query.
 - `positionProfile`: Matches the shape of [`JobCategorySuggestionPositionProfileInput`](https://developer.seek.com/schema/#/definitions/JobCategorySuggestionPositionProfileInput). Including a `positionFormattedDescriptions` with `descriptionId` of `AdvertisementDetails` will increase the accuracy of the suggested job categories.
+- `schemeId`: The scheme for the job category dataset to query.
 
 Optional:
 
 - `client`: An `ApolloClient` instance. By default `JobCategorySuggest` uses the client passed down via context, but a different client can be passed in.
 - `debounceDelay`: The delay in milliseconds between job category suggest calls to reduce overhead. Defaults to `250`.
-- `onSelect`: Callback function that is supplied a [SEEK JobCategorySuggestionChoice](https://developer.seek.com/schema/#/definitions/JobCategorySuggestionChoice) on job category selection.
+- `initialValue`: The ID of a job category to pre-select in the component - for example 'seekAnz:jobCategory:seek:vpzp83Sf'. This is useful when editing an existing entity with a saved job category that has been loaded from a data store.
+- `onSelect`: Callback function that is supplied a [SEEK JobCategorySuggestionChoice](https://developer.seek.com/schema/#/named-type/JobCategorySuggestionChoice) on job category selection.
 - `showConfidence`: Boolean toggle that enables to the associated confidence score of the suggested job category to be displayed on selection. Defaults to `false`.
 
 Extends:
 
-- You may pass through various HTML input field props including: `id`, `name`, `label`
+- You may pass through the standard HTML input fields `name` and `required`.
 
 ### Usage
 
@@ -100,7 +101,7 @@ const JobCategoryForm = () => {
         positionProfile={positionProfile}
       />
       <p>
-        Your selected job category is: {jobCategorySuggest.JobCategory.name}
+        Your selected job category is: {jobCategorySuggest.jobCategory.name}
       </p>
       <p>
         The confidence score of this category is {jobCategorySuggest.confidence}
