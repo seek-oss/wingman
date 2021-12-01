@@ -1,8 +1,9 @@
-const { merge } = require('webpack-merge');
+import type { SkuConfig } from 'sku';
+import { merge } from 'webpack-merge';
 
 const isGitHubPages = Boolean(process.env.IS_GITHUB_PAGES);
 
-module.exports = {
+const config: SkuConfig = {
   clientEntry: './example/src/client.tsx',
   renderEntry: './example/src/render.tsx',
   srcPaths: ['./example/src', './lib'],
@@ -59,3 +60,5 @@ module.exports = {
       },
     }),
 };
+
+export default config;
