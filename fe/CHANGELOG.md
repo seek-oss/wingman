@@ -1,5 +1,15 @@
 # wingman-fe
 
+## 6.0.0
+
+### Major Changes
+
+- Remove unused 'value' prop from JobCategorySuggest ([#671](https://github.com/seek-oss/wingman/pull/671))
+
+### Minor Changes
+
+- Stop auto-selecting a highly-recommended category in JobCategorySuggest ([#669](https://github.com/seek-oss/wingman/pull/669))
+
 ## 5.0.0
 
 ### Major Changes
