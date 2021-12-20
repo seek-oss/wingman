@@ -5,6 +5,7 @@ import {
   Columns,
   FieldMessage,
   Stack,
+  Text,
   TextField,
 } from 'braid-design-system';
 import React, { useMemo, useRef } from 'react';
@@ -14,6 +15,11 @@ import type { ResponseChoice } from '../../../../../../private/questionnaires/ty
 import { createResolver } from '../../../../../../utils';
 
 import DisplayOption from './DisplayOption';
+
+/**
+ * https://developer.seek.com/schema/#/named-type/ApplicationQuestionInput/field/responseChoice
+ */
+const RESPONSE_CHOICE_LIMIT = 99;
 
 interface FormValues {
   option: string;
@@ -99,39 +105,45 @@ export default ({ options, setOptionList }: SelectOptionsProps) => {
 
   return (
     <Stack space="medium">
-      <Stack space="small">
-        <Columns alignY="bottom" space="small">
-          <Column>
-            <Controller
-              control={control}
-              name="option"
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  id="questionnaireBuilderAddOption"
-                  label="Options"
-                  onClear={() => setValue('option', '')}
-                  ref={optionInputRef}
-                  tone={errors.option ? 'critical' : undefined}
-                />
-              )}
-            />
-          </Column>
-          <Column width="content">
-            <Actions>
-              <Button onClick={handleSubmit(addOption)}>Add</Button>
-            </Actions>
-          </Column>
-        </Columns>
+      {options.length >= RESPONSE_CHOICE_LIMIT ? (
+        <Text tone="secondary">
+          You can’t provide more than {RESPONSE_CHOICE_LIMIT} options.
+        </Text>
+      ) : (
+        <Stack space="small">
+          <Columns alignY="bottom" space="small">
+            <Column>
+              <Controller
+                control={control}
+                name="option"
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    id="questionnaireBuilderAddOption"
+                    label="Options"
+                    onClear={() => setValue('option', '')}
+                    ref={optionInputRef}
+                    tone={errors.option ? 'critical' : undefined}
+                  />
+                )}
+              />
+            </Column>
+            <Column width="content">
+              <Actions>
+                <Button onClick={handleSubmit(addOption)}>Add</Button>
+              </Actions>
+            </Column>
+          </Columns>
 
-        {errors.option?.message ? (
-          <FieldMessage
-            id="questionnaireBuilderAddOptionMessage"
-            message={errors.option.message}
-            tone="critical"
-          />
-        ) : null}
-      </Stack>
+          {errors.option?.message ? (
+            <FieldMessage
+              id="questionnaireBuilderAddOptionMessage"
+              message={errors.option.message}
+              tone="critical"
+            />
+          ) : null}
+        </Stack>
+      )}
 
       <Stack dividers space="small">
         {options.map(({ text, preferredIndicator }) => (
