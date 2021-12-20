@@ -1,5 +1,15 @@
 # wingman-fe
 
+## 6.0.1
+
+### Patch Changes
+
+- **QuestionnaireForm:** Render single-select questions with >5 choices as a dropdown ([#691](https://github.com/seek-oss/wingman/pull/691))
+
+  This matches existing behaviour of SEEK's native apply form.
+
+* **QuestionnaireBuilder:** Limit response choices to 99 ([#693](https://github.com/seek-oss/wingman/pull/693))
+
 ## 6.0.0
 
 ### Major Changes
