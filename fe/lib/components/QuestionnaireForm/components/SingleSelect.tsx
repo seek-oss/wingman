@@ -1,4 +1,10 @@
-import { RadioGroup, RadioItem, Stack, Text } from 'braid-design-system';
+import {
+  Dropdown,
+  RadioGroup,
+  RadioItem,
+  Stack,
+  Text,
+} from 'braid-design-system';
 import React from 'react';
 
 import { componentId } from './componentId';
@@ -18,7 +24,9 @@ const SingleSelect = ({
   id,
   title,
 }: SingleSelectProps) => {
-  const onChange = (event: React.FormEvent<HTMLInputElement>) => {
+  const onChange = (
+    event: React.FormEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
     setValue(event.currentTarget.value);
   };
 
@@ -28,16 +36,29 @@ const SingleSelect = ({
         {title}
       </Text>
 
-      <RadioGroup
-        aria-labelledby={componentId('single-select-label', id)}
-        id={componentId('single-select', id)}
-        onChange={onChange}
-        value={value}
-      >
-        {choices.map((choice) => (
-          <RadioItem key={choice} label={choice} value={choice} />
-        ))}
-      </RadioGroup>
+      {choices.length > 5 ? (
+        <Dropdown
+          aria-labelledby={componentId('single-select-label', id)}
+          id={componentId('single-select', id)}
+          onChange={onChange}
+          value={value}
+        >
+          {choices.map((choice) => (
+            <option key={choice}>{choice}</option>
+          ))}
+        </Dropdown>
+      ) : (
+        <RadioGroup
+          aria-labelledby={componentId('single-select-label', id)}
+          id={componentId('single-select', id)}
+          onChange={onChange}
+          value={value}
+        >
+          {choices.map((choice) => (
+            <RadioItem key={choice} label={choice} value={choice} />
+          ))}
+        </RadioGroup>
+      )}
     </Stack>
   );
 };
