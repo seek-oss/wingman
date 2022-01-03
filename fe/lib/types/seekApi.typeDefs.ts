@@ -244,7 +244,7 @@ export const typeDefs = gql`
     """
     A URL of an external application form.
 
-    When this is provided, SEEK's native apply form will be disabled and the candidate will be redirected to the supplied URL.
+    When this is provided, SEEK's native apply form will be disabled and the candidate will link out to the supplied URL.
     This requires that the hirer has an \`HiringOrganizationApiCapabilities.applicationMethodCodes\` that includes \`ApplicationUri\`.
     """
     applicationUri: WebUrlInput
@@ -281,9 +281,9 @@ export const typeDefs = gql`
     """
     privacyPolicyUrl: WebUrl!
     """
-    A partner provided unique reference ID to the question.
+    A partner-provided unique ID for the question.
 
-    This can be used to correlate the question with the submitted question components.
+    This can be used to correlate the question back to its corresponding representation in your software.
     """
     value: String
   }
@@ -317,9 +317,10 @@ export const typeDefs = gql`
     """
     privacyPolicyUrl: WebUrlInput!
     """
-    A partner provided unique reference ID to the consent component.
+    A partner-provided unique ID for the consent component.
 
-    This can be used to correlate the consent component with the submitted response.
+    This can be used to correlate the consent component back to its corresponding representation in your software.
+    This must be unique across all components in the questionnaire.
     """
     value: String
   }
@@ -369,7 +370,9 @@ export const typeDefs = gql`
     """
     The collection of possible responses.
 
-    For \`SingleSelect\` and \`MultiSelect\` this must contain at least one element.
+    - \`FreeText\` must not contain any elements.
+    - \`MultiSelect\` must contain at least two elements.
+    - \`SingleSelect\` must contain at least two elements.
     """
     responseChoice: [ApplicationQuestionChoice!]
     """
@@ -383,9 +386,17 @@ export const typeDefs = gql`
     """
     responseTypeCode: String!
     """
-    A partner provided unique reference ID to the question.
+    The source of the component.
 
-    This can be used to correlate the question with the submitted question components.
+    Currently, one code is defined:
+
+    - \`Custom\` indicates that the question was authored by the hirer.
+    """
+    sourceCode: String!
+    """
+    A partner-provided unique ID for the question.
+
+    This can be used to correlate the question back to its corresponding representation in your software.
     """
     value: String
   }
@@ -425,9 +436,9 @@ export const typeDefs = gql`
     """
     text: String!
     """
-    A partner provided unique reference ID to the question choice.
+    A partner-provided unique ID for the question choice.
 
-    This can be used to correlate the question with the submitted answers.
+    This can be used to correlate the choice back to its corresponding representation in your software.
     """
     value: String
   }
@@ -444,13 +455,15 @@ export const typeDefs = gql`
     preferredIndicator: Boolean!
     """
     Text of the choice displayed to the candidate.
+
+    This must be unique across all choices in the question.
     """
     text: String!
     """
-    A unique ID for this choice.
+    A partner-provided unique ID for this choice.
 
-    This can be used to correlate the choice with the provided answers.
-    This must be unique within the questionnaire.
+    This can be used to correlate the choice back to its corresponding representation in your software.
+    This must be unique across all choices in the question.
     """
     value: String!
   }
@@ -476,7 +489,7 @@ export const typeDefs = gql`
     """
     The collection of possible responses.
 
-    For \`SingleSelect\` and \`MultiSelect\` this must contain at least one element.
+    For \`SingleSelect\` and \`MultiSelect\` this must contain between 2 and 99 elements, inclusive.
     """
     responseChoice: [ApplicationQuestionChoiceInput!]
     """
@@ -490,10 +503,10 @@ export const typeDefs = gql`
     """
     responseTypeCode: String!
     """
-    A unique ID for this question.
+    A partner-provided unique ID for this question.
 
-    This can be used to correlate the question with the provided answers.
-    This must be unique within the questionnaire.
+    This can be used to correlate the question back to its corresponding representation in your software.
+    This must be unique across all components in the questionnaire.
     """
     value: String!
   }
@@ -568,9 +581,9 @@ export const typeDefs = gql`
     """
     id: ObjectIdentifier!
     """
-    A partner provided unique reference ID to the component.
+    A partner-provided unique ID for the component.
 
-    This can be used to correlate the component with the submission.
+    This can be used to correlate the component back to its corresponding representation in your software.
     """
     value: String
   }
@@ -908,6 +921,8 @@ export const typeDefs = gql`
     description: String
     """
     A short human-readable name for the workflow step.
+
+    This is non-null for a process history action of an uploaded candidate.
     """
     name: String
     """
@@ -1496,7 +1511,7 @@ export const typeDefs = gql`
 
     The physical addresses are ordered in descending preference.
 
-    A maximum of 5 physical addresses may be provided.
+    Between 0 and 5 physical addresses may be provided, inclusive.
     """
     address: [AddressInput!]
     """
@@ -1512,7 +1527,7 @@ export const typeDefs = gql`
 
     The phone numbers are ordered in descending preference.
 
-    A maximum of 5 phone numbers may be provided.
+    Between 0 and 5 phone numbers may be provided, inclusive.
     """
     phone: [PhoneInput!]!
   }
@@ -1827,7 +1842,7 @@ export const typeDefs = gql`
     """
     The identifier for the \`HiringOrganization\` that has the position.
 
-    This should contain exactly one element that matches the \`postingRequester\` on the position opening.
+    This should contain exactly one element that matches the position opening's \`PostingRequester.id\`.
     """
     positionOrganizations: [String!]!
     """
@@ -2716,6 +2731,9 @@ export const typeDefs = gql`
 
     Currently, only the \`AdvertisementDetails\` description is used.
     Other descriptions will be accepted but are ignored when determining the relevance of suggestion.
+
+    The job category suggestion algorithm is designed to work with the complete advertisement details as they would appear on the final job ad.
+    Providing incomplete or placeholder text in this field may result in irrelevant suggestions.
     """
     positionFormattedDescriptions: [PositionFormattedDescriptionInput!]
     """
@@ -2740,8 +2758,10 @@ export const typeDefs = gql`
   type Location {
     """
     An array of child locations.
+
+    This is always \`null\` regardless of the existence of child locations.
     """
-    children: [Location!]
+    children: [Location!] @deprecated(reason: "Not implemented.")
     """
     The contextual name of the location, e.g. "Richmond VIC 3121 AU".
 
@@ -3036,6 +3056,13 @@ export const typeDefs = gql`
   """
   type PartnerOrganization {
     """
+    Whether the querying partner has been approved to self-service their live SEEK API client credentials.
+
+    SEEK will approve partners once they have demonstrated progress through the development process.
+    When true, administrative users will be able to issue and rotate client credentials in the Developer Dashboard.
+    """
+    credentialSelfServiceApprovedIndicator: Boolean!
+    """
     The name of the querying partner.
     """
     name: String!
@@ -3151,7 +3178,7 @@ export const typeDefs = gql`
 
     The maximum length differs by \`descriptionId\`:
 
-      - \`AdvertisementDetails\` has a maximum length of 20,000 bytes in UTF-8 encoding.
+      - \`AdvertisementDetails\` has a maximum length of 15,000 bytes in UTF-8 encoding.
       - \`SearchBulletPoint\` has a maximum length of 80 bytes in UTF-8 encoding.
       - \`SearchSummary\` has a maximum length of 150 bytes in UTF-8 encoding.
 
@@ -3430,8 +3457,7 @@ export const typeDefs = gql`
     If your software cannot ingest objects that are created by another source,
     this can be used to filter out such position profiles.
 
-    This indicator is unavailable where we cannot cheaply determine the source
-    of the position profile.
+    This indicator is unavailable where we cannot cheaply determine the source of the position profile.
     \`null\` values should not be filtered out.
     See specific implementations for further details.
     """
@@ -3728,7 +3754,7 @@ export const typeDefs = gql`
 
     Scheme requirements:
 
-    - The \`seekAnz\` scheme requires exactly one element.
+    - The \`seekAnz\` scheme requires exactly one identifier for a child job category.
     """
     jobCategories: [String!]!
     """
@@ -3756,7 +3782,7 @@ export const typeDefs = gql`
 
     Scheme requirements:
 
-    - The \`seekAnz\` scheme requires exactly one element.
+    - The \`seekAnz\` scheme requires exactly one element that matches the position opening's \`PostingRequester.id\`.
     """
     positionOrganizations: [String!]!
     """
@@ -3871,7 +3897,7 @@ export const typeDefs = gql`
 
     Scheme requirements:
 
-    - The \`seekAnz\` scheme requires exactly one element.
+    - The \`seekAnz\` scheme requires exactly one identifier for a child job category.
     """
     jobCategories: [String!]!
     """
@@ -3895,7 +3921,7 @@ export const typeDefs = gql`
 
     Scheme requirements:
 
-    - The \`seekAnz\` scheme requires exactly one element.
+    - The \`seekAnz\` scheme requires exactly one element that matches the position opening's \`PostingRequester.id\`.
     """
     positionOrganizations: [String!]!
     """
@@ -4196,7 +4222,7 @@ export const typeDefs = gql`
     """
     Specific contact people for the position opening at the party.
 
-    The name and email address of at least one contact person must be provided.
+    The name, email address & role of at least one contact person must be provided.
     A maximum of 10 contact people may be provided.
     """
     personContacts: [SpecifiedPersonInput!]!
@@ -4249,6 +4275,12 @@ export const typeDefs = gql`
     ): AdvertisementBranding
     """
     A page of advertisement brandings associated with the specified \`hirerId\`.
+
+    A maximum of 100 advertisement brandings can be returned in a single page.
+    Additional advertisement brandings can be queried using a pagination cursor.
+
+    The result list is returned in ascending creation date & time order.
+    It starts from the earliest known advertisement branding if no pagination arguments are provided.
 
     This query accepts browser tokens that include the \`query:advertisement-brandings\` scope.
     """
@@ -4480,6 +4512,8 @@ export const typeDefs = gql`
     """
     An array of suggested job categories for the provided partial \`PositionProfile\`.
 
+    A maximum of 10 job categories can be recommended.
+
     This query accepts browser tokens that include the \`query:ontologies\` scope.
     """
     jobCategorySuggestions(
@@ -4516,13 +4550,15 @@ export const typeDefs = gql`
     """
     An array of location nodes relevant to the text provided.
 
+    While a maximum of 20 locations can be requested, the current implementation does not return more than 10 recommendations.
+
     This query accepts browser tokens that include the \`query:ontologies\` scope.
     """
     locationSuggestions(
       """
       A non-negative limit to the number of locations to return.
 
-      Defaults to 20.
+      Defaults to 10.
       """
       first: Int
       """
@@ -4545,15 +4581,25 @@ export const typeDefs = gql`
       """
       text: String!
       """
-      The context that the location suggestions will be used for.
+      The context that the location suggestions will be used in.
 
-      The only supported value is \`PositionPosting\` which returns locations for the purposes of posting a position profile.
-      Additional values will be added in the future.
+      Not all locations are accepted by all SEEK API operations.
+      Specifying the correct usage type ensures the returned locations are valid in the context they're consumed.
+
+      Currently two codes are defined:
+
+      -  \`PositionPosting\` returns locations suitable for posting a position profile.
+         They would typically be passed to the \`postPosition\` or \`postPositionProfileForOpening\` mutation.
+
+      -  \`ProactiveSourcing\` returns locations suitable for proactively sourcing candidates.
+         They would typically be passed to the \`createUnpostedPositionProfileForOpening\` mutation.
       """
       usageTypeCode: String!
     ): [LocationSuggestion!]
     """
     An array of locations relevant to the provided geolocation ordered by distance.
+
+    A maximum of 10 locations can be recommended.
 
     This query accepts browser tokens that include the \`query:ontologies\` scope.
     """
@@ -4561,7 +4607,7 @@ export const typeDefs = gql`
       """
       A non-negative limit to the number of locations to return.
 
-      Defaults to the maximum value of 10.
+      Defaults to 10.
       """
       first: Int
       """
@@ -5040,6 +5086,8 @@ export const typeDefs = gql`
 
   """
   A salary or compensation range for a position.
+
+  Salary ranges are used to refine candidate job searches but aren’t displayed on job ads.
   """
   input RemunerationRangeInput {
     """
@@ -5078,7 +5126,7 @@ export const typeDefs = gql`
     """
     The additional fields to filter which events are to be replayed.
     """
-    filter: ReplayWebhookSubscription_FilterInput
+    filter: ReplayWebhookSubscription_FilterInput!
     """
     The details of the webhook subscription to be replayed.
     """
@@ -5101,22 +5149,23 @@ export const typeDefs = gql`
   input ReplayWebhookSubscription_FilterInput {
     """
     The earliest event to replay.
-
-    Defaults to the first event if no value is provided.
     """
-    createdAfterDateTime: DateTime
+    createdAfterDateTime: DateTime!
     """
     The latest event to replay.
-
-    Defaults to the last event if no value is provided.
     """
-    createdBeforeDateTime: DateTime
+    createdBeforeDateTime: DateTime!
+    """
+    The hirer ID to replay events for.
+
+    This must be specified for partner-scoped subscriptions if  \`replayDeliveredEventsIndicator\` is true.
+    This defaults to the corresponding \`WebhookSubscription.hirerId\` for a hirer-scoped subscription.
+    """
+    hirerId: String
     """
     Whether to include all events, or only events that have failed to be delivered.
-
-    Defaults to false if no value is provided.
     """
-    replayDeliveredEventsIndicator: Boolean
+    replayDeliveredEventsIndicator: Boolean!
   }
 
   """
@@ -5154,7 +5203,7 @@ export const typeDefs = gql`
     """
     description: String!
     """
-    Whether the ad product is enabled.
+    Whether the ad product should be selectable by the hirer.
     """
     enabledIndicator: Boolean!
     """
@@ -5423,7 +5472,7 @@ export const typeDefs = gql`
     - \`Above\` indicates the video will render above the advertisement details.
     - \`Below\` indicates the video will render below the advertisement details.
     """
-    seekAnzPositionCode: String
+    seekAnzPositionCode: String!
     """
     The URL of the video.
     """
@@ -5442,7 +5491,7 @@ export const typeDefs = gql`
     - \`Above\` indicates the video will render above the advertisement details.
     - \`Below\` indicates the video will render below the advertisement details.
     """
-    seekAnzPositionCode: String
+    seekAnzPositionCode: String!
     """
     The URL of the video to display.
 
@@ -5453,6 +5502,8 @@ export const typeDefs = gql`
         - \`https://www.youtube.com/embed/aAgePQvHBQM\`
         - \`https://www.youtube.com/watch?v=aAgePQvHBQM\`
         - \`https://youtu.be/aAgePQvHBQM\`
+
+       If the URL provided does not match the above criteria it will be ignored.
     """
     url: String!
   }
@@ -5515,6 +5566,8 @@ export const typeDefs = gql`
 
     - \`Recruiter\` indicates a person recruiting for the position.
     - \`HiringManager\` indicates an employee that requested the position to be filled.
+
+    This field is required when providing a position opening's \`personContacts\`.
     """
     roleCode: String
   }
@@ -5738,7 +5791,7 @@ export const typeDefs = gql`
     """
     Specific contact people for the position opening at the party.
 
-    The name and email address of at least one contact person must be provided.
+    The name, email address & role of at least one contact person must be provided.
     A maximum of 10 contact people may be provided.
     """
     personContacts: [SpecifiedPersonInput!]!
@@ -5813,7 +5866,7 @@ export const typeDefs = gql`
 
     Scheme requirements:
 
-    - The \`seekAnz\` scheme requires exactly one element.
+    - The \`seekAnz\` scheme requires exactly one identifier for a child job category.
     """
     jobCategories: [String!]!
     """
@@ -5837,7 +5890,7 @@ export const typeDefs = gql`
 
     Scheme requirements:
 
-    - The \`seekAnz\` scheme requires exactly one element.
+    - The \`seekAnz\` scheme requires exactly one element that matches the position opening's \`PostingRequester.id\`.
     """
     positionOrganizations: [String!]!
     """
@@ -5940,6 +5993,9 @@ export const typeDefs = gql`
 
     If no methods are provided, SEEK's native apply form will be used to receive candidate applications.
     Native applications will emit a \`CandidateApplicationCreated\` event that points to a \`CandidateProfile\` object.
+
+    Changing a posted job ad’s application method between link out and native apply can result in unexpected behaviour.
+    This field should only be used to update the \`ApplicationMethod.applicationUri\` of an existing link out job ad.
 
     Scheme requirements:
 

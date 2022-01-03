@@ -1,4 +1,5 @@
 export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
 };
@@ -116,11 +117,11 @@ export interface AddressInput {
    *
    * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
-  formattedAddress?: Maybe<Scalars['String']>;
+  formattedAddress?: InputMaybe<Scalars['String']>;
   /** The geographical coordinates of the address. */
-  geoLocation?: Maybe<GeoLocationInput>;
+  geoLocation?: InputMaybe<GeoLocationInput>;
   /** The street line address. */
-  line?: Maybe<Scalars['String']>;
+  line?: InputMaybe<Scalars['String']>;
   /**
    * The postal code of the address.
    *
@@ -216,10 +217,10 @@ export interface ApplicationMethodInput {
   /**
    * A URL of an external application form.
    *
-   * When this is provided, SEEK's native apply form will be disabled and the candidate will be redirected to the supplied URL.
+   * When this is provided, SEEK's native apply form will be disabled and the candidate will link out to the supplied URL.
    * This requires that the hirer has an `HiringOrganizationApiCapabilities.applicationMethodCodes` that includes `ApplicationUri`.
    */
-  applicationUri?: Maybe<WebUrlInput>;
+  applicationUri?: InputMaybe<WebUrlInput>;
 }
 
 /**
@@ -251,9 +252,9 @@ export interface ApplicationPrivacyConsent
   /** The URL of the privacy policy to show to the candidate. */
   privacyPolicyUrl: WebUrl;
   /**
-   * A partner provided unique reference ID to the question.
+   * A partner-provided unique ID for the question.
    *
-   * This can be used to correlate the question with the submitted question components.
+   * This can be used to correlate the question back to its corresponding representation in your software.
    */
   value?: Maybe<Scalars['String']>;
 }
@@ -279,7 +280,7 @@ export interface ApplicationPrivacyConsentInput {
    *
    * This is optional and will default to 'Do you agree to the privacy policy?'.
    */
-  descriptionHtml?: Maybe<Scalars['String']>;
+  descriptionHtml?: InputMaybe<Scalars['String']>;
   /**
    * The URL of the privacy policy to show to the candidate.
    *
@@ -287,11 +288,12 @@ export interface ApplicationPrivacyConsentInput {
    */
   privacyPolicyUrl: WebUrlInput;
   /**
-   * A partner provided unique reference ID to the consent component.
+   * A partner-provided unique ID for the consent component.
    *
-   * This can be used to correlate the consent component with the submitted response.
+   * This can be used to correlate the consent component back to its corresponding representation in your software.
+   * This must be unique across all components in the questionnaire.
    */
-  value?: Maybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['String']>;
 }
 
 /** A candidate's response to a privacy policy consent component in the questionnaire. */
@@ -334,7 +336,9 @@ export interface ApplicationQuestion extends ApplicationQuestionnaireComponent {
   /**
    * The collection of possible responses.
    *
-   * For `SingleSelect` and `MultiSelect` this must contain at least one element.
+   * - `FreeText` must not contain any elements.
+   * - `MultiSelect` must contain at least two elements.
+   * - `SingleSelect` must contain at least two elements.
    */
   responseChoice?: Maybe<Array<ApplicationQuestionChoice>>;
   /**
@@ -348,9 +352,17 @@ export interface ApplicationQuestion extends ApplicationQuestionnaireComponent {
    */
   responseTypeCode: Scalars['String'];
   /**
-   * A partner provided unique reference ID to the question.
+   * The source of the component.
    *
-   * This can be used to correlate the question with the submitted question components.
+   * Currently, one code is defined:
+   *
+   * - `Custom` indicates that the question was authored by the hirer.
+   */
+  sourceCode: Scalars['String'];
+  /**
+   * A partner-provided unique ID for the question.
+   *
+   * This can be used to correlate the question back to its corresponding representation in your software.
    */
   value?: Maybe<Scalars['String']>;
 }
@@ -382,9 +394,9 @@ export interface ApplicationQuestionChoice {
   /** Text of the choice displayed to the candidate. */
   text: Scalars['String'];
   /**
-   * A partner provided unique reference ID to the question choice.
+   * A partner-provided unique ID for the question choice.
    *
-   * This can be used to correlate the question with the submitted answers.
+   * This can be used to correlate the choice back to its corresponding representation in your software.
    */
   value?: Maybe<Scalars['String']>;
 }
@@ -397,13 +409,17 @@ export interface ApplicationQuestionChoiceInput {
    * This is not displayed to the candidate.
    */
   preferredIndicator: Scalars['Boolean'];
-  /** Text of the choice displayed to the candidate. */
+  /**
+   * Text of the choice displayed to the candidate.
+   *
+   * This must be unique across all choices in the question.
+   */
   text: Scalars['String'];
   /**
-   * A unique ID for this choice.
+   * A partner-provided unique ID for this choice.
    *
-   * This can be used to correlate the choice with the provided answers.
-   * This must be unique within the questionnaire.
+   * This can be used to correlate the choice back to its corresponding representation in your software.
+   * This must be unique across all choices in the question.
    */
   value: Scalars['String'];
 }
@@ -429,9 +445,9 @@ export interface ApplicationQuestionInput {
   /**
    * The collection of possible responses.
    *
-   * For `SingleSelect` and `MultiSelect` this must contain at least one element.
+   * For `SingleSelect` and `MultiSelect` this must contain between 2 and 99 elements, inclusive.
    */
-  responseChoice?: Maybe<Array<ApplicationQuestionChoiceInput>>;
+  responseChoice?: InputMaybe<Array<ApplicationQuestionChoiceInput>>;
   /**
    * The type of the question response.
    *
@@ -443,10 +459,10 @@ export interface ApplicationQuestionInput {
    */
   responseTypeCode: Scalars['String'];
   /**
-   * A unique ID for this question.
+   * A partner-provided unique ID for this question.
    *
-   * This can be used to correlate the question with the provided answers.
-   * This must be unique within the questionnaire.
+   * This can be used to correlate the question back to its corresponding representation in your software.
+   * This must be unique across all components in the questionnaire.
    */
   value: Scalars['String'];
 }
@@ -514,9 +530,9 @@ export interface ApplicationQuestionnaireComponent {
   /** The identifier for the `ApplicationQuestionnaireComponent`. */
   id: ObjectIdentifier;
   /**
-   * A partner provided unique reference ID to the component.
+   * A partner-provided unique ID for the component.
    *
-   * This can be used to correlate the component with the submission.
+   * This can be used to correlate the component back to its corresponding representation in your software.
    */
   value?: Maybe<Scalars['String']>;
 }
@@ -537,13 +553,13 @@ export interface ApplicationQuestionnaireComponentInput {
    *
    * This must be provided if the `componentTypeCode` is `PrivacyConsent`.
    */
-  privacyConsent?: Maybe<ApplicationPrivacyConsentInput>;
+  privacyConsent?: InputMaybe<ApplicationPrivacyConsentInput>;
   /**
    * A question component of an `ApplicationQuestionnaire`.
    *
    * This must be provided if the `componentTypeCode` is `Question`.
    */
-  question?: Maybe<ApplicationQuestionInput>;
+  question?: InputMaybe<ApplicationQuestionInput>;
 }
 
 /**
@@ -751,11 +767,11 @@ export interface CandidateApplicationCreatedEvent extends Event {
  * Each application will trigger a new event with a distinct `id`.
  */
 export interface CandidateApplicationCreatedEventWebhookAttemptsArgs {
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  filter?: Maybe<WebhookAttemptsFilterInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<WebhookAttemptsFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
 }
 
 /** Information about a person not specific to a candidate profile. */
@@ -798,7 +814,11 @@ export interface CandidateProcessAction {
   code: Scalars['String'];
   /** The free-form description of the action. */
   description?: Maybe<Scalars['String']>;
-  /** A short human-readable name for the workflow step. */
+  /**
+   * A short human-readable name for the workflow step.
+   *
+   * This is non-null for a process history action of an uploaded candidate.
+   */
   name?: Maybe<Scalars['String']>;
   /** A deep link to the action. */
   seekUrl?: Maybe<WebUrl>;
@@ -835,13 +855,13 @@ export interface CandidateProcessActionInput {
    *
    * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
-  description?: Maybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
   /**
    * A short human-readable name of the workflow process.
    *
    * This is required for a process history action of an uploaded candidate.
    */
-  name?: Maybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
   /**
    * A deep link to the action.
    *
@@ -849,7 +869,7 @@ export interface CandidateProcessActionInput {
    *
    * The `url` field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
-  seekUrl?: Maybe<WebUrlInput>;
+  seekUrl?: InputMaybe<WebUrlInput>;
 }
 
 /** A single item in a `CandidateProfile`'s workflow process history. */
@@ -937,7 +957,7 @@ export interface CandidateProcessHistoryItemInput {
    * This is null for interactions that are not specific to an individual position,
    * such as a general interview with a recruiter.
    */
-  positionProfile?: Maybe<CandidateProcessHistoryItemPositionProfileInput>;
+  positionProfile?: InputMaybe<CandidateProcessHistoryItemPositionProfileInput>;
   /**
    * The parties that executed the action.
    *
@@ -952,13 +972,13 @@ export interface CandidateProcessHistoryItemInput {
    *
    * This is required if `positionProfile` is specified.
    */
-  seekSource?: Maybe<SeekProcessHistoryItemSourceInput>;
+  seekSource?: InputMaybe<SeekProcessHistoryItemSourceInput>;
   /**
    * The current status of the underlying process.
    *
    * For example, a candidate in an application process may progress through a series of statuses like applied, interviewed, offered, hired.
    */
-  status?: Maybe<CandidateProcessStatusInput>;
+  status?: InputMaybe<CandidateProcessStatusInput>;
 }
 
 /** A position profile associated with a workflow process. */
@@ -987,9 +1007,9 @@ export interface CandidateProcessParty {
  */
 export interface CandidateProcessPartyInput {
   /** The organization that is contributing to the workflow process. */
-  organization?: Maybe<OrganizationInput>;
+  organization?: InputMaybe<OrganizationInput>;
   /** The individual person that is contributing to the workflow process. */
-  person?: Maybe<SpecifiedPersonInput>;
+  person?: InputMaybe<SpecifiedPersonInput>;
 }
 
 /** A status of a workflow process. */
@@ -1102,8 +1122,8 @@ export interface CandidateProfile {
 
 /** Structured information about a candidate in relation to a particular position. */
 export interface CandidateProfileSeekProcessHistoryArgs {
-  after?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
 }
 
 /** The event signaling that a `CandidateProfile` has been purchased. */
@@ -1143,11 +1163,11 @@ export interface CandidateProfilePurchasedEvent extends Event {
 
 /** The event signaling that a `CandidateProfile` has been purchased. */
 export interface CandidateProfilePurchasedEventWebhookAttemptsArgs {
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  filter?: Maybe<WebhookAttemptsFilterInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<WebhookAttemptsFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
 }
 
 /** A source from which the candidate was obtained from. */
@@ -1260,9 +1280,9 @@ export interface CommunicationInput {
    *
    * The physical addresses are ordered in descending preference.
    *
-   * A maximum of 5 physical addresses may be provided.
+   * Between 0 and 5 physical addresses may be provided, inclusive.
    */
-  address?: Maybe<Array<AddressInput>>;
+  address?: InputMaybe<Array<AddressInput>>;
   /**
    * An array of email addresses for the person.
    *
@@ -1276,7 +1296,7 @@ export interface CommunicationInput {
    *
    * The phone numbers are ordered in descending preference.
    *
-   * A maximum of 5 phone numbers may be provided.
+   * Between 0 and 5 phone numbers may be provided, inclusive.
    */
   phone: Array<PhoneInput>;
 }
@@ -1362,7 +1382,7 @@ export interface CreateCandidateProcessHistoryItemCandidateProcessHistoryItemInp
    * This is null for interactions that are not specific to an individual position,
    * such as a general interview with a recruiter.
    */
-  positionProfile?: Maybe<CandidateProcessHistoryItemPositionProfileInput>;
+  positionProfile?: InputMaybe<CandidateProcessHistoryItemPositionProfileInput>;
   /** The parties that executed the action. */
   primaryParties: Array<CandidateProcessPartyInput>;
   /**
@@ -1372,13 +1392,13 @@ export interface CreateCandidateProcessHistoryItemCandidateProcessHistoryItemInp
    *
    * This is required if `positionProfile` is specified.
    */
-  seekSource?: Maybe<SeekProcessHistoryItemSourceInput>;
+  seekSource?: InputMaybe<SeekProcessHistoryItemSourceInput>;
   /**
    * The current status of the underlying process.
    *
    * For example, a candidate in an application process may progress through a series of statuses like applied, interviewed, offered, hired.
    */
-  status?: Maybe<CandidateProcessStatusInput>;
+  status?: InputMaybe<CandidateProcessStatusInput>;
 }
 
 /** The candidate profile that the process history item belongs to. */
@@ -1411,7 +1431,7 @@ export interface CreatePositionOpeningPositionOpeningInput {
    *
    * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
-  seekPartnerMetadata?: Maybe<Scalars['String']>;
+  seekPartnerMetadata?: InputMaybe<Scalars['String']>;
   /**
    * The status of the position opening.
    *
@@ -1423,7 +1443,7 @@ export interface CreatePositionOpeningPositionOpeningInput {
    * - `Active` indicates the position opening is open.
    * - `Closed` indicates the position opening has been closed.
    */
-  statusCode?: Maybe<Scalars['String']>;
+  statusCode?: InputMaybe<Scalars['String']>;
 }
 
 /** Information about how to post a job ad and where to direct its candidate applications. */
@@ -1439,7 +1459,7 @@ export interface CreatePostingInstructionInput {
    * - For the `seekAnz` scheme, this field is limited to a single element.
    *   Requests with more than 1 element will fail.
    */
-  applicationMethods?: Maybe<Array<ApplicationMethodInput>>;
+  applicationMethods?: InputMaybe<Array<ApplicationMethodInput>>;
   /**
    * The identifier for the `AdvertisementBranding` to apply to the posted job ad.
    *
@@ -1449,7 +1469,7 @@ export interface CreatePostingInstructionInput {
    *
    *   When the product's `SeekAnzAdProductFeatures.brandingIndicator` value is false, this field will be silently ignored.
    */
-  brandingId?: Maybe<Scalars['String']>;
+  brandingId?: InputMaybe<Scalars['String']>;
   /**
    * The end date of the posting.
    *
@@ -1460,7 +1480,7 @@ export interface CreatePostingInstructionInput {
    *   If the end date is not specified it will default to the maximum period of 30 calendar days.
    *   The precise end date can be queried from the `PostingInstruction.end` field once the job ad goes live.
    */
-  end?: Maybe<Scalars['DateTime']>;
+  end?: InputMaybe<Scalars['DateTime']>;
   /**
    * An identifier to ensure that multiple ads are not created on retries.
    *
@@ -1483,7 +1503,7 @@ export interface CreatePostingInstructionInput {
    * - For the `seekAnz` scheme, this field is required.
    * - For other schemes, set this to `null`.
    */
-  seekAnzAdvertisementType?: Maybe<Scalars['String']>;
+  seekAnzAdvertisementType?: InputMaybe<Scalars['String']>;
 }
 
 /** The input parameter for the `createUnpostedPositionProfileForOpening` mutation. */
@@ -1526,7 +1546,7 @@ export interface CreateUnpostedPositionProfileForOpeningPositionProfileInput {
   /**
    * The identifier for the `HiringOrganization` that has the position.
    *
-   * This should contain exactly one element that matches the `postingRequester` on the position opening.
+   * This should contain exactly one element that matches the position opening's `PostingRequester.id`.
    */
   positionOrganizations: Array<Scalars['String']>;
   /**
@@ -1537,7 +1557,7 @@ export interface CreateUnpostedPositionProfileForOpeningPositionProfileInput {
    * - `FullTime` indicates a full-time schedule.
    * - `PartTime` indicates a part-time schedule.
    */
-  positionScheduleTypeCodes?: Maybe<Array<Scalars['String']>>;
+  positionScheduleTypeCodes?: InputMaybe<Array<Scalars['String']>>;
   /**
    * A short phrase describing the position as it would be listed on a business card or in a company directory.
    *
@@ -1549,7 +1569,7 @@ export interface CreateUnpostedPositionProfileForOpeningPositionProfileInput {
    *
    * This in addition to the `positionTitle` can help identify the profile to an end user.
    */
-  profileName?: Maybe<Scalars['String']>;
+  profileName?: InputMaybe<Scalars['String']>;
   /**
    * An optional opaque billing reference.
    *
@@ -1557,13 +1577,13 @@ export interface CreateUnpostedPositionProfileForOpeningPositionProfileInput {
    *
    * This field has a maximum length of 50 bytes in UTF-8 encoding.
    */
-  seekBillingReference?: Maybe<Scalars['String']>;
+  seekBillingReference?: InputMaybe<Scalars['String']>;
   /**
    * An optional hirer-provided opaque job reference.
    *
    * This field has a maximum length of 50 bytes in UTF-8 encoding.
    */
-  seekHirerJobReference?: Maybe<Scalars['String']>;
+  seekHirerJobReference?: InputMaybe<Scalars['String']>;
   /**
    * An optional field for storing additional data with a `PositionProfile`.
    *
@@ -1571,7 +1591,7 @@ export interface CreateUnpostedPositionProfileForOpeningPositionProfileInput {
    *
    * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
-  seekPartnerMetadata?: Maybe<Scalars['String']>;
+  seekPartnerMetadata?: InputMaybe<Scalars['String']>;
 }
 
 /** The input parameter for the `createWebhookSubscription` mutation. */
@@ -1618,13 +1638,13 @@ export interface CreateWebhookSubscriptionSubscriptionInput {
    * By default webhook subscriptions will send events from all hirers the partner has access to.
    * Providing a hirer ID will filter events to the specified hirer.
    */
-  hirerId?: Maybe<Scalars['String']>;
+  hirerId?: InputMaybe<Scalars['String']>;
   /**
    * The maximum number of events that will be sent in each HTTP request.
    *
    * This number must be between 1 and 10 inclusive. Defaults to 10.
    */
-  maxEventsPerAttempt?: Maybe<Scalars['Int']>;
+  maxEventsPerAttempt?: InputMaybe<Scalars['Int']>;
   /**
    * The data source for the event.
    *
@@ -1639,7 +1659,7 @@ export interface CreateWebhookSubscriptionSubscriptionInput {
    *
    * The secret should be a random string with high entropy that is not reused for any other purpose.
    */
-  secret?: Maybe<Scalars['String']>;
+  secret?: InputMaybe<Scalars['String']>;
   /**
    * The algorithm for signing webhooks.
    *
@@ -1925,11 +1945,11 @@ export interface Event {
  * - GraphQL polling, using the paginated `events` query
  */
 export interface EventWebhookAttemptsArgs {
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  filter?: Maybe<WebhookAttemptsFilterInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<WebhookAttemptsFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
 }
 
 /** An event in a stream. */
@@ -1972,26 +1992,26 @@ export interface EventsFilterInput {
    * This can be used to initiate the retrieval of paginated results.
    * Subsequent queries should use the opaque cursors returned from `EventsConnection`.
    */
-  afterDateTime?: Maybe<Scalars['DateTime']>;
+  afterDateTime?: InputMaybe<Scalars['DateTime']>;
   /**
    * The stream date & time that resulting events must precede.
    *
    * This can be used to initiate the retrieval of paginated results.
    * Subsequent queries should use the opaque cursors returned from `EventsConnection`.
    */
-  beforeDateTime?: Maybe<Scalars['DateTime']>;
+  beforeDateTime?: InputMaybe<Scalars['DateTime']>;
   /**
    * Whether the event was successfully delivered via the specified webhook `subscriptionId`.
    *
    * This filter does not apply if `subscriptionId` is not specified.
    */
-  deliveredIndicator?: Maybe<Scalars['Boolean']>;
+  deliveredIndicator?: InputMaybe<Scalars['Boolean']>;
   /**
    * The types of events to retrieve.
    *
    * See `Event` implementations for a list of supported values.
    */
-  eventTypeCodes?: Maybe<Array<Scalars['String']>>;
+  eventTypeCodes?: InputMaybe<Array<Scalars['String']>>;
   /**
    * The subscription stream to retrieve events from.
    *
@@ -2000,7 +2020,7 @@ export interface EventsFilterInput {
    * To consume events solely through GraphQL polling, do not specify this field.
    * This will retrieve events from a persistent stream that is not associated with a webhook subscription.
    */
-  subscriptionId?: Maybe<Scalars['String']>;
+  subscriptionId?: InputMaybe<Scalars['String']>;
 }
 
 /** A geographical coordinate. */
@@ -2062,11 +2082,11 @@ export interface HirerRelationshipChangedEvent extends Event {
 
 /** The event signaling that a hirer relationship has been added or removed. */
 export interface HirerRelationshipChangedEventWebhookAttemptsArgs {
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  filter?: Maybe<WebhookAttemptsFilterInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<WebhookAttemptsFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
 }
 
 /** An organization hiring for an open position. */
@@ -2156,7 +2176,7 @@ export interface HiringOrganizationsFilterInput {
    *
    * This is intended to support ad-hoc searches for hirers by name.
    */
-  nameSearch?: Maybe<Scalars['String']>;
+  nameSearch?: InputMaybe<Scalars['String']>;
   /**
    * Filters on relationship types between the hirer and requesting partner.
    *
@@ -2164,7 +2184,7 @@ export interface HiringOrganizationsFilterInput {
    *
    * If this is not provided then all related hirers are returned.
    */
-  relationshipTypeCodes?: Maybe<Array<Scalars['String']>>;
+  relationshipTypeCodes?: InputMaybe<Array<Scalars['String']>>;
 }
 
 /** The category of a job's occupation. */
@@ -2213,8 +2233,11 @@ export interface JobCategorySuggestionPositionProfileInput {
    *
    * Currently, only the `AdvertisementDetails` description is used.
    * Other descriptions will be accepted but are ignored when determining the relevance of suggestion.
+   *
+   * The job category suggestion algorithm is designed to work with the complete advertisement details as they would appear on the final job ad.
+   * Providing incomplete or placeholder text in this field may result in irrelevant suggestions.
    */
-  positionFormattedDescriptions?: Maybe<
+  positionFormattedDescriptions?: InputMaybe<
     Array<PositionFormattedDescriptionInput>
   >;
   /** An array of identifiers for the position's `Location`s. */
@@ -2224,7 +2247,7 @@ export interface JobCategorySuggestionPositionProfileInput {
    *
    * Information such as the organization's domicile can be used to refine the returned suggestions.
    */
-  positionOrganizations?: Maybe<Array<Scalars['String']>>;
+  positionOrganizations?: InputMaybe<Array<Scalars['String']>>;
   /** The position title. */
   positionTitle: Scalars['String'];
 }
@@ -2232,7 +2255,12 @@ export interface JobCategorySuggestionPositionProfileInput {
 /** A physical location with a persistent identifier. */
 export interface Location {
   __typename?: 'Location';
-  /** An array of child locations. */
+  /**
+   * An array of child locations.
+   *
+   * This is always `null` regardless of the existence of child locations.
+   * @deprecated Not implemented.
+   */
   children?: Maybe<Array<Location>>;
   /**
    * The contextual name of the location, e.g. "Richmond VIC 3121 AU".
@@ -2658,6 +2686,13 @@ export interface PageInfo {
 /** A partner organization for a `self` query. */
 export interface PartnerOrganization {
   __typename?: 'PartnerOrganization';
+  /**
+   * Whether the querying partner has been approved to self-service their live SEEK API client credentials.
+   *
+   * SEEK will approve partners once they have demonstrated progress through the development process.
+   * When true, administrative users will be able to issue and rotate client credentials in the Developer Dashboard.
+   */
+  credentialSelfServiceApprovedIndicator: Scalars['Boolean'];
   /** The name of the querying partner. */
   name: Scalars['String'];
 }
@@ -2683,11 +2718,11 @@ export interface PersonName {
 /** The name of a person associated with an object. */
 export interface PersonNameInput {
   /** The optional family name (or surname) of a person. */
-  family?: Maybe<Scalars['String']>;
+  family?: InputMaybe<Scalars['String']>;
   /** The formatted name of a person, as it would be written out together. */
   formattedName: Scalars['String'];
   /** The optional given name of a person. */
-  given?: Maybe<Scalars['String']>;
+  given?: InputMaybe<Scalars['String']>;
 }
 
 /** The phone number of a person. */
@@ -2741,7 +2776,7 @@ export interface PositionFormattedDescriptionInput {
    *
    * The maximum length differs by `descriptionId`:
    *
-   *   - `AdvertisementDetails` has a maximum length of 20,000 bytes in UTF-8 encoding.
+   *   - `AdvertisementDetails` has a maximum length of 15,000 bytes in UTF-8 encoding.
    *   - `SearchBulletPoint` has a maximum length of 80 bytes in UTF-8 encoding.
    *   - `SearchSummary` has a maximum length of 150 bytes in UTF-8 encoding.
    *
@@ -2885,7 +2920,7 @@ export interface PositionOpeningsFilterInput {
    * - `Active` indicates the position opening is open.
    * - `Closed` indicates the position opening has been closed.
    */
-  statusCode?: Maybe<Scalars['String']>;
+  statusCode?: InputMaybe<Scalars['String']>;
 }
 
 /** A candidate's preferences in an ideal position. */
@@ -2985,8 +3020,7 @@ export interface PositionProfile {
    * If your software cannot ingest objects that are created by another source,
    * this can be used to filter out such position profiles.
    *
-   * This indicator is unavailable where we cannot cheaply determine the source
-   * of the position profile.
+   * This indicator is unavailable where we cannot cheaply determine the source of the position profile.
    * `null` values should not be filtered out.
    * See specific implementations for further details.
    */
@@ -3055,11 +3089,11 @@ export interface PositionProfileClosedEvent extends Event {
 
 /** The event signaling that a posted `PositionProfile` has been closed. */
 export interface PositionProfileClosedEventWebhookAttemptsArgs {
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  filter?: Maybe<WebhookAttemptsFilterInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<WebhookAttemptsFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
 }
 
 /** The event signaling that a `PositionProfile` has been posted. */
@@ -3103,11 +3137,11 @@ export interface PositionProfilePostedEvent extends Event {
 
 /** The event signaling that a `PositionProfile` has been posted. */
 export interface PositionProfilePostedEventWebhookAttemptsArgs {
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  filter?: Maybe<WebhookAttemptsFilterInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<WebhookAttemptsFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
 }
 
 /** The information required to post a job ad for a newly created position. */
@@ -3191,7 +3225,7 @@ export interface PostPositionProfileForOpeningPositionProfileInput {
    *
    * Scheme requirements:
    *
-   * - The `seekAnz` scheme requires exactly one element.
+   * - The `seekAnz` scheme requires exactly one identifier for a child job category.
    */
   jobCategories: Array<Scalars['String']>;
   /** The salary or compensation offered for the position. */
@@ -3213,7 +3247,7 @@ export interface PostPositionProfileForOpeningPositionProfileInput {
    *
    * Scheme requirements:
    *
-   * - The `seekAnz` scheme requires exactly one element.
+   * - The `seekAnz` scheme requires exactly one element that matches the position opening's `PostingRequester.id`.
    */
   positionOrganizations: Array<Scalars['String']>;
   /**
@@ -3226,7 +3260,7 @@ export interface PostPositionProfileForOpeningPositionProfileInput {
    *
    * For the `seekAnz` scheme, this field is not supported and should be set to `null`.
    */
-  positionScheduleTypeCodes?: Maybe<Array<Scalars['String']>>;
+  positionScheduleTypeCodes?: InputMaybe<Array<Scalars['String']>>;
   /**
    * A short phrase describing the position as it would be listed on a business card or in a company directory.
    *
@@ -3258,13 +3292,13 @@ export interface PostPositionProfileForOpeningPositionProfileInput {
    * - Required for the `seekAnz` scheme.
    * - Set to `null` for other schemes.
    */
-  seekAnzWorkTypeCode?: Maybe<Scalars['String']>;
+  seekAnzWorkTypeCode?: InputMaybe<Scalars['String']>;
   /**
    * The identifier for the `ApplicationQuestionnaire` containing the set of questions to present to candidates during an application.
    *
    * The questionnaire responses will be available as `CandidateProfile.seekQuestionnaireSubmission` on the candidate's application profile.
    */
-  seekApplicationQuestionnaireId?: Maybe<Scalars['String']>;
+  seekApplicationQuestionnaireId?: InputMaybe<Scalars['String']>;
   /**
    * An optional opaque billing reference.
    *
@@ -3272,13 +3306,13 @@ export interface PostPositionProfileForOpeningPositionProfileInput {
    *
    * This field has a maximum length of 50 bytes in UTF-8 encoding.
    */
-  seekBillingReference?: Maybe<Scalars['String']>;
+  seekBillingReference?: InputMaybe<Scalars['String']>;
   /**
    * An optional hirer-provided opaque job reference.
    *
    * This field has a maximum length of 50 bytes in UTF-8 encoding.
    */
-  seekHirerJobReference?: Maybe<Scalars['String']>;
+  seekHirerJobReference?: InputMaybe<Scalars['String']>;
   /**
    * An optional field for storing additional data with a `PositionProfile`.
    *
@@ -3286,9 +3320,9 @@ export interface PostPositionProfileForOpeningPositionProfileInput {
    *
    * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
-  seekPartnerMetadata?: Maybe<Scalars['String']>;
+  seekPartnerMetadata?: InputMaybe<Scalars['String']>;
   /** The video to render within the job ad. */
-  seekVideo?: Maybe<SeekVideoInput>;
+  seekVideo?: InputMaybe<SeekVideoInput>;
 }
 
 /** Attributes of the position profile. */
@@ -3320,7 +3354,7 @@ export interface PostPositionPositionProfileInput {
    *
    * Scheme requirements:
    *
-   * - The `seekAnz` scheme requires exactly one element.
+   * - The `seekAnz` scheme requires exactly one identifier for a child job category.
    */
   jobCategories: Array<Scalars['String']>;
   /** The salary or compensation offered for the position. */
@@ -3340,7 +3374,7 @@ export interface PostPositionPositionProfileInput {
    *
    * Scheme requirements:
    *
-   * - The `seekAnz` scheme requires exactly one element.
+   * - The `seekAnz` scheme requires exactly one element that matches the position opening's `PostingRequester.id`.
    */
   positionOrganizations: Array<Scalars['String']>;
   /**
@@ -3353,7 +3387,7 @@ export interface PostPositionPositionProfileInput {
    *
    * For the `seekAnz` scheme, this field is not supported and should be set to `null`.
    */
-  positionScheduleTypeCodes?: Maybe<Array<Scalars['String']>>;
+  positionScheduleTypeCodes?: InputMaybe<Array<Scalars['String']>>;
   /**
    * A short phrase describing the position as it would be listed on a business card or in a company directory.
    *
@@ -3385,13 +3419,13 @@ export interface PostPositionPositionProfileInput {
    * - Required for the `seekAnz` scheme.
    * - Set to `null` for other schemes.
    */
-  seekAnzWorkTypeCode?: Maybe<Scalars['String']>;
+  seekAnzWorkTypeCode?: InputMaybe<Scalars['String']>;
   /**
    * The identifier for the `ApplicationQuestionnaire` containing the set of questions to present to candidates during an application.
    *
    * The questionnaire responses will be available as `CandidateProfile.seekQuestionnaireSubmission` on the candidate's application profile.
    */
-  seekApplicationQuestionnaireId?: Maybe<Scalars['String']>;
+  seekApplicationQuestionnaireId?: InputMaybe<Scalars['String']>;
   /**
    * An optional opaque billing reference.
    *
@@ -3399,13 +3433,13 @@ export interface PostPositionPositionProfileInput {
    *
    * This field has a maximum length of 50 bytes in UTF-8 encoding.
    */
-  seekBillingReference?: Maybe<Scalars['String']>;
+  seekBillingReference?: InputMaybe<Scalars['String']>;
   /**
    * An optional hirer-provided opaque job reference.
    *
    * This field has a maximum length of 50 bytes in UTF-8 encoding.
    */
-  seekHirerJobReference?: Maybe<Scalars['String']>;
+  seekHirerJobReference?: InputMaybe<Scalars['String']>;
   /**
    * An optional field for storing additional data with a `PositionProfile`.
    *
@@ -3413,9 +3447,9 @@ export interface PostPositionPositionProfileInput {
    *
    * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
-  seekPartnerMetadata?: Maybe<Scalars['String']>;
+  seekPartnerMetadata?: InputMaybe<Scalars['String']>;
   /** The video to render within the job ad. */
-  seekVideo?: Maybe<SeekVideoInput>;
+  seekVideo?: InputMaybe<SeekVideoInput>;
 }
 
 /** Attributes of the position profile. */
@@ -3597,7 +3631,7 @@ export interface PostingRequesterInput {
   /**
    * Specific contact people for the position opening at the party.
    *
-   * The name and email address of at least one contact person must be provided.
+   * The name, email address & role of at least one contact person must be provided.
    * A maximum of 10 contact people may be provided.
    */
   personContacts: Array<SpecifiedPersonInput>;
@@ -3639,6 +3673,12 @@ export interface Query {
   advertisementBranding?: Maybe<AdvertisementBranding>;
   /**
    * A page of advertisement brandings associated with the specified `hirerId`.
+   *
+   * A maximum of 100 advertisement brandings can be returned in a single page.
+   * Additional advertisement brandings can be queried using a pagination cursor.
+   *
+   * The result list is returned in ascending creation date & time order.
+   * It starts from the earliest known advertisement branding if no pagination arguments are provided.
    *
    * This query accepts browser tokens that include the `query:advertisement-brandings` scope.
    */
@@ -3708,6 +3748,8 @@ export interface Query {
   /**
    * An array of suggested job categories for the provided partial `PositionProfile`.
    *
+   * A maximum of 10 job categories can be recommended.
+   *
    * This query accepts browser tokens that include the `query:ontologies` scope.
    */
   jobCategorySuggestions: Array<JobCategorySuggestionChoice>;
@@ -3720,11 +3762,15 @@ export interface Query {
   /**
    * An array of location nodes relevant to the text provided.
    *
+   * While a maximum of 20 locations can be requested, the current implementation does not return more than 10 recommendations.
+   *
    * This query accepts browser tokens that include the `query:ontologies` scope.
    */
   locationSuggestions?: Maybe<Array<LocationSuggestion>>;
   /**
    * An array of locations relevant to the provided geolocation ordered by distance.
+   *
+   * A maximum of 10 locations can be recommended.
    *
    * This query accepts browser tokens that include the `query:ontologies` scope.
    */
@@ -3838,11 +3884,11 @@ export interface QueryAdvertisementBrandingArgs {
  * This acts as the public, top-level API from which all queries must start.
  */
 export interface QueryAdvertisementBrandingsArgs {
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
   hirerId: Scalars['String'];
-  last?: Maybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
 }
 
 /**
@@ -3896,11 +3942,11 @@ export interface QueryEventArgs {
  * This acts as the public, top-level API from which all queries must start.
  */
 export interface QueryEventsArgs {
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  filter?: Maybe<EventsFilterInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<EventsFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
   schemeId: Scalars['String'];
 }
 
@@ -3919,11 +3965,11 @@ export interface QueryHiringOrganizationArgs {
  * This acts as the public, top-level API from which all queries must start.
  */
 export interface QueryHiringOrganizationsArgs {
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  filter?: Maybe<HiringOrganizationsFilterInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<HiringOrganizationsFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
   schemeId: Scalars['String'];
 }
 
@@ -3951,7 +3997,7 @@ export interface QueryJobCategoryArgs {
  * This acts as the public, top-level API from which all queries must start.
  */
 export interface QueryJobCategorySuggestionsArgs {
-  first?: Maybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
   positionProfile: JobCategorySuggestionPositionProfileInput;
   schemeId: Scalars['String'];
 }
@@ -3971,8 +4017,8 @@ export interface QueryLocationArgs {
  * This acts as the public, top-level API from which all queries must start.
  */
 export interface QueryLocationSuggestionsArgs {
-  first?: Maybe<Scalars['Int']>;
-  hirerId?: Maybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  hirerId?: InputMaybe<Scalars['String']>;
   schemeId: Scalars['String'];
   text: Scalars['String'];
   usageTypeCode: Scalars['String'];
@@ -3984,7 +4030,7 @@ export interface QueryLocationSuggestionsArgs {
  * This acts as the public, top-level API from which all queries must start.
  */
 export interface QueryNearestLocationsArgs {
-  first?: Maybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
   geoLocation: GeoLocationInput;
   schemeId: Scalars['String'];
 }
@@ -4004,9 +4050,9 @@ export interface QueryPositionOpeningArgs {
  * This acts as the public, top-level API from which all queries must start.
  */
 export interface QueryPositionOpeningsArgs {
-  after?: Maybe<Scalars['String']>;
-  filter?: Maybe<PositionOpeningsFilterInput>;
-  first?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<PositionOpeningsFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
   hirerId: Scalars['String'];
 }
 
@@ -4066,12 +4112,12 @@ export interface QuerySeekAnzHirerAdvertisementModificationProductsAltArgs {
  * This acts as the public, top-level API from which all queries must start.
  */
 export interface QueryWebhookAttemptsForEventArgs {
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
   eventId: Scalars['String'];
-  filter?: Maybe<WebhookAttemptsFilterInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
+  filter?: InputMaybe<WebhookAttemptsFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
 }
 
 /**
@@ -4090,11 +4136,11 @@ export interface QueryWebhookRequestArgs {
  * This acts as the public, top-level API from which all queries must start.
  */
 export interface QueryWebhookRequestsForSubscriptionArgs {
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  filter?: Maybe<WebhookRequestFilterInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<WebhookRequestFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
   subscriptionId: Scalars['String'];
 }
 
@@ -4122,11 +4168,11 @@ export interface QueryWebhookSubscriptionReplayArgs {
  * This acts as the public, top-level API from which all queries must start.
  */
 export interface QueryWebhookSubscriptionsArgs {
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  filter?: Maybe<WebhookSubscriptionsFilterInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<WebhookSubscriptionsFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
   schemeId: Scalars['String'];
 }
 
@@ -4264,7 +4310,11 @@ export interface RemunerationRange {
   minimumAmount: RemunerationAmount;
 }
 
-/** A salary or compensation range for a position. */
+/**
+ * A salary or compensation range for a position.
+ *
+ * Salary ranges are used to refine candidate job searches but aren’t displayed on job ads.
+ */
 export interface RemunerationRangeInput {
   /**
    * The interval the remuneration amounts are calculated over.
@@ -4286,7 +4336,7 @@ export interface RemunerationRangeInput {
    *
    * If specified, the value must be greater than or equal to the value of `minimumAmount`.
    */
-  maximumAmount?: Maybe<RemunerationAmountInput>;
+  maximumAmount?: InputMaybe<RemunerationAmountInput>;
   /**
    * The minimum amount an organization is willing to pay for a position.
    *
@@ -4298,7 +4348,7 @@ export interface RemunerationRangeInput {
 /** The input parameter for the `replayWebhookSubscription` mutation. */
 export interface ReplayWebhookSubscriptionInput {
   /** The additional fields to filter which events are to be replayed. */
-  filter?: Maybe<ReplayWebhookSubscriptionFilterInput>;
+  filter: ReplayWebhookSubscriptionFilterInput;
   /** The details of the webhook subscription to be replayed. */
   webhookSubscription: ReplayWebhookSubscriptionSubscriptionInput;
 }
@@ -4312,24 +4362,19 @@ export interface ReplayWebhookSubscriptionPayload {
 
 /** The criteria used to decide which events will be replayed. */
 export interface ReplayWebhookSubscriptionFilterInput {
+  /** The earliest event to replay. */
+  createdAfterDateTime: Scalars['DateTime'];
+  /** The latest event to replay. */
+  createdBeforeDateTime: Scalars['DateTime'];
   /**
-   * The earliest event to replay.
+   * The hirer ID to replay events for.
    *
-   * Defaults to the first event if no value is provided.
+   * This must be specified for partner-scoped subscriptions if  `replayDeliveredEventsIndicator` is true.
+   * This defaults to the corresponding `WebhookSubscription.hirerId` for a hirer-scoped subscription.
    */
-  createdAfterDateTime?: Maybe<Scalars['DateTime']>;
-  /**
-   * The latest event to replay.
-   *
-   * Defaults to the last event if no value is provided.
-   */
-  createdBeforeDateTime?: Maybe<Scalars['DateTime']>;
-  /**
-   * Whether to include all events, or only events that have failed to be delivered.
-   *
-   * Defaults to false if no value is provided.
-   */
-  replayDeliveredEventsIndicator?: Maybe<Scalars['Boolean']>;
+  hirerId?: InputMaybe<Scalars['String']>;
+  /** Whether to include all events, or only events that have failed to be delivered. */
+  replayDeliveredEventsIndicator: Scalars['Boolean'];
 }
 
 /** The details of the webhook subscription to be replayed. */
@@ -4357,7 +4402,7 @@ export interface SeekAnzAdProduct {
   checkoutEstimate: SeekAnzAdProductCheckoutEstimate;
   /** The human-readable description of the ad product. */
   description: Scalars['String'];
-  /** Whether the ad product is enabled. */
+  /** Whether the ad product should be selectable by the hirer. */
   enabledIndicator: Scalars['Boolean'];
   /** The features this product supports. */
   features: SeekAnzAdProductFeatures;
@@ -4381,13 +4426,13 @@ export interface SeekAnzAdProductAdvertisementDraftInput {
    * This field is used for tracing & debugging.
    * It does not impact the available ad products or their pricing.
    */
-  hirerJobReference?: Maybe<Scalars['String']>;
+  hirerJobReference?: InputMaybe<Scalars['String']>;
   /** The identifier for the `JobCategory`. */
-  jobCategoryId?: Maybe<Scalars['String']>;
+  jobCategoryId?: InputMaybe<Scalars['String']>;
   /** The identifier for the position's `Location`. */
-  positionLocationId?: Maybe<Scalars['String']>;
+  positionLocationId?: InputMaybe<Scalars['String']>;
   /** A short phrase describing the position as it would be listed on a business card or in a company directory. */
-  positionTitle?: Maybe<Scalars['String']>;
+  positionTitle?: InputMaybe<Scalars['String']>;
   /**
    * The type of the ad product.
    *
@@ -4399,7 +4444,7 @@ export interface SeekAnzAdProductAdvertisementDraftInput {
    *
    * This field is unused and may be omitted from the input.
    */
-  typeCode?: Maybe<Scalars['String']>;
+  typeCode?: InputMaybe<Scalars['String']>;
 }
 
 /**
@@ -4414,9 +4459,9 @@ export interface SeekAnzAdProductAdvertisementInput {
    * This field is used for tracing & debugging.
    * It does not impact the available ad product or their pricing.
    */
-  hirerJobReference?: Maybe<Scalars['String']>;
+  hirerJobReference?: InputMaybe<Scalars['String']>;
   /** The identifier for the `PositionProfile`. */
-  id?: Maybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['String']>;
   /** The identifier for the `JobCategory`. */
   jobCategoryId: Scalars['String'];
   /** The identifier for the position's `Location`. */
@@ -4568,7 +4613,7 @@ export interface SeekVideo {
    * - `Above` indicates the video will render above the advertisement details.
    * - `Below` indicates the video will render below the advertisement details.
    */
-  seekAnzPositionCode?: Maybe<Scalars['String']>;
+  seekAnzPositionCode: Scalars['String'];
   /** The URL of the video. */
   url: Scalars['String'];
 }
@@ -4583,7 +4628,7 @@ export interface SeekVideoInput {
    * - `Above` indicates the video will render above the advertisement details.
    * - `Below` indicates the video will render below the advertisement details.
    */
-  seekAnzPositionCode?: Maybe<Scalars['String']>;
+  seekAnzPositionCode: Scalars['String'];
   /**
    * The URL of the video to display.
    *
@@ -4594,6 +4639,8 @@ export interface SeekVideoInput {
    *     - `https://www.youtube.com/embed/aAgePQvHBQM`
    *     - `https://www.youtube.com/watch?v=aAgePQvHBQM`
    *     - `https://youtu.be/aAgePQvHBQM`
+   *
+   *    If the URL provided does not match the above criteria it will be ignored.
    */
   url: Scalars['String'];
 }
@@ -4642,8 +4689,10 @@ export interface SpecifiedPersonInput {
    *
    * - `Recruiter` indicates a person recruiting for the position.
    * - `HiringManager` indicates an employee that requested the position to be filled.
+   *
+   * This field is required when providing a position opening's `personContacts`.
    */
-  roleCode?: Maybe<Scalars['String']>;
+  roleCode?: InputMaybe<Scalars['String']>;
 }
 
 /**
@@ -4777,7 +4826,7 @@ export interface UpdateCandidateProcessHistoryItemCandidateProcessHistoryItemInp
    * This is null for interactions that are not specific to an individual position,
    * such as a general interview with a recruiter.
    */
-  positionProfile?: Maybe<CandidateProcessHistoryItemPositionProfileInput>;
+  positionProfile?: InputMaybe<CandidateProcessHistoryItemPositionProfileInput>;
   /** The parties that executed the action. */
   primaryParties: Array<CandidateProcessPartyInput>;
   /**
@@ -4787,13 +4836,13 @@ export interface UpdateCandidateProcessHistoryItemCandidateProcessHistoryItemInp
    *
    * This is required if `positionProfile` is specified.
    */
-  seekSource?: Maybe<SeekProcessHistoryItemSourceInput>;
+  seekSource?: InputMaybe<SeekProcessHistoryItemSourceInput>;
   /**
    * The current status of the underlying process.
    *
    * For example, a candidate in an application process may progress through a series of statuses like applied, interviewed, offered, hired.
    */
-  status?: Maybe<CandidateProcessStatusInput>;
+  status?: InputMaybe<CandidateProcessStatusInput>;
 }
 
 /** The input parameter for the `updatePositionOpeningPersonContacts` mutation. */
@@ -4816,7 +4865,7 @@ export interface UpdatePositionOpeningPersonContactsPositionOpeningInput {
   /**
    * Specific contact people for the position opening at the party.
    *
-   * The name and email address of at least one contact person must be provided.
+   * The name, email address & role of at least one contact person must be provided.
    * A maximum of 10 contact people may be provided.
    */
   personContacts: Array<SpecifiedPersonInput>;
@@ -4871,7 +4920,7 @@ export interface UpdatePostedPositionProfilePositionProfileInput {
    *
    * Scheme requirements:
    *
-   * - The `seekAnz` scheme requires exactly one element.
+   * - The `seekAnz` scheme requires exactly one identifier for a child job category.
    */
   jobCategories: Array<Scalars['String']>;
   /** The salary or compensation offered for the position. */
@@ -4891,7 +4940,7 @@ export interface UpdatePostedPositionProfilePositionProfileInput {
    *
    * Scheme requirements:
    *
-   * - The `seekAnz` scheme requires exactly one element.
+   * - The `seekAnz` scheme requires exactly one element that matches the position opening's `PostingRequester.id`.
    */
   positionOrganizations: Array<Scalars['String']>;
   /**
@@ -4904,7 +4953,7 @@ export interface UpdatePostedPositionProfilePositionProfileInput {
    *
    * For the `seekAnz` scheme, this field is not supported and should be set to `null`.
    */
-  positionScheduleTypeCodes?: Maybe<Array<Scalars['String']>>;
+  positionScheduleTypeCodes?: InputMaybe<Array<Scalars['String']>>;
   /**
    * A short phrase describing the position as it would be listed on a business card or in a company directory.
    *
@@ -4938,13 +4987,13 @@ export interface UpdatePostedPositionProfilePositionProfileInput {
    * - Required for the `seekAnz` scheme.
    * - Set to `null` for other schemes.
    */
-  seekAnzWorkTypeCode?: Maybe<Scalars['String']>;
+  seekAnzWorkTypeCode?: InputMaybe<Scalars['String']>;
   /**
    * This field is deprecated and must be omitted from all inputs.
    *
    * Do not explicitly set to `null` or any other value.
    */
-  seekApplicationQuestionnaireId?: Maybe<Scalars['String']>;
+  seekApplicationQuestionnaireId?: InputMaybe<Scalars['String']>;
   /**
    * An optional opaque billing reference.
    *
@@ -4952,13 +5001,13 @@ export interface UpdatePostedPositionProfilePositionProfileInput {
    *
    * This field has a maximum length of 50 bytes in UTF-8 encoding.
    */
-  seekBillingReference?: Maybe<Scalars['String']>;
+  seekBillingReference?: InputMaybe<Scalars['String']>;
   /**
    * An optional hirer-provided opaque job reference.
    *
    * This field has a maximum length of 50 bytes in UTF-8 encoding.
    */
-  seekHirerJobReference?: Maybe<Scalars['String']>;
+  seekHirerJobReference?: InputMaybe<Scalars['String']>;
   /**
    * An optional field for storing additional data with a `PositionProfile`.
    *
@@ -4966,9 +5015,9 @@ export interface UpdatePostedPositionProfilePositionProfileInput {
    *
    * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
-  seekPartnerMetadata?: Maybe<Scalars['String']>;
+  seekPartnerMetadata?: InputMaybe<Scalars['String']>;
   /** The video to render within the job ad. */
-  seekVideo?: Maybe<SeekVideoInput>;
+  seekVideo?: InputMaybe<SeekVideoInput>;
 }
 
 /** Attributes of the updated position profile. */
@@ -4986,12 +5035,15 @@ export interface UpdatePostingInstructionInput {
    * If no methods are provided, SEEK's native apply form will be used to receive candidate applications.
    * Native applications will emit a `CandidateApplicationCreated` event that points to a `CandidateProfile` object.
    *
+   * Changing a posted job ad’s application method between link out and native apply can result in unexpected behaviour.
+   * This field should only be used to update the `ApplicationMethod.applicationUri` of an existing link out job ad.
+   *
    * Scheme requirements:
    *
    * - For the `seekAnz` scheme, this field is limited to a single element.
    *   Requests with more than 1 element will fail.
    */
-  applicationMethods?: Maybe<Array<ApplicationMethodInput>>;
+  applicationMethods?: InputMaybe<Array<ApplicationMethodInput>>;
   /**
    * The identifier for the `AdvertisementBranding` to apply to the posted job ad.
    *
@@ -5001,7 +5053,7 @@ export interface UpdatePostingInstructionInput {
    *
    *   When the product's `SeekAnzAdProductFeatures.brandingIndicator` value is false, this field will be silently ignored.
    */
-  brandingId?: Maybe<Scalars['String']>;
+  brandingId?: InputMaybe<Scalars['String']>;
   /**
    * The end date of the posting.
    *
@@ -5011,7 +5063,7 @@ export interface UpdatePostingInstructionInput {
    *
    *   If an end date is not specified the job ad's existing end date will be preserved.
    */
-  end?: Maybe<Scalars['DateTime']>;
+  end?: InputMaybe<Scalars['DateTime']>;
   /**
    * A SEEK ANZ advertisement type code.
    *
@@ -5026,7 +5078,7 @@ export interface UpdatePostingInstructionInput {
    * - For the `seekAnz` scheme, this field is required.
    * - For other schemes, set this to `null`.
    */
-  seekAnzAdvertisementType?: Maybe<Scalars['String']>;
+  seekAnzAdvertisementType?: InputMaybe<Scalars['String']>;
 }
 
 /** The input parameter for the `updateUnpostedPositionProfile` mutation. */
@@ -5072,7 +5124,7 @@ export interface UpdateUnpostedPositionProfilePositionProfileInput {
    * - `FullTime` indicates a full-time schedule.
    * - `PartTime` indicates a part-time schedule.
    */
-  positionScheduleTypeCodes?: Maybe<Array<Scalars['String']>>;
+  positionScheduleTypeCodes?: InputMaybe<Array<Scalars['String']>>;
   /**
    * A short phrase describing the position as it would be listed on a business card or in a company directory.
    *
@@ -5086,7 +5138,7 @@ export interface UpdateUnpostedPositionProfilePositionProfileInput {
    *
    * This in addition to the `positionTitle` can help identify the profile to an end user.
    */
-  profileName?: Maybe<Scalars['String']>;
+  profileName?: InputMaybe<Scalars['String']>;
   /**
    * An optional opaque billing reference.
    *
@@ -5094,13 +5146,13 @@ export interface UpdateUnpostedPositionProfilePositionProfileInput {
    *
    * This field has a maximum length of 50 bytes in UTF-8 encoding.
    */
-  seekBillingReference?: Maybe<Scalars['String']>;
+  seekBillingReference?: InputMaybe<Scalars['String']>;
   /**
    * An optional hirer-provided opaque job reference.
    *
    * This field has a maximum length of 50 bytes in UTF-8 encoding.
    */
-  seekHirerJobReference?: Maybe<Scalars['String']>;
+  seekHirerJobReference?: InputMaybe<Scalars['String']>;
   /**
    * An optional field for storing additional data with a `PositionProfile`.
    *
@@ -5108,7 +5160,7 @@ export interface UpdateUnpostedPositionProfilePositionProfileInput {
    *
    * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
-  seekPartnerMetadata?: Maybe<Scalars['String']>;
+  seekPartnerMetadata?: InputMaybe<Scalars['String']>;
 }
 
 /** The input parameter for the `updateUploadedCandidatePerson` mutation. */
@@ -5292,7 +5344,7 @@ export interface UpdateWebhookSubscriptionDeliveryConfigurationSubscriptionInput
    *
    * This number must be between 1 and 10 inclusive. Defaults to 10.
    */
-  maxEventsPerAttempt?: Maybe<Scalars['Int']>;
+  maxEventsPerAttempt?: InputMaybe<Scalars['Int']>;
   /** The subscriber-owned URL where events will be sent to. */
   url: Scalars['String'];
 }
@@ -5322,7 +5374,7 @@ export interface UpdateWebhookSubscriptionSigningConfigurationSubscriptionInput 
    *
    * The secret should be a random string with high entropy that is not reused for any other purpose.
    */
-  secret?: Maybe<Scalars['String']>;
+  secret?: InputMaybe<Scalars['String']>;
   /**
    * The algorithm for signing webhooks.
    *
@@ -5524,14 +5576,14 @@ export interface WebhookAttemptsFilterInput {
    * This can be used to initiate the retrieval of paginated results.
    * Subsequent queries should use the opaque cursors returned from `WebhookAttemptsConnection`.
    */
-  afterDateTime?: Maybe<Scalars['DateTime']>;
+  afterDateTime?: InputMaybe<Scalars['DateTime']>;
   /**
    * The creation date & time that resulting webhook attempts must precede.
    *
    * This can be used to initiate the retrieval of paginated results.
    * Subsequent queries should use the opaque cursors returned from `WebhookAttemptsConnection`.
    */
-  beforeDateTime?: Maybe<Scalars['DateTime']>;
+  beforeDateTime?: InputMaybe<Scalars['DateTime']>;
   /**
    * The high-level HTTP result of the webhook attempts to retrieve.
    *
@@ -5539,7 +5591,7 @@ export interface WebhookAttemptsFilterInput {
    *
    * If this is not provided then all attempts will be returned regardless of their result.
    */
-  descriptionCodes?: Maybe<Array<Scalars['String']>>;
+  descriptionCodes?: InputMaybe<Array<Scalars['String']>>;
 }
 
 /**
@@ -5622,14 +5674,14 @@ export interface WebhookRequestFilterInput {
    * This can be used to initiate the retrieval of paginated results.
    * Subsequent queries should use the opaque cursors returned from `WebhookRequestsConnection`.
    */
-  afterDateTime?: Maybe<Scalars['DateTime']>;
+  afterDateTime?: InputMaybe<Scalars['DateTime']>;
   /**
    * The creation date & time that resulting webhook requests must precede.
    *
    * This can be used to initiate the retrieval of paginated results.
    * Subsequent queries should use the opaque cursors returned from `WebhookRequestsConnection`.
    */
-  beforeDateTime?: Maybe<Scalars['DateTime']>;
+  beforeDateTime?: InputMaybe<Scalars['DateTime']>;
   /**
    * The high-level HTTP result of the webhook requests to retrieve.
    *
@@ -5637,7 +5689,7 @@ export interface WebhookRequestFilterInput {
    *
    * If this is not provided then all requests will be returned regardless of their result.
    */
-  descriptionCodes?: Maybe<Array<Scalars['String']>>;
+  descriptionCodes?: InputMaybe<Array<Scalars['String']>>;
 }
 
 /** A page of webhook requests. */
@@ -5744,11 +5796,11 @@ export interface WebhookSubscription {
  * Events are delivered in batches with a HTTP POST request to the specified subscription URL.
  */
 export interface WebhookSubscriptionWebhookRequestsArgs {
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  filter?: Maybe<WebhookRequestFilterInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<WebhookRequestFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
 }
 
 /**
@@ -5757,11 +5809,11 @@ export interface WebhookSubscriptionWebhookRequestsArgs {
  * Events are delivered in batches with a HTTP POST request to the specified subscription URL.
  */
 export interface WebhookSubscriptionWebhookSubscriptionReplaysArgs {
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  filter?: Maybe<WebhookSubscriptionReplaysFilterInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<WebhookSubscriptionReplaysFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
 }
 
 /** A webhook subscription in a paginated list. */
@@ -5852,7 +5904,7 @@ export interface WebhookSubscriptionReplaysFilterInput {
    *
    * If this is not provided then replays of all statuses will be returned.
    */
-  statusCode?: Maybe<Scalars['String']>;
+  statusCode?: InputMaybe<Scalars['String']>;
 }
 
 /** A page of webhook subscriptions. */
@@ -5876,14 +5928,14 @@ export interface WebhookSubscriptionsFilterInput {
    * This can be used to initiate the retrieval of paginated results.
    * Subsequent queries should use the opaque cursors returned from `WebhookSubscriptionsConnection`.
    */
-  afterDateTime?: Maybe<Scalars['DateTime']>;
+  afterDateTime?: InputMaybe<Scalars['DateTime']>;
   /**
    * The creation date & time that resulting webhook subscriptions must precede.
    *
    * This can be used to initiate the retrieval of paginated results.
    * Subsequent queries should use the opaque cursors returned from `WebhookSubscriptionsConnection`.
    */
-  beforeDateTime?: Maybe<Scalars['DateTime']>;
+  beforeDateTime?: InputMaybe<Scalars['DateTime']>;
   /**
    * The event types of webhook subscriptions to retrieve.
    *
@@ -5891,13 +5943,13 @@ export interface WebhookSubscriptionsFilterInput {
    *
    * If this is not provided then events of all types will be returned.
    */
-  eventTypeCodes?: Maybe<Array<Scalars['String']>>;
+  eventTypeCodes?: InputMaybe<Array<Scalars['String']>>;
   /**
    * The hirer IDs of the hirer-filtered webhook subscriptions to retrieve.
    *
    * If this is not provided then both hirer-filtered and unfiltered subscriptions will be returned.
    */
-  hirerIds?: Maybe<Array<Scalars['String']>>;
+  hirerIds?: InputMaybe<Array<Scalars['String']>>;
 }
 
 export type AdvertisementBrandingFieldsFragment = {
@@ -5926,10 +5978,10 @@ export type AdvertisementBrandingEdgeFieldsFragment = {
 };
 
 export type AdvertisementBrandingsQueryVariables = Exact<{
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
   hirerId: Scalars['String'];
 }>;
 
@@ -5940,8 +5992,8 @@ export type AdvertisementBrandingsQuery = {
       __typename?: 'PageInfo';
       hasNextPage: boolean;
       hasPreviousPage: boolean;
-      startCursor?: Maybe<string>;
-      endCursor?: Maybe<string>;
+      startCursor?: string | null | undefined;
+      endCursor?: string | null | undefined;
     };
     edges: Array<{
       __typename?: 'AdvertisementBrandingEdge';
@@ -5973,13 +6025,14 @@ export type JobCategoriesQuery = {
   jobCategories: Array<{
     __typename?: 'JobCategory';
     name: string;
-    children?: Maybe<
-      Array<{
-        __typename?: 'JobCategory';
-        name: string;
-        id: { __typename?: 'ObjectIdentifier'; value: string };
-      }>
-    >;
+    children?:
+      | Array<{
+          __typename?: 'JobCategory';
+          name: string;
+          id: { __typename?: 'ObjectIdentifier'; value: string };
+        }>
+      | null
+      | undefined;
     id: { __typename?: 'ObjectIdentifier'; value: string };
   }>;
 };
@@ -5990,18 +6043,22 @@ export type JobCategorySuggestionChoiceAttributesFragment = {
   jobCategory: {
     __typename?: 'JobCategory';
     name: string;
-    parent?: Maybe<{
-      __typename?: 'JobCategory';
-      name: string;
-      id: { __typename?: 'ObjectIdentifier'; value: string };
-    }>;
-    children?: Maybe<
-      Array<{
-        __typename?: 'JobCategory';
-        name: string;
-        id: { __typename?: 'ObjectIdentifier'; value: string };
-      }>
-    >;
+    parent?:
+      | {
+          __typename?: 'JobCategory';
+          name: string;
+          id: { __typename?: 'ObjectIdentifier'; value: string };
+        }
+      | null
+      | undefined;
+    children?:
+      | Array<{
+          __typename?: 'JobCategory';
+          name: string;
+          id: { __typename?: 'ObjectIdentifier'; value: string };
+        }>
+      | null
+      | undefined;
     id: { __typename?: 'ObjectIdentifier'; value: string };
   };
 };
@@ -6009,7 +6066,7 @@ export type JobCategorySuggestionChoiceAttributesFragment = {
 export type JobCategorySuggestQueryVariables = Exact<{
   positionProfile: JobCategorySuggestionPositionProfileInput;
   schemeId: Scalars['String'];
-  first?: Maybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
 }>;
 
 export type JobCategorySuggestQuery = {
@@ -6019,18 +6076,22 @@ export type JobCategorySuggestQuery = {
     jobCategory: {
       __typename?: 'JobCategory';
       name: string;
-      parent?: Maybe<{
-        __typename?: 'JobCategory';
-        name: string;
-        id: { __typename?: 'ObjectIdentifier'; value: string };
-      }>;
-      children?: Maybe<
-        Array<{
-          __typename?: 'JobCategory';
-          name: string;
-          id: { __typename?: 'ObjectIdentifier'; value: string };
-        }>
-      >;
+      parent?:
+        | {
+            __typename?: 'JobCategory';
+            name: string;
+            id: { __typename?: 'ObjectIdentifier'; value: string };
+          }
+        | null
+        | undefined;
+      children?:
+        | Array<{
+            __typename?: 'JobCategory';
+            name: string;
+            id: { __typename?: 'ObjectIdentifier'; value: string };
+          }>
+        | null
+        | undefined;
       id: { __typename?: 'ObjectIdentifier'; value: string };
     };
   }>;
@@ -6049,41 +6110,62 @@ export type NestedLocationAttributesFragment = {
   name: string;
   contextualName: string;
   countryCode: string;
-  parent?: Maybe<{
-    __typename?: 'Location';
-    name: string;
-    contextualName: string;
-    countryCode: string;
-    parent?: Maybe<{
-      __typename?: 'Location';
-      name: string;
-      contextualName: string;
-      countryCode: string;
-      parent?: Maybe<{
+  parent?:
+    | {
         __typename?: 'Location';
         name: string;
         contextualName: string;
         countryCode: string;
-        parent?: Maybe<{
-          __typename?: 'Location';
-          name: string;
-          contextualName: string;
-          countryCode: string;
-          parent?: Maybe<{
-            __typename?: 'Location';
-            name: string;
-            contextualName: string;
-            countryCode: string;
-            id: { __typename?: 'ObjectIdentifier'; value: string };
-          }>;
-          id: { __typename?: 'ObjectIdentifier'; value: string };
-        }>;
+        parent?:
+          | {
+              __typename?: 'Location';
+              name: string;
+              contextualName: string;
+              countryCode: string;
+              parent?:
+                | {
+                    __typename?: 'Location';
+                    name: string;
+                    contextualName: string;
+                    countryCode: string;
+                    parent?:
+                      | {
+                          __typename?: 'Location';
+                          name: string;
+                          contextualName: string;
+                          countryCode: string;
+                          parent?:
+                            | {
+                                __typename?: 'Location';
+                                name: string;
+                                contextualName: string;
+                                countryCode: string;
+                                id: {
+                                  __typename?: 'ObjectIdentifier';
+                                  value: string;
+                                };
+                              }
+                            | null
+                            | undefined;
+                          id: {
+                            __typename?: 'ObjectIdentifier';
+                            value: string;
+                          };
+                        }
+                      | null
+                      | undefined;
+                    id: { __typename?: 'ObjectIdentifier'; value: string };
+                  }
+                | null
+                | undefined;
+              id: { __typename?: 'ObjectIdentifier'; value: string };
+            }
+          | null
+          | undefined;
         id: { __typename?: 'ObjectIdentifier'; value: string };
-      }>;
-      id: { __typename?: 'ObjectIdentifier'; value: string };
-    }>;
-    id: { __typename?: 'ObjectIdentifier'; value: string };
-  }>;
+      }
+    | null
+    | undefined;
   id: { __typename?: 'ObjectIdentifier'; value: string };
 };
 
@@ -6092,157 +6174,234 @@ export type LocationQueryVariables = Exact<{
 }>;
 
 export type LocationQuery = {
-  location?: Maybe<{
-    __typename?: 'Location';
-    name: string;
-    contextualName: string;
-    countryCode: string;
-    parent?: Maybe<{
-      __typename?: 'Location';
-      name: string;
-      contextualName: string;
-      countryCode: string;
-      parent?: Maybe<{
+  location?:
+    | {
         __typename?: 'Location';
         name: string;
         contextualName: string;
         countryCode: string;
-        parent?: Maybe<{
-          __typename?: 'Location';
-          name: string;
-          contextualName: string;
-          countryCode: string;
-          parent?: Maybe<{
-            __typename?: 'Location';
-            name: string;
-            contextualName: string;
-            countryCode: string;
-            parent?: Maybe<{
+        parent?:
+          | {
               __typename?: 'Location';
               name: string;
               contextualName: string;
               countryCode: string;
+              parent?:
+                | {
+                    __typename?: 'Location';
+                    name: string;
+                    contextualName: string;
+                    countryCode: string;
+                    parent?:
+                      | {
+                          __typename?: 'Location';
+                          name: string;
+                          contextualName: string;
+                          countryCode: string;
+                          parent?:
+                            | {
+                                __typename?: 'Location';
+                                name: string;
+                                contextualName: string;
+                                countryCode: string;
+                                parent?:
+                                  | {
+                                      __typename?: 'Location';
+                                      name: string;
+                                      contextualName: string;
+                                      countryCode: string;
+                                      id: {
+                                        __typename?: 'ObjectIdentifier';
+                                        value: string;
+                                      };
+                                    }
+                                  | null
+                                  | undefined;
+                                id: {
+                                  __typename?: 'ObjectIdentifier';
+                                  value: string;
+                                };
+                              }
+                            | null
+                            | undefined;
+                          id: {
+                            __typename?: 'ObjectIdentifier';
+                            value: string;
+                          };
+                        }
+                      | null
+                      | undefined;
+                    id: { __typename?: 'ObjectIdentifier'; value: string };
+                  }
+                | null
+                | undefined;
               id: { __typename?: 'ObjectIdentifier'; value: string };
-            }>;
-            id: { __typename?: 'ObjectIdentifier'; value: string };
-          }>;
-          id: { __typename?: 'ObjectIdentifier'; value: string };
-        }>;
+            }
+          | null
+          | undefined;
         id: { __typename?: 'ObjectIdentifier'; value: string };
-      }>;
-      id: { __typename?: 'ObjectIdentifier'; value: string };
-    }>;
-    id: { __typename?: 'ObjectIdentifier'; value: string };
-  }>;
+      }
+    | null
+    | undefined;
 };
 
 export type SuggestLocationsQueryVariables = Exact<{
   usageTypeCode: Scalars['String'];
   schemeId: Scalars['String'];
-  hirerId?: Maybe<Scalars['String']>;
+  hirerId?: InputMaybe<Scalars['String']>;
   text: Scalars['String'];
-  first?: Maybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
 }>;
 
 export type SuggestLocationsQuery = {
-  locationSuggestions?: Maybe<
-    Array<{
-      __typename?: 'LocationSuggestion';
-      location: {
-        __typename?: 'Location';
-        name: string;
-        contextualName: string;
-        countryCode: string;
-        parent?: Maybe<{
+  locationSuggestions?:
+    | Array<{
+        __typename?: 'LocationSuggestion';
+        location: {
           __typename?: 'Location';
           name: string;
           contextualName: string;
           countryCode: string;
-          parent?: Maybe<{
-            __typename?: 'Location';
-            name: string;
-            contextualName: string;
-            countryCode: string;
-            parent?: Maybe<{
-              __typename?: 'Location';
-              name: string;
-              contextualName: string;
-              countryCode: string;
-              parent?: Maybe<{
+          parent?:
+            | {
                 __typename?: 'Location';
                 name: string;
                 contextualName: string;
                 countryCode: string;
-                parent?: Maybe<{
-                  __typename?: 'Location';
-                  name: string;
-                  contextualName: string;
-                  countryCode: string;
-                  id: { __typename?: 'ObjectIdentifier'; value: string };
-                }>;
+                parent?:
+                  | {
+                      __typename?: 'Location';
+                      name: string;
+                      contextualName: string;
+                      countryCode: string;
+                      parent?:
+                        | {
+                            __typename?: 'Location';
+                            name: string;
+                            contextualName: string;
+                            countryCode: string;
+                            parent?:
+                              | {
+                                  __typename?: 'Location';
+                                  name: string;
+                                  contextualName: string;
+                                  countryCode: string;
+                                  parent?:
+                                    | {
+                                        __typename?: 'Location';
+                                        name: string;
+                                        contextualName: string;
+                                        countryCode: string;
+                                        id: {
+                                          __typename?: 'ObjectIdentifier';
+                                          value: string;
+                                        };
+                                      }
+                                    | null
+                                    | undefined;
+                                  id: {
+                                    __typename?: 'ObjectIdentifier';
+                                    value: string;
+                                  };
+                                }
+                              | null
+                              | undefined;
+                            id: {
+                              __typename?: 'ObjectIdentifier';
+                              value: string;
+                            };
+                          }
+                        | null
+                        | undefined;
+                      id: { __typename?: 'ObjectIdentifier'; value: string };
+                    }
+                  | null
+                  | undefined;
                 id: { __typename?: 'ObjectIdentifier'; value: string };
-              }>;
-              id: { __typename?: 'ObjectIdentifier'; value: string };
-            }>;
-            id: { __typename?: 'ObjectIdentifier'; value: string };
-          }>;
+              }
+            | null
+            | undefined;
           id: { __typename?: 'ObjectIdentifier'; value: string };
-        }>;
-        id: { __typename?: 'ObjectIdentifier'; value: string };
-      };
-    }>
-  >;
+        };
+      }>
+    | null
+    | undefined;
 };
 
 export type NearestLocationsQueryVariables = Exact<{
   schemeId: Scalars['String'];
   geoLocation: GeoLocationInput;
-  first?: Maybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
 }>;
 
 export type NearestLocationsQuery = {
-  nearestLocations?: Maybe<
-    Array<{
-      __typename?: 'Location';
-      name: string;
-      contextualName: string;
-      countryCode: string;
-      parent?: Maybe<{
+  nearestLocations?:
+    | Array<{
         __typename?: 'Location';
         name: string;
         contextualName: string;
         countryCode: string;
-        parent?: Maybe<{
-          __typename?: 'Location';
-          name: string;
-          contextualName: string;
-          countryCode: string;
-          parent?: Maybe<{
-            __typename?: 'Location';
-            name: string;
-            contextualName: string;
-            countryCode: string;
-            parent?: Maybe<{
+        parent?:
+          | {
               __typename?: 'Location';
               name: string;
               contextualName: string;
               countryCode: string;
-              parent?: Maybe<{
-                __typename?: 'Location';
-                name: string;
-                contextualName: string;
-                countryCode: string;
-                id: { __typename?: 'ObjectIdentifier'; value: string };
-              }>;
+              parent?:
+                | {
+                    __typename?: 'Location';
+                    name: string;
+                    contextualName: string;
+                    countryCode: string;
+                    parent?:
+                      | {
+                          __typename?: 'Location';
+                          name: string;
+                          contextualName: string;
+                          countryCode: string;
+                          parent?:
+                            | {
+                                __typename?: 'Location';
+                                name: string;
+                                contextualName: string;
+                                countryCode: string;
+                                parent?:
+                                  | {
+                                      __typename?: 'Location';
+                                      name: string;
+                                      contextualName: string;
+                                      countryCode: string;
+                                      id: {
+                                        __typename?: 'ObjectIdentifier';
+                                        value: string;
+                                      };
+                                    }
+                                  | null
+                                  | undefined;
+                                id: {
+                                  __typename?: 'ObjectIdentifier';
+                                  value: string;
+                                };
+                              }
+                            | null
+                            | undefined;
+                          id: {
+                            __typename?: 'ObjectIdentifier';
+                            value: string;
+                          };
+                        }
+                      | null
+                      | undefined;
+                    id: { __typename?: 'ObjectIdentifier'; value: string };
+                  }
+                | null
+                | undefined;
               id: { __typename?: 'ObjectIdentifier'; value: string };
-            }>;
-            id: { __typename?: 'ObjectIdentifier'; value: string };
-          }>;
-          id: { __typename?: 'ObjectIdentifier'; value: string };
-        }>;
+            }
+          | null
+          | undefined;
         id: { __typename?: 'ObjectIdentifier'; value: string };
-      }>;
-      id: { __typename?: 'ObjectIdentifier'; value: string };
-    }>
-  >;
+      }>
+    | null
+    | undefined;
 };

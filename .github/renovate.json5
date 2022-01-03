@@ -7,18 +7,12 @@
         // `node-fetch@3` is ESM-only
         '@types/node-fetch',
         'node-fetch',
+        // GraphQL majors first require support in Apollo and other tooling
+        'graphql',
       ],
       matchUpdateTypes: ['major'],
 
       enabled: false,
-    },
-    {
-      matchManagers: ['npm'],
-      matchPackageNames: ['graphql'],
-
-      // apollographql/apollo-client#8991
-      // apollographql/apollo-server#5605
-      allowedVersions: '< 16',
     },
     {
       matchManagers: ['npm'],

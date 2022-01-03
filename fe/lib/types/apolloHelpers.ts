@@ -115,6 +115,7 @@ export type ApplicationQuestionKeySpecifier = (
   | 'questionHtml'
   | 'responseChoice'
   | 'responseTypeCode'
+  | 'sourceCode'
   | 'value'
   | ApplicationQuestionKeySpecifier
 )[];
@@ -124,6 +125,7 @@ export type ApplicationQuestionFieldPolicy = {
   questionHtml?: FieldPolicy<any> | FieldReadFunction<any>;
   responseChoice?: FieldPolicy<any> | FieldReadFunction<any>;
   responseTypeCode?: FieldPolicy<any> | FieldReadFunction<any>;
+  sourceCode?: FieldPolicy<any> | FieldReadFunction<any>;
   value?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type ApplicationQuestionAnswerKeySpecifier = (
@@ -846,10 +848,14 @@ export type PageInfoFieldPolicy = {
   startCursor?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type PartnerOrganizationKeySpecifier = (
+  | 'credentialSelfServiceApprovedIndicator'
   | 'name'
   | PartnerOrganizationKeySpecifier
 )[];
 export type PartnerOrganizationFieldPolicy = {
+  credentialSelfServiceApprovedIndicator?:
+    | FieldPolicy<any>
+    | FieldReadFunction<any>;
   name?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type PersonCompetencyKeySpecifier = (
