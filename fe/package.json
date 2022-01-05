@@ -3,14 +3,14 @@
     "url": "https://github.com/seek-oss/wingman/issues"
   },
   "dependencies": {
-    "@apollo/client": "^3.4.8",
-    "@graphql-tools/schema": "^8.1.2",
-    "@types/uuid": "^8.3.1",
-    "autosuggest-highlight": "^3.1.1",
+    "@apollo/client": "^3.5.6",
+    "@graphql-tools/schema": "^8.3.1",
+    "@types/uuid": "^8.3.3",
+    "autosuggest-highlight": "^3.2.0",
     "react-fast-compare": "^3.2.0",
     "react-hook-form": "^7.0.0",
-    "runtypes": "^6.3.2",
-    "use-debounce": "^7.0.0",
+    "runtypes": "^6.5.0",
+    "use-debounce": "^7.0.1",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
@@ -46,7 +46,7 @@
   "name": "wingman-fe",
   "peerDependencies": {
     "braid-design-system": ">= 31.0",
-    "graphql": ">= 15 < 16",
+    "graphql": ">= 15 < 17",
     "react": ">= 17 < 18",
     "scoobie": ">= 11"
   },
