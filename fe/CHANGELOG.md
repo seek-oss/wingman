@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 6.0.2
+
+### Patch Changes
+
+- GraphQL 16 ([#699](https://github.com/seek-oss/wingman/pull/699))
+
 ## 6.0.1
 
 ### Patch Changes
