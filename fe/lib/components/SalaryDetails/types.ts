@@ -35,7 +35,7 @@ interface SalaryTypeRadioItem {
 export const salaryTypes: SalaryTypeRadioItem[] = [
   { label: 'Annual salary', value: 'Salaried' },
   { label: 'Hourly rate', value: 'Hourly' },
-  { label: 'Annual and commision', value: 'SalariedPlusCommission' },
+  { label: 'Annual and commission', value: 'SalariedPlusCommission' },
 ];
 
 export const currencies: Record<Currency, string> = {
