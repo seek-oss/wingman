@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 6.0.3
+
+### Patch Changes
+
+- **SalaryDetails:** Fix "commission" typo ([#703](https://github.com/seek-oss/wingman/pull/703))
+
 ## 6.0.2
 
 ### Patch Changes
