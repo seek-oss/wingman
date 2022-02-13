@@ -11,7 +11,7 @@
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
     "koa-compose": "^4.1.0",
-    "lru-cache": "^6.0.0",
+    "lru-cache": "^7.0.0",
     "node-fetch": "^2.6.6",
     "runtypes": "^6.5.0",
     "seek-koala": "^5.1.0"
