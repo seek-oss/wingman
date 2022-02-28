@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 6.0.4
+
+### Patch Changes
+
+- **MockLocationSuggest:** Fix GitHub source path ([#730](https://github.com/seek-oss/wingman/pull/730))
+
 ## 6.0.3
 
 ### Patch Changes
