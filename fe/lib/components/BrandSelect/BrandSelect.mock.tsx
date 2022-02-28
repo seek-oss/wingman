@@ -11,12 +11,14 @@ import { mockBrands } from './__fixtures__/brands';
 interface Props extends BrandSelectProps {
   showStorybookAction?: boolean;
   pageSize?: number;
+  variant?: 'multiple-brands' | 'no-brands';
 }
 
 export const MockBrandSelect = ({
   client: _client,
   showStorybookAction,
   pageSize,
+  variant = 'multiple-brands',
   ...props
 }: Props) => (
   <ApolloMockProvider
@@ -25,14 +27,18 @@ export const MockBrandSelect = ({
         advertisementBrandings: (
           _root,
           args: AdvertisementBrandingsQueryVariables,
-        ) => createCursorConnection(mockBrands, args),
+        ) =>
+          createCursorConnection(
+            variant === 'multiple-brands' ? mockBrands : [],
+            args,
+          ),
       },
     }}
   >
     <MockComponentActions
       space="medium"
       showStorybookAction={showStorybookAction}
-      storybookPath="/story/job-posting-branding-brandselect--brand-select"
+      storybookPath={`/story/job-posting-branding-brandselect--${variant}`}
       sourcePath="lib/components/BrandSelect"
     >
       <BrandSelect {...props} pageSize={pageSize} />
