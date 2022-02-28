@@ -38,7 +38,7 @@ export const MockLocationSuggest = forwardRef<HTMLInputElement, Props>(
         space="medium"
         showStorybookAction={showStorybookAction}
         storybookPath="/story/job-posting-locations-locationsuggest--location-suggest"
-        sourcePath="lib/components/LocationSuggestion"
+        sourcePath="lib/components/LocationSuggest"
       >
         <Component {...props} ref={ref} />
       </MockComponentActions>
