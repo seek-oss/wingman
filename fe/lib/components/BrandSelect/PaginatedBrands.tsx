@@ -36,11 +36,11 @@ export const PaginatedBrands = ({
     return (
       <Notice tone="info">
         <Text>
-          You have no brands. Create a new one in the{' '}
+          You have no brands. Upload a new brand on the{' '}
           <SmartTextLink href="https://talent.seek.com.au/account/branding">
-            SEEK AdCentre
-          </SmartTextLink>
-          .
+            SEEK employer website
+          </SmartTextLink>{' '}
+          or contact SEEK.
         </Text>
       </Notice>
     );

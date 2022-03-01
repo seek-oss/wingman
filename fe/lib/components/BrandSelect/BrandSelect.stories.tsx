@@ -31,9 +31,16 @@ export default {
 
 type Args = ComponentProps<typeof Component> & BraidArgs;
 
-export const BrandSelect = ({ braidThemeName, ...args }: Args) => (
+export const MultipleBrands = ({ braidThemeName, ...args }: Args) => (
   <BraidStorybookProvider braidThemeName={braidThemeName}>
-    <MockBrandSelect {...args} />
+    <MockBrandSelect {...args} variant="multiple-brands" />
   </BraidStorybookProvider>
 );
-BrandSelect.storyName = 'BrandSelect';
+MultipleBrands.storyName = 'Multiple brands';
+
+export const NoBrands = ({ braidThemeName, ...args }: Args) => (
+  <BraidStorybookProvider braidThemeName={braidThemeName}>
+    <MockBrandSelect {...args} variant="no-brands" />
+  </BraidStorybookProvider>
+);
+NoBrands.storyName = 'No brands';
