@@ -1,0 +1,11 @@
+{
+  "mode": "pre",
+  "tag": "beta",
+  "initialVersions": {
+    "wingman-be": "0.4.2",
+    "wingman-fe": "6.0.4"
+  },
+  "changesets": [
+    "good-candles-deliver"
+  ]
+}
