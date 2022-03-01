@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 6.0.5
+
+### Patch Changes
+
+- **BrandSelect:** Refine messaging when there are no brands ([#732](https://github.com/seek-oss/wingman/pull/732))
+
 ## 6.0.4
 
 ### Patch Changes
