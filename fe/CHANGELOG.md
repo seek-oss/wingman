@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 6.0.6
+
+### Patch Changes
+
+- **BrandSelect:** Preselect the first brand ([#738](https://github.com/seek-oss/wingman/pull/738))
+
 ## 6.0.5
 
 ### Patch Changes
