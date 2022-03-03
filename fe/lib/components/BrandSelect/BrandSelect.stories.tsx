@@ -38,6 +38,17 @@ export const MultipleBrands = ({ braidThemeName, ...args }: Args) => (
 );
 MultipleBrands.storyName = 'Multiple brands';
 
+export const NoInitialBrandId = ({ braidThemeName, ...args }: Args) => (
+  <BraidStorybookProvider braidThemeName={braidThemeName}>
+    <MockBrandSelect
+      {...args}
+      initialBrandId={undefined}
+      variant="multiple-brands"
+    />
+  </BraidStorybookProvider>
+);
+NoInitialBrandId.storyName = 'No initial brand ID';
+
 export const NoBrands = ({ braidThemeName, ...args }: Args) => (
   <BraidStorybookProvider braidThemeName={braidThemeName}>
     <MockBrandSelect {...args} variant="no-brands" />

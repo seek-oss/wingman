@@ -43,6 +43,8 @@ export const BrandSelect = ({
       first: pageSize,
     });
 
+  const [hasPreselected, setHasPreselected] = useState(false);
+
   useEffect(
     () =>
       setVariables({
@@ -63,8 +65,23 @@ export const BrandSelect = ({
   const [selectedBrandId, setSelectedBrandId] = useState(initialBrandId);
 
   useEffect(() => {
+    if (initialBrandId) {
+      setHasPreselected(true);
+    }
+
     setSelectedBrandId(initialBrandId);
   }, [initialBrandId]);
+
+  const firstBrandId = data?.advertisementBrandings.edges[0]?.node.id.value;
+
+  useEffect(() => {
+    if (firstBrandId && !hasPreselected) {
+      setHasPreselected(true);
+
+      // Preselect the first brand from the query.
+      setSelectedBrandId(firstBrandId);
+    }
+  }, [firstBrandId, hasPreselected]);
 
   const handleBrandSelect = (brand: AdvertisementBrandingFieldsFragment) => {
     const nextBrandId =
