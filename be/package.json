@@ -50,7 +50,8 @@
     "format": "skuba format",
     "lint": "skuba lint",
     "start": "ENVIRONMENT=local skuba start --port 9090",
-    "test": "skuba test"
+    "test": "skuba test",
+    "test:ci": "skuba test --coverage"
   },
   "skuba": {
     "entryPoint": "example/src/app.ts",
