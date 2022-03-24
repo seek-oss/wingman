@@ -63,7 +63,8 @@
     "serve": "sku serve",
     "start": "sku start",
     "start-storybook": "sku storybook",
-    "test": "sku test"
+    "test": "sku test",
+    "test:ci": "sku test --coverage"
   },
   "version": "6.0.6"
 }
