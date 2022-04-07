@@ -5,7 +5,6 @@ const isRecord = (value: unknown): value is Record<PropertyKey, unknown> =>
 
 export const errorHandler: Middleware = async (ctx, next) => {
   try {
-    /* eslint-disable-next-line @typescript-eslint/no-unsafe-return */
     return await next();
   } catch (err) {
     if (!isRecord(err) || typeof err.status !== 'number') {
