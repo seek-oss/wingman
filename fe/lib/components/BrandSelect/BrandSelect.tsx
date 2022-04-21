@@ -81,9 +81,7 @@ export const BrandSelect = ({
       // Preselect the first brand from the query.
       setSelectedBrandId(firstBrandId);
 
-      if (onSelect) {
-        onSelect(firstBrandId);
-      }
+      onSelect?.(firstBrandId);
     }
   }, [firstBrandId, hasPreselected, onSelect]);
 
