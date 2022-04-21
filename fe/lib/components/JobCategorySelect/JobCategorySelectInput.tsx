@@ -20,6 +20,7 @@ interface Props {
   tone: ComponentProps<typeof Dropdown>['tone'];
   hideLabel?: boolean;
   initialValue?: string;
+  label?: string;
 }
 
 const JobCategorySelectInput = ({
@@ -27,6 +28,7 @@ const JobCategorySelectInput = ({
   onSelect,
   hideLabel,
   initialValue,
+  label = 'Category',
   ...restProps
 }: Props) => {
   const [selectedParentCategoryId, setSelectedParentCategoryId] = useState('');
@@ -98,7 +100,7 @@ const JobCategorySelectInput = ({
         ref={parentRef}
         aria-label="Category"
         id="jobCategoriesSelect"
-        label={hideLabel ? undefined : 'Category'}
+        label={hideLabel ? undefined : label}
         onChange={(event) =>
           handleParentCategorySelect(event.currentTarget.value)
         }
