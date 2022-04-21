@@ -80,8 +80,10 @@ export const BrandSelect = ({
 
       // Preselect the first brand from the query.
       setSelectedBrandId(firstBrandId);
+
+      onSelect?.(firstBrandId);
     }
-  }, [firstBrandId, hasPreselected]);
+  }, [firstBrandId, hasPreselected, onSelect]);
 
   const handleBrandSelect = (brand: AdvertisementBrandingFieldsFragment) => {
     const nextBrandId =
