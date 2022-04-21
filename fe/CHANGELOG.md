@@ -1,5 +1,17 @@
 # wingman-fe
 
+## 6.1.0
+
+### Minor Changes
+
+- **JobCategorySelect, JobCategorySuggest:** Support custom `label` text ([#763](https://github.com/seek-oss/wingman/pull/763))
+
+### Patch Changes
+
+- **LocationSuggest:** Mark `client` as optional ([#764](https://github.com/seek-oss/wingman/pull/764))
+
+* **BrandSelect:** Trigger `onSelect` when preselecting the first brand ([#762](https://github.com/seek-oss/wingman/pull/762))
+
 ## 6.0.6
 
 ### Patch Changes
