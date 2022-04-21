@@ -2,4 +2,4 @@
 'wingman-fe': patch
 ---
 
-Fix branding preselect
+BrandSelect: Trigger `onSelect` when preselecting the first brand
