@@ -22,6 +22,7 @@ interface Props {
     jobCategorySuggestionChoice: JobCategorySuggestionChoiceAttributesFragment,
   ) => void;
   client?: ApolloClient<unknown>;
+  label?: string;
   name?: string;
   showConfidence?: boolean;
   initialValue?: string;
@@ -42,6 +43,7 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
       choices,
       name,
       onSelect,
+      label = 'Category',
       showConfidence = false,
       initialValue,
       ...restProps
@@ -75,7 +77,7 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
     return (
       <Stack space="small">
         <Text id="job-category-suggest-select-label" weight="strong">
-          Category
+          {label}
         </Text>
         <RadioGroup
           {...restProps}
@@ -86,24 +88,21 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
           value={selectedJobCategory ?? ''}
         >
           <>
-            {suggestions.map((choice) => {
-              const { label, confidence, key } = choice;
-              return (
-                <RadioItem
-                  key={key}
-                  label={label}
-                  ref={forwardedRef}
-                  value={key}
-                >
-                  {showConfidence && (
-                    <Text tone="secondary" size="small">
-                      <Strong>Confidence score:</Strong>{' '}
-                      {`${(confidence * 100).toFixed(2)}%`}
-                    </Text>
-                  )}
-                </RadioItem>
-              );
-            })}
+            {suggestions.map((choice) => (
+              <RadioItem
+                key={choice.key}
+                label={choice.label}
+                ref={forwardedRef}
+                value={choice.key}
+              >
+                {showConfidence && (
+                  <Text tone="secondary" size="small">
+                    <Strong>Confidence score:</Strong>{' '}
+                    {`${(choice.confidence * 100).toFixed(2)}%`}
+                  </Text>
+                )}
+              </RadioItem>
+            ))}
           </>
           <RadioItem
             key="Other"

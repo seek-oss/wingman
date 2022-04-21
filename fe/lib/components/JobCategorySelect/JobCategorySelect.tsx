@@ -22,7 +22,7 @@ type JobCategoryType = 'parent' | 'child';
 export interface JobCategorySelectProps
   extends Omit<FieldProps, 'value' | 'onChange' | 'children'> {
   client?: ApolloClient<unknown>;
-  label: string;
+  label?: string;
   onSelect?: (
     jobCategory: JobCategoryAttributesFragment,
     type: JobCategoryType,

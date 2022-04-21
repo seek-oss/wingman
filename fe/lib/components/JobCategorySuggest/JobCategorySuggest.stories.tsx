@@ -15,6 +15,7 @@ import { MockJobCategorySuggest } from './JobCategorySuggest.mock';
 export default {
   args: {
     braidThemeName: defaultArgs.braidThemeName,
+    label: 'Category',
     message: 'undefined',
     onSelect: () => {},
     positionProfile: {

@@ -26,6 +26,7 @@ export interface JobCategorySuggestProps
   client?: ApolloClient<unknown>;
   debounceDelay?: number;
   initialValue?: string;
+  label?: string;
   onSelect: (
     jobCategorySuggestionChoice: JobCategorySuggestionChoiceAttributesFragment,
   ) => void;
