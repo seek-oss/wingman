@@ -26,7 +26,7 @@ type FieldProps = ComponentPropsWithRef<typeof TextField>;
 
 export interface LocationSuggestProps
   extends Omit<FieldProps, 'value' | 'onChange'> {
-  client: ApolloClient<unknown>;
+  client?: ApolloClient<unknown>;
   debounceDelay?: number;
   first?: number;
   hirerId?: string;
@@ -120,9 +120,7 @@ export const LocationSuggest = forwardRef<
       },
     ] = useLazyQuery<NearestLocationsQuery, NearestLocationsQueryVariables>(
       NEAREST_LOCATIONS,
-      {
-        client,
-      },
+      { client },
     );
 
     const handleLocationSelect = (selectedLocation?: Location) => {
