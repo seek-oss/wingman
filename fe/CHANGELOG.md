@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 6.1.1
+
+### Patch Changes
+
+- **BrandSelect:** Support `hideLabel` property ([#767](https://github.com/seek-oss/wingman/pull/767))
+
 ## 6.1.0
 
 ### Minor Changes
