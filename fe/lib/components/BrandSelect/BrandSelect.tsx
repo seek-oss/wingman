@@ -20,6 +20,7 @@ import { ADVERTISEMENT_BRANDINGS } from './queries';
 
 export interface BrandSelectProps {
   client?: ApolloClient<unknown>;
+  hideLabel?: boolean;
   hirerId: string;
   initialBrandId?: string;
   pageSize?: number;
@@ -30,6 +31,7 @@ export interface BrandSelectProps {
 
 export const BrandSelect = ({
   client,
+  hideLabel,
   hirerId,
   initialBrandId,
   showCopyableOid = false,
@@ -116,7 +118,7 @@ export const BrandSelect = ({
 
   return (
     <Stack space="medium">
-      <Heading level="4">Branding</Heading>
+      {hideLabel ? null : <Heading level="4">Branding</Heading>}
 
       <PaginatedBrands
         data={renderedData}
