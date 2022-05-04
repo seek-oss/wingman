@@ -68,7 +68,7 @@ The primary goal of these packages is to maximise code reuse between SEEK-mainta
 We’re not aiming for a stable interface here, so expect frequent breaking changes.
 
 If you’re looking to integrate SEEK-specific features into your recruitment software without building an interface from scratch,
-we offer embeddable, themed _panels_ for certain features like [ad selection].
+we offer embeddable, themed _panels_ for certain features like [ad selection] and [questionnaires].
 
 #### Wingman is not a substitute for documentation
 
@@ -97,7 +97,8 @@ It is cut down in several aspects:
 
   A third-party recruitment system is expected to limit privileges to the currently logged-in hirer.
 
-[ad selection]: https://developer.seek.com/use-cases/posting/ad-selection
+[ad selection]: https://developer.seek.com/use-cases/job-posting/ad-selection
+[questionnaires]: https://developer.seek.com/use-cases/job-posting/questionnaires
 
 ## Usage
 
