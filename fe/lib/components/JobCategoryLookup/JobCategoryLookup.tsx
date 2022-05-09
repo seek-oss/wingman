@@ -63,7 +63,7 @@ export const JobCategoryLookup = forwardRef<
       <Stack space="medium">
         <TextField
           aria-label="Job category OID"
-          id="categoryId"
+          id="jobCategoryLookupId"
           onClear={() => setJobCategoryId('')}
           value={jobCategoryId ?? ''}
           onChange={(event) => setJobCategoryId(event.currentTarget.value)}
@@ -99,7 +99,7 @@ export const JobCategoryLookup = forwardRef<
                 .reverse()}
             />
 
-            <SeekApiResponse id="jobCategorySeekApiResponse">
+            <SeekApiResponse id="jobCategoryLookupSeekApiResponse">
               {categoryData.jobCategory}
             </SeekApiResponse>
           </>
