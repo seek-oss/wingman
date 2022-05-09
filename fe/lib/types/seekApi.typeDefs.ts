@@ -221,6 +221,179 @@ export const typeDefs = gql`
   }
 
   """
+  A question from SEEK's library.
+
+  This consists of label text displayed to a user and an input for them to select a response.
+  """
+  type ApplicationLibraryQuestion {
+    """
+    The identifier for the \`ApplicationLibraryQuestion\`.
+    """
+    id: ObjectIdentifier!
+    """
+    The way in which the response choices should be presented for selection.
+    """
+    preferenceSelection: ApplicationLibraryQuestionPreferenceSelection!
+    """
+    The collection of possible responses.
+
+    - \`MultiSelect\` questions contain at least two elements.
+    - \`SingleSelect\` questions contain at least two elements.
+    """
+    responseChoice: [ApplicationLibraryQuestionChoice!]
+    """
+    The type of the question response.
+
+    Currently, two codes are defined:
+
+    - \`MultiSelect\` for choosing one or more responses from \`responseChoice\`.
+    - \`SingleSelect\` for choosing a single response from \`responseChoice\`.
+    """
+    responseTypeCode: String!
+    """
+    Text of the question displayed to the candidate.
+    """
+    text: String!
+  }
+
+  """
+  A possible response to an \`ApplicationLibraryQuestion\`.
+  """
+  type ApplicationLibraryQuestionChoice {
+    """
+    The identifier for the \`ApplicationLibraryQuestionChoice\`.
+    """
+    id: ObjectIdentifier!
+    """
+    Text of the choice displayed to the candidate.
+    """
+    text: String!
+  }
+
+  """
+  A question component of an \`ApplicationQuestionnaire\`.
+
+  This consists of identifiers for the library question and its preferred response choices.
+  """
+  input ApplicationLibraryQuestionInput {
+    """
+    The type of the component.
+
+    This is always \`Question\`.
+    """
+    componentTypeCode: String!
+    """
+    The identifier of the library question or suggestion that the component is based on.
+
+    If the library question was suggested via the \`applicationLibraryQuestionSuggestions\` query,
+    you should supply the \`ApplicationLibraryQuestionSuggestion.id\` rather than the \`ApplicationLibraryQuestion.id\`.
+
+    If the library question was retrieved outside of a suggestion context,
+    you may supply its underlying \`ApplicationLibraryQuestion.id\`.
+    """
+    id: String!
+    """
+    The selected response choice identifiers for the question.
+
+    The identifiers should be populated from available response choices within \`ApplicationQuestion.responseChoice\` returned with question suggestions.
+    """
+    selectedResponseChoice: [String!]
+  }
+
+  """
+  The way in which the response choices should be presented for selection.
+  """
+  type ApplicationLibraryQuestionPreferenceSelection {
+    """
+    A human-readable description of the way in which the response choice selection will apply.
+
+    For example, the message can be:
+
+    - \`I will only accept this answer\`
+    - \`I will accept any of these answers\`
+    - \`I will only accept this combination of answers\`
+    - \`I will accept above and including\`
+    - \`I will accept up to and including\`
+    - \`I will accept between this range\`
+    """
+    message: String!
+    """
+    The way to present the response choice selection.
+
+    Currently, three codes are defined:
+
+    - \`SingleChoice\` indicates a question that expects a single preferred response choice.
+
+      A radio group or dropdown may be used.
+
+    - \`MultiChoice\` indicates a question that expects multiple preferred response choices.
+
+      A checkbox group may be used.
+
+    - \`Range\` indicates a question that expects two response choices representing the minimum and maximum preferred values.
+
+      A set of two dropdowns may be used.
+    """
+    typeCode: String!
+  }
+
+  """
+  A suggested question component.
+  """
+  type ApplicationLibraryQuestionSuggestion {
+    """
+    The application question information of the suggestion.
+
+    This will be a SEEK library question suitable for use in an application questionnaire.
+    """
+    applicationLibraryQuestion: ApplicationLibraryQuestion!
+    """
+    The identifier for the \`ApplicationLibraryQuestionSuggestion\`.
+    """
+    id: ObjectIdentifier!
+  }
+
+  """
+  The input parameter for the \`applicationLibraryQuestionSuggestions\` query.
+  """
+  input ApplicationLibraryQuestionSuggestions_PositionProfileInput {
+    """
+    An array of \`JobCategory\` identifiers.
+
+    Scheme requirements:
+
+    - The \`seekAnz\` scheme requires exactly one element.
+    """
+    jobCategories: [String!]!
+    """
+    An array of formatted position profile descriptions.
+    """
+    positionFormattedDescriptions: [PositionFormattedDescriptionInput!]
+    """
+    An array of \`Location\` identifiers.
+
+    Scheme requirements:
+
+    - The \`seekAnz\` scheme requires exactly one element.
+    """
+    positionLocation: [String!]!
+    """
+    An array of identifiers for the \`HiringOrganization\`s that have the position.
+
+    Scheme requirements:
+
+    The \`seekAnz\` scheme allows up to one element.
+    """
+    positionOrganizations: [String!]
+    """
+    The position title.
+
+    This field has a maximum length of 80 bytes in UTF-8 encoding.
+    """
+    positionTitle: String!
+  }
+
+  """
   A method of applying to a position.
   """
   type ApplicationMethod {
@@ -241,6 +414,14 @@ export const typeDefs = gql`
   A method of applying to a position.
   """
   input ApplicationMethodInput {
+    """
+    The email address to direct candidate applications to.
+
+    This field has a maximum length of 100 bytes in UTF-8 encoding.
+
+    This is deprecated. Do not use this field. This has been replaced by Application Export.
+    """
+    applicationEmail: EmailInput
     """
     A URL of an external application form.
 
@@ -352,6 +533,15 @@ export const typeDefs = gql`
   """
   type ApplicationQuestion implements ApplicationQuestionnaireComponent {
     """
+    The underlying library question that the component is based on.
+
+    The availability of this field is dependent on \`sourceCode\`:
+
+    - \`Custom\` is always null.
+    - \`Library\` is always non-null.
+    """
+    applicationLibraryQuestion: ApplicationLibraryQuestion
+    """
     The type of the component.
 
     This is always \`Question\`.
@@ -365,6 +555,8 @@ export const typeDefs = gql`
     The HTML snippet of the question being asked to the candidate.
 
     Unsupported tags will be silently stripped when creating a questionnaire.
+
+    This field has a maximum length of 1,000 bytes in UTF-8 encoding.
     """
     questionHtml: String!
     """
@@ -388,9 +580,10 @@ export const typeDefs = gql`
     """
     The source of the component.
 
-    Currently, one code is defined:
+    Currently, two codes are defined:
 
     - \`Custom\` indicates that the question was authored by the hirer.
+    - \`Library\` indicates that the question was sourced from SEEK's question library.
     """
     sourceCode: String!
     """
@@ -406,11 +599,15 @@ export const typeDefs = gql`
   """
   type ApplicationQuestionAnswer {
     """
-    The text value of the selected answer.
+      The text value of the answer.
+
+      For \`FreeText\` questions this may contain whitespace such as the \`
+    \` newline escape sequence.
+      For readability, you should display [whitespace characters](https://developer.mozilla.org/en-US/docs/Web/CSS/white-space) instead of collapsing them.
     """
     answer: String!
     """
-    The questionnaire choice for the current answer.
+    The questionnaire choice for the answer.
 
     For \`FreeText\` questions this will be \`null\`.
     """
@@ -422,6 +619,15 @@ export const typeDefs = gql`
   """
   type ApplicationQuestionChoice {
     """
+    The underlying library question choice that the question choice is based on.
+
+    The availability of this field is dependent on the parent \`ApplicationQuestion.sourceCode\`:
+
+    - \`Custom\` is always null.
+    - \`Library\` is always non-null.
+    """
+    applicationLibraryQuestionChoice: ApplicationLibraryQuestionChoice
+    """
     The identifier for the \`ApplicationQuestionChoice\`.
     """
     id: ObjectIdentifier!
@@ -431,6 +637,24 @@ export const typeDefs = gql`
     This is not displayed to the candidate.
     """
     preferredIndicator: Boolean!
+    """
+    Whether this choice was explicitly selected as a preference.
+
+    When authoring a new questionnaire based on existing questions,
+    response choice selections may be prefilled from this indicator.
+
+    - For a custom question, this always matches \`preferredIndicator\`.
+
+    - For a library question, this is set for bounding preferences only.
+
+      For example, a library question may define choices 1–5,
+      and require a minimum and maximum to be selected as a range preference.
+      Selecting the range 2–4 will set \`preferredIndicator\` for choices 2, 3, and 4,
+      and \`selectedIndicator\` for bounding choices 2 and 4.
+
+    This is not displayed to the candidate.
+    """
+    selectedIndicator: Boolean!
     """
     Text of the choice displayed to the candidate.
     """
@@ -463,9 +687,10 @@ export const typeDefs = gql`
     A partner-provided unique ID for this choice.
 
     This can be used to correlate the choice back to its corresponding representation in your software.
+
     This must be unique across all choices in the question.
     """
-    value: String!
+    value: String
   }
 
   """
@@ -484,6 +709,8 @@ export const typeDefs = gql`
     The HTML snippet of the question being asked to the candidate.
 
     Unsupported tags will be silently stripped when creating a questionnaire.
+
+    This field has a maximum length of 1,000 bytes in UTF-8 encoding.
     """
     questionHtml: String!
     """
@@ -508,7 +735,7 @@ export const typeDefs = gql`
     This can be used to correlate the question back to its corresponding representation in your software.
     This must be unique across all components in the questionnaire.
     """
-    value: String!
+    value: String
   }
 
   """
@@ -598,9 +825,17 @@ export const typeDefs = gql`
     Currently, two codes are defined:
 
     - \`PrivacyConsent\` corresponds to the \`privacyConsent\` field.
-    - \`Question\` corresponds to the \`question\` field.
+    - \`Question\` corresponds to the \`question\` and \`libraryQuestion\` fields.
     """
     componentTypeCode: String!
+    """
+    A library question component of an \`ApplicationQuestionnaire\`.
+
+    Either this or \`question\` must be provided if the \`componentTypeCode\` is \`Question\`.
+
+    The SEEK library question is sourced from the \`applicationLibraryQuestionSuggestions\` query.
+    """
+    libraryQuestion: ApplicationLibraryQuestionInput
     """
     A privacy consent component of an \`ApplicationQuestionnaire\`.
 
@@ -610,7 +845,7 @@ export const typeDefs = gql`
     """
     A question component of an \`ApplicationQuestionnaire\`.
 
-    This must be provided if the \`componentTypeCode\` is \`Question\`.
+    Either this or \`libraryQuestion\` must be provided if the \`componentTypeCode\` is \`Question\`.
     """
     question: ApplicationQuestionInput
   }
@@ -650,7 +885,7 @@ export const typeDefs = gql`
     """
     responses: [ApplicationQuestionnaireComponentResponse!]!
     """
-    The indication of how well the candidate scored on all questions in the questionnaire.
+    The indication of how well the candidate scored on the questionnaire overall.
 
     The score is a calculation between 0 and 1 as a floating point.
     For example, if the candidate received a score of 1 on one question, and a score of 0 on another, this overall score would be calculated as 0.5.
@@ -760,9 +995,22 @@ export const typeDefs = gql`
     """
     The list of profiles associated with with the candidate.
 
-    Each submitted application for a position will have an associated profile.
+    Uploaded candidates sourced from the \`uploadCandidate\` mutation have a single profile.
+
+    SEEK candidates have a profile per submitted application.
+    This field exposes up to 10 recent applications submitted by the candidate.
+
+    We recommend querying specific applications by their \`CandidateProfile.profileId\`s for the Application Export use case.
     """
-    profiles: [CandidateProfile!]!
+    profiles(
+      """
+      The upper limit of candidate profiles to return from the end of the list.
+
+      Defaults to 10.
+      Excess candidate profiles will be trimmed from the start of the list.
+      """
+      last: Int
+    ): [CandidateProfile!]!
     """
     The candidate's primary email address.
 
@@ -783,12 +1031,18 @@ export const typeDefs = gql`
     The \`Candidate\` that applied for the position opening.
 
     This will include the candidate's personal details along with all application profiles for a single hirer.
+
+    This field is only accessible while you have an active \`ApplicationExport\` relationship with the hirer.
+    If this relationship has been removed, it will return null along with a \`FORBIDDEN\` error.
     """
-    candidate: Candidate!
+    candidate: Candidate
     """
     The \`CandidateProfile\` associated with the application.
+
+    This field is only accessible while you have an active \`ApplicationExport\` relationship with the hirer.
+    If this relationship has been removed, it will return null along with a \`FORBIDDEN\` error.
     """
-    candidateApplicationProfile: CandidateProfile!
+    candidateApplicationProfile: CandidateProfile
     """
     The identifier for the specific \`CandidateProfile\` associated with the application.
 
@@ -1305,8 +1559,11 @@ export const typeDefs = gql`
   type CandidateProfilePurchasedEvent implements Event {
     """
     The \`CandidateProfile\` that was purchased.
+
+    This field is only accessible while you have an active \`ProactiveSourcing\` relationship with the hirer.
+    If this relationship has been removed, it will return null along with a \`FORBIDDEN\` error.
     """
-    candidateProfile: CandidateProfile!
+    candidateProfile: CandidateProfile
     """
     The identifier for the \`CandidateProfile\` that was purchased.
     """
@@ -2490,8 +2747,8 @@ export const typeDefs = gql`
     """
     The optional hiring organization for whom the relationship was changed.
 
-    This will only be accessible if there is an active relationship between the partner and hirer.
-    If all relationships have been removed with the hirer this field will be return a \`FORBIDDEN\` error.
+    This field is only accessible while you have an active relationship with the hirer.
+    If all relationships have been removed, it will return null along with a \`FORBIDDEN\` error.
     """
     hirer: HiringOrganization
     """
@@ -2809,10 +3066,12 @@ export const typeDefs = gql`
     """
     _empty: String @deprecated(reason: "Placeholder only")
     """
-    Closes an existing posted position profile.
+    Asynchronously closes a live job ad.
 
     The job ad will be removed from the job board and no refund will be issued.
     The \`PositionProfile\` and its associated candidate applications will be available for 6 months after its close date.
+
+    Once the job ad has been closed a \`PositionProfileClosed\` event will be emitted.
     """
     closePostedPositionProfile(
       input: ClosePostedPositionProfileInput!
@@ -2835,13 +3094,15 @@ export const typeDefs = gql`
     Creates a new position opening.
 
     Every position profile belongs to a position opening.
-    Multiple position profiles may belong to the same position opening.
+    Up to 25 position profiles may belong to the same position opening.
     """
     createPositionOpening(
       input: CreatePositionOpeningInput!
     ): CreatePositionOpeningPayload!
     """
     Creates a new unposted position profile for an opening.
+
+    If the position opening already contains 25 position profiles this will fail with a \`BAD_USER_INPUT\` error.
     """
     createUnpostedPositionProfileForOpening(
       input: CreateUnpostedPositionProfileForOpeningInput!
@@ -2894,6 +3155,10 @@ export const typeDefs = gql`
     postPosition(input: PostPositionInput!): PostPositionPayload!
     """
     Asynchronously posts a job ad for an existing position opening.
+
+    If the position opening already contains 25 position profiles this will fail with a \`BAD_USER_INPUT\` error.
+
+    Once the job ad has been posted a \`PositionProfilePosted\` event will be emitted.
     """
     postPositionProfileForOpening(
       input: PostPositionProfileForOpeningInput!
@@ -3206,8 +3471,10 @@ export const typeDefs = gql`
     Currently, three identifiers are defined:
 
     - \`AdvertisementDetails\` is the detailed description of the position that appears on the job ad.
+
     - \`SearchBulletPoint\` is a highlight or selling point of the position that appears in search results.
-      SEEK ANZ allows up to three search bullet points when \`SeekAnzAdProductFeatures\`'s \`searchBulletPointsIndicator\` is true.
+      SEEK ANZ allows up to three search bullet points when \`SeekAnzAdProductFeatures.searchBulletPointsIndicator\` is true.
+
     - \`SearchSummary\` is a short description that appears in search results.
 
     Scheme requirements:
@@ -3392,7 +3659,7 @@ export const typeDefs = gql`
     """
     positionOpening: PositionOpening!
     """
-    The organization which has the position.
+    An array of identifiers for the \`HiringOrganization\`s that have the position.
     """
     positionOrganizations: [HiringOrganization!]!
     """
@@ -3507,6 +3774,9 @@ export const typeDefs = gql`
     The \`PositionProfile\` that was closed.
 
     This may return null if the \`PositionProfile\` has been closed for an extended period of time.
+
+    This field is only accessible while you have an active \`ApplicationExport\` or \`JobPosting\` relationship with the hirer.
+    If these relationships have been removed, it will return null along with a \`FORBIDDEN\` error.
     """
     positionProfile: PostedPositionProfile
     """
@@ -3587,6 +3857,9 @@ export const typeDefs = gql`
     The \`PositionProfile\` that was posted.
 
     This may return null if the \`PositionProfile\` has been closed for an extended period of time.
+
+    This field is only accessible while you have an active \`ApplicationExport\` or \`JobPosting\` relationship with the hirer.
+    If these relationships have been removed, it will return null along with a \`FORBIDDEN\` error.
     """
     positionProfile: PostedPositionProfile
     """
@@ -3832,6 +4105,9 @@ export const typeDefs = gql`
     The identifier for the \`ApplicationQuestionnaire\` containing the set of questions to present to candidates during an application.
 
     The questionnaire responses will be available as \`CandidateProfile.seekQuestionnaireSubmission\` on the candidate's application profile.
+
+    Questionnaires are only supported on SEEK's native apply form;
+    this field must not be specified if an \`ApplicationMethodInput.applicationUri\` is provided.
     """
     seekApplicationQuestionnaireId: String
     """
@@ -3971,6 +4247,9 @@ export const typeDefs = gql`
     The identifier for the \`ApplicationQuestionnaire\` containing the set of questions to present to candidates during an application.
 
     The questionnaire responses will be available as \`CandidateProfile.seekQuestionnaireSubmission\` on the candidate's application profile.
+
+    Questionnaires are only supported on SEEK's native apply form;
+    this field must not be specified if an \`ApplicationMethodInput.applicationUri\` is provided.
     """
     seekApplicationQuestionnaireId: String
     """
@@ -4044,7 +4323,7 @@ export const typeDefs = gql`
     """
     positionOpening: PositionOpening!
     """
-    The organization which has the position.
+    An array of identifiers for the \`HiringOrganization\`s that have the position.
     """
     positionOrganizations: [HiringOrganization!]!
     """
@@ -4129,6 +4408,166 @@ export const typeDefs = gql`
     The video to render within the job ad.
     """
     seekVideo: SeekVideo
+  }
+
+  """
+  The details of a job ad preview.
+
+  Caution: this is currently under development and may be changed or removed without notice.
+  """
+  type PostedPositionProfilePreview {
+    """
+    The URL of a standalone webpage to preview a job ad, with an origin of \`job-ad-preview.seek.com\`.
+
+    The page can be embedded in an iframe or opened in a new tab.
+
+    The webpage will expire after 24 hours.
+    """
+    previewUri: WebUrl!
+  }
+
+  """
+  The details of the position profile to be previewed.
+
+  Caution: this is currently under development and may be changed or removed without notice.
+  """
+  input PostedPositionProfilePreview_PositionProfileInput {
+    """
+    An array of \`JobCategory\` identifiers.
+
+    Scheme requirements:
+
+    - The \`seekAnz\` scheme has a maximum of one element.
+    """
+    jobCategories: [String!]
+    """
+    The salary or compensation offered for the position.
+    """
+    offeredRemunerationPackage: PostedPositionProfilePreview_RemunerationPackageInput!
+    """
+    An array of formatted position profile descriptions.
+    """
+    positionFormattedDescriptions: [PositionFormattedDescriptionInput!]
+    """
+    An array of \`Location\` identifiers.
+
+    Scheme requirements:
+
+    - The \`seekAnz\` scheme has a maximum of one element.
+    """
+    positionLocation: [String!]
+    """
+    An array of identifiers for the \`HiringOrganization\`s that have the position.
+
+    Scheme requirements:
+
+    - The \`seekAnz\` scheme requires exactly one element.
+    """
+    positionOrganizations: [String!]!
+    """
+    A short phrase describing the position as it would be listed on a business card or in a company directory.
+
+    This field has a maximum length of 80 bytes in UTF-8 encoding.
+    """
+    positionTitle: String!
+    """
+    The instructions related to posting the job ad.
+
+    Scheme requirements:
+
+    - The \`seekAnz\` scheme requires exactly one element.
+    """
+    postingInstructions: [PostedPositionProfilePreview_PostingInstructionInput!]!
+    """
+    The identifier for the \`PositionProfile\` to be updated.
+
+    This field should only be provided when updating an existing \`PositionProfile\`.
+    """
+    profileId: String
+    """
+    A SEEK ANZ work type code.
+
+    For positions in \`seekAnz\` scheme, this field is used instead of \`positionScheduleTypeCodes\`.
+
+    Currently, four codes are defined:
+
+    - \`Casual\` indicates a casual position.
+    - \`ContractTemp\` indicates a fixed-length contract position.
+    - \`FullTime\` indicates a full-time position.
+    - \`PartTime\` indicates a part-time position.
+
+    Scheme requirements:
+
+    - Required for the \`seekAnz\` scheme.
+    """
+    seekAnzWorkTypeCode: String!
+    """
+    The video to render within the job ad.
+    """
+    seekVideo: SeekVideoInput
+  }
+
+  """
+  Information about how to post a job ad and where to direct its candidate applications.
+
+  Caution: this is currently under development and may be changed or removed without notice.
+  """
+  input PostedPositionProfilePreview_PostingInstructionInput {
+    """
+    An array of methods for applying to the position.
+
+    If no methods are provided, SEEK's native apply form will be used to receive candidate applications.
+    Native applications will emit a \`CandidateApplicationCreated\` event that points to a \`CandidateProfile\` object.
+
+    Scheme requirements:
+
+    - For the \`seekAnz\` scheme, this field is limited to a single element.
+      Requests with more than 1 element will fail.
+    """
+    applicationMethods: [ApplicationMethodInput!]
+    """
+    The identifier for the \`AdvertisementBranding\` to apply to the posted job ad.
+
+    Scheme requirements:
+
+    - For the \`seekAnz\` scheme, this field's behavior is dependent on the \`SeekAnzAdProductFeatures\` of the product set in the \`seekAnzAdvertisementType\` field.
+
+      When the product's \`SeekAnzAdProductFeatures.brandingIndicator\` value is false, this field will be silently ignored.
+    """
+    brandingId: String
+    """
+    A SEEK ANZ advertisement type code.
+
+    Currently, three codes are defined:
+
+    - \`Classic\` indicates a Classic job ad.
+    - \`StandOut\` indicates a StandOut job ad.
+    - \`Premium\` indicates a Premium job ad.
+
+    Scheme requirements:
+
+    - For the \`seekAnz\` scheme, this field is required.
+    - For other schemes, set this to \`null\`.
+    """
+    seekAnzAdvertisementType: String
+  }
+
+  """
+  The salary or compensation for a position.
+
+  Caution: this is currently under development and may be changed or removed without notice.
+  """
+  input PostedPositionProfilePreview_RemunerationPackageInput {
+    """
+    Human readable descriptions of the remuneration package.
+
+    Scheme requirements:
+
+    - The \`seekAnz\` scheme is limited to a single element with a maximum length of 50 bytes in UTF-8 encoding.
+
+    An empty array must be provided to signify the absence of salary descriptions.
+    """
+    descriptions: [String!]!
   }
 
   """
@@ -4320,6 +4759,33 @@ export const typeDefs = gql`
       last: Int
     ): AdvertisementBrandingsConnection!
     """
+    An array of suggested application questions for the provided partial \`PositionProfile\` in decreasing order of relevance.
+
+    A maximum of 10 application questions can be recommended.
+
+    This query accepts browser tokens that include the \`query:application-library-question-suggestions\` scope.
+    """
+    applicationLibraryQuestionSuggestions(
+      """
+      A non-negative limit to the number of questions to return.
+
+      Defaults to 10.
+      """
+      first: Int
+      """
+      The partial position profile to suggest application questions.
+
+      This should include the same field values that will eventually be used to create or post the \`PositionProfile\`.
+      """
+      positionProfile: ApplicationLibraryQuestionSuggestions_PositionProfileInput!
+      """
+      The scheme of the suggested application questions.
+
+      Currently, only \`seekAnz\` and \`seekAnzPublicTest\` are supported.
+      """
+      schemeId: String!
+    ): [ApplicationLibraryQuestionSuggestion!]!
+    """
     An application questionnaire with the given \`id\`.
 
     Questionnaires can be associated with a \`PositionProfile\`.
@@ -4510,7 +4976,7 @@ export const typeDefs = gql`
       id: String!
     ): JobCategory
     """
-    An array of suggested job categories for the provided partial \`PositionProfile\`.
+    An array of suggested job categories for the provided partial \`PositionProfile\` in decreasing order of relevance.
 
     A maximum of 10 job categories can be recommended.
 
@@ -4548,7 +5014,7 @@ export const typeDefs = gql`
       id: String!
     ): Location
     """
-    An array of location nodes relevant to the text provided.
+    An array of suggested locations for the text provided in decreasing order of relevance.
 
     While a maximum of 20 locations can be requested, the current implementation does not return more than 10 recommendations.
 
@@ -4663,6 +5129,9 @@ export const typeDefs = gql`
     ): PositionOpeningConnection!
     """
     A position profile with the given \`id\`.
+
+    This query accepts browser tokens that include the \`query:position-profiles\` scope for posted position profiles.
+    Note that this scope does not grant access to the containing \`PositionProfile.positionOpening\`.
     """
     positionProfile(
       """
@@ -4670,6 +5139,19 @@ export const typeDefs = gql`
       """
       id: String!
     ): PositionProfile
+    """
+    A preview of a prospective job ad as it would appear on a SEEK job board.
+
+    Caution: this is currently under development and may be changed or removed without notice.
+
+    This query accepts browser tokens that include the \`query:posted-position-profile-previews\` scope.
+    """
+    postedPositionProfilePreview(
+      """
+      The details of the position profile to be previewed.
+      """
+      positionProfile: PostedPositionProfilePreview_PositionProfileInput!
+    ): PostedPositionProfilePreview!
     """
     A hiring organization corresponding to the given SEEK ANZ advertiser ID.
 
@@ -5504,6 +5986,10 @@ export const typeDefs = gql`
         - \`https://youtu.be/aAgePQvHBQM\`
 
        If the URL provided does not match the above criteria it will be ignored.
+       Examples of unsupported formats include:
+
+       - Links with additional query parameters: \`https://www.youtube.com/watch?ab_channel=SEEKJobs&v=aAgePQvHBQM\`
+       - Mobile links: \`https://m.youtube.com/watch?v=aAgePQvHBQM\`
     """
     url: String!
   }
@@ -5599,7 +6085,7 @@ export const typeDefs = gql`
     """
     positionOpening: PositionOpening!
     """
-    The organization which has the position.
+    An array of identifiers for the \`HiringOrganization\`s that have the position.
     """
     positionOrganizations: [HiringOrganization!]!
     """

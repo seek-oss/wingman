@@ -196,6 +196,163 @@ export interface AdvertisementBrandingsConnection {
   pageInfo: PageInfo;
 }
 
+/**
+ * A question from SEEK's library.
+ *
+ * This consists of label text displayed to a user and an input for them to select a response.
+ */
+export interface ApplicationLibraryQuestion {
+  __typename?: 'ApplicationLibraryQuestion';
+  /** The identifier for the `ApplicationLibraryQuestion`. */
+  id: ObjectIdentifier;
+  /** The way in which the response choices should be presented for selection. */
+  preferenceSelection: ApplicationLibraryQuestionPreferenceSelection;
+  /**
+   * The collection of possible responses.
+   *
+   * - `MultiSelect` questions contain at least two elements.
+   * - `SingleSelect` questions contain at least two elements.
+   */
+  responseChoice?: Maybe<Array<ApplicationLibraryQuestionChoice>>;
+  /**
+   * The type of the question response.
+   *
+   * Currently, two codes are defined:
+   *
+   * - `MultiSelect` for choosing one or more responses from `responseChoice`.
+   * - `SingleSelect` for choosing a single response from `responseChoice`.
+   */
+  responseTypeCode: Scalars['String'];
+  /** Text of the question displayed to the candidate. */
+  text: Scalars['String'];
+}
+
+/** A possible response to an `ApplicationLibraryQuestion`. */
+export interface ApplicationLibraryQuestionChoice {
+  __typename?: 'ApplicationLibraryQuestionChoice';
+  /** The identifier for the `ApplicationLibraryQuestionChoice`. */
+  id: ObjectIdentifier;
+  /** Text of the choice displayed to the candidate. */
+  text: Scalars['String'];
+}
+
+/**
+ * A question component of an `ApplicationQuestionnaire`.
+ *
+ * This consists of identifiers for the library question and its preferred response choices.
+ */
+export interface ApplicationLibraryQuestionInput {
+  /**
+   * The type of the component.
+   *
+   * This is always `Question`.
+   */
+  componentTypeCode: Scalars['String'];
+  /**
+   * The identifier of the library question or suggestion that the component is based on.
+   *
+   * If the library question was suggested via the `applicationLibraryQuestionSuggestions` query,
+   * you should supply the `ApplicationLibraryQuestionSuggestion.id` rather than the `ApplicationLibraryQuestion.id`.
+   *
+   * If the library question was retrieved outside of a suggestion context,
+   * you may supply its underlying `ApplicationLibraryQuestion.id`.
+   */
+  id: Scalars['String'];
+  /**
+   * The selected response choice identifiers for the question.
+   *
+   * The identifiers should be populated from available response choices within `ApplicationQuestion.responseChoice` returned with question suggestions.
+   */
+  selectedResponseChoice?: InputMaybe<Array<Scalars['String']>>;
+}
+
+/** The way in which the response choices should be presented for selection. */
+export interface ApplicationLibraryQuestionPreferenceSelection {
+  __typename?: 'ApplicationLibraryQuestionPreferenceSelection';
+  /**
+   * A human-readable description of the way in which the response choice selection will apply.
+   *
+   * For example, the message can be:
+   *
+   * - `I will only accept this answer`
+   * - `I will accept any of these answers`
+   * - `I will only accept this combination of answers`
+   * - `I will accept above and including`
+   * - `I will accept up to and including`
+   * - `I will accept between this range`
+   */
+  message: Scalars['String'];
+  /**
+   * The way to present the response choice selection.
+   *
+   * Currently, three codes are defined:
+   *
+   * - `SingleChoice` indicates a question that expects a single preferred response choice.
+   *
+   *   A radio group or dropdown may be used.
+   *
+   * - `MultiChoice` indicates a question that expects multiple preferred response choices.
+   *
+   *   A checkbox group may be used.
+   *
+   * - `Range` indicates a question that expects two response choices representing the minimum and maximum preferred values.
+   *
+   *   A set of two dropdowns may be used.
+   */
+  typeCode: Scalars['String'];
+}
+
+/** A suggested question component. */
+export interface ApplicationLibraryQuestionSuggestion {
+  __typename?: 'ApplicationLibraryQuestionSuggestion';
+  /**
+   * The application question information of the suggestion.
+   *
+   * This will be a SEEK library question suitable for use in an application questionnaire.
+   */
+  applicationLibraryQuestion: ApplicationLibraryQuestion;
+  /** The identifier for the `ApplicationLibraryQuestionSuggestion`. */
+  id: ObjectIdentifier;
+}
+
+/** The input parameter for the `applicationLibraryQuestionSuggestions` query. */
+export interface ApplicationLibraryQuestionSuggestionsPositionProfileInput {
+  /**
+   * An array of `JobCategory` identifiers.
+   *
+   * Scheme requirements:
+   *
+   * - The `seekAnz` scheme requires exactly one element.
+   */
+  jobCategories: Array<Scalars['String']>;
+  /** An array of formatted position profile descriptions. */
+  positionFormattedDescriptions?: InputMaybe<
+    Array<PositionFormattedDescriptionInput>
+  >;
+  /**
+   * An array of `Location` identifiers.
+   *
+   * Scheme requirements:
+   *
+   * - The `seekAnz` scheme requires exactly one element.
+   */
+  positionLocation: Array<Scalars['String']>;
+  /**
+   * An array of identifiers for the `HiringOrganization`s that have the position.
+   *
+   * Scheme requirements:
+   *
+   * The `seekAnz` scheme allows up to one element.
+   */
+  positionOrganizations?: InputMaybe<Array<Scalars['String']>>;
+  /**
+   * The position title.
+   *
+   * This field has a maximum length of 80 bytes in UTF-8 encoding.
+   */
+  positionTitle: Scalars['String'];
+}
+
 /** A method of applying to a position. */
 export interface ApplicationMethod {
   __typename?: 'ApplicationMethod';
@@ -214,6 +371,14 @@ export interface ApplicationMethod {
 
 /** A method of applying to a position. */
 export interface ApplicationMethodInput {
+  /**
+   * The email address to direct candidate applications to.
+   *
+   * This field has a maximum length of 100 bytes in UTF-8 encoding.
+   *
+   * This is deprecated. Do not use this field. This has been replaced by Application Export.
+   */
+  applicationEmail?: InputMaybe<EmailInput>;
   /**
    * A URL of an external application form.
    *
@@ -320,6 +485,15 @@ export interface ApplicationPrivacyConsentResponse
 export interface ApplicationQuestion extends ApplicationQuestionnaireComponent {
   __typename?: 'ApplicationQuestion';
   /**
+   * The underlying library question that the component is based on.
+   *
+   * The availability of this field is dependent on `sourceCode`:
+   *
+   * - `Custom` is always null.
+   * - `Library` is always non-null.
+   */
+  applicationLibraryQuestion?: Maybe<ApplicationLibraryQuestion>;
+  /**
    * The type of the component.
    *
    * This is always `Question`.
@@ -331,6 +505,8 @@ export interface ApplicationQuestion extends ApplicationQuestionnaireComponent {
    * The HTML snippet of the question being asked to the candidate.
    *
    * Unsupported tags will be silently stripped when creating a questionnaire.
+   *
+   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
   questionHtml: Scalars['String'];
   /**
@@ -354,9 +530,10 @@ export interface ApplicationQuestion extends ApplicationQuestionnaireComponent {
   /**
    * The source of the component.
    *
-   * Currently, one code is defined:
+   * Currently, two codes are defined:
    *
    * - `Custom` indicates that the question was authored by the hirer.
+   * - `Library` indicates that the question was sourced from SEEK's question library.
    */
   sourceCode: Scalars['String'];
   /**
@@ -370,10 +547,15 @@ export interface ApplicationQuestion extends ApplicationQuestionnaireComponent {
 /** A single answer to a question in the questionnaire. */
 export interface ApplicationQuestionAnswer {
   __typename?: 'ApplicationQuestionAnswer';
-  /** The text value of the selected answer. */
+  /**
+   * The text value of the answer.
+   *
+   * For `FreeText` questions this may contain whitespace such as the `\n` newline escape sequence.
+   * For readability, you should display [whitespace characters](https://developer.mozilla.org/en-US/docs/Web/CSS/white-space) instead of collapsing them.
+   */
   answer: Scalars['String'];
   /**
-   * The questionnaire choice for the current answer.
+   * The questionnaire choice for the answer.
    *
    * For `FreeText` questions this will be `null`.
    */
@@ -383,6 +565,15 @@ export interface ApplicationQuestionAnswer {
 /** A possible response to an `ApplicationQuestion`. */
 export interface ApplicationQuestionChoice {
   __typename?: 'ApplicationQuestionChoice';
+  /**
+   * The underlying library question choice that the question choice is based on.
+   *
+   * The availability of this field is dependent on the parent `ApplicationQuestion.sourceCode`:
+   *
+   * - `Custom` is always null.
+   * - `Library` is always non-null.
+   */
+  applicationLibraryQuestionChoice?: Maybe<ApplicationLibraryQuestionChoice>;
   /** The identifier for the `ApplicationQuestionChoice`. */
   id: ObjectIdentifier;
   /**
@@ -391,6 +582,24 @@ export interface ApplicationQuestionChoice {
    * This is not displayed to the candidate.
    */
   preferredIndicator: Scalars['Boolean'];
+  /**
+   * Whether this choice was explicitly selected as a preference.
+   *
+   * When authoring a new questionnaire based on existing questions,
+   * response choice selections may be prefilled from this indicator.
+   *
+   * - For a custom question, this always matches `preferredIndicator`.
+   *
+   * - For a library question, this is set for bounding preferences only.
+   *
+   *   For example, a library question may define choices 1–5,
+   *   and require a minimum and maximum to be selected as a range preference.
+   *   Selecting the range 2–4 will set `preferredIndicator` for choices 2, 3, and 4,
+   *   and `selectedIndicator` for bounding choices 2 and 4.
+   *
+   * This is not displayed to the candidate.
+   */
+  selectedIndicator: Scalars['Boolean'];
   /** Text of the choice displayed to the candidate. */
   text: Scalars['String'];
   /**
@@ -419,9 +628,10 @@ export interface ApplicationQuestionChoiceInput {
    * A partner-provided unique ID for this choice.
    *
    * This can be used to correlate the choice back to its corresponding representation in your software.
+   *
    * This must be unique across all choices in the question.
    */
-  value: Scalars['String'];
+  value?: InputMaybe<Scalars['String']>;
 }
 
 /**
@@ -440,6 +650,8 @@ export interface ApplicationQuestionInput {
    * The HTML snippet of the question being asked to the candidate.
    *
    * Unsupported tags will be silently stripped when creating a questionnaire.
+   *
+   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
    */
   questionHtml: Scalars['String'];
   /**
@@ -464,7 +676,7 @@ export interface ApplicationQuestionInput {
    * This can be used to correlate the question back to its corresponding representation in your software.
    * This must be unique across all components in the questionnaire.
    */
-  value: Scalars['String'];
+  value?: InputMaybe<Scalars['String']>;
 }
 
 /** A candidate's response to a question in the questionnaire. */
@@ -545,9 +757,17 @@ export interface ApplicationQuestionnaireComponentInput {
    * Currently, two codes are defined:
    *
    * - `PrivacyConsent` corresponds to the `privacyConsent` field.
-   * - `Question` corresponds to the `question` field.
+   * - `Question` corresponds to the `question` and `libraryQuestion` fields.
    */
   componentTypeCode: Scalars['String'];
+  /**
+   * A library question component of an `ApplicationQuestionnaire`.
+   *
+   * Either this or `question` must be provided if the `componentTypeCode` is `Question`.
+   *
+   * The SEEK library question is sourced from the `applicationLibraryQuestionSuggestions` query.
+   */
+  libraryQuestion?: InputMaybe<ApplicationLibraryQuestionInput>;
   /**
    * A privacy consent component of an `ApplicationQuestionnaire`.
    *
@@ -557,7 +777,7 @@ export interface ApplicationQuestionnaireComponentInput {
   /**
    * A question component of an `ApplicationQuestionnaire`.
    *
-   * This must be provided if the `componentTypeCode` is `Question`.
+   * Either this or `libraryQuestion` must be provided if the `componentTypeCode` is `Question`.
    */
   question?: InputMaybe<ApplicationQuestionInput>;
 }
@@ -590,7 +810,7 @@ export interface ApplicationQuestionnaireSubmission {
   /** The candidate's responses to the application's questionnaire. */
   responses: Array<ApplicationQuestionnaireComponentResponse>;
   /**
-   * The indication of how well the candidate scored on all questions in the questionnaire.
+   * The indication of how well the candidate scored on the questionnaire overall.
    *
    * The score is a calculation between 0 and 1 as a floating point.
    * For example, if the candidate received a score of 1 on one question, and a score of 0 on another, this overall score would be calculated as 0.5.
@@ -696,7 +916,12 @@ export interface Candidate {
   /**
    * The list of profiles associated with with the candidate.
    *
-   * Each submitted application for a position will have an associated profile.
+   * Uploaded candidates sourced from the `uploadCandidate` mutation have a single profile.
+   *
+   * SEEK candidates have a profile per submitted application.
+   * This field exposes up to 10 recent applications submitted by the candidate.
+   *
+   * We recommend querying specific applications by their `CandidateProfile.profileId`s for the Application Export use case.
    */
   profiles: Array<CandidateProfile>;
   /**
@@ -706,6 +931,15 @@ export interface Candidate {
    * Values will be unique within a given hirer.
    */
   seekPrimaryEmailAddress?: Maybe<Scalars['String']>;
+}
+
+/**
+ * A person who applied for a position at a company.
+ *
+ * If the same person applies to multiple hirers they will have distinct `Candidate` objects created.
+ */
+export interface CandidateProfilesArgs {
+  last?: InputMaybe<Scalars['Int']>;
 }
 
 /**
@@ -720,10 +954,18 @@ export interface CandidateApplicationCreatedEvent extends Event {
    * The `Candidate` that applied for the position opening.
    *
    * This will include the candidate's personal details along with all application profiles for a single hirer.
+   *
+   * This field is only accessible while you have an active `ApplicationExport` relationship with the hirer.
+   * If this relationship has been removed, it will return null along with a `FORBIDDEN` error.
    */
-  candidate: Candidate;
-  /** The `CandidateProfile` associated with the application. */
-  candidateApplicationProfile: CandidateProfile;
+  candidate?: Maybe<Candidate>;
+  /**
+   * The `CandidateProfile` associated with the application.
+   *
+   * This field is only accessible while you have an active `ApplicationExport` relationship with the hirer.
+   * If this relationship has been removed, it will return null along with a `FORBIDDEN` error.
+   */
+  candidateApplicationProfile?: Maybe<CandidateProfile>;
   /**
    * The identifier for the specific `CandidateProfile` associated with the application.
    *
@@ -1129,8 +1371,13 @@ export interface CandidateProfileSeekProcessHistoryArgs {
 /** The event signaling that a `CandidateProfile` has been purchased. */
 export interface CandidateProfilePurchasedEvent extends Event {
   __typename?: 'CandidateProfilePurchasedEvent';
-  /** The `CandidateProfile` that was purchased. */
-  candidateProfile: CandidateProfile;
+  /**
+   * The `CandidateProfile` that was purchased.
+   *
+   * This field is only accessible while you have an active `ProactiveSourcing` relationship with the hirer.
+   * If this relationship has been removed, it will return null along with a `FORBIDDEN` error.
+   */
+  candidateProfile?: Maybe<CandidateProfile>;
   /** The identifier for the `CandidateProfile` that was purchased. */
   candidateProfileId: Scalars['String'];
   /**
@@ -2052,8 +2299,8 @@ export interface HirerRelationshipChangedEvent extends Event {
   /**
    * The optional hiring organization for whom the relationship was changed.
    *
-   * This will only be accessible if there is an active relationship between the partner and hirer.
-   * If all relationships have been removed with the hirer this field will be return a `FORBIDDEN` error.
+   * This field is only accessible while you have an active relationship with the hirer.
+   * If all relationships have been removed, it will return null along with a `FORBIDDEN` error.
    */
   hirer?: Maybe<HiringOrganization>;
   /** The identifier for the hiring organization for whom the relationship was changed. */
@@ -2302,10 +2549,12 @@ export interface Mutation {
    */
   _empty?: Maybe<Scalars['String']>;
   /**
-   * Closes an existing posted position profile.
+   * Asynchronously closes a live job ad.
    *
    * The job ad will be removed from the job board and no refund will be issued.
    * The `PositionProfile` and its associated candidate applications will be available for 6 months after its close date.
+   *
+   * Once the job ad has been closed a `PositionProfileClosed` event will be emitted.
    */
   closePostedPositionProfile?: Maybe<ClosePostedPositionProfilePayload>;
   /**
@@ -2320,10 +2569,14 @@ export interface Mutation {
    * Creates a new position opening.
    *
    * Every position profile belongs to a position opening.
-   * Multiple position profiles may belong to the same position opening.
+   * Up to 25 position profiles may belong to the same position opening.
    */
   createPositionOpening: CreatePositionOpeningPayload;
-  /** Creates a new unposted position profile for an opening. */
+  /**
+   * Creates a new unposted position profile for an opening.
+   *
+   * If the position opening already contains 25 position profiles this will fail with a `BAD_USER_INPUT` error.
+   */
   createUnpostedPositionProfileForOpening: CreateUnpostedPositionProfileForOpeningPayload;
   /** Creates a new webhook subscription. */
   createWebhookSubscription: CreateWebhookSubscriptionPayload;
@@ -2351,7 +2604,13 @@ export interface Mutation {
    * This combines the `createPositionOpening` & `postPositionProfileForOpening` mutations in a single operation.
    */
   postPosition: PostPositionPayload;
-  /** Asynchronously posts a job ad for an existing position opening. */
+  /**
+   * Asynchronously posts a job ad for an existing position opening.
+   *
+   * If the position opening already contains 25 position profiles this will fail with a `BAD_USER_INPUT` error.
+   *
+   * Once the job ad has been posted a `PositionProfilePosted` event will be emitted.
+   */
   postPositionProfileForOpening: PostPositionProfileForOpeningPayload;
   /**
    * Replays a webhook subscription.
@@ -2804,8 +3063,10 @@ export interface PositionFormattedDescriptionInput {
    * Currently, three identifiers are defined:
    *
    * - `AdvertisementDetails` is the detailed description of the position that appears on the job ad.
+   *
    * - `SearchBulletPoint` is a highlight or selling point of the position that appears in search results.
-   *   SEEK ANZ allows up to three search bullet points when `SeekAnzAdProductFeatures`'s `searchBulletPointsIndicator` is true.
+   *   SEEK ANZ allows up to three search bullet points when `SeekAnzAdProductFeatures.searchBulletPointsIndicator` is true.
+   *
    * - `SearchSummary` is a short description that appears in search results.
    *
    * Scheme requirements:
@@ -2962,7 +3223,7 @@ export interface PositionProfile {
   positionLocation: Array<Location>;
   /** The `PositionOpening` that this profile was created under. */
   positionOpening: PositionOpening;
-  /** The organization which has the position. */
+  /** An array of identifiers for the `HiringOrganization`s that have the position. */
   positionOrganizations: Array<HiringOrganization>;
   /**
    * An array of codes for the offered schedules for the position.
@@ -3063,6 +3324,9 @@ export interface PositionProfileClosedEvent extends Event {
    * The `PositionProfile` that was closed.
    *
    * This may return null if the `PositionProfile` has been closed for an extended period of time.
+   *
+   * This field is only accessible while you have an active `ApplicationExport` or `JobPosting` relationship with the hirer.
+   * If these relationships have been removed, it will return null along with a `FORBIDDEN` error.
    */
   positionProfile?: Maybe<PostedPositionProfile>;
   /** The identifier for the `PositionProfile` that was closed. */
@@ -3111,6 +3375,9 @@ export interface PositionProfilePostedEvent extends Event {
    * The `PositionProfile` that was posted.
    *
    * This may return null if the `PositionProfile` has been closed for an extended period of time.
+   *
+   * This field is only accessible while you have an active `ApplicationExport` or `JobPosting` relationship with the hirer.
+   * If these relationships have been removed, it will return null along with a `FORBIDDEN` error.
    */
   positionProfile?: Maybe<PostedPositionProfile>;
   /** The identifier for the `PositionProfile` that was posted. */
@@ -3297,6 +3564,9 @@ export interface PostPositionProfileForOpeningPositionProfileInput {
    * The identifier for the `ApplicationQuestionnaire` containing the set of questions to present to candidates during an application.
    *
    * The questionnaire responses will be available as `CandidateProfile.seekQuestionnaireSubmission` on the candidate's application profile.
+   *
+   * Questionnaires are only supported on SEEK's native apply form;
+   * this field must not be specified if an `ApplicationMethodInput.applicationUri` is provided.
    */
   seekApplicationQuestionnaireId?: InputMaybe<Scalars['String']>;
   /**
@@ -3424,6 +3694,9 @@ export interface PostPositionPositionProfileInput {
    * The identifier for the `ApplicationQuestionnaire` containing the set of questions to present to candidates during an application.
    *
    * The questionnaire responses will be available as `CandidateProfile.seekQuestionnaireSubmission` on the candidate's application profile.
+   *
+   * Questionnaires are only supported on SEEK's native apply form;
+   * this field must not be specified if an `ApplicationMethodInput.applicationUri` is provided.
    */
   seekApplicationQuestionnaireId?: InputMaybe<Scalars['String']>;
   /**
@@ -3484,7 +3757,7 @@ export interface PostedPositionProfile extends PositionProfile {
   positionLocation: Array<Location>;
   /** The `PositionOpening` that this profile was created under. */
   positionOpening: PositionOpening;
-  /** The organization which has the position. */
+  /** An array of identifiers for the `HiringOrganization`s that have the position. */
   positionOrganizations: Array<HiringOrganization>;
   /**
    * An array of codes for the offered schedules for the position.
@@ -3554,6 +3827,163 @@ export interface PostedPositionProfile extends PositionProfile {
   seekTypeCode: Scalars['String'];
   /** The video to render within the job ad. */
   seekVideo?: Maybe<SeekVideo>;
+}
+
+/**
+ * The details of a job ad preview.
+ *
+ * Caution: this is currently under development and may be changed or removed without notice.
+ */
+export interface PostedPositionProfilePreview {
+  __typename?: 'PostedPositionProfilePreview';
+  /**
+   * The URL of a standalone webpage to preview a job ad, with an origin of `job-ad-preview.seek.com`.
+   *
+   * The page can be embedded in an iframe or opened in a new tab.
+   *
+   * The webpage will expire after 24 hours.
+   */
+  previewUri: WebUrl;
+}
+
+/**
+ * The details of the position profile to be previewed.
+ *
+ * Caution: this is currently under development and may be changed or removed without notice.
+ */
+export interface PostedPositionProfilePreviewPositionProfileInput {
+  /**
+   * An array of `JobCategory` identifiers.
+   *
+   * Scheme requirements:
+   *
+   * - The `seekAnz` scheme has a maximum of one element.
+   */
+  jobCategories?: InputMaybe<Array<Scalars['String']>>;
+  /** The salary or compensation offered for the position. */
+  offeredRemunerationPackage: PostedPositionProfilePreviewRemunerationPackageInput;
+  /** An array of formatted position profile descriptions. */
+  positionFormattedDescriptions?: InputMaybe<
+    Array<PositionFormattedDescriptionInput>
+  >;
+  /**
+   * An array of `Location` identifiers.
+   *
+   * Scheme requirements:
+   *
+   * - The `seekAnz` scheme has a maximum of one element.
+   */
+  positionLocation?: InputMaybe<Array<Scalars['String']>>;
+  /**
+   * An array of identifiers for the `HiringOrganization`s that have the position.
+   *
+   * Scheme requirements:
+   *
+   * - The `seekAnz` scheme requires exactly one element.
+   */
+  positionOrganizations: Array<Scalars['String']>;
+  /**
+   * A short phrase describing the position as it would be listed on a business card or in a company directory.
+   *
+   * This field has a maximum length of 80 bytes in UTF-8 encoding.
+   */
+  positionTitle: Scalars['String'];
+  /**
+   * The instructions related to posting the job ad.
+   *
+   * Scheme requirements:
+   *
+   * - The `seekAnz` scheme requires exactly one element.
+   */
+  postingInstructions: Array<PostedPositionProfilePreviewPostingInstructionInput>;
+  /**
+   * The identifier for the `PositionProfile` to be updated.
+   *
+   * This field should only be provided when updating an existing `PositionProfile`.
+   */
+  profileId?: InputMaybe<Scalars['String']>;
+  /**
+   * A SEEK ANZ work type code.
+   *
+   * For positions in `seekAnz` scheme, this field is used instead of `positionScheduleTypeCodes`.
+   *
+   * Currently, four codes are defined:
+   *
+   * - `Casual` indicates a casual position.
+   * - `ContractTemp` indicates a fixed-length contract position.
+   * - `FullTime` indicates a full-time position.
+   * - `PartTime` indicates a part-time position.
+   *
+   * Scheme requirements:
+   *
+   * - Required for the `seekAnz` scheme.
+   */
+  seekAnzWorkTypeCode: Scalars['String'];
+  /** The video to render within the job ad. */
+  seekVideo?: InputMaybe<SeekVideoInput>;
+}
+
+/**
+ * Information about how to post a job ad and where to direct its candidate applications.
+ *
+ * Caution: this is currently under development and may be changed or removed without notice.
+ */
+export interface PostedPositionProfilePreviewPostingInstructionInput {
+  /**
+   * An array of methods for applying to the position.
+   *
+   * If no methods are provided, SEEK's native apply form will be used to receive candidate applications.
+   * Native applications will emit a `CandidateApplicationCreated` event that points to a `CandidateProfile` object.
+   *
+   * Scheme requirements:
+   *
+   * - For the `seekAnz` scheme, this field is limited to a single element.
+   *   Requests with more than 1 element will fail.
+   */
+  applicationMethods?: InputMaybe<Array<ApplicationMethodInput>>;
+  /**
+   * The identifier for the `AdvertisementBranding` to apply to the posted job ad.
+   *
+   * Scheme requirements:
+   *
+   * - For the `seekAnz` scheme, this field's behavior is dependent on the `SeekAnzAdProductFeatures` of the product set in the `seekAnzAdvertisementType` field.
+   *
+   *   When the product's `SeekAnzAdProductFeatures.brandingIndicator` value is false, this field will be silently ignored.
+   */
+  brandingId?: InputMaybe<Scalars['String']>;
+  /**
+   * A SEEK ANZ advertisement type code.
+   *
+   * Currently, three codes are defined:
+   *
+   * - `Classic` indicates a Classic job ad.
+   * - `StandOut` indicates a StandOut job ad.
+   * - `Premium` indicates a Premium job ad.
+   *
+   * Scheme requirements:
+   *
+   * - For the `seekAnz` scheme, this field is required.
+   * - For other schemes, set this to `null`.
+   */
+  seekAnzAdvertisementType?: InputMaybe<Scalars['String']>;
+}
+
+/**
+ * The salary or compensation for a position.
+ *
+ * Caution: this is currently under development and may be changed or removed without notice.
+ */
+export interface PostedPositionProfilePreviewRemunerationPackageInput {
+  /**
+   * Human readable descriptions of the remuneration package.
+   *
+   * Scheme requirements:
+   *
+   * - The `seekAnz` scheme is limited to a single element with a maximum length of 50 bytes in UTF-8 encoding.
+   *
+   * An empty array must be provided to signify the absence of salary descriptions.
+   */
+  descriptions: Array<Scalars['String']>;
 }
 
 /** Information about how to post a job ad and where to direct its candidate applications. */
@@ -3684,6 +4114,14 @@ export interface Query {
    */
   advertisementBrandings: AdvertisementBrandingsConnection;
   /**
+   * An array of suggested application questions for the provided partial `PositionProfile` in decreasing order of relevance.
+   *
+   * A maximum of 10 application questions can be recommended.
+   *
+   * This query accepts browser tokens that include the `query:application-library-question-suggestions` scope.
+   */
+  applicationLibraryQuestionSuggestions: Array<ApplicationLibraryQuestionSuggestion>;
+  /**
    * An application questionnaire with the given `id`.
    *
    * Questionnaires can be associated with a `PositionProfile`.
@@ -3746,7 +4184,7 @@ export interface Query {
    */
   jobCategory?: Maybe<JobCategory>;
   /**
-   * An array of suggested job categories for the provided partial `PositionProfile`.
+   * An array of suggested job categories for the provided partial `PositionProfile` in decreasing order of relevance.
    *
    * A maximum of 10 job categories can be recommended.
    *
@@ -3760,7 +4198,7 @@ export interface Query {
    */
   location?: Maybe<Location>;
   /**
-   * An array of location nodes relevant to the text provided.
+   * An array of suggested locations for the text provided in decreasing order of relevance.
    *
    * While a maximum of 20 locations can be requested, the current implementation does not return more than 10 recommendations.
    *
@@ -3786,8 +4224,21 @@ export interface Query {
    * Additional position openings can be queried using a pagination cursor.
    */
   positionOpenings: PositionOpeningConnection;
-  /** A position profile with the given `id`. */
+  /**
+   * A position profile with the given `id`.
+   *
+   * This query accepts browser tokens that include the `query:position-profiles` scope for posted position profiles.
+   * Note that this scope does not grant access to the containing `PositionProfile.positionOpening`.
+   */
   positionProfile?: Maybe<PositionProfile>;
+  /**
+   * A preview of a prospective job ad as it would appear on a SEEK job board.
+   *
+   * Caution: this is currently under development and may be changed or removed without notice.
+   *
+   * This query accepts browser tokens that include the `query:posted-position-profile-previews` scope.
+   */
+  postedPositionProfilePreview: PostedPositionProfilePreview;
   /**
    * A hiring organization corresponding to the given SEEK ANZ advertiser ID.
    *
@@ -3889,6 +4340,17 @@ export interface QueryAdvertisementBrandingsArgs {
   first?: InputMaybe<Scalars['Int']>;
   hirerId: Scalars['String'];
   last?: InputMaybe<Scalars['Int']>;
+}
+
+/**
+ * The schema's entry-point for queries.
+ *
+ * This acts as the public, top-level API from which all queries must start.
+ */
+export interface QueryApplicationLibraryQuestionSuggestionsArgs {
+  first?: InputMaybe<Scalars['Int']>;
+  positionProfile: ApplicationLibraryQuestionSuggestionsPositionProfileInput;
+  schemeId: Scalars['String'];
 }
 
 /**
@@ -4063,6 +4525,15 @@ export interface QueryPositionOpeningsArgs {
  */
 export interface QueryPositionProfileArgs {
   id: Scalars['String'];
+}
+
+/**
+ * The schema's entry-point for queries.
+ *
+ * This acts as the public, top-level API from which all queries must start.
+ */
+export interface QueryPostedPositionProfilePreviewArgs {
+  positionProfile: PostedPositionProfilePreviewPositionProfileInput;
 }
 
 /**
@@ -4641,6 +5112,10 @@ export interface SeekVideoInput {
    *     - `https://youtu.be/aAgePQvHBQM`
    *
    *    If the URL provided does not match the above criteria it will be ignored.
+   *    Examples of unsupported formats include:
+   *
+   *    - Links with additional query parameters: `https://www.youtube.com/watch?ab_channel=SEEKJobs&v=aAgePQvHBQM`
+   *    - Mobile links: `https://m.youtube.com/watch?v=aAgePQvHBQM`
    */
   url: Scalars['String'];
 }
@@ -4712,7 +5187,7 @@ export interface UnpostedPositionProfile extends PositionProfile {
   positionLocation: Array<Location>;
   /** The `PositionOpening` that this profile was created under. */
   positionOpening: PositionOpening;
-  /** The organization which has the position. */
+  /** An array of identifiers for the `HiringOrganization`s that have the position. */
   positionOrganizations: Array<HiringOrganization>;
   /**
    * An array of codes for the offered schedules for the position.
@@ -5992,8 +6467,8 @@ export type AdvertisementBrandingsQuery = {
       __typename?: 'PageInfo';
       hasNextPage: boolean;
       hasPreviousPage: boolean;
-      startCursor?: string | null | undefined;
-      endCursor?: string | null | undefined;
+      startCursor?: string | null;
+      endCursor?: string | null;
     };
     edges: Array<{
       __typename?: 'AdvertisementBrandingEdge';
@@ -6011,6 +6486,34 @@ export type AdvertisementBrandingsQuery = {
   };
 };
 
+export type JobCategoryFieldsFragment = {
+  __typename?: 'JobCategory';
+  name: string;
+  id: { __typename?: 'ObjectIdentifier'; value: string };
+};
+
+export type JobCategoryQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+export type JobCategoryQuery = {
+  jobCategory?: {
+    __typename?: 'JobCategory';
+    name: string;
+    parent?: {
+      __typename?: 'JobCategory';
+      name: string;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    } | null;
+    children?: Array<{
+      __typename?: 'JobCategory';
+      name: string;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    }> | null;
+    id: { __typename?: 'ObjectIdentifier'; value: string };
+  } | null;
+};
+
 export type JobCategoryAttributesFragment = {
   __typename?: 'JobCategory';
   name: string;
@@ -6025,14 +6528,11 @@ export type JobCategoriesQuery = {
   jobCategories: Array<{
     __typename?: 'JobCategory';
     name: string;
-    children?:
-      | Array<{
-          __typename?: 'JobCategory';
-          name: string;
-          id: { __typename?: 'ObjectIdentifier'; value: string };
-        }>
-      | null
-      | undefined;
+    children?: Array<{
+      __typename?: 'JobCategory';
+      name: string;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    }> | null;
     id: { __typename?: 'ObjectIdentifier'; value: string };
   }>;
 };
@@ -6043,22 +6543,16 @@ export type JobCategorySuggestionChoiceAttributesFragment = {
   jobCategory: {
     __typename?: 'JobCategory';
     name: string;
-    parent?:
-      | {
-          __typename?: 'JobCategory';
-          name: string;
-          id: { __typename?: 'ObjectIdentifier'; value: string };
-        }
-      | null
-      | undefined;
-    children?:
-      | Array<{
-          __typename?: 'JobCategory';
-          name: string;
-          id: { __typename?: 'ObjectIdentifier'; value: string };
-        }>
-      | null
-      | undefined;
+    parent?: {
+      __typename?: 'JobCategory';
+      name: string;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    } | null;
+    children?: Array<{
+      __typename?: 'JobCategory';
+      name: string;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    }> | null;
     id: { __typename?: 'ObjectIdentifier'; value: string };
   };
 };
@@ -6076,22 +6570,16 @@ export type JobCategorySuggestQuery = {
     jobCategory: {
       __typename?: 'JobCategory';
       name: string;
-      parent?:
-        | {
-            __typename?: 'JobCategory';
-            name: string;
-            id: { __typename?: 'ObjectIdentifier'; value: string };
-          }
-        | null
-        | undefined;
-      children?:
-        | Array<{
-            __typename?: 'JobCategory';
-            name: string;
-            id: { __typename?: 'ObjectIdentifier'; value: string };
-          }>
-        | null
-        | undefined;
+      parent?: {
+        __typename?: 'JobCategory';
+        name: string;
+        id: { __typename?: 'ObjectIdentifier'; value: string };
+      } | null;
+      children?: Array<{
+        __typename?: 'JobCategory';
+        name: string;
+        id: { __typename?: 'ObjectIdentifier'; value: string };
+      }> | null;
       id: { __typename?: 'ObjectIdentifier'; value: string };
     };
   }>;
@@ -6110,62 +6598,41 @@ export type NestedLocationAttributesFragment = {
   name: string;
   contextualName: string;
   countryCode: string;
-  parent?:
-    | {
+  parent?: {
+    __typename?: 'Location';
+    name: string;
+    contextualName: string;
+    countryCode: string;
+    parent?: {
+      __typename?: 'Location';
+      name: string;
+      contextualName: string;
+      countryCode: string;
+      parent?: {
         __typename?: 'Location';
         name: string;
         contextualName: string;
         countryCode: string;
-        parent?:
-          | {
-              __typename?: 'Location';
-              name: string;
-              contextualName: string;
-              countryCode: string;
-              parent?:
-                | {
-                    __typename?: 'Location';
-                    name: string;
-                    contextualName: string;
-                    countryCode: string;
-                    parent?:
-                      | {
-                          __typename?: 'Location';
-                          name: string;
-                          contextualName: string;
-                          countryCode: string;
-                          parent?:
-                            | {
-                                __typename?: 'Location';
-                                name: string;
-                                contextualName: string;
-                                countryCode: string;
-                                id: {
-                                  __typename?: 'ObjectIdentifier';
-                                  value: string;
-                                };
-                              }
-                            | null
-                            | undefined;
-                          id: {
-                            __typename?: 'ObjectIdentifier';
-                            value: string;
-                          };
-                        }
-                      | null
-                      | undefined;
-                    id: { __typename?: 'ObjectIdentifier'; value: string };
-                  }
-                | null
-                | undefined;
-              id: { __typename?: 'ObjectIdentifier'; value: string };
-            }
-          | null
-          | undefined;
+        parent?: {
+          __typename?: 'Location';
+          name: string;
+          contextualName: string;
+          countryCode: string;
+          parent?: {
+            __typename?: 'Location';
+            name: string;
+            contextualName: string;
+            countryCode: string;
+            id: { __typename?: 'ObjectIdentifier'; value: string };
+          } | null;
+          id: { __typename?: 'ObjectIdentifier'; value: string };
+        } | null;
         id: { __typename?: 'ObjectIdentifier'; value: string };
-      }
-    | null
-    | undefined;
+      } | null;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    } | null;
+    id: { __typename?: 'ObjectIdentifier'; value: string };
+  } | null;
   id: { __typename?: 'ObjectIdentifier'; value: string };
 };
 
@@ -6174,75 +6641,48 @@ export type LocationQueryVariables = Exact<{
 }>;
 
 export type LocationQuery = {
-  location?:
-    | {
+  location?: {
+    __typename?: 'Location';
+    name: string;
+    contextualName: string;
+    countryCode: string;
+    parent?: {
+      __typename?: 'Location';
+      name: string;
+      contextualName: string;
+      countryCode: string;
+      parent?: {
         __typename?: 'Location';
         name: string;
         contextualName: string;
         countryCode: string;
-        parent?:
-          | {
+        parent?: {
+          __typename?: 'Location';
+          name: string;
+          contextualName: string;
+          countryCode: string;
+          parent?: {
+            __typename?: 'Location';
+            name: string;
+            contextualName: string;
+            countryCode: string;
+            parent?: {
               __typename?: 'Location';
               name: string;
               contextualName: string;
               countryCode: string;
-              parent?:
-                | {
-                    __typename?: 'Location';
-                    name: string;
-                    contextualName: string;
-                    countryCode: string;
-                    parent?:
-                      | {
-                          __typename?: 'Location';
-                          name: string;
-                          contextualName: string;
-                          countryCode: string;
-                          parent?:
-                            | {
-                                __typename?: 'Location';
-                                name: string;
-                                contextualName: string;
-                                countryCode: string;
-                                parent?:
-                                  | {
-                                      __typename?: 'Location';
-                                      name: string;
-                                      contextualName: string;
-                                      countryCode: string;
-                                      id: {
-                                        __typename?: 'ObjectIdentifier';
-                                        value: string;
-                                      };
-                                    }
-                                  | null
-                                  | undefined;
-                                id: {
-                                  __typename?: 'ObjectIdentifier';
-                                  value: string;
-                                };
-                              }
-                            | null
-                            | undefined;
-                          id: {
-                            __typename?: 'ObjectIdentifier';
-                            value: string;
-                          };
-                        }
-                      | null
-                      | undefined;
-                    id: { __typename?: 'ObjectIdentifier'; value: string };
-                  }
-                | null
-                | undefined;
               id: { __typename?: 'ObjectIdentifier'; value: string };
-            }
-          | null
-          | undefined;
+            } | null;
+            id: { __typename?: 'ObjectIdentifier'; value: string };
+          } | null;
+          id: { __typename?: 'ObjectIdentifier'; value: string };
+        } | null;
         id: { __typename?: 'ObjectIdentifier'; value: string };
-      }
-    | null
-    | undefined;
+      } | null;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    } | null;
+    id: { __typename?: 'ObjectIdentifier'; value: string };
+  } | null;
 };
 
 export type SuggestLocationsQueryVariables = Exact<{
@@ -6254,78 +6694,51 @@ export type SuggestLocationsQueryVariables = Exact<{
 }>;
 
 export type SuggestLocationsQuery = {
-  locationSuggestions?:
-    | Array<{
-        __typename?: 'LocationSuggestion';
-        location: {
+  locationSuggestions?: Array<{
+    __typename?: 'LocationSuggestion';
+    location: {
+      __typename?: 'Location';
+      name: string;
+      contextualName: string;
+      countryCode: string;
+      parent?: {
+        __typename?: 'Location';
+        name: string;
+        contextualName: string;
+        countryCode: string;
+        parent?: {
           __typename?: 'Location';
           name: string;
           contextualName: string;
           countryCode: string;
-          parent?:
-            | {
+          parent?: {
+            __typename?: 'Location';
+            name: string;
+            contextualName: string;
+            countryCode: string;
+            parent?: {
+              __typename?: 'Location';
+              name: string;
+              contextualName: string;
+              countryCode: string;
+              parent?: {
                 __typename?: 'Location';
                 name: string;
                 contextualName: string;
                 countryCode: string;
-                parent?:
-                  | {
-                      __typename?: 'Location';
-                      name: string;
-                      contextualName: string;
-                      countryCode: string;
-                      parent?:
-                        | {
-                            __typename?: 'Location';
-                            name: string;
-                            contextualName: string;
-                            countryCode: string;
-                            parent?:
-                              | {
-                                  __typename?: 'Location';
-                                  name: string;
-                                  contextualName: string;
-                                  countryCode: string;
-                                  parent?:
-                                    | {
-                                        __typename?: 'Location';
-                                        name: string;
-                                        contextualName: string;
-                                        countryCode: string;
-                                        id: {
-                                          __typename?: 'ObjectIdentifier';
-                                          value: string;
-                                        };
-                                      }
-                                    | null
-                                    | undefined;
-                                  id: {
-                                    __typename?: 'ObjectIdentifier';
-                                    value: string;
-                                  };
-                                }
-                              | null
-                              | undefined;
-                            id: {
-                              __typename?: 'ObjectIdentifier';
-                              value: string;
-                            };
-                          }
-                        | null
-                        | undefined;
-                      id: { __typename?: 'ObjectIdentifier'; value: string };
-                    }
-                  | null
-                  | undefined;
                 id: { __typename?: 'ObjectIdentifier'; value: string };
-              }
-            | null
-            | undefined;
+              } | null;
+              id: { __typename?: 'ObjectIdentifier'; value: string };
+            } | null;
+            id: { __typename?: 'ObjectIdentifier'; value: string };
+          } | null;
           id: { __typename?: 'ObjectIdentifier'; value: string };
-        };
-      }>
-    | null
-    | undefined;
+        } | null;
+        id: { __typename?: 'ObjectIdentifier'; value: string };
+      } | null;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    };
+  }> | null;
 };
 
 export type NearestLocationsQueryVariables = Exact<{
@@ -6335,73 +6748,46 @@ export type NearestLocationsQueryVariables = Exact<{
 }>;
 
 export type NearestLocationsQuery = {
-  nearestLocations?:
-    | Array<{
+  nearestLocations?: Array<{
+    __typename?: 'Location';
+    name: string;
+    contextualName: string;
+    countryCode: string;
+    parent?: {
+      __typename?: 'Location';
+      name: string;
+      contextualName: string;
+      countryCode: string;
+      parent?: {
         __typename?: 'Location';
         name: string;
         contextualName: string;
         countryCode: string;
-        parent?:
-          | {
+        parent?: {
+          __typename?: 'Location';
+          name: string;
+          contextualName: string;
+          countryCode: string;
+          parent?: {
+            __typename?: 'Location';
+            name: string;
+            contextualName: string;
+            countryCode: string;
+            parent?: {
               __typename?: 'Location';
               name: string;
               contextualName: string;
               countryCode: string;
-              parent?:
-                | {
-                    __typename?: 'Location';
-                    name: string;
-                    contextualName: string;
-                    countryCode: string;
-                    parent?:
-                      | {
-                          __typename?: 'Location';
-                          name: string;
-                          contextualName: string;
-                          countryCode: string;
-                          parent?:
-                            | {
-                                __typename?: 'Location';
-                                name: string;
-                                contextualName: string;
-                                countryCode: string;
-                                parent?:
-                                  | {
-                                      __typename?: 'Location';
-                                      name: string;
-                                      contextualName: string;
-                                      countryCode: string;
-                                      id: {
-                                        __typename?: 'ObjectIdentifier';
-                                        value: string;
-                                      };
-                                    }
-                                  | null
-                                  | undefined;
-                                id: {
-                                  __typename?: 'ObjectIdentifier';
-                                  value: string;
-                                };
-                              }
-                            | null
-                            | undefined;
-                          id: {
-                            __typename?: 'ObjectIdentifier';
-                            value: string;
-                          };
-                        }
-                      | null
-                      | undefined;
-                    id: { __typename?: 'ObjectIdentifier'; value: string };
-                  }
-                | null
-                | undefined;
               id: { __typename?: 'ObjectIdentifier'; value: string };
-            }
-          | null
-          | undefined;
+            } | null;
+            id: { __typename?: 'ObjectIdentifier'; value: string };
+          } | null;
+          id: { __typename?: 'ObjectIdentifier'; value: string };
+        } | null;
         id: { __typename?: 'ObjectIdentifier'; value: string };
-      }>
-    | null
-    | undefined;
+      } | null;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    } | null;
+    id: { __typename?: 'ObjectIdentifier'; value: string };
+  }> | null;
 };

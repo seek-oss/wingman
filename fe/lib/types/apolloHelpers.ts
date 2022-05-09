@@ -74,6 +74,48 @@ export type AdvertisementBrandingsConnectionFieldPolicy = {
   edges?: FieldPolicy<any> | FieldReadFunction<any>;
   pageInfo?: FieldPolicy<any> | FieldReadFunction<any>;
 };
+export type ApplicationLibraryQuestionKeySpecifier = (
+  | 'id'
+  | 'preferenceSelection'
+  | 'responseChoice'
+  | 'responseTypeCode'
+  | 'text'
+  | ApplicationLibraryQuestionKeySpecifier
+)[];
+export type ApplicationLibraryQuestionFieldPolicy = {
+  id?: FieldPolicy<any> | FieldReadFunction<any>;
+  preferenceSelection?: FieldPolicy<any> | FieldReadFunction<any>;
+  responseChoice?: FieldPolicy<any> | FieldReadFunction<any>;
+  responseTypeCode?: FieldPolicy<any> | FieldReadFunction<any>;
+  text?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type ApplicationLibraryQuestionChoiceKeySpecifier = (
+  | 'id'
+  | 'text'
+  | ApplicationLibraryQuestionChoiceKeySpecifier
+)[];
+export type ApplicationLibraryQuestionChoiceFieldPolicy = {
+  id?: FieldPolicy<any> | FieldReadFunction<any>;
+  text?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type ApplicationLibraryQuestionPreferenceSelectionKeySpecifier = (
+  | 'message'
+  | 'typeCode'
+  | ApplicationLibraryQuestionPreferenceSelectionKeySpecifier
+)[];
+export type ApplicationLibraryQuestionPreferenceSelectionFieldPolicy = {
+  message?: FieldPolicy<any> | FieldReadFunction<any>;
+  typeCode?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type ApplicationLibraryQuestionSuggestionKeySpecifier = (
+  | 'applicationLibraryQuestion'
+  | 'id'
+  | ApplicationLibraryQuestionSuggestionKeySpecifier
+)[];
+export type ApplicationLibraryQuestionSuggestionFieldPolicy = {
+  applicationLibraryQuestion?: FieldPolicy<any> | FieldReadFunction<any>;
+  id?: FieldPolicy<any> | FieldReadFunction<any>;
+};
 export type ApplicationMethodKeySpecifier = (
   | 'applicationEmail'
   | 'applicationUri'
@@ -110,6 +152,7 @@ export type ApplicationPrivacyConsentResponseFieldPolicy = {
   consentGivenIndicator?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type ApplicationQuestionKeySpecifier = (
+  | 'applicationLibraryQuestion'
   | 'componentTypeCode'
   | 'id'
   | 'questionHtml'
@@ -120,6 +163,7 @@ export type ApplicationQuestionKeySpecifier = (
   | ApplicationQuestionKeySpecifier
 )[];
 export type ApplicationQuestionFieldPolicy = {
+  applicationLibraryQuestion?: FieldPolicy<any> | FieldReadFunction<any>;
   componentTypeCode?: FieldPolicy<any> | FieldReadFunction<any>;
   id?: FieldPolicy<any> | FieldReadFunction<any>;
   questionHtml?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -138,15 +182,19 @@ export type ApplicationQuestionAnswerFieldPolicy = {
   choice?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type ApplicationQuestionChoiceKeySpecifier = (
+  | 'applicationLibraryQuestionChoice'
   | 'id'
   | 'preferredIndicator'
+  | 'selectedIndicator'
   | 'text'
   | 'value'
   | ApplicationQuestionChoiceKeySpecifier
 )[];
 export type ApplicationQuestionChoiceFieldPolicy = {
+  applicationLibraryQuestionChoice?: FieldPolicy<any> | FieldReadFunction<any>;
   id?: FieldPolicy<any> | FieldReadFunction<any>;
   preferredIndicator?: FieldPolicy<any> | FieldReadFunction<any>;
+  selectedIndicator?: FieldPolicy<any> | FieldReadFunction<any>;
   text?: FieldPolicy<any> | FieldReadFunction<any>;
   value?: FieldPolicy<any> | FieldReadFunction<any>;
 };
@@ -1128,6 +1176,13 @@ export type PostedPositionProfileFieldPolicy = {
   seekTypeCode?: FieldPolicy<any> | FieldReadFunction<any>;
   seekVideo?: FieldPolicy<any> | FieldReadFunction<any>;
 };
+export type PostedPositionProfilePreviewKeySpecifier = (
+  | 'previewUri'
+  | PostedPositionProfilePreviewKeySpecifier
+)[];
+export type PostedPositionProfilePreviewFieldPolicy = {
+  previewUri?: FieldPolicy<any> | FieldReadFunction<any>;
+};
 export type PostingInstructionKeySpecifier = (
   | 'applicationMethods'
   | 'branding'
@@ -1170,6 +1225,7 @@ export type PreferredLocationFieldPolicy = {
 export type QueryKeySpecifier = (
   | 'advertisementBranding'
   | 'advertisementBrandings'
+  | 'applicationLibraryQuestionSuggestions'
   | 'applicationQuestionnaire'
   | 'candidate'
   | 'candidateProcessHistoryItem'
@@ -1187,6 +1243,7 @@ export type QueryKeySpecifier = (
   | 'positionOpening'
   | 'positionOpenings'
   | 'positionProfile'
+  | 'postedPositionProfilePreview'
   | 'seekAnzAdvertiser'
   | 'seekAnzHirerAdvertisementCreationProducts'
   | 'seekAnzHirerAdvertisementModificationProducts'
@@ -1204,6 +1261,9 @@ export type QueryKeySpecifier = (
 export type QueryFieldPolicy = {
   advertisementBranding?: FieldPolicy<any> | FieldReadFunction<any>;
   advertisementBrandings?: FieldPolicy<any> | FieldReadFunction<any>;
+  applicationLibraryQuestionSuggestions?:
+    | FieldPolicy<any>
+    | FieldReadFunction<any>;
   applicationQuestionnaire?: FieldPolicy<any> | FieldReadFunction<any>;
   candidate?: FieldPolicy<any> | FieldReadFunction<any>;
   candidateProcessHistoryItem?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1221,6 +1281,7 @@ export type QueryFieldPolicy = {
   positionOpening?: FieldPolicy<any> | FieldReadFunction<any>;
   positionOpenings?: FieldPolicy<any> | FieldReadFunction<any>;
   positionProfile?: FieldPolicy<any> | FieldReadFunction<any>;
+  postedPositionProfilePreview?: FieldPolicy<any> | FieldReadFunction<any>;
   seekAnzAdvertiser?: FieldPolicy<any> | FieldReadFunction<any>;
   seekAnzHirerAdvertisementCreationProducts?:
     | FieldPolicy<any>
@@ -1758,6 +1819,45 @@ export type StrictTypedTypePolicies = {
       | AdvertisementBrandingsConnectionKeySpecifier
       | (() => undefined | AdvertisementBrandingsConnectionKeySpecifier);
     fields?: AdvertisementBrandingsConnectionFieldPolicy;
+  };
+  ApplicationLibraryQuestion?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | ApplicationLibraryQuestionKeySpecifier
+      | (() => undefined | ApplicationLibraryQuestionKeySpecifier);
+    fields?: ApplicationLibraryQuestionFieldPolicy;
+  };
+  ApplicationLibraryQuestionChoice?: Omit<
+    TypePolicy,
+    'fields' | 'keyFields'
+  > & {
+    keyFields?:
+      | false
+      | ApplicationLibraryQuestionChoiceKeySpecifier
+      | (() => undefined | ApplicationLibraryQuestionChoiceKeySpecifier);
+    fields?: ApplicationLibraryQuestionChoiceFieldPolicy;
+  };
+  ApplicationLibraryQuestionPreferenceSelection?: Omit<
+    TypePolicy,
+    'fields' | 'keyFields'
+  > & {
+    keyFields?:
+      | false
+      | ApplicationLibraryQuestionPreferenceSelectionKeySpecifier
+      | (() =>
+          | undefined
+          | ApplicationLibraryQuestionPreferenceSelectionKeySpecifier);
+    fields?: ApplicationLibraryQuestionPreferenceSelectionFieldPolicy;
+  };
+  ApplicationLibraryQuestionSuggestion?: Omit<
+    TypePolicy,
+    'fields' | 'keyFields'
+  > & {
+    keyFields?:
+      | false
+      | ApplicationLibraryQuestionSuggestionKeySpecifier
+      | (() => undefined | ApplicationLibraryQuestionSuggestionKeySpecifier);
+    fields?: ApplicationLibraryQuestionSuggestionFieldPolicy;
   };
   ApplicationMethod?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:
@@ -2461,6 +2561,13 @@ export type StrictTypedTypePolicies = {
       | PostedPositionProfileKeySpecifier
       | (() => undefined | PostedPositionProfileKeySpecifier);
     fields?: PostedPositionProfileFieldPolicy;
+  };
+  PostedPositionProfilePreview?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | PostedPositionProfilePreviewKeySpecifier
+      | (() => undefined | PostedPositionProfilePreviewKeySpecifier);
+    fields?: PostedPositionProfilePreviewFieldPolicy;
   };
   PostingInstruction?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:
