@@ -1,8 +1,5 @@
 import { ApolloClient, useLazyQuery } from '@apollo/client';
 import {
-  Button,
-  Column,
-  Columns,
   FieldMessage,
   Loader,
   Notice,
@@ -10,8 +7,9 @@ import {
   Text,
   TextField,
 } from 'braid-design-system';
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import { InlineCode } from 'scoobie';
+import { useDebounce } from 'use-debounce';
 
 import { BreadCrumbsString } from '../../../example/src/components/BreadCrumbsString';
 import { SeekApiResponse } from '../../../example/src/components/SeekApiResponse';
@@ -27,15 +25,18 @@ export interface JobCategoryLookupProps {
   schemeId: string;
   client?: ApolloClient<unknown>;
   initialJobCategoryId?: string;
+  debounceDelay?: number;
 }
 
 export const JobCategoryLookup = forwardRef<
   HTMLInputElement,
   JobCategoryLookupProps
->(({ schemeId, initialJobCategoryId, client }) => {
+>(({ schemeId, initialJobCategoryId, debounceDelay = 250, client }) => {
   const [jobCategoryId, setJobCategoryId] = useState(
     initialJobCategoryId ?? '',
   );
+
+  const [debouncedJobCategoryId] = useDebounce(jobCategoryId, debounceDelay);
 
   const [
     jobCategoryLookup,
@@ -44,33 +45,30 @@ export const JobCategoryLookup = forwardRef<
     ...(client && { client }),
   });
 
-  const handleSubmit = () => {
-    jobCategoryLookup({
-      variables: {
-        id: jobCategoryId,
-      },
-    });
-  };
+  useEffect(() => {
+    if (debouncedJobCategoryId) {
+      jobCategoryLookup({
+        variables: {
+          id: debouncedJobCategoryId,
+        },
+      });
+    }
+  }, [jobCategoryLookup, debouncedJobCategoryId]);
 
+  if (categoryLoading) {
+    return <Loader />;
+  }
   return (
     <Stack dividers space="large">
       <Stack space="medium">
-        <Columns space="small" alignY="bottom">
-          <Column>
-            <TextField
-              aria-label="Job category OID"
-              id="categoryId"
-              onClear={() => setJobCategoryId('')}
-              value={jobCategoryId ?? ''}
-              onChange={(event) => setJobCategoryId(event.currentTarget.value)}
-              name="categoryId"
-            />
-          </Column>
-
-          <Column width="content">
-            <Button onClick={handleSubmit}>Find</Button>
-          </Column>
-        </Columns>
+        <TextField
+          aria-label="Job category OID"
+          id="categoryId"
+          onClear={() => setJobCategoryId('')}
+          value={jobCategoryId ?? ''}
+          onChange={(event) => setJobCategoryId(event.currentTarget.value)}
+          name="categoryId"
+        />
 
         <FieldMessage
           id="categoryIdMessage"
@@ -81,12 +79,13 @@ export const JobCategoryLookup = forwardRef<
           }
         />
       </Stack>
+
       {categoryLoading && <Loader />}
 
       {categoryError && (
         <FieldMessage
-          id="jobCategorySelectError"
-          message="Sorry, we couldn’t fetch categories. Please try again."
+          id="jobCategoryLookupError"
+          message="Sorry, we couldn’t fetch category. Please try again."
           tone="critical"
         />
       )}

@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
 
 import { MockComponentActions } from '../../private/MockComponentActions/MockComponentActions';
+import { JobCategoryQueryVariables } from '../../types/seekApi.graphql';
 import { ApolloMockProvider } from '../ApolloMockProvider/ApolloMockProvider';
 
 import { JobCategoryLookup, JobCategoryLookupProps } from './JobCategoryLookup';
@@ -15,7 +16,10 @@ export const MockJobCategoryLookup = forwardRef<HTMLInputElement, Props>(
     <ApolloMockProvider
       resolvers={{
         Query: {
-          jobCategory: () => mockJobCategory,
+          jobCategory: (_root, args: JobCategoryQueryVariables) =>
+            args.id === 'seekAnz:jobCategory:seek:CTriSTrf'
+              ? mockJobCategory
+              : undefined,
         },
       }}
     >
