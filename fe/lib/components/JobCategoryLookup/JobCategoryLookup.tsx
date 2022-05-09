@@ -13,11 +13,13 @@ import {
 import React, { forwardRef, useState } from 'react';
 import { InlineCode } from 'scoobie';
 
+import { BreadCrumbsString } from '../../../example/src/components/BreadCrumbsString';
 import { SeekApiResponse } from '../../../example/src/components/SeekApiResponse';
 import {
   JobCategoryQuery,
   JobCategoryQueryVariables,
 } from '../../types/seekApi.graphql';
+import { flattenResourceByKey } from '../../utils/flattenResourceByKey';
 
 import { JOB_CATEGORY } from './queries';
 
@@ -49,9 +51,10 @@ export const JobCategoryLookup = forwardRef<
       },
     });
   };
+
   return (
-    <form action="" method="get">
-      <Stack space="small">
+    <Stack dividers space="large">
+      <Stack space="medium">
         <Columns space="small" alignY="bottom">
           <Column>
             <TextField
@@ -73,43 +76,39 @@ export const JobCategoryLookup = forwardRef<
           id="categoryIdMessage"
           message={
             <>
-              e.g. <InlineCode>{schemeId}:jobCategory:seek:cs6EEZj5</InlineCode>
+              e.g. <InlineCode>{schemeId}:jobCategory:seek:CTriSTrf</InlineCode>
             </>
           }
         />
-
-        {categoryLoading && <Loader />}
-
-        {categoryError && (
-          <FieldMessage
-            id="jobCategorySelectError"
-            message="Sorry, we couldn’t fetch categories. Please try again."
-            tone="critical"
-          />
-        )}
-
-        <Stack space="medium">
-          {categoryData &&
-            (categoryData.jobCategory ? (
-              <>
-                {/* <Breadcrumbs
-              segments={flattenResourceByKey(
-                categoryData.jobCategory,
-                'parent',
-              ).reverse()}
-            /> */}
-
-                <SeekApiResponse id="jobCategorySeekApiResponse">
-                  {categoryData.jobCategory}
-                </SeekApiResponse>
-              </>
-            ) : (
-              <Notice tone="info">
-                <Text>Hmm, we can’t find that job category.</Text>
-              </Notice>
-            ))}
-        </Stack>
       </Stack>
-    </form>
+      {categoryLoading && <Loader />}
+
+      {categoryError && (
+        <FieldMessage
+          id="jobCategorySelectError"
+          message="Sorry, we couldn’t fetch categories. Please try again."
+          tone="critical"
+        />
+      )}
+
+      {categoryData &&
+        (categoryData.jobCategory ? (
+          <>
+            <BreadCrumbsString
+              segments={flattenResourceByKey(categoryData.jobCategory, 'parent')
+                .map((x) => ({ name: x.name, key: x.id.value }))
+                .reverse()}
+            />
+
+            <SeekApiResponse id="jobCategorySeekApiResponse">
+              {categoryData.jobCategory}
+            </SeekApiResponse>
+          </>
+        ) : (
+          <Notice tone="info">
+            <Text>Hmm, we can’t find that job category.</Text>
+          </Notice>
+        ))}
+    </Stack>
   );
 });
