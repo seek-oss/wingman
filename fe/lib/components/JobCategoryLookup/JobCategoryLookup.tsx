@@ -7,17 +7,17 @@ import {
   Text,
   TextField,
 } from 'braid-design-system';
-import React, { forwardRef, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { InlineCode } from 'scoobie';
 import { useDebounce } from 'use-debounce';
 
-import { BreadCrumbsString } from '../../../example/src/components/BreadCrumbsString';
-import { SeekApiResponse } from '../../../example/src/components/SeekApiResponse';
 import {
   JobCategoryQuery,
   JobCategoryQueryVariables,
 } from '../../types/seekApi.graphql';
 import { flattenResourceByKey } from '../../utils/flattenResourceByKey';
+import { BreadCrumbsString } from '../BreadCrumbsString/BreadCrumbsString';
+import { SeekApiResponse } from '../SeekApiResponse/SeekApiResponse';
 
 import { JOB_CATEGORY } from './queries';
 
@@ -28,10 +28,12 @@ export interface JobCategoryLookupProps {
   debounceDelay?: number;
 }
 
-export const JobCategoryLookup = forwardRef<
-  HTMLInputElement,
-  JobCategoryLookupProps
->(({ schemeId, initialJobCategoryId, debounceDelay = 250, client }) => {
+export const JobCategoryLookup = ({
+  schemeId,
+  initialJobCategoryId,
+  debounceDelay = 250,
+  client,
+}: JobCategoryLookupProps) => {
   const [jobCategoryId, setJobCategoryId] = useState(
     initialJobCategoryId ?? '',
   );
@@ -55,9 +57,6 @@ export const JobCategoryLookup = forwardRef<
     }
   }, [jobCategoryLookup, debouncedJobCategoryId]);
 
-  if (categoryLoading) {
-    return <Loader />;
-  }
   return (
     <Stack dividers space="large">
       <Stack space="medium">
@@ -110,4 +109,4 @@ export const JobCategoryLookup = forwardRef<
         ))}
     </Stack>
   );
-});
+};
