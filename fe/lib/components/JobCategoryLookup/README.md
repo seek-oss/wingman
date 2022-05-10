@@ -1,6 +1,6 @@
 # JobCategoryLookup
 
-A JobCategory lookup component that returns a JobCategory (parent or child) with object identifier on category selection.
+A JobCategory lookup component that returns a job category (parent or child) with an object identifier on lookup.
 
 ## Installation
 
@@ -10,7 +10,7 @@ yarn add wingman-fe
 
 ## Job Category Lookup Widget
 
-The JobCategoryLookup widget abstracts the `jobCategory` query on SEEK API and provides a select input that returns a SEEK JobCategory.
+The JobCategoryLookup widget abstracts the `jobCategory` query on SEEK API and provides a select input that returns a SEEK job category.
 Read more about underlying [`jobCategory` query](https://developer.seek.com/schema/#/query/jobCategory).
 
 ### Properties
@@ -23,7 +23,7 @@ Optional:
 
 - `client`: An `ApolloClient` instance. By default JobCategoryLookup uses the client passed down via context, but a different client can be passed in.
 
-- `debounceDelay`: The delay in milliseconds between job category lookup calls to reduce overhead. Defaults to `250`.
+- `debounceDelay`: The delay in milliseconds between job category lookup calls to reduce overhead. Defaults to `250ms`.
 
 - `initialJobCategoryId`: The ID of a job category to look up in the component - for example 'seekAnz:jobCategory:seek:CTriSTrf'. This is useful when looking up an existing entity with a saved job category that has been loaded from a data store.
 

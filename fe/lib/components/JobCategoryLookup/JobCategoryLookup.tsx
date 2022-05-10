@@ -84,7 +84,7 @@ export const JobCategoryLookup = ({
       {categoryError && (
         <FieldMessage
           id="jobCategoryLookupError"
-          message="Sorry, we couldn’t fetch category. Please try again."
+          message="Sorry, we couldn’t fetch the job category. Please try again."
           tone="critical"
         />
       )}
