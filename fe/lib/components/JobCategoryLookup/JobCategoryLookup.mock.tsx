@@ -12,7 +12,7 @@ interface Props extends JobCategoryLookupProps {
 }
 
 export const MockJobCategoryLookup = forwardRef<HTMLInputElement, Props>(
-  ({ client: _client, showStorybookAction, ...props }, ref) => (
+  ({ client: _client, showStorybookAction, ...props }) => (
     <ApolloMockProvider
       resolvers={{
         Query: {
@@ -29,7 +29,7 @@ export const MockJobCategoryLookup = forwardRef<HTMLInputElement, Props>(
         storybookPath="/story/job-posting-job-categories-jobcategorylookup--job-category-lookup"
         sourcePath="lib/components/JobCategoryLookup"
       >
-        <JobCategoryLookup {...props} ref={ref} />
+        <JobCategoryLookup {...props} />
       </MockComponentActions>
     </ApolloMockProvider>
   ),
