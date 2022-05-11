@@ -3117,7 +3117,7 @@ export interface PositionOpening {
   /**
    * The party that owns the position opening.
    *
-   * This may be different from the hiring organization if the position opening is created by a recruitment agency.
+   * This may be different from the hiring organization if the position opening was created by a recruitment agency outside of the SEEK API.
    */
   postingRequester: PostingRequester;
   /**
@@ -4029,7 +4029,8 @@ export interface PostingRequester {
   /**
    * The identifier for the `HiringOrganization` that owns the position opening.
    *
-   * This may be a hirer or agency.
+   * This is typically a hirer,
+   * but may be a recruitment agency for position openings created outside of the SEEK API.
    */
   id: ObjectIdentifier;
   /** The name of the party that owns the position opening. */
@@ -4042,7 +4043,12 @@ export interface PostingRequester {
    * Currently, two codes are defined:
    *
    * - `Agency` indicates a recruitment agency hiring on behalf of another company.
+   *
+   *   This only applies to position openings created outside of the SEEK API.
+   *
    * - `Company` indicates a company hiring on behalf of themselves.
+   *
+   *   This applies to all position openings created through the SEEK API.
    */
   roleCode: Scalars['String'];
   /**
