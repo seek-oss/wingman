@@ -2,4 +2,4 @@
 'wingman-fe': minor
 ---
 
-LocationLookup: Add LocationLookup component
+LocationLookup: Add component
