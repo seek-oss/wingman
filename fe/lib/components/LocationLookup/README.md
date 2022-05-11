@@ -10,7 +10,7 @@ yarn add wingman-fe
 
 ## Location Lookup Widget
 
-The LocationLookup widget abstracts the `location` query on SEEK API and provides a select input that returns a SEEK location.
+The LocationLookup widget abstracts the `location` query on SEEK API and provides a text input that returns a SEEK location.
 Read more about underlying [`location` query](https://developer.seek.com/schema/#/query/location).
 
 ### Properties

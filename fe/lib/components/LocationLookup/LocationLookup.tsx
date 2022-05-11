@@ -81,7 +81,7 @@ export const LocationLookup = ({
       {locationError && (
         <FieldMessage
           id="locationLookupError"
-          message="Sorry, we couldn’t fetch the location. Please try again."
+          message="Sorry, we couldn’t retrieve this location. Please try again."
           tone="critical"
         />
       )}
