@@ -10,7 +10,7 @@ yarn add wingman-fe
 
 ## Job Category Lookup Widget
 
-The JobCategoryLookup widget abstracts the `jobCategory` query on SEEK API and provides a select input that returns a SEEK job category.
+The JobCategoryLookup widget abstracts the `jobCategory` query on SEEK API and provides a text input that returns a SEEK job category.
 Read more about underlying [`jobCategory` query](https://developer.seek.com/schema/#/query/jobCategory).
 
 ### Properties
