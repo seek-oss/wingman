@@ -1,5 +1,17 @@
 # wingman-fe
 
+## 6.2.0
+
+### Minor Changes
+
+- **JobCategoryLookup:** Add component ([#772](https://github.com/seek-oss/wingman/pull/772))
+
+* **LocationLookup:** Add component ([#776](https://github.com/seek-oss/wingman/pull/776))
+
+### Patch Changes
+
+- **deps:** use-debounce ^8.0.0 ([#771](https://github.com/seek-oss/wingman/pull/771))
+
 ## 6.1.1
 
 ### Patch Changes
