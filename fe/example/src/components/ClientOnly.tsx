@@ -1,9 +1,9 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { ExtendedClientContext, augmentClient, useUser } from '../hooks/user';
 
 interface Props {
-  children: ReactNode | ((ctx: ExtendedClientContext) => ReactNode);
+  children: JSX.Element | ((ctx: ExtendedClientContext) => JSX.Element);
 }
 
 export const ClientOnly = ({ children }: Props) => {

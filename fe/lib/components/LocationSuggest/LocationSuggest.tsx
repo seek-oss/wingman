@@ -188,7 +188,7 @@ export const LocationSuggest = forwardRef<
           />
         </Stack>
 
-        {(message || reserveMessageSpace) && (
+        {(Boolean(message) || reserveMessageSpace) && (
           <FieldMessage
             id="locationSuggestMessage"
             message={message}
