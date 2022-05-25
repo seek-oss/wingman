@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 6.2.1
+
+### Patch Changes
+
+- Support React 18 typings ([#782](https://github.com/seek-oss/wingman/pull/782))
+
 ## 6.2.0
 
 ### Minor Changes
