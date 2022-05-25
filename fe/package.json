@@ -18,8 +18,8 @@
     "@testing-library/react": "12.1.3",
     "@types/content-disposition": "0.5.4",
     "@types/faker": "5.5.9",
-    "@types/react": "17.0.40",
-    "@types/react-dom": "17.0.13",
+    "@types/react": "18.0.9",
+    "@types/react-dom": "18.0.5",
     "@vanilla-extract/css": "1.7.0",
     "@vanilla-extract/css-utils": "0.1.2",
     "braid-design-system": "31.13.0",
@@ -29,10 +29,10 @@
     "faker": "5.5.3",
     "path-browserify": "1.0.1",
     "query-string": "7.1.1",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
+    "react": "18.1.0",
+    "react-dom": "18.1.0",
     "react-router-dom": "5.3.0",
-    "scoobie": "13.0.3",
+    "scoobie": "13.0.7",
     "sku": "11.4.2",
     "use-query-params": "1.2.3",
     "webpack-merge": "5.8.0"
@@ -47,7 +47,7 @@
   "peerDependencies": {
     "braid-design-system": ">= 31.0",
     "graphql": ">= 15 < 17",
-    "react": ">= 17 < 18",
+    "react": ">= 17 < 19",
     "scoobie": ">= 11"
   },
   "repository": {

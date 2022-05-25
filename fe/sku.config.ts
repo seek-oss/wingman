@@ -43,6 +43,12 @@ const config: SkuConfig = {
         },
       ],
     },
+
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
   }),
 
   dangerouslySetWebpackConfig: (skuWebpackConfig) =>
