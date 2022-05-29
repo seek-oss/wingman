@@ -4666,14 +4666,7 @@
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.4.tgz#cd667bcfdd025213aafb7ca5915a932590acdcdc"
   integrity sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==
 
-"@types/react-dom@*":
-  version "17.0.14"
-  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.14.tgz#c8f917156b652ddf807711f5becbd2ab018dea9f"
-  integrity sha512-H03xwEP1oXmSfl3iobtmQ/2dHF5aBHr8aUMwyGZya6OW45G+xtdzmq6HkncefiBt5JU8DVyaWl/nWZbjZCnzAQ==
-  dependencies:
-    "@types/react" "*"
-
-"@types/react-dom@18.0.5":
+"@types/react-dom@*", "@types/react-dom@18.0.5":
   version "18.0.5"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.0.5.tgz#330b2d472c22f796e5531446939eacef8378444a"
   integrity sha512-OWPWTUrY/NIrjsAPkAk1wW9LZeIjSvkXRhclsFO8CZcZGCOg2G0YZy4ft+rOyYxy8B7ui5iZzi9OkDebZ7/QSA==
@@ -19033,10 +19026,10 @@ skuba-dive@2.0.0:
   dependencies:
     module-alias "^2.2.2"
 
-skuba@4.2.1:
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/skuba/-/skuba-4.2.1.tgz#52a04ecd6e759715e744fcf9d53c6a46a79f1f6d"
-  integrity sha512-JuBtRiwFshES7WFkFuW+wibiqn87CcQEMvCvJ3UgTxWyDUUKLDUkjW+nCa6HWyK3BtovJ5AM2JWe6yPr5qaLiQ==
+skuba@4.2.2:
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/skuba/-/skuba-4.2.2.tgz#894bf2bd6d616ed8469073dd06746c4cab77de5a"
+  integrity sha512-NeCmV3p5e5Fx9GXQTxgsbWjTZbYK0xuqV+TKT1kk91zCxGDQ7w1fVJamy/aeAiNwfgeoml0klcEirZQcB0zjnA==
   dependencies:
     "@octokit/rest" "^18.12.0"
     "@octokit/types" "^6.34.0"
