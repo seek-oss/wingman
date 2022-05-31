@@ -1,5 +1,11 @@
 # wingman-be
 
+## 0.4.3
+
+### Patch Changes
+
+- **deps:** seek-koala ^6.0.0 ([#788](https://github.com/seek-oss/wingman/pull/788))
+
 ## 0.4.2
 
 ### Patch Changes
