@@ -18563,12 +18563,10 @@ scuid@^1.1.0:
   resolved "https://registry.yarnpkg.com/scuid/-/scuid-1.1.0.tgz#d3f9f920956e737a60f72d0e4ad280bf324d5dab"
   integrity sha512-MuCAyrGZcTLfQoH2XoBlQ8C6bzwN88XT/0slOGz0pn8+gIP85BOAfYa44ZXQUTOwRwPU0QvgU+V+OSajl/59Xg==
 
-seek-koala@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/seek-koala/-/seek-koala-5.1.0.tgz#4e5c0e9831825fa5d16b66066eb6f6906b6e7cfe"
-  integrity sha512-gLo26gSlFhSbF+NaaTShBe080b4mFPt9iEqLArrJy05p0/JgWcKv3xWqzHdq4jt6cxypPNERvHHKS31ExjDq4g==
-  dependencies:
-    uuid "^8.0.0"
+seek-koala@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/seek-koala/-/seek-koala-6.0.0.tgz#c06121cf90d6b7e075f2956a3d8a35a41e7745b0"
+  integrity sha512-KQXY0vbZ/Z5bR2hnUejCzTamxPl6q2fZAG8j4EyersgkMe3r19vaS2gH9Nua8yxafzqKl0QWkBIEK3jr5Z/jrA==
 
 select-hose@^2.0.0:
   version "2.0.0"
