@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 6.3.1
+
+### Patch Changes
+
+- **JobCategoryLookup, LocationLookup, LocationSuggest:** Fix incorrect ordering of breadcrumbs ([#796](https://github.com/seek-oss/wingman/pull/796))
+
 ## 6.3.0
 
 ### Minor Changes
