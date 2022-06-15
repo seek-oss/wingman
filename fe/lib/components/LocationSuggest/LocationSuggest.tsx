@@ -37,6 +37,7 @@ export interface LocationSuggestProps
   schemeId: string;
   usageTypeCode?: string;
   initialValue?: string;
+  showBreadcrumbs?: boolean;
 }
 
 export const LocationSuggest = forwardRef<
@@ -58,6 +59,7 @@ export const LocationSuggest = forwardRef<
       name,
       reserveMessageSpace,
       tone,
+      showBreadcrumbs,
 
       ...restProps
     },
@@ -227,7 +229,7 @@ export const LocationSuggest = forwardRef<
           />
         ) : null}
 
-        {selectedLocation ? (
+        {showBreadcrumbs && selectedLocation ? (
           <BreadCrumbsString
             segments={flattenResourceByKey(selectedLocation, 'parent')
               .map((x) => ({ name: x.name, key: x.id.value }))
