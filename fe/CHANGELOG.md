@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 6.3.0
+
+### Minor Changes
+
+- **LocationSuggest:** Support `showBreadcrumbs` prop ([#794](https://github.com/seek-oss/wingman/pull/794))
+
 ## 6.2.1
 
 ### Patch Changes
