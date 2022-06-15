@@ -2,4 +2,4 @@
 'wingman-fe': minor
 ---
 
-LocationSuggest: Add breadcrumbs
+LocationSuggest: Support `showBreadcrumbs` prop
