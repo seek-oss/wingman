@@ -2,4 +2,4 @@
 'wingman-fe': patch
 ---
 
-LocationSuggest, LocationLookup, JobCategoryLookup: fix incorrect ordering of breadcrumbs
+JobCategoryLookup, LocationLookup, LocationSuggest: Fix incorrect ordering of breadcrumbs
