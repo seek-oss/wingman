@@ -186,7 +186,7 @@ export const LocationSuggest = forwardRef<
           <input
             type="hidden"
             name={name}
-            value={selectedLocation?.id.value}
+            value={selectedLocation?.id.value ?? ''}
             ref={forwardedRef}
             readOnly
           />
