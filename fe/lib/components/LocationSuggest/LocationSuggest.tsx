@@ -231,9 +231,9 @@ export const LocationSuggest = forwardRef<
 
         {showBreadcrumbs && selectedLocation ? (
           <BreadCrumbsString
-            segments={flattenResourceByKey(selectedLocation, 'parent')
-              .map((x) => ({ name: x.name, key: x.id.value }))
-              .reverse()}
+            segments={flattenResourceByKey(selectedLocation, 'parent').map(
+              (x) => ({ name: x.name, key: x.id.value }),
+            )}
           />
         ) : null}
       </Stack>

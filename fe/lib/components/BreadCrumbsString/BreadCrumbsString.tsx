@@ -13,7 +13,7 @@ export const BreadCrumbsString = ({ segments }: Props) => (
           <Strong key={key}>{name} </Strong>
         ) : (
           <Fragment key={key}>
-            <IconChevron direction="right" /> {name}{' '}
+            <IconChevron direction="left" /> {name}{' '}
           </Fragment>
         ),
       )}

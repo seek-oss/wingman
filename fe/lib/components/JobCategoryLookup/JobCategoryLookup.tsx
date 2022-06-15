@@ -93,9 +93,10 @@ export const JobCategoryLookup = ({
         (categoryData.jobCategory ? (
           <>
             <BreadCrumbsString
-              segments={flattenResourceByKey(categoryData.jobCategory, 'parent')
-                .map((x) => ({ name: x.name, key: x.id.value }))
-                .reverse()}
+              segments={flattenResourceByKey(
+                categoryData.jobCategory,
+                'parent',
+              ).map((x) => ({ name: x.name, key: x.id.value }))}
             />
 
             <SeekApiResponse id="jobCategoryLookupSeekApiResponse">
