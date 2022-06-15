@@ -19,6 +19,7 @@ export default {
     label: 'Location',
     message: 'undefined',
     reserveMessageSpace: false,
+    showBreadcrumbs: false,
     schemeId: 'seekAnz',
     tone: defaultArgs.tone,
   },

@@ -18,6 +18,8 @@ import type {
   SuggestLocationsQuery,
   SuggestLocationsQueryVariables,
 } from '../../types/seekApi.graphql';
+import { flattenResourceByKey } from '../../utils';
+import { BreadCrumbsString } from '../BreadCrumbsString/BreadCrumbsString';
 
 import LocationSuggestInput from './LocationSuggestInput';
 import { LOCATION, LOCATION_SUGGEST, NEAREST_LOCATIONS } from './queries';
@@ -35,6 +37,7 @@ export interface LocationSuggestProps
   schemeId: string;
   usageTypeCode?: string;
   initialValue?: string;
+  showBreadcrumbs?: boolean;
 }
 
 export const LocationSuggest = forwardRef<
@@ -56,12 +59,13 @@ export const LocationSuggest = forwardRef<
       name,
       reserveMessageSpace,
       tone,
+      showBreadcrumbs,
 
       ...restProps
     },
     forwardedRef,
   ) => {
-    const [selectedLocationId, setSelectedLocationId] = useState('');
+    const [selectedLocation, setSelectedLocation] = useState<Location>();
     const [locationSuggestInput, setLocationSuggestInput] = useState('');
     const [detectLocationError, setDetectLocationError] = useState<string>();
 
@@ -123,12 +127,12 @@ export const LocationSuggest = forwardRef<
       { client },
     );
 
-    const handleLocationSelect = (selectedLocation?: Location) => {
+    const handleLocationSelect = (value?: Location) => {
       if (onSelect) {
-        onSelect(selectedLocation);
+        onSelect(value);
       }
-      if (selectedLocation?.id?.value) {
-        setSelectedLocationId(selectedLocation.id.value);
+      if (value) {
+        setSelectedLocation(value);
       }
     };
 
@@ -168,7 +172,7 @@ export const LocationSuggest = forwardRef<
             }
             onChange={setLocationSuggestInput}
             onClear={() => {
-              setSelectedLocationId('');
+              setSelectedLocation(undefined);
               setPlaceholder('');
             }}
             onDetectLocation={handleDetectLocationClicked}
@@ -182,7 +186,7 @@ export const LocationSuggest = forwardRef<
           <input
             type="hidden"
             name={name}
-            value={selectedLocationId}
+            value={selectedLocation?.id.value ?? ''}
             ref={forwardedRef}
             readOnly
           />
@@ -222,6 +226,14 @@ export const LocationSuggest = forwardRef<
             id="locationSuggestDetectLocationError"
             message={detectLocationError}
             tone="critical"
+          />
+        ) : null}
+
+        {showBreadcrumbs && selectedLocation ? (
+          <BreadCrumbsString
+            segments={flattenResourceByKey(selectedLocation, 'parent')
+              .map((x) => ({ name: x.name, key: x.id.value }))
+              .reverse()}
           />
         ) : null}
       </Stack>
