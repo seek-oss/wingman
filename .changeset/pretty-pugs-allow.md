@@ -2,4 +2,4 @@
 'wingman-fe': minor
 ---
 
-Add breadcrumbs to LocationSuggest
+LocationSuggest: Add breadcrumbs
