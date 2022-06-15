@@ -90,9 +90,10 @@ export const LocationLookup = ({
         (locationData.location ? (
           <>
             <BreadCrumbsString
-              segments={flattenResourceByKey(locationData.location, 'parent')
-                .map((x) => ({ name: x.name, key: x.id.value }))
-                .reverse()}
+              segments={flattenResourceByKey(
+                locationData.location,
+                'parent',
+              ).map((x) => ({ name: x.name, key: x.id.value }))}
             />
 
             <SeekApiResponse id="locationLookupSeekApiResponse">
