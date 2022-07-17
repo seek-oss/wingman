@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@changesets/cli": "2.23.0",
+    "@changesets/cli": "2.23.2",
     "@changesets/get-github-info": "0.5.1"
   },
   "devDependencies": {
