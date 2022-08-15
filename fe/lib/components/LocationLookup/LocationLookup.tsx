@@ -96,9 +96,10 @@ export const LocationLookup = ({
               ).map((x) => ({ name: x.name, key: x.id.value }))}
             />
 
-            <SeekApiResponse id="locationLookupSeekApiResponse">
-              {locationData.location}
-            </SeekApiResponse>
+            <SeekApiResponse
+              data={locationData.location}
+              id="locationLookupSeekApiResponse"
+            />
           </>
         ) : (
           <Notice tone="info">
