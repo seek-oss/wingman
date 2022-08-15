@@ -2,6 +2,8 @@ import { Disclosure } from 'braid-design-system';
 import React from 'react';
 import { CodeBlock } from 'scoobie';
 
+import { prettyPrintWithoutTypename } from './prettyPrintWithoutTypename';
+
 interface Props {
   /**
    * The label of the underlying disclosure component when it can be collapsed.
@@ -35,12 +37,6 @@ export const SeekApiResponse = ({
     expandLabel={expandLabel ?? 'Show SEEK API response'}
     id={id}
   >
-    <CodeBlock language="json">
-      {JSON.stringify(
-        data,
-        (name, value) => (name === '__typename' ? undefined : value),
-        2,
-      )}
-    </CodeBlock>
+    <CodeBlock language="json">{prettyPrintWithoutTypename(data)}</CodeBlock>
   </Disclosure>
 );

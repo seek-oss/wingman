@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`prettyPrintWithoutTypename empty object 1`] = `"{}"`;
+
+exports[`prettyPrintWithoutTypename object with nested __typenames 1`] = `
+"{
+  \\"id\\": {
+    \\"value\\": 123
+  }
+}"
+`;
+
+exports[`prettyPrintWithoutTypename object without __typenames 1`] = `
+"{
+  \\"id\\": {
+    \\"value\\": 123
+  }
+}"
+`;
