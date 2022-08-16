@@ -1,5 +1,13 @@
 # wingman-fe
 
+## 6.4.0
+
+### Minor Changes
+
+- **prettyPrintWithoutTypename:** Export new function ([#812](https://github.com/seek-oss/wingman/pull/812))
+
+* **SeekApiResponse:** Export new component ([#812](https://github.com/seek-oss/wingman/pull/812))
+
 ## 6.3.1
 
 ### Patch Changes
