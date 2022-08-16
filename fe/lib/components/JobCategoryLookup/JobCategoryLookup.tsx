@@ -99,9 +99,10 @@ export const JobCategoryLookup = ({
               ).map((x) => ({ name: x.name, key: x.id.value }))}
             />
 
-            <SeekApiResponse id="jobCategoryLookupSeekApiResponse">
-              {categoryData.jobCategory}
-            </SeekApiResponse>
+            <SeekApiResponse
+              data={categoryData.jobCategory}
+              id="jobCategoryLookupSeekApiResponse"
+            />
           </>
         ) : (
           <Notice tone="info">

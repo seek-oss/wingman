@@ -29,4 +29,7 @@ export { MockSalaryDetails } from './components/SalaryDetails/SalaryDetails.mock
 export { SpecifiedPersonForm } from './components/SpecifiedPersonForm/SpecifiedPersonForm';
 export { MockSpecifiedPersonForm } from './components/SpecifiedPersonForm/SpecifiedPersonForm.mock';
 
+export { SeekApiResponse } from './components/SeekApiResponse/SeekApiResponse';
+export { prettyPrintWithoutTypename } from './components/SeekApiResponse/prettyPrintWithoutTypename';
+
 export { apolloTypePolicies } from './types/apolloTypePolicies';
