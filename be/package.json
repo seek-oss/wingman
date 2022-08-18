@@ -5,7 +5,7 @@
   "dependencies": {
     "@graphql-tools/utils": "^8.5.5",
     "@graphql-tools/wrap": "^8.3.2",
-    "apollo-server-core": "^3.6.1",
+    "apollo-server-core": "^3.10.1",
     "apollo-server-koa": "^3.6.1",
     "graphql": "^16.2.0",
     "koa": "^2.13.4",
