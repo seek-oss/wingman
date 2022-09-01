@@ -81,7 +81,7 @@ describe('createBrowserTokenMiddleware', () => {
       .send({ scope: 'arbitrary' })
       .expect(200, VALID_BROWSER_TOKEN_RESPONSE);
 
-    expect(fetchSpy).toBeCalledTimes(1);
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
 
     const response = await agent()
       .post('/')
@@ -94,7 +94,7 @@ describe('createBrowserTokenMiddleware', () => {
       expires_in: expect.any(Number),
     });
 
-    expect(fetchSpy).toBeCalledTimes(1);
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
 
     await agent()
       .post('/')
@@ -102,7 +102,7 @@ describe('createBrowserTokenMiddleware', () => {
       .send({ scope: 'intentional' })
       .expect(200);
 
-    expect(fetchSpy).toBeCalledTimes(2);
+    expect(fetchSpy).toHaveBeenCalledTimes(2);
   });
 
   it('blocks an invalid request', () =>
