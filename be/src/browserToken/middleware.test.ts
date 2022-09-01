@@ -112,9 +112,13 @@ describe('createBrowserTokenMiddleware', () => {
       .send({ noscope: 720 })
       .expect(400)
       .expect(({ text }) =>
-        expect(text).toMatchInlineSnapshot(
-          `"Bad Request: Expected { scope: string; }, but was incompatible"`,
-        ),
+        expect(text).toMatchInlineSnapshot(`
+          "Bad Request: Validation failed:
+          {
+            "scope": "Expected string, but was missing"
+          }.
+          Object should match { scope: string; }"
+        `),
       ));
 
   it('blocks an unknown user', () =>
