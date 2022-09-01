@@ -53,7 +53,7 @@ describe('createSeekGraphMiddleware', () => {
 
     expect(response.body).toEqual(graphqlResponse);
 
-    expect(getPartnerToken).toBeCalledTimes(1);
+    expect(getPartnerToken).toHaveBeenCalledTimes(1);
   });
 
   it('blocks an unauthorised request', async () => {
@@ -80,6 +80,6 @@ describe('createSeekGraphMiddleware', () => {
       ],
     });
 
-    expect(getPartnerToken).toBeCalledTimes(1);
+    expect(getPartnerToken).toHaveBeenCalledTimes(1);
   });
 });

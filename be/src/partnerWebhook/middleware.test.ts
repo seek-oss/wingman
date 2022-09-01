@@ -97,7 +97,7 @@ describe('createPartnerWebhookMiddleware', () => {
       .send({ ...SIGNED_WEBHOOK_BODY, subscriptionId: '???' })
       .expect(400, 'New webhook, who dis');
 
-    expect(callback).not.toBeCalled();
+    expect(callback).not.toHaveBeenCalled();
   });
 
   it('denies a request with an invalid body', async () => {
@@ -107,6 +107,6 @@ describe('createPartnerWebhookMiddleware', () => {
       .send({})
       .expect(400, 'Invalid request');
 
-    expect(callback).not.toBeCalled();
+    expect(callback).not.toHaveBeenCalled();
   });
 });
