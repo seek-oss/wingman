@@ -137,8 +137,8 @@ export const SpecifiedPersonForm = ({
       <TextField type="tel" {...fieldProps('specifiedPersonPhoneNumber')} />
 
       <Actions>
-        <Button onClick={addContact}>
-          <IconPersonAdd /> Add contact
+        <Button icon={<IconPersonAdd />} onClick={addContact}>
+          Add contact
         </Button>
       </Actions>
     </Stack>
