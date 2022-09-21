@@ -33,22 +33,24 @@ export const MockComponentActions = ({
           href={`https://seek-oss.github.io/wingman/storybook/?path=${encodeURIComponent(
             storybookPath,
           )}`}
+          icon={<IconEducation />}
           rel="noreferrer"
           target="_blank"
           tone="brandAccent"
           variant="ghost"
         >
-          <IconEducation /> Open in Storybook
+          Open in Storybook
         </ButtonLink>
 
         <ButtonLink
           href={`https://github.com/seek-oss/wingman/tree/master/fe/${sourcePath}`}
+          icon={<IconSocialGitHub />}
           rel="noreferrer"
           target="_blank"
           tone="brandAccent"
           variant="transparent"
         >
-          <IconSocialGitHub /> View on GitHub
+          View on GitHub
         </ButtonLink>
       </Actions>
     )}

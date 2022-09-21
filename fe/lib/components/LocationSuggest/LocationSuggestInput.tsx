@@ -155,12 +155,13 @@ const LocationSuggestInput = ({
       </Column>
       <Column width="content">
         <Button
+          icon={<IconLocation />}
           loading={isLoading}
           onClick={handleDetectLocationClicked}
           tone={tone === 'critical' ? tone : undefined}
           variant="soft"
         >
-          Detect location <IconLocation />
+          Detect location
         </Button>
       </Column>
     </Columns>
