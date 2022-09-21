@@ -1,5 +1,4 @@
 import React from 'react';
-import { v4 as uuid } from 'uuid';
 
 import type {
   FormComponent,
@@ -35,7 +34,7 @@ const createAddPrivacyConsentAction =
   (dispatch: React.Dispatch<AddComponentAction>) =>
   (descriptionHtml: string, url: string) => {
     const newValue: PrivacyConsent = {
-      value: uuid(),
+      value: self.crypto.randomUUID(),
       privacyPolicyUrl: {
         url,
       },
@@ -48,7 +47,7 @@ const createAddPrivacyConsentAction =
 const createAddFreeTextQuestionAction =
   (dispatch: React.Dispatch<AddComponentAction>) => (questionText: string) => {
     const newValue: FreeTextQuestion = {
-      value: uuid(),
+      value: self.crypto.randomUUID(),
       questionHtml: questionText,
       responseTypeCode: 'FreeText',
       componentTypeCode: 'Question',
@@ -66,7 +65,7 @@ const createAddSelectQuestionAction =
       value: text.replace(/ /g, '').toLowerCase(),
     }));
     const newValue: SelectionQuestion = {
-      value: uuid(),
+      value: self.crypto.randomUUID(),
       componentTypeCode: 'Question',
       questionHtml: questionText,
       responseTypeCode: questionType,
