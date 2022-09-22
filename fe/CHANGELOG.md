@@ -1,5 +1,13 @@
 # wingman-fe
 
+## 6.4.1
+
+### Patch Changes
+
+- Use standard `icon` slot for buttons ([#822](https://github.com/seek-oss/wingman/pull/822))
+
+  Notably, this moves the "Detect location" icon to precede the button label.
+
 ## 6.4.0
 
 ### Minor Changes
