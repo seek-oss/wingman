@@ -26,12 +26,14 @@ interface CacheKey {
   scope: string;
 }
 
-const tokenCache = new LRU<string, CacheItem>();
+const tokenCache = new LRU<string, CacheItem>({
+  max: 1024,
+});
 
 const cacheKey = ({ hirerId, scope }: CacheKey) =>
   JSON.stringify({ hirerId, scope });
 
-export const resetTokenCache = () => tokenCache.reset();
+export const resetTokenCache = () => tokenCache.clear();
 
 const _createBrowserTokenMiddleware = ({
   callback,
@@ -119,11 +121,9 @@ const _createBrowserTokenMiddleware = ({
     };
 
     // Write off the token at its half life. This is a bit mean.
-    tokenCache.set(
-      cacheKey({ browserTokenUrl, hirerId, scope }),
-      freshItem,
-      expiresInMs / 2,
-    );
+    tokenCache.set(cacheKey({ browserTokenUrl, hirerId, scope }), freshItem, {
+      ttl: expiresInMs / 2,
+    });
 
     const event: BrowserTokenEvent = {
       type: 'RETRIEVED',
