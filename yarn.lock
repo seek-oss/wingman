@@ -5269,10 +5269,10 @@
   dependencies:
     "@types/koa" "*"
 
-"@types/koa__router@8.0.11":
-  version "8.0.11"
-  resolved "https://registry.yarnpkg.com/@types/koa__router/-/koa__router-8.0.11.tgz#d7b37e6db934fc072ea1baa2ab92bc8ac4564f3e"
-  integrity sha512-WXgKWpBsbS14kzmzD9LeFapOIa678h7zvUHxDwXwSx4ETKXhXLVUAToX6jZ/U7EihM7qwyD9W/BZvB0MRu7MTQ==
+"@types/koa__router@12.0.0":
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/@types/koa__router/-/koa__router-12.0.0.tgz#19b0f287f9708267dfd8842feb5f2de407d93af2"
+  integrity sha512-S6eHyZyoWCZLNHyy8j0sMW85cPrpByCbGGU2/BO4IzGiI87aHJ92lZh4E9xfsM9DcbCT469/OIqyC0sSJXSIBQ==
   dependencies:
     "@types/koa" "*"
 
@@ -5293,10 +5293,12 @@
   resolved "https://registry.yarnpkg.com/@types/long/-/long-4.0.2.tgz#b74129719fc8d11c01868010082d483b7545591a"
   integrity sha512-MqTGEo5bj5t157U6fA/BiDynNkn0YknVdh48CMPkTSpFTVmvao5UQmm7uEF6xBEo7qIMAlY/JSleYaE6VOdpaA==
 
-"@types/lru-cache@5.1.1":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@types/lru-cache/-/lru-cache-5.1.1.tgz#c48c2e27b65d2a153b19bfc1a317e30872e01eef"
-  integrity sha512-ssE3Vlrys7sdIzs5LOxCzTVMsU7i9oa/IaW92wF32JFb3CVczqOkru2xspuKczHEbG3nvmPY7IFqVmGGHdNbYw==
+"@types/lru-cache@7.10.9":
+  version "7.10.9"
+  resolved "https://registry.yarnpkg.com/@types/lru-cache/-/lru-cache-7.10.9.tgz#9712d6bad532e6db2e693de6eb35c64770e24783"
+  integrity sha512-wrwgkdJ0xr8AbzKhVaRI8SXZN9saapPwwLoydBEr4HqMZET1LUTi1gdoaj82XmRJ9atqN7MtB0aja29iiK+7ag==
+  dependencies:
+    lru-cache "*"
 
 "@types/mdast@^3.0.0":
   version "3.0.10"
@@ -15000,6 +15002,11 @@ lowlight@^1.14.0:
     fault "^1.0.0"
     highlight.js "~10.7.0"
 
+lru-cache@*, lru-cache@^7.10.1, lru-cache@^7.4.4, lru-cache@^7.5.1, lru-cache@^7.7.1:
+  version "7.14.0"
+  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-7.14.0.tgz#21be64954a4680e303a09e9468f880b98a0b3c7f"
+  integrity sha512-EIRtP1GrSJny0dqb50QXRUNBxHJhcpxHC++M5tD7RYbvLLn5KVWKsbyswSSqDuU15UFi3bgTQIY8nhDMeF6aDQ==
+
 lru-cache@^4.0.1:
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-4.1.5.tgz#8bbe50ea85bed59bc9e33dcab8235ee9bcf443cd"
@@ -15021,11 +15028,6 @@ lru-cache@^6.0.0:
   integrity sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==
   dependencies:
     yallist "^4.0.0"
-
-lru-cache@^7.10.1, lru-cache@^7.4.4, lru-cache@^7.5.1, lru-cache@^7.7.1:
-  version "7.14.0"
-  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-7.14.0.tgz#21be64954a4680e303a09e9468f880b98a0b3c7f"
-  integrity sha512-EIRtP1GrSJny0dqb50QXRUNBxHJhcpxHC++M5tD7RYbvLLn5KVWKsbyswSSqDuU15UFi3bgTQIY8nhDMeF6aDQ==
 
 lru-queue@^0.1.0:
   version "0.1.0"
