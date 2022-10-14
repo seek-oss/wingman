@@ -181,6 +181,7 @@ export const LocationSuggest = forwardRef<
             setDetectLocationError={setDetectLocationError}
             tone={tone}
             initialLocation={initialLocation?.location ?? undefined}
+            schemeId={schemeId}
           />
 
           <input

@@ -4,17 +4,25 @@ import {
   Button,
   Column,
   Columns,
+  Dialog,
+  IconLanguage,
   IconLocation,
   IconSearch,
+  Text,
   TextField,
 } from 'braid-design-system';
 import React, { ComponentProps, useEffect, useState } from 'react';
+import { SmartTextLink } from 'scoobie';
 
 import type {
   GeoLocationInput,
   Location,
   LocationSuggestion,
 } from '../../types/seekApi.graphql';
+
+import { MapSelect } from './components/MapSelect';
+
+const SEEK_MEL_CENTER: [number, number] = [-37.8275, 144.9902];
 
 interface Suggestion {
   text: string;
@@ -51,6 +59,7 @@ interface Props {
   setDetectLocationError: (err?: string) => void;
   tone: ComponentProps<typeof TextField>['tone'];
   initialLocation?: Location;
+  schemeId: string;
 }
 
 const LocationSuggestInput = ({
@@ -64,6 +73,7 @@ const LocationSuggestInput = ({
   setDetectLocationError,
   tone,
   initialLocation,
+  schemeId,
   ...restProps
 }: Props) => {
   const initialLocationSuggest = {
@@ -74,6 +84,8 @@ const LocationSuggestInput = ({
   const [locationSuggest, setLocationSuggest] = useState(
     initialLocationSuggest,
   );
+
+  const [showMapDialog, setShowMapDialog] = useState(false);
 
   useEffect(() => {
     if (initialLocation) {
@@ -137,6 +149,15 @@ const LocationSuggestInput = ({
     }
   };
 
+  const handleMapLocationSelected = (location: Location) => {
+    setShowMapDialog(false);
+    setLocationSuggest({
+      text: location.contextualName,
+      value: location.id.value,
+    });
+    onSelect(location);
+  };
+
   return (
     <Columns alignY="bottom" collapseBelow="tablet" space="small">
       <Column>
@@ -152,6 +173,41 @@ const LocationSuggestInput = ({
           tone={tone}
           value={locationSuggest}
         />
+      </Column>
+      <Column width="content">
+        <Button
+          icon={<IconLanguage />}
+          onClick={() => setShowMapDialog(true)}
+          tone={tone === 'critical' ? tone : undefined}
+          variant="soft"
+        >
+          Select on map
+        </Button>
+        {showMapDialog ? (
+          <Dialog
+            id="map-dialog"
+            title="Select a location"
+            width="medium"
+            description={
+              <Text tone="secondary">
+                Select a point on the map to choose from a list of{' '}
+                <SmartTextLink href="https://developer.seek.com/use-cases/job-posting/locations#nearestlocations">
+                  nearest locations
+                </SmartTextLink>
+              </Text>
+            }
+            open={showMapDialog}
+            onClose={() => {
+              setShowMapDialog(false);
+            }}
+          >
+            <MapSelect
+              schemeId={schemeId}
+              onLocationSelected={handleMapLocationSelected}
+              initialLocation={SEEK_MEL_CENTER}
+            />
+          </Dialog>
+        ) : null}
       </Column>
       <Column width="content">
         <Button
