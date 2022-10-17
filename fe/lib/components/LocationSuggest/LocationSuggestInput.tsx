@@ -183,31 +183,29 @@ const LocationSuggestInput = ({
         >
           Select on map
         </Button>
-        {showMapDialog ? (
-          <Dialog
-            id="map-dialog"
-            title="Select a location"
-            width="medium"
-            description={
-              <Text tone="secondary">
-                Select a point on the map to choose from a list of{' '}
-                <SmartTextLink href="https://developer.seek.com/use-cases/job-posting/locations#nearestlocations">
-                  nearest locations
-                </SmartTextLink>
-              </Text>
-            }
-            open={showMapDialog}
-            onClose={() => {
-              setShowMapDialog(false);
-            }}
-          >
-            <MapSelect
-              schemeId={schemeId}
-              onLocationSelected={handleMapLocationSelected}
-              initialLocation={SEEK_MEL_CENTER}
-            />
-          </Dialog>
-        ) : null}
+        <Dialog
+          id="map-dialog"
+          title="Select a location"
+          width="medium"
+          description={
+            <Text tone="secondary">
+              Select a point on the map to choose from a list of{' '}
+              <SmartTextLink href="https://developer.seek.com/use-cases/job-posting/locations#nearestlocations">
+                nearest locations
+              </SmartTextLink>
+            </Text>
+          }
+          open={showMapDialog}
+          onClose={() => {
+            setShowMapDialog(false);
+          }}
+        >
+          <MapSelect
+            schemeId={schemeId}
+            onLocationSelected={handleMapLocationSelected}
+            initialLocation={SEEK_MEL_CENTER}
+          />
+        </Dialog>
       </Column>
       <Column width="content">
         <Button

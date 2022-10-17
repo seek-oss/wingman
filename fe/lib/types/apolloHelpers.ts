@@ -66,11 +66,13 @@ export type AdvertisementBrandingImageFieldPolicy = {
   url?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type AdvertisementBrandingsConnectionKeySpecifier = (
+  | 'brandManagementUrl'
   | 'edges'
   | 'pageInfo'
   | AdvertisementBrandingsConnectionKeySpecifier
 )[];
 export type AdvertisementBrandingsConnectionFieldPolicy = {
+  brandManagementUrl?: FieldPolicy<any> | FieldReadFunction<any>;
   edges?: FieldPolicy<any> | FieldReadFunction<any>;
   pageInfo?: FieldPolicy<any> | FieldReadFunction<any>;
 };
@@ -494,12 +496,14 @@ export type CommunicationKeySpecifier = (
   | 'address'
   | 'email'
   | 'phone'
+  | 'seekDoNotContactIndicator'
   | CommunicationKeySpecifier
 )[];
 export type CommunicationFieldPolicy = {
   address?: FieldPolicy<any> | FieldReadFunction<any>;
   email?: FieldPolicy<any> | FieldReadFunction<any>;
   phone?: FieldPolicy<any> | FieldReadFunction<any>;
+  seekDoNotContactIndicator?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type CreateApplicationQuestionnairePayloadKeySpecifier = (
   | 'applicationQuestionnaire'
@@ -1147,6 +1151,7 @@ export type PostedPositionProfileKeySpecifier = (
   | 'profileId'
   | 'seekAnzWorkTypeCode'
   | 'seekApplicationQuestionnaire'
+  | 'seekApplicationUri'
   | 'seekBillingReference'
   | 'seekCreatedBySelfIndicator'
   | 'seekHirerJobReference'
@@ -1169,6 +1174,7 @@ export type PostedPositionProfileFieldPolicy = {
   profileId?: FieldPolicy<any> | FieldReadFunction<any>;
   seekAnzWorkTypeCode?: FieldPolicy<any> | FieldReadFunction<any>;
   seekApplicationQuestionnaire?: FieldPolicy<any> | FieldReadFunction<any>;
+  seekApplicationUri?: FieldPolicy<any> | FieldReadFunction<any>;
   seekBillingReference?: FieldPolicy<any> | FieldReadFunction<any>;
   seekCreatedBySelfIndicator?: FieldPolicy<any> | FieldReadFunction<any>;
   seekHirerJobReference?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1735,6 +1741,7 @@ export type WebhookSubscriptionEdgeFieldPolicy = {
 export type WebhookSubscriptionReplayKeySpecifier = (
   | 'createDateTime'
   | 'id'
+  | 'request'
   | 'statusCode'
   | 'updateDateTime'
   | 'webhookSubscription'
@@ -1743,6 +1750,7 @@ export type WebhookSubscriptionReplayKeySpecifier = (
 export type WebhookSubscriptionReplayFieldPolicy = {
   createDateTime?: FieldPolicy<any> | FieldReadFunction<any>;
   id?: FieldPolicy<any> | FieldReadFunction<any>;
+  request?: FieldPolicy<any> | FieldReadFunction<any>;
   statusCode?: FieldPolicy<any> | FieldReadFunction<any>;
   updateDateTime?: FieldPolicy<any> | FieldReadFunction<any>;
   webhookSubscription?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1755,6 +1763,19 @@ export type WebhookSubscriptionReplayEdgeKeySpecifier = (
 export type WebhookSubscriptionReplayEdgeFieldPolicy = {
   cursor?: FieldPolicy<any> | FieldReadFunction<any>;
   node?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type WebhookSubscriptionReplayRequestKeySpecifier = (
+  | 'afterDateTime'
+  | 'beforeDateTime'
+  | 'hirer'
+  | 'replayDeliveredEventsIndicator'
+  | WebhookSubscriptionReplayRequestKeySpecifier
+)[];
+export type WebhookSubscriptionReplayRequestFieldPolicy = {
+  afterDateTime?: FieldPolicy<any> | FieldReadFunction<any>;
+  beforeDateTime?: FieldPolicy<any> | FieldReadFunction<any>;
+  hirer?: FieldPolicy<any> | FieldReadFunction<any>;
+  replayDeliveredEventsIndicator?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type WebhookSubscriptionReplaysConnectionKeySpecifier = (
   | 'edges'
@@ -2963,6 +2984,16 @@ export type StrictTypedTypePolicies = {
       | WebhookSubscriptionReplayEdgeKeySpecifier
       | (() => undefined | WebhookSubscriptionReplayEdgeKeySpecifier);
     fields?: WebhookSubscriptionReplayEdgeFieldPolicy;
+  };
+  WebhookSubscriptionReplayRequest?: Omit<
+    TypePolicy,
+    'fields' | 'keyFields'
+  > & {
+    keyFields?:
+      | false
+      | WebhookSubscriptionReplayRequestKeySpecifier
+      | (() => undefined | WebhookSubscriptionReplayRequestKeySpecifier);
+    fields?: WebhookSubscriptionReplayRequestFieldPolicy;
   };
   WebhookSubscriptionReplaysConnection?: Omit<
     TypePolicy,

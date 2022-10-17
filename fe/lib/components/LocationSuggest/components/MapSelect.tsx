@@ -17,7 +17,7 @@ import { useState } from 'react';
 import { InlineCode } from 'scoobie';
 import { useDebounce } from 'use-debounce';
 
-import { Location } from '../../../types/seekApi.graphql';
+import { Location, NearbyLocationsQuery } from '../../../types/seekApi.graphql';
 import { formatPoint } from '../../../utils/formatPoint';
 
 import { NEAREST_LOCATIONS } from './queries';
@@ -39,37 +39,35 @@ export const MapSelect = ({
   onLocationSelected,
   initialLocation,
 }: Props) => {
-  const [center, setCenter] = useState(initialLocation);
   const [latLong, setLatLong] = useState(initialLocation);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-  const responsivevalue = useResponsiveValue();
+  const responsiveValue = useResponsiveValue();
   const color = useColor();
   const [debouncedLatLong] = useDebounce(latLong, debounceDelay);
 
-  const { data, previousData } = useQuery<{
-    nearestLocations: Array<Location> | null;
-  }>(NEAREST_LOCATIONS, {
-    variables: {
-      geoLocation: {
-        latitude: debouncedLatLong[0],
-        longitude: debouncedLatLong[1],
+  const { data, previousData } = useQuery<NearbyLocationsQuery>(
+    NEAREST_LOCATIONS,
+    {
+      variables: {
+        geoLocation: {
+          latitude: debouncedLatLong[0],
+          longitude: debouncedLatLong[1],
+        },
+        schemeId,
       },
-      first: 3,
-      schemeId,
     },
-    fetchPolicy: 'no-cache',
-  });
+  );
 
   const nearestLocations =
     data?.nearestLocations ?? previousData?.nearestLocations;
 
-  const isDesktopOrAbove = responsivevalue({
+  const isDesktopOrAbove = responsiveValue({
     mobile: false,
     desktop: true,
   });
 
-  const nearestLocationsCards = () => (
+  const NearestLocationsCards = () => (
     <Box borderRadius="standard" background="surface">
       <Stack dividers space="none">
         <Box
@@ -103,25 +101,23 @@ export const MapSelect = ({
             key={location.id.value}
             onClick={() => onLocationSelected(location)}
           >
-            <Box position="relative">
-              <Stack space="small">
-                <Text size="small">{location.contextualName}</Text>
-                <InlineCode>{location.id.value}</InlineCode>
-              </Stack>
-            </Box>
+            <Stack space="small">
+              <Text size="small">{location.contextualName}</Text>
+              <InlineCode>{location.id.value}</InlineCode>
+            </Stack>
           </Box>
         ))}
       </Stack>
     </Box>
   );
 
-  const noLocationsNotice = () => (
+  const NoLocationsNotice = () => (
     <Alert
       tone="info"
       onClose={() => setShowSuggestions(false)}
       closeLabel="Close"
     >
-      <Text>{`No locations found.`}</Text>
+      <Text>No locations found.</Text>
     </Alert>
   );
 
@@ -131,29 +127,30 @@ export const MapSelect = ({
   return (
     <Box>
       <Map
-        center={center}
         defaultCenter={initialLocation}
         defaultZoom={DEFAULT_ZOOM}
         height={isDesktopOrAbove ? 1500 : 600}
         onClick={({ latLng }) => {
           setLatLong(latLng);
-          setCenter(latLng);
           setShowSuggestions(true);
         }}
         animate={true}
         animateMaxScreens={100}
+        center={latLong}
       >
         <Marker
           color={color.foreground.formAccentLight}
           anchor={latLong}
-          onClick={() => setCenter(latLong)}
+          onClick={() => setLatLong(latLong)}
         />
         {/* View for desktops and above */}
         {showSuggestions && isDesktopOrAbove && (
           <Overlay anchor={latLong} offset={suggestionsOffset}>
-            {hasNearestLocations
-              ? nearestLocationsCards()
-              : noLocationsNotice()}
+            {hasNearestLocations ? (
+              <NearestLocationsCards />
+            ) : (
+              <NoLocationsNotice />
+            )}
           </Overlay>
         )}
         <ZoomControl />
@@ -164,10 +161,10 @@ export const MapSelect = ({
         <>
           {hasNearestLocations ? (
             <Stack dividers space="none">
-              {nearestLocationsCards()}
+              <NearestLocationsCards />
             </Stack>
           ) : (
-            noLocationsNotice()
+            <NoLocationsNotice />
           )}
         </>
       )}
