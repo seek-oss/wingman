@@ -163,7 +163,7 @@ export const StateContext = React.createContext<StateContextType>({
   dispatch: () => {},
 });
 
-const splitArrayAt = <T extends any>(inputArray: T[], index: number) => {
+const splitArrayAt = <T>(inputArray: T[], index: number) => {
   const beforeItem = inputArray.slice(0, index);
   const afterItem = inputArray.slice(index + 1);
   const item = inputArray[index];
