@@ -10,6 +10,7 @@ import {
   Text,
   useColor,
   useResponsiveValue,
+  useSpace,
 } from 'braid-design-system';
 import { Map, Marker, Overlay, ZoomControl } from 'pigeon-maps';
 import React from 'react';
@@ -59,6 +60,7 @@ export const LocationSelectMap = ({
 
   const responsiveValue = useResponsiveValue();
   const color = useColor();
+  const { space, grid } = useSpace();
   const [debouncedLatLong] = useDebounce(latLong, debounceDelay);
 
   const { data, previousData } = useQuery<NearbyLocationsQuery>(
@@ -89,8 +91,8 @@ export const LocationSelectMap = ({
     <Box borderRadius="standard" background="surface">
       <Stack dividers space="none">
         <Box
-          paddingX="medium"
-          paddingY={{ desktop: 'xsmall', tablet: 'small', mobile: 'small' }}
+          paddingX={{ desktop: 'medium', tablet: 'none', mobile: 'none' }}
+          paddingY={{ desktop: 'xsmall', tablet: 'medium', mobile: 'medium' }}
         >
           <Columns space="small" alignY="center">
             <Column>
@@ -115,7 +117,8 @@ export const LocationSelectMap = ({
           <Box
             className={styles.card}
             cursor="pointer"
-            padding="medium"
+            paddingX={{ desktop: 'medium', tablet: 'none', mobile: 'none' }}
+            paddingY="medium"
             key={location.id.value}
             onClick={() => onLocationSelected(location)}
           >
@@ -140,10 +143,9 @@ export const LocationSelectMap = ({
   );
 
   const hasNearestLocations = nearestLocations && nearestLocations.length > 0;
-  const suggestionsOffset: [number, number] = [-40, 130];
-
+  const suggestionsOffset: [number, number] = [-space.xlarge * grid, 140];
   return (
-    <Box>
+    <Stack space="none">
       <Map
         defaultCenter={initialLocation}
         defaultZoom={DEFAULT_ZOOM}
@@ -186,6 +188,6 @@ export const LocationSelectMap = ({
           )}
         </>
       )}
-    </Box>
+    </Stack>
   );
 };

@@ -189,7 +189,7 @@ const LocationSuggestInput = ({
           Select on map
         </Button>
         <Dialog
-          id="map-dialog"
+          id="seek-location-suggest-map-dialog"
           title="Select a location"
           width="medium"
           description={
