@@ -1,33 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`convertComponentsToMutationVariables when converting components to mutation variables should return as an application questionnaire and return as valid if it meets the conditions 1`] = `
-Object {
+{
   "valid": true,
-  "variables": Object {
-    "input": Object {
-      "applicationQuestionnaire": Object {
-        "components": Array [
-          Object {
+  "variables": {
+    "input": {
+      "applicationQuestionnaire": {
+        "components": [
+          {
             "componentTypeCode": "Question",
-            "question": Object {
+            "question": {
               "componentTypeCode": "Question",
               "questionHtml": "Tell us about yourself",
               "responseTypeCode": "FreeText",
               "value": "04e671b1-166d-416d-a346-4b560ad13a51",
             },
           },
-          Object {
+          {
             "componentTypeCode": "Question",
-            "question": Object {
+            "question": {
               "componentTypeCode": "Question",
               "questionHtml": "Can you drive?",
-              "responseChoice": Array [
-                Object {
+              "responseChoice": [
+                {
                   "preferredIndicator": true,
                   "text": "Yes",
                   "value": "yes",
                 },
-                Object {
+                {
                   "preferredIndicator": false,
                   "text": "No",
                   "value": "no",
@@ -37,12 +37,12 @@ Object {
               "value": "76250b99-dfc7-47a3-8418-1fc6bee64589",
             },
           },
-          Object {
+          {
             "componentTypeCode": "PrivacyConsent",
-            "privacyConsent": Object {
+            "privacyConsent": {
               "componentTypeCode": "PrivacyConsent",
               "descriptionHtml": "Do you agree to the privacy policy?",
-              "privacyPolicyUrl": Object {
+              "privacyPolicyUrl": {
                 "url": "https://www.seek.com.au/my-privacy/",
               },
               "value": "cdb93e19-6caf-4852-854c-3088787f234c",
