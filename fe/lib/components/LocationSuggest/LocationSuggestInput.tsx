@@ -86,6 +86,8 @@ const LocationSuggestInput = ({
 
   const [showMapDialog, setShowMapDialog] = useState(false);
 
+  const [detectedLatLong, setDetectedLatLong] = useState<[number, number]>();
+
   useEffect(() => {
     if (initialLocation) {
       setLocationSuggest({
@@ -136,6 +138,10 @@ const LocationSuggestInput = ({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           });
+          setDetectedLatLong([
+            position.coords.latitude,
+            position.coords.longitude,
+          ]);
           setDetectLocationError();
         },
         () =>
@@ -202,7 +208,7 @@ const LocationSuggestInput = ({
           <LocationSelectMap
             schemeId={schemeId}
             onLocationSelected={handleMapLocationSelected}
-            initialLocation={SEEK_MEL_CENTER}
+            initialLocation={detectedLatLong ?? SEEK_MEL_CENTER}
             mapHeight={{
               wide: 1300,
               desktop: 1300,
