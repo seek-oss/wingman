@@ -14,12 +14,7 @@ interface ItemProps<T> {
   value: T | undefined;
 }
 
-const Item = <T extends unknown>({
-  children,
-  chevron,
-  onClick,
-  value,
-}: ItemProps<T>) => (
+const Item = <T,>({ children, chevron, onClick, value }: ItemProps<T>) => (
   <Box
     alignItems="center"
     background="surface"

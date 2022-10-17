@@ -30,7 +30,7 @@ interface Props<T> {
   pageSize: number;
 }
 
-export const ConnectionPagination = <T extends unknown>({
+export const ConnectionPagination = <T,>({
   children: render,
   connection: {
     edges,
