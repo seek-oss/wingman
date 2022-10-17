@@ -9861,7 +9861,7 @@ eslint-config-prettier@^8.5.0:
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.5.0.tgz#5a81680ec934beca02c7b1a61cf8ca34b66feab1"
   integrity sha512-obmWKLUNCnhtQRKc+tmnYuQl0pFU1ibYJQ5BGhTVB08bHe9wC8qUeG7c08dj9XX+AuPj1YSGSQIHl1pnDHZR0Q==
 
-eslint-config-seek@^10.0.0:
+eslint-config-seek@10.0.0, eslint-config-seek@^10.0.0:
   version "10.0.0"
   resolved "https://registry.yarnpkg.com/eslint-config-seek/-/eslint-config-seek-10.0.0.tgz#cea478d21866ca39e7f3a37d2f62fbaa5f3f3d7d"
   integrity sha512-P+ZcZEep3/ZehZacWe52LwOEDCTIcLCYjfzzuhgR+abEkdj5cwIsMtiOVtgiMW0skB2gA1Ej9oHP4vG7WofJBg==
