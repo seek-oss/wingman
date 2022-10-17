@@ -19,8 +19,7 @@ import type {
   Location,
   LocationSuggestion,
 } from '../../types/seekApi.graphql';
-
-import { MapSelect } from './components/MapSelect';
+import { LocationSelectMap } from '../LocationSelectMap';
 
 const SEEK_MEL_CENTER: [number, number] = [-37.8275, 144.9902];
 
@@ -200,10 +199,16 @@ const LocationSuggestInput = ({
             setShowMapDialog(false);
           }}
         >
-          <MapSelect
+          <LocationSelectMap
             schemeId={schemeId}
             onLocationSelected={handleMapLocationSelected}
             initialLocation={SEEK_MEL_CENTER}
+            mapHeight={{
+              wide: 1300,
+              desktop: 1300,
+              tablet: 600,
+              mobile: 600,
+            }}
           />
         </Dialog>
       </Column>
