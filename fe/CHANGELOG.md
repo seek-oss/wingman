@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 6.4.2
+
+### Patch Changes
+
+- **deps:** uuid ^9.0.0 ([#835](https://github.com/seek-oss/wingman/pull/835))
+
 ## 6.4.1
 
 ### Patch Changes
