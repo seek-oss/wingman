@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 6.5.1
+
+### Patch Changes
+
+- **LocationSelectMap:** Dismiss suggestions on select ([#838](https://github.com/seek-oss/wingman/pull/838))
+
 ## 6.5.0
 
 ### Minor Changes
