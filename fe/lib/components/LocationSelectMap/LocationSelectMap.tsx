@@ -120,7 +120,10 @@ export const LocationSelectMap = ({
             paddingX={{ desktop: 'medium', tablet: 'none', mobile: 'none' }}
             paddingY="medium"
             key={location.id.value}
-            onClick={() => onLocationSelected(location)}
+            onClick={() => {
+              onLocationSelected(location);
+              setShowSuggestions(false);
+            }}
           >
             <Stack space="small">
               <Text size="small">{location.contextualName}</Text>
