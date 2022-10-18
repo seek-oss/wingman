@@ -1,5 +1,12 @@
 # wingman-fe
 
+## 6.5.0
+
+### Minor Changes
+
+- **LocationSelectMap:** Add new component ([#834](https://github.com/seek-oss/wingman/pull/834))
+  LocationAutosuggest: Add 'Select on map' feature
+
 ## 6.4.2
 
 ### Patch Changes
