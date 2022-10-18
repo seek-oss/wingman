@@ -81,4 +81,45 @@ export const mockNearestLocations = [
       },
     },
   },
+  {
+    id: {
+      value: 'seekAnz:location:seek:2vArzkyio',
+    },
+    name: 'Sydney',
+    contextualName: 'Sydney NSW 1001 AU',
+    countryCode: 'AU',
+    parent: {
+      id: {
+        value: 'seekAnz:location:seek:2QCxeiwmR',
+      },
+      name: 'CBD, Inner West & Eastern Suburbs',
+      contextualName: 'CBD, Inner West & Eastern Suburbs, Sydney NSW AU',
+      countryCode: 'AU',
+      parent: {
+        id: {
+          value: 'seekAnz:location:seek:2zY2wZbuq',
+        },
+        name: 'Sydney',
+        contextualName: 'Sydney NSW AU',
+        countryCode: 'AU',
+        parent: {
+          id: {
+            value: 'seekAnz:location:seek:FTwZdE2K',
+          },
+          name: 'New South Wales',
+          contextualName: 'New South Wales AU',
+          countryCode: 'AU',
+          parent: {
+            id: {
+              value: 'seekAnz:location:seek:2aeax6diF',
+            },
+            name: 'Australia',
+            contextualName: 'Australia',
+            countryCode: 'AU',
+            parent: null,
+          },
+        },
+      },
+    },
+  },
 ];
