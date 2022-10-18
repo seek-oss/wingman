@@ -120,7 +120,10 @@ export const LocationSelectMap = ({
             paddingX={{ desktop: 'medium', tablet: 'none', mobile: 'none' }}
             paddingY="medium"
             key={location.id.value}
-            onClick={() => onLocationSelected(location)}
+            onClick={() => {
+              onLocationSelected(location);
+              setShowSuggestions(false);
+            }}
           >
             <Stack space="small">
               <Text size="small">{location.contextualName}</Text>
@@ -161,7 +164,10 @@ export const LocationSelectMap = ({
         <Marker
           color={color.foreground.formAccentLight}
           anchor={latLong}
-          onClick={() => setLatLong(latLong)}
+          onClick={() => {
+            setLatLong(latLong);
+            setShowSuggestions(true);
+          }}
         />
         {/* View for desktops and above */}
         {showSuggestions && isDesktopOrAbove && (
