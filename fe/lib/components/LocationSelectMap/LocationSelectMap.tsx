@@ -164,7 +164,10 @@ export const LocationSelectMap = ({
         <Marker
           color={color.foreground.formAccentLight}
           anchor={latLong}
-          onClick={() => setLatLong(latLong)}
+          onClick={() => {
+            setLatLong(latLong);
+            setShowSuggestions(true);
+          }}
         />
         {/* View for desktops and above */}
         {showSuggestions && isDesktopOrAbove && (
