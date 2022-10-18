@@ -14,6 +14,7 @@ export { JobCategoryLookup } from './components/JobCategoryLookup/JobCategoryLoo
 export { MockJobCategoryLookup } from './components/JobCategoryLookup/JobCategoryLookup.mock';
 
 export { LocationSuggest } from './components/LocationSuggest/LocationSuggest';
+export { LocationSelectMap } from './components/LocationSelectMap/LocationSelectMap';
 export { MockLocationSuggest } from './components/LocationSuggest/LocationSuggest.mock';
 export { LocationLookup } from './components/LocationLookup/LocationLookup';
 export { MockLocationLookup } from './components/LocationLookup/LocationLookup.mock';

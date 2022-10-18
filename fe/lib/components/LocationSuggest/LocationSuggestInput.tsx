@@ -4,17 +4,24 @@ import {
   Button,
   Column,
   Columns,
+  Dialog,
+  IconLanguage,
   IconLocation,
   IconSearch,
+  Text,
   TextField,
 } from 'braid-design-system';
 import React, { ComponentProps, useEffect, useState } from 'react';
+import { SmartTextLink } from 'scoobie';
 
 import type {
   GeoLocationInput,
   Location,
   LocationSuggestion,
 } from '../../types/seekApi.graphql';
+import { LocationSelectMap } from '../LocationSelectMap';
+
+const SEEK_MEL_CENTER: [number, number] = [-37.8275, 144.9902];
 
 interface Suggestion {
   text: string;
@@ -51,6 +58,7 @@ interface Props {
   setDetectLocationError: (err?: string) => void;
   tone: ComponentProps<typeof TextField>['tone'];
   initialLocation?: Location;
+  schemeId: string;
 }
 
 const LocationSuggestInput = ({
@@ -64,6 +72,7 @@ const LocationSuggestInput = ({
   setDetectLocationError,
   tone,
   initialLocation,
+  schemeId,
   ...restProps
 }: Props) => {
   const initialLocationSuggest = {
@@ -74,6 +83,10 @@ const LocationSuggestInput = ({
   const [locationSuggest, setLocationSuggest] = useState(
     initialLocationSuggest,
   );
+
+  const [showMapDialog, setShowMapDialog] = useState(false);
+
+  const [detectedLatLong, setDetectedLatLong] = useState<[number, number]>();
 
   useEffect(() => {
     if (initialLocation) {
@@ -125,6 +138,10 @@ const LocationSuggestInput = ({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           });
+          setDetectedLatLong([
+            position.coords.latitude,
+            position.coords.longitude,
+          ]);
           setDetectLocationError();
         },
         () =>
@@ -135,6 +152,15 @@ const LocationSuggestInput = ({
     } else {
       setDetectLocationError('Sorry, we can’t detect your current location.');
     }
+  };
+
+  const handleMapLocationSelected = (location: Location) => {
+    setShowMapDialog(false);
+    setLocationSuggest({
+      text: location.contextualName,
+      value: location.id.value,
+    });
+    onSelect(location);
   };
 
   return (
@@ -152,6 +178,45 @@ const LocationSuggestInput = ({
           tone={tone}
           value={locationSuggest}
         />
+      </Column>
+      <Column width="content">
+        <Button
+          icon={<IconLanguage />}
+          onClick={() => setShowMapDialog(true)}
+          tone={tone === 'critical' ? tone : undefined}
+          variant="soft"
+        >
+          Select on map
+        </Button>
+        <Dialog
+          id="seek-location-suggest-map-dialog"
+          title="Select a location"
+          width="medium"
+          description={
+            <Text tone="secondary">
+              Select a point on the map to choose from a list of{' '}
+              <SmartTextLink href="https://developer.seek.com/use-cases/job-posting/locations#nearestlocations">
+                nearest locations
+              </SmartTextLink>
+            </Text>
+          }
+          open={showMapDialog}
+          onClose={() => {
+            setShowMapDialog(false);
+          }}
+        >
+          <LocationSelectMap
+            schemeId={schemeId}
+            onLocationSelected={handleMapLocationSelected}
+            initialLocation={detectedLatLong ?? SEEK_MEL_CENTER}
+            mapHeight={{
+              wide: 1300,
+              desktop: 1300,
+              tablet: 600,
+              mobile: 600,
+            }}
+          />
+        </Dialog>
       </Column>
       <Column width="content">
         <Button

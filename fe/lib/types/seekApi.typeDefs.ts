@@ -209,6 +209,12 @@ export const typeDefs = gql`
   """
   type AdvertisementBrandingsConnection {
     """
+    A deep link to the SEEK employer website where the hirer can manage their brands.
+
+    This field accepts browser tokens that include the \`query:organizations\` scope.
+    """
+    brandManagementUrl: WebUrl
+    """
     The page of advertisement brandings and their corresponding cursors.
 
     This list may be empty.
@@ -1757,6 +1763,17 @@ export const typeDefs = gql`
     The phone numbers are ordered in descending preference.
     """
     phone: [Phone!]!
+    """
+     Whether the candidate must not be contacted by hirers.
+
+    - For uploaded candidates from the Proactive Sourcing use case,
+      this field may be set to prevent hirers from contacting them through SEEK Talent Search.
+      A \`null\` value is treated the same as an explicit \`false\`.
+
+    - For \`PositionOpening\` contact people from the Job Posting and Proactive Sourcing use cases,
+      this field is always ignored.
+    """
+    seekDoNotContactIndicator: Boolean
   }
 
   """
@@ -1787,6 +1804,17 @@ export const typeDefs = gql`
     Between 0 and 5 phone numbers may be provided, inclusive.
     """
     phone: [PhoneInput!]!
+    """
+    Whether the candidate must not be contacted by hirers.
+
+    - For uploaded candidates from the Proactive Sourcing use case,
+      this field may be set to prevent hirers from contacting them through SEEK Talent Search.
+      A \`null\` value is treated the same as an explicit \`false\`.
+
+    - For \`PositionOpening\` contact people from the Job Posting and Proactive Sourcing use cases,
+      this field is always ignored.
+    """
+    seekDoNotContactIndicator: Boolean
   }
 
   """
@@ -4342,7 +4370,7 @@ export const typeDefs = gql`
     """
     positionTitle: String!
     """
-    The public web URL of the posted job ad.
+    The public web URL of the posted job ad on SEEK.
     """
     positionUri: String!
     """
@@ -4372,6 +4400,12 @@ export const typeDefs = gql`
     The questionnaire responses will be available as \`CandidateProfile.seekQuestionnaireSubmission\` on the candidate's application profile.
     """
     seekApplicationQuestionnaire: ApplicationQuestionnaire
+    """
+    The public web URL to submit an application for the posted job ad on SEEK.
+
+    This is null for job ads that use a link-out application method.
+    """
+    seekApplicationUri: WebUrl
     """
     An optional opaque billing reference.
 
@@ -5482,8 +5516,8 @@ export const typeDefs = gql`
 
     - \`CommissionOnly\` employment is paid exclusively a results-based commission.
     - \`Hourly\` employment is paid for the number of hours worked.
-    - \`Salaried\` employment is paid on an annual basis.
-    - \`SalariedPlusCommission\` employment is paid on an annual basis plus a results-based commission.
+    - \`Salaried\` employment is paid on a monthly or annual basis.
+    - \`SalariedPlusCommission\` employment is paid on a monthly or annual basis plus a results-based commission.
     """
     basisCode: String!
     """
@@ -5516,9 +5550,9 @@ export const typeDefs = gql`
 
     - \`Hourly\` employment is paid for the number of hours worked.
 
-    - \`Salaried\` employment is paid on an annual basis.
+    - \`Salaried\` employment is paid on a monthly or annual basis.
 
-    - \`SalariedPlusCommission\` employment is paid on an annual basis plus a results-based commission.
+    - \`SalariedPlusCommission\` employment is paid on a monthly or annual basis plus a results-based commission.
     """
     basisCode: String!
     """
@@ -5550,9 +5584,10 @@ export const typeDefs = gql`
     """
     The interval the remuneration amounts are calculated over.
 
-    Currently two interval codes are defined:
+    Currently three interval codes are defined:
 
     - \`Hour\` is used to express hourly rates.
+    - \`Month\` is used to express monthly salaries.
     - \`Year\` is used to express annual salaries or commissions.
     """
     intervalCode: String!
@@ -5561,7 +5596,8 @@ export const typeDefs = gql`
 
     A 'null' value indicates the organization has not specified an upper bound for the range.
 
-    If specified, the value must be greater than or equal to the value of \`minimumAmount\`.
+    If specified, the value must be greater than or equal to the value of \`minimumAmount\`,
+    and the currency must match \`minimumAmount\`.
     """
     maximumAmount: RemunerationAmount
     """
@@ -5596,7 +5632,8 @@ export const typeDefs = gql`
 
     A \`null\` value indicates the organization has not specified an upper bound for the range.
 
-    If specified, the value must be greater than or equal to the value of \`minimumAmount\`.
+    If specified, the value must be greater than or equal to the value of \`minimumAmount\`,
+    and the currency must match \`minimumAmount\`.
     """
     maximumAmount: RemunerationAmountInput
     """
@@ -5917,15 +5954,15 @@ export const typeDefs = gql`
     """
     A cover letter specific to a position opening.
     """
-    COVER_LETTER
+    COVER_LETTER @deprecated(reason: "Use Attachment.seekRoleCode")
     """
     A resume or CV.
     """
-    RESUME
+    RESUME @deprecated(reason: "Use Attachment.seekRoleCode")
     """
     A document supporting a position-specific selection criteria.
     """
-    SELECTION_CRITERIA
+    SELECTION_CRITERIA @deprecated(reason: "Use Attachment.seekRoleCode")
   }
 
   """
@@ -7483,6 +7520,10 @@ export const typeDefs = gql`
     """
     id: ObjectIdentifier!
     """
+    The original request for the \`WebhookSubscriptionReplay\`.
+    """
+    request: WebhookSubscriptionReplayRequest!
+    """
     The current status of the replay.
 
     Currently, the following status codes are defined:
@@ -7521,6 +7562,31 @@ export const typeDefs = gql`
     The actual webhook subscription replay.
     """
     node: WebhookSubscriptionReplay!
+  }
+
+  """
+  The original criteria used to determine which events will be replayed.
+  """
+  type WebhookSubscriptionReplayRequest {
+    """
+    The earliest event to include.
+    """
+    afterDateTime: DateTime!
+    """
+    The latest event to include.
+    """
+    beforeDateTime: DateTime!
+    """
+    The hirer to replay events for.
+    """
+    hirer: HiringOrganization
+    """
+    Whether previously delivered events should be included in the request.
+
+    This also includes events that were not delivered because the relevant hirer
+    relationship or webhook subscription was not in place at time of occurrence.
+    """
+    replayDeliveredEventsIndicator: Boolean!
   }
 
   """

@@ -16,17 +16,8 @@ export interface Scalars {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
   Date: string;
-  /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
   DateTime: string;
-  /**
-   * A date string compliant with the ISO 8601 "year", "year and month" or "complete date" formats.
-   *
-   * For example, `"2020"`, `"2020-05"` and `"2020-05-27"` are all valid for `HistoryDate`.
-   *
-   * This is used for dates in a candidate's position & employment histories where the precise month or day may not have been provided.
-   */
   HistoryDate: string;
 }
 
@@ -186,6 +177,12 @@ export interface AdvertisementBrandingImage {
 /** A page of advertisement brandings for a hirer. */
 export interface AdvertisementBrandingsConnection {
   __typename?: 'AdvertisementBrandingsConnection';
+  /**
+   * A deep link to the SEEK employer website where the hirer can manage their brands.
+   *
+   * This field accepts browser tokens that include the `query:organizations` scope.
+   */
+  brandManagementUrl?: Maybe<WebUrl>;
   /**
    * The page of advertisement brandings and their corresponding cursors.
    *
@@ -1518,6 +1515,17 @@ export interface Communication {
    * The phone numbers are ordered in descending preference.
    */
   phone: Array<Phone>;
+  /**
+   *  Whether the candidate must not be contacted by hirers.
+   *
+   * - For uploaded candidates from the Proactive Sourcing use case,
+   *   this field may be set to prevent hirers from contacting them through SEEK Talent Search.
+   *   A `null` value is treated the same as an explicit `false`.
+   *
+   * - For `PositionOpening` contact people from the Job Posting and Proactive Sourcing use cases,
+   *   this field is always ignored.
+   */
+  seekDoNotContactIndicator?: Maybe<Scalars['Boolean']>;
 }
 
 /** Communication channels for a person. */
@@ -1546,6 +1554,17 @@ export interface CommunicationInput {
    * Between 0 and 5 phone numbers may be provided, inclusive.
    */
   phone: Array<PhoneInput>;
+  /**
+   * Whether the candidate must not be contacted by hirers.
+   *
+   * - For uploaded candidates from the Proactive Sourcing use case,
+   *   this field may be set to prevent hirers from contacting them through SEEK Talent Search.
+   *   A `null` value is treated the same as an explicit `false`.
+   *
+   * - For `PositionOpening` contact people from the Job Posting and Proactive Sourcing use cases,
+   *   this field is always ignored.
+   */
+  seekDoNotContactIndicator?: InputMaybe<Scalars['Boolean']>;
 }
 
 /** The input parameter for the `createApplicationQuestionnaire` mutation. */
@@ -3772,7 +3791,7 @@ export interface PostedPositionProfile extends PositionProfile {
   positionScheduleTypeCodes?: Maybe<Array<Scalars['String']>>;
   /** A short phrase describing the position as it would be listed on a business card or in a company directory. */
   positionTitle: Scalars['String'];
-  /** The public web URL of the posted job ad. */
+  /** The public web URL of the posted job ad on SEEK. */
   positionUri: Scalars['String'];
   /** The instructions related to posting the job ad. */
   postingInstructions: Array<PostingInstruction>;
@@ -3797,6 +3816,12 @@ export interface PostedPositionProfile extends PositionProfile {
    * The questionnaire responses will be available as `CandidateProfile.seekQuestionnaireSubmission` on the candidate's application profile.
    */
   seekApplicationQuestionnaire?: Maybe<ApplicationQuestionnaire>;
+  /**
+   * The public web URL to submit an application for the posted job ad on SEEK.
+   *
+   * This is null for job ads that use a link-out application method.
+   */
+  seekApplicationUri?: Maybe<WebUrl>;
   /**
    * An optional opaque billing reference.
    *
@@ -4700,8 +4725,8 @@ export interface RemunerationPackage {
    *
    * - `CommissionOnly` employment is paid exclusively a results-based commission.
    * - `Hourly` employment is paid for the number of hours worked.
-   * - `Salaried` employment is paid on an annual basis.
-   * - `SalariedPlusCommission` employment is paid on an annual basis plus a results-based commission.
+   * - `Salaried` employment is paid on a monthly or annual basis.
+   * - `SalariedPlusCommission` employment is paid on a monthly or annual basis plus a results-based commission.
    */
   basisCode: Scalars['String'];
   /**
@@ -4732,9 +4757,9 @@ export interface RemunerationPackageInput {
    *
    * - `Hourly` employment is paid for the number of hours worked.
    *
-   * - `Salaried` employment is paid on an annual basis.
+   * - `Salaried` employment is paid on a monthly or annual basis.
    *
-   * - `SalariedPlusCommission` employment is paid on an annual basis plus a results-based commission.
+   * - `SalariedPlusCommission` employment is paid on a monthly or annual basis plus a results-based commission.
    */
   basisCode: Scalars['String'];
   /**
@@ -4765,9 +4790,10 @@ export interface RemunerationRange {
   /**
    * The interval the remuneration amounts are calculated over.
    *
-   * Currently two interval codes are defined:
+   * Currently three interval codes are defined:
    *
    * - `Hour` is used to express hourly rates.
+   * - `Month` is used to express monthly salaries.
    * - `Year` is used to express annual salaries or commissions.
    */
   intervalCode: Scalars['String'];
@@ -4776,7 +4802,8 @@ export interface RemunerationRange {
    *
    * A 'null' value indicates the organization has not specified an upper bound for the range.
    *
-   * If specified, the value must be greater than or equal to the value of `minimumAmount`.
+   * If specified, the value must be greater than or equal to the value of `minimumAmount`,
+   * and the currency must match `minimumAmount`.
    */
   maximumAmount?: Maybe<RemunerationAmount>;
   /**
@@ -4811,7 +4838,8 @@ export interface RemunerationRangeInput {
    *
    * A `null` value indicates the organization has not specified an upper bound for the range.
    *
-   * If specified, the value must be greater than or equal to the value of `minimumAmount`.
+   * If specified, the value must be greater than or equal to the value of `minimumAmount`,
+   * and the currency must match `minimumAmount`.
    */
   maximumAmount?: InputMaybe<RemunerationAmountInput>;
   /**
@@ -6317,6 +6345,8 @@ export interface WebhookSubscriptionReplay {
   createDateTime: Scalars['DateTime'];
   /** The identifier for the `WebhookSubscriptionReplay`. */
   id: ObjectIdentifier;
+  /** The original request for the `WebhookSubscriptionReplay`. */
+  request: WebhookSubscriptionReplayRequest;
   /**
    * The current status of the replay.
    *
@@ -6353,6 +6383,24 @@ export interface WebhookSubscriptionReplayEdge {
   cursor: Scalars['String'];
   /** The actual webhook subscription replay. */
   node: WebhookSubscriptionReplay;
+}
+
+/** The original criteria used to determine which events will be replayed. */
+export interface WebhookSubscriptionReplayRequest {
+  __typename?: 'WebhookSubscriptionReplayRequest';
+  /** The earliest event to include. */
+  afterDateTime: Scalars['DateTime'];
+  /** The latest event to include. */
+  beforeDateTime: Scalars['DateTime'];
+  /** The hirer to replay events for. */
+  hirer?: Maybe<HiringOrganization>;
+  /**
+   * Whether previously delivered events should be included in the request.
+   *
+   * This also includes events that were not delivered because the relevant hirer
+   * relationship or webhook subscription was not in place at time of occurrence.
+   */
+  replayDeliveredEventsIndicator: Scalars['Boolean'];
 }
 
 /** A page of webhook subscription replays. */
@@ -6640,6 +6688,56 @@ export type NestedLocationAttributesFragment = {
     id: { __typename?: 'ObjectIdentifier'; value: string };
   } | null;
   id: { __typename?: 'ObjectIdentifier'; value: string };
+};
+
+export type NearbyLocationsQueryVariables = Exact<{
+  geoLocation: GeoLocationInput;
+  schemeId: Scalars['String'];
+}>;
+
+export type NearbyLocationsQuery = {
+  nearestLocations?: Array<{
+    __typename?: 'Location';
+    name: string;
+    contextualName: string;
+    countryCode: string;
+    parent?: {
+      __typename?: 'Location';
+      name: string;
+      contextualName: string;
+      countryCode: string;
+      parent?: {
+        __typename?: 'Location';
+        name: string;
+        contextualName: string;
+        countryCode: string;
+        parent?: {
+          __typename?: 'Location';
+          name: string;
+          contextualName: string;
+          countryCode: string;
+          parent?: {
+            __typename?: 'Location';
+            name: string;
+            contextualName: string;
+            countryCode: string;
+            parent?: {
+              __typename?: 'Location';
+              name: string;
+              contextualName: string;
+              countryCode: string;
+              id: { __typename?: 'ObjectIdentifier'; value: string };
+            } | null;
+            id: { __typename?: 'ObjectIdentifier'; value: string };
+          } | null;
+          id: { __typename?: 'ObjectIdentifier'; value: string };
+        } | null;
+        id: { __typename?: 'ObjectIdentifier'; value: string };
+      } | null;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    } | null;
+    id: { __typename?: 'ObjectIdentifier'; value: string };
+  }> | null;
 };
 
 export type LocationQueryVariables = Exact<{
