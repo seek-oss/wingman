@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 6.5.2
+
+### Patch Changes
+
+- Pass Apollo client to LocationSelectMap in LocationSuggest ([#840](https://github.com/seek-oss/wingman/pull/840))
+
 ## 6.5.1
 
 ### Patch Changes
