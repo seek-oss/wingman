@@ -1,3 +1,4 @@
+import { ApolloClient } from '@apollo/client';
 import matchHighlights from 'autosuggest-highlight/match';
 import {
   Autosuggest,
@@ -59,6 +60,7 @@ interface Props {
   tone: ComponentProps<typeof TextField>['tone'];
   initialLocation?: Location;
   schemeId: string;
+  client?: ApolloClient<unknown>;
 }
 
 const LocationSuggestInput = ({
@@ -73,6 +75,7 @@ const LocationSuggestInput = ({
   tone,
   initialLocation,
   schemeId,
+  client,
   ...restProps
 }: Props) => {
   const initialLocationSuggest = {
@@ -215,6 +218,7 @@ const LocationSuggestInput = ({
               tablet: 600,
               mobile: 600,
             }}
+            client={client}
           />
         </Dialog>
       </Column>

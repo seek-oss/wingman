@@ -182,6 +182,7 @@ export const LocationSuggest = forwardRef<
             tone={tone}
             initialLocation={initialLocation?.location ?? undefined}
             schemeId={schemeId}
+            client={client}
           />
 
           <input
