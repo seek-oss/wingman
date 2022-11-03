@@ -9887,10 +9887,10 @@ eslint-config-prettier@^8.5.0:
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.5.0.tgz#5a81680ec934beca02c7b1a61cf8ca34b66feab1"
   integrity sha512-obmWKLUNCnhtQRKc+tmnYuQl0pFU1ibYJQ5BGhTVB08bHe9wC8qUeG7c08dj9XX+AuPj1YSGSQIHl1pnDHZR0Q==
 
-eslint-config-seek@10.1.0, eslint-config-seek@^10.0.0:
-  version "10.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-seek/-/eslint-config-seek-10.1.0.tgz#0ee3905826588fe4d0cb5ecdd0ce4b4977b9191d"
-  integrity sha512-7W6Vzzenw370K1YwSwEEnfeHAmTKABUW2PwKpevluhpj2p2IVMD0+GXX2L9f2ZInRy1qIY6dsr0euPQbY9xKww==
+eslint-config-seek@10.1.1, eslint-config-seek@^10.0.0:
+  version "10.1.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-seek/-/eslint-config-seek-10.1.1.tgz#6ce4911339be395d45aa365d4a0a68fdf8273af7"
+  integrity sha512-URhqnTL/qFX9BLqObZEqlyPKWMUqQgVGUCo8EXW3wcgTrUmI0vRfyCCP4wFXTowguskQ4zTjv3Ew8HO//Hzmig==
   dependencies:
     "@babel/core" "^7.19.6"
     "@babel/eslint-parser" "^7.19.1"
