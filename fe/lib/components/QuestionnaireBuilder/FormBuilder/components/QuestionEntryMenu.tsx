@@ -13,11 +13,11 @@ interface QuestionEntryMenuProps {
 
 export default ({ onClickEdit, onClickDelete }: QuestionEntryMenuProps) => (
   <OverflowMenu label="Options">
-    <MenuItem onClick={onClickEdit}>
-      <IconEdit /> Edit
+    <MenuItem icon={<IconEdit />} onClick={onClickEdit}>
+      Edit
     </MenuItem>
-    <MenuItem onClick={onClickDelete}>
-      <IconDelete /> Delete
+    <MenuItem icon={<IconDelete />} onClick={onClickDelete}>
+      Delete
     </MenuItem>
   </OverflowMenu>
 );
