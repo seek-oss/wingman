@@ -1,6 +1,32 @@
 {
+  "name": "wingman-be",
+  "version": "0.4.4",
+  "private": false,
+  "homepage": "https://github.com/seek-oss/wingman#readme",
   "bugs": {
     "url": "https://github.com/seek-oss/wingman/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seek-oss/wingman.git",
+    "directory": "be"
+  },
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib/**/*.d.ts",
+    "lib/**/*.js",
+    "lib/**/*.js.map"
+  ],
+  "scripts": {
+    "build": "skuba build",
+    "format": "skuba format",
+    "lint": "skuba lint",
+    "start": "ENVIRONMENT=local skuba start --port 9090",
+    "test": "skuba test",
+    "test:ci": "skuba test --coverage"
   },
   "dependencies": {
     "@graphql-tools/utils": "^8.10.1",
@@ -29,36 +55,10 @@
     "skuba-dive": "2.0.0",
     "supertest": "6.2.2"
   },
-  "files": [
-    "lib/**/*.d.ts",
-    "lib/**/*.js",
-    "lib/**/*.js.map"
-  ],
-  "homepage": "https://github.com/seek-oss/wingman#readme",
-  "license": "MIT",
-  "main": "./lib/index.js",
-  "module": "./lib/index.js",
-  "name": "wingman-be",
-  "private": false,
-  "repository": {
-    "directory": "be",
-    "type": "git",
-    "url": "git+https://github.com/seek-oss/wingman.git"
-  },
-  "scripts": {
-    "build": "skuba build",
-    "format": "skuba format",
-    "lint": "skuba lint",
-    "start": "ENVIRONMENT=local skuba start --port 9090",
-    "test": "skuba test",
-    "test:ci": "skuba test --coverage"
-  },
   "skuba": {
     "entryPoint": "example/src/app.ts",
     "template": null,
     "type": "package",
     "version": "3.7.3"
-  },
-  "types": "./lib/index.d.ts",
-  "version": "0.4.4"
+  }
 }

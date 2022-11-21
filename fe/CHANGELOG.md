@@ -1,5 +1,17 @@
 # wingman-fe
 
+## 7.0.0
+
+### Major Changes
+
+- Require Scoobie 14+ ([#859](https://github.com/seek-oss/wingman/pull/859))
+
+- Require Braid 31.21+ ([#856](https://github.com/seek-oss/wingman/pull/856))
+
+### Patch Changes
+
+- **QuestionnaireBuilder:** Use `MenuItem` icon slot ([#856](https://github.com/seek-oss/wingman/pull/856))
+
 ## 6.5.2
 
 ### Patch Changes
