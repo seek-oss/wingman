@@ -1,5 +1,11 @@
 # wingman-be
 
+## 0.4.5
+
+### Patch Changes
+
+- **deps:** @graphql-tools/utils ^9.0.0 ([#864](https://github.com/seek-oss/wingman/pull/864))
+
 ## 0.4.4
 
 ### Patch Changes
