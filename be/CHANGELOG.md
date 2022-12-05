@@ -1,5 +1,13 @@
 # wingman-be
 
+## 0.5.0-beta.0
+
+### Minor Changes
+
+- **createBrowserTokenMiddleware:** Propagate `hirerId` request body property ([#866](https://github.com/seek-oss/wingman/pull/866))
+
+  This allows the requester to specify a desired hirer which your software can then authorise.
+
 ## 0.4.5
 
 ### Patch Changes

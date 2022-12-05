@@ -1,0 +1,11 @@
+{
+  "mode": "pre",
+  "tag": "beta",
+  "initialVersions": {
+    "wingman-be": "0.4.5",
+    "wingman-fe": "7.0.0"
+  },
+  "changesets": [
+    "sixty-mice-end"
+  ]
+}
