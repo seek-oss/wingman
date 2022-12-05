@@ -51,17 +51,78 @@ describe('createBrowserTokenMiddleware', () => {
 
   afterAll(agent.teardown);
 
-  it('issues a browser token for a valid request', () => {
+  it('issues a browser token for a bodiless request', async () => {
     nock(SEEK_API_BASE_URL)
       .post(SEEK_BROWSER_TOKEN_PATH)
       .matchHeader('user-agent', 'abc/1.2.3')
       .reply(200, VALID_BROWSER_TOKEN_RESPONSE);
 
-    return agent()
+    await agent()
       .post('/')
       .set('aUtHoRiZaTiOn', 'in')
       .send({ scope: 'arbitrary' })
       .expect(200, VALID_BROWSER_TOKEN_RESPONSE);
+
+    expect(getPartnerToken.mock.calls).toMatchInlineSnapshot(`
+      [
+        [
+          {
+            "authorization": "in",
+            "hirerId": undefined,
+          },
+        ],
+      ]
+    `);
+  });
+
+  it('issues a browser token for a request with an invalid hirer ID', async () => {
+    nock(SEEK_API_BASE_URL)
+      .post(SEEK_BROWSER_TOKEN_PATH)
+      .matchHeader('user-agent', 'abc/1.2.3')
+      .reply(200, VALID_BROWSER_TOKEN_RESPONSE);
+
+    await agent()
+      .post('/')
+      .set('aUtHoRiZaTiOn', 'in')
+      .send({ hirerId: 123, scope: 'arbitrary' })
+      .expect(200, VALID_BROWSER_TOKEN_RESPONSE);
+
+    expect(getPartnerToken.mock.calls).toMatchInlineSnapshot(`
+      [
+        [
+          {
+            "authorization": "in",
+            "hirerId": undefined,
+          },
+        ],
+      ]
+    `);
+  });
+  it('issues a browser token for a request with a valid hirer ID', async () => {
+    nock(SEEK_API_BASE_URL)
+      .post(SEEK_BROWSER_TOKEN_PATH)
+      .matchHeader('user-agent', 'abc/1.2.3')
+      .reply(200, VALID_BROWSER_TOKEN_RESPONSE);
+
+    await agent()
+      .post('/')
+      .set('aUtHoRiZaTiOn', 'in')
+      .send({
+        hirerId: 'seekAnzPublicTest:hiringOrganization:seek:123',
+        scope: 'arbitrary',
+      })
+      .expect(200, VALID_BROWSER_TOKEN_RESPONSE);
+
+    expect(getPartnerToken.mock.calls).toMatchInlineSnapshot(`
+      [
+        [
+          {
+            "authorization": "in",
+            "hirerId": "seekAnzPublicTest:hiringOrganization:seek:123",
+          },
+        ],
+      ]
+    `);
   });
 
   it('caches a browser token by scope', async () => {
