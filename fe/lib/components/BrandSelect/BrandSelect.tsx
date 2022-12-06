@@ -56,7 +56,13 @@ export const BrandSelect = ({
     [hirerId, pageSize],
   );
 
-  const { data, previousData, loading, error } = useQuery<
+  const {
+    data,
+    error,
+    loading,
+    previousData,
+    variables: previousVariables,
+  } = useQuery<
     AdvertisementBrandingsQuery,
     AdvertisementBrandingsQueryVariables
   >(ADVERTISEMENT_BRANDINGS, {
@@ -65,6 +71,26 @@ export const BrandSelect = ({
   });
 
   const [selectedBrandId, setSelectedBrandId] = useState(initialBrandId);
+
+  useEffect(() => {
+    if (
+      hasPreselected &&
+      selectedBrandId &&
+      previousVariables?.hirerId !== hirerId
+    ) {
+      // Clear stale state of the previous hirer when `hirerId` changes.
+      onSelect?.();
+
+      setSelectedBrandId(initialBrandId);
+    }
+  }, [
+    hasPreselected,
+    hirerId,
+    initialBrandId,
+    onSelect,
+    previousVariables?.hirerId,
+    selectedBrandId,
+  ]);
 
   useEffect(() => {
     if (initialBrandId) {
@@ -92,9 +118,7 @@ export const BrandSelect = ({
       // Allow unselecting a brand by clicking it again
       brand.id.value === selectedBrandId ? undefined : brand.id.value;
 
-    if (onSelect) {
-      onSelect(nextBrandId);
-    }
+    onSelect?.(nextBrandId);
 
     setSelectedBrandId(nextBrandId);
   };
