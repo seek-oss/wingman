@@ -15,6 +15,12 @@ Provide a hirer-scoped browser token to the Wingman F.E.
 ```http
 POST http://localhost:9090/browser-token HTTP/1.1
 Authorization: ...
+Content-Type: application/json
+
+{
+  "hirerId": "seekAnzPublicTest:organization:seek:93WyyF1h",
+  "scope": "query:locations"
+}
 ```
 
 ```http

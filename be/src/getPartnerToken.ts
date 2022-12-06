@@ -40,9 +40,7 @@ export const wrapRetriever = async <T>(
 ): Promise<T> => {
   const request = {
     authorization: ctx.get('Authorization') || undefined,
-    hirerId: RetrieveRequestBody.guard(ctx.request.body)
-      ? ctx.request.body.hirerId
-      : undefined,
+    hirerId: RetrieveRequestBody.check(ctx.request.body).hirerId,
   };
 
   try {

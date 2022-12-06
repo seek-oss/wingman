@@ -30,6 +30,7 @@ export interface BrowserTokenMiddlewareOptions {
 }
 
 export const BrowserTokenRequest = t.Record({
+  hirerId: t.String,
   scope: t.String,
 });
 

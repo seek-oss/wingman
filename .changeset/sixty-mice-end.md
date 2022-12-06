@@ -2,6 +2,6 @@
 'wingman-be': minor
 ---
 
-createBrowserTokenMiddleware: Propagate `hirerId` request body property
+createBrowserTokenMiddleware: Require `hirerId` request body property
 
-This allows the requester to specify a desired hirer which your software can then authorise.
+The requester is now expected to request a browser token for a specific hirer account which your software can then authorise.

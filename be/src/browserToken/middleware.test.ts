@@ -51,53 +51,6 @@ describe('createBrowserTokenMiddleware', () => {
 
   afterAll(agent.teardown);
 
-  it('issues a browser token for a bodiless request', async () => {
-    nock(SEEK_API_BASE_URL)
-      .post(SEEK_BROWSER_TOKEN_PATH)
-      .matchHeader('user-agent', 'abc/1.2.3')
-      .reply(200, VALID_BROWSER_TOKEN_RESPONSE);
-
-    await agent()
-      .post('/')
-      .set('aUtHoRiZaTiOn', 'in')
-      .send({ scope: 'arbitrary' })
-      .expect(200, VALID_BROWSER_TOKEN_RESPONSE);
-
-    expect(getPartnerToken.mock.calls).toMatchInlineSnapshot(`
-      [
-        [
-          {
-            "authorization": "in",
-            "hirerId": undefined,
-          },
-        ],
-      ]
-    `);
-  });
-
-  it('issues a browser token for a request with an invalid hirer ID', async () => {
-    nock(SEEK_API_BASE_URL)
-      .post(SEEK_BROWSER_TOKEN_PATH)
-      .matchHeader('user-agent', 'abc/1.2.3')
-      .reply(200, VALID_BROWSER_TOKEN_RESPONSE);
-
-    await agent()
-      .post('/')
-      .set('aUtHoRiZaTiOn', 'in')
-      .send({ hirerId: 123, scope: 'arbitrary' })
-      .expect(200, VALID_BROWSER_TOKEN_RESPONSE);
-
-    expect(getPartnerToken.mock.calls).toMatchInlineSnapshot(`
-      [
-        [
-          {
-            "authorization": "in",
-            "hirerId": undefined,
-          },
-        ],
-      ]
-    `);
-  });
   it('issues a browser token for a request with a valid hirer ID', async () => {
     nock(SEEK_API_BASE_URL)
       .post(SEEK_BROWSER_TOKEN_PATH)
@@ -108,7 +61,7 @@ describe('createBrowserTokenMiddleware', () => {
       .post('/')
       .set('aUtHoRiZaTiOn', 'in')
       .send({
-        hirerId: 'seekAnzPublicTest:hiringOrganization:seek:123',
+        hirerId: VALID_HIRER_ID,
         scope: 'arbitrary',
       })
       .expect(200, VALID_BROWSER_TOKEN_RESPONSE);
@@ -118,7 +71,7 @@ describe('createBrowserTokenMiddleware', () => {
         [
           {
             "authorization": "in",
-            "hirerId": "seekAnzPublicTest:hiringOrganization:seek:123",
+            "hirerId": "seekAnzPublicTest:organization:seek:93WyyF1h",
           },
         ],
       ]
@@ -139,7 +92,10 @@ describe('createBrowserTokenMiddleware', () => {
     await agent()
       .post('/')
       .set('aUtHoRiZaTiOn', 'in')
-      .send({ scope: 'arbitrary' })
+      .send({
+        hirerId: VALID_HIRER_ID,
+        scope: 'arbitrary',
+      })
       .expect(200, VALID_BROWSER_TOKEN_RESPONSE);
 
     expect(fetchSpy).toHaveBeenCalledTimes(1);
@@ -147,7 +103,10 @@ describe('createBrowserTokenMiddleware', () => {
     const response = await agent()
       .post('/')
       .set('aUtHoRiZaTiOn', 'in')
-      .send({ scope: 'arbitrary' })
+      .send({
+        hirerId: VALID_HIRER_ID,
+        scope: 'arbitrary',
+      })
       .expect(200);
 
     expect(response.body).toEqual({
@@ -160,17 +119,23 @@ describe('createBrowserTokenMiddleware', () => {
     await agent()
       .post('/')
       .set('aUtHoRiZaTiOn', 'in')
-      .send({ scope: 'intentional' })
+      .send({
+        hirerId: VALID_HIRER_ID,
+        scope: 'intentional',
+      })
       .expect(200);
 
     expect(fetchSpy).toHaveBeenCalledTimes(2);
   });
 
-  it('blocks an invalid request', () =>
+  it('blocks a request with an invalid scope', () =>
     agent()
       .post('/')
       .set('aUtHoRiZaTiOn', 'in')
-      .send({ noscope: 720 })
+      .send({
+        hirerId: VALID_HIRER_ID,
+        noscope: 720,
+      })
       .expect(400)
       .expect(({ text }) =>
         expect(text).toMatchInlineSnapshot(`
@@ -178,18 +143,71 @@ describe('createBrowserTokenMiddleware', () => {
           {
             "scope": "Expected string, but was missing"
           }.
-          Object should match { scope: string; }"
+          Object should match { hirerId: string; scope: string; }"
         `),
       ));
+
+  it('blocks a request without a body', async () => {
+    nock(SEEK_API_BASE_URL)
+      .post(SEEK_BROWSER_TOKEN_PATH)
+      .matchHeader('user-agent', 'abc/1.2.3')
+      .reply(200, VALID_BROWSER_TOKEN_RESPONSE);
+
+    await agent()
+      .post('/')
+      .set('aUtHoRiZaTiOn', 'in')
+      .expect(400)
+      .expect(({ text }) =>
+        expect(text).toMatchInlineSnapshot(`
+          "Bad Request: Validation failed:
+          {
+            "hirerId": "Expected string, but was missing",
+            "scope": "Expected string, but was missing"
+          }.
+          Object should match { hirerId: string; scope: string; }"
+        `),
+      );
+
+    expect(getPartnerToken.mock.calls).toMatchInlineSnapshot(`[]`);
+  });
+
+  it('blocks a request with an invalid hirer ID', async () => {
+    nock(SEEK_API_BASE_URL)
+      .post(SEEK_BROWSER_TOKEN_PATH)
+      .matchHeader('user-agent', 'abc/1.2.3')
+      .reply(200, VALID_BROWSER_TOKEN_RESPONSE);
+
+    await agent()
+      .post('/')
+      .set('aUtHoRiZaTiOn', 'in')
+      .send({ hirerId: 123, scope: 'arbitrary' })
+      .expect(400)
+      .expect(({ text }) =>
+        expect(text).toMatchInlineSnapshot(`
+          "Bad Request: Validation failed:
+          {
+            "hirerId": "Expected string, but was number"
+          }.
+          Object should match { hirerId: string; scope: string; }"
+        `),
+      );
+
+    expect(getPartnerToken.mock.calls).toMatchInlineSnapshot(`[]`);
+  });
 
   it('blocks an unknown user', () =>
     agent()
       .post('/')
       .set('aUtHoRiZaTiOn', 'hacker')
-      .send({ scope: 'arbitrary' })
+      .send({
+        hirerId: VALID_HIRER_ID,
+        scope: 'arbitrary',
+      })
       .expect(401, 'Nice try'));
 
   it('fails on invalid response from the SEEK API', () => {
+    nock.cleanAll();
+
     nock(SEEK_API_BASE_URL)
       .post(SEEK_BROWSER_TOKEN_PATH)
       .matchHeader('user-agent', 'abc/1.2.3')
@@ -198,7 +216,10 @@ describe('createBrowserTokenMiddleware', () => {
     return agent()
       .post('/')
       .set('aUtHoRiZaTiOn', 'in')
-      .send({ scope: 'arbitrary' })
+      .send({
+        hirerId: VALID_HIRER_ID,
+        scope: 'arbitrary',
+      })
       .expect(500);
   });
 });
