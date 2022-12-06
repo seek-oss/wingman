@@ -1,5 +1,13 @@
 # wingman-be
 
+## 0.5.0
+
+### Minor Changes
+
+- **createBrowserTokenMiddleware:** Require `hirerId` request body property ([#866](https://github.com/seek-oss/wingman/pull/866))
+
+  The requester is now expected to request a browser token for a specific hirer account which your software can then authorise.
+
 ## 0.4.5
 
 ### Patch Changes
