@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 7.0.1
+
+### Patch Changes
+
+- **deps:** use-debounce ^9.0.0 ([#872](https://github.com/seek-oss/wingman/pull/872))
+
 ## 7.0.0
 
 ### Major Changes
