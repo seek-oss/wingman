@@ -3,9 +3,9 @@ import clsx from 'clsx';
 import React, { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
-import type { Align } from './Table';
-
 import * as styles from './TableCellLink.css';
+
+import type { Align } from './Table';
 
 interface Props {
   align?: Align;

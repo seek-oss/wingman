@@ -6,13 +6,13 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import { QueryParamProvider } from 'use-query-params';
 
+import * as styles from './App.css';
+
 import { BrowserTokenProvider } from '../../../lib/hooks';
 import { BE_BASE_URL } from '../api/constants';
 
 import { Router } from './Router';
 import { Sidebar } from './Sidebar';
-
-import * as styles from './App.css';
 
 const Content = () => (
   <Box display="flex">

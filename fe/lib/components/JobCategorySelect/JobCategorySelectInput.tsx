@@ -3,13 +3,13 @@ import { Box, Dropdown, Stack } from 'braid-design-system';
 import { vars } from 'braid-design-system/css';
 import React, { ComponentProps, useEffect, useRef, useState } from 'react';
 
+import { categoryLink, childCategoryStyling } from './styles.css';
+
 import type {
   JobCategoriesQuery,
   JobCategoryAttributesFragment,
 } from '../../types/seekApi.graphql';
 import { findObjectByOid } from '../../utils';
-
-import { categoryLink, childCategoryStyling } from './styles.css';
 
 type AllJobCategories = JobCategoriesQuery['jobCategories'];
 type AnyJobCategory = JobCategoryAttributesFragment;

@@ -1,9 +1,9 @@
 import { Box, Text } from 'braid-design-system';
 import React, { ReactNode } from 'react';
 
-import { TableCell } from './TableCell';
-
 import * as styles from './Table.css';
+
+import { TableCell } from './TableCell';
 
 export type Align = 'left' | 'center' | 'right';
 

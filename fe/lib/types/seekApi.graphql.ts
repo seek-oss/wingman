@@ -5093,7 +5093,7 @@ export const SeekAttachmentRole = {
 } as const;
 
 export type SeekAttachmentRole =
-  typeof SeekAttachmentRole[keyof typeof SeekAttachmentRole];
+  (typeof SeekAttachmentRole)[keyof typeof SeekAttachmentRole];
 /** The source system for the process history item. */
 export interface SeekProcessHistoryItemSource {
   __typename?: 'SeekProcessHistoryItemSource';

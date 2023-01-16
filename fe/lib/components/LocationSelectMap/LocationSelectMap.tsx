@@ -18,12 +18,12 @@ import { useState } from 'react';
 import { InlineCode } from 'scoobie';
 import { useDebounce } from 'use-debounce';
 
+import * as styles from './styles.css';
+
 import { Location, NearbyLocationsQuery } from '../../types/seekApi.graphql';
 import { formatPoint } from '../../utils/formatPoint';
 
 import { NEAREST_LOCATIONS } from './queries';
-
-import * as styles from './styles.css';
 
 const DEFAULT_ZOOM = 10;
 const DEFAULT_MAP_HEIGHT = 400;
