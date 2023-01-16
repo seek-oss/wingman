@@ -13,7 +13,7 @@ export interface Questionnaire {
   components: FormComponent[];
 }
 
-type ComponentType = typeof COMPONENT_TYPES[number];
+type ComponentType = (typeof COMPONENT_TYPES)[number];
 
 const COMPONENT_TYPES = [
   'FreeText',

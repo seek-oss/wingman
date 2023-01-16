@@ -1,7 +1,7 @@
 import { faker } from './faker';
 import { USERS, User } from './users';
 
-export type Stage = typeof STAGES[number];
+export type Stage = (typeof STAGES)[number];
 
 export const STAGES = [
   'Open',

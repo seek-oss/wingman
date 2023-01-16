@@ -21,9 +21,10 @@ import React, { useState } from 'react';
 import { StringParam, useQueryParam } from 'use-query-params';
 
 import type { Ad } from '../../data/ads';
-import { NewAdForm } from '../../widgets/NewAdForm';
 
 import * as styles from './List.css';
+
+import { NewAdForm } from '../../widgets/NewAdForm';
 
 interface Props {
   ads: Ad[];
