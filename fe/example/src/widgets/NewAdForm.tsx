@@ -16,10 +16,10 @@ import React, { FormEvent } from 'react';
 import type { AdProductName } from '../data/adProducts';
 import { useLocalStorage } from '../hooks/localStorage';
 
-import * as styles from './NewAdForm.css';
-
 import { AdProductSelect } from './AdProductSelect';
 import { QuestionnaireSelect } from './QuestionnaireSelect';
+
+import * as styles from './NewAdForm.css';
 
 export interface Fields {
   title: string;
