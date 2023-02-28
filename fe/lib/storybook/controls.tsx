@@ -1,13 +1,13 @@
 export interface BraidArgs {
-  braidThemeName: string;
+  braidThemeName: BraidThemeName;
 }
 
 export const defaultArgs = {
-  braidThemeName: 'docs',
+  braidThemeName: 'docs' as const,
   tone: 'undefined',
 };
 
-export type BraidThemeOptions = 'apac' | 'docs' | 'wireframe';
+export type BraidThemeName = 'apac' | 'docs' | 'wireframe';
 
 export const defaultArgTypes = {
   braidThemeName: {
