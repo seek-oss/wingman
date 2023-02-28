@@ -1,36 +1,27 @@
 import { Box, BraidProvider, ContentBlock } from 'braid-design-system';
+import apac from 'braid-design-system/themes/apac';
+import docs from 'braid-design-system/themes/docs';
+import wireframe from 'braid-design-system/themes/wireframe';
 import React, { ReactNode } from 'react';
-import loadable from 'sku/@loadable/component';
 
-import { BraidThemeOptions } from './controls';
+import { BraidThemeName } from './controls';
+
+const THEMES = { apac, docs, wireframe };
 
 interface ProviderProps {
-  braidThemeName: string;
+  braidThemeName: BraidThemeName;
   children: ReactNode;
 }
-
-const BraidTheme = loadable.lib(
-  (props: { themeName: BraidThemeOptions }) =>
-    import(`braid-design-system/themes/${props.themeName}`),
-);
 
 export const BraidStorybookProvider = ({
   braidThemeName,
   children,
 }: ProviderProps) => (
-  <BraidTheme themeName={braidThemeName}>
-    {({
-      default: theme,
-    }: {
-      default: React.ComponentProps<typeof BraidProvider>['theme'];
-    }) => (
-      <BraidProvider theme={theme}>
-        <ContentBlock>
-          <Box paddingX="gutter" paddingY="large">
-            {children}
-          </Box>
-        </ContentBlock>
-      </BraidProvider>
-    )}
-  </BraidTheme>
+  <BraidProvider theme={THEMES[braidThemeName]}>
+    <ContentBlock>
+      <Box paddingX="gutter" paddingY="large">
+        {children}
+      </Box>
+    </ContentBlock>
+  </BraidProvider>
 );
