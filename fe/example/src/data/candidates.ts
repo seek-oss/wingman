@@ -42,11 +42,11 @@ export interface Role {
   endDate?: Date;
 }
 
-type AttachmentType = typeof ATTACHMENT_TYPES[number];
+type AttachmentType = (typeof ATTACHMENT_TYPES)[number];
 
 const ATTACHMENT_TYPES = ['Resume', 'Cover letter'] as const;
 
-type Source = typeof SOURCES[number];
+type Source = (typeof SOURCES)[number];
 
 const SOURCES = ['Internal', 'SEEK application'] as const;
 

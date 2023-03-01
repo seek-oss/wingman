@@ -1,4 +1,4 @@
-export type AdProductName = typeof AD_PRODUCTS[number]['name'];
+export type AdProductName = (typeof AD_PRODUCTS)[number]['name'];
 
 export const AD_PRODUCTS = [
   {
