@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 7.0.2
+
+### Patch Changes
+
+- Align validation messaging with recommendations ([#896](https://github.com/seek-oss/wingman/pull/896))
+
 ## 7.0.1
 
 ### Patch Changes
