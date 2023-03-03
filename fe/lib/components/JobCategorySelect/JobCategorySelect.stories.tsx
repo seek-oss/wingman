@@ -26,7 +26,7 @@ export default {
     braidThemeName: defaultArgTypes.braidThemeName,
     message: {
       control: { type: 'radio' },
-      mapping: { undefined, requiredValidation: 'Please select a category.' },
+      mapping: { undefined, requiredValidation: 'Select a category' },
       options: ['undefined', 'requiredValidation'],
     },
     showStorybookAction: defaultArgTypes.showStorybookAction,

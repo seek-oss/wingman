@@ -44,12 +44,12 @@ export default ({ options, setOptionList }: SelectOptionsProps) => {
         if (!values.option) {
           errors.option = {
             type: 'required',
-            message: 'Please enter an option.',
+            message: 'Enter an option',
           };
         } else if (options.some((option) => option.value === values.option)) {
           errors.option = {
             type: 'validate',
-            message: 'This option already exists.',
+            message: 'This option already exists',
           };
         }
       }),

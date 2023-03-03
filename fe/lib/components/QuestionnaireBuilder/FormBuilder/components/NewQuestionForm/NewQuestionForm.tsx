@@ -36,7 +36,7 @@ const resolver = createResolver<FormValues>((values, errors) => {
   if (!values.questionType) {
     errors.questionType = {
       type: 'required',
-      message: 'Please select a question type.',
+      message: 'Select a question type',
     };
   } else if (
     values.questionType === 'FreeText' &&
@@ -44,7 +44,7 @@ const resolver = createResolver<FormValues>((values, errors) => {
   ) {
     errors.questionType = {
       type: 'validate',
-      message: 'Please omit any response options.',
+      message: 'Omit any response options',
     };
   } else if (
     values.questionType !== 'FreeText' &&
@@ -52,14 +52,14 @@ const resolver = createResolver<FormValues>((values, errors) => {
   ) {
     errors.questionType = {
       type: 'validate',
-      message: 'Please provide at least two response options.',
+      message: 'Provide at least two response options',
     };
   }
 
   if (!values.questionHtml) {
     errors.questionHtml = {
       type: 'required',
-      message: 'Please enter a question.',
+      message: 'Enter a question',
     };
   }
 });

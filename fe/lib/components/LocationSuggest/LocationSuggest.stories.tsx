@@ -27,7 +27,7 @@ export default {
     braidThemeName: defaultArgTypes.braidThemeName,
     message: {
       control: { type: 'radio' },
-      mapping: { undefined, requiredValidation: 'Please select a location.' },
+      mapping: { undefined, requiredValidation: 'Select a location' },
       options: ['undefined', 'requiredValidation'],
     },
     showStorybookAction: defaultArgTypes.showStorybookAction,
