@@ -47,14 +47,14 @@ const resolver = createResolver<FormValues>((values, errors) => {
   if (!values.description.trim()) {
     errors.description = {
       type: 'required',
-      message: 'Please enter a description.',
+      message: 'Enter a description',
     };
   }
 
   if (!isWebUrl(values.url)) {
     errors.url = {
       type: 'validate',
-      message: 'Please enter a valid HTTP(S) URL.',
+      message: 'Enter a valid HTTP(S) URL',
     };
   }
 });
