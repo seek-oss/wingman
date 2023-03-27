@@ -4,13 +4,13 @@
     "@changesets/get-github-info": "0.5.2"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "2.12.0",
-    "@graphql-codegen/fragment-matcher": "3.3.1",
-    "@graphql-codegen/typescript": "2.7.3",
-    "@graphql-codegen/typescript-apollo-client-helpers": "2.2.3",
-    "@graphql-codegen/typescript-operations": "2.5.3",
-    "@graphql-tools/utils": "8.10.1",
-    "concurrently": "7.0.0",
+    "@graphql-codegen/cli": "2.16.5",
+    "@graphql-codegen/fragment-matcher": "3.3.3",
+    "@graphql-codegen/typescript": "2.8.8",
+    "@graphql-codegen/typescript-apollo-client-helpers": "2.2.6",
+    "@graphql-codegen/typescript-operations": "2.5.13",
+    "@graphql-tools/utils": "8.13.1",
+    "concurrently": "7.6.0",
     "eslint-config-seek": "10.2.0",
     "graphql": "16.6.0"
   },
