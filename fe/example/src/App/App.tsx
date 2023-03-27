@@ -3,8 +3,8 @@ import 'braid-design-system/reset';
 import { Box, BraidProvider, ToastProvider } from 'braid-design-system';
 import apac from 'braid-design-system/themes/apac';
 import React from 'react';
-import { Route } from 'react-router-dom';
 import { QueryParamProvider } from 'use-query-params';
+import { ReactRouter6Adapter } from 'use-query-params/adapters/react-router-6';
 
 import { BrowserTokenProvider } from '../../../lib/hooks';
 import { BE_BASE_URL } from '../api/constants';
@@ -31,7 +31,7 @@ export const App = () => (
   <BraidProvider theme={apac}>
     <ToastProvider>
       <BrowserTokenProvider baseUrl={BE_BASE_URL}>
-        <QueryParamProvider ReactRouterRoute={Route}>
+        <QueryParamProvider adapter={ReactRouter6Adapter}>
           <Content />
         </QueryParamProvider>
       </BrowserTokenProvider>
