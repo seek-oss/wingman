@@ -51,7 +51,7 @@
     "@types/node-fetch": "2.6.2",
     "@types/supertest": "2.0.12",
     "nock": "13.2.4",
-    "skuba": "5.1.1",
+    "skuba": "6.0.2",
     "skuba-dive": "2.0.0",
     "supertest": "6.2.2"
   },
