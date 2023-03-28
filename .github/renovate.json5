@@ -4,9 +4,11 @@
     {
       matchManagers: ['npm'],
       matchPackageNames: [
-        // `node-fetch@3` is ESM-only
+        // ESM only
         '@types/node-fetch',
         'node-fetch',
+        'query-string',
+
         // GraphQL majors first require support in Apollo and other tooling
         'graphql',
       ],

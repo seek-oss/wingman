@@ -1,7 +1,7 @@
 import 'braid-design-system/reset';
 
 import React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { AdminPage } from '../pages/Admin/Admin';
 import { CandidateDetailPage } from '../pages/Candidates/Detail';
@@ -14,37 +14,29 @@ import { PositionNewPage } from '../pages/Positions/New';
 import { PositionQuestionnairePage } from '../pages/Positions/Questionnaires';
 
 export const Router = () => (
-  <Switch>
-    <Route exact path="/">
-      <HomePage />
-    </Route>
-    <Route exact path="/admin">
-      <AdminPage />
-    </Route>
-    <Route exact path="/candidates">
-      <CandidateListPage />
-    </Route>
-    <Route exact path="/candidates/detail/:id">
-      <CandidateDetailPage />
-    </Route>
-    <Route exact path="/positions">
-      <PositionListPage />
-    </Route>
-    <Route exact path="/positions/detail/:id">
-      <PositionDetailPage />
-    </Route>
-    <Route exact path="/positions/new">
-      <PositionNewPage />
-    </Route>
-    <Route exact path="/positions/questionnaires">
-      <PositionQuestionnairePage />
-    </Route>
+  <Routes>
+    <Route element={<HomePage />} path="/" />
+    <Route element={<AdminPage />} path="/admin" />
+    <Route element={<CandidateListPage />} path="/candidates" />
+    <Route element={<CandidateDetailPage />} path="/candidates/detail/:id" />
+    <Route element={<PositionListPage />} path="/positions" />
+    <Route element={<PositionDetailPage />} path="/positions/detail/:id" />
+    <Route element={<PositionNewPage />} path="/positions/new" />
+    <Route
+      element={<PositionQuestionnairePage />}
+      path="/positions/questionnaires"
+    />
 
-    <Route path="/storybook">
-      <Redirect to="https://seek-oss.github.io/wingman/storybook/index.html" />
-    </Route>
-    <Route path="*">
-      <OopsPage />
-    </Route>
-  </Switch>
+    <Route
+      element={
+        <Navigate
+          replace
+          to="https://seek-oss.github.io/wingman/storybook/index.html"
+        />
+      }
+      path="/storybook"
+    />
+
+    <Route element={<OopsPage />} path="*" />
+  </Routes>
 );

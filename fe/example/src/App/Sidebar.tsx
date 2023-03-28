@@ -11,7 +11,7 @@ import {
   Toggle,
 } from 'braid-design-system';
 import React, { Fragment, ReactNode } from 'react';
-import { NavLink } from 'react-router-dom';
+import { InternalLink } from 'scoobie';
 
 import { ClientOnly } from '../components/ClientOnly';
 
@@ -19,24 +19,13 @@ import * as styles from './Sidebar.css';
 
 interface LinkProps {
   children: ReactNode;
-  to: string;
+  href: string;
 }
 
-const ExternalLink = ({ children, to }: LinkProps) => (
-  <Link className={styles.link} href={to} rel="noreferrer" target="_blank">
+const ExternalLink = ({ children, href }: LinkProps) => (
+  <Link className={styles.link} href={href} rel="noreferrer" target="_blank">
     {children}
   </Link>
-);
-
-const InternalLink = ({ children, to }: LinkProps) => (
-  <NavLink
-    activeClassName={styles.activeLink}
-    className={styles.link}
-    exact
-    to={to}
-  >
-    {children}
-  </NavLink>
 );
 
 interface SidebarLinkProps {
@@ -52,7 +41,7 @@ const SidebarLink = ({ children, size, to }: SidebarLinkProps) => {
   const LinkWrapper = isExternal ? ExternalLink : InternalLink;
 
   return (
-    <LinkWrapper to={to}>
+    <LinkWrapper href={to}>
       <Box
         className={styles.linkContainer}
         paddingX="gutter"
