@@ -1,5 +1,11 @@
 # wingman-be
 
+## 0.5.1
+
+### Patch Changes
+
+- **deps:** lru-cache ^8.0.0 ([#907](https://github.com/seek-oss/wingman/pull/907))
+
 ## 0.5.0
 
 ### Minor Changes
