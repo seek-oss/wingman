@@ -11784,7 +11784,7 @@ inline-style-parser@0.1.1:
   resolved "https://registry.yarnpkg.com/inline-style-parser/-/inline-style-parser-0.1.1.tgz#ec8a3b429274e9c0a1f1c4ffa9453a7fef72cea1"
   integrity sha512-7NXolsK4CAS5+xvdj5OMMbI962hU/wvwoxk+LWR9Ek9bVtyuuYScDN6eS0rUm6TxApFpw7CX1o4uJzcd4AyD3Q==
 
-inquirer@^8.0.0, inquirer@^8.2.3:
+inquirer@^8.0.0:
   version "8.2.5"
   resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-8.2.5.tgz#d8654a7542c35a9b9e069d27e2df4858784d54f8"
   integrity sha512-QAgPDQMEgrDssk1XiwwHoOGYF9BAbUcc1+j+FhEvaOt8/cKRqyLn0U5qA6F74fGhTMGxf92pOvPBeh29jQJDTQ==
@@ -18213,10 +18213,10 @@ sisteransi@^1.0.5:
   resolved "https://registry.yarnpkg.com/sisteransi/-/sisteransi-1.0.5.tgz#134d681297756437cc05ca01370d3a7a571075ed"
   integrity sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==
 
-sku@11.7.2:
-  version "11.7.2"
-  resolved "https://registry.yarnpkg.com/sku/-/sku-11.7.2.tgz#37ead78552eacd54f14aec991aa6a61170abc4be"
-  integrity sha512-2bdV9eiciUQs+tkmG5dQHiAwqHI5dZxP0PrqTW4EW5q8JVKdTvpYHBDWI63eORI5Rhpw3oC8VgSYWo2clylZVw==
+sku@11.8.1:
+  version "11.8.1"
+  resolved "https://registry.yarnpkg.com/sku/-/sku-11.8.1.tgz#247870b7546dfddfe40de3a372cea80c5443bb86"
+  integrity sha512-2QqU7VLY5z/tLIjwTOFfbdzscpe/gvaBO5JYS6CLipz02HZAqswtI7HFLryszhjI6LMFVWETyj6HME3vQNAJAQ==
   dependencies:
     "@babel/core" "^7.18.0"
     "@babel/plugin-transform-react-constant-elements" "^7.18.0"
@@ -18285,7 +18285,6 @@ sku@11.7.2:
     html-render-webpack-plugin "^3.0.1"
     identity-obj-proxy "^3.0.0"
     indent-string "^4.0.0"
-    inquirer "^8.2.3"
     jest "^29.0.0"
     jest-environment-jsdom "^29.0.0"
     jest-watch-typeahead "^2.2.0"

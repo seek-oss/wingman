@@ -34,7 +34,7 @@
     "react-dom": "18.2.0",
     "react-router-dom": "6.9.0",
     "scoobie": "14.1.3",
-    "sku": "11.7.2",
+    "sku": "11.8.1",
     "use-query-params": "2.2.1",
     "webpack-merge": "5.8.0"
   },
