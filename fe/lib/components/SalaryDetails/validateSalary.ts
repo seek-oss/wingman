@@ -5,7 +5,7 @@ import { MAX_CHAR_LIMIT } from './SalaryDetails';
 import { SalaryError } from './types';
 
 interface Validation {
-  tone: ComponentProps<typeof TextField>['tone'];
+  tone: Exclude<ComponentProps<typeof TextField>['tone'], 'caution'>;
   message?: string;
 }
 
