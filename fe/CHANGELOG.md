@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 7.0.3
+
+### Patch Changes
+
+- **deps:** braid-design-system 32.3.0 ([#912](https://github.com/seek-oss/wingman/pull/912))
+
 ## 7.0.2
 
 ### Patch Changes
