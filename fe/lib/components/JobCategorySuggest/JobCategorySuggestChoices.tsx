@@ -9,6 +9,7 @@ import {
 import React, { ComponentProps, forwardRef, useState } from 'react';
 
 import type {
+  JobCategoriesPositionProfileInput,
   JobCategory,
   JobCategorySuggestionChoiceAttributesFragment,
 } from '../../types/seekApi.graphql';
@@ -17,6 +18,7 @@ import { JobCategorySelect } from '../JobCategorySelect/JobCategorySelect';
 
 interface Props {
   schemeId: string;
+  positionProfile: JobCategoriesPositionProfileInput;
   choices: JobCategorySuggestionChoiceAttributesFragment[];
   onSelect: (
     jobCategorySuggestionChoice: JobCategorySuggestionChoiceAttributesFragment,
@@ -46,6 +48,7 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
       label = 'Category',
       showConfidence = false,
       initialValue,
+      positionProfile,
       ...restProps
     },
     forwardedRef,
@@ -126,6 +129,7 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
               }
             }}
             schemeId={schemeId}
+            positionProfile={positionProfile}
             hideLabel
           />
         )}
