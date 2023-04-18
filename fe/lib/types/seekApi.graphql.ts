@@ -1,14 +1,8 @@
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export interface Scalars {
   ID: string;
@@ -106,7 +100,7 @@ export interface AddressInput {
   /**
    * The formatted representation of the whole address for display purposes.
    *
-   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
+   * This field has a maximum length of 1,000 characters.
    */
   formattedAddress?: InputMaybe<Scalars['String']>;
   /** The geographical coordinates of the address. */
@@ -116,7 +110,7 @@ export interface AddressInput {
   /**
    * The postal code of the address.
    *
-   * This field has a maximum length of 50 bytes in UTF-8 encoding.
+   * This field has a maximum length of 50 characters.
    */
   postalCode: Scalars['String'];
 }
@@ -323,9 +317,7 @@ export interface ApplicationLibraryQuestionSuggestionsPositionProfileInput {
    */
   jobCategories: Array<Scalars['String']>;
   /** An array of formatted position profile descriptions. */
-  positionFormattedDescriptions?: InputMaybe<
-    Array<PositionFormattedDescriptionInput>
-  >;
+  positionFormattedDescriptions?: InputMaybe<Array<PositionFormattedDescriptionInput>>;
   /**
    * An array of `Location` identifiers.
    *
@@ -339,13 +331,13 @@ export interface ApplicationLibraryQuestionSuggestionsPositionProfileInput {
    *
    * Scheme requirements:
    *
-   * The `seekAnz` scheme allows up to one element.
+   * The `seekAnz` scheme requires exactly one element.
    */
-  positionOrganizations?: InputMaybe<Array<Scalars['String']>>;
+  positionOrganizations: Array<Scalars['String']>;
   /**
    * The position title.
    *
-   * This field has a maximum length of 80 bytes in UTF-8 encoding.
+   * This field has a maximum length of 80 characters.
    */
   positionTitle: Scalars['String'];
 }
@@ -355,7 +347,10 @@ export interface ApplicationMethod {
   __typename?: 'ApplicationMethod';
   /**
    * The email address that candidate applications are directed to.
-   * @deprecated This has been replaced by Application Export
+   *
+   * Do not select this in your operations,
+   * or your integration will break when the field is removed.
+   * @deprecated This is always `null` and has been replaced by Application Export
    */
   applicationEmail?: Maybe<Email>;
   /**
@@ -368,14 +363,6 @@ export interface ApplicationMethod {
 
 /** A method of applying to a position. */
 export interface ApplicationMethodInput {
-  /**
-   * The email address to direct candidate applications to.
-   *
-   * This field has a maximum length of 100 bytes in UTF-8 encoding.
-   *
-   * This is deprecated. Do not use this field. This has been replaced by Application Export.
-   */
-  applicationEmail?: InputMaybe<EmailInput>;
   /**
    * A URL of an external application form.
    *
@@ -392,8 +379,7 @@ export interface ApplicationMethodInput {
  *
  * The privacy policy consent component presents the candidate with a 'Yes' or 'No' choice.
  */
-export interface ApplicationPrivacyConsent
-  extends ApplicationQuestionnaireComponent {
+export interface ApplicationPrivacyConsent extends ApplicationQuestionnaireComponent {
   __typename?: 'ApplicationPrivacyConsent';
   /**
    * The type of the component.
@@ -446,7 +432,7 @@ export interface ApplicationPrivacyConsentInput {
   /**
    * The URL of the privacy policy to show to the candidate.
    *
-   * The `url` field has a maximum length of 1,000 bytes in UTF-8 encoding.
+   * The `url` field has a maximum length of 1,000 characters.
    */
   privacyPolicyUrl: WebUrlInput;
   /**
@@ -459,8 +445,7 @@ export interface ApplicationPrivacyConsentInput {
 }
 
 /** A candidate's response to a privacy policy consent component in the questionnaire. */
-export interface ApplicationPrivacyConsentResponse
-  extends ApplicationQuestionnaireComponentResponse {
+export interface ApplicationPrivacyConsentResponse extends ApplicationQuestionnaireComponentResponse {
   __typename?: 'ApplicationPrivacyConsentResponse';
   /** The privacy consent component this is responding to. */
   component: ApplicationPrivacyConsent;
@@ -503,7 +488,7 @@ export interface ApplicationQuestion extends ApplicationQuestionnaireComponent {
    *
    * Unsupported tags will be silently stripped when creating a questionnaire.
    *
-   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
+   * This field has a maximum length of 1,000 characters.
    */
   questionHtml: Scalars['String'];
   /**
@@ -648,7 +633,7 @@ export interface ApplicationQuestionInput {
    *
    * Unsupported tags will be silently stripped when creating a questionnaire.
    *
-   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
+   * This field has a maximum length of 1,000 characters.
    */
   questionHtml: Scalars['String'];
   /**
@@ -677,8 +662,7 @@ export interface ApplicationQuestionInput {
 }
 
 /** A candidate's response to a question in the questionnaire. */
-export interface ApplicationQuestionResponse
-  extends ApplicationQuestionnaireComponentResponse {
+export interface ApplicationQuestionResponse extends ApplicationQuestionnaireComponentResponse {
   __typename?: 'ApplicationQuestionResponse';
   /**
    * The answers provided by the candidate.
@@ -716,6 +700,12 @@ export interface ApplicationQuestionnaire {
   __typename?: 'ApplicationQuestionnaire';
   /** The array of components in the order they are presented to the candidate. */
   components: Array<ApplicationQuestionnaireComponent>;
+  /**
+   * The hiring organization that created the questionnaire.
+   *
+   * The questionnaire can be attached to job ads posted by this organization.
+   */
+  hirer: HiringOrganization;
   /** The identifier for the `ApplicationQuestionnaire`. */
   id: ObjectIdentifier;
 }
@@ -872,10 +862,11 @@ export interface Attachment {
   /**
    * The role of the attachment within a profile.
    *
-   * Currently, two codes are defined:
+   * Currently, three codes are defined:
    *
-   * - `Resume` is used for a candidate's resume or CV.
    * - `CoverLetter` is used for a candidate's cover letter for a specific position.
+   * - `Resume` is used for a candidate's resume or CV.
+   * - `SelectionCriteria` is used for a candidate's selection criteria for a specific position.
    *
    * Additional documents will have a `null` role code.
    * They can be distinguished by their free text `descriptions`.
@@ -929,6 +920,7 @@ export interface Candidate {
    */
   seekPrimaryEmailAddress?: Maybe<Scalars['String']>;
 }
+
 
 /**
  * A person who applied for a position at a company.
@@ -998,6 +990,7 @@ export interface CandidateApplicationCreatedEvent extends Event {
    */
   webhookAttempts: WebhookAttemptsConnection;
 }
+
 
 /**
  * The event signaling that a candidate has applied for a `PositionOpening`.
@@ -1092,7 +1085,7 @@ export interface CandidateProcessActionInput {
    *
    * This is required for a process history action of an uploaded candidate.
    *
-   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
+   * This field has a maximum length of 1,000 characters.
    */
   description?: InputMaybe<Scalars['String']>;
   /**
@@ -1106,7 +1099,7 @@ export interface CandidateProcessActionInput {
    *
    * This is required for a profile action of an uploaded candidate.
    *
-   * The `url` field has a maximum length of 1,000 bytes in UTF-8 encoding.
+   * The `url` field has a maximum length of 1,000 characters.
    */
   seekUrl?: InputMaybe<WebUrlInput>;
 }
@@ -1297,7 +1290,10 @@ export interface CandidateProcessStatusInput {
 /** Structured information about a candidate in relation to a particular position. */
 export interface CandidateProfile {
   __typename?: 'CandidateProfile';
-  /** The position openings associated with this candidate profile. */
+  /**
+   * The position openings associated with this candidate profile.
+   * @deprecated Use associatedPositionProfile
+   */
   associatedPositionOpenings: Array<AssociatedPositionOpening>;
   /**
    * The primary position profile for this candidate profile.
@@ -1359,6 +1355,7 @@ export interface CandidateProfile {
   updateDateTime: Scalars['DateTime'];
 }
 
+
 /** Structured information about a candidate in relation to a particular position. */
 export interface CandidateProfileSeekProcessHistoryArgs {
   after?: InputMaybe<Scalars['String']>;
@@ -1404,6 +1401,7 @@ export interface CandidateProfilePurchasedEvent extends Event {
    */
   webhookAttempts: WebhookAttemptsConnection;
 }
+
 
 /** The event signaling that a `CandidateProfile` has been purchased. */
 export interface CandidateProfilePurchasedEventWebhookAttemptsArgs {
@@ -1601,9 +1599,7 @@ export interface CreateCandidateProcessHistoryItemInput {
 }
 
 /** The response from the `createCandidateProcessHistoryItem` mutation. */
-export type CreateCandidateProcessHistoryItemPayload =
-  | CreateCandidateProcessHistoryItemPayloadConflict
-  | CreateCandidateProcessHistoryItemPayloadSuccess;
+export type CreateCandidateProcessHistoryItemPayload = CreateCandidateProcessHistoryItemPayloadConflict | CreateCandidateProcessHistoryItemPayloadSuccess;
 
 /** The conflict result for the `createCandidateProcessHistoryItem` mutation. */
 export interface CreateCandidateProcessHistoryItemPayloadConflict {
@@ -1695,7 +1691,7 @@ export interface CreatePositionOpeningPositionOpeningInput {
    *
    * The metadata is not used by SEEK and won't be seen by hirers or candidates.
    *
-   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
+   * This field has a maximum length of 1,000 characters.
    */
   seekPartnerMetadata?: InputMaybe<Scalars['String']>;
   /**
@@ -1743,7 +1739,7 @@ export interface CreatePostingInstructionInput {
    *
    * - For the `seekAnz` scheme this must be no more than 30 days in the future.
    *
-   *   If the end date is not specified it will default to the maximum period of 30 calendar days.
+   *   If an end date is omitted, the job ad will default to the maximum period of 30 calendar days.
    *   The precise end date can be queried from the `PostingInstruction.end` field once the job ad goes live.
    */
   end?: InputMaybe<Scalars['DateTime']>;
@@ -1756,6 +1752,12 @@ export interface CreatePostingInstructionInput {
    */
   idempotencyId: Scalars['String'];
   /**
+   * The identifier for the `UnstableAdvertisementProduct`.
+   *
+   * Caution: this is currently under development and may be changed or removed without notice.
+   */
+  seekAdvertisementProductId?: InputMaybe<Scalars['String']>;
+  /**
    * A SEEK ANZ advertisement type code.
    *
    * Currently, three codes are defined:
@@ -1766,8 +1768,8 @@ export interface CreatePostingInstructionInput {
    *
    * Scheme requirements:
    *
-   * - For the `seekAnz` scheme, this field is required.
-   * - For other schemes, set this to `null`.
+   * - This field is required for the `seekAnz` scheme.
+   * - Omit this field for other schemes.
    */
   seekAnzAdvertisementType?: InputMaybe<Scalars['String']>;
 }
@@ -1827,7 +1829,7 @@ export interface CreateUnpostedPositionProfileForOpeningPositionProfileInput {
   /**
    * A short phrase describing the position as it would be listed on a business card or in a company directory.
    *
-   * This field has a maximum length of 80 bytes in UTF-8 encoding.
+   * This field has a maximum length of 80 characters.
    */
   positionTitle: Scalars['String'];
   /**
@@ -1841,13 +1843,13 @@ export interface CreateUnpostedPositionProfileForOpeningPositionProfileInput {
    *
    * SEEK does not use this field on unposted position profiles.
    *
-   * This field has a maximum length of 50 bytes in UTF-8 encoding.
+   * This field has a maximum length of 50 characters.
    */
   seekBillingReference?: InputMaybe<Scalars['String']>;
   /**
    * An optional hirer-provided opaque job reference.
    *
-   * This field has a maximum length of 50 bytes in UTF-8 encoding.
+   * This field has a maximum length of 50 characters.
    */
   seekHirerJobReference?: InputMaybe<Scalars['String']>;
   /**
@@ -1855,7 +1857,7 @@ export interface CreateUnpostedPositionProfileForOpeningPositionProfileInput {
    *
    * The metadata is not used by SEEK and won't be seen by hirers or candidates.
    *
-   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
+   * This field has a maximum length of 1,000 characters.
    */
   seekPartnerMetadata?: InputMaybe<Scalars['String']>;
 }
@@ -1867,9 +1869,7 @@ export interface CreateWebhookSubscriptionInput {
 }
 
 /** The response from the `createWebhookSubscription` mutation. */
-export type CreateWebhookSubscriptionPayload =
-  | CreateWebhookSubscriptionPayloadConflict
-  | CreateWebhookSubscriptionPayloadSuccess;
+export type CreateWebhookSubscriptionPayload = CreateWebhookSubscriptionPayloadConflict | CreateWebhookSubscriptionPayloadSuccess;
 
 /**
  * The conflict result for the `createWebhookSubscription` mutation.
@@ -1924,6 +1924,8 @@ export interface CreateWebhookSubscriptionSubscriptionInput {
    * It is used as the key to generate a message authentication code for each request.
    *
    * The secret should be a random string with high entropy that is not reused for any other purpose.
+   *
+   * This field has a maximum length of 255 bytes in UTF-8 encoding.
    */
   secret?: InputMaybe<Scalars['String']>;
   /**
@@ -2145,7 +2147,11 @@ export interface Email {
 
 /** An email address. */
 export interface EmailInput {
-  /** The email address. */
+  /**
+   * The email address.
+   *
+   * This field has a maximum length of 255 bytes in UTF-8 encoding.
+   */
   address: Scalars['String'];
 }
 
@@ -2201,6 +2207,7 @@ export interface Event {
    */
   webhookAttempts: WebhookAttemptsConnection;
 }
+
 
 /**
  * A signal that an action has been performed on the SEEK platform that may be of interest to an integration partner.
@@ -2283,7 +2290,7 @@ export interface EventsFilterInput {
    *
    * This can be used in combination with `deliveredIndicator` to identify events that were not successfully delivered through a particular webhook subscription.
    *
-   * To consume events solely through GraphQL polling, do not specify this field.
+   * Omit this field to consume events solely through GraphQL polling.
    * This will retrieve events from a persistent stream that is not associated with a webhook subscription.
    */
   subscriptionId?: InputMaybe<Scalars['String']>;
@@ -2345,6 +2352,7 @@ export interface HirerRelationshipChangedEvent extends Event {
    */
   webhookAttempts: WebhookAttemptsConnection;
 }
+
 
 /** The event signaling that a hirer relationship has been added or removed. */
 export interface HirerRelationshipChangedEventWebhookAttemptsArgs {
@@ -2453,6 +2461,12 @@ export interface HiringOrganizationsFilterInput {
   relationshipTypeCodes?: InputMaybe<Array<Scalars['String']>>;
 }
 
+/** The input parameter for the `jobCategories` query. */
+export interface JobCategoriesPositionProfileInput {
+  /** An array of identifiers for the position's `Location`s. */
+  positionLocation: Array<Scalars['String']>;
+}
+
 /** The category of a job's occupation. */
 export interface JobCategory {
   __typename?: 'JobCategory';
@@ -2503,9 +2517,7 @@ export interface JobCategorySuggestionPositionProfileInput {
    * The job category suggestion algorithm is designed to work with the complete advertisement details as they would appear on the final job ad.
    * Providing incomplete or placeholder text in this field may result in irrelevant suggestions.
    */
-  positionFormattedDescriptions?: InputMaybe<
-    Array<PositionFormattedDescriptionInput>
-  >;
+  positionFormattedDescriptions?: InputMaybe<Array<PositionFormattedDescriptionInput>>;
   /** An array of identifiers for the position's `Location`s. */
   positionLocation: Array<Scalars['String']>;
   /**
@@ -2688,6 +2700,7 @@ export interface Mutation {
   uploadCandidate: UploadCandidatePayload;
 }
 
+
 /**
  * The schema's entry-point for mutations.
  *
@@ -2696,6 +2709,7 @@ export interface Mutation {
 export interface MutationClosePostedPositionProfileArgs {
   input: ClosePostedPositionProfileInput;
 }
+
 
 /**
  * The schema's entry-point for mutations.
@@ -2706,6 +2720,7 @@ export interface MutationCreateApplicationQuestionnaireArgs {
   input: CreateApplicationQuestionnaireInput;
 }
 
+
 /**
  * The schema's entry-point for mutations.
  *
@@ -2714,6 +2729,7 @@ export interface MutationCreateApplicationQuestionnaireArgs {
 export interface MutationCreateCandidateProcessHistoryItemArgs {
   input: CreateCandidateProcessHistoryItemInput;
 }
+
 
 /**
  * The schema's entry-point for mutations.
@@ -2724,6 +2740,7 @@ export interface MutationCreatePositionOpeningArgs {
   input: CreatePositionOpeningInput;
 }
 
+
 /**
  * The schema's entry-point for mutations.
  *
@@ -2732,6 +2749,7 @@ export interface MutationCreatePositionOpeningArgs {
 export interface MutationCreateUnpostedPositionProfileForOpeningArgs {
   input: CreateUnpostedPositionProfileForOpeningInput;
 }
+
 
 /**
  * The schema's entry-point for mutations.
@@ -2742,6 +2760,7 @@ export interface MutationCreateWebhookSubscriptionArgs {
   input: CreateWebhookSubscriptionInput;
 }
 
+
 /**
  * The schema's entry-point for mutations.
  *
@@ -2750,6 +2769,7 @@ export interface MutationCreateWebhookSubscriptionArgs {
 export interface MutationDeleteCandidateProcessHistoryItemArgs {
   input: DeleteCandidateProcessHistoryItemInput;
 }
+
 
 /**
  * The schema's entry-point for mutations.
@@ -2760,6 +2780,7 @@ export interface MutationDeletePositionOpeningArgs {
   input: DeletePositionOpeningInput;
 }
 
+
 /**
  * The schema's entry-point for mutations.
  *
@@ -2768,6 +2789,7 @@ export interface MutationDeletePositionOpeningArgs {
 export interface MutationDeleteUnpostedPositionProfileArgs {
   input: DeleteUnpostedPositionProfileInput;
 }
+
 
 /**
  * The schema's entry-point for mutations.
@@ -2778,6 +2800,7 @@ export interface MutationDeleteUploadedCandidateArgs {
   input: DeleteUploadedCandidateInput;
 }
 
+
 /**
  * The schema's entry-point for mutations.
  *
@@ -2786,6 +2809,7 @@ export interface MutationDeleteUploadedCandidateArgs {
 export interface MutationDeleteWebhookSubscriptionArgs {
   input: DeleteWebhookSubscriptionInput;
 }
+
 
 /**
  * The schema's entry-point for mutations.
@@ -2796,6 +2820,7 @@ export interface MutationPostPositionArgs {
   input: PostPositionInput;
 }
 
+
 /**
  * The schema's entry-point for mutations.
  *
@@ -2804,6 +2829,7 @@ export interface MutationPostPositionArgs {
 export interface MutationPostPositionProfileForOpeningArgs {
   input: PostPositionProfileForOpeningInput;
 }
+
 
 /**
  * The schema's entry-point for mutations.
@@ -2814,6 +2840,7 @@ export interface MutationReplayWebhookSubscriptionArgs {
   input: ReplayWebhookSubscriptionInput;
 }
 
+
 /**
  * The schema's entry-point for mutations.
  *
@@ -2822,6 +2849,7 @@ export interface MutationReplayWebhookSubscriptionArgs {
 export interface MutationUpdateCandidateProcessHistoryItemArgs {
   input: UpdateCandidateProcessHistoryItemInput;
 }
+
 
 /**
  * The schema's entry-point for mutations.
@@ -2832,6 +2860,7 @@ export interface MutationUpdatePositionOpeningPersonContactsArgs {
   input: UpdatePositionOpeningPersonContactsInput;
 }
 
+
 /**
  * The schema's entry-point for mutations.
  *
@@ -2840,6 +2869,7 @@ export interface MutationUpdatePositionOpeningPersonContactsArgs {
 export interface MutationUpdatePositionOpeningStatusArgs {
   input: UpdatePositionOpeningStatusInput;
 }
+
 
 /**
  * The schema's entry-point for mutations.
@@ -2850,6 +2880,7 @@ export interface MutationUpdatePostedPositionProfileArgs {
   input: UpdatePostedPositionProfileInput;
 }
 
+
 /**
  * The schema's entry-point for mutations.
  *
@@ -2858,6 +2889,7 @@ export interface MutationUpdatePostedPositionProfileArgs {
 export interface MutationUpdateUnpostedPositionProfileArgs {
   input: UpdateUnpostedPositionProfileInput;
 }
+
 
 /**
  * The schema's entry-point for mutations.
@@ -2868,6 +2900,7 @@ export interface MutationUpdateUploadedCandidatePersonArgs {
   input: UpdateUploadedCandidatePersonInput;
 }
 
+
 /**
  * The schema's entry-point for mutations.
  *
@@ -2876,6 +2909,7 @@ export interface MutationUpdateUploadedCandidatePersonArgs {
 export interface MutationUpdateUploadedCandidateProfileActionsArgs {
   input: UpdateUploadedCandidateProfileActionsInput;
 }
+
 
 /**
  * The schema's entry-point for mutations.
@@ -2886,6 +2920,7 @@ export interface MutationUpdateUploadedCandidateProfileDatesArgs {
   input: UpdateUploadedCandidateProfileDatesInput;
 }
 
+
 /**
  * The schema's entry-point for mutations.
  *
@@ -2894,6 +2929,7 @@ export interface MutationUpdateUploadedCandidateProfileDatesArgs {
 export interface MutationUpdateUploadedCandidateProfilePositionPreferencesArgs {
   input: UpdateUploadedCandidateProfilePositionPreferencesInput;
 }
+
 
 /**
  * The schema's entry-point for mutations.
@@ -2904,6 +2940,7 @@ export interface MutationUpdateWebhookSubscriptionDeliveryConfigurationArgs {
   input: UpdateWebhookSubscriptionDeliveryConfigurationInput;
 }
 
+
 /**
  * The schema's entry-point for mutations.
  *
@@ -2912,6 +2949,7 @@ export interface MutationUpdateWebhookSubscriptionDeliveryConfigurationArgs {
 export interface MutationUpdateWebhookSubscriptionSigningConfigurationArgs {
   input: UpdateWebhookSubscriptionSigningConfigurationInput;
 }
+
 
 /**
  * The schema's entry-point for mutations.
@@ -3054,15 +3092,16 @@ export interface PositionFormattedDescriptionInput {
    *
    * The maximum length differs by `descriptionId`:
    *
-   *   - `AdvertisementDetails` has a maximum length of 15,000 bytes in UTF-8 encoding.
-   *   - `SearchBulletPoint` has a maximum length of 80 bytes in UTF-8 encoding.
-   *   - `SearchSummary` has a maximum length of 150 bytes in UTF-8 encoding.
+   *   - `AdvertisementDetails` has a maximum length of 15,000 characters.
+   *   - `SearchBulletPoint` has a maximum length of 80 characters per bullet point.
+   *   - `SearchSummary` has a maximum length of 150 characters.
    *
    * Scheme requirements:
    *
    * - The `seekAnz` scheme supports the following HTML tags in `AdvertisementDetails`:
    *
-   *   - `a` (Available on a per hirer basis. Hirer must contact SEEK to enable.)
+   *   - `a` (HTTPS only. Available on a per hirer basis. Hirer must contact SEEK to enable.)
+   *   - `b`
    *   - `br`
    *   - `div`
    *   - `em`
@@ -3085,6 +3124,7 @@ export interface PositionFormattedDescriptionInput {
    *
    * - `SearchBulletPoint` is a highlight or selling point of the position that appears in search results.
    *   SEEK ANZ allows up to three search bullet points when `SeekAnzAdProductFeatures.searchBulletPointsIndicator` is true.
+   *   The length limit applies to each search bullet point separately.
    *
    * - `SearchSummary` is a short description that appears in search results.
    *
@@ -3128,9 +3168,20 @@ export interface PositionOpening {
   /** The identifier for the `PositionOpening`. */
   documentId: ObjectIdentifier;
   /**
-   * An array of profiles for the position opening.
+   * A page of position profiles that belong to the opening.
+   *
+   * A maximum of 50 position profiles can be returned in a single page.
+   * Additional position profiles can be queried using a pagination cursor.
+   *
+   * The result list is returned in ascending creation date & time order.
+   * It starts from the earliest known position profile if no pagination arguments are provided.
+   */
+  paginatedPositionProfiles: PositionProfileConnection;
+  /**
+   * An array of up to 25 profiles for the position opening.
    *
    * Each profile represents a posted job ad or an unposted internal requisition associated with this opening.
+   * @deprecated There is no guarantee all profiles will be returned. Use paginatedPositionProfiles instead.
    */
   positionProfiles: Array<PositionProfile>;
   /**
@@ -3144,7 +3195,7 @@ export interface PositionOpening {
    *
    * The metadata is not used by SEEK and won't be seen by hirers or candidates.
    *
-   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
+   * This field has a maximum length of 1,000 characters.
    */
   seekPartnerMetadata?: Maybe<Scalars['String']>;
   /**
@@ -3157,6 +3208,17 @@ export interface PositionOpening {
    * - `Closed` indicates the position opening has been closed.
    */
   statusCode: Scalars['String'];
+}
+
+
+/**
+ * A job requisition or position opening within an organization.
+ *
+ * This is a container object that groups multiple `PositionProfile`s together along with their owner.
+ */
+export interface PositionOpeningPaginatedPositionProfilesArgs {
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
 }
 
 /** A page of position openings. */
@@ -3312,7 +3374,7 @@ export interface PositionProfile {
    *
    * The metadata is not used by SEEK and won't be seen by hirers or candidates.
    *
-   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
+   * This field has a maximum length of 1,000 characters.
    */
   seekPartnerMetadata?: Maybe<Scalars['String']>;
   /**
@@ -3370,6 +3432,7 @@ export interface PositionProfileClosedEvent extends Event {
   webhookAttempts: WebhookAttemptsConnection;
 }
 
+
 /** The event signaling that a posted `PositionProfile` has been closed. */
 export interface PositionProfileClosedEventWebhookAttemptsArgs {
   after?: InputMaybe<Scalars['String']>;
@@ -3377,6 +3440,32 @@ export interface PositionProfileClosedEventWebhookAttemptsArgs {
   filter?: InputMaybe<WebhookAttemptsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
+}
+
+/** A page of position profiles. */
+export interface PositionProfileConnection {
+  __typename?: 'PositionProfileConnection';
+  /**
+   * The page of position profiles and their corresponding cursors.
+   *
+   * This list may be empty.
+   */
+  edges: Array<PositionProfileEdge>;
+  /** The pagination metadata for this page of position profiles. */
+  pageInfo: PageInfo;
+}
+
+/** A position profile in a paginated list. */
+export interface PositionProfileEdge {
+  __typename?: 'PositionProfileEdge';
+  /**
+   * The opaque cursor to the position profile.
+   *
+   * This can be used as a subsequent pagination argument.
+   */
+  cursor: Scalars['String'];
+  /** The actual position profile. */
+  node: PositionProfile;
 }
 
 /** The event signaling that a `PositionProfile` has been posted. */
@@ -3421,6 +3510,7 @@ export interface PositionProfilePostedEvent extends Event {
   webhookAttempts: WebhookAttemptsConnection;
 }
 
+
 /** The event signaling that a `PositionProfile` has been posted. */
 export interface PositionProfilePostedEventWebhookAttemptsArgs {
   after?: InputMaybe<Scalars['String']>;
@@ -3439,9 +3529,7 @@ export interface PostPositionInput {
 }
 
 /** The response from the `postPosition` mutation. */
-export type PostPositionPayload =
-  | PostPositionPayloadConflict
-  | PostPositionPayloadSuccess;
+export type PostPositionPayload = PostPositionPayloadConflict | PostPositionPayloadSuccess;
 
 /**
  * The conflict result for the `postPosition` mutation.
@@ -3477,9 +3565,7 @@ export interface PostPositionProfileForOpeningInput {
 }
 
 /** The response from the `postPositionProfileForOpening` mutation. */
-export type PostPositionProfileForOpeningPayload =
-  | PostPositionProfileForOpeningPayloadConflict
-  | PostPositionProfileForOpeningPayloadSuccess;
+export type PostPositionProfileForOpeningPayload = PostPositionProfileForOpeningPayloadConflict | PostPositionProfileForOpeningPayloadSuccess;
 
 /**
  * The conflict result for the `postPositionProfileForOpening` mutation.
@@ -3544,13 +3630,13 @@ export interface PostPositionProfileForOpeningPositionProfileInput {
    * - `FullTime` indicates a full-time schedule.
    * - `PartTime` indicates a part-time schedule.
    *
-   * For the `seekAnz` scheme, this field is not supported and should be set to `null`.
+   * Omit this field for the `seekAnz` scheme.
    */
   positionScheduleTypeCodes?: InputMaybe<Array<Scalars['String']>>;
   /**
    * A short phrase describing the position as it would be listed on a business card or in a company directory.
    *
-   * This field has a maximum length of 80 bytes in UTF-8 encoding.
+   * This field has a maximum length of 80 characters.
    */
   positionTitle: Scalars['String'];
   /**
@@ -3575,17 +3661,17 @@ export interface PostPositionProfileForOpeningPositionProfileInput {
    *
    * Scheme requirements:
    *
-   * - Required for the `seekAnz` scheme.
-   * - Set to `null` for other schemes.
+   * - This field is required for the `seekAnz` scheme.
+   * - Omit this field for other schemes.
    */
   seekAnzWorkTypeCode?: InputMaybe<Scalars['String']>;
   /**
-   * The identifier for the `ApplicationQuestionnaire` containing the set of questions to present to candidates during an application.
+   * The identifier for the `ApplicationQuestionnaire` to present to a candidate during their application.
    *
    * The questionnaire responses will be available as `CandidateProfile.seekQuestionnaireSubmission` on the candidate's application profile.
    *
-   * Questionnaires are only supported on SEEK's native apply form;
-   * this field must not be specified if an `ApplicationMethodInput.applicationUri` is provided.
+   * SEEK questionnaires are only supported on our native apply form;
+   * omit this field if an `ApplicationMethodInput.applicationUri` is provided.
    */
   seekApplicationQuestionnaireId?: InputMaybe<Scalars['String']>;
   /**
@@ -3593,13 +3679,13 @@ export interface PostPositionProfileForOpeningPositionProfileInput {
    *
    * This appears on the invoice when SEEK bills the hirer for the job ad.
    *
-   * This field has a maximum length of 50 bytes in UTF-8 encoding.
+   * This field has a maximum length of 50 characters.
    */
   seekBillingReference?: InputMaybe<Scalars['String']>;
   /**
    * An optional hirer-provided opaque job reference.
    *
-   * This field has a maximum length of 50 bytes in UTF-8 encoding.
+   * This field has a maximum length of 50 characters.
    */
   seekHirerJobReference?: InputMaybe<Scalars['String']>;
   /**
@@ -3607,7 +3693,7 @@ export interface PostPositionProfileForOpeningPositionProfileInput {
    *
    * The metadata is not used by SEEK and won't be seen by hirers or candidates.
    *
-   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
+   * This field has a maximum length of 1,000 characters.
    */
   seekPartnerMetadata?: InputMaybe<Scalars['String']>;
   /** The video to render within the job ad. */
@@ -3674,13 +3760,13 @@ export interface PostPositionPositionProfileInput {
    * - `FullTime` indicates a full-time schedule.
    * - `PartTime` indicates a part-time schedule.
    *
-   * For the `seekAnz` scheme, this field is not supported and should be set to `null`.
+   * Omit this field for the `seekAnz` scheme.
    */
   positionScheduleTypeCodes?: InputMaybe<Array<Scalars['String']>>;
   /**
    * A short phrase describing the position as it would be listed on a business card or in a company directory.
    *
-   * This field has a maximum length of 80 bytes in UTF-8 encoding.
+   * This field has a maximum length of 80 characters.
    */
   positionTitle: Scalars['String'];
   /**
@@ -3705,17 +3791,17 @@ export interface PostPositionPositionProfileInput {
    *
    * Scheme requirements:
    *
-   * - Required for the `seekAnz` scheme.
-   * - Set to `null` for other schemes.
+   * - This field is required for the `seekAnz` scheme.
+   * - Omit this field for other schemes.
    */
   seekAnzWorkTypeCode?: InputMaybe<Scalars['String']>;
   /**
-   * The identifier for the `ApplicationQuestionnaire` containing the set of questions to present to candidates during an application.
+   * The identifier for the `ApplicationQuestionnaire` to present to a candidate during their application.
    *
    * The questionnaire responses will be available as `CandidateProfile.seekQuestionnaireSubmission` on the candidate's application profile.
    *
-   * Questionnaires are only supported on SEEK's native apply form;
-   * this field must not be specified if an `ApplicationMethodInput.applicationUri` is provided.
+   * SEEK questionnaires are only supported on our native apply form;
+   * omit this field if an `ApplicationMethodInput.applicationUri` is provided.
    */
   seekApplicationQuestionnaireId?: InputMaybe<Scalars['String']>;
   /**
@@ -3723,13 +3809,13 @@ export interface PostPositionPositionProfileInput {
    *
    * This appears on the invoice when SEEK bills the hirer for the job ad.
    *
-   * This field has a maximum length of 50 bytes in UTF-8 encoding.
+   * This field has a maximum length of 50 characters.
    */
   seekBillingReference?: InputMaybe<Scalars['String']>;
   /**
    * An optional hirer-provided opaque job reference.
    *
-   * This field has a maximum length of 50 bytes in UTF-8 encoding.
+   * This field has a maximum length of 50 characters.
    */
   seekHirerJobReference?: InputMaybe<Scalars['String']>;
   /**
@@ -3737,7 +3823,7 @@ export interface PostPositionPositionProfileInput {
    *
    * The metadata is not used by SEEK and won't be seen by hirers or candidates.
    *
-   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
+   * This field has a maximum length of 1,000 characters.
    */
   seekPartnerMetadata?: InputMaybe<Scalars['String']>;
   /** The video to render within the job ad. */
@@ -3845,7 +3931,7 @@ export interface PostedPositionProfile extends PositionProfile {
    *
    * The metadata is not used by SEEK and won't be seen by hirers or candidates.
    *
-   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
+   * This field has a maximum length of 1,000 characters.
    */
   seekPartnerMetadata?: Maybe<Scalars['String']>;
   /** The type of position profile, i.e. `PostedPositionProfile`. */
@@ -3854,11 +3940,7 @@ export interface PostedPositionProfile extends PositionProfile {
   seekVideo?: Maybe<SeekVideo>;
 }
 
-/**
- * The details of a job ad preview.
- *
- * Caution: this is currently under development and may be changed or removed without notice.
- */
+/** The details of a job ad preview. */
 export interface PostedPositionProfilePreview {
   __typename?: 'PostedPositionProfilePreview';
   /**
@@ -3871,11 +3953,7 @@ export interface PostedPositionProfilePreview {
   previewUri: WebUrl;
 }
 
-/**
- * The details of the position profile to be previewed.
- *
- * Caution: this is currently under development and may be changed or removed without notice.
- */
+/** The details of the position profile to be previewed. */
 export interface PostedPositionProfilePreviewPositionProfileInput {
   /**
    * An array of `JobCategory` identifiers.
@@ -3888,9 +3966,7 @@ export interface PostedPositionProfilePreviewPositionProfileInput {
   /** The salary or compensation offered for the position. */
   offeredRemunerationPackage: PostedPositionProfilePreviewRemunerationPackageInput;
   /** An array of formatted position profile descriptions. */
-  positionFormattedDescriptions?: InputMaybe<
-    Array<PositionFormattedDescriptionInput>
-  >;
+  positionFormattedDescriptions?: InputMaybe<Array<PositionFormattedDescriptionInput>>;
   /**
    * An array of `Location` identifiers.
    *
@@ -3910,7 +3986,7 @@ export interface PostedPositionProfilePreviewPositionProfileInput {
   /**
    * A short phrase describing the position as it would be listed on a business card or in a company directory.
    *
-   * This field has a maximum length of 80 bytes in UTF-8 encoding.
+   * This field has a maximum length of 80 characters.
    */
   positionTitle: Scalars['String'];
   /**
@@ -3941,18 +4017,24 @@ export interface PostedPositionProfilePreviewPositionProfileInput {
    *
    * Scheme requirements:
    *
-   * - Required for the `seekAnz` scheme.
+   * - This field is required for the `seekAnz` scheme.
+   * - Omit this field for other schemes.
    */
   seekAnzWorkTypeCode: Scalars['String'];
+  /**
+   * The identifier for the `ApplicationQuestionnaire` to present to a candidate during their application.
+   *
+   * A preview of the question set may be displayed on the job ad.
+   *
+   * SEEK questionnaires are only supported on our native apply form;
+   * omit this field if an `ApplicationMethodInput.applicationUri` is provided.
+   */
+  seekApplicationQuestionnaireId?: InputMaybe<Scalars['String']>;
   /** The video to render within the job ad. */
   seekVideo?: InputMaybe<SeekVideoInput>;
 }
 
-/**
- * Information about how to post a job ad and where to direct its candidate applications.
- *
- * Caution: this is currently under development and may be changed or removed without notice.
- */
+/** Information about how to post a job ad and where to direct its candidate applications. */
 export interface PostedPositionProfilePreviewPostingInstructionInput {
   /**
    * An array of methods for applying to the position.
@@ -3977,6 +4059,12 @@ export interface PostedPositionProfilePreviewPostingInstructionInput {
    */
   brandingId?: InputMaybe<Scalars['String']>;
   /**
+   * The identifier for the `UnstableAdvertisementProduct`.
+   *
+   * Caution: this is currently under development and may be changed or removed without notice.
+   */
+  seekAdvertisementProductId?: InputMaybe<Scalars['String']>;
+  /**
    * A SEEK ANZ advertisement type code.
    *
    * Currently, three codes are defined:
@@ -3987,28 +4075,110 @@ export interface PostedPositionProfilePreviewPostingInstructionInput {
    *
    * Scheme requirements:
    *
-   * - For the `seekAnz` scheme, this field is required.
-   * - For other schemes, set this to `null`.
+   * - This field is required for the `seekAnz` scheme.
+   * - Omit this field for other schemes.
    */
   seekAnzAdvertisementType?: InputMaybe<Scalars['String']>;
 }
 
-/**
- * The salary or compensation for a position.
- *
- * Caution: this is currently under development and may be changed or removed without notice.
- */
+/** A monetary amount of remuneration in a specified currency for a position to be previewed prior to posting. */
+export interface PostedPositionProfilePreviewRemunerationAmountInput {
+  /**
+   * The three-letter ISO 4217 currency code, in uppercase.
+   *
+   * For the `seekAnz` scheme, a single currency is accepted in each location:
+   *
+   * - `NZD` is used by locations in New Zealand.
+   *   These are locations that have a `Location.countryCode` of `NZ`.
+   *
+   * - `GBP` is used by locations in the UK & Ireland.
+   *   These are locations that have a `Location.countryCode` of `GB` or `IE`.
+   *
+   * - `AUD` is used by all other locations.
+   */
+  currency: Scalars['String'];
+  /**
+   * A non-negative float in the major currency unit for the ISO currency code.
+   *
+   * For example, this is the number of dollars in dollar-denominated currencies.
+   */
+  value: Scalars['Float'];
+}
+
+/** The salary or compensation for a position to be previewed prior to posting. */
 export interface PostedPositionProfilePreviewRemunerationPackageInput {
+  /**
+   * A code classifying the primary method of payment for a position.
+   *
+   * Currently, three codes are defined:
+   *
+   * - `Hourly` employment is paid for the number of hours worked.
+   *
+   * - `Salaried` employment is paid on a monthly or annual basis.
+   *
+   * - `SalariedPlusCommission` employment is paid on an annual basis plus a results-based commission.
+   */
+  basisCode?: InputMaybe<Scalars['String']>;
   /**
    * Human readable descriptions of the remuneration package.
    *
    * Scheme requirements:
    *
-   * - The `seekAnz` scheme is limited to a single element with a maximum length of 50 bytes in UTF-8 encoding.
+   * - The `seekAnz` scheme is limited to a single element with a maximum length of 50 characters.
    *
    * An empty array must be provided to signify the absence of salary descriptions.
    */
   descriptions: Array<Scalars['String']>;
+  /**
+   * An array of offered salary ranges.
+   *
+   * Scheme requirements:
+   *
+   * - The `seekAnz` scheme is limited to a single element containing the amount for the `basisCode`.
+   *
+   * Salary ranges are used to refine candidate job searches.
+   * While the monetary values in `minimumAmount` and `maximumAmount` are not visible on job ads,
+   * the currency and interval may be displayed alongside the `descriptions` of the remuneration package for clarity.
+   */
+  ranges?: InputMaybe<Array<PostedPositionProfilePreviewRemunerationRangeInput>>;
+}
+
+/**
+ * A salary or compensation range for a position to be previewed prior to posting.
+ *
+ * Salary ranges are used to refine candidate job searches.
+ * While the monetary values in `minimumAmount` and `maximumAmount` are not visible on job ads,
+ * the currency and interval may be displayed alongside the `descriptions` of the remuneration package for clarity.
+ */
+export interface PostedPositionProfilePreviewRemunerationRangeInput {
+  /**
+   * The interval the remuneration amounts are calculated over.
+   *
+   * Currently two interval codes are defined:
+   *
+   * - `Hour` is used to express hourly rates.
+   * - `Year` is used to express annual salaries.
+   *
+   * The specified value must correspond to `RemunerationPackageInput.basisCode`.
+   * When `RemunerationPackageInput.basisCode` equals `Hourly`, the `RemunerationRangeInput.intervalCode` must be `Hour`.
+   * For all other `RemunerationPackageInput.basisCode`s, the `RemunerationRangeInput.intervalCode` must be `Year`.
+   */
+  intervalCode: Scalars['String'];
+  /**
+   * The maximum amount an organization is willing to pay for a position.
+   *
+   * The value must be greater than or equal to the value of `minimumAmount` and the currency must match `minimumAmount`.
+   *
+   * This should be a mandatory input in your software and will be required in our schema in future.
+   * Currently, omitting the field will default it to `minimumAmount` and harm the performance of the job ad.
+   */
+  maximumAmount?: InputMaybe<RemunerationAmountInput>;
+  /**
+   * The minimum amount an organization is willing to pay for a position.
+   *
+   * The value must be greater than 0.
+   */
+  minimumAmount: RemunerationAmountInput;
 }
 
 /** Information about how to post a job ad and where to direct its candidate applications. */
@@ -4126,6 +4296,14 @@ export interface PreferredLocationInput {
  */
 export interface Query {
   __typename?: 'Query';
+  /**
+   * The list of advertisement products available to the hirer when posting or updating a job.
+   *
+   * This query accepts browser tokens that include the `query:ad-products` scope.
+   *
+   * Caution: this is currently under development and may be changed or removed without notice.
+   */
+  _unstable_advertisementProducts: UnstableAdvertisementProducts;
   /**
    * The advertisement branding for the given `id`.
    *
@@ -4265,8 +4443,6 @@ export interface Query {
   /**
    * A preview of a prospective job ad as it would appear on a SEEK job board.
    *
-   * Caution: this is currently under development and may be changed or removed without notice.
-   *
    * This query accepts browser tokens that include the `query:posted-position-profile-previews` scope.
    */
   postedPositionProfilePreview: PostedPositionProfilePreview;
@@ -4289,9 +4465,7 @@ export interface Query {
    *
    * This query accepts browser tokens that include the `query:ad-products` scope.
    */
-  seekAnzHirerAdvertisementModificationProducts?: Maybe<
-    Array<SeekAnzAdProduct>
-  >;
+  seekAnzHirerAdvertisementModificationProducts?: Maybe<Array<SeekAnzAdProduct>>;
   /**
    * Ad products available when updating a job ad.
    *
@@ -4299,9 +4473,7 @@ export interface Query {
    *
    * This query accepts browser tokens that include the `query:ad-products` scope.
    */
-  seekAnzHirerAdvertisementModificationProductsAlt?: Maybe<
-    Array<SeekAnzAdProduct>
-  >;
+  seekAnzHirerAdvertisementModificationProductsAlt?: Maybe<Array<SeekAnzAdProduct>>;
   /**
    * The organizations the query's access token can act on behalf of.
    *
@@ -4351,6 +4523,19 @@ export interface Query {
   webhookSubscriptions: WebhookSubscriptionsConnection;
 }
 
+
+/**
+ * The schema's entry-point for queries.
+ *
+ * This acts as the public, top-level API from which all queries must start.
+ */
+export interface QueryUnstableAdvertisementProductsArgs {
+  limit?: InputMaybe<Scalars['Int']>;
+  positionProfile: UnstableAdvertisementProductPositionProfileInput;
+  preselectedAdvertisementProductId?: InputMaybe<Scalars['String']>;
+}
+
+
 /**
  * The schema's entry-point for queries.
  *
@@ -4359,6 +4544,7 @@ export interface Query {
 export interface QueryAdvertisementBrandingArgs {
   id: Scalars['String'];
 }
+
 
 /**
  * The schema's entry-point for queries.
@@ -4373,6 +4559,7 @@ export interface QueryAdvertisementBrandingsArgs {
   last?: InputMaybe<Scalars['Int']>;
 }
 
+
 /**
  * The schema's entry-point for queries.
  *
@@ -4384,6 +4571,7 @@ export interface QueryApplicationLibraryQuestionSuggestionsArgs {
   schemeId: Scalars['String'];
 }
 
+
 /**
  * The schema's entry-point for queries.
  *
@@ -4392,6 +4580,7 @@ export interface QueryApplicationLibraryQuestionSuggestionsArgs {
 export interface QueryApplicationQuestionnaireArgs {
   id: Scalars['String'];
 }
+
 
 /**
  * The schema's entry-point for queries.
@@ -4402,6 +4591,7 @@ export interface QueryCandidateArgs {
   id: Scalars['String'];
 }
 
+
 /**
  * The schema's entry-point for queries.
  *
@@ -4410,6 +4600,7 @@ export interface QueryCandidateArgs {
 export interface QueryCandidateProcessHistoryItemArgs {
   id: Scalars['String'];
 }
+
 
 /**
  * The schema's entry-point for queries.
@@ -4420,6 +4611,7 @@ export interface QueryCandidateProfileArgs {
   id: Scalars['String'];
 }
 
+
 /**
  * The schema's entry-point for queries.
  *
@@ -4428,6 +4620,7 @@ export interface QueryCandidateProfileArgs {
 export interface QueryEventArgs {
   id: Scalars['String'];
 }
+
 
 /**
  * The schema's entry-point for queries.
@@ -4443,6 +4636,7 @@ export interface QueryEventsArgs {
   schemeId: Scalars['String'];
 }
 
+
 /**
  * The schema's entry-point for queries.
  *
@@ -4451,6 +4645,7 @@ export interface QueryEventsArgs {
 export interface QueryHiringOrganizationArgs {
   id: Scalars['String'];
 }
+
 
 /**
  * The schema's entry-point for queries.
@@ -4466,14 +4661,17 @@ export interface QueryHiringOrganizationsArgs {
   schemeId: Scalars['String'];
 }
 
+
 /**
  * The schema's entry-point for queries.
  *
  * This acts as the public, top-level API from which all queries must start.
  */
 export interface QueryJobCategoriesArgs {
+  positionProfile?: InputMaybe<JobCategoriesPositionProfileInput>;
   schemeId: Scalars['String'];
 }
+
 
 /**
  * The schema's entry-point for queries.
@@ -4483,6 +4681,7 @@ export interface QueryJobCategoriesArgs {
 export interface QueryJobCategoryArgs {
   id: Scalars['String'];
 }
+
 
 /**
  * The schema's entry-point for queries.
@@ -4495,6 +4694,7 @@ export interface QueryJobCategorySuggestionsArgs {
   schemeId: Scalars['String'];
 }
 
+
 /**
  * The schema's entry-point for queries.
  *
@@ -4503,6 +4703,7 @@ export interface QueryJobCategorySuggestionsArgs {
 export interface QueryLocationArgs {
   id: Scalars['String'];
 }
+
 
 /**
  * The schema's entry-point for queries.
@@ -4517,6 +4718,7 @@ export interface QueryLocationSuggestionsArgs {
   usageTypeCode: Scalars['String'];
 }
 
+
 /**
  * The schema's entry-point for queries.
  *
@@ -4528,6 +4730,7 @@ export interface QueryNearestLocationsArgs {
   schemeId: Scalars['String'];
 }
 
+
 /**
  * The schema's entry-point for queries.
  *
@@ -4536,6 +4739,7 @@ export interface QueryNearestLocationsArgs {
 export interface QueryPositionOpeningArgs {
   id: Scalars['String'];
 }
+
 
 /**
  * The schema's entry-point for queries.
@@ -4549,6 +4753,7 @@ export interface QueryPositionOpeningsArgs {
   hirerId: Scalars['String'];
 }
 
+
 /**
  * The schema's entry-point for queries.
  *
@@ -4557,6 +4762,7 @@ export interface QueryPositionOpeningsArgs {
 export interface QueryPositionProfileArgs {
   id: Scalars['String'];
 }
+
 
 /**
  * The schema's entry-point for queries.
@@ -4567,6 +4773,7 @@ export interface QueryPostedPositionProfilePreviewArgs {
   positionProfile: PostedPositionProfilePreviewPositionProfileInput;
 }
 
+
 /**
  * The schema's entry-point for queries.
  *
@@ -4575,6 +4782,7 @@ export interface QueryPostedPositionProfilePreviewArgs {
 export interface QuerySeekAnzAdvertiserArgs {
   id: Scalars['Int'];
 }
+
 
 /**
  * The schema's entry-point for queries.
@@ -4585,6 +4793,7 @@ export interface QuerySeekAnzHirerAdvertisementCreationProductsArgs {
   draftAdvertisement: SeekAnzAdProductAdvertisementDraftInput;
   hirerId: Scalars['String'];
 }
+
 
 /**
  * The schema's entry-point for queries.
@@ -4597,6 +4806,7 @@ export interface QuerySeekAnzHirerAdvertisementModificationProductsArgs {
   hirerId: Scalars['String'];
 }
 
+
 /**
  * The schema's entry-point for queries.
  *
@@ -4607,6 +4817,7 @@ export interface QuerySeekAnzHirerAdvertisementModificationProductsAltArgs {
   draftAdvertisement: SeekAnzAdProductAdvertisementDraftInput;
   hirerId: Scalars['String'];
 }
+
 
 /**
  * The schema's entry-point for queries.
@@ -4622,6 +4833,7 @@ export interface QueryWebhookAttemptsForEventArgs {
   last?: InputMaybe<Scalars['Int']>;
 }
 
+
 /**
  * The schema's entry-point for queries.
  *
@@ -4631,6 +4843,7 @@ export interface QueryWebhookRequestArgs {
   requestId: Scalars['String'];
   schemeId: Scalars['String'];
 }
+
 
 /**
  * The schema's entry-point for queries.
@@ -4646,6 +4859,7 @@ export interface QueryWebhookRequestsForSubscriptionArgs {
   subscriptionId: Scalars['String'];
 }
 
+
 /**
  * The schema's entry-point for queries.
  *
@@ -4655,6 +4869,7 @@ export interface QueryWebhookSubscriptionArgs {
   id: Scalars['String'];
 }
 
+
 /**
  * The schema's entry-point for queries.
  *
@@ -4663,6 +4878,7 @@ export interface QueryWebhookSubscriptionArgs {
 export interface QueryWebhookSubscriptionReplayArgs {
   id: Scalars['String'];
 }
+
 
 /**
  * The schema's entry-point for queries.
@@ -4724,9 +4940,13 @@ export interface RemunerationPackage {
    * Currently, four codes are defined:
    *
    * - `CommissionOnly` employment is paid exclusively a results-based commission.
+   *   This payment basis is deprecated and should be removed from your software.
+   *
    * - `Hourly` employment is paid for the number of hours worked.
+   *
    * - `Salaried` employment is paid on a monthly or annual basis.
-   * - `SalariedPlusCommission` employment is paid on a monthly or annual basis plus a results-based commission.
+   *
+   * - `SalariedPlusCommission` employment is paid on an annual basis plus a results-based commission.
    */
   basisCode: Scalars['String'];
   /**
@@ -4753,13 +4973,13 @@ export interface RemunerationPackageInput {
    * Currently, four codes are defined:
    *
    * - `CommissionOnly` employment is paid exclusively a results-based commission.
-   *   This payment basis is deprecated and should not be used by new integrations.
+   *   This payment basis is deprecated and should be removed from your software.
    *
    * - `Hourly` employment is paid for the number of hours worked.
    *
    * - `Salaried` employment is paid on a monthly or annual basis.
    *
-   * - `SalariedPlusCommission` employment is paid on a monthly or annual basis plus a results-based commission.
+   * - `SalariedPlusCommission` employment is paid on an annual basis plus a results-based commission.
    */
   basisCode: Scalars['String'];
   /**
@@ -4768,7 +4988,7 @@ export interface RemunerationPackageInput {
    * Scheme requirements:
    *
    * - The `global` scheme has a maximum of 10 elements for `UnpostedPositionProfile`s.
-   * - The `seekAnz` scheme is limited to a single element with a maximum length of 50 bytes in UTF-8 encoding.
+   * - The `seekAnz` scheme is limited to a single element with a maximum length of 50 characters.
    *
    * An empty array must be provided to signify the absence of salary descriptions.
    */
@@ -4780,6 +5000,10 @@ export interface RemunerationPackageInput {
    *
    * - The `global` scheme has a maximum of 10 elements for `UnpostedPositionProfile`s.
    * - The `seekAnz` scheme is limited to a single element containing the amount for the `basisCode`.
+   *
+   * Salary ranges are used to refine candidate job searches.
+   * While the monetary values in `minimumAmount` and `maximumAmount` are not visible on job ads,
+   * the currency and interval may be displayed alongside the `descriptions` of the remuneration package for clarity.
    */
   ranges: Array<RemunerationRangeInput>;
 }
@@ -4800,10 +5024,10 @@ export interface RemunerationRange {
   /**
    * The maximum amount an organization is willing to pay for a position.
    *
-   * A 'null' value indicates the organization has not specified an upper bound for the range.
+   * The value must be greater than or equal to the value of `minimumAmount` and the currency must match `minimumAmount`.
    *
-   * If specified, the value must be greater than or equal to the value of `minimumAmount`,
-   * and the currency must match `minimumAmount`.
+   * The associated `RemunerationRangeInput.maximumAmount` field will be required in our schema in future.
+   * Currently, omitting the field will default it to `minimumAmount` and harm the performance of the job ad.
    */
   maximumAmount?: Maybe<RemunerationAmount>;
   /**
@@ -4817,7 +5041,9 @@ export interface RemunerationRange {
 /**
  * A salary or compensation range for a position.
  *
- * Salary ranges are used to refine candidate job searches but aren’t displayed on job ads.
+ * Salary ranges are used to refine candidate job searches.
+ * While the monetary values in `minimumAmount` and `maximumAmount` are not visible on job ads,
+ * the currency and interval may be displayed alongside the `descriptions` of the remuneration package for clarity.
  */
 export interface RemunerationRangeInput {
   /**
@@ -4828,7 +5054,7 @@ export interface RemunerationRangeInput {
    * - `Hour` is used to express hourly rates.
    * - `Year` is used to express annual salaries or commissions.
    *
-   * The specified value must correspond to the specified `RemunerationPackageInput.basisCode`.
+   * The specified value must correspond to `RemunerationPackageInput.basisCode`.
    * When `RemunerationPackageInput.basisCode` equals `Hourly`, the `RemunerationRangeInput.intervalCode` must be `Hour`.
    * For all other `RemunerationPackageInput.basisCode`s, the `RemunerationRangeInput.intervalCode` must be `Year`.
    */
@@ -4836,10 +5062,10 @@ export interface RemunerationRangeInput {
   /**
    * The maximum amount an organization is willing to pay for a position.
    *
-   * A `null` value indicates the organization has not specified an upper bound for the range.
+   * The value must be greater than or equal to the value of `minimumAmount` and the currency must match `minimumAmount`.
    *
-   * If specified, the value must be greater than or equal to the value of `minimumAmount`,
-   * and the currency must match `minimumAmount`.
+   * This should be a mandatory input in your software and will be required in our schema in future.
+   * Currently, omitting the field will default it to `minimumAmount` and harm the performance of the job ad.
    */
   maximumAmount?: InputMaybe<RemunerationAmountInput>;
   /**
@@ -4852,8 +5078,22 @@ export interface RemunerationRangeInput {
 
 /** The input parameter for the `replayWebhookSubscription` mutation. */
 export interface ReplayWebhookSubscriptionInput {
-  /** The additional fields to filter which events are to be replayed. */
-  filter: ReplayWebhookSubscriptionFilterInput;
+  /**
+   * List of event IDs to filter which events are to be replayed.
+   *
+   * This is an alternative to the `filter` argument, providing the ability to replay a list of specific events by their IDs.
+   * `eventIds` and `filter` cannot be specified in the same mutation.
+   *
+   * A maximum of 100 event IDs may be provided.
+   */
+  eventIds?: InputMaybe<Array<Scalars['String']>>;
+  /**
+   * Additional fields to filter which events are to be replayed.
+   *
+   * This is an alternative to the `eventIds` argument, and allows replaying events within a designated time range.
+   * `eventIds` and `filter` cannot be specified in the same mutation.
+   */
+  filter?: InputMaybe<ReplayWebhookSubscriptionFilterInput>;
   /** The details of the webhook subscription to be replayed. */
   webhookSubscription: ReplayWebhookSubscriptionSubscriptionInput;
 }
@@ -4865,7 +5105,7 @@ export interface ReplayWebhookSubscriptionPayload {
   webhookSubscription: WebhookSubscription;
 }
 
-/** The criteria used to decide which events will be replayed. */
+/** Criteria used to decide which events will be replayed. */
 export interface ReplayWebhookSubscriptionFilterInput {
   /** The earliest event to replay. */
   createdAfterDateTime: Scalars['DateTime'];
@@ -5089,11 +5329,10 @@ export const SeekAttachmentRole = {
   /** A resume or CV. */
   Resume: 'RESUME',
   /** A document supporting a position-specific selection criteria. */
-  SelectionCriteria: 'SELECTION_CRITERIA',
+  SelectionCriteria: 'SELECTION_CRITERIA'
 } as const;
 
-export type SeekAttachmentRole =
-  (typeof SeekAttachmentRole)[keyof typeof SeekAttachmentRole];
+export type SeekAttachmentRole = typeof SeekAttachmentRole[keyof typeof SeekAttachmentRole];
 /** The source system for the process history item. */
 export interface SeekProcessHistoryItemSource {
   __typename?: 'SeekProcessHistoryItemSource';
@@ -5293,7 +5532,7 @@ export interface UnpostedPositionProfile extends PositionProfile {
    *
    * The metadata is not used by SEEK and won't be seen by hirers or candidates.
    *
-   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
+   * This field has a maximum length of 1,000 characters.
    */
   seekPartnerMetadata?: Maybe<Scalars['String']>;
   /** The type of position profile, i.e. `UnpostedPositionProfile`. */
@@ -5460,13 +5699,13 @@ export interface UpdatePostedPositionProfilePositionProfileInput {
    * - `FullTime` indicates a full-time schedule.
    * - `PartTime` indicates a part-time schedule.
    *
-   * For the `seekAnz` scheme, this field is not supported and should be set to `null`.
+   * Omit this field for the `seekAnz` scheme.
    */
   positionScheduleTypeCodes?: InputMaybe<Array<Scalars['String']>>;
   /**
    * A short phrase describing the position as it would be listed on a business card or in a company directory.
    *
-   * This field has a maximum length of 80 bytes in UTF-8 encoding.
+   * This field has a maximum length of 80 characters.
    */
   positionTitle: Scalars['String'];
   /**
@@ -5493,8 +5732,8 @@ export interface UpdatePostedPositionProfilePositionProfileInput {
    *
    * Scheme requirements:
    *
-   * - Required for the `seekAnz` scheme.
-   * - Set to `null` for other schemes.
+   * - This field is required for the `seekAnz` scheme.
+   * - Omit this field for other schemes.
    */
   seekAnzWorkTypeCode?: InputMaybe<Scalars['String']>;
   /**
@@ -5508,13 +5747,13 @@ export interface UpdatePostedPositionProfilePositionProfileInput {
    *
    * This appears on the invoice when SEEK bills the hirer for the job ad.
    *
-   * This field has a maximum length of 50 bytes in UTF-8 encoding.
+   * This field has a maximum length of 50 characters.
    */
   seekBillingReference?: InputMaybe<Scalars['String']>;
   /**
    * An optional hirer-provided opaque job reference.
    *
-   * This field has a maximum length of 50 bytes in UTF-8 encoding.
+   * This field has a maximum length of 50 characters.
    */
   seekHirerJobReference?: InputMaybe<Scalars['String']>;
   /**
@@ -5522,7 +5761,7 @@ export interface UpdatePostedPositionProfilePositionProfileInput {
    *
    * The metadata is not used by SEEK and won't be seen by hirers or candidates.
    *
-   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
+   * This field has a maximum length of 1,000 characters.
    */
   seekPartnerMetadata?: InputMaybe<Scalars['String']>;
   /** The video to render within the job ad. */
@@ -5544,7 +5783,8 @@ export interface UpdatePostingInstructionInput {
    * If no methods are provided, SEEK's native apply form will be used to receive candidate applications.
    * Native applications will emit a `CandidateApplicationCreated` event that points to a `CandidateProfile` object.
    *
-   * Changing a posted job ad’s application method between link out and native apply can result in unexpected behaviour.
+   * The application method of a job ad must not be changed once it has been posted.
+   * Attempting to switch between link out and native apply when updating a job ad will fail with a `BAD_USER_INPUT` error or result in unexpected behaviour.
    * This field should only be used to update the `ApplicationMethod.applicationUri` of an existing link out job ad.
    *
    * Scheme requirements:
@@ -5570,9 +5810,15 @@ export interface UpdatePostingInstructionInput {
    *
    * - For the `seekAnz` scheme this must be no more than 30 days after the job ad was initially posted.
    *
-   *   If an end date is not specified the job ad's existing end date will be preserved.
+   *   If an end date is omitted, the job ad's existing end date will be preserved.
    */
   end?: InputMaybe<Scalars['DateTime']>;
+  /**
+   * The identifier for the `UnstableAdvertisementProduct`.
+   *
+   * Caution: this is currently under development and may be changed or removed without notice.
+   */
+  seekAdvertisementProductId?: InputMaybe<Scalars['String']>;
   /**
    * A SEEK ANZ advertisement type code.
    *
@@ -5584,8 +5830,8 @@ export interface UpdatePostingInstructionInput {
    *
    * Scheme requirements:
    *
-   * - For the `seekAnz` scheme, this field is required.
-   * - For other schemes, set this to `null`.
+   * - This field is required for the `seekAnz` scheme.
+   * - Omit this field for other schemes.
    */
   seekAnzAdvertisementType?: InputMaybe<Scalars['String']>;
 }
@@ -5637,7 +5883,7 @@ export interface UpdateUnpostedPositionProfilePositionProfileInput {
   /**
    * A short phrase describing the position as it would be listed on a business card or in a company directory.
    *
-   * This field has a maximum length of 80 bytes in UTF-8 encoding.
+   * This field has a maximum length of 80 characters.
    */
   positionTitle: Scalars['String'];
   /** The identifier for the unposted `PositionProfile` to update. */
@@ -5653,13 +5899,13 @@ export interface UpdateUnpostedPositionProfilePositionProfileInput {
    *
    * SEEK does not use this field on unposted position profiles.
    *
-   * This field has a maximum length of 50 bytes in UTF-8 encoding.
+   * This field has a maximum length of 50 characters.
    */
   seekBillingReference?: InputMaybe<Scalars['String']>;
   /**
    * An optional hirer-provided opaque job reference.
    *
-   * This field has a maximum length of 50 bytes in UTF-8 encoding.
+   * This field has a maximum length of 50 characters.
    */
   seekHirerJobReference?: InputMaybe<Scalars['String']>;
   /**
@@ -5667,7 +5913,7 @@ export interface UpdateUnpostedPositionProfilePositionProfileInput {
    *
    * The metadata is not used by SEEK and won't be seen by hirers or candidates.
    *
-   * This field has a maximum length of 1,000 bytes in UTF-8 encoding.
+   * This field has a maximum length of 1,000 characters.
    */
   seekPartnerMetadata?: InputMaybe<Scalars['String']>;
 }
@@ -5679,9 +5925,7 @@ export interface UpdateUploadedCandidatePersonInput {
 }
 
 /** The response from the `updateUploadedCandidatePerson` mutation. */
-export type UpdateUploadedCandidatePersonPayload =
-  | UpdateUploadedCandidatePersonPayloadConflict
-  | UpdateUploadedCandidatePersonPayloadSuccess;
+export type UpdateUploadedCandidatePersonPayload = UpdateUploadedCandidatePersonPayloadConflict | UpdateUploadedCandidatePersonPayloadSuccess;
 
 /** The conflict result for the `updateUploadedCandidatePerson` mutation. */
 export interface UpdateUploadedCandidatePersonPayloadConflict {
@@ -5714,6 +5958,8 @@ export interface UpdateUploadedCandidatePersonCandidateInput {
    * The candidate's primary email address.
    *
    * The value must match one of the candidate's email addresses.
+   *
+   * This field has a maximum length of 255 bytes in UTF-8 encoding.
    */
   seekPrimaryEmailAddress: Scalars['String'];
 }
@@ -5821,9 +6067,7 @@ export interface UpdateWebhookSubscriptionDeliveryConfigurationInput {
 }
 
 /** The response from the `updateWebhookSubscriptionDeliveryConfiguration` mutation. */
-export type UpdateWebhookSubscriptionDeliveryConfigurationPayload =
-  | UpdateWebhookSubscriptionDeliveryConfigurationPayloadConflict
-  | UpdateWebhookSubscriptionDeliveryConfigurationPayloadSuccess;
+export type UpdateWebhookSubscriptionDeliveryConfigurationPayload = UpdateWebhookSubscriptionDeliveryConfigurationPayloadConflict | UpdateWebhookSubscriptionDeliveryConfigurationPayloadSuccess;
 
 /**
  * The conflict result for the `updateWebhookSubscriptionDeliveryConfiguration` mutation.
@@ -5882,6 +6126,8 @@ export interface UpdateWebhookSubscriptionSigningConfigurationSubscriptionInput 
    * It is used as the key to generate a message authentication code for each request.
    *
    * The secret should be a random string with high entropy that is not reused for any other purpose.
+   *
+   * This field has a maximum length of 255 bytes in UTF-8 encoding.
    */
   secret?: InputMaybe<Scalars['String']>;
   /**
@@ -5911,9 +6157,7 @@ export interface UploadCandidateInput {
 }
 
 /** The response from the `uploadCandidate` mutation. */
-export type UploadCandidatePayload =
-  | UploadCandidatePayloadConflict
-  | UploadCandidatePayloadSuccess;
+export type UploadCandidatePayload = UploadCandidatePayloadConflict | UploadCandidatePayloadSuccess;
 
 /** The conflict result for the `uploadCandidate` mutation. */
 export interface UploadCandidatePayloadConflict {
@@ -5972,6 +6216,8 @@ export interface UploadCandidateCandidateInput {
    *
    * The value must match one of the candidate's email addresses.
    * Duplicate uploads will result in a `BAD_USER_INPUT` error.
+   *
+   * This field has a maximum length of 255 bytes in UTF-8 encoding.
    */
   seekPrimaryEmailAddress: Scalars['String'];
 }
@@ -6299,6 +6545,7 @@ export interface WebhookSubscription {
   webhookSubscriptionReplays: WebhookSubscriptionReplaysConnection;
 }
 
+
 /**
  * A subscription for a given event type and scheme to be delivered via webhook.
  *
@@ -6311,6 +6558,7 @@ export interface WebhookSubscriptionWebhookRequestsArgs {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 }
+
 
 /**
  * A subscription for a given event type and scheme to be delivered via webhook.
@@ -6372,6 +6620,42 @@ export interface WebhookSubscriptionReplay {
   webhookSubscription?: Maybe<WebhookSubscription>;
 }
 
+/** The event ID criteria used to determine which events will be replayed. */
+export interface WebhookSubscriptionReplayByIdRequest extends WebhookSubscriptionReplayRequest {
+  __typename?: 'WebhookSubscriptionReplayByIdRequest';
+  /** The list of `Event.id` values to replay. */
+  eventIds: Array<Scalars['String']>;
+  /**
+   * The type of the component.
+   *
+   * This is always `IdReplayRequest`.
+   */
+  typeCode: Scalars['String'];
+}
+
+/** The date range criteria used to determine which events will be replayed. */
+export interface WebhookSubscriptionReplayByRangeRequest extends WebhookSubscriptionReplayRequest {
+  __typename?: 'WebhookSubscriptionReplayByRangeRequest';
+  /** The earliest event to include. */
+  afterDateTime: Scalars['DateTime'];
+  /** The latest event to include. */
+  beforeDateTime: Scalars['DateTime'];
+  /** The hirer to replay events for. */
+  hirer?: Maybe<HiringOrganization>;
+  /**
+   * Whether previously delivered events should be included in the request.
+   *
+   * This also includes events that were not delivered because the relevant hirer relationship or webhook subscription was not in place at time of occurrence.
+   */
+  replayDeliveredEventsIndicator: Scalars['Boolean'];
+  /**
+   * The type of the component.
+   *
+   * This is always `RangeReplayRequest`.
+   */
+  typeCode: Scalars['String'];
+}
+
 /** A webhook subscription replay in a paginated list. */
 export interface WebhookSubscriptionReplayEdge {
   __typename?: 'WebhookSubscriptionReplayEdge';
@@ -6387,20 +6671,15 @@ export interface WebhookSubscriptionReplayEdge {
 
 /** The original criteria used to determine which events will be replayed. */
 export interface WebhookSubscriptionReplayRequest {
-  __typename?: 'WebhookSubscriptionReplayRequest';
-  /** The earliest event to include. */
-  afterDateTime: Scalars['DateTime'];
-  /** The latest event to include. */
-  beforeDateTime: Scalars['DateTime'];
-  /** The hirer to replay events for. */
-  hirer?: Maybe<HiringOrganization>;
   /**
-   * Whether previously delivered events should be included in the request.
+   * The type of the replay.
    *
-   * This also includes events that were not delivered because the relevant hirer
-   * relationship or webhook subscription was not in place at time of occurrence.
+   * Currently, two codes are defined:
+   *
+   * - `RangeReplayRequest` which corresponds to the `WebhookSubscriptionReplayByRangeRequest` type.
+   * - `IdReplayRequest` which corresponds to the `WebhookSubscriptionReplayByIdRequest` type.
    */
-  replayDeliveredEventsIndicator: Scalars['Boolean'];
+  typeCode: Scalars['String'];
 }
 
 /** A page of webhook subscription replays. */
@@ -6481,30 +6760,192 @@ export interface WebhookSubscriptionsFilterInput {
   hirerIds?: InputMaybe<Array<Scalars['String']>>;
 }
 
-export type AdvertisementBrandingFieldsFragment = {
-  __typename?: 'AdvertisementBranding';
-  name: string;
-  id: { __typename?: 'ObjectIdentifier'; value: string };
-  images: Array<{
-    __typename?: 'AdvertisementBrandingImage';
-    typeCode: string;
-    url: string;
-  }>;
-};
+/**
+ * The details of an available advertisement product.
+ *
+ * Caution: this is currently under development and may be changed or removed without notice.
+ */
+export interface UnstableAdvertisementProduct {
+  __typename?: '_unstable_AdvertisementProduct';
+  /** A short phrase intended for display to a user that describes the advertisement product. */
+  description?: Maybe<Scalars['String']>;
+  /** Additional information that is accepted when posting a job ad to configure the features of this advertisement product. */
+  features: UnstableAdvertisementProductFeatures;
+  /**
+   * The identifier of this advertisement product.
+   *
+   * Identifiers may become stale, and should not be stored for long periods.
+   *
+   * It would be appropriate to save an identifier for use in a job ad draft, but not for use as a job ad template.
+   */
+  id: ObjectIdentifier;
+  /**
+   * The name of the advertisement product for displaying to the user.
+   *
+   * This is typically a single word that differentiates the product from other options.
+   */
+  label: Scalars['String'];
+  /** Information about how payment will be made for this advertisement product. */
+  payment?: Maybe<UnstableAdvertisementProductPaymentDetails>;
+  /** Information about how much this advertisement product costs. */
+  price?: Maybe<UnstableAdvertisementProductPriceDetails>;
+  /**
+   * Whether this advertisement product should be preselected or not.
+   *
+   * This field generally indicates the advertisement product that is set in the current state of an existing `PositionProfile`.
+   */
+  selected: Scalars['Boolean'];
+  /** An array of short phrases that tell the user what value this advertisement product provides. */
+  sellingPoints: Array<UnstableAdvertisementProductSellingPoint>;
+}
 
-export type AdvertisementBrandingEdgeFieldsFragment = {
-  __typename?: 'AdvertisementBrandingEdge';
-  node: {
-    __typename?: 'AdvertisementBranding';
-    name: string;
-    id: { __typename?: 'ObjectIdentifier'; value: string };
-    images: Array<{
-      __typename?: 'AdvertisementBrandingImage';
-      typeCode: string;
-      url: string;
-    }>;
-  };
-};
+/** Additional information that is accepted when posting a job ad with this advertisement product. */
+export interface UnstableAdvertisementProductFeatures {
+  __typename?: '_unstable_AdvertisementProductFeatures';
+  /** Additional information related to branding that is accepted when posting a job ad. */
+  branding?: Maybe<UnstableAdvertisementProductFeaturesBranding>;
+  /** Additional information related to search bullet points that is accepted when posting a job ad. */
+  bulletPoints?: Maybe<UnstableAdvertisementProductFeaturesBulletPoints>;
+}
+
+/** Branding features that are included with a product when posting or updating a job ad. */
+export interface UnstableAdvertisementProductFeaturesBranding {
+  __typename?: '_unstable_AdvertisementProductFeaturesBranding';
+  /** Whether the cover image from the provided `AdvertisementBranding` will be visible on the job ad. */
+  coverImage: Scalars['Boolean'];
+  /** Whether the logo from the provided `AdvertisementBranding` will be visible on the job ad. */
+  logo: Scalars['Boolean'];
+}
+
+/** Search bullet points that are included with a product. */
+export interface UnstableAdvertisementProductFeaturesBulletPoints {
+  __typename?: '_unstable_AdvertisementProductFeaturesBulletPoints';
+  /**
+   * How many search bullet points are accepted when posting a job ad.
+   *
+   * This is always a positive integer; if bullet points are not supported, the entire object will be `null`.
+   */
+  limit: Scalars['Int'];
+}
+
+/** The details of how an advertisement product will be paid. */
+export interface UnstableAdvertisementProductPaymentDetails {
+  __typename?: '_unstable_AdvertisementProductPaymentDetails';
+  /**
+   * A plain text summary of how payment will be broken down across payment methods.
+   *
+   * This is a human-readable string intended for displaying in a user interface.
+   */
+  summary: Scalars['String'];
+  /**
+   * An alternate version of `summary` that includes HTML markup.
+   *
+   * This is intended to be parsed and rendered by a web browser for displaying in a user interface.
+   */
+  summaryHtml: Scalars['String'];
+}
+
+/** The details of what will be paid for an advertisement product. */
+export interface UnstableAdvertisementProductPriceDetails {
+  __typename?: '_unstable_AdvertisementProductPriceDetails';
+  /**
+   * The summary of what the price is for an advertisement product.
+   *
+   * This is a human-readable string intended for displaying in a user interface.
+   */
+  summary: Scalars['String'];
+}
+
+/**
+ * A selling point of an advertisement product.
+ *
+ * This details a reason why a user should choose this advertisement product over another.
+ */
+export interface UnstableAdvertisementProductSellingPoint {
+  __typename?: '_unstable_AdvertisementProductSellingPoint';
+  /** The textual representation of this selling point for displaying to the user. */
+  text: Scalars['String'];
+}
+
+/**
+ * The proposed state of the job ad to be posted or updated.
+ *
+ * Caution: this is currently under development and may be changed or removed without notice.
+ */
+export interface UnstableAdvertisementProductPositionProfileInput {
+  /**
+   * An array of `JobCategory` identifiers.
+   *
+   * This field currently requires a single identifier for a child job category.
+   */
+  jobCategories: Array<Scalars['String']>;
+  /**
+   * The remuneration offered for the position.
+   *
+   * This information allows us to better forecast the performance of the advertisement products.
+   */
+  offeredRemunerationPackage?: InputMaybe<RemunerationPackageInput>;
+  /**
+   * An array of `Location` identifiers.
+   *
+   * Scheme requirements:
+   *
+   * - This field currently requires a single identifier for a location.
+   */
+  positionLocation: Array<Scalars['String']>;
+  /**
+   * Array of identifiers for the `HiringOrganization` that will post or update the job ad.
+   *
+   * The `seekAnz` scheme requires exactly one element.
+   */
+  positionOrganizations: Array<Scalars['String']>;
+  /**
+   * A short phrase describing the position as it would be listed on a business card or in a company directory.
+   *
+   * This field has a maximum length of 80 characters.
+   */
+  positionTitle: Scalars['String'];
+  /**
+   * The identifier of the job ad to be updated.
+   *
+   * It should be omitted when creating a new job.
+   */
+  profileId?: InputMaybe<Scalars['String']>;
+  /**
+   * A SEEK ANZ work type code.
+   *
+   * Currently, four codes are defined:
+   *
+   * - `Casual` indicates a casual position.
+   * - `ContractTemp` indicates a fixed-length contract position.
+   * - `FullTime` indicates a full-time position.
+   * - `PartTime` indicates a part-time position.
+   *
+   * This information allows us to better forecast the performance of the advertisement products.
+   */
+  seekAnzWorkTypeCode?: InputMaybe<Scalars['String']>;
+}
+
+/**
+ * A list of advertisement products with additional context that applies to all products.
+ *
+ * Caution: this is currently under development and may be changed or removed without notice.
+ */
+export interface UnstableAdvertisementProducts {
+  __typename?: '_unstable_AdvertisementProducts';
+  /**
+   * Information on this set of available products.
+   *
+   * Typically this is a legal disclaimer.
+   */
+  information?: Maybe<Scalars['String']>;
+  /** The list of advertisement products. */
+  products: Array<UnstableAdvertisementProduct>;
+}
+
+export type AdvertisementBrandingFieldsFragment = { __typename?: 'AdvertisementBranding', name: string, id: { __typename?: 'ObjectIdentifier', value: string }, images: Array<{ __typename?: 'AdvertisementBrandingImage', typeCode: string, url: string }> };
+
+export type AdvertisementBrandingEdgeFieldsFragment = { __typename?: 'AdvertisementBrandingEdge', node: { __typename?: 'AdvertisementBranding', name: string, id: { __typename?: 'ObjectIdentifier', value: string }, images: Array<{ __typename?: 'AdvertisementBrandingImage', typeCode: string, url: string }> } };
 
 export type AdvertisementBrandingsQueryVariables = Exact<{
   after?: InputMaybe<Scalars['String']>;
@@ -6514,102 +6955,29 @@ export type AdvertisementBrandingsQueryVariables = Exact<{
   hirerId: Scalars['String'];
 }>;
 
-export type AdvertisementBrandingsQuery = {
-  advertisementBrandings: {
-    __typename?: 'AdvertisementBrandingsConnection';
-    pageInfo: {
-      __typename?: 'PageInfo';
-      hasNextPage: boolean;
-      hasPreviousPage: boolean;
-      startCursor?: string | null;
-      endCursor?: string | null;
-    };
-    edges: Array<{
-      __typename?: 'AdvertisementBrandingEdge';
-      node: {
-        __typename?: 'AdvertisementBranding';
-        name: string;
-        id: { __typename?: 'ObjectIdentifier'; value: string };
-        images: Array<{
-          __typename?: 'AdvertisementBrandingImage';
-          typeCode: string;
-          url: string;
-        }>;
-      };
-    }>;
-  };
-};
 
-export type JobCategoryFieldsFragment = {
-  __typename?: 'JobCategory';
-  name: string;
-  id: { __typename?: 'ObjectIdentifier'; value: string };
-};
+export type AdvertisementBrandingsQuery = { advertisementBrandings: { __typename?: 'AdvertisementBrandingsConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null, endCursor?: string | null }, edges: Array<{ __typename?: 'AdvertisementBrandingEdge', node: { __typename?: 'AdvertisementBranding', name: string, id: { __typename?: 'ObjectIdentifier', value: string }, images: Array<{ __typename?: 'AdvertisementBrandingImage', typeCode: string, url: string }> } }> } };
+
+export type JobCategoryFieldsFragment = { __typename?: 'JobCategory', name: string, id: { __typename?: 'ObjectIdentifier', value: string } };
 
 export type JobCategoryQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
-export type JobCategoryQuery = {
-  jobCategory?: {
-    __typename?: 'JobCategory';
-    name: string;
-    parent?: {
-      __typename?: 'JobCategory';
-      name: string;
-      id: { __typename?: 'ObjectIdentifier'; value: string };
-    } | null;
-    children?: Array<{
-      __typename?: 'JobCategory';
-      name: string;
-      id: { __typename?: 'ObjectIdentifier'; value: string };
-    }> | null;
-    id: { __typename?: 'ObjectIdentifier'; value: string };
-  } | null;
-};
 
-export type JobCategoryAttributesFragment = {
-  __typename?: 'JobCategory';
-  name: string;
-  id: { __typename?: 'ObjectIdentifier'; value: string };
-};
+export type JobCategoryQuery = { jobCategory?: { __typename?: 'JobCategory', name: string, parent?: { __typename?: 'JobCategory', name: string, id: { __typename?: 'ObjectIdentifier', value: string } } | null, children?: Array<{ __typename?: 'JobCategory', name: string, id: { __typename?: 'ObjectIdentifier', value: string } }> | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null };
+
+export type JobCategoryAttributesFragment = { __typename?: 'JobCategory', name: string, id: { __typename?: 'ObjectIdentifier', value: string } };
 
 export type JobCategoriesQueryVariables = Exact<{
   schemeId: Scalars['String'];
+  positionProfile?: InputMaybe<JobCategoriesPositionProfileInput>;
 }>;
 
-export type JobCategoriesQuery = {
-  jobCategories: Array<{
-    __typename?: 'JobCategory';
-    name: string;
-    children?: Array<{
-      __typename?: 'JobCategory';
-      name: string;
-      id: { __typename?: 'ObjectIdentifier'; value: string };
-    }> | null;
-    id: { __typename?: 'ObjectIdentifier'; value: string };
-  }>;
-};
 
-export type JobCategorySuggestionChoiceAttributesFragment = {
-  __typename?: 'JobCategorySuggestionChoice';
-  confidence: number;
-  jobCategory: {
-    __typename?: 'JobCategory';
-    name: string;
-    parent?: {
-      __typename?: 'JobCategory';
-      name: string;
-      id: { __typename?: 'ObjectIdentifier'; value: string };
-    } | null;
-    children?: Array<{
-      __typename?: 'JobCategory';
-      name: string;
-      id: { __typename?: 'ObjectIdentifier'; value: string };
-    }> | null;
-    id: { __typename?: 'ObjectIdentifier'; value: string };
-  };
-};
+export type JobCategoriesQuery = { jobCategories: Array<{ __typename?: 'JobCategory', name: string, children?: Array<{ __typename?: 'JobCategory', name: string, id: { __typename?: 'ObjectIdentifier', value: string } }> | null, id: { __typename?: 'ObjectIdentifier', value: string } }> };
+
+export type JobCategorySuggestionChoiceAttributesFragment = { __typename?: 'JobCategorySuggestionChoice', confidence: number, jobCategory: { __typename?: 'JobCategory', name: string, parent?: { __typename?: 'JobCategory', name: string, id: { __typename?: 'ObjectIdentifier', value: string } } | null, children?: Array<{ __typename?: 'JobCategory', name: string, id: { __typename?: 'ObjectIdentifier', value: string } }> | null, id: { __typename?: 'ObjectIdentifier', value: string } } };
 
 export type JobCategorySuggestQueryVariables = Exact<{
   positionProfile: JobCategorySuggestionPositionProfileInput;
@@ -6617,177 +6985,27 @@ export type JobCategorySuggestQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
 }>;
 
-export type JobCategorySuggestQuery = {
-  jobCategorySuggestions: Array<{
-    __typename?: 'JobCategorySuggestionChoice';
-    confidence: number;
-    jobCategory: {
-      __typename?: 'JobCategory';
-      name: string;
-      parent?: {
-        __typename?: 'JobCategory';
-        name: string;
-        id: { __typename?: 'ObjectIdentifier'; value: string };
-      } | null;
-      children?: Array<{
-        __typename?: 'JobCategory';
-        name: string;
-        id: { __typename?: 'ObjectIdentifier'; value: string };
-      }> | null;
-      id: { __typename?: 'ObjectIdentifier'; value: string };
-    };
-  }>;
-};
 
-export type LocationAttributesFragment = {
-  __typename?: 'Location';
-  name: string;
-  contextualName: string;
-  countryCode: string;
-  id: { __typename?: 'ObjectIdentifier'; value: string };
-};
+export type JobCategorySuggestQuery = { jobCategorySuggestions: Array<{ __typename?: 'JobCategorySuggestionChoice', confidence: number, jobCategory: { __typename?: 'JobCategory', name: string, parent?: { __typename?: 'JobCategory', name: string, id: { __typename?: 'ObjectIdentifier', value: string } } | null, children?: Array<{ __typename?: 'JobCategory', name: string, id: { __typename?: 'ObjectIdentifier', value: string } }> | null, id: { __typename?: 'ObjectIdentifier', value: string } } }> };
 
-export type NestedLocationAttributesFragment = {
-  __typename?: 'Location';
-  name: string;
-  contextualName: string;
-  countryCode: string;
-  parent?: {
-    __typename?: 'Location';
-    name: string;
-    contextualName: string;
-    countryCode: string;
-    parent?: {
-      __typename?: 'Location';
-      name: string;
-      contextualName: string;
-      countryCode: string;
-      parent?: {
-        __typename?: 'Location';
-        name: string;
-        contextualName: string;
-        countryCode: string;
-        parent?: {
-          __typename?: 'Location';
-          name: string;
-          contextualName: string;
-          countryCode: string;
-          parent?: {
-            __typename?: 'Location';
-            name: string;
-            contextualName: string;
-            countryCode: string;
-            id: { __typename?: 'ObjectIdentifier'; value: string };
-          } | null;
-          id: { __typename?: 'ObjectIdentifier'; value: string };
-        } | null;
-        id: { __typename?: 'ObjectIdentifier'; value: string };
-      } | null;
-      id: { __typename?: 'ObjectIdentifier'; value: string };
-    } | null;
-    id: { __typename?: 'ObjectIdentifier'; value: string };
-  } | null;
-  id: { __typename?: 'ObjectIdentifier'; value: string };
-};
+export type LocationAttributesFragment = { __typename?: 'Location', name: string, contextualName: string, countryCode: string, id: { __typename?: 'ObjectIdentifier', value: string } };
+
+export type NestedLocationAttributesFragment = { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } };
 
 export type NearbyLocationsQueryVariables = Exact<{
   geoLocation: GeoLocationInput;
   schemeId: Scalars['String'];
 }>;
 
-export type NearbyLocationsQuery = {
-  nearestLocations?: Array<{
-    __typename?: 'Location';
-    name: string;
-    contextualName: string;
-    countryCode: string;
-    parent?: {
-      __typename?: 'Location';
-      name: string;
-      contextualName: string;
-      countryCode: string;
-      parent?: {
-        __typename?: 'Location';
-        name: string;
-        contextualName: string;
-        countryCode: string;
-        parent?: {
-          __typename?: 'Location';
-          name: string;
-          contextualName: string;
-          countryCode: string;
-          parent?: {
-            __typename?: 'Location';
-            name: string;
-            contextualName: string;
-            countryCode: string;
-            parent?: {
-              __typename?: 'Location';
-              name: string;
-              contextualName: string;
-              countryCode: string;
-              id: { __typename?: 'ObjectIdentifier'; value: string };
-            } | null;
-            id: { __typename?: 'ObjectIdentifier'; value: string };
-          } | null;
-          id: { __typename?: 'ObjectIdentifier'; value: string };
-        } | null;
-        id: { __typename?: 'ObjectIdentifier'; value: string };
-      } | null;
-      id: { __typename?: 'ObjectIdentifier'; value: string };
-    } | null;
-    id: { __typename?: 'ObjectIdentifier'; value: string };
-  }> | null;
-};
+
+export type NearbyLocationsQuery = { nearestLocations?: Array<{ __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } }> | null };
 
 export type LocationQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
-export type LocationQuery = {
-  location?: {
-    __typename?: 'Location';
-    name: string;
-    contextualName: string;
-    countryCode: string;
-    parent?: {
-      __typename?: 'Location';
-      name: string;
-      contextualName: string;
-      countryCode: string;
-      parent?: {
-        __typename?: 'Location';
-        name: string;
-        contextualName: string;
-        countryCode: string;
-        parent?: {
-          __typename?: 'Location';
-          name: string;
-          contextualName: string;
-          countryCode: string;
-          parent?: {
-            __typename?: 'Location';
-            name: string;
-            contextualName: string;
-            countryCode: string;
-            parent?: {
-              __typename?: 'Location';
-              name: string;
-              contextualName: string;
-              countryCode: string;
-              id: { __typename?: 'ObjectIdentifier'; value: string };
-            } | null;
-            id: { __typename?: 'ObjectIdentifier'; value: string };
-          } | null;
-          id: { __typename?: 'ObjectIdentifier'; value: string };
-        } | null;
-        id: { __typename?: 'ObjectIdentifier'; value: string };
-      } | null;
-      id: { __typename?: 'ObjectIdentifier'; value: string };
-    } | null;
-    id: { __typename?: 'ObjectIdentifier'; value: string };
-  } | null;
-};
+
+export type LocationQuery = { location?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null };
 
 export type SuggestLocationsQueryVariables = Exact<{
   usageTypeCode: Scalars['String'];
@@ -6797,53 +7015,8 @@ export type SuggestLocationsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
 }>;
 
-export type SuggestLocationsQuery = {
-  locationSuggestions?: Array<{
-    __typename?: 'LocationSuggestion';
-    location: {
-      __typename?: 'Location';
-      name: string;
-      contextualName: string;
-      countryCode: string;
-      parent?: {
-        __typename?: 'Location';
-        name: string;
-        contextualName: string;
-        countryCode: string;
-        parent?: {
-          __typename?: 'Location';
-          name: string;
-          contextualName: string;
-          countryCode: string;
-          parent?: {
-            __typename?: 'Location';
-            name: string;
-            contextualName: string;
-            countryCode: string;
-            parent?: {
-              __typename?: 'Location';
-              name: string;
-              contextualName: string;
-              countryCode: string;
-              parent?: {
-                __typename?: 'Location';
-                name: string;
-                contextualName: string;
-                countryCode: string;
-                id: { __typename?: 'ObjectIdentifier'; value: string };
-              } | null;
-              id: { __typename?: 'ObjectIdentifier'; value: string };
-            } | null;
-            id: { __typename?: 'ObjectIdentifier'; value: string };
-          } | null;
-          id: { __typename?: 'ObjectIdentifier'; value: string };
-        } | null;
-        id: { __typename?: 'ObjectIdentifier'; value: string };
-      } | null;
-      id: { __typename?: 'ObjectIdentifier'; value: string };
-    };
-  }> | null;
-};
+
+export type SuggestLocationsQuery = { locationSuggestions?: Array<{ __typename?: 'LocationSuggestion', location: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } }> | null };
 
 export type NearestLocationsQueryVariables = Exact<{
   schemeId: Scalars['String'];
@@ -6851,47 +7024,5 @@ export type NearestLocationsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
 }>;
 
-export type NearestLocationsQuery = {
-  nearestLocations?: Array<{
-    __typename?: 'Location';
-    name: string;
-    contextualName: string;
-    countryCode: string;
-    parent?: {
-      __typename?: 'Location';
-      name: string;
-      contextualName: string;
-      countryCode: string;
-      parent?: {
-        __typename?: 'Location';
-        name: string;
-        contextualName: string;
-        countryCode: string;
-        parent?: {
-          __typename?: 'Location';
-          name: string;
-          contextualName: string;
-          countryCode: string;
-          parent?: {
-            __typename?: 'Location';
-            name: string;
-            contextualName: string;
-            countryCode: string;
-            parent?: {
-              __typename?: 'Location';
-              name: string;
-              contextualName: string;
-              countryCode: string;
-              id: { __typename?: 'ObjectIdentifier'; value: string };
-            } | null;
-            id: { __typename?: 'ObjectIdentifier'; value: string };
-          } | null;
-          id: { __typename?: 'ObjectIdentifier'; value: string };
-        } | null;
-        id: { __typename?: 'ObjectIdentifier'; value: string };
-      } | null;
-      id: { __typename?: 'ObjectIdentifier'; value: string };
-    } | null;
-    id: { __typename?: 'ObjectIdentifier'; value: string };
-  }> | null;
-};
+
+export type NearestLocationsQuery = { nearestLocations?: Array<{ __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } }> | null };
