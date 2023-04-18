@@ -9,7 +9,10 @@ const JOB_CATEGORY_ATTRIBUTES = gql`
   }
 `;
 export const JOB_CATEGORIES = gql`
-  query JobCategories($schemeId: String!, $positionProfile: JobCategories_PositionProfileInput) {
+  query JobCategories(
+    $schemeId: String!
+    $positionProfile: JobCategories_PositionProfileInput
+  ) {
     jobCategories(schemeId: $schemeId, positionProfile: $positionProfile) {
       ...jobCategoryAttributes
       children {

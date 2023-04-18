@@ -1,8 +1,14 @@
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 /** All built-in and custom scalars, mapped to their actual values */
 export interface Scalars {
   ID: string;
@@ -317,7 +323,9 @@ export interface ApplicationLibraryQuestionSuggestionsPositionProfileInput {
    */
   jobCategories: Array<Scalars['String']>;
   /** An array of formatted position profile descriptions. */
-  positionFormattedDescriptions?: InputMaybe<Array<PositionFormattedDescriptionInput>>;
+  positionFormattedDescriptions?: InputMaybe<
+    Array<PositionFormattedDescriptionInput>
+  >;
   /**
    * An array of `Location` identifiers.
    *
@@ -379,7 +387,8 @@ export interface ApplicationMethodInput {
  *
  * The privacy policy consent component presents the candidate with a 'Yes' or 'No' choice.
  */
-export interface ApplicationPrivacyConsent extends ApplicationQuestionnaireComponent {
+export interface ApplicationPrivacyConsent
+  extends ApplicationQuestionnaireComponent {
   __typename?: 'ApplicationPrivacyConsent';
   /**
    * The type of the component.
@@ -445,7 +454,8 @@ export interface ApplicationPrivacyConsentInput {
 }
 
 /** A candidate's response to a privacy policy consent component in the questionnaire. */
-export interface ApplicationPrivacyConsentResponse extends ApplicationQuestionnaireComponentResponse {
+export interface ApplicationPrivacyConsentResponse
+  extends ApplicationQuestionnaireComponentResponse {
   __typename?: 'ApplicationPrivacyConsentResponse';
   /** The privacy consent component this is responding to. */
   component: ApplicationPrivacyConsent;
@@ -662,7 +672,8 @@ export interface ApplicationQuestionInput {
 }
 
 /** A candidate's response to a question in the questionnaire. */
-export interface ApplicationQuestionResponse extends ApplicationQuestionnaireComponentResponse {
+export interface ApplicationQuestionResponse
+  extends ApplicationQuestionnaireComponentResponse {
   __typename?: 'ApplicationQuestionResponse';
   /**
    * The answers provided by the candidate.
@@ -921,7 +932,6 @@ export interface Candidate {
   seekPrimaryEmailAddress?: Maybe<Scalars['String']>;
 }
 
-
 /**
  * A person who applied for a position at a company.
  *
@@ -990,7 +1000,6 @@ export interface CandidateApplicationCreatedEvent extends Event {
    */
   webhookAttempts: WebhookAttemptsConnection;
 }
-
 
 /**
  * The event signaling that a candidate has applied for a `PositionOpening`.
@@ -1355,7 +1364,6 @@ export interface CandidateProfile {
   updateDateTime: Scalars['DateTime'];
 }
 
-
 /** Structured information about a candidate in relation to a particular position. */
 export interface CandidateProfileSeekProcessHistoryArgs {
   after?: InputMaybe<Scalars['String']>;
@@ -1401,7 +1409,6 @@ export interface CandidateProfilePurchasedEvent extends Event {
    */
   webhookAttempts: WebhookAttemptsConnection;
 }
-
 
 /** The event signaling that a `CandidateProfile` has been purchased. */
 export interface CandidateProfilePurchasedEventWebhookAttemptsArgs {
@@ -1599,7 +1606,9 @@ export interface CreateCandidateProcessHistoryItemInput {
 }
 
 /** The response from the `createCandidateProcessHistoryItem` mutation. */
-export type CreateCandidateProcessHistoryItemPayload = CreateCandidateProcessHistoryItemPayloadConflict | CreateCandidateProcessHistoryItemPayloadSuccess;
+export type CreateCandidateProcessHistoryItemPayload =
+  | CreateCandidateProcessHistoryItemPayloadConflict
+  | CreateCandidateProcessHistoryItemPayloadSuccess;
 
 /** The conflict result for the `createCandidateProcessHistoryItem` mutation. */
 export interface CreateCandidateProcessHistoryItemPayloadConflict {
@@ -1869,7 +1878,9 @@ export interface CreateWebhookSubscriptionInput {
 }
 
 /** The response from the `createWebhookSubscription` mutation. */
-export type CreateWebhookSubscriptionPayload = CreateWebhookSubscriptionPayloadConflict | CreateWebhookSubscriptionPayloadSuccess;
+export type CreateWebhookSubscriptionPayload =
+  | CreateWebhookSubscriptionPayloadConflict
+  | CreateWebhookSubscriptionPayloadSuccess;
 
 /**
  * The conflict result for the `createWebhookSubscription` mutation.
@@ -2208,7 +2219,6 @@ export interface Event {
   webhookAttempts: WebhookAttemptsConnection;
 }
 
-
 /**
  * A signal that an action has been performed on the SEEK platform that may be of interest to an integration partner.
  *
@@ -2352,7 +2362,6 @@ export interface HirerRelationshipChangedEvent extends Event {
    */
   webhookAttempts: WebhookAttemptsConnection;
 }
-
 
 /** The event signaling that a hirer relationship has been added or removed. */
 export interface HirerRelationshipChangedEventWebhookAttemptsArgs {
@@ -2517,7 +2526,9 @@ export interface JobCategorySuggestionPositionProfileInput {
    * The job category suggestion algorithm is designed to work with the complete advertisement details as they would appear on the final job ad.
    * Providing incomplete or placeholder text in this field may result in irrelevant suggestions.
    */
-  positionFormattedDescriptions?: InputMaybe<Array<PositionFormattedDescriptionInput>>;
+  positionFormattedDescriptions?: InputMaybe<
+    Array<PositionFormattedDescriptionInput>
+  >;
   /** An array of identifiers for the position's `Location`s. */
   positionLocation: Array<Scalars['String']>;
   /**
@@ -2700,7 +2711,6 @@ export interface Mutation {
   uploadCandidate: UploadCandidatePayload;
 }
 
-
 /**
  * The schema's entry-point for mutations.
  *
@@ -2709,7 +2719,6 @@ export interface Mutation {
 export interface MutationClosePostedPositionProfileArgs {
   input: ClosePostedPositionProfileInput;
 }
-
 
 /**
  * The schema's entry-point for mutations.
@@ -2720,7 +2729,6 @@ export interface MutationCreateApplicationQuestionnaireArgs {
   input: CreateApplicationQuestionnaireInput;
 }
 
-
 /**
  * The schema's entry-point for mutations.
  *
@@ -2729,7 +2737,6 @@ export interface MutationCreateApplicationQuestionnaireArgs {
 export interface MutationCreateCandidateProcessHistoryItemArgs {
   input: CreateCandidateProcessHistoryItemInput;
 }
-
 
 /**
  * The schema's entry-point for mutations.
@@ -2740,7 +2747,6 @@ export interface MutationCreatePositionOpeningArgs {
   input: CreatePositionOpeningInput;
 }
 
-
 /**
  * The schema's entry-point for mutations.
  *
@@ -2749,7 +2755,6 @@ export interface MutationCreatePositionOpeningArgs {
 export interface MutationCreateUnpostedPositionProfileForOpeningArgs {
   input: CreateUnpostedPositionProfileForOpeningInput;
 }
-
 
 /**
  * The schema's entry-point for mutations.
@@ -2760,7 +2765,6 @@ export interface MutationCreateWebhookSubscriptionArgs {
   input: CreateWebhookSubscriptionInput;
 }
 
-
 /**
  * The schema's entry-point for mutations.
  *
@@ -2769,7 +2773,6 @@ export interface MutationCreateWebhookSubscriptionArgs {
 export interface MutationDeleteCandidateProcessHistoryItemArgs {
   input: DeleteCandidateProcessHistoryItemInput;
 }
-
 
 /**
  * The schema's entry-point for mutations.
@@ -2780,7 +2783,6 @@ export interface MutationDeletePositionOpeningArgs {
   input: DeletePositionOpeningInput;
 }
 
-
 /**
  * The schema's entry-point for mutations.
  *
@@ -2789,7 +2791,6 @@ export interface MutationDeletePositionOpeningArgs {
 export interface MutationDeleteUnpostedPositionProfileArgs {
   input: DeleteUnpostedPositionProfileInput;
 }
-
 
 /**
  * The schema's entry-point for mutations.
@@ -2800,7 +2801,6 @@ export interface MutationDeleteUploadedCandidateArgs {
   input: DeleteUploadedCandidateInput;
 }
 
-
 /**
  * The schema's entry-point for mutations.
  *
@@ -2809,7 +2809,6 @@ export interface MutationDeleteUploadedCandidateArgs {
 export interface MutationDeleteWebhookSubscriptionArgs {
   input: DeleteWebhookSubscriptionInput;
 }
-
 
 /**
  * The schema's entry-point for mutations.
@@ -2820,7 +2819,6 @@ export interface MutationPostPositionArgs {
   input: PostPositionInput;
 }
 
-
 /**
  * The schema's entry-point for mutations.
  *
@@ -2829,7 +2827,6 @@ export interface MutationPostPositionArgs {
 export interface MutationPostPositionProfileForOpeningArgs {
   input: PostPositionProfileForOpeningInput;
 }
-
 
 /**
  * The schema's entry-point for mutations.
@@ -2840,7 +2837,6 @@ export interface MutationReplayWebhookSubscriptionArgs {
   input: ReplayWebhookSubscriptionInput;
 }
 
-
 /**
  * The schema's entry-point for mutations.
  *
@@ -2849,7 +2845,6 @@ export interface MutationReplayWebhookSubscriptionArgs {
 export interface MutationUpdateCandidateProcessHistoryItemArgs {
   input: UpdateCandidateProcessHistoryItemInput;
 }
-
 
 /**
  * The schema's entry-point for mutations.
@@ -2860,7 +2855,6 @@ export interface MutationUpdatePositionOpeningPersonContactsArgs {
   input: UpdatePositionOpeningPersonContactsInput;
 }
 
-
 /**
  * The schema's entry-point for mutations.
  *
@@ -2869,7 +2863,6 @@ export interface MutationUpdatePositionOpeningPersonContactsArgs {
 export interface MutationUpdatePositionOpeningStatusArgs {
   input: UpdatePositionOpeningStatusInput;
 }
-
 
 /**
  * The schema's entry-point for mutations.
@@ -2880,7 +2873,6 @@ export interface MutationUpdatePostedPositionProfileArgs {
   input: UpdatePostedPositionProfileInput;
 }
 
-
 /**
  * The schema's entry-point for mutations.
  *
@@ -2889,7 +2881,6 @@ export interface MutationUpdatePostedPositionProfileArgs {
 export interface MutationUpdateUnpostedPositionProfileArgs {
   input: UpdateUnpostedPositionProfileInput;
 }
-
 
 /**
  * The schema's entry-point for mutations.
@@ -2900,7 +2891,6 @@ export interface MutationUpdateUploadedCandidatePersonArgs {
   input: UpdateUploadedCandidatePersonInput;
 }
 
-
 /**
  * The schema's entry-point for mutations.
  *
@@ -2909,7 +2899,6 @@ export interface MutationUpdateUploadedCandidatePersonArgs {
 export interface MutationUpdateUploadedCandidateProfileActionsArgs {
   input: UpdateUploadedCandidateProfileActionsInput;
 }
-
 
 /**
  * The schema's entry-point for mutations.
@@ -2920,7 +2909,6 @@ export interface MutationUpdateUploadedCandidateProfileDatesArgs {
   input: UpdateUploadedCandidateProfileDatesInput;
 }
 
-
 /**
  * The schema's entry-point for mutations.
  *
@@ -2929,7 +2917,6 @@ export interface MutationUpdateUploadedCandidateProfileDatesArgs {
 export interface MutationUpdateUploadedCandidateProfilePositionPreferencesArgs {
   input: UpdateUploadedCandidateProfilePositionPreferencesInput;
 }
-
 
 /**
  * The schema's entry-point for mutations.
@@ -2940,7 +2927,6 @@ export interface MutationUpdateWebhookSubscriptionDeliveryConfigurationArgs {
   input: UpdateWebhookSubscriptionDeliveryConfigurationInput;
 }
 
-
 /**
  * The schema's entry-point for mutations.
  *
@@ -2949,7 +2935,6 @@ export interface MutationUpdateWebhookSubscriptionDeliveryConfigurationArgs {
 export interface MutationUpdateWebhookSubscriptionSigningConfigurationArgs {
   input: UpdateWebhookSubscriptionSigningConfigurationInput;
 }
-
 
 /**
  * The schema's entry-point for mutations.
@@ -3210,7 +3195,6 @@ export interface PositionOpening {
   statusCode: Scalars['String'];
 }
 
-
 /**
  * A job requisition or position opening within an organization.
  *
@@ -3432,7 +3416,6 @@ export interface PositionProfileClosedEvent extends Event {
   webhookAttempts: WebhookAttemptsConnection;
 }
 
-
 /** The event signaling that a posted `PositionProfile` has been closed. */
 export interface PositionProfileClosedEventWebhookAttemptsArgs {
   after?: InputMaybe<Scalars['String']>;
@@ -3510,7 +3493,6 @@ export interface PositionProfilePostedEvent extends Event {
   webhookAttempts: WebhookAttemptsConnection;
 }
 
-
 /** The event signaling that a `PositionProfile` has been posted. */
 export interface PositionProfilePostedEventWebhookAttemptsArgs {
   after?: InputMaybe<Scalars['String']>;
@@ -3529,7 +3511,9 @@ export interface PostPositionInput {
 }
 
 /** The response from the `postPosition` mutation. */
-export type PostPositionPayload = PostPositionPayloadConflict | PostPositionPayloadSuccess;
+export type PostPositionPayload =
+  | PostPositionPayloadConflict
+  | PostPositionPayloadSuccess;
 
 /**
  * The conflict result for the `postPosition` mutation.
@@ -3565,7 +3549,9 @@ export interface PostPositionProfileForOpeningInput {
 }
 
 /** The response from the `postPositionProfileForOpening` mutation. */
-export type PostPositionProfileForOpeningPayload = PostPositionProfileForOpeningPayloadConflict | PostPositionProfileForOpeningPayloadSuccess;
+export type PostPositionProfileForOpeningPayload =
+  | PostPositionProfileForOpeningPayloadConflict
+  | PostPositionProfileForOpeningPayloadSuccess;
 
 /**
  * The conflict result for the `postPositionProfileForOpening` mutation.
@@ -3966,7 +3952,9 @@ export interface PostedPositionProfilePreviewPositionProfileInput {
   /** The salary or compensation offered for the position. */
   offeredRemunerationPackage: PostedPositionProfilePreviewRemunerationPackageInput;
   /** An array of formatted position profile descriptions. */
-  positionFormattedDescriptions?: InputMaybe<Array<PositionFormattedDescriptionInput>>;
+  positionFormattedDescriptions?: InputMaybe<
+    Array<PositionFormattedDescriptionInput>
+  >;
   /**
    * An array of `Location` identifiers.
    *
@@ -4140,7 +4128,9 @@ export interface PostedPositionProfilePreviewRemunerationPackageInput {
    * While the monetary values in `minimumAmount` and `maximumAmount` are not visible on job ads,
    * the currency and interval may be displayed alongside the `descriptions` of the remuneration package for clarity.
    */
-  ranges?: InputMaybe<Array<PostedPositionProfilePreviewRemunerationRangeInput>>;
+  ranges?: InputMaybe<
+    Array<PostedPositionProfilePreviewRemunerationRangeInput>
+  >;
 }
 
 /**
@@ -4465,7 +4455,9 @@ export interface Query {
    *
    * This query accepts browser tokens that include the `query:ad-products` scope.
    */
-  seekAnzHirerAdvertisementModificationProducts?: Maybe<Array<SeekAnzAdProduct>>;
+  seekAnzHirerAdvertisementModificationProducts?: Maybe<
+    Array<SeekAnzAdProduct>
+  >;
   /**
    * Ad products available when updating a job ad.
    *
@@ -4473,7 +4465,9 @@ export interface Query {
    *
    * This query accepts browser tokens that include the `query:ad-products` scope.
    */
-  seekAnzHirerAdvertisementModificationProductsAlt?: Maybe<Array<SeekAnzAdProduct>>;
+  seekAnzHirerAdvertisementModificationProductsAlt?: Maybe<
+    Array<SeekAnzAdProduct>
+  >;
   /**
    * The organizations the query's access token can act on behalf of.
    *
@@ -4523,7 +4517,6 @@ export interface Query {
   webhookSubscriptions: WebhookSubscriptionsConnection;
 }
 
-
 /**
  * The schema's entry-point for queries.
  *
@@ -4535,7 +4528,6 @@ export interface QueryUnstableAdvertisementProductsArgs {
   preselectedAdvertisementProductId?: InputMaybe<Scalars['String']>;
 }
 
-
 /**
  * The schema's entry-point for queries.
  *
@@ -4544,7 +4536,6 @@ export interface QueryUnstableAdvertisementProductsArgs {
 export interface QueryAdvertisementBrandingArgs {
   id: Scalars['String'];
 }
-
 
 /**
  * The schema's entry-point for queries.
@@ -4559,7 +4550,6 @@ export interface QueryAdvertisementBrandingsArgs {
   last?: InputMaybe<Scalars['Int']>;
 }
 
-
 /**
  * The schema's entry-point for queries.
  *
@@ -4571,7 +4561,6 @@ export interface QueryApplicationLibraryQuestionSuggestionsArgs {
   schemeId: Scalars['String'];
 }
 
-
 /**
  * The schema's entry-point for queries.
  *
@@ -4580,7 +4569,6 @@ export interface QueryApplicationLibraryQuestionSuggestionsArgs {
 export interface QueryApplicationQuestionnaireArgs {
   id: Scalars['String'];
 }
-
 
 /**
  * The schema's entry-point for queries.
@@ -4591,7 +4579,6 @@ export interface QueryCandidateArgs {
   id: Scalars['String'];
 }
 
-
 /**
  * The schema's entry-point for queries.
  *
@@ -4600,7 +4587,6 @@ export interface QueryCandidateArgs {
 export interface QueryCandidateProcessHistoryItemArgs {
   id: Scalars['String'];
 }
-
 
 /**
  * The schema's entry-point for queries.
@@ -4611,7 +4597,6 @@ export interface QueryCandidateProfileArgs {
   id: Scalars['String'];
 }
 
-
 /**
  * The schema's entry-point for queries.
  *
@@ -4620,7 +4605,6 @@ export interface QueryCandidateProfileArgs {
 export interface QueryEventArgs {
   id: Scalars['String'];
 }
-
 
 /**
  * The schema's entry-point for queries.
@@ -4636,7 +4620,6 @@ export interface QueryEventsArgs {
   schemeId: Scalars['String'];
 }
 
-
 /**
  * The schema's entry-point for queries.
  *
@@ -4645,7 +4628,6 @@ export interface QueryEventsArgs {
 export interface QueryHiringOrganizationArgs {
   id: Scalars['String'];
 }
-
 
 /**
  * The schema's entry-point for queries.
@@ -4661,7 +4643,6 @@ export interface QueryHiringOrganizationsArgs {
   schemeId: Scalars['String'];
 }
 
-
 /**
  * The schema's entry-point for queries.
  *
@@ -4672,7 +4653,6 @@ export interface QueryJobCategoriesArgs {
   schemeId: Scalars['String'];
 }
 
-
 /**
  * The schema's entry-point for queries.
  *
@@ -4681,7 +4661,6 @@ export interface QueryJobCategoriesArgs {
 export interface QueryJobCategoryArgs {
   id: Scalars['String'];
 }
-
 
 /**
  * The schema's entry-point for queries.
@@ -4694,7 +4673,6 @@ export interface QueryJobCategorySuggestionsArgs {
   schemeId: Scalars['String'];
 }
 
-
 /**
  * The schema's entry-point for queries.
  *
@@ -4703,7 +4681,6 @@ export interface QueryJobCategorySuggestionsArgs {
 export interface QueryLocationArgs {
   id: Scalars['String'];
 }
-
 
 /**
  * The schema's entry-point for queries.
@@ -4718,7 +4695,6 @@ export interface QueryLocationSuggestionsArgs {
   usageTypeCode: Scalars['String'];
 }
 
-
 /**
  * The schema's entry-point for queries.
  *
@@ -4730,7 +4706,6 @@ export interface QueryNearestLocationsArgs {
   schemeId: Scalars['String'];
 }
 
-
 /**
  * The schema's entry-point for queries.
  *
@@ -4739,7 +4714,6 @@ export interface QueryNearestLocationsArgs {
 export interface QueryPositionOpeningArgs {
   id: Scalars['String'];
 }
-
 
 /**
  * The schema's entry-point for queries.
@@ -4753,7 +4727,6 @@ export interface QueryPositionOpeningsArgs {
   hirerId: Scalars['String'];
 }
 
-
 /**
  * The schema's entry-point for queries.
  *
@@ -4762,7 +4735,6 @@ export interface QueryPositionOpeningsArgs {
 export interface QueryPositionProfileArgs {
   id: Scalars['String'];
 }
-
 
 /**
  * The schema's entry-point for queries.
@@ -4773,7 +4745,6 @@ export interface QueryPostedPositionProfilePreviewArgs {
   positionProfile: PostedPositionProfilePreviewPositionProfileInput;
 }
 
-
 /**
  * The schema's entry-point for queries.
  *
@@ -4782,7 +4753,6 @@ export interface QueryPostedPositionProfilePreviewArgs {
 export interface QuerySeekAnzAdvertiserArgs {
   id: Scalars['Int'];
 }
-
 
 /**
  * The schema's entry-point for queries.
@@ -4793,7 +4763,6 @@ export interface QuerySeekAnzHirerAdvertisementCreationProductsArgs {
   draftAdvertisement: SeekAnzAdProductAdvertisementDraftInput;
   hirerId: Scalars['String'];
 }
-
 
 /**
  * The schema's entry-point for queries.
@@ -4806,7 +4775,6 @@ export interface QuerySeekAnzHirerAdvertisementModificationProductsArgs {
   hirerId: Scalars['String'];
 }
 
-
 /**
  * The schema's entry-point for queries.
  *
@@ -4817,7 +4785,6 @@ export interface QuerySeekAnzHirerAdvertisementModificationProductsAltArgs {
   draftAdvertisement: SeekAnzAdProductAdvertisementDraftInput;
   hirerId: Scalars['String'];
 }
-
 
 /**
  * The schema's entry-point for queries.
@@ -4833,7 +4800,6 @@ export interface QueryWebhookAttemptsForEventArgs {
   last?: InputMaybe<Scalars['Int']>;
 }
 
-
 /**
  * The schema's entry-point for queries.
  *
@@ -4843,7 +4809,6 @@ export interface QueryWebhookRequestArgs {
   requestId: Scalars['String'];
   schemeId: Scalars['String'];
 }
-
 
 /**
  * The schema's entry-point for queries.
@@ -4859,7 +4824,6 @@ export interface QueryWebhookRequestsForSubscriptionArgs {
   subscriptionId: Scalars['String'];
 }
 
-
 /**
  * The schema's entry-point for queries.
  *
@@ -4869,7 +4833,6 @@ export interface QueryWebhookSubscriptionArgs {
   id: Scalars['String'];
 }
 
-
 /**
  * The schema's entry-point for queries.
  *
@@ -4878,7 +4841,6 @@ export interface QueryWebhookSubscriptionArgs {
 export interface QueryWebhookSubscriptionReplayArgs {
   id: Scalars['String'];
 }
-
 
 /**
  * The schema's entry-point for queries.
@@ -5329,10 +5291,11 @@ export const SeekAttachmentRole = {
   /** A resume or CV. */
   Resume: 'RESUME',
   /** A document supporting a position-specific selection criteria. */
-  SelectionCriteria: 'SELECTION_CRITERIA'
+  SelectionCriteria: 'SELECTION_CRITERIA',
 } as const;
 
-export type SeekAttachmentRole = typeof SeekAttachmentRole[keyof typeof SeekAttachmentRole];
+export type SeekAttachmentRole =
+  (typeof SeekAttachmentRole)[keyof typeof SeekAttachmentRole];
 /** The source system for the process history item. */
 export interface SeekProcessHistoryItemSource {
   __typename?: 'SeekProcessHistoryItemSource';
@@ -5925,7 +5888,9 @@ export interface UpdateUploadedCandidatePersonInput {
 }
 
 /** The response from the `updateUploadedCandidatePerson` mutation. */
-export type UpdateUploadedCandidatePersonPayload = UpdateUploadedCandidatePersonPayloadConflict | UpdateUploadedCandidatePersonPayloadSuccess;
+export type UpdateUploadedCandidatePersonPayload =
+  | UpdateUploadedCandidatePersonPayloadConflict
+  | UpdateUploadedCandidatePersonPayloadSuccess;
 
 /** The conflict result for the `updateUploadedCandidatePerson` mutation. */
 export interface UpdateUploadedCandidatePersonPayloadConflict {
@@ -6067,7 +6032,9 @@ export interface UpdateWebhookSubscriptionDeliveryConfigurationInput {
 }
 
 /** The response from the `updateWebhookSubscriptionDeliveryConfiguration` mutation. */
-export type UpdateWebhookSubscriptionDeliveryConfigurationPayload = UpdateWebhookSubscriptionDeliveryConfigurationPayloadConflict | UpdateWebhookSubscriptionDeliveryConfigurationPayloadSuccess;
+export type UpdateWebhookSubscriptionDeliveryConfigurationPayload =
+  | UpdateWebhookSubscriptionDeliveryConfigurationPayloadConflict
+  | UpdateWebhookSubscriptionDeliveryConfigurationPayloadSuccess;
 
 /**
  * The conflict result for the `updateWebhookSubscriptionDeliveryConfiguration` mutation.
@@ -6157,7 +6124,9 @@ export interface UploadCandidateInput {
 }
 
 /** The response from the `uploadCandidate` mutation. */
-export type UploadCandidatePayload = UploadCandidatePayloadConflict | UploadCandidatePayloadSuccess;
+export type UploadCandidatePayload =
+  | UploadCandidatePayloadConflict
+  | UploadCandidatePayloadSuccess;
 
 /** The conflict result for the `uploadCandidate` mutation. */
 export interface UploadCandidatePayloadConflict {
@@ -6545,7 +6514,6 @@ export interface WebhookSubscription {
   webhookSubscriptionReplays: WebhookSubscriptionReplaysConnection;
 }
 
-
 /**
  * A subscription for a given event type and scheme to be delivered via webhook.
  *
@@ -6558,7 +6526,6 @@ export interface WebhookSubscriptionWebhookRequestsArgs {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 }
-
 
 /**
  * A subscription for a given event type and scheme to be delivered via webhook.
@@ -6621,7 +6588,8 @@ export interface WebhookSubscriptionReplay {
 }
 
 /** The event ID criteria used to determine which events will be replayed. */
-export interface WebhookSubscriptionReplayByIdRequest extends WebhookSubscriptionReplayRequest {
+export interface WebhookSubscriptionReplayByIdRequest
+  extends WebhookSubscriptionReplayRequest {
   __typename?: 'WebhookSubscriptionReplayByIdRequest';
   /** The list of `Event.id` values to replay. */
   eventIds: Array<Scalars['String']>;
@@ -6634,7 +6602,8 @@ export interface WebhookSubscriptionReplayByIdRequest extends WebhookSubscriptio
 }
 
 /** The date range criteria used to determine which events will be replayed. */
-export interface WebhookSubscriptionReplayByRangeRequest extends WebhookSubscriptionReplayRequest {
+export interface WebhookSubscriptionReplayByRangeRequest
+  extends WebhookSubscriptionReplayRequest {
   __typename?: 'WebhookSubscriptionReplayByRangeRequest';
   /** The earliest event to include. */
   afterDateTime: Scalars['DateTime'];
@@ -6943,9 +6912,30 @@ export interface UnstableAdvertisementProducts {
   products: Array<UnstableAdvertisementProduct>;
 }
 
-export type AdvertisementBrandingFieldsFragment = { __typename?: 'AdvertisementBranding', name: string, id: { __typename?: 'ObjectIdentifier', value: string }, images: Array<{ __typename?: 'AdvertisementBrandingImage', typeCode: string, url: string }> };
+export type AdvertisementBrandingFieldsFragment = {
+  __typename?: 'AdvertisementBranding';
+  name: string;
+  id: { __typename?: 'ObjectIdentifier'; value: string };
+  images: Array<{
+    __typename?: 'AdvertisementBrandingImage';
+    typeCode: string;
+    url: string;
+  }>;
+};
 
-export type AdvertisementBrandingEdgeFieldsFragment = { __typename?: 'AdvertisementBrandingEdge', node: { __typename?: 'AdvertisementBranding', name: string, id: { __typename?: 'ObjectIdentifier', value: string }, images: Array<{ __typename?: 'AdvertisementBrandingImage', typeCode: string, url: string }> } };
+export type AdvertisementBrandingEdgeFieldsFragment = {
+  __typename?: 'AdvertisementBrandingEdge';
+  node: {
+    __typename?: 'AdvertisementBranding';
+    name: string;
+    id: { __typename?: 'ObjectIdentifier'; value: string };
+    images: Array<{
+      __typename?: 'AdvertisementBrandingImage';
+      typeCode: string;
+      url: string;
+    }>;
+  };
+};
 
 export type AdvertisementBrandingsQueryVariables = Exact<{
   after?: InputMaybe<Scalars['String']>;
@@ -6955,29 +6945,103 @@ export type AdvertisementBrandingsQueryVariables = Exact<{
   hirerId: Scalars['String'];
 }>;
 
+export type AdvertisementBrandingsQuery = {
+  advertisementBrandings: {
+    __typename?: 'AdvertisementBrandingsConnection';
+    pageInfo: {
+      __typename?: 'PageInfo';
+      hasNextPage: boolean;
+      hasPreviousPage: boolean;
+      startCursor?: string | null;
+      endCursor?: string | null;
+    };
+    edges: Array<{
+      __typename?: 'AdvertisementBrandingEdge';
+      node: {
+        __typename?: 'AdvertisementBranding';
+        name: string;
+        id: { __typename?: 'ObjectIdentifier'; value: string };
+        images: Array<{
+          __typename?: 'AdvertisementBrandingImage';
+          typeCode: string;
+          url: string;
+        }>;
+      };
+    }>;
+  };
+};
 
-export type AdvertisementBrandingsQuery = { advertisementBrandings: { __typename?: 'AdvertisementBrandingsConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null, endCursor?: string | null }, edges: Array<{ __typename?: 'AdvertisementBrandingEdge', node: { __typename?: 'AdvertisementBranding', name: string, id: { __typename?: 'ObjectIdentifier', value: string }, images: Array<{ __typename?: 'AdvertisementBrandingImage', typeCode: string, url: string }> } }> } };
-
-export type JobCategoryFieldsFragment = { __typename?: 'JobCategory', name: string, id: { __typename?: 'ObjectIdentifier', value: string } };
+export type JobCategoryFieldsFragment = {
+  __typename?: 'JobCategory';
+  name: string;
+  id: { __typename?: 'ObjectIdentifier'; value: string };
+};
 
 export type JobCategoryQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
+export type JobCategoryQuery = {
+  jobCategory?: {
+    __typename?: 'JobCategory';
+    name: string;
+    parent?: {
+      __typename?: 'JobCategory';
+      name: string;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    } | null;
+    children?: Array<{
+      __typename?: 'JobCategory';
+      name: string;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    }> | null;
+    id: { __typename?: 'ObjectIdentifier'; value: string };
+  } | null;
+};
 
-export type JobCategoryQuery = { jobCategory?: { __typename?: 'JobCategory', name: string, parent?: { __typename?: 'JobCategory', name: string, id: { __typename?: 'ObjectIdentifier', value: string } } | null, children?: Array<{ __typename?: 'JobCategory', name: string, id: { __typename?: 'ObjectIdentifier', value: string } }> | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null };
-
-export type JobCategoryAttributesFragment = { __typename?: 'JobCategory', name: string, id: { __typename?: 'ObjectIdentifier', value: string } };
+export type JobCategoryAttributesFragment = {
+  __typename?: 'JobCategory';
+  name: string;
+  id: { __typename?: 'ObjectIdentifier'; value: string };
+};
 
 export type JobCategoriesQueryVariables = Exact<{
   schemeId: Scalars['String'];
   positionProfile?: InputMaybe<JobCategoriesPositionProfileInput>;
 }>;
 
+export type JobCategoriesQuery = {
+  jobCategories: Array<{
+    __typename?: 'JobCategory';
+    name: string;
+    children?: Array<{
+      __typename?: 'JobCategory';
+      name: string;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    }> | null;
+    id: { __typename?: 'ObjectIdentifier'; value: string };
+  }>;
+};
 
-export type JobCategoriesQuery = { jobCategories: Array<{ __typename?: 'JobCategory', name: string, children?: Array<{ __typename?: 'JobCategory', name: string, id: { __typename?: 'ObjectIdentifier', value: string } }> | null, id: { __typename?: 'ObjectIdentifier', value: string } }> };
-
-export type JobCategorySuggestionChoiceAttributesFragment = { __typename?: 'JobCategorySuggestionChoice', confidence: number, jobCategory: { __typename?: 'JobCategory', name: string, parent?: { __typename?: 'JobCategory', name: string, id: { __typename?: 'ObjectIdentifier', value: string } } | null, children?: Array<{ __typename?: 'JobCategory', name: string, id: { __typename?: 'ObjectIdentifier', value: string } }> | null, id: { __typename?: 'ObjectIdentifier', value: string } } };
+export type JobCategorySuggestionChoiceAttributesFragment = {
+  __typename?: 'JobCategorySuggestionChoice';
+  confidence: number;
+  jobCategory: {
+    __typename?: 'JobCategory';
+    name: string;
+    parent?: {
+      __typename?: 'JobCategory';
+      name: string;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    } | null;
+    children?: Array<{
+      __typename?: 'JobCategory';
+      name: string;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    }> | null;
+    id: { __typename?: 'ObjectIdentifier'; value: string };
+  };
+};
 
 export type JobCategorySuggestQueryVariables = Exact<{
   positionProfile: JobCategorySuggestionPositionProfileInput;
@@ -6985,27 +7049,177 @@ export type JobCategorySuggestQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
 }>;
 
+export type JobCategorySuggestQuery = {
+  jobCategorySuggestions: Array<{
+    __typename?: 'JobCategorySuggestionChoice';
+    confidence: number;
+    jobCategory: {
+      __typename?: 'JobCategory';
+      name: string;
+      parent?: {
+        __typename?: 'JobCategory';
+        name: string;
+        id: { __typename?: 'ObjectIdentifier'; value: string };
+      } | null;
+      children?: Array<{
+        __typename?: 'JobCategory';
+        name: string;
+        id: { __typename?: 'ObjectIdentifier'; value: string };
+      }> | null;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    };
+  }>;
+};
 
-export type JobCategorySuggestQuery = { jobCategorySuggestions: Array<{ __typename?: 'JobCategorySuggestionChoice', confidence: number, jobCategory: { __typename?: 'JobCategory', name: string, parent?: { __typename?: 'JobCategory', name: string, id: { __typename?: 'ObjectIdentifier', value: string } } | null, children?: Array<{ __typename?: 'JobCategory', name: string, id: { __typename?: 'ObjectIdentifier', value: string } }> | null, id: { __typename?: 'ObjectIdentifier', value: string } } }> };
+export type LocationAttributesFragment = {
+  __typename?: 'Location';
+  name: string;
+  contextualName: string;
+  countryCode: string;
+  id: { __typename?: 'ObjectIdentifier'; value: string };
+};
 
-export type LocationAttributesFragment = { __typename?: 'Location', name: string, contextualName: string, countryCode: string, id: { __typename?: 'ObjectIdentifier', value: string } };
-
-export type NestedLocationAttributesFragment = { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } };
+export type NestedLocationAttributesFragment = {
+  __typename?: 'Location';
+  name: string;
+  contextualName: string;
+  countryCode: string;
+  parent?: {
+    __typename?: 'Location';
+    name: string;
+    contextualName: string;
+    countryCode: string;
+    parent?: {
+      __typename?: 'Location';
+      name: string;
+      contextualName: string;
+      countryCode: string;
+      parent?: {
+        __typename?: 'Location';
+        name: string;
+        contextualName: string;
+        countryCode: string;
+        parent?: {
+          __typename?: 'Location';
+          name: string;
+          contextualName: string;
+          countryCode: string;
+          parent?: {
+            __typename?: 'Location';
+            name: string;
+            contextualName: string;
+            countryCode: string;
+            id: { __typename?: 'ObjectIdentifier'; value: string };
+          } | null;
+          id: { __typename?: 'ObjectIdentifier'; value: string };
+        } | null;
+        id: { __typename?: 'ObjectIdentifier'; value: string };
+      } | null;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    } | null;
+    id: { __typename?: 'ObjectIdentifier'; value: string };
+  } | null;
+  id: { __typename?: 'ObjectIdentifier'; value: string };
+};
 
 export type NearbyLocationsQueryVariables = Exact<{
   geoLocation: GeoLocationInput;
   schemeId: Scalars['String'];
 }>;
 
-
-export type NearbyLocationsQuery = { nearestLocations?: Array<{ __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } }> | null };
+export type NearbyLocationsQuery = {
+  nearestLocations?: Array<{
+    __typename?: 'Location';
+    name: string;
+    contextualName: string;
+    countryCode: string;
+    parent?: {
+      __typename?: 'Location';
+      name: string;
+      contextualName: string;
+      countryCode: string;
+      parent?: {
+        __typename?: 'Location';
+        name: string;
+        contextualName: string;
+        countryCode: string;
+        parent?: {
+          __typename?: 'Location';
+          name: string;
+          contextualName: string;
+          countryCode: string;
+          parent?: {
+            __typename?: 'Location';
+            name: string;
+            contextualName: string;
+            countryCode: string;
+            parent?: {
+              __typename?: 'Location';
+              name: string;
+              contextualName: string;
+              countryCode: string;
+              id: { __typename?: 'ObjectIdentifier'; value: string };
+            } | null;
+            id: { __typename?: 'ObjectIdentifier'; value: string };
+          } | null;
+          id: { __typename?: 'ObjectIdentifier'; value: string };
+        } | null;
+        id: { __typename?: 'ObjectIdentifier'; value: string };
+      } | null;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    } | null;
+    id: { __typename?: 'ObjectIdentifier'; value: string };
+  }> | null;
+};
 
 export type LocationQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
-
-export type LocationQuery = { location?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null };
+export type LocationQuery = {
+  location?: {
+    __typename?: 'Location';
+    name: string;
+    contextualName: string;
+    countryCode: string;
+    parent?: {
+      __typename?: 'Location';
+      name: string;
+      contextualName: string;
+      countryCode: string;
+      parent?: {
+        __typename?: 'Location';
+        name: string;
+        contextualName: string;
+        countryCode: string;
+        parent?: {
+          __typename?: 'Location';
+          name: string;
+          contextualName: string;
+          countryCode: string;
+          parent?: {
+            __typename?: 'Location';
+            name: string;
+            contextualName: string;
+            countryCode: string;
+            parent?: {
+              __typename?: 'Location';
+              name: string;
+              contextualName: string;
+              countryCode: string;
+              id: { __typename?: 'ObjectIdentifier'; value: string };
+            } | null;
+            id: { __typename?: 'ObjectIdentifier'; value: string };
+          } | null;
+          id: { __typename?: 'ObjectIdentifier'; value: string };
+        } | null;
+        id: { __typename?: 'ObjectIdentifier'; value: string };
+      } | null;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    } | null;
+    id: { __typename?: 'ObjectIdentifier'; value: string };
+  } | null;
+};
 
 export type SuggestLocationsQueryVariables = Exact<{
   usageTypeCode: Scalars['String'];
@@ -7015,8 +7229,53 @@ export type SuggestLocationsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
 }>;
 
-
-export type SuggestLocationsQuery = { locationSuggestions?: Array<{ __typename?: 'LocationSuggestion', location: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } }> | null };
+export type SuggestLocationsQuery = {
+  locationSuggestions?: Array<{
+    __typename?: 'LocationSuggestion';
+    location: {
+      __typename?: 'Location';
+      name: string;
+      contextualName: string;
+      countryCode: string;
+      parent?: {
+        __typename?: 'Location';
+        name: string;
+        contextualName: string;
+        countryCode: string;
+        parent?: {
+          __typename?: 'Location';
+          name: string;
+          contextualName: string;
+          countryCode: string;
+          parent?: {
+            __typename?: 'Location';
+            name: string;
+            contextualName: string;
+            countryCode: string;
+            parent?: {
+              __typename?: 'Location';
+              name: string;
+              contextualName: string;
+              countryCode: string;
+              parent?: {
+                __typename?: 'Location';
+                name: string;
+                contextualName: string;
+                countryCode: string;
+                id: { __typename?: 'ObjectIdentifier'; value: string };
+              } | null;
+              id: { __typename?: 'ObjectIdentifier'; value: string };
+            } | null;
+            id: { __typename?: 'ObjectIdentifier'; value: string };
+          } | null;
+          id: { __typename?: 'ObjectIdentifier'; value: string };
+        } | null;
+        id: { __typename?: 'ObjectIdentifier'; value: string };
+      } | null;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    };
+  }> | null;
+};
 
 export type NearestLocationsQueryVariables = Exact<{
   schemeId: Scalars['String'];
@@ -7024,5 +7283,47 @@ export type NearestLocationsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
 }>;
 
-
-export type NearestLocationsQuery = { nearestLocations?: Array<{ __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, parent?: { __typename?: 'Location', name: string, contextualName: string, countryCode: string, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } } | null, id: { __typename?: 'ObjectIdentifier', value: string } }> | null };
+export type NearestLocationsQuery = {
+  nearestLocations?: Array<{
+    __typename?: 'Location';
+    name: string;
+    contextualName: string;
+    countryCode: string;
+    parent?: {
+      __typename?: 'Location';
+      name: string;
+      contextualName: string;
+      countryCode: string;
+      parent?: {
+        __typename?: 'Location';
+        name: string;
+        contextualName: string;
+        countryCode: string;
+        parent?: {
+          __typename?: 'Location';
+          name: string;
+          contextualName: string;
+          countryCode: string;
+          parent?: {
+            __typename?: 'Location';
+            name: string;
+            contextualName: string;
+            countryCode: string;
+            parent?: {
+              __typename?: 'Location';
+              name: string;
+              contextualName: string;
+              countryCode: string;
+              id: { __typename?: 'ObjectIdentifier'; value: string };
+            } | null;
+            id: { __typename?: 'ObjectIdentifier'; value: string };
+          } | null;
+          id: { __typename?: 'ObjectIdentifier'; value: string };
+        } | null;
+        id: { __typename?: 'ObjectIdentifier'; value: string };
+      } | null;
+      id: { __typename?: 'ObjectIdentifier'; value: string };
+    } | null;
+    id: { __typename?: 'ObjectIdentifier'; value: string };
+  }> | null;
+};
