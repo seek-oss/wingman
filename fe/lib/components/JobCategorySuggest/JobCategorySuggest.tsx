@@ -60,7 +60,6 @@ export const JobCategorySuggest = React.memo(
         positionProfile,
         debounceDelay,
       );
-
       const {
         data: suggestData,
         error: suggestError,
@@ -96,6 +95,10 @@ export const JobCategorySuggest = React.memo(
                 tone={tone}
                 client={client}
                 schemeId={schemeId}
+                positionProfile={{
+                  positionLocation:
+                    debounceJobCategorySuggestInput.positionLocation,
+                }}
               />
             )
           )}

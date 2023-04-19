@@ -9,7 +9,9 @@ import {
 import React, { ComponentPropsWithRef, forwardRef, useState } from 'react';
 
 import type {
+  JobCategoriesPositionProfileInput,
   JobCategoriesQuery,
+  JobCategoriesQueryVariables,
   JobCategoryAttributesFragment,
 } from '../../types/seekApi.graphql';
 
@@ -28,6 +30,7 @@ export interface JobCategorySelectProps
     type: JobCategoryType,
   ) => void;
   schemeId: string;
+  positionProfile?: JobCategoriesPositionProfileInput;
   initialValue?: string;
   hideLabel?: boolean;
 }
@@ -41,6 +44,7 @@ export const JobCategorySelect = forwardRef<
       client,
       onSelect,
       schemeId,
+      positionProfile,
       initialValue,
 
       message,
@@ -55,12 +59,16 @@ export const JobCategorySelect = forwardRef<
       data: categoriesData,
       loading: categoriesLoading,
       error: categoriesError,
-    } = useQuery<JobCategoriesQuery>(JOB_CATEGORIES, {
-      ...(client && { client }),
-      variables: {
-        schemeId,
+    } = useQuery<JobCategoriesQuery, JobCategoriesQueryVariables>(
+      JOB_CATEGORIES,
+      {
+        ...(client && { client }),
+        variables: {
+          schemeId,
+          positionProfile,
+        },
       },
-    });
+    );
 
     const [selectedJobCategoryId, setSelectedJobCategoryId] = useState('');
 

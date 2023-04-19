@@ -215,11 +215,13 @@ export type ApplicationQuestionResponseFieldPolicy = {
 };
 export type ApplicationQuestionnaireKeySpecifier = (
   | 'components'
+  | 'hirer'
   | 'id'
   | ApplicationQuestionnaireKeySpecifier
 )[];
 export type ApplicationQuestionnaireFieldPolicy = {
   components?: FieldPolicy<any> | FieldReadFunction<any>;
+  hirer?: FieldPolicy<any> | FieldReadFunction<any>;
   id?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type ApplicationQuestionnaireComponentKeySpecifier = (
@@ -965,6 +967,7 @@ export type PositionHistoryFieldPolicy = {
 };
 export type PositionOpeningKeySpecifier = (
   | 'documentId'
+  | 'paginatedPositionProfiles'
   | 'positionProfiles'
   | 'postingRequester'
   | 'seekPartnerMetadata'
@@ -973,6 +976,7 @@ export type PositionOpeningKeySpecifier = (
 )[];
 export type PositionOpeningFieldPolicy = {
   documentId?: FieldPolicy<any> | FieldReadFunction<any>;
+  paginatedPositionProfiles?: FieldPolicy<any> | FieldReadFunction<any>;
   positionProfiles?: FieldPolicy<any> | FieldReadFunction<any>;
   postingRequester?: FieldPolicy<any> | FieldReadFunction<any>;
   seekPartnerMetadata?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1064,6 +1068,24 @@ export type PositionProfileClosedEventFieldPolicy = {
   schemeId?: FieldPolicy<any> | FieldReadFunction<any>;
   typeCode?: FieldPolicy<any> | FieldReadFunction<any>;
   webhookAttempts?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type PositionProfileConnectionKeySpecifier = (
+  | 'edges'
+  | 'pageInfo'
+  | PositionProfileConnectionKeySpecifier
+)[];
+export type PositionProfileConnectionFieldPolicy = {
+  edges?: FieldPolicy<any> | FieldReadFunction<any>;
+  pageInfo?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type PositionProfileEdgeKeySpecifier = (
+  | 'cursor'
+  | 'node'
+  | PositionProfileEdgeKeySpecifier
+)[];
+export type PositionProfileEdgeFieldPolicy = {
+  cursor?: FieldPolicy<any> | FieldReadFunction<any>;
+  node?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type PositionProfilePostedEventKeySpecifier = (
   | 'createDateTime'
@@ -1229,6 +1251,7 @@ export type PreferredLocationFieldPolicy = {
   referenceLocation?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type QueryKeySpecifier = (
+  | '_unstable_advertisementProducts'
   | 'advertisementBranding'
   | 'advertisementBrandings'
   | 'applicationLibraryQuestionSuggestions'
@@ -1265,6 +1288,7 @@ export type QueryKeySpecifier = (
   | QueryKeySpecifier
 )[];
 export type QueryFieldPolicy = {
+  _unstable_advertisementProducts?: FieldPolicy<any> | FieldReadFunction<any>;
   advertisementBranding?: FieldPolicy<any> | FieldReadFunction<any>;
   advertisementBrandings?: FieldPolicy<any> | FieldReadFunction<any>;
   applicationLibraryQuestionSuggestions?:
@@ -1755,6 +1779,30 @@ export type WebhookSubscriptionReplayFieldPolicy = {
   updateDateTime?: FieldPolicy<any> | FieldReadFunction<any>;
   webhookSubscription?: FieldPolicy<any> | FieldReadFunction<any>;
 };
+export type WebhookSubscriptionReplayByIdRequestKeySpecifier = (
+  | 'eventIds'
+  | 'typeCode'
+  | WebhookSubscriptionReplayByIdRequestKeySpecifier
+)[];
+export type WebhookSubscriptionReplayByIdRequestFieldPolicy = {
+  eventIds?: FieldPolicy<any> | FieldReadFunction<any>;
+  typeCode?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type WebhookSubscriptionReplayByRangeRequestKeySpecifier = (
+  | 'afterDateTime'
+  | 'beforeDateTime'
+  | 'hirer'
+  | 'replayDeliveredEventsIndicator'
+  | 'typeCode'
+  | WebhookSubscriptionReplayByRangeRequestKeySpecifier
+)[];
+export type WebhookSubscriptionReplayByRangeRequestFieldPolicy = {
+  afterDateTime?: FieldPolicy<any> | FieldReadFunction<any>;
+  beforeDateTime?: FieldPolicy<any> | FieldReadFunction<any>;
+  hirer?: FieldPolicy<any> | FieldReadFunction<any>;
+  replayDeliveredEventsIndicator?: FieldPolicy<any> | FieldReadFunction<any>;
+  typeCode?: FieldPolicy<any> | FieldReadFunction<any>;
+};
 export type WebhookSubscriptionReplayEdgeKeySpecifier = (
   | 'cursor'
   | 'node'
@@ -1765,17 +1813,11 @@ export type WebhookSubscriptionReplayEdgeFieldPolicy = {
   node?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type WebhookSubscriptionReplayRequestKeySpecifier = (
-  | 'afterDateTime'
-  | 'beforeDateTime'
-  | 'hirer'
-  | 'replayDeliveredEventsIndicator'
+  | 'typeCode'
   | WebhookSubscriptionReplayRequestKeySpecifier
 )[];
 export type WebhookSubscriptionReplayRequestFieldPolicy = {
-  afterDateTime?: FieldPolicy<any> | FieldReadFunction<any>;
-  beforeDateTime?: FieldPolicy<any> | FieldReadFunction<any>;
-  hirer?: FieldPolicy<any> | FieldReadFunction<any>;
-  replayDeliveredEventsIndicator?: FieldPolicy<any> | FieldReadFunction<any>;
+  typeCode?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type WebhookSubscriptionReplaysConnectionKeySpecifier = (
   | 'edges'
@@ -1794,6 +1836,84 @@ export type WebhookSubscriptionsConnectionKeySpecifier = (
 export type WebhookSubscriptionsConnectionFieldPolicy = {
   edges?: FieldPolicy<any> | FieldReadFunction<any>;
   pageInfo?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type _unstable_AdvertisementProductKeySpecifier = (
+  | 'description'
+  | 'features'
+  | 'id'
+  | 'label'
+  | 'payment'
+  | 'price'
+  | 'selected'
+  | 'sellingPoints'
+  | _unstable_AdvertisementProductKeySpecifier
+)[];
+export type _unstable_AdvertisementProductFieldPolicy = {
+  description?: FieldPolicy<any> | FieldReadFunction<any>;
+  features?: FieldPolicy<any> | FieldReadFunction<any>;
+  id?: FieldPolicy<any> | FieldReadFunction<any>;
+  label?: FieldPolicy<any> | FieldReadFunction<any>;
+  payment?: FieldPolicy<any> | FieldReadFunction<any>;
+  price?: FieldPolicy<any> | FieldReadFunction<any>;
+  selected?: FieldPolicy<any> | FieldReadFunction<any>;
+  sellingPoints?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type _unstable_AdvertisementProductFeaturesKeySpecifier = (
+  | 'branding'
+  | 'bulletPoints'
+  | _unstable_AdvertisementProductFeaturesKeySpecifier
+)[];
+export type _unstable_AdvertisementProductFeaturesFieldPolicy = {
+  branding?: FieldPolicy<any> | FieldReadFunction<any>;
+  bulletPoints?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type _unstable_AdvertisementProductFeaturesBrandingKeySpecifier = (
+  | 'coverImage'
+  | 'logo'
+  | _unstable_AdvertisementProductFeaturesBrandingKeySpecifier
+)[];
+export type _unstable_AdvertisementProductFeaturesBrandingFieldPolicy = {
+  coverImage?: FieldPolicy<any> | FieldReadFunction<any>;
+  logo?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type _unstable_AdvertisementProductFeaturesBulletPointsKeySpecifier = (
+  | 'limit'
+  | _unstable_AdvertisementProductFeaturesBulletPointsKeySpecifier
+)[];
+export type _unstable_AdvertisementProductFeaturesBulletPointsFieldPolicy = {
+  limit?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type _unstable_AdvertisementProductPaymentDetailsKeySpecifier = (
+  | 'summary'
+  | 'summaryHtml'
+  | _unstable_AdvertisementProductPaymentDetailsKeySpecifier
+)[];
+export type _unstable_AdvertisementProductPaymentDetailsFieldPolicy = {
+  summary?: FieldPolicy<any> | FieldReadFunction<any>;
+  summaryHtml?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type _unstable_AdvertisementProductPriceDetailsKeySpecifier = (
+  | 'summary'
+  | _unstable_AdvertisementProductPriceDetailsKeySpecifier
+)[];
+export type _unstable_AdvertisementProductPriceDetailsFieldPolicy = {
+  summary?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type _unstable_AdvertisementProductSellingPointKeySpecifier = (
+  | 'text'
+  | _unstable_AdvertisementProductSellingPointKeySpecifier
+)[];
+export type _unstable_AdvertisementProductSellingPointFieldPolicy = {
+  text?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type _unstable_AdvertisementProductsKeySpecifier = (
+  | 'information'
+  | 'products'
+  | _unstable_AdvertisementProductsKeySpecifier
+)[];
+export type _unstable_AdvertisementProductsFieldPolicy = {
+  information?: FieldPolicy<any> | FieldReadFunction<any>;
+  products?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type StrictTypedTypePolicies = {
   Address?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
@@ -2499,6 +2619,20 @@ export type StrictTypedTypePolicies = {
       | (() => undefined | PositionProfileClosedEventKeySpecifier);
     fields?: PositionProfileClosedEventFieldPolicy;
   };
+  PositionProfileConnection?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | PositionProfileConnectionKeySpecifier
+      | (() => undefined | PositionProfileConnectionKeySpecifier);
+    fields?: PositionProfileConnectionFieldPolicy;
+  };
+  PositionProfileEdge?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | PositionProfileEdgeKeySpecifier
+      | (() => undefined | PositionProfileEdgeKeySpecifier);
+    fields?: PositionProfileEdgeFieldPolicy;
+  };
   PositionProfilePostedEvent?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:
       | false
@@ -2978,6 +3112,26 @@ export type StrictTypedTypePolicies = {
       | (() => undefined | WebhookSubscriptionReplayKeySpecifier);
     fields?: WebhookSubscriptionReplayFieldPolicy;
   };
+  WebhookSubscriptionReplayByIdRequest?: Omit<
+    TypePolicy,
+    'fields' | 'keyFields'
+  > & {
+    keyFields?:
+      | false
+      | WebhookSubscriptionReplayByIdRequestKeySpecifier
+      | (() => undefined | WebhookSubscriptionReplayByIdRequestKeySpecifier);
+    fields?: WebhookSubscriptionReplayByIdRequestFieldPolicy;
+  };
+  WebhookSubscriptionReplayByRangeRequest?: Omit<
+    TypePolicy,
+    'fields' | 'keyFields'
+  > & {
+    keyFields?:
+      | false
+      | WebhookSubscriptionReplayByRangeRequestKeySpecifier
+      | (() => undefined | WebhookSubscriptionReplayByRangeRequestKeySpecifier);
+    fields?: WebhookSubscriptionReplayByRangeRequestFieldPolicy;
+  };
   WebhookSubscriptionReplayEdge?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:
       | false
@@ -3011,6 +3165,90 @@ export type StrictTypedTypePolicies = {
       | WebhookSubscriptionsConnectionKeySpecifier
       | (() => undefined | WebhookSubscriptionsConnectionKeySpecifier);
     fields?: WebhookSubscriptionsConnectionFieldPolicy;
+  };
+  _unstable_AdvertisementProduct?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | _unstable_AdvertisementProductKeySpecifier
+      | (() => undefined | _unstable_AdvertisementProductKeySpecifier);
+    fields?: _unstable_AdvertisementProductFieldPolicy;
+  };
+  _unstable_AdvertisementProductFeatures?: Omit<
+    TypePolicy,
+    'fields' | 'keyFields'
+  > & {
+    keyFields?:
+      | false
+      | _unstable_AdvertisementProductFeaturesKeySpecifier
+      | (() => undefined | _unstable_AdvertisementProductFeaturesKeySpecifier);
+    fields?: _unstable_AdvertisementProductFeaturesFieldPolicy;
+  };
+  _unstable_AdvertisementProductFeaturesBranding?: Omit<
+    TypePolicy,
+    'fields' | 'keyFields'
+  > & {
+    keyFields?:
+      | false
+      | _unstable_AdvertisementProductFeaturesBrandingKeySpecifier
+      | (() =>
+          | undefined
+          | _unstable_AdvertisementProductFeaturesBrandingKeySpecifier);
+    fields?: _unstable_AdvertisementProductFeaturesBrandingFieldPolicy;
+  };
+  _unstable_AdvertisementProductFeaturesBulletPoints?: Omit<
+    TypePolicy,
+    'fields' | 'keyFields'
+  > & {
+    keyFields?:
+      | false
+      | _unstable_AdvertisementProductFeaturesBulletPointsKeySpecifier
+      | (() =>
+          | undefined
+          | _unstable_AdvertisementProductFeaturesBulletPointsKeySpecifier);
+    fields?: _unstable_AdvertisementProductFeaturesBulletPointsFieldPolicy;
+  };
+  _unstable_AdvertisementProductPaymentDetails?: Omit<
+    TypePolicy,
+    'fields' | 'keyFields'
+  > & {
+    keyFields?:
+      | false
+      | _unstable_AdvertisementProductPaymentDetailsKeySpecifier
+      | (() =>
+          | undefined
+          | _unstable_AdvertisementProductPaymentDetailsKeySpecifier);
+    fields?: _unstable_AdvertisementProductPaymentDetailsFieldPolicy;
+  };
+  _unstable_AdvertisementProductPriceDetails?: Omit<
+    TypePolicy,
+    'fields' | 'keyFields'
+  > & {
+    keyFields?:
+      | false
+      | _unstable_AdvertisementProductPriceDetailsKeySpecifier
+      | (() =>
+          | undefined
+          | _unstable_AdvertisementProductPriceDetailsKeySpecifier);
+    fields?: _unstable_AdvertisementProductPriceDetailsFieldPolicy;
+  };
+  _unstable_AdvertisementProductSellingPoint?: Omit<
+    TypePolicy,
+    'fields' | 'keyFields'
+  > & {
+    keyFields?:
+      | false
+      | _unstable_AdvertisementProductSellingPointKeySpecifier
+      | (() =>
+          | undefined
+          | _unstable_AdvertisementProductSellingPointKeySpecifier);
+    fields?: _unstable_AdvertisementProductSellingPointFieldPolicy;
+  };
+  _unstable_AdvertisementProducts?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | _unstable_AdvertisementProductsKeySpecifier
+      | (() => undefined | _unstable_AdvertisementProductsKeySpecifier);
+    fields?: _unstable_AdvertisementProductsFieldPolicy;
   };
 };
 export type TypedTypePolicies = StrictTypedTypePolicies & TypePolicies;
