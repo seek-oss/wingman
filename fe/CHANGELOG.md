@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 7.0.4
+
+### Patch Changes
+
+- Add positionProfile input into jobCategories query ([#917](https://github.com/seek-oss/wingman/pull/917))
+
 ## 7.0.3
 
 ### Patch Changes
