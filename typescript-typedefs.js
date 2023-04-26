@@ -13,7 +13,7 @@ const forceBlockDescriptionsOnDirectives = (schema) => {
 
   for (const directive of directives) {
     if (directive.astNode || !directive.description) {
-      return;
+      continue;
     }
 
     directive.astNode = {
