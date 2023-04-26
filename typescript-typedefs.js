@@ -19,7 +19,7 @@ const forceBlockDescriptionsOnDirectives = (schema) => {
     directive.astNode = {
       kind: Kind.DIRECTIVE_DEFINITION,
       // Use block styling to ensure that our hack in `printTypeScriptTypeDefs`
-      // to escape backticks outputs valid JavaScript.
+      // to escape backticks still outputs valid GraphQL type defs.
       description: {
         kind: Kind.STRING,
         value: directive.description,
