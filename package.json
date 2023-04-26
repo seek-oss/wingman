@@ -11,8 +11,8 @@
     "@graphql-codegen/typescript-operations": "3.0.2",
     "@graphql-tools/utils": "9.2.1",
     "concurrently": "7.6.0",
-    "eslint-config-seek": "10.3.0",
-    "graphql": "16.6.0"
+    "graphql": "16.6.0",
+    "sku": "11.9.2"
   },
   "private": true,
   "scripts": {
