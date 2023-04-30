@@ -1,7 +1,7 @@
 import { Middleware } from 'koa';
 import bodyParser from 'koa-bodyparser';
 import compose from 'koa-compose';
-import LRU from 'lru-cache';
+import { LRUCache } from 'lru-cache';
 import fetch from 'node-fetch';
 
 import { SEEK_BROWSER_TOKEN_URL } from '../constants';
@@ -26,7 +26,7 @@ interface CacheKey {
   scope: string;
 }
 
-const tokenCache = new LRU<string, CacheItem>({
+const tokenCache = new LRUCache<string, CacheItem>({
   max: 1024,
 });
 
