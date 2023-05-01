@@ -1,7 +1,7 @@
 import { Tiles } from 'braid-design-system';
 import React from 'react';
 
-import {
+import type {
   AdvertisementBrandingEdgeFieldsFragment,
   AdvertisementBrandingFieldsFragment,
 } from '../../types/seekApi.graphql';

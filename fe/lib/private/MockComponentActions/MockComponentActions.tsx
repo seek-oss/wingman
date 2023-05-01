@@ -5,7 +5,7 @@ import {
   IconSocialGitHub,
   Stack,
 } from 'braid-design-system';
-import React, { ComponentProps } from 'react';
+import React, { type ComponentProps } from 'react';
 
 interface MockComponentActionsProps {
   children: ComponentProps<typeof Stack>['children'];

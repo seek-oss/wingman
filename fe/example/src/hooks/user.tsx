@@ -1,6 +1,11 @@
-import React, { Dispatch, ReactNode, SetStateAction, useContext } from 'react';
+import React, {
+  type Dispatch,
+  type ReactNode,
+  type SetStateAction,
+  useContext,
+} from 'react';
 
-import { USERS, User } from '../data/users';
+import { USERS, type User } from '../data/users';
 
 import { useLocalStorage } from './localStorage';
 

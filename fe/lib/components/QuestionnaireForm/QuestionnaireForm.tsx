@@ -16,7 +16,7 @@ import MultiSelect from './components/MultiSelect';
 import PrivacyConsentRenderer from './components/PrivacyConsent';
 import SingleSelect from './components/SingleSelect';
 import {
-  FormUpdateAction,
+  type FormUpdateAction,
   createUpdateFieldAction,
   formStateReducer,
 } from './state/formRendererState';

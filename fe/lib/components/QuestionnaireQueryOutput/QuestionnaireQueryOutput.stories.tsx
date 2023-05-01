@@ -1,9 +1,9 @@
 import 'braid-design-system/reset';
-import React, { ComponentProps } from 'react';
+import React, { type ComponentProps } from 'react';
 
 import type { FormComponent } from '../../private/questionnaires/types';
 import {
-  BraidArgs,
+  type BraidArgs,
   defaultArgTypes,
   defaultArgs,
 } from '../../storybook/controls';

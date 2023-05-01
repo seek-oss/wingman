@@ -1,8 +1,8 @@
-import { TextField } from 'braid-design-system';
-import { ComponentProps } from 'react';
+import type { TextField } from 'braid-design-system';
+import type { ComponentProps } from 'react';
 
 import { MAX_CHAR_LIMIT } from './SalaryDetails';
-import { SalaryError } from './types';
+import type { SalaryError } from './types';
 
 interface Validation {
   tone: Exclude<ComponentProps<typeof TextField>['tone'], 'caution'>;

@@ -1,5 +1,5 @@
 import { Box, IconChevron, Stack } from 'braid-design-system';
-import React, { ReactNode, useState } from 'react';
+import React, { type ReactNode, useState } from 'react';
 
 import * as styles from './RichDropdown.css';
 

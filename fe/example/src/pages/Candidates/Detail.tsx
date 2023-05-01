@@ -22,7 +22,7 @@ import { useParams } from 'react-router-dom';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { ClientOnly } from '../../components/ClientOnly';
 import { Header } from '../../components/Header';
-import { CANDIDATE_BY_ID, Candidate } from '../../data/candidates';
+import { CANDIDATE_BY_ID, type Candidate } from '../../data/candidates';
 import { POSITION_BY_ID } from '../../data/positions';
 import { useClient } from '../../hooks/user';
 import { pluralise } from '../../utils/text';

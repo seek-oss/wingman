@@ -1,8 +1,8 @@
 import { faker } from './faker';
-import { POSITIONS, Position } from './positions';
-import { Qualification, generateQualification } from './qualifications';
-import { SKILLS, Skill } from './skills';
-import { USERS, User } from './users';
+import { POSITIONS, type Position } from './positions';
+import { type Qualification, generateQualification } from './qualifications';
+import { SKILLS, type Skill } from './skills';
+import { USERS, type User } from './users';
 
 export interface Candidate {
   id: string;

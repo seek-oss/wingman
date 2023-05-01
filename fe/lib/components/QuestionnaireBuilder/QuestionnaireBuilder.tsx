@@ -1,7 +1,7 @@
 import { Card, Column, Columns, Heading, Stack } from 'braid-design-system';
 import React, {
   Fragment,
-  ReactNode,
+  type ReactNode,
   useEffect,
   useMemo,
   useState,
@@ -14,7 +14,7 @@ import type {
 } from '../../private/questionnaires/types';
 import { QuestionnaireForm } from '../QuestionnaireForm/QuestionnaireForm';
 import {
-  QuestionnaireCreateInput,
+  type QuestionnaireCreateInput,
   QuestionnaireQueryOutput,
   convertComponentsToMutationVariables,
 } from '../QuestionnaireQueryOutput/QuestionnaireQueryOutput';

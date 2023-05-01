@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { type FormEvent, useState } from 'react';
 
 const transformValue = <K extends string, V>(
   obj: Record<K, V>,

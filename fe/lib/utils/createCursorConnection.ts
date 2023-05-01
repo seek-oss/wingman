@@ -1,4 +1,4 @@
-import { PageInfo } from '../types/seekApi.graphql';
+import type { PageInfo } from '../types/seekApi.graphql';
 
 interface Connection<T> {
   edges: T[];

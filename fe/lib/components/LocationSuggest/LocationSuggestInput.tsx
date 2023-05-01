@@ -1,4 +1,4 @@
-import { ApolloClient } from '@apollo/client';
+import type { ApolloClient } from '@apollo/client';
 import matchHighlights from 'autosuggest-highlight/match';
 import {
   Autosuggest,
@@ -10,9 +10,9 @@ import {
   IconLocation,
   IconSearch,
   Text,
-  TextField,
+  type TextField,
 } from 'braid-design-system';
-import React, { ComponentProps, useEffect, useState } from 'react';
+import React, { type ComponentProps, useEffect, useState } from 'react';
 import { SmartTextLink } from 'scoobie';
 
 import type {

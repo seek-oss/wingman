@@ -1,4 +1,4 @@
-import { ApolloClient, useQuery } from '@apollo/client';
+import { type ApolloClient, useQuery } from '@apollo/client';
 import {
   Alert,
   Box,
@@ -13,12 +13,14 @@ import {
   useSpace,
 } from 'braid-design-system';
 import { Map, Marker, Overlay, ZoomControl } from 'pigeon-maps';
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { InlineCode } from 'scoobie';
 import { useDebounce } from 'use-debounce';
 
-import { Location, NearbyLocationsQuery } from '../../types/seekApi.graphql';
+import type {
+  Location,
+  NearbyLocationsQuery,
+} from '../../types/seekApi.graphql';
 import { formatPoint } from '../../utils/formatPoint';
 
 import { NEAREST_LOCATIONS } from './queries';

@@ -1,12 +1,12 @@
-import { ApolloClient, useQuery } from '@apollo/client';
+import { type ApolloClient, useQuery } from '@apollo/client';
 import {
   FieldMessage,
   Loader,
-  RadioGroup,
+  type RadioGroup,
   Stack,
   Text,
 } from 'braid-design-system';
-import React, { ComponentPropsWithRef, forwardRef } from 'react';
+import React, { type ComponentPropsWithRef, forwardRef } from 'react';
 import isDeepEqual from 'react-fast-compare';
 import { useDebounce } from 'use-debounce';
 

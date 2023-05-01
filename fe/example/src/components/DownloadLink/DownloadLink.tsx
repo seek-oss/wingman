@@ -1,5 +1,5 @@
 import { TextLinkButton } from 'braid-design-system';
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
 import { download } from './download';
 

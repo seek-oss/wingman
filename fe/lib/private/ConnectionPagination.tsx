@@ -8,7 +8,7 @@ import {
 } from 'braid-design-system';
 import React from 'react';
 
-import { PageInfo } from '../types/seekApi.graphql';
+import type { PageInfo } from '../types/seekApi.graphql';
 
 interface Connection<T> {
   edges: T[];

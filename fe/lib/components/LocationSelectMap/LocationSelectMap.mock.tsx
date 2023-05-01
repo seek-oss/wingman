@@ -3,7 +3,10 @@ import React from 'react';
 import { MockComponentActions } from '../../private/MockComponentActions/MockComponentActions';
 import { ApolloMockProvider } from '../ApolloMockProvider/ApolloMockProvider';
 
-import { LocationSelectMap, LocationSelectMapProps } from './LocationSelectMap';
+import {
+  LocationSelectMap,
+  type LocationSelectMapProps,
+} from './LocationSelectMap';
 import { mockNearestLocations } from './__fixtures__/nearestLocations';
 
 interface Props extends LocationSelectMapProps {

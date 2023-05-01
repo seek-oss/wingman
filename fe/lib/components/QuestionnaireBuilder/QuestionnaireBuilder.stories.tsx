@@ -1,10 +1,10 @@
 import 'braid-design-system/reset';
 
 import { Box } from 'braid-design-system';
-import React, { ComponentProps, ReactNode } from 'react';
+import React, { type ComponentProps, type ReactNode } from 'react';
 
 import {
-  BraidArgs,
+  type BraidArgs,
   defaultArgTypes,
   defaultArgs,
 } from '../../storybook/controls';

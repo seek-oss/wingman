@@ -1,4 +1,4 @@
-import { SetStateAction, useState } from 'react';
+import { type SetStateAction, useState } from 'react';
 
 /**
  * @see {@link https://usehooks.com/useLocalStorage/}

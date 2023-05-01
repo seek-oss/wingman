@@ -4,9 +4,9 @@ import { SmartTextLink } from 'scoobie';
 
 import {
   ConnectionPagination,
-  OnClickHandler,
+  type OnClickHandler,
 } from '../../private/ConnectionPagination';
-import {
+import type {
   AdvertisementBrandingFieldsFragment,
   AdvertisementBrandingsQuery,
 } from '../../types/seekApi.graphql';

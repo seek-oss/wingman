@@ -1,7 +1,7 @@
-import { ApolloClient, useLazyQuery, useQuery } from '@apollo/client';
-import { FieldMessage, Stack, TextField } from 'braid-design-system';
+import { type ApolloClient, useLazyQuery, useQuery } from '@apollo/client';
+import { FieldMessage, Stack, type TextField } from 'braid-design-system';
 import React, {
-  ComponentPropsWithRef,
+  type ComponentPropsWithRef,
   forwardRef,
   useEffect,
   useState,

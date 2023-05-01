@@ -10,7 +10,7 @@ import {
   Text,
   Toggle,
 } from 'braid-design-system';
-import React, { Fragment, ReactNode } from 'react';
+import React, { Fragment, type ReactNode } from 'react';
 import { InternalLink } from 'scoobie';
 
 import { ClientOnly } from '../components/ClientOnly';
