@@ -1,5 +1,15 @@
 # wingman-fe
 
+## 7.0.5
+
+### Patch Changes
+
+- Fix compilation error ([#923](https://github.com/seek-oss/wingman/pull/923))
+
+  ```console
+  GraphQLError: Syntax Error: Unterminated string.
+  ```
+
 ## 7.0.4
 
 ### Patch Changes
