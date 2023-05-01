@@ -34,6 +34,7 @@
     "react-dom": "18.2.0",
     "react-router-dom": "6.9.0",
     "scoobie": "14.1.3",
+    "ts-node": "10.9.1",
     "use-query-params": "2.2.1",
     "webpack-merge": "5.8.0"
   },
@@ -67,5 +68,5 @@
     "test": "sku test",
     "test:ci": "sku test --coverage"
   },
-  "version": "7.0.4"
+  "version": "7.0.5"
 }
