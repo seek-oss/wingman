@@ -1,10 +1,10 @@
-import { ApolloClient, useApolloClient } from '@apollo/client';
+import { type ApolloClient, useApolloClient } from '@apollo/client';
 import React, { forwardRef } from 'react';
 
 import { MockComponentActions } from '../../private/MockComponentActions/MockComponentActions';
 import { ApolloMockProvider } from '../ApolloMockProvider/ApolloMockProvider';
 
-import { LocationSuggest, LocationSuggestProps } from './LocationSuggest';
+import { LocationSuggest, type LocationSuggestProps } from './LocationSuggest';
 import { mockLocationSuggest } from './__fixtures__/locationSuggest';
 import { mockNearestLocations } from './__fixtures__/nearestLocations';
 

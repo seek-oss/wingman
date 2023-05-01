@@ -1,6 +1,10 @@
-import { FieldFunctionOptions, Reference, StoreObject } from '@apollo/client';
+import type {
+  FieldFunctionOptions,
+  Reference,
+  StoreObject,
+} from '@apollo/client';
 
-import { TypedTypePolicies } from './apolloHelpers';
+import type { TypedTypePolicies } from './apolloHelpers';
 
 export const readNestedStringField = (
   readField: FieldFunctionOptions['readField'],

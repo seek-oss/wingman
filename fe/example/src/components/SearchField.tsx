@@ -1,5 +1,5 @@
 import { TextField } from 'braid-design-system';
-import React, { ComponentProps, useRef } from 'react';
+import React, { type ComponentProps, useRef } from 'react';
 
 type Props = Pick<
   ComponentProps<typeof TextField>,

@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { MockComponentActions } from '../../private/MockComponentActions/MockComponentActions';
-import { AdvertisementBrandingsQueryVariables } from '../../types/seekApi.graphql';
+import type { AdvertisementBrandingsQueryVariables } from '../../types/seekApi.graphql';
 import { createCursorConnection } from '../../utils/createCursorConnection';
 import { ApolloMockProvider } from '../ApolloMockProvider/ApolloMockProvider';
 
-import { BrandSelect, BrandSelectProps } from './BrandSelect';
+import { BrandSelect, type BrandSelectProps } from './BrandSelect';
 import { mockBrands } from './__fixtures__/brands';
 
 interface Props extends BrandSelectProps {

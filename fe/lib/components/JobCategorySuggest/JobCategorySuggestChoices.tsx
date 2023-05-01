@@ -1,4 +1,4 @@
-import { ApolloClient } from '@apollo/client';
+import type { ApolloClient } from '@apollo/client';
 import {
   RadioGroup,
   RadioItem,
@@ -6,7 +6,7 @@ import {
   Strong,
   Text,
 } from 'braid-design-system';
-import React, { ComponentProps, forwardRef, useState } from 'react';
+import React, { type ComponentProps, forwardRef, useState } from 'react';
 
 import type {
   JobCategoriesPositionProfileInput,

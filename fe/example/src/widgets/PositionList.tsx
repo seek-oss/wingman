@@ -12,7 +12,7 @@ import React, { useState } from 'react';
 
 import { RelativeDate } from '../components/RelativeDate';
 import { SearchField } from '../components/SearchField';
-import { Table, TableColumn } from '../components/Table';
+import { Table, type TableColumn } from '../components/Table';
 import type { Position } from '../data/positions';
 
 const COLUMNS: Array<TableColumn<Position>> = [

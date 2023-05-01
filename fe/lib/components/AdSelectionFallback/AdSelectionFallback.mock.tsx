@@ -4,7 +4,7 @@ import { MockComponentActions } from '../../private/MockComponentActions/MockCom
 
 import {
   AdSelectionFallback,
-  AdSelectionFallbackProps,
+  type AdSelectionFallbackProps,
 } from './AdSelectionFallback';
 
 interface Props extends AdSelectionFallbackProps {

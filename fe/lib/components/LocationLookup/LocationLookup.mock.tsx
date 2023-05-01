@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { MockComponentActions } from '../../private/MockComponentActions/MockComponentActions';
-import { LocationQueryVariables } from '../../types/seekApi.graphql';
+import type { LocationQueryVariables } from '../../types/seekApi.graphql';
 import { ApolloMockProvider } from '../ApolloMockProvider/ApolloMockProvider';
 
-import { LocationLookup, LocationLookupProps } from './LocationLookup';
+import { LocationLookup, type LocationLookupProps } from './LocationLookup';
 import { mockLocation } from './__fixtures__/location';
 
 interface Props extends LocationLookupProps {

@@ -6,7 +6,7 @@ import { mockJobCategories } from '../JobCategorySelect/__fixtures__/jobCategori
 
 import {
   JobCategorySuggest,
-  JobCategorySuggestProps,
+  type JobCategorySuggestProps,
 } from './JobCategorySuggest';
 import { mockJobCategorySuggest } from './__fixtures__/jobCategorySuggest';
 

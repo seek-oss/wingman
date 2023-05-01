@@ -1,11 +1,11 @@
 import 'braid-design-system/reset';
 
 import { Heading, Stack } from 'braid-design-system';
-import React, { ComponentProps } from 'react';
+import React, { type ComponentProps } from 'react';
 import { CodeBlock } from 'scoobie';
 
 import {
-  BraidArgs,
+  type BraidArgs,
   defaultArgTypes,
   defaultArgs,
 } from '../../storybook/controls';

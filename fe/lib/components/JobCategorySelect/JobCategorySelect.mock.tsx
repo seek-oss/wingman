@@ -3,7 +3,10 @@ import React, { forwardRef } from 'react';
 import { MockComponentActions } from '../../private/MockComponentActions/MockComponentActions';
 import { ApolloMockProvider } from '../ApolloMockProvider/ApolloMockProvider';
 
-import { JobCategorySelect, JobCategorySelectProps } from './JobCategorySelect';
+import {
+  JobCategorySelect,
+  type JobCategorySelectProps,
+} from './JobCategorySelect';
 import { mockJobCategories } from './__fixtures__/jobCategories';
 
 interface Props extends JobCategorySelectProps {

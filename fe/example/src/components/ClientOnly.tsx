@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 
-import { ExtendedClientContext, augmentClient, useUser } from '../hooks/user';
+import {
+  type ExtendedClientContext,
+  augmentClient,
+  useUser,
+} from '../hooks/user';
 
 interface Props {
   children: JSX.Element | ((ctx: ExtendedClientContext) => JSX.Element);

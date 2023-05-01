@@ -1,6 +1,6 @@
 import type { AdProductName } from './adProducts';
 import { faker } from './faker';
-import { POSITIONS, Position } from './positions';
+import { POSITIONS, type Position } from './positions';
 
 export interface Ad {
   id: string;

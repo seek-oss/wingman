@@ -1,4 +1,4 @@
-import { ApolloClient, useLazyQuery } from '@apollo/client';
+import { type ApolloClient, useLazyQuery } from '@apollo/client';
 import {
   FieldMessage,
   Loader,
@@ -11,7 +11,7 @@ import React, { useEffect, useState } from 'react';
 import { InlineCode } from 'scoobie';
 import { useDebounce } from 'use-debounce';
 
-import {
+import type {
   LocationQuery,
   LocationQueryVariables,
 } from '../../types/seekApi.graphql';

@@ -11,7 +11,7 @@ import {
   TextField,
   Textarea,
 } from 'braid-design-system';
-import React, { FormEvent } from 'react';
+import React, { type FormEvent } from 'react';
 
 import type { AdProductName } from '../data/adProducts';
 import { useLocalStorage } from '../hooks/localStorage';

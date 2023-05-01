@@ -9,7 +9,7 @@ import {
 import React, { useState } from 'react';
 
 import {
-  MutationVariableInput,
+  type MutationVariableInput,
   validateQueryInput,
 } from '../../private/questionnaires/types';
 

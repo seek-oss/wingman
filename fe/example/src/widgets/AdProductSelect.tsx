@@ -9,7 +9,7 @@ import {
 } from 'braid-design-system';
 import React, { useState } from 'react';
 
-import { AD_PRODUCTS, AdProductName } from '../data/adProducts';
+import { AD_PRODUCTS, type AdProductName } from '../data/adProducts';
 
 import * as styles from './AdProductSelect.css';
 

@@ -5325,13 +5325,12 @@
     debug "^4.3.1"
     loader-utils "^2.0.0"
 
-"@vocab/core@^1.1.0", "@vocab/core@^1.2.4":
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/@vocab/core/-/core-1.2.4.tgz#c391316ffc9829142f284be2755d93b9174786e3"
-  integrity sha512-mPPgp99CU6Pwc4mq8vbj0pAQFSuG1qNw/rD+SkXTs/BgllZ2m/szG65Ln9Yshm3XnWTrLJ8SbNmWXb225sMZhQ==
+"@vocab/core@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@vocab/core/-/core-1.3.0.tgz#87781decacd0d9dc5fb8f092f1d892d21250a0c6"
+  integrity sha512-WqZpUZ5u03yM5xnXwbmItWaA/StaA52J24eTMtIIia6ggHDHrxkHxK2VN5CWYWya3FqVDWSbfK1AuzUevPEm+A==
   dependencies:
     "@formatjs/icu-messageformat-parser" "^2.0.10"
-    "@vocab/types" "^1.2.0"
     chalk "^4.1.0"
     chokidar "^3.4.3"
     debug "^4.3.1"
@@ -5341,41 +5340,33 @@
     intl-messageformat "^10.0.0"
     prettier "^2.1.2"
 
-"@vocab/phrase@^1.1.0":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@vocab/phrase/-/phrase-1.2.2.tgz#5f90520ff8130aba33ddc3ad0092f7e68a231973"
-  integrity sha512-M7uP+pZX3KmgFcSxnKxg0srNwYOs2967ydT0M0oBaCtQqqyaidTmpaVvZGwpBBvIPgH1lmG3/Dtwc5FmUBJ67A==
+"@vocab/phrase@^1.2.4":
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/@vocab/phrase/-/phrase-1.2.4.tgz#36603e64b6327b7f765235d48edf66d58a41899e"
+  integrity sha512-FU7XMEfW4H6Ji3tvqWwvaEuYD6RSgIpvOYKyuoK+f2FeCCawi9N9IJ2XP4qoAMPb0tGcDNSqLKGquJn0UD6dtA==
   dependencies:
-    "@vocab/core" "^1.2.4"
-    "@vocab/types" "^1.1.2"
+    "@vocab/core" "^1.3.0"
     chalk "^4.1.0"
     csv-stringify "^6.2.3"
     debug "^4.3.1"
     form-data "^3.0.0"
     node-fetch "^2.6.1"
 
-"@vocab/pseudo-localize@^1.0.0":
+"@vocab/pseudo-localize@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@vocab/pseudo-localize/-/pseudo-localize-1.0.1.tgz#8bc445c1ff2d9fce558ca47765dcffd37bf2450c"
   integrity sha512-2NVG34owV2fbI2cEUd6bMDv/T/hdyOxHqqxh01jTWCI9Zn3e1ylNvt8yqtPQUMC28RbmnC1m/uLr20KGahQGjA==
 
-"@vocab/types@^1.1.2", "@vocab/types@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@vocab/types/-/types-1.2.0.tgz#cea8024c772dfda7766317e84ecaeca85758f8be"
-  integrity sha512-rKY/YKIcU5/fr78uoy3lrbuZCrtUerpdOxYh5aGFaE9rRKgg0Pfb+JX8yD5QUll5TYqjlKnLtmiJWoxI0s/3cQ==
+"@vocab/webpack@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@vocab/webpack/-/webpack-1.2.1.tgz#e1f80cec9f6eb43982f14a67551cc8039b8e4063"
+  integrity sha512-DVo6H3B+npwDEQUJ/VEeEoj9aojQLe9PPwSIFqxg2AJ/SC3zg2xba0UJ5n8YTmDj6vTFem8VrBfP/vJZ/nu7zQ==
   dependencies:
-    intl-messageformat "^10.0.0"
-
-"@vocab/webpack@^1.1.0":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@vocab/webpack/-/webpack-1.1.4.tgz#c967884a900e771266af5d412ac4968314e82421"
-  integrity sha512-RDZ6/xM1+VvQbEFQWQF4opfVQZuLto9ANIXPZF6C497Oxw20X18GNNVBHWMoH81qfIIpOz6xQ5zn9VIUo4ywcQ==
-  dependencies:
-    "@vocab/core" "^1.2.4"
-    "@vocab/types" "^1.1.2"
+    "@vocab/core" "^1.3.0"
     chalk "^4.1.0"
+    cjs-module-lexer "^1.2.2"
     debug "^4.3.1"
-    loader-utils "^2.0.0"
+    es-module-lexer "^0.9.3"
     virtual-resource-loader "^1.0.1"
 
 "@webassemblyjs/ast@1.11.1":
@@ -7515,7 +7506,7 @@ cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
-cjs-module-lexer@^1.0.0:
+cjs-module-lexer@^1.0.0, cjs-module-lexer@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/cjs-module-lexer/-/cjs-module-lexer-1.2.2.tgz#9f84ba3244a512f3a54e5277e8eef4c489864e40"
   integrity sha512-cOU9usZw8/dXIXKtwa8pM0OTJQuJkxMN6w30csNRUerHfeQ5R6U3kkU/FtJeIf3M202OHfY2U8ccInBG7/xogA==
@@ -9432,7 +9423,7 @@ es-get-iterator@^1.0.2, es-get-iterator@^1.1.2:
     isarray "^2.0.5"
     stop-iteration-iterator "^1.0.0"
 
-es-module-lexer@^0.9.0:
+es-module-lexer@^0.9.0, es-module-lexer@^0.9.3:
   version "0.9.3"
   resolved "https://registry.yarnpkg.com/es-module-lexer/-/es-module-lexer-0.9.3.tgz#6f13db00cc38417137daf74366f535c8eb438f19"
   integrity sha512-1HQ2M2sPtxwnvOvT1ZClHyQDiggdNjURWpY2we6aMKCQiUVxTmVs2UYPLIrD84sS+kMdUwfBSylbJPwNnBrnHQ==
@@ -9618,10 +9609,29 @@ eslint-config-prettier@^8.6.0:
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.8.0.tgz#bfda738d412adc917fd7b038857110efe98c9348"
   integrity sha512-wLbQiFre3tdGgpDv67NQKnJuTlcUVYHas3k+DZCc2U2BadthoEY4B7hLPvAxaqdyOGCzuLfii2fqGph10va7oA==
 
-eslint-config-seek@^10.1.1, eslint-config-seek@^10.2.0:
+eslint-config-seek@^10.2.0:
   version "10.3.0"
   resolved "https://registry.yarnpkg.com/eslint-config-seek/-/eslint-config-seek-10.3.0.tgz#5a4718a4b4635be92a81eae14faded913cb92ab2"
   integrity sha512-IIgOMNIwtCBLUOuyxMmMDbksZ7cmDCUjscld8Hg1hM5+3fvwbMzQLAWJBmp2FWFMUeReuIzWfMwXJV8GacsGyQ==
+  dependencies:
+    "@babel/core" "^7.21.0"
+    "@babel/eslint-parser" "^7.19.1"
+    "@babel/preset-react" "^7.18.6"
+    "@typescript-eslint/eslint-plugin" "^5.53.0"
+    "@typescript-eslint/parser" "^5.53.0"
+    eslint-config-prettier "^8.6.0"
+    eslint-import-resolver-typescript "3.5.3"
+    eslint-plugin-cypress "^2.12.1"
+    eslint-plugin-import "^2.27.5"
+    eslint-plugin-jest "^27.2.1"
+    eslint-plugin-react "^7.32.2"
+    eslint-plugin-react-hooks "^4.6.0"
+    find-root "^1.1.0"
+
+eslint-config-seek@^11.0.0:
+  version "11.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-seek/-/eslint-config-seek-11.0.1.tgz#6217cd2b3d7ee248e2683c1279508c704b054b27"
+  integrity sha512-bGkX29Jtthb3fkDodNtkZ7/vzS72PShC0x6UUErjcn6IMkpH6RPpDitTtVWWkmeM6sPiBwzmZLtiF1Km6d7+lA==
   dependencies:
     "@babel/core" "^7.21.0"
     "@babel/eslint-parser" "^7.19.1"
@@ -18314,10 +18324,10 @@ sisteransi@^1.0.5:
   resolved "https://registry.yarnpkg.com/sisteransi/-/sisteransi-1.0.5.tgz#134d681297756437cc05ca01370d3a7a571075ed"
   integrity sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==
 
-sku@11.9.2:
-  version "11.9.2"
-  resolved "https://registry.yarnpkg.com/sku/-/sku-11.9.2.tgz#aef323edde733378adc17c214ef30a54d78151f6"
-  integrity sha512-xWWxBlPMVQtAUL/0NPq1PS58XIG7DPBmUBIbxtl73CXgzyFsXGKkzZsqiH8ozvFsrmDZbYVdxmBbQzaIDjCU7g==
+sku@11.10.0:
+  version "11.10.0"
+  resolved "https://registry.yarnpkg.com/sku/-/sku-11.10.0.tgz#6aa8a5536206bd7bf79f33abded6e95e7cd45451"
+  integrity sha512-ubguTgM74nXxWNh9S9cjO1tFb8RpT3I1GY3BIvMyn+uvEwi/ccnRuz25oq/v2+lYkc4JEgtPaLtfc5HVQPleSw==
   dependencies:
     "@babel/core" "^7.18.0"
     "@babel/plugin-transform-react-constant-elements" "^7.18.0"
@@ -18339,10 +18349,10 @@ sku@11.9.2:
     "@types/loadable__component" "^5.13.1"
     "@vanilla-extract/jest-transform" "^1.1.0"
     "@vanilla-extract/webpack-plugin" "^2.2.0"
-    "@vocab/core" "^1.1.0"
-    "@vocab/phrase" "^1.1.0"
-    "@vocab/pseudo-localize" "^1.0.0"
-    "@vocab/webpack" "^1.1.0"
+    "@vocab/core" "^1.3.0"
+    "@vocab/phrase" "^1.2.4"
+    "@vocab/pseudo-localize" "^1.0.1"
+    "@vocab/webpack" "^1.2.1"
     autoprefixer "^10.3.1"
     babel-jest "^29.0.0"
     babel-loader "^8.2.2"
@@ -18374,7 +18384,7 @@ sku@11.9.2:
     esbuild-register "^3.3.3"
     escape-string-regexp "^4.0.0"
     eslint "^7.18.0"
-    eslint-config-seek "^10.1.1"
+    eslint-config-seek "^11.0.0"
     exception-formatter "^2.1.2"
     express "^4.16.3"
     fast-glob "^3.2.5"

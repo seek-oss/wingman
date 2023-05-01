@@ -2,7 +2,7 @@ import React from 'react';
 
 import { MockComponentActions } from '../../private/MockComponentActions/MockComponentActions';
 
-import { SalaryDetails, SalaryDetailsProps } from './SalaryDetails';
+import { SalaryDetails, type SalaryDetailsProps } from './SalaryDetails';
 
 interface Props extends SalaryDetailsProps {
   showStorybookAction?: boolean;

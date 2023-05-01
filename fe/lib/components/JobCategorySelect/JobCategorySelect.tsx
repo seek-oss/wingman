@@ -1,12 +1,12 @@
-import { ApolloClient, useQuery } from '@apollo/client';
+import { type ApolloClient, useQuery } from '@apollo/client';
 import {
-  Dropdown,
+  type Dropdown,
   FieldMessage,
   Loader,
   Stack,
   Text,
 } from 'braid-design-system';
-import React, { ComponentPropsWithRef, forwardRef, useState } from 'react';
+import React, { type ComponentPropsWithRef, forwardRef, useState } from 'react';
 
 import type {
   JobCategoriesPositionProfileInput,

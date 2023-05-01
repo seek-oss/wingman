@@ -23,10 +23,18 @@ import { StringParam, useQueryParam } from 'use-query-params';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { ClientOnly } from '../../components/ClientOnly';
 import { Header } from '../../components/Header';
-import { ADS_BY_POSITION_ID, Ad } from '../../data/ads';
-import { CANDIDATES_BY_POSITION_ID, Candidate } from '../../data/candidates';
-import { POSITION_BY_ID, Position, STAGES, Stage } from '../../data/positions';
-import { USERS, User } from '../../data/users';
+import { ADS_BY_POSITION_ID, type Ad } from '../../data/ads';
+import {
+  CANDIDATES_BY_POSITION_ID,
+  type Candidate,
+} from '../../data/candidates';
+import {
+  POSITION_BY_ID,
+  type Position,
+  STAGES,
+  type Stage,
+} from '../../data/positions';
+import { USERS, type User } from '../../data/users';
 import { useClient } from '../../hooks/user';
 import { pluralise } from '../../utils/text';
 import { CandidateList } from '../../widgets/CandidateList';

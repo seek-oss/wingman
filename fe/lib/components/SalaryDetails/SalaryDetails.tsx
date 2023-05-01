@@ -11,12 +11,12 @@ import {
 import React, { useState } from 'react';
 
 import {
-  Currency,
-  PayAmountChange,
-  SalaryDescriptionChange,
-  SalaryError,
-  SalaryType,
-  SalaryTypeChange,
+  type Currency,
+  type PayAmountChange,
+  type SalaryDescriptionChange,
+  type SalaryError,
+  type SalaryType,
+  type SalaryTypeChange,
   currencies,
   salaryTypes,
 } from './types';

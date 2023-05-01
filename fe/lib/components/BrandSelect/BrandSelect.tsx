@@ -1,4 +1,4 @@
-import { ApolloClient, useQuery } from '@apollo/client';
+import { type ApolloClient, useQuery } from '@apollo/client';
 import {
   FieldMessage,
   Heading,
@@ -9,7 +9,7 @@ import {
 } from 'braid-design-system';
 import React, { useEffect, useState } from 'react';
 
-import {
+import type {
   AdvertisementBrandingFieldsFragment,
   AdvertisementBrandingsQuery,
   AdvertisementBrandingsQueryVariables,

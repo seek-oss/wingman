@@ -1,4 +1,4 @@
-import { BrowserTokenResponse, GetAuthorization } from './types';
+import { BrowserTokenResponse, type GetAuthorization } from './types';
 
 interface BrowserTokenRequest {
   scope: string;

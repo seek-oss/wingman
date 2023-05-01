@@ -1,5 +1,5 @@
 import { faker } from './faker';
-import { USERS, User } from './users';
+import { USERS, type User } from './users';
 
 export type Stage = (typeof STAGES)[number];
 

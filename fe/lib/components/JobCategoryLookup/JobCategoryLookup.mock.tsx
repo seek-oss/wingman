@@ -1,10 +1,13 @@
 import React from 'react';
 
 import { MockComponentActions } from '../../private/MockComponentActions/MockComponentActions';
-import { JobCategoryQueryVariables } from '../../types/seekApi.graphql';
+import type { JobCategoryQueryVariables } from '../../types/seekApi.graphql';
 import { ApolloMockProvider } from '../ApolloMockProvider/ApolloMockProvider';
 
-import { JobCategoryLookup, JobCategoryLookupProps } from './JobCategoryLookup';
+import {
+  JobCategoryLookup,
+  type JobCategoryLookupProps,
+} from './JobCategoryLookup';
 import { mockJobCategory } from './__fixtures__/jobCategory';
 
 interface Props extends JobCategoryLookupProps {

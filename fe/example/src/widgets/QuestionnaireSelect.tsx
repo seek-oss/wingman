@@ -2,7 +2,7 @@ import { Text } from 'braid-design-system';
 import React from 'react';
 
 import { RichDropdown } from '../components/RichDropdown';
-import { QUESTIONNAIRES, Questionnaire } from '../data/questionnaires';
+import { QUESTIONNAIRES, type Questionnaire } from '../data/questionnaires';
 
 interface Props {
   onChange?: (questionnaire: Questionnaire | undefined) => void;

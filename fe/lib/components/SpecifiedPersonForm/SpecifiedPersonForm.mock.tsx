@@ -4,7 +4,7 @@ import { MockComponentActions } from '../../private/MockComponentActions/MockCom
 
 import {
   SpecifiedPersonForm,
-  SpecifiedPersonFormProps,
+  type SpecifiedPersonFormProps,
 } from './SpecifiedPersonForm';
 
 interface Props extends SpecifiedPersonFormProps {

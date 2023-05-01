@@ -1,7 +1,7 @@
 import { calc } from '@vanilla-extract/css-utils';
 import { Box, Dropdown, Stack } from 'braid-design-system';
 import { vars } from 'braid-design-system/css';
-import React, { ComponentProps, useEffect, useRef, useState } from 'react';
+import React, { type ComponentProps, useEffect, useRef, useState } from 'react';
 
 import type {
   JobCategoriesQuery,
