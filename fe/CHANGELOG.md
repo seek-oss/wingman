@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 7.0.6
+
+### Patch Changes
+
+- **package:** Use consistent type imports and exports ([#928](https://github.com/seek-oss/wingman/pull/928))
+
 ## 7.0.5
 
 ### Patch Changes
