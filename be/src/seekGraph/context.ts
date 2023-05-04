@@ -2,7 +2,7 @@
 
 import * as t from 'runtypes';
 
-import { RetrieveRequest } from '../getPartnerToken';
+import type { RetrieveRequest } from '../getPartnerToken';
 
 const IncomingContext = t.Record({
   ctx: t.Record({

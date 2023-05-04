@@ -1,12 +1,12 @@
-import { AsyncExecutor } from '@graphql-tools/utils';
+import type { AsyncExecutor } from '@graphql-tools/utils';
 import { introspectSchema, wrapSchema } from '@graphql-tools/wrap';
-import { GraphQLSchema, print } from 'graphql';
+import { type GraphQLSchema, print } from 'graphql';
 import fetch from 'node-fetch';
 
 import { SEEK_API_URL } from '../constants';
-import { RetrieveRequest } from '../getPartnerToken';
+import type { RetrieveRequest } from '../getPartnerToken';
 
-import { SeekGraphMiddlewareOptions } from './types';
+import type { SeekGraphMiddlewareOptions } from './types';
 
 type Options = Pick<
   SeekGraphMiddlewareOptions,

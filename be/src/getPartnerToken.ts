@@ -2,7 +2,7 @@
 
 import { TextEncoder } from 'util';
 
-import { Context } from 'koa';
+import type { Context } from 'koa';
 import * as t from 'runtypes';
 
 /**

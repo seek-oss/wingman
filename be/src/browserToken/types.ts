@@ -1,9 +1,9 @@
 /* eslint-disable new-cap */
 
-import { Context } from 'koa';
+import type { Context } from 'koa';
 import * as t from 'runtypes';
 
-import { GetPartnerToken } from '../getPartnerToken';
+import type { GetPartnerToken } from '../getPartnerToken';
 
 export type BrowserTokenEvent =
   | {

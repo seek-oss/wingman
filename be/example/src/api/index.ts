@@ -1,5 +1,5 @@
 import Router from '@koa/router';
-import { Middleware } from 'koa';
+import type { Middleware } from 'koa';
 import compose from 'koa-compose';
 import { AsyncMiddleware } from 'seek-koala';
 

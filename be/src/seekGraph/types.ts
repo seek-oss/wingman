@@ -1,4 +1,4 @@
-import { GetPartnerToken } from '../getPartnerToken';
+import type { GetPartnerToken } from '../getPartnerToken';
 
 export interface SeekGraphMiddlewareOptions {
   debug: boolean;

@@ -1,12 +1,12 @@
-import { Context, Middleware } from 'koa';
+import type { Context, Middleware } from 'koa';
 import bodyParser from 'koa-bodyparser';
 import compose from 'koa-compose';
 
 import { validateWebhookSignature } from './signature';
 import {
-  GetSigningSecret,
-  PartnerWebhookEvent,
-  PartnerWebhookMiddlewareOptions,
+  type GetSigningSecret,
+  type PartnerWebhookEvent,
+  type PartnerWebhookMiddlewareOptions,
   WebhookBody,
 } from './types';
 

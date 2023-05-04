@@ -5,11 +5,11 @@ import {
   ApolloServerPluginLandingPageGraphQLPlayground,
 } from 'apollo-server-core';
 import { ApolloServer } from 'apollo-server-koa';
-import { Middleware } from 'koa';
+import type { Middleware } from 'koa';
 
 import { createContext } from './context';
 import { createSchema } from './schema';
-import { SeekGraphMiddlewareOptions } from './types';
+import type { SeekGraphMiddlewareOptions } from './types';
 
 /**
  * Create a GraphQL proxy for the SEEK API on the specified `path`.

@@ -1,4 +1,4 @@
-import { Middleware } from 'koa';
+import type { Middleware } from 'koa';
 import bodyParser from 'koa-bodyparser';
 import compose from 'koa-compose';
 import { LRUCache } from 'lru-cache';
@@ -8,11 +8,11 @@ import { SEEK_BROWSER_TOKEN_URL } from '../constants';
 import { wrapRetriever } from '../getPartnerToken';
 
 import {
-  BrowserTokenEvent,
-  BrowserTokenMiddlewareOptions,
+  type BrowserTokenEvent,
+  type BrowserTokenMiddlewareOptions,
   BrowserTokenRequest,
   BrowserTokenResponse,
-  SeekApiBrowserTokenRequest,
+  type SeekApiBrowserTokenRequest,
 } from './types';
 
 interface CacheItem {

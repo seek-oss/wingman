@@ -3,7 +3,7 @@ import nock from 'nock';
 import * as fetchModule from 'node-fetch';
 
 import { SEEK_API_BASE_URL, SEEK_BROWSER_TOKEN_PATH } from '../constants';
-import { RetrieveRequest } from '../getPartnerToken';
+import type { RetrieveRequest } from '../getPartnerToken';
 import { createAgent } from '../testing/http';
 import { errorHandler } from '../testing/koa';
 import {
