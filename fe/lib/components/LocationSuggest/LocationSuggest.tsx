@@ -51,6 +51,7 @@ export const LocationSuggest = forwardRef<
       first = 5,
       hirerId,
       onSelect,
+      onClear,
       schemeId,
       usageTypeCode = 'PositionPosting',
       initialValue,
@@ -174,6 +175,9 @@ export const LocationSuggest = forwardRef<
             onClear={() => {
               setSelectedLocation(undefined);
               setPlaceholder('');
+              if (onClear) {
+                onClear();
+              }
             }}
             onDetectLocation={handleDetectLocationClicked}
             onSelect={handleLocationSelect}
