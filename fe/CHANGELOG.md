@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 7.0.7
+
+### Patch Changes
+
+- **LocationSuggest:** Call `onClear` ([#932](https://github.com/seek-oss/wingman/pull/932))
+
 ## 7.0.6
 
 ### Patch Changes

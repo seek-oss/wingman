@@ -68,5 +68,5 @@
     "test": "sku test",
     "test:ci": "sku test --coverage"
   },
-  "version": "7.0.6"
+  "version": "7.0.7"
 }
