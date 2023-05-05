@@ -2,4 +2,4 @@
 'wingman-fe': patch
 ---
 
-Call onClear in LocationSuggest
+LocationSuggest: Call `onClear`
