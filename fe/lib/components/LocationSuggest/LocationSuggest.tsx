@@ -175,9 +175,7 @@ export const LocationSuggest = forwardRef<
             onClear={() => {
               setSelectedLocation(undefined);
               setPlaceholder('');
-              if (onClear) {
-                onClear();
-              }
+              onClear?.();
             }}
             onDetectLocation={handleDetectLocationClicked}
             onSelect={handleLocationSelect}
