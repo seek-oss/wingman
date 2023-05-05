@@ -1,6 +1,6 @@
-import { Server } from 'http';
+import type { Server } from 'http';
 
-import Koa from 'koa';
+import type Koa from 'koa';
 import request from 'supertest';
 
 export const createAgent = (createApp: () => Koa | Promise<Koa>) => {

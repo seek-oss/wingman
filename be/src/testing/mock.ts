@@ -1,4 +1,4 @@
-import { RetrieveRequest } from '../getPartnerToken';
+import type { RetrieveRequest } from '../getPartnerToken';
 
 export const getPartnerToken = jest.fn<Promise<string>, [RetrieveRequest]>();
 

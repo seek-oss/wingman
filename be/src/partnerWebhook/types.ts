@@ -1,6 +1,6 @@
 /* eslint-disable new-cap */
 
-import { Context } from 'koa';
+import type { Context } from 'koa';
 import * as t from 'runtypes';
 
 /**

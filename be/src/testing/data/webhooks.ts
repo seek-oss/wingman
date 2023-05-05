@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 
-import { WebhookBody } from '../../partnerWebhook/types';
+import type { WebhookBody } from '../../partnerWebhook/types';
 
 export const SIGNED_WEBHOOK_SUBSCRIPTION_ID = 'signed';
 
