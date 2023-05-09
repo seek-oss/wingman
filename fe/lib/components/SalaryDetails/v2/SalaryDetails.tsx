@@ -201,7 +201,7 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
               display="flex"
             >
               <Text size="small">
-                per {payTypes[payType].interval.toLowerCase()}
+                per {payTypes[payType].intervalCode.toLowerCase()}
               </Text>
             </Box>
           </Column>
