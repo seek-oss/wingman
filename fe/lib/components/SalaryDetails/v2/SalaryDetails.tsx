@@ -118,7 +118,7 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
         </Text>
 
         <Columns collapseBelow="desktop" space="small">
-          <Column width="content">
+          <Column>
             <Dropdown
               aria-label="Currency"
               id={`${id}-currency`}
@@ -138,7 +138,7 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
             </Dropdown>
           </Column>
 
-          <Column width="content">
+          <Column>
             <TextField
               aria-label="Minimum amount"
               id={`${id}-min`}
@@ -169,7 +169,7 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
             <Text size="small">to</Text>
           </Column>
 
-          <Column width="content">
+          <Column>
             <TextField
               aria-label="Maximum amount"
               id={`${id}-max`}
