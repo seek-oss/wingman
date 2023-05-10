@@ -1,3 +1,5 @@
+import { THEMES } from './decorators';
+
 export interface BraidArgs {
   braidThemeName: BraidThemeName;
 }
@@ -7,13 +9,13 @@ export const defaultArgs = {
   tone: 'undefined',
 };
 
-export type BraidThemeName = 'apac' | 'docs' | 'wireframe';
+export type BraidThemeName = keyof typeof THEMES;
 
 export const defaultArgTypes = {
   braidThemeName: {
     control: { type: 'radio' },
     name: 'Braid theme',
-    options: ['apac', 'docs', 'wireframe'],
+    options: Object.keys(THEMES),
   },
   showStorybookAction: {
     control: { type: 'boolean' },
