@@ -166,7 +166,13 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
           </Column>
 
           <Column width="content">
-            <Text size="small">to</Text>
+            <Box
+              alignItems="center"
+              className={styles.fieldHeight}
+              display="flex"
+            >
+              <Text size="small">to</Text>
+            </Box>
           </Column>
 
           <Column>
