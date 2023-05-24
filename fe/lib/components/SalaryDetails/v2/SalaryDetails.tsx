@@ -10,7 +10,7 @@ import {
   Text,
   TextField,
 } from 'braid-design-system';
-import React, { useId, useState } from 'react';
+import React, { useEffect, useId, useState } from 'react';
 
 import {
   type PayRangeChange,
@@ -36,9 +36,9 @@ export const MAX_CHAR_LIMIT = 50;
 export interface SalaryDetailsProps {
   errors?: SalaryError;
   initialCurrency?: SalaryCurrency;
-  initialDescription?: PayType;
-  initialMaximumAmount?: PayType;
-  initialMinimumAmount?: PayType;
+  initialDescription?: string;
+  initialMaximumAmount?: string;
+  initialMinimumAmount?: string;
   initialPayType?: PayType;
   onBlur: (
     item:
@@ -49,31 +49,42 @@ export interface SalaryDetailsProps {
   ) => void;
 }
 
-export const SalaryDetails = (props: SalaryDetailsProps) => {
+function useEffectfulState<T>(initialState: T) {
+  const [state, setState] = useState(initialState);
+
+  useEffect(() => {
+    if (initialState) {
+      setState(initialState);
+    }
+  }, [initialState]);
+
+  return [state, setState] as const;
+}
+
+export const SalaryDetails = ({
+  errors,
+  initialCurrency = SALARY_CURRENCIES.default,
+  initialDescription = '',
+  initialMaximumAmount = '',
+  initialMinimumAmount = '',
+  initialPayType = 'Annual salary',
+  onBlur,
+}: SalaryDetailsProps) => {
   const id = useId();
 
-  const {
-    errors,
-    initialCurrency,
-    initialDescription,
-    initialMaximumAmount,
-    initialMinimumAmount,
-    initialPayType,
-    onBlur,
-  } = props;
+  const [min, setMin] = useEffectfulState(initialMinimumAmount);
 
-  const [min, setMin] = useState(initialMinimumAmount ?? '');
+  const [max, setMax] = useEffectfulState(initialMaximumAmount);
 
   // We validate `blurredMax` only after a user has tabbed off the text field
-  const [{ max, blurredMax }, setMax] = useState({
-    max: initialMaximumAmount ?? '',
-    blurredMax: initialMaximumAmount ?? '',
-  });
-  const [payType, setPayType] = useState<PayType>(
-    initialPayType ?? 'Annual salary',
+  const [blurredMax, setBlurredMax] = useEffectfulState(
+    initialMaximumAmount ?? '',
   );
-  const [description, setDescription] = useState(initialDescription ?? '');
-  const [currency, setCurrency] = useState(
+
+  const [payType, setPayType] = useEffectfulState<PayType>(initialPayType);
+  const [description, setDescription] = useEffectfulState(initialDescription);
+
+  const [currency, setCurrency] = useEffectfulState(
     initialCurrency ?? SALARY_CURRENCIES.default,
   );
 
@@ -181,15 +192,14 @@ export const SalaryDetails = (props: SalaryDetailsProps) => {
               id={`${id}-max`}
               onBlur={(event) => {
                 const amount = event.currentTarget.value;
-                setMax({ max, blurredMax: amount });
+                setBlurredMax(amount);
                 onBlur({ key: 'maximumAmount', amount });
               }}
-              onChange={(event) =>
-                setMax({ max: event.currentTarget.value, blurredMax })
-              }
+              onChange={(event) => setMax(event.currentTarget.value)}
               onClear={() => {
                 const amount = '';
-                setMax({ max: amount, blurredMax: amount });
+                setMax(amount);
+                setBlurredMax(amount);
                 onBlur({ key: 'maximumAmount', amount });
               }}
               message={validation.max.message}
