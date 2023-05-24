@@ -12,7 +12,7 @@ export const MockSalaryDetails = ({ showStorybookAction, ...props }: Props) => (
   <MockComponentActions
     space="large"
     showStorybookAction={showStorybookAction}
-    storybookPath="/story/job-posting-salary-details-salarydetails--salary-details"
+    storybookPath="/story/job-posting-salary-details--salary-details"
     sourcePath="lib/components/SalaryDetails"
   >
     <SalaryDetails {...props} />

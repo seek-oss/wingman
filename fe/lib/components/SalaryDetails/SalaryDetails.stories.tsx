@@ -15,10 +15,6 @@ import { MockSalaryDetails } from './SalaryDetails.mock';
 export default {
   args: {
     braidThemeName: defaultArgs.braidThemeName,
-    currency: 'AUD',
-    initialMinimumAmount: '',
-    initialMaximumAmount: '',
-    initialBasisCode: 'Salaried',
     errors: undefined,
     onBlur: () => {},
   },
@@ -29,30 +25,35 @@ export default {
       control: { type: 'radio' },
       mapping: {
         undefined,
-        'Pay type errored': {
-          basisCode: { message: 'Invalid pay type set' },
-        },
         'Minimum pay errored': {
-          minimumAmount: { message: 'Minimum pay must be greater than 0' },
+          minimumAmount: { message: 'Must be positive' },
         },
         'Maximum pay errored': {
-          maximumAmount: { message: 'Maximum pay must be a reasonable number' },
+          maximumAmount: { message: 'Must be greater than minimum' },
         },
         'Pay shown on ad errored': {
-          description: { message: 'Maximum character limit exceeded' },
+          description: { message: 'Must not exceed 50 characters' },
         },
       },
       options: [
         'undefined',
-        'Pay type errored',
         'Minimum pay errored',
         'Maximum pay errored',
         'Pay shown on ad errored',
       ],
     },
+    initialMinimumAmount: {
+      control: { type: 'number' },
+    },
+    initialMaximumAmount: {
+      control: { type: 'number' },
+    },
+    initialDescription: {
+      control: { type: 'text' },
+    },
   },
   component: SalaryDetailsComponent,
-  title: 'Job Posting/Salary details/SalaryDetails',
+  title: 'Job Posting/Salary details',
 };
 
 type Args = ComponentProps<typeof SalaryDetailsComponent> & BraidArgs;

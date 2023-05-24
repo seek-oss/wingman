@@ -8,21 +8,6 @@ A Salary Details component that contains information on the salary type, range a
 $ yarn add wingman-fe
 ```
 
-### Properties
-
-Required:
-
-- `currency`: The currency that the job ad will be posted with.
-- `onBlur`: The callback to handle completed input fields.
-
-Optional:
-
-- `initialMinimumAmount`: A default value for the minimum pay.
-- `initialMaximumAmount`: A default value for the maximum pay.
-- `initialBasisCode`: A default value for the salary type.
-- `initialDescription`: A default value for the salary description.
-- `errors`: An object of errors mapping to either `basisCode`, `minimumAmount`, `maximumAmount` or `description` that contain an error message.
-
 ### Validation
 
 The Salary Details component has some basic UI validation rules:
@@ -49,26 +34,28 @@ const buildRemunerationPackageInput = (remuneration) => ({
       value: Number(remuneration.maximumAmount),
     },
   }],
-  descriptions: [remuneration.description],
+  descriptions: remuneration.description ? [remuneration.description] : [],
 })
 
 const PostingForm = () => {
   const [remuneration, setRemuneration] = useState({
     basisCode: '',
     currency: 'AUD',
-    intervalCode: '',
-    minimumAmount: '',
-    maximumAmount: null,
     description: '',
+    intervalCode: '',
+    maximumAmount: null,
+    minimumAmount: '',
+    payType: '',
   });
 
   const onBlur = (item) => {
     switch (item.key) {
-      case 'basisCode':
+      case 'payType':
         setRemuneration({
           ...remuneration,
-          basisCode: item.salary.code,
-          intervalCode: item.salary.interval,
+          basis: item.basis,
+          interval: item.interval,
+          payType: item.payType,
         });
         break;
 
@@ -92,12 +79,19 @@ const PostingForm = () => {
           description: item.description,
         });
         break;
+
+      case 'currency':
+        setRemuneration({
+          ...remuneration,
+          currency: item.currency,
+        });
+        break;
     }
   }
 
   return (
     <div>
-      <SalaryDetails currency="AUD" onBlur={onBlur}>
+      <SalaryDetails initialCurrency="AUD" onBlur={onBlur}>
     </div>
   );
 };

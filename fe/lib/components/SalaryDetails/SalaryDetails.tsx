@@ -1,6 +1,8 @@
 import {
+  Box,
   Column,
   Columns,
+  Dropdown,
   Heading,
   RadioGroup,
   RadioItem,
@@ -8,153 +10,235 @@ import {
   Text,
   TextField,
 } from 'braid-design-system';
-import React, { useState } from 'react';
+import React, { useEffect, useId, useState } from 'react';
 
 import {
-  type Currency,
-  type PayAmountChange,
+  type PayRangeChange,
+  type PayType,
+  type PayTypeChange,
+  SALARY_CURRENCIES,
+  type SalaryCurrency,
+  type SalaryCurrencyChange,
   type SalaryDescriptionChange,
   type SalaryError,
-  type SalaryType,
-  type SalaryTypeChange,
-  currencies,
-  salaryTypes,
+  payTypes,
 } from './types';
 import {
   validateDescription,
   validateMaxAmount,
   validateMinAmount,
-  validateSalaryType,
 } from './validateSalary';
+
+import * as styles from './styles.css';
 
 export const MAX_CHAR_LIMIT = 50;
 
 export interface SalaryDetailsProps {
-  currency: Currency;
-  initialMinimumAmount?: string;
-  initialMaximumAmount?: string;
-  initialDescription?: string;
-  initialBasisCode?: SalaryType;
   errors?: SalaryError;
+  initialCurrency?: SalaryCurrency;
+  initialDescription?: string;
+  initialMaximumAmount?: string;
+  initialMinimumAmount?: string;
+  initialPayType?: PayType;
   onBlur: (
-    item: SalaryTypeChange | PayAmountChange | SalaryDescriptionChange,
+    item:
+      | PayRangeChange
+      | PayTypeChange
+      | SalaryCurrencyChange
+      | SalaryDescriptionChange,
   ) => void;
 }
 
-export const SalaryDetails = (props: SalaryDetailsProps) => {
-  const {
-    currency,
-    errors,
-    initialMinimumAmount,
-    initialMaximumAmount,
-    initialBasisCode,
-    initialDescription,
-    onBlur,
-  } = props;
+function useEffectfulState<T>(initialState: T) {
+  const [state, setState] = useState(initialState);
 
-  const [minAmount, setMinAmount] = useState(initialMinimumAmount ?? '');
+  useEffect(() => {
+    if (initialState) {
+      setState(initialState);
+    }
+  }, [initialState]);
 
-  // `blurredMaxAmount` is used to validate the maximum pay only after a user has tabbed off the text field
-  const [{ maxAmount, blurredMaxAmount }, setMaxPay] = useState({
-    maxAmount: initialMaximumAmount ?? '',
-    blurredMaxAmount: initialMaximumAmount ?? '',
-  });
-  const [salaryType, setSalaryType] = useState(initialBasisCode ?? 'Salaried');
-  const [description, setDescription] = useState(initialDescription ?? '');
+  return [state, setState] as const;
+}
 
-  const minAmountValidation = validateMinAmount(minAmount, errors);
-  const maxAmountValidation = validateMaxAmount(
-    minAmount,
-    blurredMaxAmount,
-    errors,
+export const SalaryDetails = ({
+  errors,
+  initialCurrency = SALARY_CURRENCIES.default,
+  initialDescription = '',
+  initialMaximumAmount = '',
+  initialMinimumAmount = '',
+  initialPayType = 'Annual salary',
+  onBlur,
+}: SalaryDetailsProps) => {
+  const id = useId();
+
+  const [min, setMin] = useEffectfulState(initialMinimumAmount);
+
+  const [max, setMax] = useEffectfulState(initialMaximumAmount);
+
+  // We validate `blurredMax` only after a user has tabbed off the text field
+  const [blurredMax, setBlurredMax] = useEffectfulState(
+    initialMaximumAmount ?? '',
   );
-  const descriptionValidation = validateDescription(description, errors);
-  const salaryTypeValidation = validateSalaryType(errors);
+
+  const [payType, setPayType] = useEffectfulState<PayType>(initialPayType);
+  const [description, setDescription] = useEffectfulState(initialDescription);
+
+  const [currency, setCurrency] = useEffectfulState(
+    initialCurrency ?? SALARY_CURRENCIES.default,
+  );
+
+  const validation = {
+    description: validateDescription(description, errors),
+    max: validateMaxAmount(min, blurredMax, errors),
+    min: validateMinAmount(min, errors),
+  };
 
   return (
     <Stack space="xlarge">
       <Heading level="3">Pay details</Heading>
 
-      <RadioGroup
-        id="salaryType"
-        value={salaryType}
-        onChange={({ currentTarget: { value } }) => {
-          const type = value as SalaryType;
+      <Stack space="small">
+        <RadioGroup
+          aria-label="Pay type"
+          id={`${id}-pay-type`}
+          onChange={(event) => {
+            const value = event.currentTarget.value as PayType;
 
-          setSalaryType(type);
-          onBlur({
-            key: 'basisCode',
-            salary: {
-              code: type,
-              interval: type === 'Hourly' ? 'Hour' : 'Year',
-            },
-          });
-        }}
-        tone={salaryTypeValidation.tone}
-        message={salaryTypeValidation.message}
-        label="Pay type"
-      >
-        {salaryTypes.map(({ label, value }) => (
-          <RadioItem key={value} label={label} value={value} />
-        ))}
-      </RadioGroup>
+            setPayType(value);
+            onBlur({
+              ...payTypes[value],
+              key: 'payType',
+              payType: value,
+            });
+          }}
+          size="small"
+          value={payType}
+        >
+          {Object.keys(payTypes).map((key) => (
+            <RadioItem key={key} label={key} value={key} />
+          ))}
+        </RadioGroup>
+      </Stack>
 
       <Stack space="small">
-        <Text weight="strong">Pay range {currencies[currency]}</Text>
+        <Text weight="strong">Pay range</Text>
+
         <Text size="small" tone="secondary">
-          Enter a pay range to offer candidates (this will not show on your ad)
+          Enter a pay range to offer candidates (this will not show on your ad).
         </Text>
-        <Columns space="medium" collapseBelow="tablet">
-          <Column width="1/2">
+
+        <Columns collapseBelow="desktop" space="small">
+          <Column>
+            <Dropdown
+              aria-label="Currency"
+              id={`${id}-currency`}
+              onChange={(event) => {
+                const value = event.currentTarget.value as SalaryCurrency;
+                setCurrency(value);
+                onBlur({
+                  key: 'currency',
+                  currency: value,
+                });
+              }}
+              value={currency}
+            >
+              {SALARY_CURRENCIES.active.map((code) => (
+                <option key={code}>{code}</option>
+              ))}
+            </Dropdown>
+          </Column>
+
+          <Column>
             <TextField
-              id="minimumAmount"
-              aria-label="minimum-amount"
-              onChange={({ currentTarget: { value } }) => setMinAmount(value)}
-              onBlur={({ currentTarget: { value } }) =>
-                onBlur({ key: 'minimumAmount', amount: value })
+              aria-label="Minimum amount"
+              id={`${id}-min`}
+              message={validation.min.message}
+              onBlur={(event) =>
+                onBlur({
+                  key: 'minimumAmount',
+                  amount: event.currentTarget.value,
+                })
               }
-              onClear={() => onBlur({ key: 'minimumAmount', amount: '' })}
-              value={minAmount}
-              tone={minAmountValidation.tone}
-              message={minAmountValidation.message}
+              onChange={(event) => setMin(event.currentTarget.value)}
+              onClear={() => {
+                const amount = '';
+                setMin(amount);
+                onBlur({
+                  key: 'minimumAmount',
+                  amount,
+                });
+              }}
               placeholder="Minimum"
+              tone={validation.min.tone}
               type="number"
+              value={min}
             />
           </Column>
-          <Column width="1/2">
+
+          <Column width="content">
+            <Box
+              alignItems="center"
+              className={styles.fieldHeight}
+              display="flex"
+            >
+              <Text size="small">to</Text>
+            </Box>
+          </Column>
+
+          <Column>
             <TextField
-              id="maximumAmount"
-              aria-label="maximum-amount"
-              onChange={({ currentTarget: { value } }) => {
-                setMaxPay({ maxAmount: value, blurredMaxAmount });
+              aria-label="Maximum amount"
+              id={`${id}-max`}
+              onBlur={(event) => {
+                const amount = event.currentTarget.value;
+                setBlurredMax(amount);
+                onBlur({ key: 'maximumAmount', amount });
               }}
-              onBlur={({ currentTarget: { value } }) => {
-                setMaxPay({ maxAmount, blurredMaxAmount: value });
-                onBlur({ key: 'maximumAmount', amount: value });
+              onChange={(event) => setMax(event.currentTarget.value)}
+              onClear={() => {
+                const amount = '';
+                setMax(amount);
+                setBlurredMax(amount);
+                onBlur({ key: 'maximumAmount', amount });
               }}
-              onClear={() => onBlur({ key: 'maximumAmount', amount: '' })}
-              value={maxAmount}
-              tone={maxAmountValidation.tone}
-              message={maxAmountValidation.message}
+              message={validation.max.message}
               placeholder="Maximum"
+              tone={validation.max.tone}
               type="number"
+              value={max}
             />
+          </Column>
+
+          <Column width="content">
+            <Box
+              alignItems="center"
+              className={styles.fieldHeight}
+              display="flex"
+            >
+              <Text size="small">
+                per {payTypes[payType].intervalCode.toLowerCase()}
+              </Text>
+            </Box>
           </Column>
         </Columns>
       </Stack>
 
       <TextField
-        id="salaryDescription"
+        id={`${id}-description`}
         label="Pay shown on your ad"
         secondaryLabel="optional"
+        onBlur={({ currentTarget: { value } }) => {
+          setDescription('');
+          onBlur({ key: 'description', description: value });
+        }}
         onChange={({ currentTarget }) => setDescription(currentTarget.value)}
-        onBlur={({ currentTarget: { value } }) =>
-          onBlur({ key: 'description', description: value })
-        }
         onClear={() => onBlur({ key: 'description', description: '' })}
         value={description}
-        tone={descriptionValidation.tone}
-        message={descriptionValidation.message ?? 'E.g. $50,000 + annual bonus'}
+        tone={validation.description.tone}
+        message={
+          validation.description.message ?? 'e.g. $50,000 + annual bonus'
+        }
         characterLimit={MAX_CHAR_LIMIT}
       />
     </Stack>
