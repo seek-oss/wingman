@@ -72,21 +72,14 @@ export const SalaryDetails = ({
 }: SalaryDetailsProps) => {
   const id = useId();
 
-  const [min, setMin] = useEffectfulState(initialMinimumAmount);
-
+  const [currency, setCurrency] = useEffectfulState(initialCurrency);
+  const [description, setDescription] = useEffectfulState(initialDescription);
   const [max, setMax] = useEffectfulState(initialMaximumAmount);
+  const [min, setMin] = useEffectfulState(initialMinimumAmount);
+  const [payType, setPayType] = useEffectfulState<PayType>(initialPayType);
 
   // We validate `blurredMax` only after a user has tabbed off the text field
-  const [blurredMax, setBlurredMax] = useEffectfulState(
-    initialMaximumAmount ?? '',
-  );
-
-  const [payType, setPayType] = useEffectfulState<PayType>(initialPayType);
-  const [description, setDescription] = useEffectfulState(initialDescription);
-
-  const [currency, setCurrency] = useEffectfulState(
-    initialCurrency ?? SALARY_CURRENCIES.default,
-  );
+  const [blurredMax, setBlurredMax] = useEffectfulState(initialMaximumAmount);
 
   const validation = {
     description: validateDescription(description, errors),
