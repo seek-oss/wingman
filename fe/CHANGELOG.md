@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 8.0.0
+
+### Major Changes
+
+- **SalaryDetails:** Support APAC ([#935](https://github.com/seek-oss/wingman/pull/935))
+
 ## 7.0.7
 
 ### Patch Changes
