@@ -9,17 +9,6 @@ interface Validation {
   message?: string;
 }
 
-export const validateSalaryType = (errors?: SalaryError): Validation => {
-  if (errors?.basisCode?.message) {
-    return {
-      tone: 'critical',
-      message: errors.basisCode.message,
-    };
-  }
-
-  return { tone: 'neutral' };
-};
-
 export const validateMinAmount = (
   minAmount: string,
   errors?: SalaryError,
@@ -31,10 +20,16 @@ export const validateMinAmount = (
     };
   }
 
-  if (Boolean(minAmount) && Number(minAmount) < 0) {
+  if (!minAmount) {
+    return { tone: 'neutral' };
+  }
+
+  const n = Number(minAmount);
+
+  if (n < 0) {
     return {
       tone: 'critical',
-      message: 'Minimum pay must be greater than 0',
+      message: 'Must be positive',
     };
   }
 
@@ -60,7 +55,7 @@ export const validateMaxAmount = (
   ) {
     return {
       tone: 'critical',
-      message: 'Maximum pay must be greater than minimum',
+      message: 'Must be greater than minimum',
     };
   }
 
@@ -81,7 +76,7 @@ export const validateDescription = (
   if (description.length > MAX_CHAR_LIMIT) {
     return {
       tone: 'critical',
-      message: `Maximum character limit is ${MAX_CHAR_LIMIT}`,
+      message: `Must not exceed ${MAX_CHAR_LIMIT} characters`,
     };
   }
 

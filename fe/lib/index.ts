@@ -26,6 +26,7 @@ export { QuestionnaireQueryOutput } from './components/QuestionnaireQueryOutput/
 
 export { SalaryDetails } from './components/SalaryDetails/SalaryDetails';
 export { MockSalaryDetails } from './components/SalaryDetails/SalaryDetails.mock';
+export type { SalaryCurrency } from './components/SalaryDetails/types';
 
 export { SpecifiedPersonForm } from './components/SpecifiedPersonForm/SpecifiedPersonForm';
 export { MockSpecifiedPersonForm } from './components/SpecifiedPersonForm/SpecifiedPersonForm.mock';
