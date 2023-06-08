@@ -29,8 +29,8 @@
     "test:ci": "skuba test --coverage"
   },
   "dependencies": {
-    "@graphql-tools/utils": "^9.0.0",
-    "@graphql-tools/wrap": "^9.0.5",
+    "@graphql-tools/utils": "^10.0.0",
+    "@graphql-tools/wrap": "^10.0.0",
     "apollo-server-core": "^3.10.2",
     "apollo-server-koa": "^3.6.1",
     "graphql": "^16.6.0",
