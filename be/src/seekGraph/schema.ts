@@ -1,9 +1,5 @@
 import type { AsyncExecutor } from '@graphql-tools/utils';
-import {
-  introspectSchema,
-  schemaFromExecutor,
-  wrapSchema,
-} from '@graphql-tools/wrap';
+import { schemaFromExecutor, wrapSchema } from '@graphql-tools/wrap';
 import { type GraphQLSchema, print } from 'graphql';
 import fetch from 'node-fetch';
 
