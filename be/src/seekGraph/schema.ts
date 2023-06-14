@@ -1,5 +1,5 @@
 import type { AsyncExecutor } from '@graphql-tools/utils';
-import { introspectSchema, wrapSchema } from '@graphql-tools/wrap';
+import { schemaFromExecutor, wrapSchema } from '@graphql-tools/wrap';
 import { type GraphQLSchema, print } from 'graphql';
 import fetch from 'node-fetch';
 
@@ -60,7 +60,7 @@ export const createSchema = async ({
     seekApiUrlOverride,
   });
 
-  const schema = await introspectSchema(executor);
+  const schema = await schemaFromExecutor(executor);
 
   return wrapSchema({
     executor,
