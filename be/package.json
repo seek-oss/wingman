@@ -1,6 +1,6 @@
 {
   "name": "wingman-be",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "private": false,
   "homepage": "https://github.com/seek-oss/wingman#readme",
   "bugs": {
@@ -37,7 +37,7 @@
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
     "koa-compose": "^4.1.0",
-    "lru-cache": "^9.0.0",
+    "lru-cache": "^10.0.0",
     "node-fetch": "^2.6.6",
     "runtypes": "^6.5.0",
     "seek-koala": "^6.0.0"
