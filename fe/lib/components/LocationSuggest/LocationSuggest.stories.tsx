@@ -1,20 +1,13 @@
 import 'braid-design-system/reset';
 
-import React, { type ComponentProps } from 'react';
+import type { Meta, StoryObj } from 'sku/@storybook/react';
 
-import {
-  type BraidArgs,
-  defaultArgTypes,
-  defaultArgs,
-} from '../../storybook/controls';
-import { BraidStorybookProvider } from '../../storybook/decorators';
+import { defaultArgTypes, defaultArgs } from '../../../.storybook/preview';
 
-import { LocationSuggest as Component } from './LocationSuggest';
-import { MockLocationSuggest } from './LocationSuggest.mock';
+import { MockLocationSuggest as Component } from './LocationSuggest.mock';
 
 export default {
   args: {
-    braidThemeName: defaultArgs.braidThemeName,
     id: 'locationSuggest',
     label: 'Location',
     message: 'undefined',
@@ -24,7 +17,6 @@ export default {
     tone: defaultArgs.tone,
   },
   argTypes: {
-    braidThemeName: defaultArgTypes.braidThemeName,
     message: {
       control: { type: 'radio' },
       mapping: { undefined, requiredValidation: 'Select a location' },
@@ -35,13 +27,8 @@ export default {
   },
   component: Component,
   title: 'Job Posting/Locations/LocationSuggest',
-};
+} satisfies Meta<typeof Component>;
 
-type Args = ComponentProps<typeof Component> & BraidArgs;
+type Story = StoryObj<typeof Component>;
 
-export const LocationSuggest = ({ braidThemeName, client, ...args }: Args) => (
-  <BraidStorybookProvider braidThemeName={braidThemeName}>
-    <MockLocationSuggest {...args} />
-  </BraidStorybookProvider>
-);
-LocationSuggest.storyName = 'LocationSuggest';
+export const LocationSuggest: Story = {};

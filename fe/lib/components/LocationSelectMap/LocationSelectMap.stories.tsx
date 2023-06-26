@@ -1,37 +1,24 @@
 import 'braid-design-system/reset';
 
-import React, { type ComponentProps } from 'react';
+import type { Meta, StoryObj } from 'sku/@storybook/react';
 
-import {
-  type BraidArgs,
-  defaultArgTypes,
-  defaultArgs,
-} from '../../storybook/controls';
-import { BraidStorybookProvider } from '../../storybook/decorators';
+import { defaultArgTypes } from '../../../.storybook/preview';
 
-import { LocationSelectMap as Component } from './LocationSelectMap';
-import { MockLocationSelectMap } from './LocationSelectMap.mock';
+import { MockLocationSelectMap as Component } from './LocationSelectMap.mock';
 
 export default {
   args: {
-    braidThemeName: defaultArgs.braidThemeName,
     schemeId: 'seekAnz',
     onLocationSelected: () => {},
     initialLocation: [-37.8275, 144.9902],
   },
   argTypes: {
-    braidThemeName: defaultArgTypes.braidThemeName,
     showStorybookAction: defaultArgTypes.showStorybookAction,
   },
   component: Component,
   title: 'Job Posting/Locations/LocationSelectMap',
-};
+} satisfies Meta<typeof Component>;
 
-type Args = ComponentProps<typeof Component> & BraidArgs;
+type Story = StoryObj<typeof Component>;
 
-export const LocationSelectMap = ({ braidThemeName, ...args }: Args) => (
-  <BraidStorybookProvider braidThemeName={braidThemeName}>
-    <MockLocationSelectMap {...args} />
-  </BraidStorybookProvider>
-);
-LocationSelectMap.storyName = 'LocationSelectMap';
+export const LocationSelectMap: Story = {};
