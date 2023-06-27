@@ -1,5 +1,6 @@
-import React from 'react';
 import 'braid-design-system/reset';
+
+import React from 'react';
 import apac from 'braid-design-system/themes/apac';
 import docs from 'braid-design-system/themes/docs';
 import seekJobs from 'braid-design-system/themes/seekJobs';
