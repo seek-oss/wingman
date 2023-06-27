@@ -1,5 +1,3 @@
-import 'braid-design-system/reset';
-
 import { Box } from 'braid-design-system';
 import React, { type ReactNode } from 'react';
 import type { Meta, StoryObj } from 'sku/@storybook/react';

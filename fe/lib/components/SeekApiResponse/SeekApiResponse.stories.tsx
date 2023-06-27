@@ -1,5 +1,3 @@
-import 'braid-design-system/reset';
-
 import { Stack } from 'braid-design-system';
 import React, { type ComponentProps } from 'react';
 import { CodeBlock } from 'scoobie';

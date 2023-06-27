@@ -1,5 +1,3 @@
-import 'braid-design-system/reset';
-
 import type { Meta, StoryObj } from 'sku/@storybook/react';
 
 import { defaultArgTypes } from '../../../.storybook/preview';
