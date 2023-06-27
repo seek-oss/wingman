@@ -8,6 +8,7 @@ export default {
   title: 'Job Posting/Branding/BrandSelect',
   component: Component,
   args: {
+    hirerId: 'seekAnzPublicTest:organization:seek:93WyyF1h',
     initialBrandId:
       'global:advertisementBranding:hirerBranding:4pkLmqYhoSxSKmfcKMbDG6',
     pageSize: 4,
