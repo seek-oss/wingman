@@ -1,7 +1,7 @@
 import 'braid-design-system/reset';
 
 import { Box, BraidProvider, ToastProvider } from 'braid-design-system';
-import apac from 'braid-design-system/themes/apac';
+import seekJobs from 'braid-design-system/themes/seekJobs';
 import React from 'react';
 import { QueryParamProvider } from 'use-query-params';
 import { ReactRouter6Adapter } from 'use-query-params/adapters/react-router-6';
@@ -27,8 +27,8 @@ const Content = () => (
 );
 
 export const App = () => (
-  // Default to `apac` theme for example wingman app
-  <BraidProvider theme={apac}>
+  // Default to `seekJobs` theme for example wingman app
+  <BraidProvider theme={seekJobs}>
     <ToastProvider>
       <BrowserTokenProvider baseUrl={BE_BASE_URL}>
         <QueryParamProvider adapter={ReactRouter6Adapter}>

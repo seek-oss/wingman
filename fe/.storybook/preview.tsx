@@ -1,7 +1,6 @@
 import 'braid-design-system/reset';
 
 import React from 'react';
-import apac from 'braid-design-system/themes/apac';
 import docs from 'braid-design-system/themes/docs';
 import seekJobs from 'braid-design-system/themes/seekJobs';
 import wireframe from 'braid-design-system/themes/wireframe';
@@ -9,9 +8,9 @@ import { Box, BraidProvider } from 'braid-design-system';
 
 import type { Preview } from 'sku/@storybook/react';
 
-const THEMES = { seekJobs, apac, docs, wireframe };
+const THEMES = { seekJobs, docs, wireframe };
 
-type BraidThemeName = 'seekJobs' | 'apac' | 'docs' | 'wireframe';
+type BraidThemeName = 'seekJobs' | 'docs' | 'wireframe';
 
 export const defaultArgs = {
   tone: undefined,
@@ -42,7 +41,7 @@ export default {
       toolbar: {
         title: 'Theme',
         icon: 'contrast',
-        items: ['seekJobs', 'apac', 'docs', 'wireframe'],
+        items: ['seekJobs', 'docs', 'wireframe'],
       },
     },
   },
