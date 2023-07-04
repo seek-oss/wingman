@@ -1,14 +1,6 @@
-import 'braid-design-system/reset';
-
 import { Box } from 'braid-design-system';
-import React, { type ComponentProps, type ReactNode } from 'react';
-
-import {
-  type BraidArgs,
-  defaultArgTypes,
-  defaultArgs,
-} from '../../storybook/controls';
-import { BraidStorybookProvider } from '../../storybook/decorators';
+import React, { type ReactNode } from 'react';
+import type { Meta, StoryObj } from 'sku/@storybook/react';
 
 import { QuestionnaireBuilder as Component } from './QuestionnaireBuilder';
 
@@ -29,12 +21,10 @@ const CustomWrapper = ({ children }: CustomWrapperProps) => (
 
 export default {
   args: {
-    braidThemeName: defaultArgs.braidThemeName,
     hirerId: 'seekAnzPublicTest:organization:seek:93WyyF1h',
-    wrapper: 'undefined',
+    wrapper: undefined,
   },
   argTypes: {
-    braidThemeName: defaultArgTypes.braidThemeName,
     wrapper: {
       control: { type: 'radio' },
       mapping: { undefined, card: 'card', custom: CustomWrapper },
@@ -43,13 +33,8 @@ export default {
   },
   component: Component,
   title: 'Job Posting/Questionnaires/QuestionnaireBuilder',
-};
+} satisfies Meta<typeof Component>;
 
-type Args = ComponentProps<typeof Component> & BraidArgs;
+type Story = StoryObj<typeof Component>;
 
-export const QuestionnaireBuilder = ({ braidThemeName, ...args }: Args) => (
-  <BraidStorybookProvider braidThemeName={braidThemeName}>
-    <Component {...args} />
-  </BraidStorybookProvider>
-);
-QuestionnaireBuilder.storyName = 'QuestionnaireBuilder';
+export const QuestionnaireBuilder: Story = {};

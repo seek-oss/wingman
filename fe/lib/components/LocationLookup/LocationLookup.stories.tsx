@@ -1,36 +1,20 @@
-import 'braid-design-system/reset';
+import type { Meta, StoryObj } from 'sku/@storybook/react';
 
-import React, { type ComponentProps } from 'react';
+import { defaultArgTypes } from '../../../.storybook/preview';
 
-import {
-  type BraidArgs,
-  defaultArgTypes,
-  defaultArgs,
-} from '../../storybook/controls';
-import { BraidStorybookProvider } from '../../storybook/decorators';
-
-import { LocationLookup as Component } from './LocationLookup';
-import { MockLocationLookup } from './LocationLookup.mock';
+import { MockLocationLookup as Component } from './LocationLookup.mock';
 
 export default {
+  title: 'Job Posting/Locations/LocationLookup',
+  component: Component,
   args: {
-    braidThemeName: defaultArgs.braidThemeName,
     schemeId: 'seekAnz',
   },
   argTypes: {
-    braidThemeName: defaultArgTypes.braidThemeName,
     showStorybookAction: defaultArgTypes.showStorybookAction,
   },
-  component: Component,
+} satisfies Meta<typeof Component>;
 
-  title: 'Job Posting/Locations/LocationLookup',
-};
+type Story = StoryObj<typeof Component>;
 
-type Args = ComponentProps<typeof Component> & BraidArgs;
-
-export const LocationLookup = ({ braidThemeName, ...args }: Args) => (
-  <BraidStorybookProvider braidThemeName={braidThemeName}>
-    <MockLocationLookup {...args} />
-  </BraidStorybookProvider>
-);
-LocationLookup.storyName = 'LocationLookup';
+export const LocationLookup: Story = {};

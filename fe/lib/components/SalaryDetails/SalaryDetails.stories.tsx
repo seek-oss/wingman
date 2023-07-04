@@ -1,25 +1,17 @@
-import 'braid-design-system/reset';
+import type { Meta, StoryObj } from 'sku/@storybook/react';
 
-import React, { type ComponentProps } from 'react';
+import { defaultArgTypes } from '../../../.storybook/preview';
 
-import {
-  type BraidArgs,
-  defaultArgTypes,
-  defaultArgs,
-} from '../../storybook/controls';
-import { BraidStorybookProvider } from '../../storybook/decorators';
-
-import { SalaryDetails as SalaryDetailsComponent } from './SalaryDetails';
-import { MockSalaryDetails } from './SalaryDetails.mock';
+import { MockSalaryDetails as Component } from './SalaryDetails.mock';
 
 export default {
+  title: 'Job Posting/Salary details',
+  component: Component,
   args: {
-    braidThemeName: defaultArgs.braidThemeName,
     errors: undefined,
     onBlur: () => {},
   },
   argTypes: {
-    braidThemeName: defaultArgTypes.braidThemeName,
     showStorybookAction: defaultArgTypes.showStorybookAction,
     errors: {
       control: { type: 'radio' },
@@ -52,16 +44,8 @@ export default {
       control: { type: 'text' },
     },
   },
-  component: SalaryDetailsComponent,
-  title: 'Job Posting/Salary details',
-};
+} satisfies Meta<typeof Component>;
 
-type Args = ComponentProps<typeof SalaryDetailsComponent> & BraidArgs;
+type Story = StoryObj<typeof Component>;
 
-export const SalaryDetails = ({ braidThemeName, ...args }: Args) => (
-  <BraidStorybookProvider braidThemeName={braidThemeName}>
-    <MockSalaryDetails {...args} />
-  </BraidStorybookProvider>
-);
-
-SalaryDetails.storyName = 'SalaryDetails';
+export const SalaryDetails: Story = {};

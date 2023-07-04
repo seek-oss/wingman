@@ -1,36 +1,20 @@
-import 'braid-design-system/reset';
+import type { Meta, StoryObj } from 'sku/@storybook/react';
 
-import React, { type ComponentProps } from 'react';
+import { defaultArgTypes } from '../../../.storybook/preview';
 
-import {
-  type BraidArgs,
-  defaultArgTypes,
-  defaultArgs,
-} from '../../storybook/controls';
-import { BraidStorybookProvider } from '../../storybook/decorators';
-
-import { JobCategoryLookup as Component } from './JobCategoryLookup';
-import { MockJobCategoryLookup } from './JobCategoryLookup.mock';
+import { MockJobCategoryLookup as Component } from './JobCategoryLookup.mock';
 
 export default {
+  title: 'Job Posting/Job categories/JobCategoryLookup',
+  component: Component,
   args: {
-    braidThemeName: defaultArgs.braidThemeName,
     schemeId: 'seekAnz',
   },
   argTypes: {
-    braidThemeName: defaultArgTypes.braidThemeName,
     showStorybookAction: defaultArgTypes.showStorybookAction,
   },
-  component: Component,
+} satisfies Meta<typeof Component>;
 
-  title: 'Job Posting/Job categories/JobCategoryLookup',
-};
+type Story = StoryObj<typeof Component>;
 
-type Args = ComponentProps<typeof Component> & BraidArgs;
-
-export const JobCategoryLookup = ({ braidThemeName, ...args }: Args) => (
-  <BraidStorybookProvider braidThemeName={braidThemeName}>
-    <MockJobCategoryLookup {...args} />
-  </BraidStorybookProvider>
-);
-JobCategoryLookup.storyName = 'JobCategoryLookup';
+export const JobCategoryLookup: Story = {};

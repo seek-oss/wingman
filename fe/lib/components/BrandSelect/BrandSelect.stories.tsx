@@ -1,57 +1,43 @@
-import 'braid-design-system/reset';
+import type { Meta, StoryObj } from 'sku/@storybook/react';
 
-import React, { type ComponentProps } from 'react';
+import { defaultArgTypes } from '../../../.storybook/preview';
 
-import {
-  type BraidArgs,
-  defaultArgTypes,
-  defaultArgs,
-} from '../../storybook/controls';
-import { BraidStorybookProvider } from '../../storybook/decorators';
-
-import { BrandSelect as Component } from './BrandSelect';
-import { MockBrandSelect } from './BrandSelect.mock';
+import { MockBrandSelect as Component } from './BrandSelect.mock';
 
 export default {
+  title: 'Job Posting/Branding/BrandSelect',
+  component: Component,
   args: {
-    braidThemeName: defaultArgs.braidThemeName,
     hirerId: 'seekAnzPublicTest:organization:seek:93WyyF1h',
     initialBrandId:
       'global:advertisementBranding:hirerBranding:4pkLmqYhoSxSKmfcKMbDG6',
     pageSize: 4,
   },
   argTypes: {
-    braidThemeName: defaultArgTypes.braidThemeName,
     showStorybookAction: defaultArgTypes.showStorybookAction,
   },
-  component: Component,
+} satisfies Meta<typeof Component>;
 
-  title: 'Job Posting/Branding/BrandSelect',
+type Story = StoryObj<typeof Component>;
+
+export const MultipleBrands: Story = {
+  args: {
+    variant: 'multiple-brands',
+  },
+  name: 'Multiple brands',
 };
 
-type Args = ComponentProps<typeof Component> & BraidArgs;
+export const NoInitialBrandId: Story = {
+  args: {
+    variant: 'multiple-brands',
+    initialBrandId: undefined,
+  },
+  name: 'No initial brand ID',
+};
 
-export const MultipleBrands = ({ braidThemeName, ...args }: Args) => (
-  <BraidStorybookProvider braidThemeName={braidThemeName}>
-    <MockBrandSelect {...args} variant="multiple-brands" />
-  </BraidStorybookProvider>
-);
-MultipleBrands.storyName = 'Multiple brands';
-
-export const NoInitialBrandId = ({ braidThemeName, ...args }: Args) => (
-  <BraidStorybookProvider braidThemeName={braidThemeName}>
-    <MockBrandSelect
-      {...args}
-      initialBrandId={undefined}
-      variant="multiple-brands"
-    />
-  </BraidStorybookProvider>
-);
-NoInitialBrandId.storyName = 'No initial brand ID';
-
-export const NoBrands = ({ braidThemeName, ...args }: Args) => (
-  <BraidStorybookProvider braidThemeName={braidThemeName}>
-    <MockBrandSelect {...args} variant="no-brands" />
-  </BraidStorybookProvider>
-);
-NoBrands.storyName = 'No brands';
+export const NoBrands: Story = {
+  args: {
+    variant: 'no-brands',
+  },
+  name: 'No brands',
+};

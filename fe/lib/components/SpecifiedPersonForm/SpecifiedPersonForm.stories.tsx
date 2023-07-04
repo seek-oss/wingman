@@ -1,19 +1,13 @@
-import 'braid-design-system/reset';
+import type { Meta, StoryObj } from 'sku/@storybook/react';
 
-import React, { type ComponentProps } from 'react';
+import { defaultArgTypes } from '../../../.storybook/preview';
 
-import {
-  type BraidArgs,
-  defaultArgTypes,
-  defaultArgs,
-} from '../../storybook/controls';
-import { BraidStorybookProvider } from '../../storybook/decorators';
-
-import { MockSpecifiedPersonForm } from './SpecifiedPersonForm.mock';
+import { MockSpecifiedPersonForm as Component } from './SpecifiedPersonForm.mock';
 
 export default {
+  title: 'Job Posting/Position openings/SpecifiedPersonForm',
+  component: Component,
   args: {
-    braidThemeName: defaultArgs.braidThemeName,
     initialValues: {
       roleCode: 'HiringManager',
       givenName: 'Andrew',
@@ -23,19 +17,11 @@ export default {
     },
   },
   argTypes: {
-    braidThemeName: defaultArgTypes.braidThemeName,
     showStorybookAction: defaultArgTypes.showStorybookAction,
     onCreate: { action: 'onCreate' },
   },
-  component: MockSpecifiedPersonForm,
-  title: 'Job Posting/Position openings/SpecifiedPersonForm',
-};
+} satisfies Meta<typeof Component>;
 
-type Args = ComponentProps<typeof MockSpecifiedPersonForm> & BraidArgs;
+type Story = StoryObj<typeof Component>;
 
-export const SpecifiedPersonForm = ({ braidThemeName, ...args }: Args) => (
-  <BraidStorybookProvider braidThemeName={braidThemeName}>
-    <MockSpecifiedPersonForm {...args} />
-  </BraidStorybookProvider>
-);
-SpecifiedPersonForm.storyName = 'SpecifiedPersonForm';
+export const SpecifiedPersonForm: Story = {};
