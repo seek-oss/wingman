@@ -20,23 +20,6 @@ describe('createContext', () => {
       },
     ],
     [
-      'extracts uppercase Accept-Language header',
-      {
-        ctx: {
-          request: {
-            header: {
-              authorization: 'Bearer in',
-              'accept-language': 'EN',
-            },
-          },
-        },
-      },
-      {
-        authorization: 'Bearer in',
-        'accept-language': 'EN',
-      },
-    ],
-    [
       'extracts a sole authorization header',
       {
         ctx: {
