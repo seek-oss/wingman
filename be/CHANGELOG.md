@@ -1,5 +1,11 @@
 # wingman-be
 
+## 0.6.0
+
+### Minor Changes
+
+- Adding accept language header into seekGraphMiddleware ([#955](https://github.com/seek-oss/wingman/pull/955))
+
 ## 0.5.3
 
 ### Patch Changes
