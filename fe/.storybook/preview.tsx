@@ -4,7 +4,7 @@ import React from 'react';
 import docs from 'braid-design-system/themes/docs';
 import seekJobs from 'braid-design-system/themes/seekJobs';
 import wireframe from 'braid-design-system/themes/wireframe';
-import { Box, BraidProvider } from 'braid-design-system';
+import { Box, BraidProvider, ContentBlock } from 'braid-design-system';
 
 import type { Preview } from 'sku/@storybook/react';
 
@@ -48,9 +48,11 @@ export default {
   decorators: [
     (Story, { globals }) => (
       <BraidProvider theme={THEMES[globals.theme as BraidThemeName]}>
-        <Box paddingX="gutter" paddingY="large">
-          <Story />
-        </Box>
+        <ContentBlock>
+          <Box paddingX="gutter" paddingY="large">
+            <Story />
+          </Box>
+        </ContentBlock>
       </BraidProvider>
     ),
   ],
