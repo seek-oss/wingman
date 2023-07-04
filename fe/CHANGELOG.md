@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 8.0.1
+
+### Patch Changes
+
+- Run codegen ([#953](https://github.com/seek-oss/wingman/pull/953))
+
 ## 8.0.0
 
 ### Major Changes
