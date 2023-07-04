@@ -9,6 +9,7 @@ const IncomingContext = t.Record({
     request: t.Record({
       header: t.Record({
         authorization: t.String,
+        'accept-language': t.String.optional(),
       }),
     }),
   }),
@@ -19,9 +20,12 @@ type IncomingContext = t.Static<typeof IncomingContext>;
 export const createContext = (context: unknown): RetrieveRequest => {
   const result = IncomingContext.validate(context);
 
-  return {
-    authorization: result.success
-      ? result.value.ctx.request.header.authorization
-      : undefined,
-  };
+  if (result.success) {
+    return {
+      authorization: result.value.ctx.request.header.authorization,
+      'accept-language': result.value.ctx.request.header['accept-language'],
+    };
+  }
+
+  return {};
 };
