@@ -76,6 +76,84 @@ export type AdvertisementBrandingsConnectionFieldPolicy = {
   edges?: FieldPolicy<any> | FieldReadFunction<any>;
   pageInfo?: FieldPolicy<any> | FieldReadFunction<any>;
 };
+export type AdvertisementProductKeySpecifier = (
+  | 'description'
+  | 'features'
+  | 'id'
+  | 'label'
+  | 'payment'
+  | 'price'
+  | 'selected'
+  | 'sellingPoints'
+  | AdvertisementProductKeySpecifier
+)[];
+export type AdvertisementProductFieldPolicy = {
+  description?: FieldPolicy<any> | FieldReadFunction<any>;
+  features?: FieldPolicy<any> | FieldReadFunction<any>;
+  id?: FieldPolicy<any> | FieldReadFunction<any>;
+  label?: FieldPolicy<any> | FieldReadFunction<any>;
+  payment?: FieldPolicy<any> | FieldReadFunction<any>;
+  price?: FieldPolicy<any> | FieldReadFunction<any>;
+  selected?: FieldPolicy<any> | FieldReadFunction<any>;
+  sellingPoints?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type AdvertisementProductFeaturesKeySpecifier = (
+  | 'branding'
+  | 'searchBulletPoints'
+  | AdvertisementProductFeaturesKeySpecifier
+)[];
+export type AdvertisementProductFeaturesFieldPolicy = {
+  branding?: FieldPolicy<any> | FieldReadFunction<any>;
+  searchBulletPoints?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type AdvertisementProductFeatures_BrandingKeySpecifier = (
+  | 'coverImageIndicator'
+  | 'logoIndicator'
+  | AdvertisementProductFeatures_BrandingKeySpecifier
+)[];
+export type AdvertisementProductFeatures_BrandingFieldPolicy = {
+  coverImageIndicator?: FieldPolicy<any> | FieldReadFunction<any>;
+  logoIndicator?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type AdvertisementProductFeatures_SearchBulletPointsKeySpecifier = (
+  | 'limit'
+  | AdvertisementProductFeatures_SearchBulletPointsKeySpecifier
+)[];
+export type AdvertisementProductFeatures_SearchBulletPointsFieldPolicy = {
+  limit?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type AdvertisementProductPaymentDetailsKeySpecifier = (
+  | 'summary'
+  | 'summaryHtml'
+  | AdvertisementProductPaymentDetailsKeySpecifier
+)[];
+export type AdvertisementProductPaymentDetailsFieldPolicy = {
+  summary?: FieldPolicy<any> | FieldReadFunction<any>;
+  summaryHtml?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type AdvertisementProductPriceDetailsKeySpecifier = (
+  | 'summary'
+  | AdvertisementProductPriceDetailsKeySpecifier
+)[];
+export type AdvertisementProductPriceDetailsFieldPolicy = {
+  summary?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type AdvertisementProductSellingPointKeySpecifier = (
+  | 'text'
+  | AdvertisementProductSellingPointKeySpecifier
+)[];
+export type AdvertisementProductSellingPointFieldPolicy = {
+  text?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type AdvertisementProductsKeySpecifier = (
+  | 'information'
+  | 'products'
+  | AdvertisementProductsKeySpecifier
+)[];
+export type AdvertisementProductsFieldPolicy = {
+  information?: FieldPolicy<any> | FieldReadFunction<any>;
+  products?: FieldPolicy<any> | FieldReadFunction<any>;
+};
 export type ApplicationLibraryQuestionKeySpecifier = (
   | 'id'
   | 'preferenceSelection'
@@ -562,6 +640,10 @@ export type CreateWebhookSubscriptionPayload_SuccessKeySpecifier = (
 export type CreateWebhookSubscriptionPayload_SuccessFieldPolicy = {
   webhookSubscription?: FieldPolicy<any> | FieldReadFunction<any>;
 };
+export type CurrencyKeySpecifier = ('code' | CurrencyKeySpecifier)[];
+export type CurrencyFieldPolicy = {
+  code?: FieldPolicy<any> | FieldReadFunction<any>;
+};
 export type CurrencyMinorUnitKeySpecifier = (
   | 'currency'
   | 'value'
@@ -784,6 +866,7 @@ export type LocationKeySpecifier = (
   | 'children'
   | 'contextualName'
   | 'countryCode'
+  | 'currencies'
   | 'id'
   | 'name'
   | 'parent'
@@ -793,6 +876,7 @@ export type LocationFieldPolicy = {
   children?: FieldPolicy<any> | FieldReadFunction<any>;
   contextualName?: FieldPolicy<any> | FieldReadFunction<any>;
   countryCode?: FieldPolicy<any> | FieldReadFunction<any>;
+  currencies?: FieldPolicy<any> | FieldReadFunction<any>;
   id?: FieldPolicy<any> | FieldReadFunction<any>;
   name?: FieldPolicy<any> | FieldReadFunction<any>;
   parent?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -911,6 +995,17 @@ export type PartnerOrganizationFieldPolicy = {
     | FieldPolicy<any>
     | FieldReadFunction<any>;
   name?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type PayTypeKeySpecifier = (
+  | 'basisCode'
+  | 'intervalCode'
+  | 'label'
+  | PayTypeKeySpecifier
+)[];
+export type PayTypeFieldPolicy = {
+  basisCode?: FieldPolicy<any> | FieldReadFunction<any>;
+  intervalCode?: FieldPolicy<any> | FieldReadFunction<any>;
+  label?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type PersonCompetencyKeySpecifier = (
   | 'competencyName'
@@ -1211,11 +1306,19 @@ export type PostedPositionProfilePreviewKeySpecifier = (
 export type PostedPositionProfilePreviewFieldPolicy = {
   previewUri?: FieldPolicy<any> | FieldReadFunction<any>;
 };
+export type PostedPositionProfile_AdvertisementProductKeySpecifier = (
+  | 'label'
+  | PostedPositionProfile_AdvertisementProductKeySpecifier
+)[];
+export type PostedPositionProfile_AdvertisementProductFieldPolicy = {
+  label?: FieldPolicy<any> | FieldReadFunction<any>;
+};
 export type PostingInstructionKeySpecifier = (
   | 'applicationMethods'
   | 'branding'
   | 'brandingId'
   | 'end'
+  | 'seekAdvertisementProduct'
   | 'seekAnzAdvertisementType'
   | 'start'
   | PostingInstructionKeySpecifier
@@ -1225,6 +1328,7 @@ export type PostingInstructionFieldPolicy = {
   branding?: FieldPolicy<any> | FieldReadFunction<any>;
   brandingId?: FieldPolicy<any> | FieldReadFunction<any>;
   end?: FieldPolicy<any> | FieldReadFunction<any>;
+  seekAdvertisementProduct?: FieldPolicy<any> | FieldReadFunction<any>;
   seekAnzAdvertisementType?: FieldPolicy<any> | FieldReadFunction<any>;
   start?: FieldPolicy<any> | FieldReadFunction<any>;
 };
@@ -1251,24 +1355,27 @@ export type PreferredLocationFieldPolicy = {
   referenceLocation?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type QueryKeySpecifier = (
-  | '_unstable_advertisementProducts'
   | 'advertisementBranding'
   | 'advertisementBrandings'
+  | 'advertisementProducts'
   | 'applicationLibraryQuestionSuggestions'
   | 'applicationQuestionnaire'
   | 'candidate'
   | 'candidateProcessHistoryItem'
   | 'candidateProfile'
+  | 'currencies'
   | 'event'
   | 'events'
   | 'hiringOrganization'
   | 'hiringOrganizations'
+  | 'inferLocation'
   | 'jobCategories'
   | 'jobCategory'
   | 'jobCategorySuggestions'
   | 'location'
   | 'locationSuggestions'
   | 'nearestLocations'
+  | 'payTypes'
   | 'positionOpening'
   | 'positionOpenings'
   | 'positionProfile'
@@ -1288,9 +1395,9 @@ export type QueryKeySpecifier = (
   | QueryKeySpecifier
 )[];
 export type QueryFieldPolicy = {
-  _unstable_advertisementProducts?: FieldPolicy<any> | FieldReadFunction<any>;
   advertisementBranding?: FieldPolicy<any> | FieldReadFunction<any>;
   advertisementBrandings?: FieldPolicy<any> | FieldReadFunction<any>;
+  advertisementProducts?: FieldPolicy<any> | FieldReadFunction<any>;
   applicationLibraryQuestionSuggestions?:
     | FieldPolicy<any>
     | FieldReadFunction<any>;
@@ -1298,16 +1405,19 @@ export type QueryFieldPolicy = {
   candidate?: FieldPolicy<any> | FieldReadFunction<any>;
   candidateProcessHistoryItem?: FieldPolicy<any> | FieldReadFunction<any>;
   candidateProfile?: FieldPolicy<any> | FieldReadFunction<any>;
+  currencies?: FieldPolicy<any> | FieldReadFunction<any>;
   event?: FieldPolicy<any> | FieldReadFunction<any>;
   events?: FieldPolicy<any> | FieldReadFunction<any>;
   hiringOrganization?: FieldPolicy<any> | FieldReadFunction<any>;
   hiringOrganizations?: FieldPolicy<any> | FieldReadFunction<any>;
+  inferLocation?: FieldPolicy<any> | FieldReadFunction<any>;
   jobCategories?: FieldPolicy<any> | FieldReadFunction<any>;
   jobCategory?: FieldPolicy<any> | FieldReadFunction<any>;
   jobCategorySuggestions?: FieldPolicy<any> | FieldReadFunction<any>;
   location?: FieldPolicy<any> | FieldReadFunction<any>;
   locationSuggestions?: FieldPolicy<any> | FieldReadFunction<any>;
   nearestLocations?: FieldPolicy<any> | FieldReadFunction<any>;
+  payTypes?: FieldPolicy<any> | FieldReadFunction<any>;
   positionOpening?: FieldPolicy<any> | FieldReadFunction<any>;
   positionOpenings?: FieldPolicy<any> | FieldReadFunction<any>;
   positionProfile?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1837,84 +1947,6 @@ export type WebhookSubscriptionsConnectionFieldPolicy = {
   edges?: FieldPolicy<any> | FieldReadFunction<any>;
   pageInfo?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type _unstable_AdvertisementProductKeySpecifier = (
-  | 'description'
-  | 'features'
-  | 'id'
-  | 'label'
-  | 'payment'
-  | 'price'
-  | 'selected'
-  | 'sellingPoints'
-  | _unstable_AdvertisementProductKeySpecifier
-)[];
-export type _unstable_AdvertisementProductFieldPolicy = {
-  description?: FieldPolicy<any> | FieldReadFunction<any>;
-  features?: FieldPolicy<any> | FieldReadFunction<any>;
-  id?: FieldPolicy<any> | FieldReadFunction<any>;
-  label?: FieldPolicy<any> | FieldReadFunction<any>;
-  payment?: FieldPolicy<any> | FieldReadFunction<any>;
-  price?: FieldPolicy<any> | FieldReadFunction<any>;
-  selected?: FieldPolicy<any> | FieldReadFunction<any>;
-  sellingPoints?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type _unstable_AdvertisementProductFeaturesKeySpecifier = (
-  | 'branding'
-  | 'bulletPoints'
-  | _unstable_AdvertisementProductFeaturesKeySpecifier
-)[];
-export type _unstable_AdvertisementProductFeaturesFieldPolicy = {
-  branding?: FieldPolicy<any> | FieldReadFunction<any>;
-  bulletPoints?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type _unstable_AdvertisementProductFeaturesBrandingKeySpecifier = (
-  | 'coverImage'
-  | 'logo'
-  | _unstable_AdvertisementProductFeaturesBrandingKeySpecifier
-)[];
-export type _unstable_AdvertisementProductFeaturesBrandingFieldPolicy = {
-  coverImage?: FieldPolicy<any> | FieldReadFunction<any>;
-  logo?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type _unstable_AdvertisementProductFeaturesBulletPointsKeySpecifier = (
-  | 'limit'
-  | _unstable_AdvertisementProductFeaturesBulletPointsKeySpecifier
-)[];
-export type _unstable_AdvertisementProductFeaturesBulletPointsFieldPolicy = {
-  limit?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type _unstable_AdvertisementProductPaymentDetailsKeySpecifier = (
-  | 'summary'
-  | 'summaryHtml'
-  | _unstable_AdvertisementProductPaymentDetailsKeySpecifier
-)[];
-export type _unstable_AdvertisementProductPaymentDetailsFieldPolicy = {
-  summary?: FieldPolicy<any> | FieldReadFunction<any>;
-  summaryHtml?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type _unstable_AdvertisementProductPriceDetailsKeySpecifier = (
-  | 'summary'
-  | _unstable_AdvertisementProductPriceDetailsKeySpecifier
-)[];
-export type _unstable_AdvertisementProductPriceDetailsFieldPolicy = {
-  summary?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type _unstable_AdvertisementProductSellingPointKeySpecifier = (
-  | 'text'
-  | _unstable_AdvertisementProductSellingPointKeySpecifier
-)[];
-export type _unstable_AdvertisementProductSellingPointFieldPolicy = {
-  text?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type _unstable_AdvertisementProductsKeySpecifier = (
-  | 'information'
-  | 'products'
-  | _unstable_AdvertisementProductsKeySpecifier
-)[];
-export type _unstable_AdvertisementProductsFieldPolicy = {
-  information?: FieldPolicy<any> | FieldReadFunction<any>;
-  products?: FieldPolicy<any> | FieldReadFunction<any>;
-};
 export type StrictTypedTypePolicies = {
   Address?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:
@@ -1960,6 +1992,79 @@ export type StrictTypedTypePolicies = {
       | AdvertisementBrandingsConnectionKeySpecifier
       | (() => undefined | AdvertisementBrandingsConnectionKeySpecifier);
     fields?: AdvertisementBrandingsConnectionFieldPolicy;
+  };
+  AdvertisementProduct?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | AdvertisementProductKeySpecifier
+      | (() => undefined | AdvertisementProductKeySpecifier);
+    fields?: AdvertisementProductFieldPolicy;
+  };
+  AdvertisementProductFeatures?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | AdvertisementProductFeaturesKeySpecifier
+      | (() => undefined | AdvertisementProductFeaturesKeySpecifier);
+    fields?: AdvertisementProductFeaturesFieldPolicy;
+  };
+  AdvertisementProductFeatures_Branding?: Omit<
+    TypePolicy,
+    'fields' | 'keyFields'
+  > & {
+    keyFields?:
+      | false
+      | AdvertisementProductFeatures_BrandingKeySpecifier
+      | (() => undefined | AdvertisementProductFeatures_BrandingKeySpecifier);
+    fields?: AdvertisementProductFeatures_BrandingFieldPolicy;
+  };
+  AdvertisementProductFeatures_SearchBulletPoints?: Omit<
+    TypePolicy,
+    'fields' | 'keyFields'
+  > & {
+    keyFields?:
+      | false
+      | AdvertisementProductFeatures_SearchBulletPointsKeySpecifier
+      | (() =>
+          | undefined
+          | AdvertisementProductFeatures_SearchBulletPointsKeySpecifier);
+    fields?: AdvertisementProductFeatures_SearchBulletPointsFieldPolicy;
+  };
+  AdvertisementProductPaymentDetails?: Omit<
+    TypePolicy,
+    'fields' | 'keyFields'
+  > & {
+    keyFields?:
+      | false
+      | AdvertisementProductPaymentDetailsKeySpecifier
+      | (() => undefined | AdvertisementProductPaymentDetailsKeySpecifier);
+    fields?: AdvertisementProductPaymentDetailsFieldPolicy;
+  };
+  AdvertisementProductPriceDetails?: Omit<
+    TypePolicy,
+    'fields' | 'keyFields'
+  > & {
+    keyFields?:
+      | false
+      | AdvertisementProductPriceDetailsKeySpecifier
+      | (() => undefined | AdvertisementProductPriceDetailsKeySpecifier);
+    fields?: AdvertisementProductPriceDetailsFieldPolicy;
+  };
+  AdvertisementProductSellingPoint?: Omit<
+    TypePolicy,
+    'fields' | 'keyFields'
+  > & {
+    keyFields?:
+      | false
+      | AdvertisementProductSellingPointKeySpecifier
+      | (() => undefined | AdvertisementProductSellingPointKeySpecifier);
+    fields?: AdvertisementProductSellingPointFieldPolicy;
+  };
+  AdvertisementProducts?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | AdvertisementProductsKeySpecifier
+      | (() => undefined | AdvertisementProductsKeySpecifier);
+    fields?: AdvertisementProductsFieldPolicy;
   };
   ApplicationLibraryQuestion?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:
@@ -2308,6 +2413,13 @@ export type StrictTypedTypePolicies = {
           | CreateWebhookSubscriptionPayload_SuccessKeySpecifier);
     fields?: CreateWebhookSubscriptionPayload_SuccessFieldPolicy;
   };
+  Currency?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | CurrencyKeySpecifier
+      | (() => undefined | CurrencyKeySpecifier);
+    fields?: CurrencyFieldPolicy;
+  };
   CurrencyMinorUnit?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:
       | false
@@ -2532,6 +2644,13 @@ export type StrictTypedTypePolicies = {
       | (() => undefined | PartnerOrganizationKeySpecifier);
     fields?: PartnerOrganizationFieldPolicy;
   };
+  PayType?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | PayTypeKeySpecifier
+      | (() => undefined | PayTypeKeySpecifier);
+    fields?: PayTypeFieldPolicy;
+  };
   PersonCompetency?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:
       | false
@@ -2723,6 +2842,18 @@ export type StrictTypedTypePolicies = {
       | PostedPositionProfilePreviewKeySpecifier
       | (() => undefined | PostedPositionProfilePreviewKeySpecifier);
     fields?: PostedPositionProfilePreviewFieldPolicy;
+  };
+  PostedPositionProfile_AdvertisementProduct?: Omit<
+    TypePolicy,
+    'fields' | 'keyFields'
+  > & {
+    keyFields?:
+      | false
+      | PostedPositionProfile_AdvertisementProductKeySpecifier
+      | (() =>
+          | undefined
+          | PostedPositionProfile_AdvertisementProductKeySpecifier);
+    fields?: PostedPositionProfile_AdvertisementProductFieldPolicy;
   };
   PostingInstruction?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:
@@ -3165,90 +3296,6 @@ export type StrictTypedTypePolicies = {
       | WebhookSubscriptionsConnectionKeySpecifier
       | (() => undefined | WebhookSubscriptionsConnectionKeySpecifier);
     fields?: WebhookSubscriptionsConnectionFieldPolicy;
-  };
-  _unstable_AdvertisementProduct?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
-    keyFields?:
-      | false
-      | _unstable_AdvertisementProductKeySpecifier
-      | (() => undefined | _unstable_AdvertisementProductKeySpecifier);
-    fields?: _unstable_AdvertisementProductFieldPolicy;
-  };
-  _unstable_AdvertisementProductFeatures?: Omit<
-    TypePolicy,
-    'fields' | 'keyFields'
-  > & {
-    keyFields?:
-      | false
-      | _unstable_AdvertisementProductFeaturesKeySpecifier
-      | (() => undefined | _unstable_AdvertisementProductFeaturesKeySpecifier);
-    fields?: _unstable_AdvertisementProductFeaturesFieldPolicy;
-  };
-  _unstable_AdvertisementProductFeaturesBranding?: Omit<
-    TypePolicy,
-    'fields' | 'keyFields'
-  > & {
-    keyFields?:
-      | false
-      | _unstable_AdvertisementProductFeaturesBrandingKeySpecifier
-      | (() =>
-          | undefined
-          | _unstable_AdvertisementProductFeaturesBrandingKeySpecifier);
-    fields?: _unstable_AdvertisementProductFeaturesBrandingFieldPolicy;
-  };
-  _unstable_AdvertisementProductFeaturesBulletPoints?: Omit<
-    TypePolicy,
-    'fields' | 'keyFields'
-  > & {
-    keyFields?:
-      | false
-      | _unstable_AdvertisementProductFeaturesBulletPointsKeySpecifier
-      | (() =>
-          | undefined
-          | _unstable_AdvertisementProductFeaturesBulletPointsKeySpecifier);
-    fields?: _unstable_AdvertisementProductFeaturesBulletPointsFieldPolicy;
-  };
-  _unstable_AdvertisementProductPaymentDetails?: Omit<
-    TypePolicy,
-    'fields' | 'keyFields'
-  > & {
-    keyFields?:
-      | false
-      | _unstable_AdvertisementProductPaymentDetailsKeySpecifier
-      | (() =>
-          | undefined
-          | _unstable_AdvertisementProductPaymentDetailsKeySpecifier);
-    fields?: _unstable_AdvertisementProductPaymentDetailsFieldPolicy;
-  };
-  _unstable_AdvertisementProductPriceDetails?: Omit<
-    TypePolicy,
-    'fields' | 'keyFields'
-  > & {
-    keyFields?:
-      | false
-      | _unstable_AdvertisementProductPriceDetailsKeySpecifier
-      | (() =>
-          | undefined
-          | _unstable_AdvertisementProductPriceDetailsKeySpecifier);
-    fields?: _unstable_AdvertisementProductPriceDetailsFieldPolicy;
-  };
-  _unstable_AdvertisementProductSellingPoint?: Omit<
-    TypePolicy,
-    'fields' | 'keyFields'
-  > & {
-    keyFields?:
-      | false
-      | _unstable_AdvertisementProductSellingPointKeySpecifier
-      | (() =>
-          | undefined
-          | _unstable_AdvertisementProductSellingPointKeySpecifier);
-    fields?: _unstable_AdvertisementProductSellingPointFieldPolicy;
-  };
-  _unstable_AdvertisementProducts?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
-    keyFields?:
-      | false
-      | _unstable_AdvertisementProductsKeySpecifier
-      | (() => undefined | _unstable_AdvertisementProductsKeySpecifier);
-    fields?: _unstable_AdvertisementProductsFieldPolicy;
   };
 };
 export type TypedTypePolicies = StrictTypedTypePolicies & TypePolicies;

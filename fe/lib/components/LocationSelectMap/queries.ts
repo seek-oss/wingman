@@ -8,6 +8,9 @@ const LOCATION_ATTRIBUTES = gql`
     name
     contextualName
     countryCode
+    currencies {
+      code
+    }
   }
 `;
 

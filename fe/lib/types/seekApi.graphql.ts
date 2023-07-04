@@ -193,6 +193,177 @@ export interface AdvertisementBrandingsConnection {
   pageInfo: PageInfo;
 }
 
+/** The details of an available advertisement product. */
+export interface AdvertisementProduct {
+  __typename?: 'AdvertisementProduct';
+  /** A short phrase intended for display to a user that describes the advertisement product. */
+  description?: Maybe<Scalars['String']>;
+  /** Additional information that is accepted when posting a job ad to configure the features of this advertisement product. */
+  features: AdvertisementProductFeatures;
+  /**
+   * The identifier of this advertisement product.
+   *
+   * Identifiers may become stale, and should not be stored for long periods.
+   *
+   * It would be appropriate to save an identifier for use in a job ad draft, but not for use as a job ad template.
+   */
+  id: ObjectIdentifier;
+  /**
+   * The name of the advertisement product for displaying to the user.
+   *
+   * This is typically a single word that differentiates the product from other options.
+   */
+  label: Scalars['String'];
+  /** Information about how payment will be made for this advertisement product. */
+  payment?: Maybe<AdvertisementProductPaymentDetails>;
+  /** Information about how much this advertisement product costs. */
+  price?: Maybe<AdvertisementProductPriceDetails>;
+  /**
+   * Whether this advertisement product should be preselected or not.
+   *
+   * This field generally indicates the advertisement product that is set in the current state of an existing `PositionProfile`.
+   */
+  selected: Scalars['Boolean'];
+  /** An array of short phrases that tell the user what value this advertisement product provides. */
+  sellingPoints: Array<AdvertisementProductSellingPoint>;
+}
+
+/** Additional information that is accepted when posting a job ad with this advertisement product. */
+export interface AdvertisementProductFeatures {
+  __typename?: 'AdvertisementProductFeatures';
+  /** Additional information related to branding that is accepted when posting a job ad. */
+  branding?: Maybe<AdvertisementProductFeaturesBranding>;
+  /** Additional information related to search bullet points that is accepted when posting a job ad. */
+  searchBulletPoints?: Maybe<AdvertisementProductFeaturesSearchBulletPoints>;
+}
+
+/** Branding features that are included with a product when posting or updating a job ad. */
+export interface AdvertisementProductFeaturesBranding {
+  __typename?: 'AdvertisementProductFeatures_Branding';
+  /** Whether the cover image from the provided `AdvertisementBranding` will be visible on the job ad. */
+  coverImageIndicator: Scalars['Boolean'];
+  /** Whether the logo from the provided `AdvertisementBranding` will be visible on the job ad. */
+  logoIndicator: Scalars['Boolean'];
+}
+
+/** Search bullet points that are included with a product. */
+export interface AdvertisementProductFeaturesSearchBulletPoints {
+  __typename?: 'AdvertisementProductFeatures_SearchBulletPoints';
+  /**
+   * How many search bullet points are accepted when posting a job ad.
+   *
+   * This is always a positive integer; if bullet points are not supported, the entire object will be `null`.
+   */
+  limit: Scalars['Int'];
+}
+
+/** The details of how an advertisement product will be paid. */
+export interface AdvertisementProductPaymentDetails {
+  __typename?: 'AdvertisementProductPaymentDetails';
+  /**
+   * A plain text summary of how payment will be broken down across payment methods.
+   *
+   * This is a human-readable string intended for displaying in a user interface.
+   */
+  summary: Scalars['String'];
+  /**
+   * An alternate version of `summary` that includes HTML markup.
+   *
+   * This is intended to be parsed and rendered by a web browser for displaying in a user interface.
+   */
+  summaryHtml: Scalars['String'];
+}
+
+/** The details of what will be paid for an advertisement product. */
+export interface AdvertisementProductPriceDetails {
+  __typename?: 'AdvertisementProductPriceDetails';
+  /**
+   * The summary of what the price is for an advertisement product.
+   *
+   * This is a human-readable string intended for displaying in a user interface.
+   */
+  summary: Scalars['String'];
+}
+
+/**
+ * A selling point of an advertisement product.
+ *
+ * This details a reason why a user should choose this advertisement product over another.
+ */
+export interface AdvertisementProductSellingPoint {
+  __typename?: 'AdvertisementProductSellingPoint';
+  /** The textual representation of this selling point for displaying to the user. */
+  text: Scalars['String'];
+}
+
+/** A list of advertisement products with additional context that applies to all products. */
+export interface AdvertisementProducts {
+  __typename?: 'AdvertisementProducts';
+  /**
+   * Information on this set of available products.
+   *
+   * Typically this is a legal disclaimer.
+   */
+  information?: Maybe<Scalars['String']>;
+  /** The list of advertisement products. */
+  products: Array<AdvertisementProduct>;
+}
+
+/** The proposed state of the job ad to be posted or updated. */
+export interface AdvertisementProductsPositionProfileInput {
+  /**
+   * An array of `JobCategory` identifiers.
+   *
+   * This field currently requires a single identifier for a child job category.
+   */
+  jobCategories: Array<Scalars['String']>;
+  /**
+   * The remuneration offered for the position.
+   *
+   * This information allows us to better forecast the performance of the advertisement products.
+   */
+  offeredRemunerationPackage?: InputMaybe<RemunerationPackageInput>;
+  /**
+   * An array of `Location` identifiers.
+   *
+   * Scheme requirements:
+   *
+   * - This field currently requires a single identifier for a location.
+   */
+  positionLocation: Array<Scalars['String']>;
+  /**
+   * Array of identifiers for the `HiringOrganization` that will post or update the job ad.
+   *
+   * The `seekAnz` scheme requires exactly one element.
+   */
+  positionOrganizations: Array<Scalars['String']>;
+  /**
+   * A short phrase describing the position as it would be listed on a business card or in a company directory.
+   *
+   * This field has a maximum length of 80 characters.
+   */
+  positionTitle: Scalars['String'];
+  /**
+   * The identifier of the job ad to be updated.
+   *
+   * It should be omitted when creating a new job.
+   */
+  profileId?: InputMaybe<Scalars['String']>;
+  /**
+   * A SEEK ANZ work type code.
+   *
+   * Currently, four codes are defined:
+   *
+   * - `Casual` indicates a casual position.
+   * - `ContractTemp` indicates a fixed-length contract position.
+   * - `FullTime` indicates a full-time position.
+   * - `PartTime` indicates a part-time position.
+   *
+   * This information allows us to better forecast the performance of the advertisement products.
+   */
+  seekAnzWorkTypeCode?: InputMaybe<Scalars['String']>;
+}
+
 /**
  * A question from SEEK's library.
  *
@@ -921,6 +1092,8 @@ export interface Candidate {
    * This field exposes up to 10 recent applications submitted by the candidate.
    *
    * We recommend querying specific applications by their `CandidateProfile.profileId`s for the Application Export use case.
+   *
+   * This field is redacted and an empty/filtered list is returned when a candidate or job application is deleted.
    */
   profiles: Array<CandidateProfile>;
   /**
@@ -1314,7 +1487,11 @@ export interface CandidateProfile {
    * - For uploaded candidate profiles, this is always `null`.
    */
   associatedPositionProfile?: Maybe<PositionProfile>;
-  /** The attachments related to the candidate's profile. */
+  /**
+   * The attachments related to the candidate's profile.
+   *
+   * This field is redacted and an empty list is returned when a candidate or job application is deleted.
+   */
   attachments: Array<Attachment>;
   /**
    * The `Candidate` that this profile relates to.
@@ -1324,13 +1501,25 @@ export interface CandidateProfile {
   candidate: Candidate;
   /** The sources from which the candidate was obtained from. */
   candidateSources: Array<CandidateSource>;
-  /** The certifications and licenses the candidate holds. */
+  /**
+   * The certifications and licenses the candidate holds.
+   *
+   * This field is redacted and an empty list is returned when a candidate or job application is deleted.
+   */
   certifications: Array<Certification>;
   /** The date & time the candidate was associated with the position. */
   createDateTime: Scalars['DateTime'];
-  /** The education history of the candidate. */
+  /**
+   * The education history of the candidate.
+   *
+   * This field is redacted and an empty list is returned when a candidate or job application is deleted.
+   */
   education: Array<EducationAttendance>;
-  /** The employment history of the candidate. */
+  /**
+   * The employment history of the candidate.
+   *
+   * This field is redacted and an empty list is returned when a candidate or job application is deleted.
+   */
   employment: Array<EmployerHistory>;
   /**
    * The candidate's preferences in an ideal position.
@@ -1345,7 +1534,11 @@ export interface CandidateProfile {
    * This profile can be queried at any time by passing this identifier string to `candidateProfile`.
    */
   profileId: ObjectIdentifier;
-  /** The skills or competencies of the candidate. */
+  /**
+   * The skills or competencies of the candidate.
+   *
+   * This field is redacted and an empty list is returned when a candidate or job application is deleted.
+   */
   qualifications: Array<PersonCompetency>;
   /** A list of executable actions linked to the candidate profile. */
   seekActions: Array<CandidateProcessAction>;
@@ -1358,7 +1551,11 @@ export interface CandidateProfile {
    * This is null for non-uploaded candidates.
    */
   seekProcessHistory?: Maybe<CandidateProcessHistoryItemConnection>;
-  /** The completed candidate submission for the position profile's questionnaire. */
+  /**
+   * The completed candidate submission for the position profile's questionnaire.
+   *
+   * This field is redacted for a deleted candidate or job application.
+   */
   seekQuestionnaireSubmission?: Maybe<ApplicationQuestionnaireSubmission>;
   /** The date & time the candidate profile was last updated. */
   updateDateTime: Scalars['DateTime'];
@@ -1506,18 +1703,24 @@ export interface Communication {
    * An array of physical addresses for the person.
    *
    * The physical addresses are ordered in descending preference.
+   *
+   * This field is redacted and an empty array is returned when a candidate or job application is deleted.
    */
   address: Array<Address>;
   /**
    * An array of email addresses for the person.
    *
    * The email addresses are ordered in descending preference.
+   *
+   * This field is redacted and an empty array is returned when a candidate or job application is deleted.
    */
   email: Array<Email>;
   /**
    * An array of phone numbers for the person.
    *
    * The phone numbers are ordered in descending preference.
+   *
+   * This field is redacted and an empty array is returned when a candidate or job application is deleted.
    */
   phone: Array<Phone>;
   /**
@@ -1572,7 +1775,11 @@ export interface CommunicationInput {
   seekDoNotContactIndicator?: InputMaybe<Scalars['Boolean']>;
 }
 
-/** The input parameter for the `createApplicationQuestionnaire` mutation. */
+/**
+ * The input parameter for the `createApplicationQuestionnaire` mutation.
+ *
+ * This must not exceed 56 KiB in length.
+ */
 export interface CreateApplicationQuestionnaireInput {
   /** The details of the questionnaire to be created. */
   applicationQuestionnaire: CreateApplicationQuestionnaireApplicationQuestionnaireInput;
@@ -1760,11 +1967,7 @@ export interface CreatePostingInstructionInput {
    * Your identifiers are isolated from and will not conflict with those generated by other recruitment software providers.
    */
   idempotencyId: Scalars['String'];
-  /**
-   * The identifier for the `UnstableAdvertisementProduct`.
-   *
-   * Caution: this is currently under development and may be changed or removed without notice.
-   */
+  /** The identifier for the `AdvertisementProduct`. */
   seekAdvertisementProductId?: InputMaybe<Scalars['String']>;
   /**
    * A SEEK ANZ advertisement type code.
@@ -1955,6 +2158,17 @@ export interface CreateWebhookSubscriptionSubscriptionInput {
   signingAlgorithmCode: Scalars['String'];
   /** The subscriber-owned URL where events will be sent to. */
   url: Scalars['String'];
+}
+
+/**
+ * A currency supported by the SEEK API.
+ *
+ * This may be used when specifying a price or salary range.
+ */
+export interface Currency {
+  __typename?: 'Currency';
+  /** A three-letter ISO 4217 currency code, in uppercase. */
+  code: Scalars['String'];
 }
 
 /**
@@ -2559,6 +2773,16 @@ export interface Location {
   contextualName: Scalars['String'];
   /** The two-letter ISO 3166-1:2013 country code, in uppercase. */
   countryCode: Scalars['String'];
+  /**
+   * A list of currencies used within this location.
+   *
+   * Locations with unsupported currencies will default to a SEEK supported currency.
+   *
+   * At least one currency will be provided.
+   *
+   * As most countries only use a single currency, the first item in the array can be used to preselect the default currency in a job posting flow.
+   */
+  currencies: Array<Currency>;
   /** The identifier for the `Location`. */
   id: ObjectIdentifier;
   /**
@@ -2601,6 +2825,8 @@ export interface Mutation {
   closePostedPositionProfile?: Maybe<ClosePostedPositionProfilePayload>;
   /**
    * Creates a new questionnaire.
+   *
+   * The `input` must not exceed 56 KiB in length.
    *
    * This mutation accepts browser tokens that include the `mutate:application-questionnaires` scope.
    */
@@ -2945,10 +3171,20 @@ export interface MutationUploadCandidateArgs {
   input: UploadCandidateInput;
 }
 
-/** An opaque identifier for GraphQL objects. */
+/**
+ * An opaque identifier for GraphQL objects.
+ *
+ * The `value` has a maximum length of 255 characters,
+ * and will always be representable with 255 bytes in UTF-8 encoding.
+ */
 export interface ObjectIdentifier {
   __typename?: 'ObjectIdentifier';
-  /** The identifier itself. */
+  /**
+   * The identifier itself.
+   *
+   * This has a maximum length of 255 characters,
+   * and will always be representable with 255 bytes in UTF-8 encoding.
+   */
   value: Scalars['String'];
 }
 
@@ -2998,6 +3234,17 @@ export interface PartnerOrganization {
   name: Scalars['String'];
 }
 
+/** The primary method of payment and the interval in which it is paid for a position. */
+export interface PayType {
+  __typename?: 'PayType';
+  /** A code classifying the primary method of payment for a position. */
+  basisCode: Scalars['String'];
+  /** A code classifying the interval the remuneration amounts are calculated over. */
+  intervalCode: Scalars['String'];
+  /** A human-readable description of the pay type. */
+  label: Scalars['String'];
+}
+
 /** A skill or competency asserted by the candidate. */
 export interface PersonCompetency {
   __typename?: 'PersonCompetency';
@@ -3008,11 +3255,26 @@ export interface PersonCompetency {
 /** The name of a person including a breakdown of name components. */
 export interface PersonName {
   __typename?: 'PersonName';
-  /** The family name (or surname) of a person, if provided. */
+  /**
+   * The family name (or surname) of a person, if provided.
+   *
+   * This field is redacted and a null value is returned when a candidate or job application is deleted.
+   * This redaction is limited to candidate data objects within SEEK optimized apply.
+   */
   family?: Maybe<Scalars['String']>;
-  /** The formatted name of a person, as it would be written out together. */
+  /**
+   * The formatted name of a person, as it would be written out together.
+   *
+   * This field is redacted and a static 'redacted' text is returned when a candidate or job application is deleted.
+   * This redaction is limited to candidate data objects within SEEK optimized apply.
+   */
   formattedName: Scalars['String'];
-  /** The given name of a person, if provided. */
+  /**
+   * The given name of a person, if provided.
+   *
+   * This field is redacted and a static 'redacted' text is returned when a candidate or job application is deleted.
+   * This redaction is limited to candidate data objects within SEEK optimized apply.
+   */
   given?: Maybe<Scalars['String']>;
 }
 
@@ -4046,11 +4308,7 @@ export interface PostedPositionProfilePreviewPostingInstructionInput {
    *   When the product's `SeekAnzAdProductFeatures.brandingIndicator` value is false, this field will be silently ignored.
    */
   brandingId?: InputMaybe<Scalars['String']>;
-  /**
-   * The identifier for the `UnstableAdvertisementProduct`.
-   *
-   * Caution: this is currently under development and may be changed or removed without notice.
-   */
+  /** The identifier for the `AdvertisementProduct`. */
   seekAdvertisementProductId?: InputMaybe<Scalars['String']>;
   /**
    * A SEEK ANZ advertisement type code.
@@ -4074,15 +4332,24 @@ export interface PostedPositionProfilePreviewRemunerationAmountInput {
   /**
    * The three-letter ISO 4217 currency code, in uppercase.
    *
-   * For the `seekAnz` scheme, a single currency is accepted in each location:
+   * For the `seekAnz` scheme, the following currencies are accepted:
    *
-   * - `NZD` is used by locations in New Zealand.
-   *   These are locations that have a `Location.countryCode` of `NZ`.
-   *
-   * - `GBP` is used by locations in the UK & Ireland.
-   *   These are locations that have a `Location.countryCode` of `GB` or `IE`.
-   *
-   * - `AUD` is used by all other locations.
+   * - `AUD`
+   * - `BDT`
+   * - `CNY`
+   * - `EUR`
+   * - `GBP`
+   * - `HKD`
+   * - `IDR`
+   * - `INR`
+   * - `JPY`
+   * - `MYR`
+   * - `NZD`
+   * - `PHP`
+   * - `SGD`
+   * - `THB`
+   * - `USD`
+   * - `VND`
    */
   currency: Scalars['String'];
   /**
@@ -4144,13 +4411,15 @@ export interface PostedPositionProfilePreviewRemunerationRangeInput {
   /**
    * The interval the remuneration amounts are calculated over.
    *
-   * Currently two interval codes are defined:
+   * Currently three interval codes are defined:
    *
    * - `Hour` is used to express hourly rates.
+   * - `Month` is used to express monthly salaries.
    * - `Year` is used to express annual salaries.
    *
    * The specified value must correspond to `RemunerationPackageInput.basisCode`.
    * When `RemunerationPackageInput.basisCode` equals `Hourly`, the `RemunerationRangeInput.intervalCode` must be `Hour`.
+   * When `RemunerationPackageInput.basisCode` equals `Salaried`, the `RemunerationRangeInput.intervalCode` must be `Month` or `Year`.
    * For all other `RemunerationPackageInput.basisCode`s, the `RemunerationRangeInput.intervalCode` must be `Year`.
    */
   intervalCode: Scalars['String'];
@@ -4169,6 +4438,17 @@ export interface PostedPositionProfilePreviewRemunerationRangeInput {
    * The value must be greater than 0.
    */
   minimumAmount: RemunerationAmountInput;
+}
+
+/** The details of the advertisement product for a job ad. */
+export interface PostedPositionProfileAdvertisementProduct {
+  __typename?: 'PostedPositionProfile_AdvertisementProduct';
+  /**
+   * The name of the advertisement product for displaying to the user.
+   *
+   * This field is for display purposes only and should not be used to determine any features of an ad.
+   */
+  label: Scalars['String'];
 }
 
 /** Information about how to post a job ad and where to direct its candidate applications. */
@@ -4192,6 +4472,12 @@ export interface PostingInstruction {
   brandingId?: Maybe<Scalars['String']>;
   /** The end date of the posting. */
   end: Scalars['DateTime'];
+  /**
+   * A SEEK advertisement product label.
+   *
+   * This field is for display purposes only and should not be used to determine any features of an ad.
+   */
+  seekAdvertisementProduct?: Maybe<PostedPositionProfileAdvertisementProduct>;
   /**
    * A SEEK ANZ advertisement type code.
    *
@@ -4287,14 +4573,6 @@ export interface PreferredLocationInput {
 export interface Query {
   __typename?: 'Query';
   /**
-   * The list of advertisement products available to the hirer when posting or updating a job.
-   *
-   * This query accepts browser tokens that include the `query:ad-products` scope.
-   *
-   * Caution: this is currently under development and may be changed or removed without notice.
-   */
-  _unstable_advertisementProducts: UnstableAdvertisementProducts;
-  /**
    * The advertisement branding for the given `id`.
    *
    * This query accepts browser tokens that include the `query:advertisement-brandings` scope.
@@ -4312,6 +4590,12 @@ export interface Query {
    * This query accepts browser tokens that include the `query:advertisement-brandings` scope.
    */
   advertisementBrandings: AdvertisementBrandingsConnection;
+  /**
+   * The list of advertisement products available to the hirer when posting or updating a job.
+   *
+   * This query accepts browser tokens that include the `query:ad-products` scope.
+   */
+  advertisementProducts: AdvertisementProducts;
   /**
    * An array of suggested application questions for the provided partial `PositionProfile` in decreasing order of relevance.
    *
@@ -4338,6 +4622,15 @@ export interface Query {
   candidateProcessHistoryItem?: Maybe<CandidateProcessHistoryItem>;
   /** The `CandidateProfile` for the given `id`. */
   candidateProfile?: Maybe<CandidateProfile>;
+  /**
+   * A list of currencies.
+   *
+   * These may be presented to a hirer for selection in a job posting flow.
+   * A dropdown is recommended.
+   *
+   * This query accepts browser tokens that include the `query:ontologies` scope.
+   */
+  currencies: Array<Currency>;
   /** The event for the given `id`. */
   event?: Maybe<Event>;
   /**
@@ -4370,6 +4663,14 @@ export interface Query {
    * It will only return the single hirer that the browser token is scoped to.
    */
   hiringOrganizations: HiringOrganizationsConnection;
+  /**
+   * A location inferred from the provided address details.
+   *
+   * SEEK will attempt to match the address details to a location in our hierarchy on a best-effort basis.
+   *
+   * This query accepts browser tokens that include the `query:ontologies` scope.
+   */
+  inferLocation?: Maybe<Location>;
   /**
    * A list of top-level job categories for the provided scheme.
    *
@@ -4412,6 +4713,15 @@ export interface Query {
    * This query accepts browser tokens that include the `query:ontologies` scope.
    */
   nearestLocations?: Maybe<Array<Location>>;
+  /**
+   * A list of pay types that specify the method and interval of a payment.
+   *
+   * These may be presented to a hirer for selection in a job posting flow.
+   * A dropdown or radio group is recommended.
+   *
+   * This query accepts browser tokens that include the `query:ontologies` scope.
+   */
+  payTypes: Array<PayType>;
   /** A position opening with the given `id`. */
   positionOpening?: Maybe<PositionOpening>;
   /**
@@ -4522,17 +4832,6 @@ export interface Query {
  *
  * This acts as the public, top-level API from which all queries must start.
  */
-export interface QueryUnstableAdvertisementProductsArgs {
-  limit?: InputMaybe<Scalars['Int']>;
-  positionProfile: UnstableAdvertisementProductPositionProfileInput;
-  preselectedAdvertisementProductId?: InputMaybe<Scalars['String']>;
-}
-
-/**
- * The schema's entry-point for queries.
- *
- * This acts as the public, top-level API from which all queries must start.
- */
 export interface QueryAdvertisementBrandingArgs {
   id: Scalars['String'];
 }
@@ -4548,6 +4847,17 @@ export interface QueryAdvertisementBrandingsArgs {
   first?: InputMaybe<Scalars['Int']>;
   hirerId: Scalars['String'];
   last?: InputMaybe<Scalars['Int']>;
+}
+
+/**
+ * The schema's entry-point for queries.
+ *
+ * This acts as the public, top-level API from which all queries must start.
+ */
+export interface QueryAdvertisementProductsArgs {
+  limit?: InputMaybe<Scalars['Int']>;
+  positionProfile: AdvertisementProductsPositionProfileInput;
+  selectedAdvertisementProductId?: InputMaybe<Scalars['String']>;
 }
 
 /**
@@ -4602,6 +4912,15 @@ export interface QueryCandidateProfileArgs {
  *
  * This acts as the public, top-level API from which all queries must start.
  */
+export interface QueryCurrenciesArgs {
+  usageTypeCode: Scalars['String'];
+}
+
+/**
+ * The schema's entry-point for queries.
+ *
+ * This acts as the public, top-level API from which all queries must start.
+ */
 export interface QueryEventArgs {
   id: Scalars['String'];
 }
@@ -4640,6 +4959,17 @@ export interface QueryHiringOrganizationsArgs {
   filter?: InputMaybe<HiringOrganizationsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
+  schemeId: Scalars['String'];
+}
+
+/**
+ * The schema's entry-point for queries.
+ *
+ * This acts as the public, top-level API from which all queries must start.
+ */
+export interface QueryInferLocationArgs {
+  address: SeekPositionAddressInput;
+  hirerId?: InputMaybe<Scalars['String']>;
   schemeId: Scalars['String'];
 }
 
@@ -4703,6 +5033,15 @@ export interface QueryLocationSuggestionsArgs {
 export interface QueryNearestLocationsArgs {
   first?: InputMaybe<Scalars['Int']>;
   geoLocation: GeoLocationInput;
+  schemeId: Scalars['String'];
+}
+
+/**
+ * The schema's entry-point for queries.
+ *
+ * This acts as the public, top-level API from which all queries must start.
+ */
+export interface QueryPayTypesArgs {
   schemeId: Scalars['String'];
 }
 
@@ -4874,15 +5213,24 @@ export interface RemunerationAmountInput {
   /**
    * The three-letter ISO 4217 currency code, in uppercase.
    *
-   * For the `seekAnz` scheme, a single currency is accepted in each location:
+   * For the `seekAnz` scheme, the following currencies are accepted:
    *
-   * - `NZD` is used by locations in New Zealand.
-   *   These are locations that have a `Location.countryCode` of `NZ`.
-   *
-   * - `GBP` is used by locations in the UK & Ireland.
-   *   These are locations that have a `Location.countryCode` of `GB` or `IE`.
-   *
-   * - `AUD` is used by all other locations.
+   * - `AUD`
+   * - `BDT`
+   * - `CNY`
+   * - `EUR`
+   * - `GBP`
+   * - `HKD`
+   * - `IDR`
+   * - `INR`
+   * - `JPY`
+   * - `MYR`
+   * - `NZD`
+   * - `PHP`
+   * - `SGD`
+   * - `THB`
+   * - `USD`
+   * - `VND`
    */
   currency: Scalars['String'];
   /**
@@ -5011,13 +5359,15 @@ export interface RemunerationRangeInput {
   /**
    * The interval the remuneration amounts are calculated over.
    *
-   * Currently two interval codes are defined:
+   * Currently three interval codes are defined:
    *
    * - `Hour` is used to express hourly rates.
-   * - `Year` is used to express annual salaries or commissions.
+   * - `Month` is used to express monthly salaries.
+   * - `Year` is used to express annual salaries.
    *
    * The specified value must correspond to `RemunerationPackageInput.basisCode`.
    * When `RemunerationPackageInput.basisCode` equals `Hourly`, the `RemunerationRangeInput.intervalCode` must be `Hour`.
+   * When `RemunerationPackageInput.basisCode` equals `Salaried`, the `RemunerationRangeInput.intervalCode` must be `Month` or `Year`.
    * For all other `RemunerationPackageInput.basisCode`s, the `RemunerationRangeInput.intervalCode` must be `Year`.
    */
   intervalCode: Scalars['String'];
@@ -5296,6 +5646,23 @@ export const SeekAttachmentRole = {
 
 export type SeekAttachmentRole =
   (typeof SeekAttachmentRole)[keyof typeof SeekAttachmentRole];
+/** The information required for inferring a SEEK-specific location. */
+export interface SeekPositionAddressInput {
+  /**
+   * The two-letter ISO 3166-1:2013 country code of the address, in uppercase.
+   * Include this field to improve inference if you have access to a reliable country code.
+   * If you only have access to the country name, please provide this within the `formattedAddress` field.
+   */
+  countryCode?: InputMaybe<Scalars['String']>;
+  /** The address of the location as text. For example `60-88 Cremorne St, Cremorne VIC 3121, Australia`. */
+  formattedAddress: Scalars['String'];
+  /**
+   * The postal code of the location.
+   * Include this field to improve inference if you have access to a reliable postal code.
+   */
+  postalCode?: InputMaybe<Scalars['String']>;
+}
+
 /** The source system for the process history item. */
 export interface SeekProcessHistoryItemSource {
   __typename?: 'SeekProcessHistoryItemSource';
@@ -5776,11 +6143,7 @@ export interface UpdatePostingInstructionInput {
    *   If an end date is omitted, the job ad's existing end date will be preserved.
    */
   end?: InputMaybe<Scalars['DateTime']>;
-  /**
-   * The identifier for the `UnstableAdvertisementProduct`.
-   *
-   * Caution: this is currently under development and may be changed or removed without notice.
-   */
+  /** The identifier for the `AdvertisementProduct`. */
   seekAdvertisementProductId?: InputMaybe<Scalars['String']>;
   /**
    * A SEEK ANZ advertisement type code.
@@ -6729,189 +7092,6 @@ export interface WebhookSubscriptionsFilterInput {
   hirerIds?: InputMaybe<Array<Scalars['String']>>;
 }
 
-/**
- * The details of an available advertisement product.
- *
- * Caution: this is currently under development and may be changed or removed without notice.
- */
-export interface UnstableAdvertisementProduct {
-  __typename?: '_unstable_AdvertisementProduct';
-  /** A short phrase intended for display to a user that describes the advertisement product. */
-  description?: Maybe<Scalars['String']>;
-  /** Additional information that is accepted when posting a job ad to configure the features of this advertisement product. */
-  features: UnstableAdvertisementProductFeatures;
-  /**
-   * The identifier of this advertisement product.
-   *
-   * Identifiers may become stale, and should not be stored for long periods.
-   *
-   * It would be appropriate to save an identifier for use in a job ad draft, but not for use as a job ad template.
-   */
-  id: ObjectIdentifier;
-  /**
-   * The name of the advertisement product for displaying to the user.
-   *
-   * This is typically a single word that differentiates the product from other options.
-   */
-  label: Scalars['String'];
-  /** Information about how payment will be made for this advertisement product. */
-  payment?: Maybe<UnstableAdvertisementProductPaymentDetails>;
-  /** Information about how much this advertisement product costs. */
-  price?: Maybe<UnstableAdvertisementProductPriceDetails>;
-  /**
-   * Whether this advertisement product should be preselected or not.
-   *
-   * This field generally indicates the advertisement product that is set in the current state of an existing `PositionProfile`.
-   */
-  selected: Scalars['Boolean'];
-  /** An array of short phrases that tell the user what value this advertisement product provides. */
-  sellingPoints: Array<UnstableAdvertisementProductSellingPoint>;
-}
-
-/** Additional information that is accepted when posting a job ad with this advertisement product. */
-export interface UnstableAdvertisementProductFeatures {
-  __typename?: '_unstable_AdvertisementProductFeatures';
-  /** Additional information related to branding that is accepted when posting a job ad. */
-  branding?: Maybe<UnstableAdvertisementProductFeaturesBranding>;
-  /** Additional information related to search bullet points that is accepted when posting a job ad. */
-  bulletPoints?: Maybe<UnstableAdvertisementProductFeaturesBulletPoints>;
-}
-
-/** Branding features that are included with a product when posting or updating a job ad. */
-export interface UnstableAdvertisementProductFeaturesBranding {
-  __typename?: '_unstable_AdvertisementProductFeaturesBranding';
-  /** Whether the cover image from the provided `AdvertisementBranding` will be visible on the job ad. */
-  coverImage: Scalars['Boolean'];
-  /** Whether the logo from the provided `AdvertisementBranding` will be visible on the job ad. */
-  logo: Scalars['Boolean'];
-}
-
-/** Search bullet points that are included with a product. */
-export interface UnstableAdvertisementProductFeaturesBulletPoints {
-  __typename?: '_unstable_AdvertisementProductFeaturesBulletPoints';
-  /**
-   * How many search bullet points are accepted when posting a job ad.
-   *
-   * This is always a positive integer; if bullet points are not supported, the entire object will be `null`.
-   */
-  limit: Scalars['Int'];
-}
-
-/** The details of how an advertisement product will be paid. */
-export interface UnstableAdvertisementProductPaymentDetails {
-  __typename?: '_unstable_AdvertisementProductPaymentDetails';
-  /**
-   * A plain text summary of how payment will be broken down across payment methods.
-   *
-   * This is a human-readable string intended for displaying in a user interface.
-   */
-  summary: Scalars['String'];
-  /**
-   * An alternate version of `summary` that includes HTML markup.
-   *
-   * This is intended to be parsed and rendered by a web browser for displaying in a user interface.
-   */
-  summaryHtml: Scalars['String'];
-}
-
-/** The details of what will be paid for an advertisement product. */
-export interface UnstableAdvertisementProductPriceDetails {
-  __typename?: '_unstable_AdvertisementProductPriceDetails';
-  /**
-   * The summary of what the price is for an advertisement product.
-   *
-   * This is a human-readable string intended for displaying in a user interface.
-   */
-  summary: Scalars['String'];
-}
-
-/**
- * A selling point of an advertisement product.
- *
- * This details a reason why a user should choose this advertisement product over another.
- */
-export interface UnstableAdvertisementProductSellingPoint {
-  __typename?: '_unstable_AdvertisementProductSellingPoint';
-  /** The textual representation of this selling point for displaying to the user. */
-  text: Scalars['String'];
-}
-
-/**
- * The proposed state of the job ad to be posted or updated.
- *
- * Caution: this is currently under development and may be changed or removed without notice.
- */
-export interface UnstableAdvertisementProductPositionProfileInput {
-  /**
-   * An array of `JobCategory` identifiers.
-   *
-   * This field currently requires a single identifier for a child job category.
-   */
-  jobCategories: Array<Scalars['String']>;
-  /**
-   * The remuneration offered for the position.
-   *
-   * This information allows us to better forecast the performance of the advertisement products.
-   */
-  offeredRemunerationPackage?: InputMaybe<RemunerationPackageInput>;
-  /**
-   * An array of `Location` identifiers.
-   *
-   * Scheme requirements:
-   *
-   * - This field currently requires a single identifier for a location.
-   */
-  positionLocation: Array<Scalars['String']>;
-  /**
-   * Array of identifiers for the `HiringOrganization` that will post or update the job ad.
-   *
-   * The `seekAnz` scheme requires exactly one element.
-   */
-  positionOrganizations: Array<Scalars['String']>;
-  /**
-   * A short phrase describing the position as it would be listed on a business card or in a company directory.
-   *
-   * This field has a maximum length of 80 characters.
-   */
-  positionTitle: Scalars['String'];
-  /**
-   * The identifier of the job ad to be updated.
-   *
-   * It should be omitted when creating a new job.
-   */
-  profileId?: InputMaybe<Scalars['String']>;
-  /**
-   * A SEEK ANZ work type code.
-   *
-   * Currently, four codes are defined:
-   *
-   * - `Casual` indicates a casual position.
-   * - `ContractTemp` indicates a fixed-length contract position.
-   * - `FullTime` indicates a full-time position.
-   * - `PartTime` indicates a part-time position.
-   *
-   * This information allows us to better forecast the performance of the advertisement products.
-   */
-  seekAnzWorkTypeCode?: InputMaybe<Scalars['String']>;
-}
-
-/**
- * A list of advertisement products with additional context that applies to all products.
- *
- * Caution: this is currently under development and may be changed or removed without notice.
- */
-export interface UnstableAdvertisementProducts {
-  __typename?: '_unstable_AdvertisementProducts';
-  /**
-   * Information on this set of available products.
-   *
-   * Typically this is a legal disclaimer.
-   */
-  information?: Maybe<Scalars['String']>;
-  /** The list of advertisement products. */
-  products: Array<UnstableAdvertisementProduct>;
-}
-
 export type AdvertisementBrandingFieldsFragment = {
   __typename?: 'AdvertisementBranding';
   name: string;
@@ -7077,6 +7257,7 @@ export type LocationAttributesFragment = {
   contextualName: string;
   countryCode: string;
   id: { __typename?: 'ObjectIdentifier'; value: string };
+  currencies: Array<{ __typename?: 'Currency'; code: string }>;
 };
 
 export type NestedLocationAttributesFragment = {
@@ -7110,16 +7291,22 @@ export type NestedLocationAttributesFragment = {
             contextualName: string;
             countryCode: string;
             id: { __typename?: 'ObjectIdentifier'; value: string };
+            currencies: Array<{ __typename?: 'Currency'; code: string }>;
           } | null;
           id: { __typename?: 'ObjectIdentifier'; value: string };
+          currencies: Array<{ __typename?: 'Currency'; code: string }>;
         } | null;
         id: { __typename?: 'ObjectIdentifier'; value: string };
+        currencies: Array<{ __typename?: 'Currency'; code: string }>;
       } | null;
       id: { __typename?: 'ObjectIdentifier'; value: string };
+      currencies: Array<{ __typename?: 'Currency'; code: string }>;
     } | null;
     id: { __typename?: 'ObjectIdentifier'; value: string };
+    currencies: Array<{ __typename?: 'Currency'; code: string }>;
   } | null;
   id: { __typename?: 'ObjectIdentifier'; value: string };
+  currencies: Array<{ __typename?: 'Currency'; code: string }>;
 };
 
 export type NearbyLocationsQueryVariables = Exact<{
@@ -7159,16 +7346,22 @@ export type NearbyLocationsQuery = {
               contextualName: string;
               countryCode: string;
               id: { __typename?: 'ObjectIdentifier'; value: string };
+              currencies: Array<{ __typename?: 'Currency'; code: string }>;
             } | null;
             id: { __typename?: 'ObjectIdentifier'; value: string };
+            currencies: Array<{ __typename?: 'Currency'; code: string }>;
           } | null;
           id: { __typename?: 'ObjectIdentifier'; value: string };
+          currencies: Array<{ __typename?: 'Currency'; code: string }>;
         } | null;
         id: { __typename?: 'ObjectIdentifier'; value: string };
+        currencies: Array<{ __typename?: 'Currency'; code: string }>;
       } | null;
       id: { __typename?: 'ObjectIdentifier'; value: string };
+      currencies: Array<{ __typename?: 'Currency'; code: string }>;
     } | null;
     id: { __typename?: 'ObjectIdentifier'; value: string };
+    currencies: Array<{ __typename?: 'Currency'; code: string }>;
   }> | null;
 };
 
@@ -7208,16 +7401,22 @@ export type LocationQuery = {
               contextualName: string;
               countryCode: string;
               id: { __typename?: 'ObjectIdentifier'; value: string };
+              currencies: Array<{ __typename?: 'Currency'; code: string }>;
             } | null;
             id: { __typename?: 'ObjectIdentifier'; value: string };
+            currencies: Array<{ __typename?: 'Currency'; code: string }>;
           } | null;
           id: { __typename?: 'ObjectIdentifier'; value: string };
+          currencies: Array<{ __typename?: 'Currency'; code: string }>;
         } | null;
         id: { __typename?: 'ObjectIdentifier'; value: string };
+        currencies: Array<{ __typename?: 'Currency'; code: string }>;
       } | null;
       id: { __typename?: 'ObjectIdentifier'; value: string };
+      currencies: Array<{ __typename?: 'Currency'; code: string }>;
     } | null;
     id: { __typename?: 'ObjectIdentifier'; value: string };
+    currencies: Array<{ __typename?: 'Currency'; code: string }>;
   } | null;
 };
 
@@ -7263,16 +7462,22 @@ export type SuggestLocationsQuery = {
                 contextualName: string;
                 countryCode: string;
                 id: { __typename?: 'ObjectIdentifier'; value: string };
+                currencies: Array<{ __typename?: 'Currency'; code: string }>;
               } | null;
               id: { __typename?: 'ObjectIdentifier'; value: string };
+              currencies: Array<{ __typename?: 'Currency'; code: string }>;
             } | null;
             id: { __typename?: 'ObjectIdentifier'; value: string };
+            currencies: Array<{ __typename?: 'Currency'; code: string }>;
           } | null;
           id: { __typename?: 'ObjectIdentifier'; value: string };
+          currencies: Array<{ __typename?: 'Currency'; code: string }>;
         } | null;
         id: { __typename?: 'ObjectIdentifier'; value: string };
+        currencies: Array<{ __typename?: 'Currency'; code: string }>;
       } | null;
       id: { __typename?: 'ObjectIdentifier'; value: string };
+      currencies: Array<{ __typename?: 'Currency'; code: string }>;
     };
   }> | null;
 };
@@ -7315,15 +7520,21 @@ export type NearestLocationsQuery = {
               contextualName: string;
               countryCode: string;
               id: { __typename?: 'ObjectIdentifier'; value: string };
+              currencies: Array<{ __typename?: 'Currency'; code: string }>;
             } | null;
             id: { __typename?: 'ObjectIdentifier'; value: string };
+            currencies: Array<{ __typename?: 'Currency'; code: string }>;
           } | null;
           id: { __typename?: 'ObjectIdentifier'; value: string };
+          currencies: Array<{ __typename?: 'Currency'; code: string }>;
         } | null;
         id: { __typename?: 'ObjectIdentifier'; value: string };
+        currencies: Array<{ __typename?: 'Currency'; code: string }>;
       } | null;
       id: { __typename?: 'ObjectIdentifier'; value: string };
+      currencies: Array<{ __typename?: 'Currency'; code: string }>;
     } | null;
     id: { __typename?: 'ObjectIdentifier'; value: string };
+    currencies: Array<{ __typename?: 'Currency'; code: string }>;
   }> | null;
 };
