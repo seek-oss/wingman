@@ -5,7 +5,7 @@ import { defaultArgTypes } from '../../../.storybook/preview';
 import { MockSalaryDetails as Component } from './SalaryDetails.mock';
 
 export default {
-  title: 'Job Posting/Salary/SalaryDetails',
+  title: 'Job Posting/Salary details',
   component: Component,
   args: {
     errors: undefined,
