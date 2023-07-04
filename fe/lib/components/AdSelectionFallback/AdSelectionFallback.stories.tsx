@@ -1,36 +1,21 @@
-import 'braid-design-system/reset';
+import type { Meta, StoryObj } from 'sku/@storybook/react';
 
-import React, { type ComponentProps } from 'react';
+import { defaultArgTypes } from '../../../.storybook/preview';
 
-import {
-  type BraidArgs,
-  defaultArgTypes,
-  defaultArgs,
-} from '../../storybook/controls';
-import { BraidStorybookProvider } from '../../storybook/decorators';
-
-import { AdSelectionFallback as Component } from './AdSelectionFallback';
-import { MockAdSelectionFallback } from './AdSelectionFallback.mock';
+import { MockAdSelectionFallback as Component } from './AdSelectionFallback.mock';
 
 export default {
+  title: 'Job Posting/Ad selection/AdSelectionFallback',
+  component: Component,
   args: {
-    braidThemeName: defaultArgs.braidThemeName,
     id: 'seek-advertisement-type',
   },
   argTypes: {
-    braidThemeName: defaultArgTypes.braidThemeName,
     onSelect: { action: 'onSelect' },
     showStorybookAction: defaultArgTypes.showStorybookAction,
   },
-  component: Component,
-  title: 'Job Posting/Ad selection/AdSelectionFallback',
-};
+} satisfies Meta<typeof Component>;
 
-type Args = ComponentProps<typeof Component> & BraidArgs;
+type Story = StoryObj<typeof Component>;
 
-export const AdSelectionFallback = ({ braidThemeName, ...args }: Args) => (
-  <BraidStorybookProvider braidThemeName={braidThemeName}>
-    <MockAdSelectionFallback {...args} />
-  </BraidStorybookProvider>
-);
-AdSelectionFallback.storyName = 'AdSelectionFallback';
+export const AdSelectionFallback: Story = {};

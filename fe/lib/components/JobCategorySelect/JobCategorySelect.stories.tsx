@@ -1,20 +1,13 @@
-import 'braid-design-system/reset';
+import type { Meta, StoryObj } from 'sku/@storybook/react';
 
-import React, { type ComponentProps } from 'react';
+import { defaultArgTypes, defaultArgs } from '../../../.storybook/preview';
 
-import {
-  type BraidArgs,
-  defaultArgTypes,
-  defaultArgs,
-} from '../../storybook/controls';
-import { BraidStorybookProvider } from '../../storybook/decorators';
-
-import { JobCategorySelect as Component } from './JobCategorySelect';
-import { MockJobCategorySelect } from './JobCategorySelect.mock';
+import { MockJobCategorySelect as Component } from './JobCategorySelect.mock';
 
 export default {
+  title: 'Job Posting/Job categories/JobCategorySelect',
+  component: Component,
   args: {
-    braidThemeName: defaultArgs.braidThemeName,
     id: 'jobCategories',
     label: 'Category',
     message: 'undefined',
@@ -23,7 +16,6 @@ export default {
     tone: defaultArgs.tone,
   },
   argTypes: {
-    braidThemeName: defaultArgTypes.braidThemeName,
     message: {
       control: { type: 'radio' },
       mapping: { undefined, requiredValidation: 'Select a category' },
@@ -32,16 +24,8 @@ export default {
     showStorybookAction: defaultArgTypes.showStorybookAction,
     tone: defaultArgTypes.tone,
   },
-  component: Component,
+} satisfies Meta<typeof Component>;
 
-  title: 'Job Posting/Job categories/JobCategorySelect',
-};
+type Story = StoryObj<typeof Component>;
 
-type Args = ComponentProps<typeof Component> & BraidArgs;
-
-export const JobCategorySelect = ({ braidThemeName, ...args }: Args) => (
-  <BraidStorybookProvider braidThemeName={braidThemeName}>
-    <MockJobCategorySelect {...args} />
-  </BraidStorybookProvider>
-);
-JobCategorySelect.storyName = 'JobCategorySelect';
+export const JobCategorySelect: Story = {};

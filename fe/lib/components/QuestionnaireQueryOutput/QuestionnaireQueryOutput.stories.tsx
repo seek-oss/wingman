@@ -1,13 +1,6 @@
-import 'braid-design-system/reset';
-import React, { type ComponentProps } from 'react';
+import type { Meta, StoryObj } from 'sku/@storybook/react';
 
 import type { FormComponent } from '../../private/questionnaires/types';
-import {
-  type BraidArgs,
-  defaultArgTypes,
-  defaultArgs,
-} from '../../storybook/controls';
-import { BraidStorybookProvider } from '../../storybook/decorators';
 
 import { QuestionnaireQueryOutput as Component } from './QuestionnaireQueryOutput';
 
@@ -40,22 +33,13 @@ const sampleQuestions: FormComponent[] = [
 
 export default {
   args: {
-    braidThemeName: defaultArgs.braidThemeName,
     components: sampleQuestions,
     hirerId: 'seekAnzPublicTest:organization:seek:93WyyF1h',
   },
-  argTypes: {
-    braidThemeName: defaultArgTypes.braidThemeName,
-  },
   component: Component,
   title: 'Job Posting/Questionnaires/QuestionnaireQueryOutput',
-};
+} satisfies Meta<typeof Component>;
 
-type Args = ComponentProps<typeof Component> & BraidArgs;
+type Story = StoryObj<typeof Component>;
 
-export const QuestionnaireQueryOutput = ({ braidThemeName, ...args }: Args) => (
-  <BraidStorybookProvider braidThemeName={braidThemeName}>
-    <Component {...args} />
-  </BraidStorybookProvider>
-);
-QuestionnaireQueryOutput.storyName = 'QuestionnaireQueryOutput';
+export const QuestionnaireQueryOutput: Story = {};
