@@ -7257,6 +7257,7 @@ export type LocationAttributesFragment = {
   contextualName: string;
   countryCode: string;
   id: { __typename?: 'ObjectIdentifier'; value: string };
+  currencies: Array<{ __typename?: 'Currency'; code: string }>;
 };
 
 export type NestedLocationAttributesFragment = {
@@ -7290,16 +7291,22 @@ export type NestedLocationAttributesFragment = {
             contextualName: string;
             countryCode: string;
             id: { __typename?: 'ObjectIdentifier'; value: string };
+            currencies: Array<{ __typename?: 'Currency'; code: string }>;
           } | null;
           id: { __typename?: 'ObjectIdentifier'; value: string };
+          currencies: Array<{ __typename?: 'Currency'; code: string }>;
         } | null;
         id: { __typename?: 'ObjectIdentifier'; value: string };
+        currencies: Array<{ __typename?: 'Currency'; code: string }>;
       } | null;
       id: { __typename?: 'ObjectIdentifier'; value: string };
+      currencies: Array<{ __typename?: 'Currency'; code: string }>;
     } | null;
     id: { __typename?: 'ObjectIdentifier'; value: string };
+    currencies: Array<{ __typename?: 'Currency'; code: string }>;
   } | null;
   id: { __typename?: 'ObjectIdentifier'; value: string };
+  currencies: Array<{ __typename?: 'Currency'; code: string }>;
 };
 
 export type NearbyLocationsQueryVariables = Exact<{
@@ -7339,16 +7346,22 @@ export type NearbyLocationsQuery = {
               contextualName: string;
               countryCode: string;
               id: { __typename?: 'ObjectIdentifier'; value: string };
+              currencies: Array<{ __typename?: 'Currency'; code: string }>;
             } | null;
             id: { __typename?: 'ObjectIdentifier'; value: string };
+            currencies: Array<{ __typename?: 'Currency'; code: string }>;
           } | null;
           id: { __typename?: 'ObjectIdentifier'; value: string };
+          currencies: Array<{ __typename?: 'Currency'; code: string }>;
         } | null;
         id: { __typename?: 'ObjectIdentifier'; value: string };
+        currencies: Array<{ __typename?: 'Currency'; code: string }>;
       } | null;
       id: { __typename?: 'ObjectIdentifier'; value: string };
+      currencies: Array<{ __typename?: 'Currency'; code: string }>;
     } | null;
     id: { __typename?: 'ObjectIdentifier'; value: string };
+    currencies: Array<{ __typename?: 'Currency'; code: string }>;
   }> | null;
 };
 
@@ -7388,16 +7401,22 @@ export type LocationQuery = {
               contextualName: string;
               countryCode: string;
               id: { __typename?: 'ObjectIdentifier'; value: string };
+              currencies: Array<{ __typename?: 'Currency'; code: string }>;
             } | null;
             id: { __typename?: 'ObjectIdentifier'; value: string };
+            currencies: Array<{ __typename?: 'Currency'; code: string }>;
           } | null;
           id: { __typename?: 'ObjectIdentifier'; value: string };
+          currencies: Array<{ __typename?: 'Currency'; code: string }>;
         } | null;
         id: { __typename?: 'ObjectIdentifier'; value: string };
+        currencies: Array<{ __typename?: 'Currency'; code: string }>;
       } | null;
       id: { __typename?: 'ObjectIdentifier'; value: string };
+      currencies: Array<{ __typename?: 'Currency'; code: string }>;
     } | null;
     id: { __typename?: 'ObjectIdentifier'; value: string };
+    currencies: Array<{ __typename?: 'Currency'; code: string }>;
   } | null;
 };
 
@@ -7443,16 +7462,22 @@ export type SuggestLocationsQuery = {
                 contextualName: string;
                 countryCode: string;
                 id: { __typename?: 'ObjectIdentifier'; value: string };
+                currencies: Array<{ __typename?: 'Currency'; code: string }>;
               } | null;
               id: { __typename?: 'ObjectIdentifier'; value: string };
+              currencies: Array<{ __typename?: 'Currency'; code: string }>;
             } | null;
             id: { __typename?: 'ObjectIdentifier'; value: string };
+            currencies: Array<{ __typename?: 'Currency'; code: string }>;
           } | null;
           id: { __typename?: 'ObjectIdentifier'; value: string };
+          currencies: Array<{ __typename?: 'Currency'; code: string }>;
         } | null;
         id: { __typename?: 'ObjectIdentifier'; value: string };
+        currencies: Array<{ __typename?: 'Currency'; code: string }>;
       } | null;
       id: { __typename?: 'ObjectIdentifier'; value: string };
+      currencies: Array<{ __typename?: 'Currency'; code: string }>;
     };
   }> | null;
 };
@@ -7495,15 +7520,21 @@ export type NearestLocationsQuery = {
               contextualName: string;
               countryCode: string;
               id: { __typename?: 'ObjectIdentifier'; value: string };
+              currencies: Array<{ __typename?: 'Currency'; code: string }>;
             } | null;
             id: { __typename?: 'ObjectIdentifier'; value: string };
+            currencies: Array<{ __typename?: 'Currency'; code: string }>;
           } | null;
           id: { __typename?: 'ObjectIdentifier'; value: string };
+          currencies: Array<{ __typename?: 'Currency'; code: string }>;
         } | null;
         id: { __typename?: 'ObjectIdentifier'; value: string };
+        currencies: Array<{ __typename?: 'Currency'; code: string }>;
       } | null;
       id: { __typename?: 'ObjectIdentifier'; value: string };
+      currencies: Array<{ __typename?: 'Currency'; code: string }>;
     } | null;
     id: { __typename?: 'ObjectIdentifier'; value: string };
+    currencies: Array<{ __typename?: 'Currency'; code: string }>;
   }> | null;
 };
