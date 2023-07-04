@@ -247,6 +247,207 @@ export const typeDefs = gql`
   }
 
   """
+  The details of an available advertisement product.
+  """
+  type AdvertisementProduct {
+    """
+    A short phrase intended for display to a user that describes the advertisement product.
+    """
+    description: String
+    """
+    Additional information that is accepted when posting a job ad to configure the features of this advertisement product.
+    """
+    features: AdvertisementProductFeatures!
+    """
+    The identifier of this advertisement product.
+
+    Identifiers may become stale, and should not be stored for long periods.
+
+    It would be appropriate to save an identifier for use in a job ad draft, but not for use as a job ad template.
+    """
+    id: ObjectIdentifier!
+    """
+    The name of the advertisement product for displaying to the user.
+
+    This is typically a single word that differentiates the product from other options.
+    """
+    label: String!
+    """
+    Information about how payment will be made for this advertisement product.
+    """
+    payment: AdvertisementProductPaymentDetails
+    """
+    Information about how much this advertisement product costs.
+    """
+    price: AdvertisementProductPriceDetails
+    """
+    Whether this advertisement product should be preselected or not.
+
+    This field generally indicates the advertisement product that is set in the current state of an existing \`PositionProfile\`.
+    """
+    selected: Boolean!
+    """
+    An array of short phrases that tell the user what value this advertisement product provides.
+    """
+    sellingPoints: [AdvertisementProductSellingPoint!]!
+  }
+
+  """
+  Additional information that is accepted when posting a job ad with this advertisement product.
+  """
+  type AdvertisementProductFeatures {
+    """
+    Additional information related to branding that is accepted when posting a job ad.
+    """
+    branding: AdvertisementProductFeatures_Branding
+    """
+    Additional information related to search bullet points that is accepted when posting a job ad.
+    """
+    searchBulletPoints: AdvertisementProductFeatures_SearchBulletPoints
+  }
+
+  """
+  Branding features that are included with a product when posting or updating a job ad.
+  """
+  type AdvertisementProductFeatures_Branding {
+    """
+    Whether the cover image from the provided \`AdvertisementBranding\` will be visible on the job ad.
+    """
+    coverImageIndicator: Boolean!
+    """
+    Whether the logo from the provided \`AdvertisementBranding\` will be visible on the job ad.
+    """
+    logoIndicator: Boolean!
+  }
+
+  """
+  Search bullet points that are included with a product.
+  """
+  type AdvertisementProductFeatures_SearchBulletPoints {
+    """
+    How many search bullet points are accepted when posting a job ad.
+
+    This is always a positive integer; if bullet points are not supported, the entire object will be \`null\`.
+    """
+    limit: Int!
+  }
+
+  """
+  The details of how an advertisement product will be paid.
+  """
+  type AdvertisementProductPaymentDetails {
+    """
+    A plain text summary of how payment will be broken down across payment methods.
+
+    This is a human-readable string intended for displaying in a user interface.
+    """
+    summary: String!
+    """
+    An alternate version of \`summary\` that includes HTML markup.
+
+    This is intended to be parsed and rendered by a web browser for displaying in a user interface.
+    """
+    summaryHtml: String!
+  }
+
+  """
+  The details of what will be paid for an advertisement product.
+  """
+  type AdvertisementProductPriceDetails {
+    """
+    The summary of what the price is for an advertisement product.
+
+    This is a human-readable string intended for displaying in a user interface.
+    """
+    summary: String!
+  }
+
+  """
+  A selling point of an advertisement product.
+
+  This details a reason why a user should choose this advertisement product over another.
+  """
+  type AdvertisementProductSellingPoint {
+    """
+    The textual representation of this selling point for displaying to the user.
+    """
+    text: String!
+  }
+
+  """
+  A list of advertisement products with additional context that applies to all products.
+  """
+  type AdvertisementProducts {
+    """
+    Information on this set of available products.
+
+    Typically this is a legal disclaimer.
+    """
+    information: String
+    """
+    The list of advertisement products.
+    """
+    products: [AdvertisementProduct!]!
+  }
+
+  """
+  The proposed state of the job ad to be posted or updated.
+  """
+  input AdvertisementProducts_PositionProfileInput {
+    """
+    An array of \`JobCategory\` identifiers.
+
+    This field currently requires a single identifier for a child job category.
+    """
+    jobCategories: [String!]!
+    """
+    The remuneration offered for the position.
+
+    This information allows us to better forecast the performance of the advertisement products.
+    """
+    offeredRemunerationPackage: RemunerationPackageInput
+    """
+    An array of \`Location\` identifiers.
+
+    Scheme requirements:
+
+    - This field currently requires a single identifier for a location.
+    """
+    positionLocation: [String!]!
+    """
+    Array of identifiers for the \`HiringOrganization\` that will post or update the job ad.
+
+    The \`seekAnz\` scheme requires exactly one element.
+    """
+    positionOrganizations: [String!]!
+    """
+    A short phrase describing the position as it would be listed on a business card or in a company directory.
+
+    This field has a maximum length of 80 characters.
+    """
+    positionTitle: String!
+    """
+    The identifier of the job ad to be updated.
+
+    It should be omitted when creating a new job.
+    """
+    profileId: String
+    """
+    A SEEK ANZ work type code.
+
+    Currently, four codes are defined:
+
+    - \`Casual\` indicates a casual position.
+    - \`ContractTemp\` indicates a fixed-length contract position.
+    - \`FullTime\` indicates a full-time position.
+    - \`PartTime\` indicates a part-time position.
+
+    This information allows us to better forecast the performance of the advertisement products.
+    """
+    seekAnzWorkTypeCode: String
+  }
+
+  """
   A question from SEEK's library.
 
   This consists of label text displayed to a user and an input for them to select a response.
@@ -1031,6 +1232,8 @@ export const typeDefs = gql`
     This field exposes up to 10 recent applications submitted by the candidate.
 
     We recommend querying specific applications by their \`CandidateProfile.profileId\`s for the Application Export use case.
+
+    This field is redacted and an empty/filtered list is returned when a candidate or job application is deleted.
     """
     profiles(
       """
@@ -1502,6 +1705,8 @@ export const typeDefs = gql`
     associatedPositionProfile: PositionProfile
     """
     The attachments related to the candidate's profile.
+
+    This field is redacted and an empty list is returned when a candidate or job application is deleted.
     """
     attachments: [Attachment!]!
     """
@@ -1516,6 +1721,8 @@ export const typeDefs = gql`
     candidateSources: [CandidateSource!]!
     """
     The certifications and licenses the candidate holds.
+
+    This field is redacted and an empty list is returned when a candidate or job application is deleted.
     """
     certifications: [Certification!]!
     """
@@ -1524,10 +1731,14 @@ export const typeDefs = gql`
     createDateTime: DateTime!
     """
     The education history of the candidate.
+
+    This field is redacted and an empty list is returned when a candidate or job application is deleted.
     """
     education: [EducationAttendance!]!
     """
     The employment history of the candidate.
+
+    This field is redacted and an empty list is returned when a candidate or job application is deleted.
     """
     employment: [EmployerHistory!]!
     """
@@ -1545,6 +1756,8 @@ export const typeDefs = gql`
     profileId: ObjectIdentifier!
     """
     The skills or competencies of the candidate.
+
+    This field is redacted and an empty list is returned when a candidate or job application is deleted.
     """
     qualifications: [PersonCompetency!]!
     """
@@ -1576,6 +1789,8 @@ export const typeDefs = gql`
     ): CandidateProcessHistoryItemConnection
     """
     The completed candidate submission for the position profile's questionnaire.
+
+    This field is redacted for a deleted candidate or job application.
     """
     seekQuestionnaireSubmission: ApplicationQuestionnaireSubmission
     """
@@ -1774,18 +1989,24 @@ export const typeDefs = gql`
     An array of physical addresses for the person.
 
     The physical addresses are ordered in descending preference.
+
+    This field is redacted and an empty array is returned when a candidate or job application is deleted.
     """
     address: [Address!]!
     """
     An array of email addresses for the person.
 
     The email addresses are ordered in descending preference.
+
+    This field is redacted and an empty array is returned when a candidate or job application is deleted.
     """
     email: [Email!]!
     """
     An array of phone numbers for the person.
 
     The phone numbers are ordered in descending preference.
+
+    This field is redacted and an empty array is returned when a candidate or job application is deleted.
     """
     phone: [Phone!]!
     """
@@ -1844,6 +2065,8 @@ export const typeDefs = gql`
 
   """
   The input parameter for the \`createApplicationQuestionnaire\` mutation.
+
+  This must not exceed 56 KiB in length.
   """
   input CreateApplicationQuestionnaireInput {
     """
@@ -2083,9 +2306,7 @@ export const typeDefs = gql`
     """
     idempotencyId: String!
     """
-    The identifier for the \`UnstableAdvertisementProduct\`.
-
-    Caution: this is currently under development and may be changed or removed without notice.
+    The identifier for the \`AdvertisementProduct\`.
     """
     seekAdvertisementProductId: String
     """
@@ -2304,6 +2525,18 @@ export const typeDefs = gql`
     The subscriber-owned URL where events will be sent to.
     """
     url: String!
+  }
+
+  """
+  A currency supported by the SEEK API.
+
+  This may be used when specifying a price or salary range.
+  """
+  type Currency {
+    """
+    A three-letter ISO 4217 currency code, in uppercase.
+    """
+    code: String!
   }
 
   """
@@ -3103,6 +3336,16 @@ export const typeDefs = gql`
     """
     countryCode: String!
     """
+    A list of currencies used within this location.
+
+    Locations with unsupported currencies will default to a SEEK supported currency.
+
+    At least one currency will be provided.
+
+    As most countries only use a single currency, the first item in the array can be used to preselect the default currency in a job posting flow.
+    """
+    currencies: [Currency!]!
+    """
     The identifier for the \`Location\`.
     """
     id: ObjectIdentifier!
@@ -3151,6 +3394,8 @@ export const typeDefs = gql`
     ): ClosePostedPositionProfilePayload
     """
     Creates a new questionnaire.
+
+    The \`input\` must not exceed 56 KiB in length.
 
     This mutation accepts browser tokens that include the \`mutate:application-questionnaires\` scope.
     """
@@ -3335,10 +3580,16 @@ export const typeDefs = gql`
 
   """
   An opaque identifier for GraphQL objects.
+
+  The \`value\` has a maximum length of 255 characters,
+  and will always be representable with 255 bytes in UTF-8 encoding.
   """
   type ObjectIdentifier {
     """
     The identifier itself.
+
+    This has a maximum length of 255 characters,
+    and will always be representable with 255 bytes in UTF-8 encoding.
     """
     value: String!
   }
@@ -3407,6 +3658,24 @@ export const typeDefs = gql`
   }
 
   """
+  The primary method of payment and the interval in which it is paid for a position.
+  """
+  type PayType {
+    """
+    A code classifying the primary method of payment for a position.
+    """
+    basisCode: String!
+    """
+    A code classifying the interval the remuneration amounts are calculated over.
+    """
+    intervalCode: String!
+    """
+    A human-readable description of the pay type.
+    """
+    label: String!
+  }
+
+  """
   A skill or competency asserted by the candidate.
   """
   type PersonCompetency {
@@ -3422,14 +3691,23 @@ export const typeDefs = gql`
   type PersonName {
     """
     The family name (or surname) of a person, if provided.
+
+    This field is redacted and a null value is returned when a candidate or job application is deleted.
+    This redaction is limited to candidate data objects within SEEK optimized apply.
     """
     family: String
     """
     The formatted name of a person, as it would be written out together.
+
+    This field is redacted and a static 'redacted' text is returned when a candidate or job application is deleted.
+    This redaction is limited to candidate data objects within SEEK optimized apply.
     """
     formattedName: String!
     """
     The given name of a person, if provided.
+
+    This field is redacted and a static 'redacted' text is returned when a candidate or job application is deleted.
+    This redaction is limited to candidate data objects within SEEK optimized apply.
     """
     given: String
   }
@@ -4680,9 +4958,7 @@ export const typeDefs = gql`
     """
     brandingId: String
     """
-    The identifier for the \`UnstableAdvertisementProduct\`.
-
-    Caution: this is currently under development and may be changed or removed without notice.
+    The identifier for the \`AdvertisementProduct\`.
     """
     seekAdvertisementProductId: String
     """
@@ -4709,15 +4985,24 @@ export const typeDefs = gql`
     """
     The three-letter ISO 4217 currency code, in uppercase.
 
-    For the \`seekAnz\` scheme, a single currency is accepted in each location:
+    For the \`seekAnz\` scheme, the following currencies are accepted:
 
-    - \`NZD\` is used by locations in New Zealand.
-      These are locations that have a \`Location.countryCode\` of \`NZ\`.
-
-    - \`GBP\` is used by locations in the UK & Ireland.
-      These are locations that have a \`Location.countryCode\` of \`GB\` or \`IE\`.
-
-    - \`AUD\` is used by all other locations.
+    - \`AUD\`
+    - \`BDT\`
+    - \`CNY\`
+    - \`EUR\`
+    - \`GBP\`
+    - \`HKD\`
+    - \`IDR\`
+    - \`INR\`
+    - \`JPY\`
+    - \`MYR\`
+    - \`NZD\`
+    - \`PHP\`
+    - \`SGD\`
+    - \`THB\`
+    - \`USD\`
+    - \`VND\`
     """
     currency: String!
     """
@@ -4779,13 +5064,15 @@ export const typeDefs = gql`
     """
     The interval the remuneration amounts are calculated over.
 
-    Currently two interval codes are defined:
+    Currently three interval codes are defined:
 
     - \`Hour\` is used to express hourly rates.
+    - \`Month\` is used to express monthly salaries.
     - \`Year\` is used to express annual salaries.
 
     The specified value must correspond to \`RemunerationPackageInput.basisCode\`.
     When \`RemunerationPackageInput.basisCode\` equals \`Hourly\`, the \`RemunerationRangeInput.intervalCode\` must be \`Hour\`.
+    When \`RemunerationPackageInput.basisCode\` equals \`Salaried\`, the \`RemunerationRangeInput.intervalCode\` must be \`Month\` or \`Year\`.
     For all other \`RemunerationPackageInput.basisCode\`s, the \`RemunerationRangeInput.intervalCode\` must be \`Year\`.
     """
     intervalCode: String!
@@ -4804,6 +5091,18 @@ export const typeDefs = gql`
     The value must be greater than 0.
     """
     minimumAmount: RemunerationAmountInput!
+  }
+
+  """
+  The details of the advertisement product for a job ad.
+  """
+  type PostedPositionProfile_AdvertisementProduct {
+    """
+    The name of the advertisement product for displaying to the user.
+
+    This field is for display purposes only and should not be used to determine any features of an ad.
+    """
+    label: String!
   }
 
   """
@@ -4832,6 +5131,12 @@ export const typeDefs = gql`
     The end date of the posting.
     """
     end: DateTime!
+    """
+    A SEEK advertisement product label.
+
+    This field is for display purposes only and should not be used to determine any features of an ad.
+    """
+    seekAdvertisementProduct: PostedPositionProfile_AdvertisementProduct
     """
     A SEEK ANZ advertisement type code.
 
@@ -4944,39 +5249,6 @@ export const typeDefs = gql`
   """
   type Query {
     """
-    The list of advertisement products available to the hirer when posting or updating a job.
-
-    This query accepts browser tokens that include the \`query:ad-products\` scope.
-
-    Caution: this is currently under development and may be changed or removed without notice.
-    """
-    _unstable_advertisementProducts(
-      """
-      The upper limit of advertisement products to return in the list.
-
-      If your user interface can only display a certain number of products,
-      set this limit so that SEEK can provide the most relevant set of products within your constraints.
-      Do not manually truncate the returned list as that may exclude highly relevant products.
-
-      This must be a positive integer that is greater than or equal to 3.
-      Defaults to a unbounded list though expect this to remain within reason;
-      we typically return up to 3 products and have only discussed an increase to 4 in future.
-      """
-      limit: Int
-      """
-      The new state of the job ad to be created or updated.
-      """
-      positionProfile: _unstable_AdvertisementProduct_PositionProfileInput!
-      """
-      The identifier of an advertisement product that has been previously selected.
-
-      If this product is still available, then one of the advertisement products in the response will have its selected flag set to true.
-
-      This is intended to accept values that have been saved in a draft state and may now have become stale.
-      """
-      preselectedAdvertisementProductId: String
-    ): _unstable_AdvertisementProducts!
-    """
     The advertisement branding for the given \`id\`.
 
     This query accepts browser tokens that include the \`query:advertisement-brandings\` scope.
@@ -5033,6 +5305,37 @@ export const typeDefs = gql`
       """
       last: Int
     ): AdvertisementBrandingsConnection!
+    """
+    The list of advertisement products available to the hirer when posting or updating a job.
+
+    This query accepts browser tokens that include the \`query:ad-products\` scope.
+    """
+    advertisementProducts(
+      """
+      The upper limit of advertisement products to return in the list.
+
+      If your user interface can only display a certain number of products,
+      set this limit so that SEEK can provide the most relevant set of products within your constraints.
+      Do not manually truncate the returned list as that may exclude highly relevant products.
+
+      This must be a positive integer that is greater than or equal to 3.
+      Defaults to a unbounded list though expect this to remain within reason;
+      we typically return up to 3 products and have only discussed an increase to 4 in future.
+      """
+      limit: Int
+      """
+      The new state of the job ad to be created or updated.
+      """
+      positionProfile: AdvertisementProducts_PositionProfileInput!
+      """
+      The identifier of an advertisement product that has been previously selected.
+
+      If this product is still available, then one of the advertisement products in the response will have its selected flag set to true.
+
+      This is intended to accept values that have been saved in a draft state and may now have become stale.
+      """
+      selectedAdvertisementProductId: String
+    ): AdvertisementProducts!
     """
     An array of suggested application questions for the provided partial \`PositionProfile\` in decreasing order of relevance.
 
@@ -5102,6 +5405,26 @@ export const typeDefs = gql`
       """
       id: String!
     ): CandidateProfile
+    """
+    A list of currencies.
+
+    These may be presented to a hirer for selection in a job posting flow.
+    A dropdown is recommended.
+
+    This query accepts browser tokens that include the \`query:ontologies\` scope.
+    """
+    currencies(
+      """
+      Determines the list of currencies to be provided.
+
+      Currently only two codes are defined:
+
+      - \`All\` will provide every currency that SEEK supports in a job posting flow.
+
+      - \`SEEKMarket\` will provide currencies associated with the markets SEEK is active in.
+      """
+      usageTypeCode: String!
+    ): [Currency!]!
     """
     The event for the given \`id\`.
     """
@@ -5227,6 +5550,29 @@ export const typeDefs = gql`
       schemeId: String!
     ): HiringOrganizationsConnection!
     """
+    A location inferred from the provided address details.
+
+    SEEK will attempt to match the address details to a location in our hierarchy on a best-effort basis.
+
+    This query accepts browser tokens that include the \`query:ontologies\` scope.
+    """
+    inferLocation(
+      """
+      The address details to infer a SEEK location from.
+      """
+      address: SeekPositionAddressInput!
+      """
+      The identifier for the \`HiringOrganization\` used to provide location suggestions weighted by the hirer's SEEK-configured domicile.
+      """
+      hirerId: String
+      """
+      The scheme for the location dataset to query.
+
+      Currently, only \`seekAnz\` and \`seekAnzPublicTest\` are supported.
+      """
+      schemeId: String!
+    ): Location
+    """
     A list of top-level job categories for the provided scheme.
 
     This query accepts browser tokens that include the \`query:ontologies\` scope.
@@ -5310,8 +5656,6 @@ export const typeDefs = gql`
       first: Int
       """
       The identifier for the \`HiringOrganization\` used to provide location suggestions weighted by the hirer's SEEK-configured domicile.
-
-      This field is ignored when its scheme doesn't match \`schemeId\`.
       """
       hirerId: String
       """
@@ -5368,6 +5712,22 @@ export const typeDefs = gql`
       """
       schemeId: String!
     ): [Location!]
+    """
+    A list of pay types that specify the method and interval of a payment.
+
+    These may be presented to a hirer for selection in a job posting flow.
+    A dropdown or radio group is recommended.
+
+    This query accepts browser tokens that include the \`query:ontologies\` scope.
+    """
+    payTypes(
+      """
+      The scheme of the pay types.
+
+      Currently, only \`seekAnz\` and \`seekAnzPublicTest\` are supported.
+      """
+      schemeId: String!
+    ): [PayType!]!
     """
     A position opening with the given \`id\`.
     """
@@ -5725,15 +6085,24 @@ export const typeDefs = gql`
     """
     The three-letter ISO 4217 currency code, in uppercase.
 
-    For the \`seekAnz\` scheme, a single currency is accepted in each location:
+    For the \`seekAnz\` scheme, the following currencies are accepted:
 
-    - \`NZD\` is used by locations in New Zealand.
-      These are locations that have a \`Location.countryCode\` of \`NZ\`.
-
-    - \`GBP\` is used by locations in the UK & Ireland.
-      These are locations that have a \`Location.countryCode\` of \`GB\` or \`IE\`.
-
-    - \`AUD\` is used by all other locations.
+    - \`AUD\`
+    - \`BDT\`
+    - \`CNY\`
+    - \`EUR\`
+    - \`GBP\`
+    - \`HKD\`
+    - \`IDR\`
+    - \`INR\`
+    - \`JPY\`
+    - \`MYR\`
+    - \`NZD\`
+    - \`PHP\`
+    - \`SGD\`
+    - \`THB\`
+    - \`USD\`
+    - \`VND\`
     """
     currency: String!
     """
@@ -5866,13 +6235,15 @@ export const typeDefs = gql`
     """
     The interval the remuneration amounts are calculated over.
 
-    Currently two interval codes are defined:
+    Currently three interval codes are defined:
 
     - \`Hour\` is used to express hourly rates.
-    - \`Year\` is used to express annual salaries or commissions.
+    - \`Month\` is used to express monthly salaries.
+    - \`Year\` is used to express annual salaries.
 
     The specified value must correspond to \`RemunerationPackageInput.basisCode\`.
     When \`RemunerationPackageInput.basisCode\` equals \`Hourly\`, the \`RemunerationRangeInput.intervalCode\` must be \`Hour\`.
+    When \`RemunerationPackageInput.basisCode\` equals \`Salaried\`, the \`RemunerationRangeInput.intervalCode\` must be \`Month\` or \`Year\`.
     For all other \`RemunerationPackageInput.basisCode\`s, the \`RemunerationRangeInput.intervalCode\` must be \`Year\`.
     """
     intervalCode: String!
@@ -6224,6 +6595,27 @@ export const typeDefs = gql`
     A document supporting a position-specific selection criteria.
     """
     SELECTION_CRITERIA @deprecated(reason: "Use Attachment.seekRoleCode")
+  }
+
+  """
+  The information required for inferring a SEEK-specific location.
+  """
+  input SeekPositionAddressInput {
+    """
+    The two-letter ISO 3166-1:2013 country code of the address, in uppercase.
+    Include this field to improve inference if you have access to a reliable country code.
+    If you only have access to the country name, please provide this within the \`formattedAddress\` field.
+    """
+    countryCode: String
+    """
+    The address of the location as text. For example \`60-88 Cremorne St, Cremorne VIC 3121, Australia\`.
+    """
+    formattedAddress: String!
+    """
+    The postal code of the location.
+    Include this field to improve inference if you have access to a reliable postal code.
+    """
+    postalCode: String
   }
 
   """
@@ -6815,9 +7207,7 @@ export const typeDefs = gql`
     """
     end: DateTime
     """
-    The identifier for the \`UnstableAdvertisementProduct\`.
-
-    Caution: this is currently under development and may be changed or removed without notice.
+    The identifier for the \`AdvertisementProduct\`.
     """
     seekAdvertisementProductId: String
     """
@@ -7983,212 +8373,5 @@ export const typeDefs = gql`
     If this is not provided then both hirer-filtered and unfiltered subscriptions will be returned.
     """
     hirerIds: [String!]
-  }
-
-  """
-  The details of an available advertisement product.
-
-  Caution: this is currently under development and may be changed or removed without notice.
-  """
-  type _unstable_AdvertisementProduct {
-    """
-    A short phrase intended for display to a user that describes the advertisement product.
-    """
-    description: String
-    """
-    Additional information that is accepted when posting a job ad to configure the features of this advertisement product.
-    """
-    features: _unstable_AdvertisementProductFeatures!
-    """
-    The identifier of this advertisement product.
-
-    Identifiers may become stale, and should not be stored for long periods.
-
-    It would be appropriate to save an identifier for use in a job ad draft, but not for use as a job ad template.
-    """
-    id: ObjectIdentifier!
-    """
-    The name of the advertisement product for displaying to the user.
-
-    This is typically a single word that differentiates the product from other options.
-    """
-    label: String!
-    """
-    Information about how payment will be made for this advertisement product.
-    """
-    payment: _unstable_AdvertisementProductPaymentDetails
-    """
-    Information about how much this advertisement product costs.
-    """
-    price: _unstable_AdvertisementProductPriceDetails
-    """
-    Whether this advertisement product should be preselected or not.
-
-    This field generally indicates the advertisement product that is set in the current state of an existing \`PositionProfile\`.
-    """
-    selected: Boolean!
-    """
-    An array of short phrases that tell the user what value this advertisement product provides.
-    """
-    sellingPoints: [_unstable_AdvertisementProductSellingPoint!]!
-  }
-
-  """
-  Additional information that is accepted when posting a job ad with this advertisement product.
-  """
-  type _unstable_AdvertisementProductFeatures {
-    """
-    Additional information related to branding that is accepted when posting a job ad.
-    """
-    branding: _unstable_AdvertisementProductFeaturesBranding
-    """
-    Additional information related to search bullet points that is accepted when posting a job ad.
-    """
-    bulletPoints: _unstable_AdvertisementProductFeaturesBulletPoints
-  }
-
-  """
-  Branding features that are included with a product when posting or updating a job ad.
-  """
-  type _unstable_AdvertisementProductFeaturesBranding {
-    """
-    Whether the cover image from the provided \`AdvertisementBranding\` will be visible on the job ad.
-    """
-    coverImage: Boolean!
-    """
-    Whether the logo from the provided \`AdvertisementBranding\` will be visible on the job ad.
-    """
-    logo: Boolean!
-  }
-
-  """
-  Search bullet points that are included with a product.
-  """
-  type _unstable_AdvertisementProductFeaturesBulletPoints {
-    """
-    How many search bullet points are accepted when posting a job ad.
-
-    This is always a positive integer; if bullet points are not supported, the entire object will be \`null\`.
-    """
-    limit: Int!
-  }
-
-  """
-  The details of how an advertisement product will be paid.
-  """
-  type _unstable_AdvertisementProductPaymentDetails {
-    """
-    A plain text summary of how payment will be broken down across payment methods.
-
-    This is a human-readable string intended for displaying in a user interface.
-    """
-    summary: String!
-    """
-    An alternate version of \`summary\` that includes HTML markup.
-
-    This is intended to be parsed and rendered by a web browser for displaying in a user interface.
-    """
-    summaryHtml: String!
-  }
-
-  """
-  The details of what will be paid for an advertisement product.
-  """
-  type _unstable_AdvertisementProductPriceDetails {
-    """
-    The summary of what the price is for an advertisement product.
-
-    This is a human-readable string intended for displaying in a user interface.
-    """
-    summary: String!
-  }
-
-  """
-  A selling point of an advertisement product.
-
-  This details a reason why a user should choose this advertisement product over another.
-  """
-  type _unstable_AdvertisementProductSellingPoint {
-    """
-    The textual representation of this selling point for displaying to the user.
-    """
-    text: String!
-  }
-
-  """
-  The proposed state of the job ad to be posted or updated.
-
-  Caution: this is currently under development and may be changed or removed without notice.
-  """
-  input _unstable_AdvertisementProduct_PositionProfileInput {
-    """
-    An array of \`JobCategory\` identifiers.
-
-    This field currently requires a single identifier for a child job category.
-    """
-    jobCategories: [String!]!
-    """
-    The remuneration offered for the position.
-
-    This information allows us to better forecast the performance of the advertisement products.
-    """
-    offeredRemunerationPackage: RemunerationPackageInput
-    """
-    An array of \`Location\` identifiers.
-
-    Scheme requirements:
-
-    - This field currently requires a single identifier for a location.
-    """
-    positionLocation: [String!]!
-    """
-    Array of identifiers for the \`HiringOrganization\` that will post or update the job ad.
-
-    The \`seekAnz\` scheme requires exactly one element.
-    """
-    positionOrganizations: [String!]!
-    """
-    A short phrase describing the position as it would be listed on a business card or in a company directory.
-
-    This field has a maximum length of 80 characters.
-    """
-    positionTitle: String!
-    """
-    The identifier of the job ad to be updated.
-
-    It should be omitted when creating a new job.
-    """
-    profileId: String
-    """
-    A SEEK ANZ work type code.
-
-    Currently, four codes are defined:
-
-    - \`Casual\` indicates a casual position.
-    - \`ContractTemp\` indicates a fixed-length contract position.
-    - \`FullTime\` indicates a full-time position.
-    - \`PartTime\` indicates a part-time position.
-
-    This information allows us to better forecast the performance of the advertisement products.
-    """
-    seekAnzWorkTypeCode: String
-  }
-
-  """
-  A list of advertisement products with additional context that applies to all products.
-
-  Caution: this is currently under development and may be changed or removed without notice.
-  """
-  type _unstable_AdvertisementProducts {
-    """
-    Information on this set of available products.
-
-    Typically this is a legal disclaimer.
-    """
-    information: String
-    """
-    The list of advertisement products.
-    """
-    products: [_unstable_AdvertisementProduct!]!
   }
 `;
