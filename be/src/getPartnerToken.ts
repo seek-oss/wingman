@@ -16,6 +16,7 @@ export type GetPartnerToken<T = string> = (
 export interface RetrieveRequest {
   authorization?: string;
   hirerId?: string;
+  'accept-language'?: string;
 }
 
 const RetrieveRequestBody = t.Record({
