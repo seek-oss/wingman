@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 8.1.0
+
+### Minor Changes
+
+- Use sku 12 ([#947](https://github.com/seek-oss/wingman/pull/947))
+
 ## 8.0.1
 
 ### Patch Changes
