@@ -22,24 +22,16 @@ type LegacySalaryCurrency = (typeof SALARY_CURRENCIES)['legacy'][number];
 
 export type SalaryCurrency = ActiveSalaryCurrency | LegacySalaryCurrency;
 
-export type SalaryBasis = 'Hourly' | 'Salaried' | 'SalariedPlusCommission';
-
-export type SalaryInterval = 'Hour' | 'Month' | 'Year';
-
 export interface SalaryError {
   description?: { message: string };
   maximumAmount?: { message: string };
   minimumAmount?: { message: string };
 }
 
-interface SalaryCodes {
-  basisCode: SalaryBasis;
-  intervalCode: SalaryInterval;
-}
-
-export interface PayTypeChange extends SalaryCodes {
+export interface PayTypeChange {
   key: 'payType';
-  payType: PayType;
+  basisCode: string;
+  intervalCode: string;
 }
 
 export interface PayRangeChange {
@@ -56,31 +48,6 @@ export interface SalaryDescriptionChange {
   key: 'description';
   description: string;
 }
-
-export type PayType =
-  | 'Hourly rate'
-  | 'Monthly salary'
-  | 'Annual salary'
-  | 'Annual plus commission';
-
-export const payTypes: Record<PayType, SalaryCodes> = {
-  'Hourly rate': {
-    basisCode: 'Hourly',
-    intervalCode: 'Hour',
-  },
-  'Monthly salary': {
-    basisCode: 'Salaried',
-    intervalCode: 'Month',
-  },
-  'Annual salary': {
-    basisCode: 'Salaried',
-    intervalCode: 'Year',
-  },
-  'Annual plus commission': {
-    basisCode: 'SalariedPlusCommission',
-    intervalCode: 'Year',
-  },
-};
 
 /**
  * TODO: replace this with `Location.currencies` from the SEEK API.

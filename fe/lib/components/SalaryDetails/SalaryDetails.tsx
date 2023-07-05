@@ -1,9 +1,11 @@
+import { type ApolloClient, useQuery } from '@apollo/client';
 import {
   Box,
   Column,
   Columns,
   Dropdown,
   Heading,
+  Loader,
   RadioGroup,
   RadioItem,
   Stack,
@@ -12,16 +14,23 @@ import {
 } from 'braid-design-system';
 import React, { useEffect, useId, useState } from 'react';
 
+import type {
+  CurrenciesQuery,
+  CurrenciesQueryVariables,
+  PayType,
+  PayTypesQuery,
+  PayTypesQueryVariables,
+} from '../../types/seekApi.graphql';
+
+import { CURRENCIES, PAY_TYPES } from './queries';
 import {
   type PayRangeChange,
-  type PayType,
   type PayTypeChange,
   SALARY_CURRENCIES,
   type SalaryCurrency,
   type SalaryCurrencyChange,
   type SalaryDescriptionChange,
   type SalaryError,
-  payTypes,
 } from './types';
 import {
   validateDescription,
@@ -34,12 +43,14 @@ import * as styles from './styles.css';
 export const MAX_CHAR_LIMIT = 50;
 
 export interface SalaryDetailsProps {
+  client: ApolloClient<unknown>;
   errors?: SalaryError;
   initialCurrency?: SalaryCurrency;
   initialDescription?: string;
   initialMaximumAmount?: string;
   initialMinimumAmount?: string;
-  initialPayType?: PayType;
+  initialBasisCode?: string;
+  initialIntervalCode?: string;
   onBlur: (
     item:
       | PayRangeChange
@@ -47,6 +58,7 @@ export interface SalaryDetailsProps {
       | SalaryCurrencyChange
       | SalaryDescriptionChange,
   ) => void;
+  schemeId: string;
 }
 
 function useEffectfulState<T>(initialState: T) {
@@ -62,21 +74,44 @@ function useEffectfulState<T>(initialState: T) {
 }
 
 export const SalaryDetails = ({
+  client,
   errors,
   initialCurrency = SALARY_CURRENCIES.default,
   initialDescription = '',
   initialMaximumAmount = '',
   initialMinimumAmount = '',
-  initialPayType = 'Annual salary',
+  initialBasisCode = 'Salaried',
+  initialIntervalCode = 'Year',
   onBlur,
+  schemeId,
 }: SalaryDetailsProps) => {
   const id = useId();
+
+  const { data: payTypesData, loading: payTypesLoading } = useQuery<
+    PayTypesQuery,
+    PayTypesQueryVariables
+  >(PAY_TYPES, {
+    client,
+    fetchPolicy: 'cache-first',
+    variables: { schemeId },
+  });
+
+  const { data: currenciesData, loading: currenciesLoading } = useQuery<
+    CurrenciesQuery,
+    CurrenciesQueryVariables
+  >(CURRENCIES, {
+    client,
+    fetchPolicy: 'cache-first',
+    variables: { usageTypeCode: 'All' },
+  });
 
   const [currency, setCurrency] = useEffectfulState(initialCurrency);
   const [description, setDescription] = useEffectfulState(initialDescription);
   const [max, setMax] = useEffectfulState(initialMaximumAmount);
   const [min, setMin] = useEffectfulState(initialMinimumAmount);
-  const [payType, setPayType] = useEffectfulState<PayType>(initialPayType);
+  const [payType, setPayType] = useEffectfulState(
+    `${initialBasisCode}.${initialIntervalCode}`,
+  );
 
   // We validate `blurredMax` only after a user has tabbed off the text field
   const [blurredMax, setBlurredMax] = useEffectfulState(initialMaximumAmount);
@@ -87,6 +122,23 @@ export const SalaryDetails = ({
     min: validateMinAmount(min, errors),
   };
 
+  if (
+    payTypesLoading ||
+    currenciesLoading ||
+    payTypesData === undefined ||
+    currenciesData === undefined
+  ) {
+    return <Loader />;
+  }
+
+  const payTypes = payTypesData.payTypes.reduce<Record<string, PayType>>(
+    (acc, data) => ({
+      ...acc,
+      [`${data.basisCode}.${data.intervalCode}`]: data,
+    }),
+    {},
+  );
+
   return (
     <Stack space="xlarge">
       <Heading level="3">Pay details</Heading>
@@ -96,20 +148,21 @@ export const SalaryDetails = ({
           aria-label="Pay type"
           id={`${id}-pay-type`}
           onChange={(event) => {
-            const value = event.currentTarget.value as PayType;
+            const value = event.currentTarget.value;
+            const [basisCode, intervalCode] = value.split('.');
 
             setPayType(value);
             onBlur({
-              ...payTypes[value],
               key: 'payType',
-              payType: value,
+              basisCode,
+              intervalCode,
             });
           }}
           size="small"
           value={payType}
         >
-          {Object.keys(payTypes).map((key) => (
-            <RadioItem key={key} label={key} value={key} />
+          {Object.entries(payTypes).map(([key, data]) => (
+            <RadioItem key={key} label={data.label} value={key} />
           ))}
         </RadioGroup>
       </Stack>
