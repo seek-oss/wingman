@@ -5,7 +5,6 @@ import {
   Columns,
   Dropdown,
   Heading,
-  Loader,
   RadioGroup,
   RadioItem,
   Stack,
@@ -87,7 +86,7 @@ export const SalaryDetails = ({
 }: SalaryDetailsProps) => {
   const id = useId();
 
-  const { data: payTypesData, loading: payTypesLoading } = useQuery<
+  const { data: payTypesData } = useQuery<
     PayTypesQuery,
     PayTypesQueryVariables
   >(PAY_TYPES, {
@@ -96,7 +95,7 @@ export const SalaryDetails = ({
     variables: { schemeId },
   });
 
-  const { data: currenciesData, loading: currenciesLoading } = useQuery<
+  const { data: currenciesData } = useQuery<
     CurrenciesQuery,
     CurrenciesQueryVariables
   >(CURRENCIES, {
@@ -122,22 +121,14 @@ export const SalaryDetails = ({
     min: validateMinAmount(min, errors),
   };
 
-  if (
-    payTypesLoading ||
-    currenciesLoading ||
-    payTypesData === undefined ||
-    currenciesData === undefined
-  ) {
-    return <Loader />;
-  }
-
-  const payTypes = payTypesData.payTypes.reduce<Record<string, PayType>>(
-    (acc, data) => ({
-      ...acc,
-      [`${data.basisCode}.${data.intervalCode}`]: data,
-    }),
-    {},
-  );
+  const payTypes =
+    payTypesData?.payTypes.reduce<Record<string, PayType>>(
+      (acc, data) => ({
+        ...acc,
+        [`${data.basisCode}.${data.intervalCode}`]: data,
+      }),
+      {},
+    ) ?? {};
 
   return (
     <Stack space="xlarge">
@@ -189,7 +180,7 @@ export const SalaryDetails = ({
               }}
               value={currency}
             >
-              {currenciesData.currencies.map(({ code }) => (
+              {(currenciesData?.currencies ?? []).map(({ code }) => (
                 <option key={code}>{code}</option>
               ))}
             </Dropdown>
@@ -263,7 +254,7 @@ export const SalaryDetails = ({
               display="flex"
             >
               <Text size="small">
-                per {payTypes[payType].intervalCode.toLowerCase()}
+                per {payTypes[payType]?.intervalCode.toLowerCase()}
               </Text>
             </Box>
           </Column>
