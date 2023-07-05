@@ -22,10 +22,11 @@ const createExecutor =
   async ({ document, variables, context }) => {
     // The shape of context depends on framework and Apollo Server configuration.
     // We perform runtime validation in the `createContext` function.
+    const requestContext = context as RetrieveRequest;
     const partnerToken =
       typeof context === 'undefined'
         ? undefined
-        : await getPartnerToken(context as RetrieveRequest);
+        : await getPartnerToken(requestContext);
 
     const authHeaders: Record<string, string> =
       typeof partnerToken === 'undefined'
@@ -42,6 +43,11 @@ const createExecutor =
         ...authHeaders,
         'Content-Type': 'application/json',
         'User-Agent': userAgent,
+        ...(requestContext
+          ? {
+              'Accept-Language': requestContext['accept-language'],
+            }
+          : {}),
       },
       method: 'POST',
     });

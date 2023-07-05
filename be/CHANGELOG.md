@@ -1,5 +1,11 @@
 # wingman-be
 
+## 0.6.1
+
+### Patch Changes
+
+- Pass Accept-Language header to SEEK API ([#957](https://github.com/seek-oss/wingman/pull/957))
+
 ## 0.6.0
 
 ### Minor Changes
