@@ -41,8 +41,8 @@ import * as styles from './styles.css';
 export const MAX_CHAR_LIMIT = 50;
 
 export interface SalaryDetailsProps {
-  client: ApolloClient<unknown>;
-  currencyUsageTypeCode?: string;
+  client?: ApolloClient<unknown>;
+  currencyUsageTypeCode?: 'SEEKMarket' | 'All';
   errors?: SalaryError;
   initialCurrency?: string;
   initialDescription?: string;

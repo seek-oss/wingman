@@ -39,13 +39,12 @@ const buildRemunerationPackageInput = (remuneration) => ({
 
 const PostingForm = () => {
   const [remuneration, setRemuneration] = useState({
-    basisCode: '',
+    basisCode: 'Hourly',
     currency: 'AUD',
     description: '',
-    intervalCode: '',
+    intervalCode: 'Hour',
     maximumAmount: null,
     minimumAmount: '',
-    payType: '',
   });
 
   const onBlur = (item) => {
@@ -53,9 +52,8 @@ const PostingForm = () => {
       case 'payType':
         setRemuneration({
           ...remuneration,
-          basis: item.basis,
-          interval: item.interval,
-          payType: item.payType,
+          basisCode: item.basisCode,
+          intervalCode: item.intervalCode,
         });
         break;
 
@@ -91,7 +89,7 @@ const PostingForm = () => {
 
   return (
     <div>
-      <SalaryDetails initialCurrency="AUD" onBlur={onBlur}>
+      <SalaryDetails initialCurrency="AUD" onBlur={onBlur} schemeId="seekAnz">
     </div>
   );
 };
