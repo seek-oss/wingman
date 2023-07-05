@@ -23,14 +23,12 @@ import type {
 } from '../../types/seekApi.graphql';
 
 import { CURRENCIES, PAY_TYPES } from './queries';
-import {
-  type PayRangeChange,
-  type PayTypeChange,
-  SALARY_CURRENCIES,
-  type SalaryCurrency,
-  type SalaryCurrencyChange,
-  type SalaryDescriptionChange,
-  type SalaryError,
+import type {
+  PayRangeChange,
+  PayTypeChange,
+  SalaryCurrencyChange,
+  SalaryDescriptionChange,
+  SalaryError,
 } from './types';
 import {
   validateDescription,
@@ -44,8 +42,9 @@ export const MAX_CHAR_LIMIT = 50;
 
 export interface SalaryDetailsProps {
   client: ApolloClient<unknown>;
+  currencyUsageTypeCode?: string;
   errors?: SalaryError;
-  initialCurrency?: SalaryCurrency;
+  initialCurrency?: string;
   initialDescription?: string;
   initialMaximumAmount?: string;
   initialMinimumAmount?: string;
@@ -75,8 +74,9 @@ function useEffectfulState<T>(initialState: T) {
 
 export const SalaryDetails = ({
   client,
+  currencyUsageTypeCode = 'SEEKMarket',
   errors,
-  initialCurrency = SALARY_CURRENCIES.default,
+  initialCurrency = 'AUD',
   initialDescription = '',
   initialMaximumAmount = '',
   initialMinimumAmount = '',
@@ -102,7 +102,7 @@ export const SalaryDetails = ({
   >(CURRENCIES, {
     client,
     fetchPolicy: 'cache-first',
-    variables: { usageTypeCode: 'All' },
+    variables: { usageTypeCode: currencyUsageTypeCode },
   });
 
   const [currency, setCurrency] = useEffectfulState(initialCurrency);
@@ -180,7 +180,7 @@ export const SalaryDetails = ({
               aria-label="Currency"
               id={`${id}-currency`}
               onChange={(event) => {
-                const value = event.currentTarget.value as SalaryCurrency;
+                const value = event.currentTarget.value;
                 setCurrency(value);
                 onBlur({
                   key: 'currency',
@@ -189,7 +189,7 @@ export const SalaryDetails = ({
               }}
               value={currency}
             >
-              {SALARY_CURRENCIES.active.map((code) => (
+              {currenciesData.currencies.map(({ code }) => (
                 <option key={code}>{code}</option>
               ))}
             </Dropdown>
