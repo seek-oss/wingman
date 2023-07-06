@@ -7538,3 +7538,24 @@ export type NearestLocationsQuery = {
     currencies: Array<{ __typename?: 'Currency'; code: string }>;
   }> | null;
 };
+
+export type PayTypesQueryVariables = Exact<{
+  schemeId: Scalars['String'];
+}>;
+
+export type PayTypesQuery = {
+  payTypes: Array<{
+    __typename?: 'PayType';
+    basisCode: string;
+    intervalCode: string;
+    label: string;
+  }>;
+};
+
+export type CurrenciesQueryVariables = Exact<{
+  usageTypeCode: Scalars['String'];
+}>;
+
+export type CurrenciesQuery = {
+  currencies: Array<{ __typename?: 'Currency'; code: string }>;
+};

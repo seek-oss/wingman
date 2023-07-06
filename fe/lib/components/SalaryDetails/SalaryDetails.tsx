@@ -1,3 +1,4 @@
+import { type ApolloClient, useQuery } from '@apollo/client';
 import {
   Box,
   Column,
@@ -12,16 +13,21 @@ import {
 } from 'braid-design-system';
 import React, { useEffect, useId, useState } from 'react';
 
-import {
-  type PayRangeChange,
-  type PayType,
-  type PayTypeChange,
-  SALARY_CURRENCIES,
-  type SalaryCurrency,
-  type SalaryCurrencyChange,
-  type SalaryDescriptionChange,
-  type SalaryError,
-  payTypes,
+import type {
+  CurrenciesQuery,
+  CurrenciesQueryVariables,
+  PayType,
+  PayTypesQuery,
+  PayTypesQueryVariables,
+} from '../../types/seekApi.graphql';
+
+import { CURRENCIES, PAY_TYPES } from './queries';
+import type {
+  PayRangeChange,
+  PayTypeChange,
+  SalaryCurrencyChange,
+  SalaryDescriptionChange,
+  SalaryError,
 } from './types';
 import {
   validateDescription,
@@ -34,12 +40,15 @@ import * as styles from './styles.css';
 export const MAX_CHAR_LIMIT = 50;
 
 export interface SalaryDetailsProps {
+  client?: ApolloClient<unknown>;
+  currencyUsageTypeCode?: 'SEEKMarket' | 'All';
   errors?: SalaryError;
-  initialCurrency?: SalaryCurrency;
+  initialCurrency?: string;
   initialDescription?: string;
   initialMaximumAmount?: string;
   initialMinimumAmount?: string;
-  initialPayType?: PayType;
+  initialBasisCode?: string;
+  initialIntervalCode?: string;
   onBlur: (
     item:
       | PayRangeChange
@@ -47,6 +56,7 @@ export interface SalaryDetailsProps {
       | SalaryCurrencyChange
       | SalaryDescriptionChange,
   ) => void;
+  schemeId: string;
 }
 
 function useEffectfulState<T>(initialState: T) {
@@ -62,21 +72,45 @@ function useEffectfulState<T>(initialState: T) {
 }
 
 export const SalaryDetails = ({
+  client,
+  currencyUsageTypeCode = 'SEEKMarket',
   errors,
-  initialCurrency = SALARY_CURRENCIES.default,
+  initialCurrency = 'AUD',
   initialDescription = '',
   initialMaximumAmount = '',
   initialMinimumAmount = '',
-  initialPayType = 'Annual salary',
+  initialBasisCode = 'Salaried',
+  initialIntervalCode = 'Year',
   onBlur,
+  schemeId,
 }: SalaryDetailsProps) => {
   const id = useId();
+
+  const { data: payTypesData } = useQuery<
+    PayTypesQuery,
+    PayTypesQueryVariables
+  >(PAY_TYPES, {
+    client,
+    fetchPolicy: 'cache-first',
+    variables: { schemeId },
+  });
+
+  const { data: currenciesData } = useQuery<
+    CurrenciesQuery,
+    CurrenciesQueryVariables
+  >(CURRENCIES, {
+    client,
+    fetchPolicy: 'cache-first',
+    variables: { usageTypeCode: currencyUsageTypeCode },
+  });
 
   const [currency, setCurrency] = useEffectfulState(initialCurrency);
   const [description, setDescription] = useEffectfulState(initialDescription);
   const [max, setMax] = useEffectfulState(initialMaximumAmount);
   const [min, setMin] = useEffectfulState(initialMinimumAmount);
-  const [payType, setPayType] = useEffectfulState<PayType>(initialPayType);
+  const [payType, setPayType] = useEffectfulState(
+    `${initialBasisCode}.${initialIntervalCode}`,
+  );
 
   // We validate `blurredMax` only after a user has tabbed off the text field
   const [blurredMax, setBlurredMax] = useEffectfulState(initialMaximumAmount);
@@ -87,6 +121,15 @@ export const SalaryDetails = ({
     min: validateMinAmount(min, errors),
   };
 
+  const payTypes =
+    payTypesData?.payTypes.reduce<Record<string, PayType>>(
+      (acc, data) => ({
+        ...acc,
+        [`${data.basisCode}.${data.intervalCode}`]: data,
+      }),
+      {},
+    ) ?? {};
+
   return (
     <Stack space="xlarge">
       <Heading level="3">Pay details</Heading>
@@ -96,20 +139,21 @@ export const SalaryDetails = ({
           aria-label="Pay type"
           id={`${id}-pay-type`}
           onChange={(event) => {
-            const value = event.currentTarget.value as PayType;
+            const value = event.currentTarget.value;
+            const [basisCode, intervalCode] = value.split('.');
 
             setPayType(value);
             onBlur({
-              ...payTypes[value],
               key: 'payType',
-              payType: value,
+              basisCode,
+              intervalCode,
             });
           }}
           size="small"
           value={payType}
         >
-          {Object.keys(payTypes).map((key) => (
-            <RadioItem key={key} label={key} value={key} />
+          {Object.entries(payTypes).map(([key, data]) => (
+            <RadioItem key={key} label={data.label} value={key} />
           ))}
         </RadioGroup>
       </Stack>
@@ -127,7 +171,7 @@ export const SalaryDetails = ({
               aria-label="Currency"
               id={`${id}-currency`}
               onChange={(event) => {
-                const value = event.currentTarget.value as SalaryCurrency;
+                const value = event.currentTarget.value;
                 setCurrency(value);
                 onBlur({
                   key: 'currency',
@@ -136,7 +180,7 @@ export const SalaryDetails = ({
               }}
               value={currency}
             >
-              {SALARY_CURRENCIES.active.map((code) => (
+              {(currenciesData?.currencies ?? []).map(({ code }) => (
                 <option key={code}>{code}</option>
               ))}
             </Dropdown>
@@ -210,7 +254,7 @@ export const SalaryDetails = ({
               display="flex"
             >
               <Text size="small">
-                per {payTypes[payType].intervalCode.toLowerCase()}
+                per {payTypes[payType]?.intervalCode.toLowerCase()}
               </Text>
             </Box>
           </Column>

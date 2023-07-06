@@ -10,6 +10,7 @@ export default {
   args: {
     errors: undefined,
     onBlur: () => {},
+    schemeId: 'seekAnz',
   },
   argTypes: {
     showStorybookAction: defaultArgTypes.showStorybookAction,
@@ -42,6 +43,10 @@ export default {
     },
     initialDescription: {
       control: { type: 'text' },
+    },
+    currencyUsageTypeCode: {
+      control: { type: 'radio' },
+      options: ['All', 'SEEKMarket'],
     },
   },
 } satisfies Meta<typeof Component>;
