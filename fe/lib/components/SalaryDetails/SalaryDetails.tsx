@@ -104,17 +104,12 @@ export const SalaryDetails = ({
     variables: { usageTypeCode: currencyUsageTypeCode },
   });
 
-  const payTypes = payTypesData?.payTypes ?? [];
-
   const [currency, setCurrency] = useEffectfulState(initialCurrency);
   const [description, setDescription] = useEffectfulState(initialDescription);
   const [max, setMax] = useEffectfulState(initialMaximumAmount);
   const [min, setMin] = useEffectfulState(initialMinimumAmount);
-  const [payTypeLabel, setPayTypeLabel] = useEffectfulState(
-    payTypes.find(
-      ({ basisCode, intervalCode }) =>
-        initialBasisCode === basisCode && initialIntervalCode === intervalCode,
-    )?.label ?? '',
+  const [payType, setPayType] = useEffectfulState(
+    `${initialBasisCode}.${initialIntervalCode}`,
   );
 
   // We validate `blurredMax` only after a user has tabbed off the text field
@@ -126,6 +121,15 @@ export const SalaryDetails = ({
     min: validateMinAmount(min, errors),
   };
 
+  const payTypes =
+    payTypesData?.payTypes.reduce<Record<string, PayType>>(
+      (acc, data) => ({
+        ...acc,
+        [`${data.basisCode}.${data.intervalCode}`]: data,
+      }),
+      {},
+    ) ?? {};
+
   return (
     <Stack space="xlarge">
       <Heading level="3">Pay details</Heading>
@@ -136,11 +140,9 @@ export const SalaryDetails = ({
           id={`${id}-pay-type`}
           onChange={(event) => {
             const value = event.currentTarget.value;
-            const { basisCode, intervalCode } = payTypes.find(
-              ({ label }) => label === value,
-            ) as PayType;
+            const [basisCode, intervalCode] = value.split('.');
 
-            setPayTypeLabel(value);
+            setPayType(value);
             onBlur({
               key: 'payType',
               basisCode,
@@ -148,10 +150,10 @@ export const SalaryDetails = ({
             });
           }}
           size="small"
-          value={payTypeLabel}
+          value={payType}
         >
-          {payTypes.map(({ label }) => (
-            <RadioItem key={label} label={label} value={label} />
+          {Object.entries(payTypes).map(([key, data]) => (
+            <RadioItem key={key} label={data.label} value={key} />
           ))}
         </RadioGroup>
       </Stack>
@@ -252,10 +254,7 @@ export const SalaryDetails = ({
               display="flex"
             >
               <Text size="small">
-                per{' '}
-                {payTypes
-                  .find((p) => p.label === payTypeLabel)
-                  ?.intervalCode.toLowerCase()}
+                per {payTypes[payType]?.intervalCode.toLowerCase()}
               </Text>
             </Box>
           </Column>
