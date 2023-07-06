@@ -1,5 +1,16 @@
 # wingman-fe
 
+## 9.0.0
+
+### Major Changes
+
+- **SalaryDetails:** Query pay types and currencies ([#959](https://github.com/seek-oss/wingman/pull/959))
+
+  Breaking changes:
+
+  1. `SalaryDetails` now requires `schemeId` to be passed in
+  2. The `onBlur` prop will now return `basisCode` and `intervalCode` for the key `payType` instead of `basis`, `interval` and `payType`
+
 ## 8.1.0
 
 ### Minor Changes
