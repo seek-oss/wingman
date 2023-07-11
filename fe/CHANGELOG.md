@@ -1,5 +1,13 @@
 # wingman-fe
 
+## 9.0.1
+
+### Patch Changes
+
+- **QuestionnaireBuilder:** Handle `onChange` type change in `react-hook-form@7.45` ([#964](https://github.com/seek-oss/wingman/pull/964))
+
+  See [react-hook-form/react-hook-form#10342](https://github.com/react-hook-form/react-hook-form/pull/10342) for more information.
+
 ## 9.0.0
 
 ### Major Changes
