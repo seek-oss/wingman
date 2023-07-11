@@ -97,11 +97,12 @@ export default ({
         <Controller
           render={({ field }) => (
             <TextField
+              {...field}
               id="url"
               label="URL"
               message={errors.url?.message}
+              onChange={(event) => field.onChange(event.currentTarget.value)}
               tone={errors.url ? 'critical' : undefined}
-              {...field}
             />
           )}
           control={control}
@@ -111,11 +112,12 @@ export default ({
         <Controller
           render={({ field }) => (
             <TextField
+              {...field}
               id="description"
               label="Description"
               message={errors.description?.message}
+              onChange={(event) => field.onChange(event.currentTarget.value)}
               tone={errors.description ? 'critical' : undefined}
-              {...field}
             />
           )}
           control={control}

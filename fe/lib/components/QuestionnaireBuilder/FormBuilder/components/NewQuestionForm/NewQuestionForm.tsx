@@ -64,6 +64,14 @@ const resolver = createResolver<FormValues>((values, errors) => {
   }
 });
 
+const QUESTION_TYPES = {
+  FreeText: 'Free Text',
+  SingleSelect: 'Single Select',
+  MultiSelect: 'Multi Select',
+};
+
+type QuestionTypeValue = keyof typeof QUESTION_TYPES;
+
 export default ({ hideForm, initialValues }: NewQuestionFormProps) => {
   const {
     clearErrors,
@@ -146,13 +154,18 @@ export default ({ hideForm, initialValues }: NewQuestionFormProps) => {
               id={field.name}
               label="Type"
               message={errors.questionType?.message}
+              onChange={(event) =>
+                field.onChange(event.currentTarget.value as QuestionTypeValue)
+              }
               placeholder="Select a question type"
               tone={errors.questionType ? 'critical' : undefined}
               value={questionTypeValue ?? ''}
             >
-              <option value="FreeText">Free Text</option>
-              <option value="SingleSelect">Single Select</option>
-              <option value="MultiSelect">Multi Select</option>
+              {Object.entries(QUESTION_TYPES).map(([value, label]) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
             </Dropdown>
           )}
         />
