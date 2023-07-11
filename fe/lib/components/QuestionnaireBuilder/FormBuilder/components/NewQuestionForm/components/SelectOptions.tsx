@@ -121,6 +121,9 @@ export default ({ options, setOptionList }: SelectOptionsProps) => {
                     {...field}
                     id="questionnaireBuilderAddOption"
                     label="Options"
+                    onChange={(event) =>
+                      field.onChange(event.currentTarget.value)
+                    }
                     onClear={() => setValue('option', '')}
                     ref={optionInputRef}
                     tone={errors.option ? 'critical' : undefined}
