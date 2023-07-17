@@ -11,7 +11,7 @@
     "@graphql-codegen/typescript-operations": "3.0.4",
     "@graphql-tools/utils": "9.2.1",
     "concurrently": "7.6.0",
-    "graphql": "16.6.0",
+    "graphql": "16.7.1",
     "sku": "12.1.2"
   },
   "private": true,
