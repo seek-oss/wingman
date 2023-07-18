@@ -15,8 +15,8 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@storybook/addons": "7.0.22",
-    "@storybook/addon-essentials": "7.0.22",
+    "@storybook/addons": "7.0.27",
+    "@storybook/addon-essentials": "7.0.27",
     "@testing-library/react": "14.0.0",
     "@types/content-disposition": "0.5.5",
     "@types/faker": "5.5.9",
@@ -34,7 +34,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router-dom": "6.9.0",
-    "scoobie": "14.3.6",
+    "scoobie": "14.5.0",
     "ts-node": "10.9.1",
     "use-query-params": "2.2.1",
     "webpack-merge": "5.9.0"
