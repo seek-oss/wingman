@@ -12,7 +12,7 @@
     "@graphql-tools/utils": "9.2.1",
     "concurrently": "7.6.0",
     "graphql": "16.7.1",
-    "sku": "12.1.2"
+    "sku": "12.2.0"
   },
   "private": true,
   "scripts": {
