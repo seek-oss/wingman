@@ -6647,6 +6647,11 @@ babel-plugin-transform-react-remove-prop-types@^0.4.24:
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-react-remove-prop-types/-/babel-plugin-transform-react-remove-prop-types-0.4.24.tgz#f2edaf9b4c6a5fbe5c1d678bfb531078c1555f3a"
   integrity sha512-eqj0hVcJUR57/Ug2zE1Yswsw4LhuqqHhD+8v120T1cl3kjg76QwtyBrdIk4WVwK+lAhBJVYCd/v+4nc4y+8JsA==
 
+babel-plugin-transform-remove-imports@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-remove-imports/-/babel-plugin-transform-remove-imports-1.7.0.tgz#3fdfeec58592078544547155b1bffc4a4a0fcfa8"
+  integrity sha512-gprmWf6ry5qrnxMyiDaxZpXzZJP6R9FRA+p0AImLIWRmSEGtlKcFprHKeGMZYkII9rJR6Q1hYou+n1fk6rWf2g==
+
 babel-plugin-unassert@^3.1.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-unassert/-/babel-plugin-unassert-3.2.0.tgz#4ea8f65709905cc540627baf4ce4c837281a317d"
@@ -8928,7 +8933,7 @@ eslint-config-prettier@^8.8.0:
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.8.0.tgz#bfda738d412adc917fd7b038857110efe98c9348"
   integrity sha512-wLbQiFre3tdGgpDv67NQKnJuTlcUVYHas3k+DZCc2U2BadthoEY4B7hLPvAxaqdyOGCzuLfii2fqGph10va7oA==
 
-eslint-config-seek@^11.2.0, eslint-config-seek@^11.3.1:
+eslint-config-seek@^11.3.1:
   version "11.3.1"
   resolved "https://registry.yarnpkg.com/eslint-config-seek/-/eslint-config-seek-11.3.1.tgz#505301e615333c537e1b0dd8858d159066a3905a"
   integrity sha512-UmzHGS7yons8BjWmUOaoEdSTCcO3GHaoHoytM0ewPB5lByk1dqFVKU5ecaSqAvIM9Ms0NlA35JMGpURAL6VqcA==
@@ -16108,10 +16113,10 @@ skin-tone@^2.0.0:
   dependencies:
     unicode-emoji-modifier-base "^1.0.0"
 
-sku@12.1.2:
-  version "12.1.2"
-  resolved "https://registry.yarnpkg.com/sku/-/sku-12.1.2.tgz#b56da7eb78f01c908b5ef1eeee8e003f69f9390e"
-  integrity sha512-C2fzucex7kIdueZw4Usk5S9TwtA/t5Tz8+kgZtts8BYKjddgbDjglnm9ThDp0MeeFb6erKAfbVU7CYIh1/dNbg==
+sku@12.3.1:
+  version "12.3.1"
+  resolved "https://registry.yarnpkg.com/sku/-/sku-12.3.1.tgz#65a7e7b8b89b790c69a102d71b08eb6b57cae0ad"
+  integrity sha512-m3iSFAhbeJbQ6uvekevglKaw0HJn5qx91wr9IcN1sjjmfMi0KHSI/4gIwTFdjI4AQkufgbGjgWorWbL/+XD25g==
   dependencies:
     "@babel/core" "^7.21.8"
     "@babel/plugin-transform-react-constant-elements" "^7.21.3"
@@ -16146,6 +16151,7 @@ sku@12.1.2:
     babel-plugin-macros "^3.1.0"
     babel-plugin-module-resolver "^5.0.0"
     babel-plugin-transform-react-remove-prop-types "^0.4.24"
+    babel-plugin-transform-remove-imports "^1.7.0"
     babel-plugin-unassert "^3.1.0"
     browserslist "^4.16.1"
     browserslist-config-seek "^2.1.0"
@@ -16167,7 +16173,7 @@ sku@12.1.2:
     esbuild-register "^3.3.3"
     escape-string-regexp "^4.0.0"
     eslint "^8.41.0"
-    eslint-config-seek "^11.2.0"
+    eslint-config-seek "^11.3.1"
     exception-formatter "^2.1.2"
     express "^4.16.3"
     fast-glob "^3.2.5"
@@ -16205,7 +16211,7 @@ sku@12.1.2:
     terser-webpack-plugin "^5.1.4"
     traverse "^0.6.6"
     tree-kill "^1.2.1"
-    typescript "~5.0.0"
+    typescript "~5.1.0"
     validate-npm-package-name "^5.0.0"
     webpack "^5.52.0"
     webpack-bundle-analyzer "^4.6.1"
@@ -17398,12 +17404,7 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==
 
-typescript@~5.0.0:
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.0.2.tgz#891e1a90c5189d8506af64b9ef929fca99ba1ee5"
-  integrity sha512-wVORMBGO/FAs/++blGNeAVdbNKtIh1rbBL2EyQ1+J9lClJ93KiiKe8PmFIVdXhHcyv44SL9oglmfeSsndo0jRw==
-
-typescript@~5.1.5:
+typescript@~5.1.0, typescript@~5.1.5:
   version "5.1.6"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.1.6.tgz#02f8ac202b6dad2c0dd5e0913745b47a37998274"
   integrity sha512-zaWCozRZ6DLEWAWFrVDz1H6FVXzUSfTy5FUMWsQlU8Ym5JP9eO4xkTIROFCQvhQf61z6O/G6ugw3SgAnvvm+HA==
