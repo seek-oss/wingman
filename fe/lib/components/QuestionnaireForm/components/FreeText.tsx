@@ -1,5 +1,5 @@
 import { Stack, Text, Textarea } from 'braid-design-system';
-import React from 'react';
+import type React from 'react';
 
 import { componentId } from './componentId';
 
