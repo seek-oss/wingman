@@ -7,7 +7,7 @@ import {
   Text,
   TextLinkButton,
 } from 'braid-design-system';
-import React from 'react';
+import type React from 'react';
 
 interface DisplayOptionProps {
   text: string;

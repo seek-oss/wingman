@@ -1,5 +1,6 @@
 import { Stack } from 'braid-design-system';
-import React, { useReducer } from 'react';
+import type React from 'react';
+import { useReducer } from 'react';
 
 import { mapApplicationQuestionnaireToFormComponent } from '../../private/questionnaires/mapping';
 import type {
