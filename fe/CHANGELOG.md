@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 9.1.0
+
+### Minor Changes
+
+- **fix:** Add currency data to mock location queries ([#973](https://github.com/seek-oss/wingman/pull/973))
+
 ## 9.0.1
 
 ### Patch Changes
