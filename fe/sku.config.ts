@@ -65,6 +65,15 @@ const config: SkuConfig = {
         },
       },
     }),
+  dangerouslySetTSConfig: (tsConfig) => ({
+    ...tsConfig,
+    compilerOptions: {
+      ...tsConfig.compilerOptions,
+      // We need to set this as use-debounce exports its type declarations
+      // under `browser` in package.json
+      customConditions: ['browser'],
+    },
+  }),
 };
 
 export default config;
