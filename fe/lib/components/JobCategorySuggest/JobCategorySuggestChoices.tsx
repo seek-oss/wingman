@@ -6,7 +6,8 @@ import {
   Strong,
   Text,
 } from 'braid-design-system';
-import React, { type ComponentProps, forwardRef, useState } from 'react';
+import type React from 'react';
+import { type ComponentProps, forwardRef, useState } from 'react';
 
 import type {
   JobCategoriesPositionProfileInput,

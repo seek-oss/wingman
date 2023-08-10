@@ -6,7 +6,8 @@ import {
   Stack,
   useToast,
 } from 'braid-design-system';
-import React, { useState } from 'react';
+import type React from 'react';
+import { useState } from 'react';
 
 import { postPartnerWebhook } from '../../api/partnerWebhook';
 

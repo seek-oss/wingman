@@ -7,7 +7,8 @@ import {
   Text,
   TextLinkButton,
 } from 'braid-design-system';
-import React, { useEffect, useReducer, useState } from 'react';
+import type React from 'react';
+import { useEffect, useReducer, useState } from 'react';
 
 import { MAX_NUMBER_OF_COMPONENTS } from '../../../private/questionnaires/constants';
 import type {
