@@ -11,12 +11,12 @@
     "react-fast-compare": "^3.2.0",
     "react-hook-form": "^7.0.0",
     "runtypes": "^6.5.0",
-    "use-debounce": "^9.0.0",
+    "use-debounce": "^9.0.4",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@storybook/addons": "7.0.27",
     "@storybook/addon-essentials": "7.0.27",
+    "@storybook/addons": "7.0.27",
     "@testing-library/react": "14.0.0",
     "@types/content-disposition": "0.5.5",
     "@types/faker": "5.5.9",
