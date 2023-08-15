@@ -1,6 +1,5 @@
 import { Stack } from 'braid-design-system';
-import type React from 'react';
-import { useReducer } from 'react';
+import { type Dispatch, useReducer } from 'react';
 
 import { mapApplicationQuestionnaireToFormComponent } from '../../private/questionnaires/mapping';
 import type {
@@ -38,7 +37,7 @@ const renderQuestion = (
   state: {
     [x: string]: any;
   },
-  dispatch: React.Dispatch<FormUpdateAction>,
+  dispatch: Dispatch<FormUpdateAction>,
 ) => {
   switch (component.responseTypeCode) {
     case 'SingleSelect':

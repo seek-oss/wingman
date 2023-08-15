@@ -6,8 +6,7 @@ import {
   Stack,
   useToast,
 } from 'braid-design-system';
-import type React from 'react';
-import { useState } from 'react';
+import { type MouseEvent, useState } from 'react';
 
 import { postPartnerWebhook } from '../../api/partnerWebhook';
 
@@ -31,7 +30,7 @@ export const Webhook = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const onClick = async (event: React.MouseEvent) => {
+  const onClick = async (event: MouseEvent) => {
     event.preventDefault();
 
     setLoading(true);

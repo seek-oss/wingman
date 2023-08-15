@@ -6,8 +6,12 @@ import {
   Strong,
   Text,
 } from 'braid-design-system';
-import type React from 'react';
-import { type ComponentProps, forwardRef, useState } from 'react';
+import {
+  type ComponentProps,
+  type FormEvent,
+  forwardRef,
+  useState,
+} from 'react';
 
 import type {
   JobCategoriesPositionProfileInput,
@@ -64,7 +68,7 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
       string | undefined
     >(initialValue ? 'Other' : undefined);
 
-    const handleChoiceSelect = (event: React.FormEvent<HTMLInputElement>) => {
+    const handleChoiceSelect = (event: FormEvent<HTMLInputElement>) => {
       const choiceId = event.currentTarget.value;
 
       const jobCategorySuggest = choices.find(
