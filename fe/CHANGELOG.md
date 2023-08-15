@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 9.1.1
+
+### Patch Changes
+
+- Align with latest linting rules ([#981](https://github.com/seek-oss/wingman/pull/981))
+
 ## 9.1.0
 
 ### Minor Changes
