@@ -7,8 +7,7 @@ import {
   Text,
   TextLinkButton,
 } from 'braid-design-system';
-import type React from 'react';
-import { useEffect, useReducer, useState } from 'react';
+import { type MouseEvent, useEffect, useReducer, useState } from 'react';
 
 import { MAX_NUMBER_OF_COMPONENTS } from '../../../private/questionnaires/constants';
 import type {
@@ -73,16 +72,12 @@ export const FormBuilder = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
-  const onClickAddQuestion = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => {
+  const onClickAddQuestion = (event: MouseEvent) => {
     event.preventDefault();
     setShowQuestionForm(true);
   };
 
-  const onClickAddPrivacyConsent = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => {
+  const onClickAddPrivacyConsent = (event: MouseEvent) => {
     event.preventDefault();
     setShowPrivacyConsentForm(true);
   };
