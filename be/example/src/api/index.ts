@@ -1,5 +1,4 @@
 import Router from '@koa/router';
-import type { Middleware } from 'koa';
 import compose from 'koa-compose';
 import { AsyncMiddleware } from 'seek-koala';
 
@@ -12,7 +11,7 @@ import { corsMiddleware } from './cors';
 import { rootMiddleware } from './root';
 import { partnerWebhookMiddleware } from './webhook';
 
-const createMiddleware = async (): Promise<Middleware> => {
+const createMiddleware = async () => {
   const seekGraphMiddleware = await createSeekGraphMiddleware({
     debug: true,
     getPartnerToken,
@@ -24,8 +23,7 @@ const createMiddleware = async (): Promise<Middleware> => {
     .post('/browser-token', browserTokenMiddleware)
     .post('/webhook/:endpoint', partnerWebhookMiddleware);
 
-  // TODO: fix incompatibility with @koa/router context
-  return compose<any>([
+  return compose([
     rootMiddleware,
 
     seekGraphMiddleware,
