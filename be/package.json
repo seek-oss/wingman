@@ -40,7 +40,7 @@
     "lru-cache": "^10.0.0",
     "node-fetch": "^2.6.6",
     "runtypes": "^6.5.0",
-    "seek-koala": "^6.0.0"
+    "seek-koala": "^7.0.0"
   },
   "devDependencies": {
     "@koa/cors": "4.0.0",
