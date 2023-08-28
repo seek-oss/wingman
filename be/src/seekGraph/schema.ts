@@ -66,7 +66,9 @@ export const createSchema = async ({
     seekApiUrlOverride,
   });
 
-  const schema = await schemaFromExecutor(executor);
+  const schema = await schemaFromExecutor(executor, undefined, {
+    inputValueDeprecation: true,
+  });
 
   return wrapSchema({
     executor,
