@@ -1,5 +1,11 @@
 # wingman-be
 
+## 0.7.0
+
+### Minor Changes
+
+- Add inputValueDeprecation true setting in createSeekGraphMiddleware ([#991](https://github.com/seek-oss/wingman/pull/991))
+
 ## 0.6.2
 
 ### Patch Changes
