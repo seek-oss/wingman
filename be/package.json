@@ -33,7 +33,7 @@
     "@graphql-tools/wrap": "^10.0.0",
     "apollo-server-core": "^3.10.2",
     "apollo-server-koa": "^3.6.1",
-    "graphql": "^16.6.0",
+    "graphql": "^16.8.1",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
     "koa-compose": "^4.1.0",
