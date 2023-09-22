@@ -1,5 +1,5 @@
 ---
-'wingman-fe': minor
+'wingman-fe': patch
 ---
 
-feat: Refactor useEffectfulState hook to accept empty string
+SalaryDetails: Update state fields on empty strings
