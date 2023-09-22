@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 9.1.2
+
+### Patch Changes
+
+- **SalaryDetails:** Update state fields on empty strings ([#1009](https://github.com/seek-oss/wingman/pull/1009))
+
 ## 9.1.1
 
 ### Patch Changes
