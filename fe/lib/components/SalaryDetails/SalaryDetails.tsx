@@ -62,8 +62,9 @@ export interface SalaryDetailsProps {
 function useEffectfulState<T>(initialState: T) {
   const [state, setState] = useState(initialState);
 
+  // Make sure we rerender the input UI when the state value is reset
   useEffect(() => {
-    if (initialState) {
+    if (initialState || initialState === '') {
       setState(initialState);
     }
   }, [initialState]);
