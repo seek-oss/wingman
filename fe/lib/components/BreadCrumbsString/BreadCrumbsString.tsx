@@ -2,7 +2,7 @@ import { Box, IconChevron, Strong, Text } from 'braid-design-system';
 import React, { Fragment } from 'react';
 
 interface Props {
-  segments: { name: string; key: string }[];
+  segments: Array<{ name: string; key: string }>;
 }
 
 export const BreadCrumbsString = ({ segments }: Props) => (

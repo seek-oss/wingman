@@ -4,7 +4,7 @@ import type {
   TypePolicies,
   TypePolicy,
 } from '@apollo/client/cache';
-export type AddressKeySpecifier = (
+export type AddressKeySpecifier = Array<
   | 'city'
   | 'countryCode'
   | 'countrySubDivisions'
@@ -14,8 +14,8 @@ export type AddressKeySpecifier = (
   | 'line'
   | 'postalCode'
   | AddressKeySpecifier
-)[];
-export type AddressFieldPolicy = {
+>;
+export interface AddressFieldPolicy {
   city?: FieldPolicy<any> | FieldReadFunction<any>;
   countryCode?: FieldPolicy<any> | FieldReadFunction<any>;
   countrySubDivisions?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -24,59 +24,49 @@ export type AddressFieldPolicy = {
   geoLocation?: FieldPolicy<any> | FieldReadFunction<any>;
   line?: FieldPolicy<any> | FieldReadFunction<any>;
   postalCode?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type AddressComponentKeySpecifier = (
-  | 'type'
-  | 'value'
-  | AddressComponentKeySpecifier
-)[];
-export type AddressComponentFieldPolicy = {
+}
+export type AddressComponentKeySpecifier = Array<
+  'type' | 'value' | AddressComponentKeySpecifier
+>;
+export interface AddressComponentFieldPolicy {
   type?: FieldPolicy<any> | FieldReadFunction<any>;
   value?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type AdvertisementBrandingKeySpecifier = (
-  | 'hirer'
-  | 'id'
-  | 'images'
-  | 'name'
-  | AdvertisementBrandingKeySpecifier
-)[];
-export type AdvertisementBrandingFieldPolicy = {
+}
+export type AdvertisementBrandingKeySpecifier = Array<
+  'hirer' | 'id' | 'images' | 'name' | AdvertisementBrandingKeySpecifier
+>;
+export interface AdvertisementBrandingFieldPolicy {
   hirer?: FieldPolicy<any> | FieldReadFunction<any>;
   id?: FieldPolicy<any> | FieldReadFunction<any>;
   images?: FieldPolicy<any> | FieldReadFunction<any>;
   name?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type AdvertisementBrandingEdgeKeySpecifier = (
-  | 'cursor'
-  | 'node'
-  | AdvertisementBrandingEdgeKeySpecifier
-)[];
-export type AdvertisementBrandingEdgeFieldPolicy = {
+}
+export type AdvertisementBrandingEdgeKeySpecifier = Array<
+  'cursor' | 'node' | AdvertisementBrandingEdgeKeySpecifier
+>;
+export interface AdvertisementBrandingEdgeFieldPolicy {
   cursor?: FieldPolicy<any> | FieldReadFunction<any>;
   node?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type AdvertisementBrandingImageKeySpecifier = (
-  | 'typeCode'
-  | 'url'
-  | AdvertisementBrandingImageKeySpecifier
-)[];
-export type AdvertisementBrandingImageFieldPolicy = {
+}
+export type AdvertisementBrandingImageKeySpecifier = Array<
+  'typeCode' | 'url' | AdvertisementBrandingImageKeySpecifier
+>;
+export interface AdvertisementBrandingImageFieldPolicy {
   typeCode?: FieldPolicy<any> | FieldReadFunction<any>;
   url?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type AdvertisementBrandingsConnectionKeySpecifier = (
+}
+export type AdvertisementBrandingsConnectionKeySpecifier = Array<
   | 'brandManagementUrl'
   | 'edges'
   | 'pageInfo'
   | AdvertisementBrandingsConnectionKeySpecifier
-)[];
-export type AdvertisementBrandingsConnectionFieldPolicy = {
+>;
+export interface AdvertisementBrandingsConnectionFieldPolicy {
   brandManagementUrl?: FieldPolicy<any> | FieldReadFunction<any>;
   edges?: FieldPolicy<any> | FieldReadFunction<any>;
   pageInfo?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type AdvertisementProductKeySpecifier = (
+}
+export type AdvertisementProductKeySpecifier = Array<
   | 'description'
   | 'features'
   | 'id'
@@ -86,8 +76,8 @@ export type AdvertisementProductKeySpecifier = (
   | 'selected'
   | 'sellingPoints'
   | AdvertisementProductKeySpecifier
-)[];
-export type AdvertisementProductFieldPolicy = {
+>;
+export interface AdvertisementProductFieldPolicy {
   description?: FieldPolicy<any> | FieldReadFunction<any>;
   features?: FieldPolicy<any> | FieldReadFunction<any>;
   id?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -96,142 +86,129 @@ export type AdvertisementProductFieldPolicy = {
   price?: FieldPolicy<any> | FieldReadFunction<any>;
   selected?: FieldPolicy<any> | FieldReadFunction<any>;
   sellingPoints?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type AdvertisementProductFeaturesKeySpecifier = (
-  | 'branding'
-  | 'searchBulletPoints'
-  | AdvertisementProductFeaturesKeySpecifier
-)[];
-export type AdvertisementProductFeaturesFieldPolicy = {
+}
+export type AdvertisementProductFeaturesKeySpecifier = Array<
+  'branding' | 'searchBulletPoints' | AdvertisementProductFeaturesKeySpecifier
+>;
+export interface AdvertisementProductFeaturesFieldPolicy {
   branding?: FieldPolicy<any> | FieldReadFunction<any>;
   searchBulletPoints?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type AdvertisementProductFeatures_BrandingKeySpecifier = (
+}
+export type AdvertisementProductFeatures_BrandingKeySpecifier = Array<
   | 'coverImageIndicator'
   | 'logoIndicator'
   | AdvertisementProductFeatures_BrandingKeySpecifier
-)[];
-export type AdvertisementProductFeatures_BrandingFieldPolicy = {
+>;
+export interface AdvertisementProductFeatures_BrandingFieldPolicy {
   coverImageIndicator?: FieldPolicy<any> | FieldReadFunction<any>;
   logoIndicator?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type AdvertisementProductFeatures_SearchBulletPointsKeySpecifier = (
-  | 'limit'
-  | AdvertisementProductFeatures_SearchBulletPointsKeySpecifier
-)[];
-export type AdvertisementProductFeatures_SearchBulletPointsFieldPolicy = {
+}
+export type AdvertisementProductFeatures_SearchBulletPointsKeySpecifier = Array<
+  'limit' | AdvertisementProductFeatures_SearchBulletPointsKeySpecifier
+>;
+export interface AdvertisementProductFeatures_SearchBulletPointsFieldPolicy {
   limit?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type AdvertisementProductPaymentDetailsKeySpecifier = (
-  | 'summary'
-  | 'summaryHtml'
-  | AdvertisementProductPaymentDetailsKeySpecifier
-)[];
-export type AdvertisementProductPaymentDetailsFieldPolicy = {
+}
+export type AdvertisementProductPaymentDetailsKeySpecifier = Array<
+  'summary' | 'summaryHtml' | AdvertisementProductPaymentDetailsKeySpecifier
+>;
+export interface AdvertisementProductPaymentDetailsFieldPolicy {
   summary?: FieldPolicy<any> | FieldReadFunction<any>;
   summaryHtml?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type AdvertisementProductPriceDetailsKeySpecifier = (
-  | 'summary'
-  | AdvertisementProductPriceDetailsKeySpecifier
-)[];
-export type AdvertisementProductPriceDetailsFieldPolicy = {
+}
+export type AdvertisementProductPriceDetailsKeySpecifier = Array<
+  'summary' | AdvertisementProductPriceDetailsKeySpecifier
+>;
+export interface AdvertisementProductPriceDetailsFieldPolicy {
   summary?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type AdvertisementProductSellingPointKeySpecifier = (
-  | 'text'
-  | AdvertisementProductSellingPointKeySpecifier
-)[];
-export type AdvertisementProductSellingPointFieldPolicy = {
+}
+export type AdvertisementProductSellingPointKeySpecifier = Array<
+  'text' | AdvertisementProductSellingPointKeySpecifier
+>;
+export interface AdvertisementProductSellingPointFieldPolicy {
   text?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type AdvertisementProductsKeySpecifier = (
-  | 'information'
-  | 'products'
-  | AdvertisementProductsKeySpecifier
-)[];
-export type AdvertisementProductsFieldPolicy = {
+}
+export type AdvertisementProductsKeySpecifier = Array<
+  'information' | 'products' | AdvertisementProductsKeySpecifier
+>;
+export interface AdvertisementProductsFieldPolicy {
   information?: FieldPolicy<any> | FieldReadFunction<any>;
   products?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type ApplicationLibraryQuestionKeySpecifier = (
+}
+export type ApplicationLibraryQuestionKeySpecifier = Array<
   | 'id'
   | 'preferenceSelection'
   | 'responseChoice'
   | 'responseTypeCode'
   | 'text'
   | ApplicationLibraryQuestionKeySpecifier
-)[];
-export type ApplicationLibraryQuestionFieldPolicy = {
+>;
+export interface ApplicationLibraryQuestionFieldPolicy {
   id?: FieldPolicy<any> | FieldReadFunction<any>;
   preferenceSelection?: FieldPolicy<any> | FieldReadFunction<any>;
   responseChoice?: FieldPolicy<any> | FieldReadFunction<any>;
   responseTypeCode?: FieldPolicy<any> | FieldReadFunction<any>;
   text?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type ApplicationLibraryQuestionChoiceKeySpecifier = (
-  | 'id'
-  | 'text'
-  | ApplicationLibraryQuestionChoiceKeySpecifier
-)[];
-export type ApplicationLibraryQuestionChoiceFieldPolicy = {
+}
+export type ApplicationLibraryQuestionChoiceKeySpecifier = Array<
+  'id' | 'text' | ApplicationLibraryQuestionChoiceKeySpecifier
+>;
+export interface ApplicationLibraryQuestionChoiceFieldPolicy {
   id?: FieldPolicy<any> | FieldReadFunction<any>;
   text?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type ApplicationLibraryQuestionPreferenceSelectionKeySpecifier = (
+}
+export type ApplicationLibraryQuestionPreferenceSelectionKeySpecifier = Array<
   | 'message'
   | 'typeCode'
   | ApplicationLibraryQuestionPreferenceSelectionKeySpecifier
-)[];
-export type ApplicationLibraryQuestionPreferenceSelectionFieldPolicy = {
+>;
+export interface ApplicationLibraryQuestionPreferenceSelectionFieldPolicy {
   message?: FieldPolicy<any> | FieldReadFunction<any>;
   typeCode?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type ApplicationLibraryQuestionSuggestionKeySpecifier = (
+}
+export type ApplicationLibraryQuestionSuggestionKeySpecifier = Array<
   | 'applicationLibraryQuestion'
   | 'id'
   | ApplicationLibraryQuestionSuggestionKeySpecifier
-)[];
-export type ApplicationLibraryQuestionSuggestionFieldPolicy = {
+>;
+export interface ApplicationLibraryQuestionSuggestionFieldPolicy {
   applicationLibraryQuestion?: FieldPolicy<any> | FieldReadFunction<any>;
   id?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type ApplicationMethodKeySpecifier = (
-  | 'applicationEmail'
-  | 'applicationUri'
-  | ApplicationMethodKeySpecifier
-)[];
-export type ApplicationMethodFieldPolicy = {
+}
+export type ApplicationMethodKeySpecifier = Array<
+  'applicationEmail' | 'applicationUri' | ApplicationMethodKeySpecifier
+>;
+export interface ApplicationMethodFieldPolicy {
   applicationEmail?: FieldPolicy<any> | FieldReadFunction<any>;
   applicationUri?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type ApplicationPrivacyConsentKeySpecifier = (
+}
+export type ApplicationPrivacyConsentKeySpecifier = Array<
   | 'componentTypeCode'
   | 'descriptionHtml'
   | 'id'
   | 'privacyPolicyUrl'
   | 'value'
   | ApplicationPrivacyConsentKeySpecifier
-)[];
-export type ApplicationPrivacyConsentFieldPolicy = {
+>;
+export interface ApplicationPrivacyConsentFieldPolicy {
   componentTypeCode?: FieldPolicy<any> | FieldReadFunction<any>;
   descriptionHtml?: FieldPolicy<any> | FieldReadFunction<any>;
   id?: FieldPolicy<any> | FieldReadFunction<any>;
   privacyPolicyUrl?: FieldPolicy<any> | FieldReadFunction<any>;
   value?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type ApplicationPrivacyConsentResponseKeySpecifier = (
+}
+export type ApplicationPrivacyConsentResponseKeySpecifier = Array<
   | 'component'
   | 'componentTypeCode'
   | 'consentGivenIndicator'
   | ApplicationPrivacyConsentResponseKeySpecifier
-)[];
-export type ApplicationPrivacyConsentResponseFieldPolicy = {
+>;
+export interface ApplicationPrivacyConsentResponseFieldPolicy {
   component?: FieldPolicy<any> | FieldReadFunction<any>;
   componentTypeCode?: FieldPolicy<any> | FieldReadFunction<any>;
   consentGivenIndicator?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type ApplicationQuestionKeySpecifier = (
+}
+export type ApplicationQuestionKeySpecifier = Array<
   | 'applicationLibraryQuestion'
   | 'componentTypeCode'
   | 'id'
@@ -241,8 +218,8 @@ export type ApplicationQuestionKeySpecifier = (
   | 'sourceCode'
   | 'value'
   | ApplicationQuestionKeySpecifier
-)[];
-export type ApplicationQuestionFieldPolicy = {
+>;
+export interface ApplicationQuestionFieldPolicy {
   applicationLibraryQuestion?: FieldPolicy<any> | FieldReadFunction<any>;
   componentTypeCode?: FieldPolicy<any> | FieldReadFunction<any>;
   id?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -251,17 +228,15 @@ export type ApplicationQuestionFieldPolicy = {
   responseTypeCode?: FieldPolicy<any> | FieldReadFunction<any>;
   sourceCode?: FieldPolicy<any> | FieldReadFunction<any>;
   value?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type ApplicationQuestionAnswerKeySpecifier = (
-  | 'answer'
-  | 'choice'
-  | ApplicationQuestionAnswerKeySpecifier
-)[];
-export type ApplicationQuestionAnswerFieldPolicy = {
+}
+export type ApplicationQuestionAnswerKeySpecifier = Array<
+  'answer' | 'choice' | ApplicationQuestionAnswerKeySpecifier
+>;
+export interface ApplicationQuestionAnswerFieldPolicy {
   answer?: FieldPolicy<any> | FieldReadFunction<any>;
   choice?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type ApplicationQuestionChoiceKeySpecifier = (
+}
+export type ApplicationQuestionChoiceKeySpecifier = Array<
   | 'applicationLibraryQuestionChoice'
   | 'id'
   | 'preferredIndicator'
@@ -269,114 +244,111 @@ export type ApplicationQuestionChoiceKeySpecifier = (
   | 'text'
   | 'value'
   | ApplicationQuestionChoiceKeySpecifier
-)[];
-export type ApplicationQuestionChoiceFieldPolicy = {
+>;
+export interface ApplicationQuestionChoiceFieldPolicy {
   applicationLibraryQuestionChoice?: FieldPolicy<any> | FieldReadFunction<any>;
   id?: FieldPolicy<any> | FieldReadFunction<any>;
   preferredIndicator?: FieldPolicy<any> | FieldReadFunction<any>;
   selectedIndicator?: FieldPolicy<any> | FieldReadFunction<any>;
   text?: FieldPolicy<any> | FieldReadFunction<any>;
   value?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type ApplicationQuestionResponseKeySpecifier = (
+}
+export type ApplicationQuestionResponseKeySpecifier = Array<
   | 'answers'
   | 'component'
   | 'componentTypeCode'
   | 'score'
   | ApplicationQuestionResponseKeySpecifier
-)[];
-export type ApplicationQuestionResponseFieldPolicy = {
+>;
+export interface ApplicationQuestionResponseFieldPolicy {
   answers?: FieldPolicy<any> | FieldReadFunction<any>;
   component?: FieldPolicy<any> | FieldReadFunction<any>;
   componentTypeCode?: FieldPolicy<any> | FieldReadFunction<any>;
   score?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type ApplicationQuestionnaireKeySpecifier = (
-  | 'components'
-  | 'hirer'
-  | 'id'
-  | ApplicationQuestionnaireKeySpecifier
-)[];
-export type ApplicationQuestionnaireFieldPolicy = {
+}
+export type ApplicationQuestionnaireKeySpecifier = Array<
+  'components' | 'hirer' | 'id' | ApplicationQuestionnaireKeySpecifier
+>;
+export interface ApplicationQuestionnaireFieldPolicy {
   components?: FieldPolicy<any> | FieldReadFunction<any>;
   hirer?: FieldPolicy<any> | FieldReadFunction<any>;
   id?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type ApplicationQuestionnaireComponentKeySpecifier = (
+}
+export type ApplicationQuestionnaireComponentKeySpecifier = Array<
   | 'componentTypeCode'
   | 'id'
   | 'value'
   | ApplicationQuestionnaireComponentKeySpecifier
-)[];
-export type ApplicationQuestionnaireComponentFieldPolicy = {
+>;
+export interface ApplicationQuestionnaireComponentFieldPolicy {
   componentTypeCode?: FieldPolicy<any> | FieldReadFunction<any>;
   id?: FieldPolicy<any> | FieldReadFunction<any>;
   value?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type ApplicationQuestionnaireComponentResponseKeySpecifier = (
+}
+export type ApplicationQuestionnaireComponentResponseKeySpecifier = Array<
   | 'component'
   | 'componentTypeCode'
   | ApplicationQuestionnaireComponentResponseKeySpecifier
-)[];
-export type ApplicationQuestionnaireComponentResponseFieldPolicy = {
+>;
+export interface ApplicationQuestionnaireComponentResponseFieldPolicy {
   component?: FieldPolicy<any> | FieldReadFunction<any>;
   componentTypeCode?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type ApplicationQuestionnaireSubmissionKeySpecifier = (
+}
+export type ApplicationQuestionnaireSubmissionKeySpecifier = Array<
   | 'questionnaire'
   | 'responses'
   | 'score'
   | ApplicationQuestionnaireSubmissionKeySpecifier
-)[];
-export type ApplicationQuestionnaireSubmissionFieldPolicy = {
+>;
+export interface ApplicationQuestionnaireSubmissionFieldPolicy {
   questionnaire?: FieldPolicy<any> | FieldReadFunction<any>;
   responses?: FieldPolicy<any> | FieldReadFunction<any>;
   score?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type AssociatedPositionOpeningKeySpecifier = (
+}
+export type AssociatedPositionOpeningKeySpecifier = Array<
   | 'candidateAppliedIndicator'
   | 'positionOpening'
   | 'positionOpeningId'
   | 'positionUri'
   | AssociatedPositionOpeningKeySpecifier
-)[];
-export type AssociatedPositionOpeningFieldPolicy = {
+>;
+export interface AssociatedPositionOpeningFieldPolicy {
   candidateAppliedIndicator?: FieldPolicy<any> | FieldReadFunction<any>;
   positionOpening?: FieldPolicy<any> | FieldReadFunction<any>;
   positionOpeningId?: FieldPolicy<any> | FieldReadFunction<any>;
   positionUri?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type AttachmentKeySpecifier = (
+}
+export type AttachmentKeySpecifier = Array<
   | 'descriptions'
   | 'id'
   | 'seekRole'
   | 'seekRoleCode'
   | 'url'
   | AttachmentKeySpecifier
-)[];
-export type AttachmentFieldPolicy = {
+>;
+export interface AttachmentFieldPolicy {
   descriptions?: FieldPolicy<any> | FieldReadFunction<any>;
   id?: FieldPolicy<any> | FieldReadFunction<any>;
   seekRole?: FieldPolicy<any> | FieldReadFunction<any>;
   seekRoleCode?: FieldPolicy<any> | FieldReadFunction<any>;
   url?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type CandidateKeySpecifier = (
+}
+export type CandidateKeySpecifier = Array<
   | 'distributionGuidelines'
   | 'documentId'
   | 'person'
   | 'profiles'
   | 'seekPrimaryEmailAddress'
   | CandidateKeySpecifier
-)[];
-export type CandidateFieldPolicy = {
+>;
+export interface CandidateFieldPolicy {
   distributionGuidelines?: FieldPolicy<any> | FieldReadFunction<any>;
   documentId?: FieldPolicy<any> | FieldReadFunction<any>;
   person?: FieldPolicy<any> | FieldReadFunction<any>;
   profiles?: FieldPolicy<any> | FieldReadFunction<any>;
   seekPrimaryEmailAddress?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type CandidateApplicationCreatedEventKeySpecifier = (
+}
+export type CandidateApplicationCreatedEventKeySpecifier = Array<
   | 'candidate'
   | 'candidateApplicationProfile'
   | 'candidateApplicationProfileId'
@@ -387,8 +359,8 @@ export type CandidateApplicationCreatedEventKeySpecifier = (
   | 'typeCode'
   | 'webhookAttempts'
   | CandidateApplicationCreatedEventKeySpecifier
-)[];
-export type CandidateApplicationCreatedEventFieldPolicy = {
+>;
+export interface CandidateApplicationCreatedEventFieldPolicy {
   candidate?: FieldPolicy<any> | FieldReadFunction<any>;
   candidateApplicationProfile?: FieldPolicy<any> | FieldReadFunction<any>;
   candidateApplicationProfileId?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -398,30 +370,28 @@ export type CandidateApplicationCreatedEventFieldPolicy = {
   schemeId?: FieldPolicy<any> | FieldReadFunction<any>;
   typeCode?: FieldPolicy<any> | FieldReadFunction<any>;
   webhookAttempts?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type CandidatePersonKeySpecifier = (
-  | 'communication'
-  | 'name'
-  | CandidatePersonKeySpecifier
-)[];
-export type CandidatePersonFieldPolicy = {
+}
+export type CandidatePersonKeySpecifier = Array<
+  'communication' | 'name' | CandidatePersonKeySpecifier
+>;
+export interface CandidatePersonFieldPolicy {
   communication?: FieldPolicy<any> | FieldReadFunction<any>;
   name?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type CandidateProcessActionKeySpecifier = (
+}
+export type CandidateProcessActionKeySpecifier = Array<
   | 'code'
   | 'description'
   | 'name'
   | 'seekUrl'
   | CandidateProcessActionKeySpecifier
-)[];
-export type CandidateProcessActionFieldPolicy = {
+>;
+export interface CandidateProcessActionFieldPolicy {
   code?: FieldPolicy<any> | FieldReadFunction<any>;
   description?: FieldPolicy<any> | FieldReadFunction<any>;
   name?: FieldPolicy<any> | FieldReadFunction<any>;
   seekUrl?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type CandidateProcessHistoryItemKeySpecifier = (
+}
+export type CandidateProcessHistoryItemKeySpecifier = Array<
   | 'action'
   | 'actionDate'
   | 'candidateProfile'
@@ -431,8 +401,8 @@ export type CandidateProcessHistoryItemKeySpecifier = (
   | 'seekSource'
   | 'status'
   | CandidateProcessHistoryItemKeySpecifier
-)[];
-export type CandidateProcessHistoryItemFieldPolicy = {
+>;
+export interface CandidateProcessHistoryItemFieldPolicy {
   action?: FieldPolicy<any> | FieldReadFunction<any>;
   actionDate?: FieldPolicy<any> | FieldReadFunction<any>;
   candidateProfile?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -441,42 +411,35 @@ export type CandidateProcessHistoryItemFieldPolicy = {
   primaryParties?: FieldPolicy<any> | FieldReadFunction<any>;
   seekSource?: FieldPolicy<any> | FieldReadFunction<any>;
   status?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type CandidateProcessHistoryItemConnectionKeySpecifier = (
-  | 'edges'
-  | 'pageInfo'
-  | CandidateProcessHistoryItemConnectionKeySpecifier
-)[];
-export type CandidateProcessHistoryItemConnectionFieldPolicy = {
+}
+export type CandidateProcessHistoryItemConnectionKeySpecifier = Array<
+  'edges' | 'pageInfo' | CandidateProcessHistoryItemConnectionKeySpecifier
+>;
+export interface CandidateProcessHistoryItemConnectionFieldPolicy {
   edges?: FieldPolicy<any> | FieldReadFunction<any>;
   pageInfo?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type CandidateProcessHistoryItemEdgeKeySpecifier = (
-  | 'cursor'
-  | 'node'
-  | CandidateProcessHistoryItemEdgeKeySpecifier
-)[];
-export type CandidateProcessHistoryItemEdgeFieldPolicy = {
+}
+export type CandidateProcessHistoryItemEdgeKeySpecifier = Array<
+  'cursor' | 'node' | CandidateProcessHistoryItemEdgeKeySpecifier
+>;
+export interface CandidateProcessHistoryItemEdgeFieldPolicy {
   cursor?: FieldPolicy<any> | FieldReadFunction<any>;
   node?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type CandidateProcessPartyKeySpecifier = (
-  | 'organization'
-  | 'person'
-  | CandidateProcessPartyKeySpecifier
-)[];
-export type CandidateProcessPartyFieldPolicy = {
+}
+export type CandidateProcessPartyKeySpecifier = Array<
+  'organization' | 'person' | CandidateProcessPartyKeySpecifier
+>;
+export interface CandidateProcessPartyFieldPolicy {
   organization?: FieldPolicy<any> | FieldReadFunction<any>;
   person?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type CandidateProcessStatusKeySpecifier = (
-  | 'code'
-  | CandidateProcessStatusKeySpecifier
-)[];
-export type CandidateProcessStatusFieldPolicy = {
+}
+export type CandidateProcessStatusKeySpecifier = Array<
+  'code' | CandidateProcessStatusKeySpecifier
+>;
+export interface CandidateProcessStatusFieldPolicy {
   code?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type CandidateProfileKeySpecifier = (
+}
+export type CandidateProfileKeySpecifier = Array<
   | 'associatedPositionOpenings'
   | 'associatedPositionProfile'
   | 'attachments'
@@ -494,8 +457,8 @@ export type CandidateProfileKeySpecifier = (
   | 'seekQuestionnaireSubmission'
   | 'updateDateTime'
   | CandidateProfileKeySpecifier
-)[];
-export type CandidateProfileFieldPolicy = {
+>;
+export interface CandidateProfileFieldPolicy {
   associatedPositionOpenings?: FieldPolicy<any> | FieldReadFunction<any>;
   associatedPositionProfile?: FieldPolicy<any> | FieldReadFunction<any>;
   attachments?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -512,8 +475,8 @@ export type CandidateProfileFieldPolicy = {
   seekProcessHistory?: FieldPolicy<any> | FieldReadFunction<any>;
   seekQuestionnaireSubmission?: FieldPolicy<any> | FieldReadFunction<any>;
   updateDateTime?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type CandidateProfilePurchasedEventKeySpecifier = (
+}
+export type CandidateProfilePurchasedEventKeySpecifier = Array<
   | 'candidateProfile'
   | 'candidateProfileId'
   | 'createDateTime'
@@ -522,8 +485,8 @@ export type CandidateProfilePurchasedEventKeySpecifier = (
   | 'typeCode'
   | 'webhookAttempts'
   | CandidateProfilePurchasedEventKeySpecifier
-)[];
-export type CandidateProfilePurchasedEventFieldPolicy = {
+>;
+export interface CandidateProfilePurchasedEventFieldPolicy {
   candidateProfile?: FieldPolicy<any> | FieldReadFunction<any>;
   candidateProfileId?: FieldPolicy<any> | FieldReadFunction<any>;
   createDateTime?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -531,17 +494,15 @@ export type CandidateProfilePurchasedEventFieldPolicy = {
   schemeId?: FieldPolicy<any> | FieldReadFunction<any>;
   typeCode?: FieldPolicy<any> | FieldReadFunction<any>;
   webhookAttempts?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type CandidateSourceKeySpecifier = (
-  | 'name'
-  | 'type'
-  | CandidateSourceKeySpecifier
-)[];
-export type CandidateSourceFieldPolicy = {
+}
+export type CandidateSourceKeySpecifier = Array<
+  'name' | 'type' | CandidateSourceKeySpecifier
+>;
+export interface CandidateSourceFieldPolicy {
   name?: FieldPolicy<any> | FieldReadFunction<any>;
   type?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type CertificationKeySpecifier = (
+}
+export type CertificationKeySpecifier = Array<
   | 'descriptions'
   | 'effectiveTimePeriod'
   | 'issueDate'
@@ -549,239 +510,216 @@ export type CertificationKeySpecifier = (
   | 'issuingAuthority'
   | 'name'
   | CertificationKeySpecifier
-)[];
-export type CertificationFieldPolicy = {
+>;
+export interface CertificationFieldPolicy {
   descriptions?: FieldPolicy<any> | FieldReadFunction<any>;
   effectiveTimePeriod?: FieldPolicy<any> | FieldReadFunction<any>;
   issueDate?: FieldPolicy<any> | FieldReadFunction<any>;
   issued?: FieldPolicy<any> | FieldReadFunction<any>;
   issuingAuthority?: FieldPolicy<any> | FieldReadFunction<any>;
   name?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type ClosePostedPositionProfilePayloadKeySpecifier = (
-  | 'positionProfile'
-  | ClosePostedPositionProfilePayloadKeySpecifier
-)[];
-export type ClosePostedPositionProfilePayloadFieldPolicy = {
+}
+export type ClosePostedPositionProfilePayloadKeySpecifier = Array<
+  'positionProfile' | ClosePostedPositionProfilePayloadKeySpecifier
+>;
+export interface ClosePostedPositionProfilePayloadFieldPolicy {
   positionProfile?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type ClosePostedPositionProfile_PositionProfilePayloadKeySpecifier = (
-  | 'profileId'
-  | ClosePostedPositionProfile_PositionProfilePayloadKeySpecifier
-)[];
-export type ClosePostedPositionProfile_PositionProfilePayloadFieldPolicy = {
+}
+export type ClosePostedPositionProfile_PositionProfilePayloadKeySpecifier =
+  Array<
+    'profileId' | ClosePostedPositionProfile_PositionProfilePayloadKeySpecifier
+  >;
+export interface ClosePostedPositionProfile_PositionProfilePayloadFieldPolicy {
   profileId?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type CommunicationKeySpecifier = (
+}
+export type CommunicationKeySpecifier = Array<
   | 'address'
   | 'email'
   | 'phone'
   | 'seekDoNotContactIndicator'
   | CommunicationKeySpecifier
-)[];
-export type CommunicationFieldPolicy = {
+>;
+export interface CommunicationFieldPolicy {
   address?: FieldPolicy<any> | FieldReadFunction<any>;
   email?: FieldPolicy<any> | FieldReadFunction<any>;
   phone?: FieldPolicy<any> | FieldReadFunction<any>;
   seekDoNotContactIndicator?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type CreateApplicationQuestionnairePayloadKeySpecifier = (
-  | 'applicationQuestionnaire'
-  | CreateApplicationQuestionnairePayloadKeySpecifier
-)[];
-export type CreateApplicationQuestionnairePayloadFieldPolicy = {
+}
+export type CreateApplicationQuestionnairePayloadKeySpecifier = Array<
+  'applicationQuestionnaire' | CreateApplicationQuestionnairePayloadKeySpecifier
+>;
+export interface CreateApplicationQuestionnairePayloadFieldPolicy {
   applicationQuestionnaire?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type CreateCandidateProcessHistoryItemPayload_ConflictKeySpecifier = (
-  | 'candidateProfile'
-  | 'conflictingCandidateProcessHistoryItem'
-  | CreateCandidateProcessHistoryItemPayload_ConflictKeySpecifier
-)[];
-export type CreateCandidateProcessHistoryItemPayload_ConflictFieldPolicy = {
+}
+export type CreateCandidateProcessHistoryItemPayload_ConflictKeySpecifier =
+  Array<
+    | 'candidateProfile'
+    | 'conflictingCandidateProcessHistoryItem'
+    | CreateCandidateProcessHistoryItemPayload_ConflictKeySpecifier
+  >;
+export interface CreateCandidateProcessHistoryItemPayload_ConflictFieldPolicy {
   candidateProfile?: FieldPolicy<any> | FieldReadFunction<any>;
   conflictingCandidateProcessHistoryItem?:
     | FieldPolicy<any>
     | FieldReadFunction<any>;
-};
-export type CreateCandidateProcessHistoryItemPayload_SuccessKeySpecifier = (
-  | 'candidateProcessHistoryItem'
-  | 'candidateProfile'
-  | CreateCandidateProcessHistoryItemPayload_SuccessKeySpecifier
-)[];
-export type CreateCandidateProcessHistoryItemPayload_SuccessFieldPolicy = {
+}
+export type CreateCandidateProcessHistoryItemPayload_SuccessKeySpecifier =
+  Array<
+    | 'candidateProcessHistoryItem'
+    | 'candidateProfile'
+    | CreateCandidateProcessHistoryItemPayload_SuccessKeySpecifier
+  >;
+export interface CreateCandidateProcessHistoryItemPayload_SuccessFieldPolicy {
   candidateProcessHistoryItem?: FieldPolicy<any> | FieldReadFunction<any>;
   candidateProfile?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type CreatePositionOpeningPayloadKeySpecifier = (
-  | 'positionOpening'
-  | CreatePositionOpeningPayloadKeySpecifier
-)[];
-export type CreatePositionOpeningPayloadFieldPolicy = {
+}
+export type CreatePositionOpeningPayloadKeySpecifier = Array<
+  'positionOpening' | CreatePositionOpeningPayloadKeySpecifier
+>;
+export interface CreatePositionOpeningPayloadFieldPolicy {
   positionOpening?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type CreateUnpostedPositionProfileForOpeningPayloadKeySpecifier = (
-  | 'positionProfile'
-  | CreateUnpostedPositionProfileForOpeningPayloadKeySpecifier
-)[];
-export type CreateUnpostedPositionProfileForOpeningPayloadFieldPolicy = {
+}
+export type CreateUnpostedPositionProfileForOpeningPayloadKeySpecifier = Array<
+  'positionProfile' | CreateUnpostedPositionProfileForOpeningPayloadKeySpecifier
+>;
+export interface CreateUnpostedPositionProfileForOpeningPayloadFieldPolicy {
   positionProfile?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type CreateWebhookSubscriptionPayload_ConflictKeySpecifier = (
+}
+export type CreateWebhookSubscriptionPayload_ConflictKeySpecifier = Array<
   | 'conflictingWebhookSubscription'
   | CreateWebhookSubscriptionPayload_ConflictKeySpecifier
-)[];
-export type CreateWebhookSubscriptionPayload_ConflictFieldPolicy = {
+>;
+export interface CreateWebhookSubscriptionPayload_ConflictFieldPolicy {
   conflictingWebhookSubscription?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type CreateWebhookSubscriptionPayload_SuccessKeySpecifier = (
-  | 'webhookSubscription'
-  | CreateWebhookSubscriptionPayload_SuccessKeySpecifier
-)[];
-export type CreateWebhookSubscriptionPayload_SuccessFieldPolicy = {
+}
+export type CreateWebhookSubscriptionPayload_SuccessKeySpecifier = Array<
+  'webhookSubscription' | CreateWebhookSubscriptionPayload_SuccessKeySpecifier
+>;
+export interface CreateWebhookSubscriptionPayload_SuccessFieldPolicy {
   webhookSubscription?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type CurrencyKeySpecifier = ('code' | CurrencyKeySpecifier)[];
-export type CurrencyFieldPolicy = {
+}
+export type CurrencyKeySpecifier = Array<'code' | CurrencyKeySpecifier>;
+export interface CurrencyFieldPolicy {
   code?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type CurrencyMinorUnitKeySpecifier = (
-  | 'currency'
-  | 'value'
-  | CurrencyMinorUnitKeySpecifier
-)[];
-export type CurrencyMinorUnitFieldPolicy = {
+}
+export type CurrencyMinorUnitKeySpecifier = Array<
+  'currency' | 'value' | CurrencyMinorUnitKeySpecifier
+>;
+export interface CurrencyMinorUnitFieldPolicy {
   currency?: FieldPolicy<any> | FieldReadFunction<any>;
   value?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type DeleteCandidateProcessHistoryItemPayloadKeySpecifier = (
+}
+export type DeleteCandidateProcessHistoryItemPayloadKeySpecifier = Array<
   | 'candidateProcessHistoryItem'
   | DeleteCandidateProcessHistoryItemPayloadKeySpecifier
-)[];
-export type DeleteCandidateProcessHistoryItemPayloadFieldPolicy = {
+>;
+export interface DeleteCandidateProcessHistoryItemPayloadFieldPolicy {
   candidateProcessHistoryItem?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type DeletePositionOpeningPayloadKeySpecifier = (
-  | 'positionOpening'
-  | DeletePositionOpeningPayloadKeySpecifier
-)[];
-export type DeletePositionOpeningPayloadFieldPolicy = {
+}
+export type DeletePositionOpeningPayloadKeySpecifier = Array<
+  'positionOpening' | DeletePositionOpeningPayloadKeySpecifier
+>;
+export interface DeletePositionOpeningPayloadFieldPolicy {
   positionOpening?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type DeleteUnpostedPositionProfilePayloadKeySpecifier = (
-  | 'positionProfile'
-  | DeleteUnpostedPositionProfilePayloadKeySpecifier
-)[];
-export type DeleteUnpostedPositionProfilePayloadFieldPolicy = {
+}
+export type DeleteUnpostedPositionProfilePayloadKeySpecifier = Array<
+  'positionProfile' | DeleteUnpostedPositionProfilePayloadKeySpecifier
+>;
+export interface DeleteUnpostedPositionProfilePayloadFieldPolicy {
   positionProfile?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type DeleteUploadedCandidatePayloadKeySpecifier = (
-  | 'candidate'
-  | DeleteUploadedCandidatePayloadKeySpecifier
-)[];
-export type DeleteUploadedCandidatePayloadFieldPolicy = {
+}
+export type DeleteUploadedCandidatePayloadKeySpecifier = Array<
+  'candidate' | DeleteUploadedCandidatePayloadKeySpecifier
+>;
+export interface DeleteUploadedCandidatePayloadFieldPolicy {
   candidate?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type DeleteWebhookSubscriptionPayloadKeySpecifier = (
-  | 'webhookSubscription'
-  | DeleteWebhookSubscriptionPayloadKeySpecifier
-)[];
-export type DeleteWebhookSubscriptionPayloadFieldPolicy = {
+}
+export type DeleteWebhookSubscriptionPayloadKeySpecifier = Array<
+  'webhookSubscription' | DeleteWebhookSubscriptionPayloadKeySpecifier
+>;
+export interface DeleteWebhookSubscriptionPayloadFieldPolicy {
   webhookSubscription?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type DistributionGuidelinesKeySpecifier = (
-  | 'seekProductCodes'
-  | DistributionGuidelinesKeySpecifier
-)[];
-export type DistributionGuidelinesFieldPolicy = {
+}
+export type DistributionGuidelinesKeySpecifier = Array<
+  'seekProductCodes' | DistributionGuidelinesKeySpecifier
+>;
+export interface DistributionGuidelinesFieldPolicy {
   seekProductCodes?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type EducationAttendanceKeySpecifier = (
+}
+export type EducationAttendanceKeySpecifier = Array<
   | 'descriptions'
   | 'educationDegrees'
   | 'institution'
   | EducationAttendanceKeySpecifier
-)[];
-export type EducationAttendanceFieldPolicy = {
+>;
+export interface EducationAttendanceFieldPolicy {
   descriptions?: FieldPolicy<any> | FieldReadFunction<any>;
   educationDegrees?: FieldPolicy<any> | FieldReadFunction<any>;
   institution?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type EducationDegreeKeySpecifier = (
-  | 'date'
-  | 'degreeGrantedStatus'
-  | 'name'
-  | EducationDegreeKeySpecifier
-)[];
-export type EducationDegreeFieldPolicy = {
+}
+export type EducationDegreeKeySpecifier = Array<
+  'date' | 'degreeGrantedStatus' | 'name' | EducationDegreeKeySpecifier
+>;
+export interface EducationDegreeFieldPolicy {
   date?: FieldPolicy<any> | FieldReadFunction<any>;
   degreeGrantedStatus?: FieldPolicy<any> | FieldReadFunction<any>;
   name?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type EffectiveTimePeriodKeySpecifier = (
-  | 'validTo'
-  | EffectiveTimePeriodKeySpecifier
-)[];
-export type EffectiveTimePeriodFieldPolicy = {
+}
+export type EffectiveTimePeriodKeySpecifier = Array<
+  'validTo' | EffectiveTimePeriodKeySpecifier
+>;
+export interface EffectiveTimePeriodFieldPolicy {
   validTo?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type EmailKeySpecifier = ('address' | EmailKeySpecifier)[];
-export type EmailFieldPolicy = {
+}
+export type EmailKeySpecifier = Array<'address' | EmailKeySpecifier>;
+export interface EmailFieldPolicy {
   address?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type EmployerHistoryKeySpecifier = (
-  | 'organization'
-  | 'positionHistories'
-  | EmployerHistoryKeySpecifier
-)[];
-export type EmployerHistoryFieldPolicy = {
+}
+export type EmployerHistoryKeySpecifier = Array<
+  'organization' | 'positionHistories' | EmployerHistoryKeySpecifier
+>;
+export interface EmployerHistoryFieldPolicy {
   organization?: FieldPolicy<any> | FieldReadFunction<any>;
   positionHistories?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type EventKeySpecifier = (
+}
+export type EventKeySpecifier = Array<
   | 'createDateTime'
   | 'id'
   | 'schemeId'
   | 'typeCode'
   | 'webhookAttempts'
   | EventKeySpecifier
-)[];
-export type EventFieldPolicy = {
+>;
+export interface EventFieldPolicy {
   createDateTime?: FieldPolicy<any> | FieldReadFunction<any>;
   id?: FieldPolicy<any> | FieldReadFunction<any>;
   schemeId?: FieldPolicy<any> | FieldReadFunction<any>;
   typeCode?: FieldPolicy<any> | FieldReadFunction<any>;
   webhookAttempts?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type EventEdgeKeySpecifier = (
-  | 'cursor'
-  | 'node'
-  | 'streamDateTime'
-  | EventEdgeKeySpecifier
-)[];
-export type EventEdgeFieldPolicy = {
+}
+export type EventEdgeKeySpecifier = Array<
+  'cursor' | 'node' | 'streamDateTime' | EventEdgeKeySpecifier
+>;
+export interface EventEdgeFieldPolicy {
   cursor?: FieldPolicy<any> | FieldReadFunction<any>;
   node?: FieldPolicy<any> | FieldReadFunction<any>;
   streamDateTime?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type EventsConnectionKeySpecifier = (
-  | 'edges'
-  | 'pageInfo'
-  | EventsConnectionKeySpecifier
-)[];
-export type EventsConnectionFieldPolicy = {
+}
+export type EventsConnectionKeySpecifier = Array<
+  'edges' | 'pageInfo' | EventsConnectionKeySpecifier
+>;
+export interface EventsConnectionFieldPolicy {
   edges?: FieldPolicy<any> | FieldReadFunction<any>;
   pageInfo?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type GeoLocationKeySpecifier = (
-  | 'latitude'
-  | 'longitude'
-  | GeoLocationKeySpecifier
-)[];
-export type GeoLocationFieldPolicy = {
+}
+export type GeoLocationKeySpecifier = Array<
+  'latitude' | 'longitude' | GeoLocationKeySpecifier
+>;
+export interface GeoLocationFieldPolicy {
   latitude?: FieldPolicy<any> | FieldReadFunction<any>;
   longitude?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type HirerRelationshipChangedEventKeySpecifier = (
+}
+export type HirerRelationshipChangedEventKeySpecifier = Array<
   | 'createDateTime'
   | 'hirer'
   | 'hirerId'
@@ -790,8 +728,8 @@ export type HirerRelationshipChangedEventKeySpecifier = (
   | 'typeCode'
   | 'webhookAttempts'
   | HirerRelationshipChangedEventKeySpecifier
-)[];
-export type HirerRelationshipChangedEventFieldPolicy = {
+>;
+export interface HirerRelationshipChangedEventFieldPolicy {
   createDateTime?: FieldPolicy<any> | FieldReadFunction<any>;
   hirer?: FieldPolicy<any> | FieldReadFunction<any>;
   hirerId?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -799,70 +737,60 @@ export type HirerRelationshipChangedEventFieldPolicy = {
   schemeId?: FieldPolicy<any> | FieldReadFunction<any>;
   typeCode?: FieldPolicy<any> | FieldReadFunction<any>;
   webhookAttempts?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type HiringOrganizationKeySpecifier = (
+}
+export type HiringOrganizationKeySpecifier = Array<
   | 'id'
   | 'name'
   | 'seekAnzAdvertiserId'
   | 'seekApiCapabilities'
   | HiringOrganizationKeySpecifier
-)[];
-export type HiringOrganizationFieldPolicy = {
+>;
+export interface HiringOrganizationFieldPolicy {
   id?: FieldPolicy<any> | FieldReadFunction<any>;
   name?: FieldPolicy<any> | FieldReadFunction<any>;
   seekAnzAdvertiserId?: FieldPolicy<any> | FieldReadFunction<any>;
   seekApiCapabilities?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type HiringOrganizationApiCapabilitiesKeySpecifier = (
+}
+export type HiringOrganizationApiCapabilitiesKeySpecifier = Array<
   | 'applicationMethodCodes'
   | 'relationshipTypeCodes'
   | HiringOrganizationApiCapabilitiesKeySpecifier
-)[];
-export type HiringOrganizationApiCapabilitiesFieldPolicy = {
+>;
+export interface HiringOrganizationApiCapabilitiesFieldPolicy {
   applicationMethodCodes?: FieldPolicy<any> | FieldReadFunction<any>;
   relationshipTypeCodes?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type HiringOrganizationEdgeKeySpecifier = (
-  | 'cursor'
-  | 'node'
-  | HiringOrganizationEdgeKeySpecifier
-)[];
-export type HiringOrganizationEdgeFieldPolicy = {
+}
+export type HiringOrganizationEdgeKeySpecifier = Array<
+  'cursor' | 'node' | HiringOrganizationEdgeKeySpecifier
+>;
+export interface HiringOrganizationEdgeFieldPolicy {
   cursor?: FieldPolicy<any> | FieldReadFunction<any>;
   node?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type HiringOrganizationsConnectionKeySpecifier = (
-  | 'edges'
-  | 'pageInfo'
-  | HiringOrganizationsConnectionKeySpecifier
-)[];
-export type HiringOrganizationsConnectionFieldPolicy = {
+}
+export type HiringOrganizationsConnectionKeySpecifier = Array<
+  'edges' | 'pageInfo' | HiringOrganizationsConnectionKeySpecifier
+>;
+export interface HiringOrganizationsConnectionFieldPolicy {
   edges?: FieldPolicy<any> | FieldReadFunction<any>;
   pageInfo?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type JobCategoryKeySpecifier = (
-  | 'children'
-  | 'id'
-  | 'name'
-  | 'parent'
-  | JobCategoryKeySpecifier
-)[];
-export type JobCategoryFieldPolicy = {
+}
+export type JobCategoryKeySpecifier = Array<
+  'children' | 'id' | 'name' | 'parent' | JobCategoryKeySpecifier
+>;
+export interface JobCategoryFieldPolicy {
   children?: FieldPolicy<any> | FieldReadFunction<any>;
   id?: FieldPolicy<any> | FieldReadFunction<any>;
   name?: FieldPolicy<any> | FieldReadFunction<any>;
   parent?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type JobCategorySuggestionChoiceKeySpecifier = (
-  | 'confidence'
-  | 'jobCategory'
-  | JobCategorySuggestionChoiceKeySpecifier
-)[];
-export type JobCategorySuggestionChoiceFieldPolicy = {
+}
+export type JobCategorySuggestionChoiceKeySpecifier = Array<
+  'confidence' | 'jobCategory' | JobCategorySuggestionChoiceKeySpecifier
+>;
+export interface JobCategorySuggestionChoiceFieldPolicy {
   confidence?: FieldPolicy<any> | FieldReadFunction<any>;
   jobCategory?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type LocationKeySpecifier = (
+}
+export type LocationKeySpecifier = Array<
   | 'children'
   | 'contextualName'
   | 'countryCode'
@@ -871,8 +799,8 @@ export type LocationKeySpecifier = (
   | 'name'
   | 'parent'
   | LocationKeySpecifier
-)[];
-export type LocationFieldPolicy = {
+>;
+export interface LocationFieldPolicy {
   children?: FieldPolicy<any> | FieldReadFunction<any>;
   contextualName?: FieldPolicy<any> | FieldReadFunction<any>;
   countryCode?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -880,15 +808,14 @@ export type LocationFieldPolicy = {
   id?: FieldPolicy<any> | FieldReadFunction<any>;
   name?: FieldPolicy<any> | FieldReadFunction<any>;
   parent?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type LocationSuggestionKeySpecifier = (
-  | 'location'
-  | LocationSuggestionKeySpecifier
-)[];
-export type LocationSuggestionFieldPolicy = {
+}
+export type LocationSuggestionKeySpecifier = Array<
+  'location' | LocationSuggestionKeySpecifier
+>;
+export interface LocationSuggestionFieldPolicy {
   location?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type MutationKeySpecifier = (
+}
+export type MutationKeySpecifier = Array<
   | '_empty'
   | 'closePostedPositionProfile'
   | 'createApplicationQuestionnaire'
@@ -917,8 +844,8 @@ export type MutationKeySpecifier = (
   | 'updateWebhookSubscriptionSigningConfiguration'
   | 'uploadCandidate'
   | MutationKeySpecifier
-)[];
-export type MutationFieldPolicy = {
+>;
+export interface MutationFieldPolicy {
   _empty?: FieldPolicy<any> | FieldReadFunction<any>;
   closePostedPositionProfile?: FieldPolicy<any> | FieldReadFunction<any>;
   createApplicationQuestionnaire?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -960,107 +887,96 @@ export type MutationFieldPolicy = {
     | FieldPolicy<any>
     | FieldReadFunction<any>;
   uploadCandidate?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type ObjectIdentifierKeySpecifier = (
-  | 'value'
-  | ObjectIdentifierKeySpecifier
-)[];
-export type ObjectIdentifierFieldPolicy = {
+}
+export type ObjectIdentifierKeySpecifier = Array<
+  'value' | ObjectIdentifierKeySpecifier
+>;
+export interface ObjectIdentifierFieldPolicy {
   value?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type OrganizationKeySpecifier = ('name' | OrganizationKeySpecifier)[];
-export type OrganizationFieldPolicy = {
+}
+export type OrganizationKeySpecifier = Array<'name' | OrganizationKeySpecifier>;
+export interface OrganizationFieldPolicy {
   name?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PageInfoKeySpecifier = (
+}
+export type PageInfoKeySpecifier = Array<
   | 'endCursor'
   | 'hasNextPage'
   | 'hasPreviousPage'
   | 'startCursor'
   | PageInfoKeySpecifier
-)[];
-export type PageInfoFieldPolicy = {
+>;
+export interface PageInfoFieldPolicy {
   endCursor?: FieldPolicy<any> | FieldReadFunction<any>;
   hasNextPage?: FieldPolicy<any> | FieldReadFunction<any>;
   hasPreviousPage?: FieldPolicy<any> | FieldReadFunction<any>;
   startCursor?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PartnerOrganizationKeySpecifier = (
+}
+export type PartnerOrganizationKeySpecifier = Array<
   | 'credentialSelfServiceApprovedIndicator'
   | 'name'
   | PartnerOrganizationKeySpecifier
-)[];
-export type PartnerOrganizationFieldPolicy = {
+>;
+export interface PartnerOrganizationFieldPolicy {
   credentialSelfServiceApprovedIndicator?:
     | FieldPolicy<any>
     | FieldReadFunction<any>;
   name?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PayTypeKeySpecifier = (
-  | 'basisCode'
-  | 'intervalCode'
-  | 'label'
-  | PayTypeKeySpecifier
-)[];
-export type PayTypeFieldPolicy = {
+}
+export type PayTypeKeySpecifier = Array<
+  'basisCode' | 'intervalCode' | 'label' | PayTypeKeySpecifier
+>;
+export interface PayTypeFieldPolicy {
   basisCode?: FieldPolicy<any> | FieldReadFunction<any>;
   intervalCode?: FieldPolicy<any> | FieldReadFunction<any>;
   label?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PersonCompetencyKeySpecifier = (
-  | 'competencyName'
-  | PersonCompetencyKeySpecifier
-)[];
-export type PersonCompetencyFieldPolicy = {
+}
+export type PersonCompetencyKeySpecifier = Array<
+  'competencyName' | PersonCompetencyKeySpecifier
+>;
+export interface PersonCompetencyFieldPolicy {
   competencyName?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PersonNameKeySpecifier = (
-  | 'family'
-  | 'formattedName'
-  | 'given'
-  | PersonNameKeySpecifier
-)[];
-export type PersonNameFieldPolicy = {
+}
+export type PersonNameKeySpecifier = Array<
+  'family' | 'formattedName' | 'given' | PersonNameKeySpecifier
+>;
+export interface PersonNameFieldPolicy {
   family?: FieldPolicy<any> | FieldReadFunction<any>;
   formattedName?: FieldPolicy<any> | FieldReadFunction<any>;
   given?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PhoneKeySpecifier = ('formattedNumber' | PhoneKeySpecifier)[];
-export type PhoneFieldPolicy = {
+}
+export type PhoneKeySpecifier = Array<'formattedNumber' | PhoneKeySpecifier>;
+export interface PhoneFieldPolicy {
   formattedNumber?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PositionFormattedDescriptionKeySpecifier = (
-  | 'content'
-  | 'descriptionId'
-  | PositionFormattedDescriptionKeySpecifier
-)[];
-export type PositionFormattedDescriptionFieldPolicy = {
+}
+export type PositionFormattedDescriptionKeySpecifier = Array<
+  'content' | 'descriptionId' | PositionFormattedDescriptionKeySpecifier
+>;
+export interface PositionFormattedDescriptionFieldPolicy {
   content?: FieldPolicy<any> | FieldReadFunction<any>;
   descriptionId?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PositionFormattedDescriptionIdentifierKeySpecifier = (
-  | 'value'
-  | PositionFormattedDescriptionIdentifierKeySpecifier
-)[];
-export type PositionFormattedDescriptionIdentifierFieldPolicy = {
+}
+export type PositionFormattedDescriptionIdentifierKeySpecifier = Array<
+  'value' | PositionFormattedDescriptionIdentifierKeySpecifier
+>;
+export interface PositionFormattedDescriptionIdentifierFieldPolicy {
   value?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PositionHistoryKeySpecifier = (
+}
+export type PositionHistoryKeySpecifier = Array<
   | 'current'
   | 'descriptions'
   | 'end'
   | 'start'
   | 'title'
   | PositionHistoryKeySpecifier
-)[];
-export type PositionHistoryFieldPolicy = {
+>;
+export interface PositionHistoryFieldPolicy {
   current?: FieldPolicy<any> | FieldReadFunction<any>;
   descriptions?: FieldPolicy<any> | FieldReadFunction<any>;
   end?: FieldPolicy<any> | FieldReadFunction<any>;
   start?: FieldPolicy<any> | FieldReadFunction<any>;
   title?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PositionOpeningKeySpecifier = (
+}
+export type PositionOpeningKeySpecifier = Array<
   | 'documentId'
   | 'paginatedPositionProfiles'
   | 'positionProfiles'
@@ -1068,41 +984,36 @@ export type PositionOpeningKeySpecifier = (
   | 'seekPartnerMetadata'
   | 'statusCode'
   | PositionOpeningKeySpecifier
-)[];
-export type PositionOpeningFieldPolicy = {
+>;
+export interface PositionOpeningFieldPolicy {
   documentId?: FieldPolicy<any> | FieldReadFunction<any>;
   paginatedPositionProfiles?: FieldPolicy<any> | FieldReadFunction<any>;
   positionProfiles?: FieldPolicy<any> | FieldReadFunction<any>;
   postingRequester?: FieldPolicy<any> | FieldReadFunction<any>;
   seekPartnerMetadata?: FieldPolicy<any> | FieldReadFunction<any>;
   statusCode?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PositionOpeningConnectionKeySpecifier = (
-  | 'edges'
-  | 'pageInfo'
-  | PositionOpeningConnectionKeySpecifier
-)[];
-export type PositionOpeningConnectionFieldPolicy = {
+}
+export type PositionOpeningConnectionKeySpecifier = Array<
+  'edges' | 'pageInfo' | PositionOpeningConnectionKeySpecifier
+>;
+export interface PositionOpeningConnectionFieldPolicy {
   edges?: FieldPolicy<any> | FieldReadFunction<any>;
   pageInfo?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PositionOpeningEdgeKeySpecifier = (
-  | 'cursor'
-  | 'node'
-  | PositionOpeningEdgeKeySpecifier
-)[];
-export type PositionOpeningEdgeFieldPolicy = {
+}
+export type PositionOpeningEdgeKeySpecifier = Array<
+  'cursor' | 'node' | PositionOpeningEdgeKeySpecifier
+>;
+export interface PositionOpeningEdgeFieldPolicy {
   cursor?: FieldPolicy<any> | FieldReadFunction<any>;
   node?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PositionPreferenceKeySpecifier = (
-  | 'locations'
-  | PositionPreferenceKeySpecifier
-)[];
-export type PositionPreferenceFieldPolicy = {
+}
+export type PositionPreferenceKeySpecifier = Array<
+  'locations' | PositionPreferenceKeySpecifier
+>;
+export interface PositionPreferenceFieldPolicy {
   locations?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PositionProfileKeySpecifier = (
+}
+export type PositionProfileKeySpecifier = Array<
   | 'jobCategories'
   | 'offeredRemunerationPackage'
   | 'positionFormattedDescriptions'
@@ -1123,8 +1034,8 @@ export type PositionProfileKeySpecifier = (
   | 'seekTypeCode'
   | 'seekVideo'
   | PositionProfileKeySpecifier
-)[];
-export type PositionProfileFieldPolicy = {
+>;
+export interface PositionProfileFieldPolicy {
   jobCategories?: FieldPolicy<any> | FieldReadFunction<any>;
   offeredRemunerationPackage?: FieldPolicy<any> | FieldReadFunction<any>;
   positionFormattedDescriptions?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1144,8 +1055,8 @@ export type PositionProfileFieldPolicy = {
   seekPartnerMetadata?: FieldPolicy<any> | FieldReadFunction<any>;
   seekTypeCode?: FieldPolicy<any> | FieldReadFunction<any>;
   seekVideo?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PositionProfileClosedEventKeySpecifier = (
+}
+export type PositionProfileClosedEventKeySpecifier = Array<
   | 'createDateTime'
   | 'id'
   | 'positionProfile'
@@ -1154,8 +1065,8 @@ export type PositionProfileClosedEventKeySpecifier = (
   | 'typeCode'
   | 'webhookAttempts'
   | PositionProfileClosedEventKeySpecifier
-)[];
-export type PositionProfileClosedEventFieldPolicy = {
+>;
+export interface PositionProfileClosedEventFieldPolicy {
   createDateTime?: FieldPolicy<any> | FieldReadFunction<any>;
   id?: FieldPolicy<any> | FieldReadFunction<any>;
   positionProfile?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1163,26 +1074,22 @@ export type PositionProfileClosedEventFieldPolicy = {
   schemeId?: FieldPolicy<any> | FieldReadFunction<any>;
   typeCode?: FieldPolicy<any> | FieldReadFunction<any>;
   webhookAttempts?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PositionProfileConnectionKeySpecifier = (
-  | 'edges'
-  | 'pageInfo'
-  | PositionProfileConnectionKeySpecifier
-)[];
-export type PositionProfileConnectionFieldPolicy = {
+}
+export type PositionProfileConnectionKeySpecifier = Array<
+  'edges' | 'pageInfo' | PositionProfileConnectionKeySpecifier
+>;
+export interface PositionProfileConnectionFieldPolicy {
   edges?: FieldPolicy<any> | FieldReadFunction<any>;
   pageInfo?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PositionProfileEdgeKeySpecifier = (
-  | 'cursor'
-  | 'node'
-  | PositionProfileEdgeKeySpecifier
-)[];
-export type PositionProfileEdgeFieldPolicy = {
+}
+export type PositionProfileEdgeKeySpecifier = Array<
+  'cursor' | 'node' | PositionProfileEdgeKeySpecifier
+>;
+export interface PositionProfileEdgeFieldPolicy {
   cursor?: FieldPolicy<any> | FieldReadFunction<any>;
   node?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PositionProfilePostedEventKeySpecifier = (
+}
+export type PositionProfilePostedEventKeySpecifier = Array<
   | 'createDateTime'
   | 'id'
   | 'positionProfile'
@@ -1191,8 +1098,8 @@ export type PositionProfilePostedEventKeySpecifier = (
   | 'typeCode'
   | 'webhookAttempts'
   | PositionProfilePostedEventKeySpecifier
-)[];
-export type PositionProfilePostedEventFieldPolicy = {
+>;
+export interface PositionProfilePostedEventFieldPolicy {
   createDateTime?: FieldPolicy<any> | FieldReadFunction<any>;
   id?: FieldPolicy<any> | FieldReadFunction<any>;
   positionProfile?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1200,61 +1107,59 @@ export type PositionProfilePostedEventFieldPolicy = {
   schemeId?: FieldPolicy<any> | FieldReadFunction<any>;
   typeCode?: FieldPolicy<any> | FieldReadFunction<any>;
   webhookAttempts?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PostPositionPayload_ConflictKeySpecifier = (
+}
+export type PostPositionPayload_ConflictKeySpecifier = Array<
   | 'conflictingPositionOpening'
   | 'conflictingPositionProfile'
   | PostPositionPayload_ConflictKeySpecifier
-)[];
-export type PostPositionPayload_ConflictFieldPolicy = {
+>;
+export interface PostPositionPayload_ConflictFieldPolicy {
   conflictingPositionOpening?: FieldPolicy<any> | FieldReadFunction<any>;
   conflictingPositionProfile?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PostPositionPayload_SuccessKeySpecifier = (
+}
+export type PostPositionPayload_SuccessKeySpecifier = Array<
   | 'positionOpening'
   | 'positionProfile'
   | PostPositionPayload_SuccessKeySpecifier
-)[];
-export type PostPositionPayload_SuccessFieldPolicy = {
+>;
+export interface PostPositionPayload_SuccessFieldPolicy {
   positionOpening?: FieldPolicy<any> | FieldReadFunction<any>;
   positionProfile?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PostPositionProfileForOpeningPayload_ConflictKeySpecifier = (
+}
+export type PostPositionProfileForOpeningPayload_ConflictKeySpecifier = Array<
   | 'conflictingPositionProfile'
   | PostPositionProfileForOpeningPayload_ConflictKeySpecifier
-)[];
-export type PostPositionProfileForOpeningPayload_ConflictFieldPolicy = {
+>;
+export interface PostPositionProfileForOpeningPayload_ConflictFieldPolicy {
   conflictingPositionProfile?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PostPositionProfileForOpeningPayload_SuccessKeySpecifier = (
-  | 'positionProfile'
-  | PostPositionProfileForOpeningPayload_SuccessKeySpecifier
-)[];
-export type PostPositionProfileForOpeningPayload_SuccessFieldPolicy = {
+}
+export type PostPositionProfileForOpeningPayload_SuccessKeySpecifier = Array<
+  'positionProfile' | PostPositionProfileForOpeningPayload_SuccessKeySpecifier
+>;
+export interface PostPositionProfileForOpeningPayload_SuccessFieldPolicy {
   positionProfile?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PostPositionProfileForOpening_PositionProfilePayloadKeySpecifier = (
-  | 'profileId'
-  | PostPositionProfileForOpening_PositionProfilePayloadKeySpecifier
-)[];
-export type PostPositionProfileForOpening_PositionProfilePayloadFieldPolicy = {
+}
+export type PostPositionProfileForOpening_PositionProfilePayloadKeySpecifier =
+  Array<
+    | 'profileId'
+    | PostPositionProfileForOpening_PositionProfilePayloadKeySpecifier
+  >;
+export interface PostPositionProfileForOpening_PositionProfilePayloadFieldPolicy {
   profileId?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PostPosition_PositionOpeningPayloadKeySpecifier = (
-  | 'documentId'
-  | PostPosition_PositionOpeningPayloadKeySpecifier
-)[];
-export type PostPosition_PositionOpeningPayloadFieldPolicy = {
+}
+export type PostPosition_PositionOpeningPayloadKeySpecifier = Array<
+  'documentId' | PostPosition_PositionOpeningPayloadKeySpecifier
+>;
+export interface PostPosition_PositionOpeningPayloadFieldPolicy {
   documentId?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PostPosition_PositionProfilePayloadKeySpecifier = (
-  | 'profileId'
-  | PostPosition_PositionProfilePayloadKeySpecifier
-)[];
-export type PostPosition_PositionProfilePayloadFieldPolicy = {
+}
+export type PostPosition_PositionProfilePayloadKeySpecifier = Array<
+  'profileId' | PostPosition_PositionProfilePayloadKeySpecifier
+>;
+export interface PostPosition_PositionProfilePayloadFieldPolicy {
   profileId?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PostedPositionProfileKeySpecifier = (
+}
+export type PostedPositionProfileKeySpecifier = Array<
   | 'jobCategories'
   | 'offeredRemunerationPackage'
   | 'positionFormattedDescriptions'
@@ -1276,8 +1181,8 @@ export type PostedPositionProfileKeySpecifier = (
   | 'seekTypeCode'
   | 'seekVideo'
   | PostedPositionProfileKeySpecifier
-)[];
-export type PostedPositionProfileFieldPolicy = {
+>;
+export interface PostedPositionProfileFieldPolicy {
   jobCategories?: FieldPolicy<any> | FieldReadFunction<any>;
   offeredRemunerationPackage?: FieldPolicy<any> | FieldReadFunction<any>;
   positionFormattedDescriptions?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1298,22 +1203,20 @@ export type PostedPositionProfileFieldPolicy = {
   seekPartnerMetadata?: FieldPolicy<any> | FieldReadFunction<any>;
   seekTypeCode?: FieldPolicy<any> | FieldReadFunction<any>;
   seekVideo?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PostedPositionProfilePreviewKeySpecifier = (
-  | 'previewUri'
-  | PostedPositionProfilePreviewKeySpecifier
-)[];
-export type PostedPositionProfilePreviewFieldPolicy = {
+}
+export type PostedPositionProfilePreviewKeySpecifier = Array<
+  'previewUri' | PostedPositionProfilePreviewKeySpecifier
+>;
+export interface PostedPositionProfilePreviewFieldPolicy {
   previewUri?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PostedPositionProfile_AdvertisementProductKeySpecifier = (
-  | 'label'
-  | PostedPositionProfile_AdvertisementProductKeySpecifier
-)[];
-export type PostedPositionProfile_AdvertisementProductFieldPolicy = {
+}
+export type PostedPositionProfile_AdvertisementProductKeySpecifier = Array<
+  'label' | PostedPositionProfile_AdvertisementProductKeySpecifier
+>;
+export interface PostedPositionProfile_AdvertisementProductFieldPolicy {
   label?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PostingInstructionKeySpecifier = (
+}
+export type PostingInstructionKeySpecifier = Array<
   | 'applicationMethods'
   | 'branding'
   | 'brandingId'
@@ -1322,8 +1225,8 @@ export type PostingInstructionKeySpecifier = (
   | 'seekAnzAdvertisementType'
   | 'start'
   | PostingInstructionKeySpecifier
-)[];
-export type PostingInstructionFieldPolicy = {
+>;
+export interface PostingInstructionFieldPolicy {
   applicationMethods?: FieldPolicy<any> | FieldReadFunction<any>;
   branding?: FieldPolicy<any> | FieldReadFunction<any>;
   brandingId?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1331,30 +1234,29 @@ export type PostingInstructionFieldPolicy = {
   seekAdvertisementProduct?: FieldPolicy<any> | FieldReadFunction<any>;
   seekAnzAdvertisementType?: FieldPolicy<any> | FieldReadFunction<any>;
   start?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PostingRequesterKeySpecifier = (
+}
+export type PostingRequesterKeySpecifier = Array<
   | 'id'
   | 'name'
   | 'personContacts'
   | 'roleCode'
   | 'seekAnzAdvertiserId'
   | PostingRequesterKeySpecifier
-)[];
-export type PostingRequesterFieldPolicy = {
+>;
+export interface PostingRequesterFieldPolicy {
   id?: FieldPolicy<any> | FieldReadFunction<any>;
   name?: FieldPolicy<any> | FieldReadFunction<any>;
   personContacts?: FieldPolicy<any> | FieldReadFunction<any>;
   roleCode?: FieldPolicy<any> | FieldReadFunction<any>;
   seekAnzAdvertiserId?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PreferredLocationKeySpecifier = (
-  | 'referenceLocation'
-  | PreferredLocationKeySpecifier
-)[];
-export type PreferredLocationFieldPolicy = {
+}
+export type PreferredLocationKeySpecifier = Array<
+  'referenceLocation' | PreferredLocationKeySpecifier
+>;
+export interface PreferredLocationFieldPolicy {
   referenceLocation?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type QueryKeySpecifier = (
+}
+export type QueryKeySpecifier = Array<
   | 'advertisementBranding'
   | 'advertisementBrandings'
   | 'advertisementProducts'
@@ -1393,8 +1295,8 @@ export type QueryKeySpecifier = (
   | 'webhookSubscriptionReplay'
   | 'webhookSubscriptions'
   | QueryKeySpecifier
-)[];
-export type QueryFieldPolicy = {
+>;
+export interface QueryFieldPolicy {
   advertisementBranding?: FieldPolicy<any> | FieldReadFunction<any>;
   advertisementBrandings?: FieldPolicy<any> | FieldReadFunction<any>;
   advertisementProducts?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1440,46 +1342,40 @@ export type QueryFieldPolicy = {
   webhookSubscription?: FieldPolicy<any> | FieldReadFunction<any>;
   webhookSubscriptionReplay?: FieldPolicy<any> | FieldReadFunction<any>;
   webhookSubscriptions?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type RemunerationAmountKeySpecifier = (
-  | 'currency'
-  | 'value'
-  | RemunerationAmountKeySpecifier
-)[];
-export type RemunerationAmountFieldPolicy = {
+}
+export type RemunerationAmountKeySpecifier = Array<
+  'currency' | 'value' | RemunerationAmountKeySpecifier
+>;
+export interface RemunerationAmountFieldPolicy {
   currency?: FieldPolicy<any> | FieldReadFunction<any>;
   value?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type RemunerationPackageKeySpecifier = (
-  | 'basisCode'
-  | 'descriptions'
-  | 'ranges'
-  | RemunerationPackageKeySpecifier
-)[];
-export type RemunerationPackageFieldPolicy = {
+}
+export type RemunerationPackageKeySpecifier = Array<
+  'basisCode' | 'descriptions' | 'ranges' | RemunerationPackageKeySpecifier
+>;
+export interface RemunerationPackageFieldPolicy {
   basisCode?: FieldPolicy<any> | FieldReadFunction<any>;
   descriptions?: FieldPolicy<any> | FieldReadFunction<any>;
   ranges?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type RemunerationRangeKeySpecifier = (
+}
+export type RemunerationRangeKeySpecifier = Array<
   | 'intervalCode'
   | 'maximumAmount'
   | 'minimumAmount'
   | RemunerationRangeKeySpecifier
-)[];
-export type RemunerationRangeFieldPolicy = {
+>;
+export interface RemunerationRangeFieldPolicy {
   intervalCode?: FieldPolicy<any> | FieldReadFunction<any>;
   maximumAmount?: FieldPolicy<any> | FieldReadFunction<any>;
   minimumAmount?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type ReplayWebhookSubscriptionPayloadKeySpecifier = (
-  | 'webhookSubscription'
-  | ReplayWebhookSubscriptionPayloadKeySpecifier
-)[];
-export type ReplayWebhookSubscriptionPayloadFieldPolicy = {
+}
+export type ReplayWebhookSubscriptionPayloadKeySpecifier = Array<
+  'webhookSubscription' | ReplayWebhookSubscriptionPayloadKeySpecifier
+>;
+export interface ReplayWebhookSubscriptionPayloadFieldPolicy {
   webhookSubscription?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type SeekAnzAdProductKeySpecifier = (
+}
+export type SeekAnzAdProductKeySpecifier = Array<
   | 'advertisementTypeCode'
   | 'checkoutEstimate'
   | 'description'
@@ -1489,8 +1385,8 @@ export type SeekAnzAdProductKeySpecifier = (
   | 'name'
   | 'price'
   | SeekAnzAdProductKeySpecifier
-)[];
-export type SeekAnzAdProductFieldPolicy = {
+>;
+export interface SeekAnzAdProductFieldPolicy {
   advertisementTypeCode?: FieldPolicy<any> | FieldReadFunction<any>;
   checkoutEstimate?: FieldPolicy<any> | FieldReadFunction<any>;
   description?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1499,99 +1395,89 @@ export type SeekAnzAdProductFieldPolicy = {
   messages?: FieldPolicy<any> | FieldReadFunction<any>;
   name?: FieldPolicy<any> | FieldReadFunction<any>;
   price?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type SeekAnzAdProductCheckoutEstimateKeySpecifier = (
+}
+export type SeekAnzAdProductCheckoutEstimateKeySpecifier = Array<
   | 'contractConsumption'
   | 'paymentDueExcludingTax'
   | 'summary'
   | SeekAnzAdProductCheckoutEstimateKeySpecifier
-)[];
-export type SeekAnzAdProductCheckoutEstimateFieldPolicy = {
+>;
+export interface SeekAnzAdProductCheckoutEstimateFieldPolicy {
   contractConsumption?: FieldPolicy<any> | FieldReadFunction<any>;
   paymentDueExcludingTax?: FieldPolicy<any> | FieldReadFunction<any>;
   summary?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type SeekAnzAdProductContractConsumptionKeySpecifier = (
-  | 'summary'
-  | 'typeCode'
-  | SeekAnzAdProductContractConsumptionKeySpecifier
-)[];
-export type SeekAnzAdProductContractConsumptionFieldPolicy = {
+}
+export type SeekAnzAdProductContractConsumptionKeySpecifier = Array<
+  'summary' | 'typeCode' | SeekAnzAdProductContractConsumptionKeySpecifier
+>;
+export interface SeekAnzAdProductContractConsumptionFieldPolicy {
   summary?: FieldPolicy<any> | FieldReadFunction<any>;
   typeCode?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type SeekAnzAdProductFeaturesKeySpecifier = (
+}
+export type SeekAnzAdProductFeaturesKeySpecifier = Array<
   | 'brandingIndicator'
   | 'searchBulletPointsIndicator'
   | SeekAnzAdProductFeaturesKeySpecifier
-)[];
-export type SeekAnzAdProductFeaturesFieldPolicy = {
+>;
+export interface SeekAnzAdProductFeaturesFieldPolicy {
   brandingIndicator?: FieldPolicy<any> | FieldReadFunction<any>;
   searchBulletPointsIndicator?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type SeekAnzAdProductMessageKeySpecifier = (
+}
+export type SeekAnzAdProductMessageKeySpecifier = Array<
   | 'content'
   | 'severityCode'
   | 'typeCode'
   | 'visibilityCode'
   | SeekAnzAdProductMessageKeySpecifier
-)[];
-export type SeekAnzAdProductMessageFieldPolicy = {
+>;
+export interface SeekAnzAdProductMessageFieldPolicy {
   content?: FieldPolicy<any> | FieldReadFunction<any>;
   severityCode?: FieldPolicy<any> | FieldReadFunction<any>;
   typeCode?: FieldPolicy<any> | FieldReadFunction<any>;
   visibilityCode?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type SeekAnzAdProductPriceKeySpecifier = (
+}
+export type SeekAnzAdProductPriceKeySpecifier = Array<
   | 'amountExcludingTax'
   | 'summary'
   | 'taxedIndicator'
   | 'visibleForHirerIndicator'
   | SeekAnzAdProductPriceKeySpecifier
-)[];
-export type SeekAnzAdProductPriceFieldPolicy = {
+>;
+export interface SeekAnzAdProductPriceFieldPolicy {
   amountExcludingTax?: FieldPolicy<any> | FieldReadFunction<any>;
   summary?: FieldPolicy<any> | FieldReadFunction<any>;
   taxedIndicator?: FieldPolicy<any> | FieldReadFunction<any>;
   visibleForHirerIndicator?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type SeekProcessHistoryItemSourceKeySpecifier = (
-  | 'name'
-  | SeekProcessHistoryItemSourceKeySpecifier
-)[];
-export type SeekProcessHistoryItemSourceFieldPolicy = {
+}
+export type SeekProcessHistoryItemSourceKeySpecifier = Array<
+  'name' | SeekProcessHistoryItemSourceKeySpecifier
+>;
+export interface SeekProcessHistoryItemSourceFieldPolicy {
   name?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type SeekVideoKeySpecifier = (
-  | 'seekAnzPositionCode'
-  | 'url'
-  | SeekVideoKeySpecifier
-)[];
-export type SeekVideoFieldPolicy = {
+}
+export type SeekVideoKeySpecifier = Array<
+  'seekAnzPositionCode' | 'url' | SeekVideoKeySpecifier
+>;
+export interface SeekVideoFieldPolicy {
   seekAnzPositionCode?: FieldPolicy<any> | FieldReadFunction<any>;
   url?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type SelfOrganizationsKeySpecifier = (
-  | 'hirer'
-  | 'partner'
-  | SelfOrganizationsKeySpecifier
-)[];
-export type SelfOrganizationsFieldPolicy = {
+}
+export type SelfOrganizationsKeySpecifier = Array<
+  'hirer' | 'partner' | SelfOrganizationsKeySpecifier
+>;
+export interface SelfOrganizationsFieldPolicy {
   hirer?: FieldPolicy<any> | FieldReadFunction<any>;
   partner?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type SpecifiedPersonKeySpecifier = (
-  | 'communication'
-  | 'name'
-  | 'roleCode'
-  | SpecifiedPersonKeySpecifier
-)[];
-export type SpecifiedPersonFieldPolicy = {
+}
+export type SpecifiedPersonKeySpecifier = Array<
+  'communication' | 'name' | 'roleCode' | SpecifiedPersonKeySpecifier
+>;
+export interface SpecifiedPersonFieldPolicy {
   communication?: FieldPolicy<any> | FieldReadFunction<any>;
   name?: FieldPolicy<any> | FieldReadFunction<any>;
   roleCode?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type UnpostedPositionProfileKeySpecifier = (
+}
+export type UnpostedPositionProfileKeySpecifier = Array<
   | 'jobCategories'
   | 'offeredRemunerationPackage'
   | 'positionFormattedDescriptions'
@@ -1613,8 +1499,8 @@ export type UnpostedPositionProfileKeySpecifier = (
   | 'seekTypeCode'
   | 'seekVideo'
   | UnpostedPositionProfileKeySpecifier
-)[];
-export type UnpostedPositionProfileFieldPolicy = {
+>;
+export interface UnpostedPositionProfileFieldPolicy {
   jobCategories?: FieldPolicy<any> | FieldReadFunction<any>;
   offeredRemunerationPackage?: FieldPolicy<any> | FieldReadFunction<any>;
   positionFormattedDescriptions?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1635,169 +1521,156 @@ export type UnpostedPositionProfileFieldPolicy = {
   seekPartnerMetadata?: FieldPolicy<any> | FieldReadFunction<any>;
   seekTypeCode?: FieldPolicy<any> | FieldReadFunction<any>;
   seekVideo?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type UpdateCandidateProcessHistoryItemPayloadKeySpecifier = (
+}
+export type UpdateCandidateProcessHistoryItemPayloadKeySpecifier = Array<
   | 'candidateProcessHistoryItem'
   | UpdateCandidateProcessHistoryItemPayloadKeySpecifier
-)[];
-export type UpdateCandidateProcessHistoryItemPayloadFieldPolicy = {
+>;
+export interface UpdateCandidateProcessHistoryItemPayloadFieldPolicy {
   candidateProcessHistoryItem?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type UpdatePositionOpeningPersonContactsPayloadKeySpecifier = (
-  | 'positionOpening'
-  | UpdatePositionOpeningPersonContactsPayloadKeySpecifier
-)[];
-export type UpdatePositionOpeningPersonContactsPayloadFieldPolicy = {
+}
+export type UpdatePositionOpeningPersonContactsPayloadKeySpecifier = Array<
+  'positionOpening' | UpdatePositionOpeningPersonContactsPayloadKeySpecifier
+>;
+export interface UpdatePositionOpeningPersonContactsPayloadFieldPolicy {
   positionOpening?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type UpdatePositionOpeningStatusPayloadKeySpecifier = (
-  | 'positionOpening'
-  | UpdatePositionOpeningStatusPayloadKeySpecifier
-)[];
-export type UpdatePositionOpeningStatusPayloadFieldPolicy = {
+}
+export type UpdatePositionOpeningStatusPayloadKeySpecifier = Array<
+  'positionOpening' | UpdatePositionOpeningStatusPayloadKeySpecifier
+>;
+export interface UpdatePositionOpeningStatusPayloadFieldPolicy {
   positionOpening?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type UpdatePostedPositionProfilePayloadKeySpecifier = (
-  | 'positionProfile'
-  | UpdatePostedPositionProfilePayloadKeySpecifier
-)[];
-export type UpdatePostedPositionProfilePayloadFieldPolicy = {
+}
+export type UpdatePostedPositionProfilePayloadKeySpecifier = Array<
+  'positionProfile' | UpdatePostedPositionProfilePayloadKeySpecifier
+>;
+export interface UpdatePostedPositionProfilePayloadFieldPolicy {
   positionProfile?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type UpdatePostedPositionProfile_PositionProfilePayloadKeySpecifier = (
-  | 'profileId'
-  | UpdatePostedPositionProfile_PositionProfilePayloadKeySpecifier
-)[];
-export type UpdatePostedPositionProfile_PositionProfilePayloadFieldPolicy = {
+}
+export type UpdatePostedPositionProfile_PositionProfilePayloadKeySpecifier =
+  Array<
+    'profileId' | UpdatePostedPositionProfile_PositionProfilePayloadKeySpecifier
+  >;
+export interface UpdatePostedPositionProfile_PositionProfilePayloadFieldPolicy {
   profileId?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type UpdateUnpostedPositionProfilePayloadKeySpecifier = (
-  | 'positionProfile'
-  | UpdateUnpostedPositionProfilePayloadKeySpecifier
-)[];
-export type UpdateUnpostedPositionProfilePayloadFieldPolicy = {
+}
+export type UpdateUnpostedPositionProfilePayloadKeySpecifier = Array<
+  'positionProfile' | UpdateUnpostedPositionProfilePayloadKeySpecifier
+>;
+export interface UpdateUnpostedPositionProfilePayloadFieldPolicy {
   positionProfile?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type UpdateUploadedCandidatePersonPayload_ConflictKeySpecifier = (
+}
+export type UpdateUploadedCandidatePersonPayload_ConflictKeySpecifier = Array<
   | 'conflictingCandidate'
   | UpdateUploadedCandidatePersonPayload_ConflictKeySpecifier
-)[];
-export type UpdateUploadedCandidatePersonPayload_ConflictFieldPolicy = {
+>;
+export interface UpdateUploadedCandidatePersonPayload_ConflictFieldPolicy {
   conflictingCandidate?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type UpdateUploadedCandidatePersonPayload_SuccessKeySpecifier = (
-  | 'candidate'
-  | UpdateUploadedCandidatePersonPayload_SuccessKeySpecifier
-)[];
-export type UpdateUploadedCandidatePersonPayload_SuccessFieldPolicy = {
+}
+export type UpdateUploadedCandidatePersonPayload_SuccessKeySpecifier = Array<
+  'candidate' | UpdateUploadedCandidatePersonPayload_SuccessKeySpecifier
+>;
+export interface UpdateUploadedCandidatePersonPayload_SuccessFieldPolicy {
   candidate?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type UpdateUploadedCandidateProfileActionsPayloadKeySpecifier = (
-  | 'candidateProfile'
-  | UpdateUploadedCandidateProfileActionsPayloadKeySpecifier
-)[];
-export type UpdateUploadedCandidateProfileActionsPayloadFieldPolicy = {
+}
+export type UpdateUploadedCandidateProfileActionsPayloadKeySpecifier = Array<
+  'candidateProfile' | UpdateUploadedCandidateProfileActionsPayloadKeySpecifier
+>;
+export interface UpdateUploadedCandidateProfileActionsPayloadFieldPolicy {
   candidateProfile?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type UpdateUploadedCandidateProfileDatesPayloadKeySpecifier = (
-  | 'candidateProfile'
-  | UpdateUploadedCandidateProfileDatesPayloadKeySpecifier
-)[];
-export type UpdateUploadedCandidateProfileDatesPayloadFieldPolicy = {
+}
+export type UpdateUploadedCandidateProfileDatesPayloadKeySpecifier = Array<
+  'candidateProfile' | UpdateUploadedCandidateProfileDatesPayloadKeySpecifier
+>;
+export interface UpdateUploadedCandidateProfileDatesPayloadFieldPolicy {
   candidateProfile?: FieldPolicy<any> | FieldReadFunction<any>;
-};
+}
 export type UpdateUploadedCandidateProfilePositionPreferencesPayloadKeySpecifier =
-  (
+  Array<
     | 'candidateProfile'
     | UpdateUploadedCandidateProfilePositionPreferencesPayloadKeySpecifier
-  )[];
-export type UpdateUploadedCandidateProfilePositionPreferencesPayloadFieldPolicy =
-  {
-    candidateProfile?: FieldPolicy<any> | FieldReadFunction<any>;
-  };
+  >;
+export interface UpdateUploadedCandidateProfilePositionPreferencesPayloadFieldPolicy {
+  candidateProfile?: FieldPolicy<any> | FieldReadFunction<any>;
+}
 export type UpdateWebhookSubscriptionDeliveryConfigurationPayload_ConflictKeySpecifier =
-  (
+  Array<
     | 'conflictingWebhookSubscription'
     | UpdateWebhookSubscriptionDeliveryConfigurationPayload_ConflictKeySpecifier
-  )[];
-export type UpdateWebhookSubscriptionDeliveryConfigurationPayload_ConflictFieldPolicy =
-  {
-    conflictingWebhookSubscription?: FieldPolicy<any> | FieldReadFunction<any>;
-  };
+  >;
+export interface UpdateWebhookSubscriptionDeliveryConfigurationPayload_ConflictFieldPolicy {
+  conflictingWebhookSubscription?: FieldPolicy<any> | FieldReadFunction<any>;
+}
 export type UpdateWebhookSubscriptionDeliveryConfigurationPayload_SuccessKeySpecifier =
-  (
+  Array<
     | 'webhookSubscription'
     | UpdateWebhookSubscriptionDeliveryConfigurationPayload_SuccessKeySpecifier
-  )[];
-export type UpdateWebhookSubscriptionDeliveryConfigurationPayload_SuccessFieldPolicy =
-  {
-    webhookSubscription?: FieldPolicy<any> | FieldReadFunction<any>;
-  };
-export type UpdateWebhookSubscriptionSigningConfigurationPayloadKeySpecifier = (
-  | 'webhookSubscription'
-  | UpdateWebhookSubscriptionSigningConfigurationPayloadKeySpecifier
-)[];
-export type UpdateWebhookSubscriptionSigningConfigurationPayloadFieldPolicy = {
+  >;
+export interface UpdateWebhookSubscriptionDeliveryConfigurationPayload_SuccessFieldPolicy {
   webhookSubscription?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type UploadCandidatePayload_ConflictKeySpecifier = (
+}
+export type UpdateWebhookSubscriptionSigningConfigurationPayloadKeySpecifier =
+  Array<
+    | 'webhookSubscription'
+    | UpdateWebhookSubscriptionSigningConfigurationPayloadKeySpecifier
+  >;
+export interface UpdateWebhookSubscriptionSigningConfigurationPayloadFieldPolicy {
+  webhookSubscription?: FieldPolicy<any> | FieldReadFunction<any>;
+}
+export type UploadCandidatePayload_ConflictKeySpecifier = Array<
   | 'conflictingCandidate'
   | 'hiringOrganization'
   | UploadCandidatePayload_ConflictKeySpecifier
-)[];
-export type UploadCandidatePayload_ConflictFieldPolicy = {
+>;
+export interface UploadCandidatePayload_ConflictFieldPolicy {
   conflictingCandidate?: FieldPolicy<any> | FieldReadFunction<any>;
   hiringOrganization?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type UploadCandidatePayload_SuccessKeySpecifier = (
+}
+export type UploadCandidatePayload_SuccessKeySpecifier = Array<
   | 'candidate'
   | 'candidateProcessHistoryItems'
   | 'hiringOrganization'
   | UploadCandidatePayload_SuccessKeySpecifier
-)[];
-export type UploadCandidatePayload_SuccessFieldPolicy = {
+>;
+export interface UploadCandidatePayload_SuccessFieldPolicy {
   candidate?: FieldPolicy<any> | FieldReadFunction<any>;
   candidateProcessHistoryItems?: FieldPolicy<any> | FieldReadFunction<any>;
   hiringOrganization?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type WebUrlKeySpecifier = ('url' | WebUrlKeySpecifier)[];
-export type WebUrlFieldPolicy = {
+}
+export type WebUrlKeySpecifier = Array<'url' | WebUrlKeySpecifier>;
+export interface WebUrlFieldPolicy {
   url?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type WebhookAttemptKeySpecifier = (
+}
+export type WebhookAttemptKeySpecifier = Array<
   | 'createDateTime'
   | 'event'
   | 'id'
   | 'webhookRequest'
   | 'webhookSubscription'
   | WebhookAttemptKeySpecifier
-)[];
-export type WebhookAttemptFieldPolicy = {
+>;
+export interface WebhookAttemptFieldPolicy {
   createDateTime?: FieldPolicy<any> | FieldReadFunction<any>;
   event?: FieldPolicy<any> | FieldReadFunction<any>;
   id?: FieldPolicy<any> | FieldReadFunction<any>;
   webhookRequest?: FieldPolicy<any> | FieldReadFunction<any>;
   webhookSubscription?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type WebhookAttemptEdgeKeySpecifier = (
-  | 'cursor'
-  | 'node'
-  | WebhookAttemptEdgeKeySpecifier
-)[];
-export type WebhookAttemptEdgeFieldPolicy = {
+}
+export type WebhookAttemptEdgeKeySpecifier = Array<
+  'cursor' | 'node' | WebhookAttemptEdgeKeySpecifier
+>;
+export interface WebhookAttemptEdgeFieldPolicy {
   cursor?: FieldPolicy<any> | FieldReadFunction<any>;
   node?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type WebhookAttemptsConnectionKeySpecifier = (
-  | 'edges'
-  | 'pageInfo'
-  | WebhookAttemptsConnectionKeySpecifier
-)[];
-export type WebhookAttemptsConnectionFieldPolicy = {
+}
+export type WebhookAttemptsConnectionKeySpecifier = Array<
+  'edges' | 'pageInfo' | WebhookAttemptsConnectionKeySpecifier
+>;
+export interface WebhookAttemptsConnectionFieldPolicy {
   edges?: FieldPolicy<any> | FieldReadFunction<any>;
   pageInfo?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type WebhookRequestKeySpecifier = (
+}
+export type WebhookRequestKeySpecifier = Array<
   | 'attempts'
   | 'createDateTime'
   | 'descriptionCode'
@@ -1806,8 +1679,8 @@ export type WebhookRequestKeySpecifier = (
   | 'statusCode'
   | 'webhookSubscription'
   | WebhookRequestKeySpecifier
-)[];
-export type WebhookRequestFieldPolicy = {
+>;
+export interface WebhookRequestFieldPolicy {
   attempts?: FieldPolicy<any> | FieldReadFunction<any>;
   createDateTime?: FieldPolicy<any> | FieldReadFunction<any>;
   descriptionCode?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1815,26 +1688,22 @@ export type WebhookRequestFieldPolicy = {
   requestId?: FieldPolicy<any> | FieldReadFunction<any>;
   statusCode?: FieldPolicy<any> | FieldReadFunction<any>;
   webhookSubscription?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type WebhookRequestEdgeKeySpecifier = (
-  | 'cursor'
-  | 'node'
-  | WebhookRequestEdgeKeySpecifier
-)[];
-export type WebhookRequestEdgeFieldPolicy = {
+}
+export type WebhookRequestEdgeKeySpecifier = Array<
+  'cursor' | 'node' | WebhookRequestEdgeKeySpecifier
+>;
+export interface WebhookRequestEdgeFieldPolicy {
   cursor?: FieldPolicy<any> | FieldReadFunction<any>;
   node?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type WebhookRequestsConnectionKeySpecifier = (
-  | 'edges'
-  | 'pageInfo'
-  | WebhookRequestsConnectionKeySpecifier
-)[];
-export type WebhookRequestsConnectionFieldPolicy = {
+}
+export type WebhookRequestsConnectionKeySpecifier = Array<
+  'edges' | 'pageInfo' | WebhookRequestsConnectionKeySpecifier
+>;
+export interface WebhookRequestsConnectionFieldPolicy {
   edges?: FieldPolicy<any> | FieldReadFunction<any>;
   pageInfo?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type WebhookSubscriptionKeySpecifier = (
+}
+export type WebhookSubscriptionKeySpecifier = Array<
   | 'createDateTime'
   | 'eventTypeCode'
   | 'hirer'
@@ -1848,8 +1717,8 @@ export type WebhookSubscriptionKeySpecifier = (
   | 'webhookRequests'
   | 'webhookSubscriptionReplays'
   | WebhookSubscriptionKeySpecifier
-)[];
-export type WebhookSubscriptionFieldPolicy = {
+>;
+export interface WebhookSubscriptionFieldPolicy {
   createDateTime?: FieldPolicy<any> | FieldReadFunction<any>;
   eventTypeCode?: FieldPolicy<any> | FieldReadFunction<any>;
   hirer?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1862,17 +1731,15 @@ export type WebhookSubscriptionFieldPolicy = {
   url?: FieldPolicy<any> | FieldReadFunction<any>;
   webhookRequests?: FieldPolicy<any> | FieldReadFunction<any>;
   webhookSubscriptionReplays?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type WebhookSubscriptionEdgeKeySpecifier = (
-  | 'cursor'
-  | 'node'
-  | WebhookSubscriptionEdgeKeySpecifier
-)[];
-export type WebhookSubscriptionEdgeFieldPolicy = {
+}
+export type WebhookSubscriptionEdgeKeySpecifier = Array<
+  'cursor' | 'node' | WebhookSubscriptionEdgeKeySpecifier
+>;
+export interface WebhookSubscriptionEdgeFieldPolicy {
   cursor?: FieldPolicy<any> | FieldReadFunction<any>;
   node?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type WebhookSubscriptionReplayKeySpecifier = (
+}
+export type WebhookSubscriptionReplayKeySpecifier = Array<
   | 'createDateTime'
   | 'id'
   | 'request'
@@ -1880,74 +1747,65 @@ export type WebhookSubscriptionReplayKeySpecifier = (
   | 'updateDateTime'
   | 'webhookSubscription'
   | WebhookSubscriptionReplayKeySpecifier
-)[];
-export type WebhookSubscriptionReplayFieldPolicy = {
+>;
+export interface WebhookSubscriptionReplayFieldPolicy {
   createDateTime?: FieldPolicy<any> | FieldReadFunction<any>;
   id?: FieldPolicy<any> | FieldReadFunction<any>;
   request?: FieldPolicy<any> | FieldReadFunction<any>;
   statusCode?: FieldPolicy<any> | FieldReadFunction<any>;
   updateDateTime?: FieldPolicy<any> | FieldReadFunction<any>;
   webhookSubscription?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type WebhookSubscriptionReplayByIdRequestKeySpecifier = (
-  | 'eventIds'
-  | 'typeCode'
-  | WebhookSubscriptionReplayByIdRequestKeySpecifier
-)[];
-export type WebhookSubscriptionReplayByIdRequestFieldPolicy = {
+}
+export type WebhookSubscriptionReplayByIdRequestKeySpecifier = Array<
+  'eventIds' | 'typeCode' | WebhookSubscriptionReplayByIdRequestKeySpecifier
+>;
+export interface WebhookSubscriptionReplayByIdRequestFieldPolicy {
   eventIds?: FieldPolicy<any> | FieldReadFunction<any>;
   typeCode?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type WebhookSubscriptionReplayByRangeRequestKeySpecifier = (
+}
+export type WebhookSubscriptionReplayByRangeRequestKeySpecifier = Array<
   | 'afterDateTime'
   | 'beforeDateTime'
   | 'hirer'
   | 'replayDeliveredEventsIndicator'
   | 'typeCode'
   | WebhookSubscriptionReplayByRangeRequestKeySpecifier
-)[];
-export type WebhookSubscriptionReplayByRangeRequestFieldPolicy = {
+>;
+export interface WebhookSubscriptionReplayByRangeRequestFieldPolicy {
   afterDateTime?: FieldPolicy<any> | FieldReadFunction<any>;
   beforeDateTime?: FieldPolicy<any> | FieldReadFunction<any>;
   hirer?: FieldPolicy<any> | FieldReadFunction<any>;
   replayDeliveredEventsIndicator?: FieldPolicy<any> | FieldReadFunction<any>;
   typeCode?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type WebhookSubscriptionReplayEdgeKeySpecifier = (
-  | 'cursor'
-  | 'node'
-  | WebhookSubscriptionReplayEdgeKeySpecifier
-)[];
-export type WebhookSubscriptionReplayEdgeFieldPolicy = {
+}
+export type WebhookSubscriptionReplayEdgeKeySpecifier = Array<
+  'cursor' | 'node' | WebhookSubscriptionReplayEdgeKeySpecifier
+>;
+export interface WebhookSubscriptionReplayEdgeFieldPolicy {
   cursor?: FieldPolicy<any> | FieldReadFunction<any>;
   node?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type WebhookSubscriptionReplayRequestKeySpecifier = (
-  | 'typeCode'
-  | WebhookSubscriptionReplayRequestKeySpecifier
-)[];
-export type WebhookSubscriptionReplayRequestFieldPolicy = {
+}
+export type WebhookSubscriptionReplayRequestKeySpecifier = Array<
+  'typeCode' | WebhookSubscriptionReplayRequestKeySpecifier
+>;
+export interface WebhookSubscriptionReplayRequestFieldPolicy {
   typeCode?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type WebhookSubscriptionReplaysConnectionKeySpecifier = (
-  | 'edges'
-  | 'pageInfo'
-  | WebhookSubscriptionReplaysConnectionKeySpecifier
-)[];
-export type WebhookSubscriptionReplaysConnectionFieldPolicy = {
+}
+export type WebhookSubscriptionReplaysConnectionKeySpecifier = Array<
+  'edges' | 'pageInfo' | WebhookSubscriptionReplaysConnectionKeySpecifier
+>;
+export interface WebhookSubscriptionReplaysConnectionFieldPolicy {
   edges?: FieldPolicy<any> | FieldReadFunction<any>;
   pageInfo?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type WebhookSubscriptionsConnectionKeySpecifier = (
-  | 'edges'
-  | 'pageInfo'
-  | WebhookSubscriptionsConnectionKeySpecifier
-)[];
-export type WebhookSubscriptionsConnectionFieldPolicy = {
+}
+export type WebhookSubscriptionsConnectionKeySpecifier = Array<
+  'edges' | 'pageInfo' | WebhookSubscriptionsConnectionKeySpecifier
+>;
+export interface WebhookSubscriptionsConnectionFieldPolicy {
   edges?: FieldPolicy<any> | FieldReadFunction<any>;
   pageInfo?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type StrictTypedTypePolicies = {
+}
+export interface StrictTypedTypePolicies {
   Address?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:
       | false
@@ -3297,5 +3155,5 @@ export type StrictTypedTypePolicies = {
       | (() => undefined | WebhookSubscriptionsConnectionKeySpecifier);
     fields?: WebhookSubscriptionsConnectionFieldPolicy;
   };
-};
+}
 export type TypedTypePolicies = StrictTypedTypePolicies & TypePolicies;

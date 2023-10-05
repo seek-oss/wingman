@@ -159,7 +159,6 @@ interface StateContextType {
 }
 export const StateContext = React.createContext<StateContextType>({
   state: [],
-  // tslint:disable-next-line
   dispatch: () => {},
 });
 

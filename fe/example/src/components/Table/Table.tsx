@@ -7,7 +7,9 @@ import * as styles from './Table.css';
 
 export type Align = 'left' | 'center' | 'right';
 
-export type BaseRow = { id: string };
+export interface BaseRow {
+  id: string;
+}
 
 export interface TableColumn<Row extends BaseRow> {
   align: Align;
@@ -20,7 +22,7 @@ export interface TableColumn<Row extends BaseRow> {
 }
 
 interface Props<Row extends BaseRow> {
-  columns: TableColumn<Row>[];
+  columns: Array<TableColumn<Row>>;
 
   rows: Row[];
 }

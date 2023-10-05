@@ -1,6 +1,6 @@
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = {
+export type Exact<T extends Record<string, unknown>> = {
   [K in keyof T]: T[K];
 };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
@@ -33,13 +33,13 @@ export interface Address {
    *
    * These may include districts, regions, states, provinces, etc.
    */
-  countrySubDivisions: Array<AddressComponent>;
+  countrySubDivisions: AddressComponent[];
   /**
    * An array of additional address lines.
    *
    * These may include an apartment or suite number.
    */
-  extendedLines: Array<AddressComponent>;
+  extendedLines: AddressComponent[];
   /** The formatted representation of the whole address for display purposes. */
   formattedAddress?: Maybe<Scalars['String']>;
   /** The geographical coordinates of the address. */
@@ -94,7 +94,7 @@ export interface AddressInput {
    *
    * A maximum of 5 subdivisions may be provided.
    */
-  countrySubDivisions: Array<AddressComponentInput>;
+  countrySubDivisions: AddressComponentInput[];
   /**
    * An array of additional address lines.
    *
@@ -102,7 +102,7 @@ export interface AddressInput {
    *
    * A maximum of 5 extended lines may be provided.
    */
-  extendedLines: Array<AddressComponentInput>;
+  extendedLines: AddressComponentInput[];
   /**
    * The formatted representation of the whole address for display purposes.
    *
@@ -135,7 +135,7 @@ export interface AdvertisementBranding {
   /** The identifier for the `AdvertisementBranding`. */
   id: ObjectIdentifier;
   /** A list of images associated with the advertisement branding. */
-  images: Array<AdvertisementBrandingImage>;
+  images: AdvertisementBrandingImage[];
   /** The advertisement branding name. */
   name: Scalars['String'];
 }
@@ -188,7 +188,7 @@ export interface AdvertisementBrandingsConnection {
    *
    * This list may be empty.
    */
-  edges: Array<AdvertisementBrandingEdge>;
+  edges: AdvertisementBrandingEdge[];
   /** The pagination metadata for this page of advertisement brandings. */
   pageInfo: PageInfo;
 }
@@ -225,7 +225,7 @@ export interface AdvertisementProduct {
    */
   selected: Scalars['Boolean'];
   /** An array of short phrases that tell the user what value this advertisement product provides. */
-  sellingPoints: Array<AdvertisementProductSellingPoint>;
+  sellingPoints: AdvertisementProductSellingPoint[];
 }
 
 /** Additional information that is accepted when posting a job ad with this advertisement product. */
@@ -306,7 +306,7 @@ export interface AdvertisementProducts {
    */
   information?: Maybe<Scalars['String']>;
   /** The list of advertisement products. */
-  products: Array<AdvertisementProduct>;
+  products: AdvertisementProduct[];
 }
 
 /** The proposed state of the job ad to be posted or updated. */
@@ -381,7 +381,7 @@ export interface ApplicationLibraryQuestion {
    * - `MultiSelect` questions contain at least two elements.
    * - `SingleSelect` questions contain at least two elements.
    */
-  responseChoice?: Maybe<Array<ApplicationLibraryQuestionChoice>>;
+  responseChoice?: Maybe<ApplicationLibraryQuestionChoice[]>;
   /**
    * The type of the question response.
    *
@@ -495,7 +495,7 @@ export interface ApplicationLibraryQuestionSuggestionsPositionProfileInput {
   jobCategories: Array<Scalars['String']>;
   /** An array of formatted position profile descriptions. */
   positionFormattedDescriptions?: InputMaybe<
-    Array<PositionFormattedDescriptionInput>
+    PositionFormattedDescriptionInput[]
   >;
   /**
    * An array of `Location` identifiers.
@@ -679,7 +679,7 @@ export interface ApplicationQuestion extends ApplicationQuestionnaireComponent {
    * - `MultiSelect` must contain at least two elements.
    * - `SingleSelect` must contain at least two elements.
    */
-  responseChoice?: Maybe<Array<ApplicationQuestionChoice>>;
+  responseChoice?: Maybe<ApplicationQuestionChoice[]>;
   /**
    * The type of the question response.
    *
@@ -822,7 +822,7 @@ export interface ApplicationQuestionInput {
    *
    * For `SingleSelect` and `MultiSelect` this must contain between 2 and 99 elements, inclusive.
    */
-  responseChoice?: InputMaybe<Array<ApplicationQuestionChoiceInput>>;
+  responseChoice?: InputMaybe<ApplicationQuestionChoiceInput[]>;
   /**
    * The type of the question response.
    *
@@ -851,7 +851,7 @@ export interface ApplicationQuestionResponse
    *
    * For `SingleSelect` and `FreeText` this will be a single element array.
    */
-  answers: Array<ApplicationQuestionAnswer>;
+  answers: ApplicationQuestionAnswer[];
   /** The question this is responding to. */
   component: ApplicationQuestion;
   /**
@@ -881,7 +881,7 @@ export interface ApplicationQuestionResponse
 export interface ApplicationQuestionnaire {
   __typename?: 'ApplicationQuestionnaire';
   /** The array of components in the order they are presented to the candidate. */
-  components: Array<ApplicationQuestionnaireComponent>;
+  components: ApplicationQuestionnaireComponent[];
   /**
    * The hiring organization that created the questionnaire.
    *
@@ -977,7 +977,7 @@ export interface ApplicationQuestionnaireSubmission {
   /** The set of questions presented to the candidate during the application. */
   questionnaire: ApplicationQuestionnaire;
   /** The candidate's responses to the application's questionnaire. */
-  responses: Array<ApplicationQuestionnaireComponentResponse>;
+  responses: ApplicationQuestionnaireComponentResponse[];
   /**
    * The indication of how well the candidate scored on the questionnaire overall.
    *
@@ -1095,7 +1095,7 @@ export interface Candidate {
    *
    * This field is redacted and an empty/filtered list is returned when a candidate or job application is deleted.
    */
-  profiles: Array<CandidateProfile>;
+  profiles: CandidateProfile[];
   /**
    * The candidate's primary email address.
    *
@@ -1312,7 +1312,7 @@ export interface CandidateProcessHistoryItem {
    */
   positionProfile?: Maybe<PositionProfile>;
   /** The parties that executed the action. */
-  primaryParties: Array<CandidateProcessParty>;
+  primaryParties: CandidateProcessParty[];
   /**
    * The underlying source for the item.
    *
@@ -1335,7 +1335,7 @@ export interface CandidateProcessHistoryItemConnection {
    *
    * This list may be empty.
    */
-  edges: Array<CandidateProcessHistoryItemEdge>;
+  edges: CandidateProcessHistoryItemEdge[];
   /** The pagination metadata for this page of candidate process history items. */
   pageInfo: PageInfo;
 }
@@ -1378,7 +1378,7 @@ export interface CandidateProcessHistoryItemInput {
    * At least one party is required for a process history item of an uploaded candidate.
    * A maximum of 10 primary parties may be provided.
    */
-  primaryParties: Array<CandidateProcessPartyInput>;
+  primaryParties: CandidateProcessPartyInput[];
   /**
    * The underlying source for the item.
    *
@@ -1476,7 +1476,7 @@ export interface CandidateProfile {
    * The position openings associated with this candidate profile.
    * @deprecated Use associatedPositionProfile
    */
-  associatedPositionOpenings: Array<AssociatedPositionOpening>;
+  associatedPositionOpenings: AssociatedPositionOpening[];
   /**
    * The primary position profile for this candidate profile.
    *
@@ -1492,7 +1492,7 @@ export interface CandidateProfile {
    *
    * This field is redacted and an empty list is returned when a candidate or job application is deleted.
    */
-  attachments: Array<Attachment>;
+  attachments: Attachment[];
   /**
    * The `Candidate` that this profile relates to.
    *
@@ -1500,13 +1500,13 @@ export interface CandidateProfile {
    */
   candidate: Candidate;
   /** The sources from which the candidate was obtained from. */
-  candidateSources: Array<CandidateSource>;
+  candidateSources: CandidateSource[];
   /**
    * The certifications and licenses the candidate holds.
    *
    * This field is redacted and an empty list is returned when a candidate or job application is deleted.
    */
-  certifications: Array<Certification>;
+  certifications: Certification[];
   /** The date & time the candidate was associated with the position. */
   createDateTime: Scalars['DateTime'];
   /**
@@ -1514,20 +1514,20 @@ export interface CandidateProfile {
    *
    * This field is redacted and an empty list is returned when a candidate or job application is deleted.
    */
-  education: Array<EducationAttendance>;
+  education: EducationAttendance[];
   /**
    * The employment history of the candidate.
    *
    * This field is redacted and an empty list is returned when a candidate or job application is deleted.
    */
-  employment: Array<EmployerHistory>;
+  employment: EmployerHistory[];
   /**
    * The candidate's preferences in an ideal position.
    *
    * This is only available for uploaded candidate profiles.
    * For candidate applications & purchased profiles this will be an empty list.
    */
-  positionPreferences: Array<PositionPreference>;
+  positionPreferences: PositionPreference[];
   /**
    * The identifier for the `CandidateProfile`.
    *
@@ -1539,9 +1539,9 @@ export interface CandidateProfile {
    *
    * This field is redacted and an empty list is returned when a candidate or job application is deleted.
    */
-  qualifications: Array<PersonCompetency>;
+  qualifications: PersonCompetency[];
   /** A list of executable actions linked to the candidate profile. */
-  seekActions: Array<CandidateProcessAction>;
+  seekActions: CandidateProcessAction[];
   /**
    * The workflow process history of the candidate.
    *
@@ -1706,7 +1706,7 @@ export interface Communication {
    *
    * This field is redacted and an empty array is returned when a candidate or job application is deleted.
    */
-  address: Array<Address>;
+  address: Address[];
   /**
    * An array of email addresses for the person.
    *
@@ -1714,7 +1714,7 @@ export interface Communication {
    *
    * This field is redacted and an empty array is returned when a candidate or job application is deleted.
    */
-  email: Array<Email>;
+  email: Email[];
   /**
    * An array of phone numbers for the person.
    *
@@ -1722,7 +1722,7 @@ export interface Communication {
    *
    * This field is redacted and an empty array is returned when a candidate or job application is deleted.
    */
-  phone: Array<Phone>;
+  phone: Phone[];
   /**
    *  Whether the candidate must not be contacted by hirers.
    *
@@ -1745,7 +1745,7 @@ export interface CommunicationInput {
    *
    * Between 0 and 5 physical addresses may be provided, inclusive.
    */
-  address?: InputMaybe<Array<AddressInput>>;
+  address?: InputMaybe<AddressInput[]>;
   /**
    * An array of email addresses for the person.
    *
@@ -1753,7 +1753,7 @@ export interface CommunicationInput {
    *
    * A maximum of 5 email addresses may be provided.
    */
-  email: Array<EmailInput>;
+  email: EmailInput[];
   /**
    * An array of phone numbers for the person.
    *
@@ -1761,7 +1761,7 @@ export interface CommunicationInput {
    *
    * Between 0 and 5 phone numbers may be provided, inclusive.
    */
-  phone: Array<PhoneInput>;
+  phone: PhoneInput[];
   /**
    * Whether the candidate must not be contacted by hirers.
    *
@@ -1795,7 +1795,7 @@ export interface CreateApplicationQuestionnairePayload {
 /** The details of the questionnaire to be created. */
 export interface CreateApplicationQuestionnaireApplicationQuestionnaireInput {
   /** The array of components in the order they are presented to the candidate. */
-  components: Array<ApplicationQuestionnaireComponentInput>;
+  components: ApplicationQuestionnaireComponentInput[];
   /**
    * The identifier for the `HiringOrganization` that will own the questionnaire.
    *
@@ -1862,7 +1862,7 @@ export interface CreateCandidateProcessHistoryItemCandidateProcessHistoryItemInp
    */
   positionProfile?: InputMaybe<CandidateProcessHistoryItemPositionProfileInput>;
   /** The parties that executed the action. */
-  primaryParties: Array<CandidateProcessPartyInput>;
+  primaryParties: CandidateProcessPartyInput[];
   /**
    * The underlying source for the item.
    *
@@ -1937,7 +1937,7 @@ export interface CreatePostingInstructionInput {
    * - For the `seekAnz` scheme, this field is limited to a single element.
    *   Requests with more than 1 element will fail.
    */
-  applicationMethods?: InputMaybe<Array<ApplicationMethodInput>>;
+  applicationMethods?: InputMaybe<ApplicationMethodInput[]>;
   /**
    * The identifier for the `AdvertisementBranding` to apply to the posted job ad.
    *
@@ -2014,7 +2014,7 @@ export interface CreateUnpostedPositionProfileForOpeningPositionProfileInput {
    *
    * A maximum of 10 formatted descriptions may be provided.
    */
-  positionFormattedDescriptions: Array<PositionFormattedDescriptionInput>;
+  positionFormattedDescriptions: PositionFormattedDescriptionInput[];
   /**
    * An array of `Location` identifiers.
    *
@@ -2323,7 +2323,7 @@ export interface EducationAttendance {
    */
   descriptions: Array<Scalars['String']>;
   /** The degrees which were awarded or in process at the institution. */
-  educationDegrees: Array<EducationDegree>;
+  educationDegrees: EducationDegree[];
   /** The institution the person attended. */
   institution: Organization;
 }
@@ -2386,7 +2386,7 @@ export interface EmployerHistory {
   /** The specific organization to which the person held positions. */
   organization: Organization;
   /** The set of positions that the person held. */
-  positionHistories: Array<PositionHistory>;
+  positionHistories: PositionHistory[];
 }
 
 /**
@@ -2472,7 +2472,7 @@ export interface EventEdge {
 export interface EventsConnection {
   __typename?: 'EventsConnection';
   /** The page of events and their corresponding cursors. */
-  edges: Array<EventEdge>;
+  edges: EventEdge[];
   /** The pagination metadata for this page of events. */
   pageInfo: PageInfo;
 }
@@ -2657,7 +2657,7 @@ export interface HiringOrganizationEdge {
 export interface HiringOrganizationsConnection {
   __typename?: 'HiringOrganizationsConnection';
   /** The page of hirers and their corresponding cursors. */
-  edges: Array<HiringOrganizationEdge>;
+  edges: HiringOrganizationEdge[];
   /** The pagination metadata for this page of hirers. */
   pageInfo: PageInfo;
 }
@@ -2698,7 +2698,7 @@ export interface JobCategory {
    *
    * These are more specific categories that belong to this general classification.
    */
-  children?: Maybe<Array<JobCategory>>;
+  children?: Maybe<JobCategory[]>;
   /** The identifier for the `JobCategory`. */
   id: ObjectIdentifier;
   /** Name of the job category. */
@@ -2741,7 +2741,7 @@ export interface JobCategorySuggestionPositionProfileInput {
    * Providing incomplete or placeholder text in this field may result in irrelevant suggestions.
    */
   positionFormattedDescriptions?: InputMaybe<
-    Array<PositionFormattedDescriptionInput>
+    PositionFormattedDescriptionInput[]
   >;
   /** An array of identifiers for the position's `Location`s. */
   positionLocation: Array<Scalars['String']>;
@@ -2764,7 +2764,7 @@ export interface Location {
    * This is always `null` regardless of the existence of child locations.
    * @deprecated Not implemented.
    */
-  children?: Maybe<Array<Location>>;
+  children?: Maybe<Location[]>;
   /**
    * The contextual name of the location, e.g. "Richmond VIC 3121 AU".
    *
@@ -2782,7 +2782,7 @@ export interface Location {
    *
    * As most countries only use a single currency, the first item in the array can be used to preselect the default currency in a job posting flow.
    */
-  currencies: Array<Currency>;
+  currencies: Currency[];
   /** The identifier for the `Location`. */
   id: ObjectIdentifier;
   /**
@@ -3430,7 +3430,7 @@ export interface PositionOpening {
    * Each profile represents a posted job ad or an unposted internal requisition associated with this opening.
    * @deprecated There is no guarantee all profiles will be returned. Use paginatedPositionProfiles instead.
    */
-  positionProfiles: Array<PositionProfile>;
+  positionProfiles: PositionProfile[];
   /**
    * The party that owns the position opening.
    *
@@ -3475,7 +3475,7 @@ export interface PositionOpeningConnection {
    *
    * This list may be empty.
    */
-  edges: Array<PositionOpeningEdge>;
+  edges: PositionOpeningEdge[];
   /** The pagination metadata for this page of position openings. */
   pageInfo: PageInfo;
 }
@@ -3519,7 +3519,7 @@ export interface PositionPreference {
    *
    * The locations are ordered in descending preference.
    */
-  locations: Array<PreferredLocation>;
+  locations: PreferredLocation[];
 }
 
 /** A candidate's preferences in an ideal position. */
@@ -3531,7 +3531,7 @@ export interface PositionPreferenceInput {
    *
    * A maximum of 5 locations may be provided.
    */
-  locations: Array<PreferredLocationInput>;
+  locations: PreferredLocationInput[];
 }
 
 /**
@@ -3541,17 +3541,17 @@ export interface PositionPreferenceInput {
  */
 export interface PositionProfile {
   /** The occupational categories of the job. */
-  jobCategories: Array<JobCategory>;
+  jobCategories: JobCategory[];
   /** The salary or compensation offered for the position. */
   offeredRemunerationPackage: RemunerationPackage;
   /** An array of formatted position profile descriptions. */
-  positionFormattedDescriptions: Array<PositionFormattedDescription>;
+  positionFormattedDescriptions: PositionFormattedDescription[];
   /** The locations of the position. */
-  positionLocation: Array<Location>;
+  positionLocation: Location[];
   /** The `PositionOpening` that this profile was created under. */
   positionOpening: PositionOpening;
   /** An array of identifiers for the `HiringOrganization`s that have the position. */
-  positionOrganizations: Array<HiringOrganization>;
+  positionOrganizations: HiringOrganization[];
   /**
    * An array of codes for the offered schedules for the position.
    *
@@ -3574,7 +3574,7 @@ export interface PositionProfile {
    */
   positionUri: Scalars['String'];
   /** The instructions related to posting the job ad. */
-  postingInstructions: Array<PostingInstruction>;
+  postingInstructions: PostingInstruction[];
   /** The identifier for the `PositionProfile`. */
   profileId: ObjectIdentifier;
   /**
@@ -3695,7 +3695,7 @@ export interface PositionProfileConnection {
    *
    * This list may be empty.
    */
-  edges: Array<PositionProfileEdge>;
+  edges: PositionProfileEdge[];
   /** The pagination metadata for this page of position profiles. */
   pageInfo: PageInfo;
 }
@@ -3851,7 +3851,7 @@ export interface PostPositionProfileForOpeningPositionProfileInput {
   /** The salary or compensation offered for the position. */
   offeredRemunerationPackage: RemunerationPackageInput;
   /** An array of formatted position profile descriptions. */
-  positionFormattedDescriptions: Array<PositionFormattedDescriptionInput>;
+  positionFormattedDescriptions: PositionFormattedDescriptionInput[];
   /**
    * An array of `Location` identifiers.
    *
@@ -3894,7 +3894,7 @@ export interface PostPositionProfileForOpeningPositionProfileInput {
    *
    * - The `seekAnz` scheme requires exactly one element.
    */
-  postingInstructions: Array<CreatePostingInstructionInput>;
+  postingInstructions: CreatePostingInstructionInput[];
   /**
    * A SEEK ANZ work type code.
    *
@@ -3983,7 +3983,7 @@ export interface PostPositionPositionProfileInput {
   /** The salary or compensation offered for the position. */
   offeredRemunerationPackage: RemunerationPackageInput;
   /** An array of formatted position profile descriptions. */
-  positionFormattedDescriptions: Array<PositionFormattedDescriptionInput>;
+  positionFormattedDescriptions: PositionFormattedDescriptionInput[];
   /**
    * An array of `Location` identifiers.
    *
@@ -4024,7 +4024,7 @@ export interface PostPositionPositionProfileInput {
    *
    * - The `seekAnz` scheme requires exactly one element.
    */
-  postingInstructions: Array<CreatePostingInstructionInput>;
+  postingInstructions: CreatePostingInstructionInput[];
   /**
    * A SEEK ANZ work type code.
    *
@@ -4101,17 +4101,17 @@ export interface PostPositionPositionProfilePayload {
 export interface PostedPositionProfile extends PositionProfile {
   __typename?: 'PostedPositionProfile';
   /** The occupational categories of the job. */
-  jobCategories: Array<JobCategory>;
+  jobCategories: JobCategory[];
   /** The salary or compensation offered for the position. */
   offeredRemunerationPackage: RemunerationPackage;
   /** An array of formatted position profile descriptions. */
-  positionFormattedDescriptions: Array<PositionFormattedDescription>;
+  positionFormattedDescriptions: PositionFormattedDescription[];
   /** The locations of the position. */
-  positionLocation: Array<Location>;
+  positionLocation: Location[];
   /** The `PositionOpening` that this profile was created under. */
   positionOpening: PositionOpening;
   /** An array of identifiers for the `HiringOrganization`s that have the position. */
-  positionOrganizations: Array<HiringOrganization>;
+  positionOrganizations: HiringOrganization[];
   /**
    * An array of codes for the offered schedules for the position.
    *
@@ -4128,7 +4128,7 @@ export interface PostedPositionProfile extends PositionProfile {
   /** The public web URL of the posted job ad on SEEK. */
   positionUri: Scalars['String'];
   /** The instructions related to posting the job ad. */
-  postingInstructions: Array<PostingInstruction>;
+  postingInstructions: PostingInstruction[];
   /** The identifier for the `PositionProfile`. */
   profileId: ObjectIdentifier;
   /**
@@ -4215,7 +4215,7 @@ export interface PostedPositionProfilePreviewPositionProfileInput {
   offeredRemunerationPackage: PostedPositionProfilePreviewRemunerationPackageInput;
   /** An array of formatted position profile descriptions. */
   positionFormattedDescriptions?: InputMaybe<
-    Array<PositionFormattedDescriptionInput>
+    PositionFormattedDescriptionInput[]
   >;
   /**
    * An array of `Location` identifiers.
@@ -4246,7 +4246,7 @@ export interface PostedPositionProfilePreviewPositionProfileInput {
    *
    * - The `seekAnz` scheme requires exactly one element.
    */
-  postingInstructions: Array<PostedPositionProfilePreviewPostingInstructionInput>;
+  postingInstructions: PostedPositionProfilePreviewPostingInstructionInput[];
   /**
    * The identifier for the `PositionProfile` to be updated.
    *
@@ -4297,7 +4297,7 @@ export interface PostedPositionProfilePreviewPostingInstructionInput {
    * - For the `seekAnz` scheme, this field is limited to a single element.
    *   Requests with more than 1 element will fail.
    */
-  applicationMethods?: InputMaybe<Array<ApplicationMethodInput>>;
+  applicationMethods?: InputMaybe<ApplicationMethodInput[]>;
   /**
    * The identifier for the `AdvertisementBranding` to apply to the posted job ad.
    *
@@ -4395,9 +4395,7 @@ export interface PostedPositionProfilePreviewRemunerationPackageInput {
    * While the monetary values in `minimumAmount` and `maximumAmount` are not visible on job ads,
    * the currency and interval may be displayed alongside the `descriptions` of the remuneration package for clarity.
    */
-  ranges?: InputMaybe<
-    Array<PostedPositionProfilePreviewRemunerationRangeInput>
-  >;
+  ranges?: InputMaybe<PostedPositionProfilePreviewRemunerationRangeInput[]>;
 }
 
 /**
@@ -4460,7 +4458,7 @@ export interface PostingInstruction {
    * If no methods are provided, SEEK's native apply form will be used to receive candidate applications.
    * Native applications will emit a `CandidateApplicationCreated` event that points to a `CandidateProfile` object.
    */
-  applicationMethods: Array<ApplicationMethod>;
+  applicationMethods: ApplicationMethod[];
   /** The branding applied to the posted job ad. */
   branding?: Maybe<AdvertisementBranding>;
   /**
@@ -4507,7 +4505,7 @@ export interface PostingRequester {
   /** The name of the party that owns the position opening. */
   name: Scalars['String'];
   /** Specific contact people for the position opening at the party. */
-  personContacts: Array<SpecifiedPerson>;
+  personContacts: SpecifiedPerson[];
   /**
    * The role of the owner of the position opening.
    *
@@ -4541,7 +4539,7 @@ export interface PostingRequesterInput {
    * The name, email address & role of at least one contact person must be provided.
    * A maximum of 10 contact people may be provided.
    */
-  personContacts: Array<SpecifiedPersonInput>;
+  personContacts: SpecifiedPersonInput[];
   /**
    * The role of the owner of the position opening.
    *
@@ -4603,7 +4601,7 @@ export interface Query {
    *
    * This query accepts browser tokens that include the `query:application-library-question-suggestions` scope.
    */
-  applicationLibraryQuestionSuggestions: Array<ApplicationLibraryQuestionSuggestion>;
+  applicationLibraryQuestionSuggestions: ApplicationLibraryQuestionSuggestion[];
   /**
    * An application questionnaire with the given `id`.
    *
@@ -4630,7 +4628,7 @@ export interface Query {
    *
    * This query accepts browser tokens that include the `query:ontologies` scope.
    */
-  currencies: Array<Currency>;
+  currencies: Currency[];
   /** The event for the given `id`. */
   event?: Maybe<Event>;
   /**
@@ -4676,7 +4674,7 @@ export interface Query {
    *
    * This query accepts browser tokens that include the `query:ontologies` scope.
    */
-  jobCategories: Array<JobCategory>;
+  jobCategories: JobCategory[];
   /**
    * The job category for the given `id`.
    *
@@ -4690,7 +4688,7 @@ export interface Query {
    *
    * This query accepts browser tokens that include the `query:ontologies` scope.
    */
-  jobCategorySuggestions: Array<JobCategorySuggestionChoice>;
+  jobCategorySuggestions: JobCategorySuggestionChoice[];
   /**
    * A location node with the given location `id`.
    *
@@ -4704,7 +4702,7 @@ export interface Query {
    *
    * This query accepts browser tokens that include the `query:ontologies` scope.
    */
-  locationSuggestions?: Maybe<Array<LocationSuggestion>>;
+  locationSuggestions?: Maybe<LocationSuggestion[]>;
   /**
    * An array of locations relevant to the provided geolocation ordered by distance.
    *
@@ -4712,7 +4710,7 @@ export interface Query {
    *
    * This query accepts browser tokens that include the `query:ontologies` scope.
    */
-  nearestLocations?: Maybe<Array<Location>>;
+  nearestLocations?: Maybe<Location[]>;
   /**
    * A list of pay types that specify the method and interval of a payment.
    *
@@ -4721,7 +4719,7 @@ export interface Query {
    *
    * This query accepts browser tokens that include the `query:ontologies` scope.
    */
-  payTypes: Array<PayType>;
+  payTypes: PayType[];
   /** A position opening with the given `id`. */
   positionOpening?: Maybe<PositionOpening>;
   /**
@@ -4757,7 +4755,7 @@ export interface Query {
    *
    * This query accepts browser tokens that include the `query:ad-products` scope.
    */
-  seekAnzHirerAdvertisementCreationProducts?: Maybe<Array<SeekAnzAdProduct>>;
+  seekAnzHirerAdvertisementCreationProducts?: Maybe<SeekAnzAdProduct[]>;
   /**
    * Ad products available when updating a live job ad.
    *
@@ -4765,9 +4763,7 @@ export interface Query {
    *
    * This query accepts browser tokens that include the `query:ad-products` scope.
    */
-  seekAnzHirerAdvertisementModificationProducts?: Maybe<
-    Array<SeekAnzAdProduct>
-  >;
+  seekAnzHirerAdvertisementModificationProducts?: Maybe<SeekAnzAdProduct[]>;
   /**
    * Ad products available when updating a job ad.
    *
@@ -4775,9 +4771,7 @@ export interface Query {
    *
    * This query accepts browser tokens that include the `query:ad-products` scope.
    */
-  seekAnzHirerAdvertisementModificationProductsAlt?: Maybe<
-    Array<SeekAnzAdProduct>
-  >;
+  seekAnzHirerAdvertisementModificationProductsAlt?: Maybe<SeekAnzAdProduct[]>;
   /**
    * The organizations the query's access token can act on behalf of.
    *
@@ -5272,7 +5266,7 @@ export interface RemunerationPackage {
    *
    * The `seekAnz` scheme will always have a single element containing the amount for the `basisCode`.
    */
-  ranges: Array<RemunerationRange>;
+  ranges: RemunerationRange[];
 }
 
 /** The salary or compensation for a position. */
@@ -5315,7 +5309,7 @@ export interface RemunerationPackageInput {
    * While the monetary values in `minimumAmount` and `maximumAmount` are not visible on job ads,
    * the currency and interval may be displayed alongside the `descriptions` of the remuneration package for clarity.
    */
-  ranges: Array<RemunerationRangeInput>;
+  ranges: RemunerationRangeInput[];
 }
 
 /** A salary or compensation range for a position. */
@@ -5464,7 +5458,7 @@ export interface SeekAnzAdProduct {
   /** The features this product supports. */
   features: SeekAnzAdProductFeatures;
   /** The messages that may be shown to hirer. */
-  messages: Array<SeekAnzAdProductMessage>;
+  messages: SeekAnzAdProductMessage[];
   /** The human-readable ad product name. */
   name: Scalars['String'];
   /** The price component of the ad product. */
@@ -5781,17 +5775,17 @@ export interface SpecifiedPersonInput {
 export interface UnpostedPositionProfile extends PositionProfile {
   __typename?: 'UnpostedPositionProfile';
   /** The occupational categories of the job. */
-  jobCategories: Array<JobCategory>;
+  jobCategories: JobCategory[];
   /** The salary or compensation offered for the position. */
   offeredRemunerationPackage: RemunerationPackage;
   /** An array of formatted position profile descriptions. */
-  positionFormattedDescriptions: Array<PositionFormattedDescription>;
+  positionFormattedDescriptions: PositionFormattedDescription[];
   /** The locations of the position. */
-  positionLocation: Array<Location>;
+  positionLocation: Location[];
   /** The `PositionOpening` that this profile was created under. */
   positionOpening: PositionOpening;
   /** An array of identifiers for the `HiringOrganization`s that have the position. */
-  positionOrganizations: Array<HiringOrganization>;
+  positionOrganizations: HiringOrganization[];
   /**
    * An array of codes for the offered schedules for the position.
    *
@@ -5812,7 +5806,7 @@ export interface UnpostedPositionProfile extends PositionProfile {
    */
   positionUri: Scalars['String'];
   /** The instructions related to posting the job ad. */
-  postingInstructions: Array<PostingInstruction>;
+  postingInstructions: PostingInstruction[];
   /** The identifier for the `PositionProfile`. */
   profileId: ObjectIdentifier;
   /**
@@ -5906,7 +5900,7 @@ export interface UpdateCandidateProcessHistoryItemCandidateProcessHistoryItemInp
    */
   positionProfile?: InputMaybe<CandidateProcessHistoryItemPositionProfileInput>;
   /** The parties that executed the action. */
-  primaryParties: Array<CandidateProcessPartyInput>;
+  primaryParties: CandidateProcessPartyInput[];
   /**
    * The underlying source for the item.
    *
@@ -5946,7 +5940,7 @@ export interface UpdatePositionOpeningPersonContactsPositionOpeningInput {
    * The name, email address & role of at least one contact person must be provided.
    * A maximum of 10 contact people may be provided.
    */
-  personContacts: Array<SpecifiedPersonInput>;
+  personContacts: SpecifiedPersonInput[];
 }
 
 /** The input parameter for the `updatePositionOpeningStatus` mutation. */
@@ -6004,7 +5998,7 @@ export interface UpdatePostedPositionProfilePositionProfileInput {
   /** The salary or compensation offered for the position. */
   offeredRemunerationPackage: RemunerationPackageInput;
   /** An array of formatted position profile descriptions. */
-  positionFormattedDescriptions: Array<PositionFormattedDescriptionInput>;
+  positionFormattedDescriptions: PositionFormattedDescriptionInput[];
   /**
    * An array of `Location` identifiers.
    *
@@ -6045,7 +6039,7 @@ export interface UpdatePostedPositionProfilePositionProfileInput {
    *
    * - The `seekAnz` scheme requires exactly one element.
    */
-  postingInstructions: Array<UpdatePostingInstructionInput>;
+  postingInstructions: UpdatePostingInstructionInput[];
   /** The identifier for the posted `PositionProfile` to update. */
   profileId: Scalars['String'];
   /**
@@ -6122,7 +6116,7 @@ export interface UpdatePostingInstructionInput {
    * - For the `seekAnz` scheme, this field is limited to a single element.
    *   Requests with more than 1 element will fail.
    */
-  applicationMethods?: InputMaybe<Array<ApplicationMethodInput>>;
+  applicationMethods?: InputMaybe<ApplicationMethodInput[]>;
   /**
    * The identifier for the `AdvertisementBranding` to apply to the posted job ad.
    *
@@ -6190,7 +6184,7 @@ export interface UpdateUnpostedPositionProfilePositionProfileInput {
    *
    * A maximum of 10 formatted descriptions may be provided.
    */
-  positionFormattedDescriptions: Array<PositionFormattedDescriptionInput>;
+  positionFormattedDescriptions: PositionFormattedDescriptionInput[];
   /**
    * An array of `Location` identifiers.
    *
@@ -6319,7 +6313,7 @@ export interface UpdateUploadedCandidateProfileActionsCandidateProfileInput {
    * Only one of each type of action is permitted for the candidate profile.
    * Currently, only a `ViewProfile` action type is defined to provide a URL to view the candidate's profile.
    */
-  seekActions: Array<CandidateProcessActionInput>;
+  seekActions: CandidateProcessActionInput[];
 }
 
 /** The input parameter for the `updateUploadedCandidateProfileDates` mutation. */
@@ -6383,7 +6377,7 @@ export interface UpdateUploadedCandidateProfilePositionPreferencesCandidateProfi
    *
    * `ProactiveSourcing` candidates may have 0–1 position preferences.
    */
-  positionPreferences: Array<PositionPreferenceInput>;
+  positionPreferences: PositionPreferenceInput[];
   /** The identifier for the uploaded `CandidateProfile` to be updated. */
   profileId: Scalars['String'];
 }
@@ -6521,7 +6515,7 @@ export interface UploadCandidatePayloadSuccess {
    * all process history items were successfully uploaded.
    * Input order is preserved to allow your software to record the `id` assigned to each item.
    */
-  candidateProcessHistoryItems: Array<CandidateProcessHistoryItem>;
+  candidateProcessHistoryItems: CandidateProcessHistoryItem[];
   /** The details of the hiring organization that uploaded the candidate and their profile. */
   hiringOrganization: HiringOrganization;
 }
@@ -6568,20 +6562,20 @@ export interface UploadCandidateCandidateProfileInput {
    *
    * `ProactiveSourcing` candidates may have 0–1 position preferences.
    */
-  positionPreferences: Array<PositionPreferenceInput>;
+  positionPreferences: PositionPreferenceInput[];
   /**
    * Any associated actions that can be performed on the candidate profile.
    *
    * Only one of each type of action is permitted for the candidate profile.
    * Currently, only a `ViewProfile` action type is defined to provide a URL to view the candidate's profile.
    */
-  seekActions: Array<CandidateProcessActionInput>;
+  seekActions: CandidateProcessActionInput[];
   /**
    * The workflow process history of the candidate.
    *
    * A maximum of 20 process history items may be provided on initial upload.
    */
-  seekProcessHistory: Array<CandidateProcessHistoryItemInput>;
+  seekProcessHistory: CandidateProcessHistoryItemInput[];
   /**
    * When the candidate profile was last updated in the partner system.
    *
@@ -6646,7 +6640,7 @@ export interface WebhookAttemptEdge {
 export interface WebhookAttemptsConnection {
   __typename?: 'WebhookAttemptsConnection';
   /** The page of webhook attempts and their corresponding cursors. */
-  edges: Array<WebhookAttemptEdge>;
+  edges: WebhookAttemptEdge[];
   /** The pagination metadata for this page of webhook attempts. */
   pageInfo: PageInfo;
 }
@@ -6689,7 +6683,7 @@ export interface WebhookAttemptsFilterInput {
 export interface WebhookRequest {
   __typename?: 'WebhookRequest';
   /** The list of events that were attempted to be delivered in the request body. */
-  attempts: Array<WebhookAttempt>;
+  attempts: WebhookAttempt[];
   /**
    * The date & time the HTTP request occurred.
    *
@@ -6783,7 +6777,7 @@ export interface WebhookRequestFilterInput {
 export interface WebhookRequestsConnection {
   __typename?: 'WebhookRequestsConnection';
   /** The page of webhook requests and their corresponding cursors. */
-  edges: Array<WebhookRequestEdge>;
+  edges: WebhookRequestEdge[];
   /** The pagination metadata for this page of webhook requests. */
   pageInfo: PageInfo;
 }
@@ -7018,7 +7012,7 @@ export interface WebhookSubscriptionReplayRequest {
 export interface WebhookSubscriptionReplaysConnection {
   __typename?: 'WebhookSubscriptionReplaysConnection';
   /** The page of webhook subscription replays and their corresponding cursors. */
-  edges: Array<WebhookSubscriptionReplayEdge>;
+  edges: WebhookSubscriptionReplayEdge[];
   /**
    * The pagination metadata for this page of webhook subscription replays.
    *
@@ -7051,7 +7045,7 @@ export interface WebhookSubscriptionReplaysFilterInput {
 export interface WebhookSubscriptionsConnection {
   __typename?: 'WebhookSubscriptionsConnection';
   /** The page of webhook subscriptions and their corresponding cursors. */
-  edges: Array<WebhookSubscriptionEdge>;
+  edges: WebhookSubscriptionEdge[];
   /** The pagination metadata for this page of subscriptions. */
   pageInfo: PageInfo;
 }
@@ -7092,7 +7086,7 @@ export interface WebhookSubscriptionsFilterInput {
   hirerIds?: InputMaybe<Array<Scalars['String']>>;
 }
 
-export type AdvertisementBrandingFieldsFragment = {
+export interface AdvertisementBrandingFieldsFragment {
   __typename?: 'AdvertisementBranding';
   name: string;
   id: { __typename?: 'ObjectIdentifier'; value: string };
@@ -7101,9 +7095,9 @@ export type AdvertisementBrandingFieldsFragment = {
     typeCode: string;
     url: string;
   }>;
-};
+}
 
-export type AdvertisementBrandingEdgeFieldsFragment = {
+export interface AdvertisementBrandingEdgeFieldsFragment {
   __typename?: 'AdvertisementBrandingEdge';
   node: {
     __typename?: 'AdvertisementBranding';
@@ -7115,7 +7109,7 @@ export type AdvertisementBrandingEdgeFieldsFragment = {
       url: string;
     }>;
   };
-};
+}
 
 export type AdvertisementBrandingsQueryVariables = Exact<{
   after?: InputMaybe<Scalars['String']>;
@@ -7125,7 +7119,7 @@ export type AdvertisementBrandingsQueryVariables = Exact<{
   hirerId: Scalars['String'];
 }>;
 
-export type AdvertisementBrandingsQuery = {
+export interface AdvertisementBrandingsQuery {
   advertisementBrandings: {
     __typename?: 'AdvertisementBrandingsConnection';
     pageInfo: {
@@ -7149,19 +7143,19 @@ export type AdvertisementBrandingsQuery = {
       };
     }>;
   };
-};
+}
 
-export type JobCategoryFieldsFragment = {
+export interface JobCategoryFieldsFragment {
   __typename?: 'JobCategory';
   name: string;
   id: { __typename?: 'ObjectIdentifier'; value: string };
-};
+}
 
 export type JobCategoryQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
-export type JobCategoryQuery = {
+export interface JobCategoryQuery {
   jobCategory?: {
     __typename?: 'JobCategory';
     name: string;
@@ -7177,20 +7171,20 @@ export type JobCategoryQuery = {
     }> | null;
     id: { __typename?: 'ObjectIdentifier'; value: string };
   } | null;
-};
+}
 
-export type JobCategoryAttributesFragment = {
+export interface JobCategoryAttributesFragment {
   __typename?: 'JobCategory';
   name: string;
   id: { __typename?: 'ObjectIdentifier'; value: string };
-};
+}
 
 export type JobCategoriesQueryVariables = Exact<{
   schemeId: Scalars['String'];
   positionProfile?: InputMaybe<JobCategoriesPositionProfileInput>;
 }>;
 
-export type JobCategoriesQuery = {
+export interface JobCategoriesQuery {
   jobCategories: Array<{
     __typename?: 'JobCategory';
     name: string;
@@ -7201,9 +7195,9 @@ export type JobCategoriesQuery = {
     }> | null;
     id: { __typename?: 'ObjectIdentifier'; value: string };
   }>;
-};
+}
 
-export type JobCategorySuggestionChoiceAttributesFragment = {
+export interface JobCategorySuggestionChoiceAttributesFragment {
   __typename?: 'JobCategorySuggestionChoice';
   confidence: number;
   jobCategory: {
@@ -7221,7 +7215,7 @@ export type JobCategorySuggestionChoiceAttributesFragment = {
     }> | null;
     id: { __typename?: 'ObjectIdentifier'; value: string };
   };
-};
+}
 
 export type JobCategorySuggestQueryVariables = Exact<{
   positionProfile: JobCategorySuggestionPositionProfileInput;
@@ -7229,7 +7223,7 @@ export type JobCategorySuggestQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
 }>;
 
-export type JobCategorySuggestQuery = {
+export interface JobCategorySuggestQuery {
   jobCategorySuggestions: Array<{
     __typename?: 'JobCategorySuggestionChoice';
     confidence: number;
@@ -7249,18 +7243,18 @@ export type JobCategorySuggestQuery = {
       id: { __typename?: 'ObjectIdentifier'; value: string };
     };
   }>;
-};
+}
 
-export type LocationAttributesFragment = {
+export interface LocationAttributesFragment {
   __typename?: 'Location';
   name: string;
   contextualName: string;
   countryCode: string;
   id: { __typename?: 'ObjectIdentifier'; value: string };
   currencies: Array<{ __typename?: 'Currency'; code: string }>;
-};
+}
 
-export type NestedLocationAttributesFragment = {
+export interface NestedLocationAttributesFragment {
   __typename?: 'Location';
   name: string;
   contextualName: string;
@@ -7307,14 +7301,14 @@ export type NestedLocationAttributesFragment = {
   } | null;
   id: { __typename?: 'ObjectIdentifier'; value: string };
   currencies: Array<{ __typename?: 'Currency'; code: string }>;
-};
+}
 
 export type NearbyLocationsQueryVariables = Exact<{
   geoLocation: GeoLocationInput;
   schemeId: Scalars['String'];
 }>;
 
-export type NearbyLocationsQuery = {
+export interface NearbyLocationsQuery {
   nearestLocations?: Array<{
     __typename?: 'Location';
     name: string;
@@ -7363,13 +7357,13 @@ export type NearbyLocationsQuery = {
     id: { __typename?: 'ObjectIdentifier'; value: string };
     currencies: Array<{ __typename?: 'Currency'; code: string }>;
   }> | null;
-};
+}
 
 export type LocationQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
-export type LocationQuery = {
+export interface LocationQuery {
   location?: {
     __typename?: 'Location';
     name: string;
@@ -7418,7 +7412,7 @@ export type LocationQuery = {
     id: { __typename?: 'ObjectIdentifier'; value: string };
     currencies: Array<{ __typename?: 'Currency'; code: string }>;
   } | null;
-};
+}
 
 export type SuggestLocationsQueryVariables = Exact<{
   usageTypeCode: Scalars['String'];
@@ -7428,7 +7422,7 @@ export type SuggestLocationsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
 }>;
 
-export type SuggestLocationsQuery = {
+export interface SuggestLocationsQuery {
   locationSuggestions?: Array<{
     __typename?: 'LocationSuggestion';
     location: {
@@ -7480,7 +7474,7 @@ export type SuggestLocationsQuery = {
       currencies: Array<{ __typename?: 'Currency'; code: string }>;
     };
   }> | null;
-};
+}
 
 export type NearestLocationsQueryVariables = Exact<{
   schemeId: Scalars['String'];
@@ -7488,7 +7482,7 @@ export type NearestLocationsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
 }>;
 
-export type NearestLocationsQuery = {
+export interface NearestLocationsQuery {
   nearestLocations?: Array<{
     __typename?: 'Location';
     name: string;
@@ -7537,25 +7531,25 @@ export type NearestLocationsQuery = {
     id: { __typename?: 'ObjectIdentifier'; value: string };
     currencies: Array<{ __typename?: 'Currency'; code: string }>;
   }> | null;
-};
+}
 
 export type PayTypesQueryVariables = Exact<{
   schemeId: Scalars['String'];
 }>;
 
-export type PayTypesQuery = {
+export interface PayTypesQuery {
   payTypes: Array<{
     __typename?: 'PayType';
     basisCode: string;
     intervalCode: string;
     label: string;
   }>;
-};
+}
 
 export type CurrenciesQueryVariables = Exact<{
   usageTypeCode: Scalars['String'];
 }>;
 
-export type CurrenciesQuery = {
+export interface CurrenciesQuery {
   currencies: Array<{ __typename?: 'Currency'; code: string }>;
-};
+}
