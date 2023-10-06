@@ -34,9 +34,7 @@ type RenderSchemaProps =
 const renderQuestion = (
   component: FreeTextQuestion | SelectionQuestion,
   index: number,
-  state: {
-    [x: string]: any;
-  },
+  state: Record<string, any>,
   dispatch: Dispatch<FormUpdateAction>,
 ) => {
   switch (component.responseTypeCode) {
