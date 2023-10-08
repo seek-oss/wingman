@@ -107,6 +107,16 @@ export const LocationSuggest = forwardRef<
       },
     );
 
+    useEffect(() => {
+      /**
+       * Location suggestions vary depending on the hirer.
+       * Hence, we should clear the selected location when the hirer changes.
+       */
+      setSelectedLocation(undefined);
+      setPlaceholder('');
+      onClear?.();
+    }, [hirerId, onClear])
+
     const { data: initialLocation } = useQuery<
       LocationQuery,
       LocationQueryVariables
