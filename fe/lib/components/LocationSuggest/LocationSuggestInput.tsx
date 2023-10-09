@@ -12,9 +12,16 @@ import {
   Text,
   type TextField,
 } from 'braid-design-system';
-import React, { type ComponentProps, useEffect, useState } from 'react';
+import React, {
+  type ComponentProps,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { SmartTextLink } from 'scoobie';
 
+import { usePrevious } from '../../hooks/Previous/usePrevious';
 import type {
   GeoLocationInput,
   Location,
@@ -60,6 +67,7 @@ interface Props {
   tone: ComponentProps<typeof TextField>['tone'];
   initialLocation?: Location;
   schemeId: string;
+  hirerId?: string;
   client?: ApolloClient<unknown>;
 }
 
@@ -76,12 +84,16 @@ const LocationSuggestInput = ({
   initialLocation,
   schemeId,
   client,
+  hirerId,
   ...restProps
 }: Props) => {
-  const initialLocationSuggest = {
-    text: initialLocation?.contextualName ?? '',
-    value: initialLocation?.id.value ?? '',
-  };
+  const initialLocationSuggest = useMemo(
+    () => ({
+      text: initialLocation?.contextualName ?? '',
+      value: initialLocation?.id.value ?? '',
+    }),
+    [initialLocation],
+  );
 
   const [locationSuggest, setLocationSuggest] = useState(
     initialLocationSuggest,
@@ -107,10 +119,21 @@ const LocationSuggestInput = ({
     highlights: createHighlights(suggestion.text, locationSuggest.text),
   }));
 
-  const handleClear = () => {
+  const handleClear = useCallback(() => {
     setLocationSuggest(initialLocationSuggest);
     onClear();
-  };
+  }, [initialLocationSuggest, onClear]);
+
+  const previousHirerId = usePrevious(hirerId);
+  useEffect(() => {
+    /**
+     * Location suggestions vary depending on the hirer.
+     * Hence, we should clear the selected location when the hirer changes.
+     */
+    if (previousHirerId !== hirerId) {
+      handleClear();
+    }
+  }, [hirerId, handleClear, previousHirerId]);
 
   const handleSelect = (selectedValue: string) => {
     const selectedLocation = locationSuggestions?.find(
