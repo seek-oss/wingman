@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 9.2.0
+
+### Minor Changes
+
+- **LocationSuggest:** Reset on hirer change ([#1016](https://github.com/seek-oss/wingman/pull/1016))
+
 ## 9.1.2
 
 ### Patch Changes
