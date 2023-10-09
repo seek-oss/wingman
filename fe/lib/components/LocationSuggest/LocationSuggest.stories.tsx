@@ -8,6 +8,7 @@ export default {
   args: {
     id: 'locationSuggest',
     label: 'Location',
+    hirerId: 'seekAnzPublicTest:organization:seek:93WyyF1h',
     message: 'undefined',
     reserveMessageSpace: false,
     showBreadcrumbs: false,

@@ -80,6 +80,7 @@ export const LocationSuggest = forwardRef<
       data: suggestData,
       previousData: previousSuggestData,
       error: suggestError,
+      variables: previousSuggestVariables,
     } = useQuery<SuggestLocationsQuery, SuggestLocationsQueryVariables>(
       LOCATION_SUGGEST,
       {
@@ -106,6 +107,18 @@ export const LocationSuggest = forwardRef<
         },
       },
     );
+
+    useEffect(() => {
+      /**
+       * Location suggestions vary depending on the hirer.
+       * Hence, we should clear the selected location when the hirer changes.
+       */
+      if (selectedLocation && hirerId !== previousSuggestVariables?.hirerId) {
+        setSelectedLocation(undefined);
+        setPlaceholder('');
+        onClear?.();
+      }
+    }, [hirerId, onClear, previousSuggestVariables, selectedLocation]);
 
     const { data: initialLocation } = useQuery<
       LocationQuery,
