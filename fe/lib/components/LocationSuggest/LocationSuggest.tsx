@@ -118,7 +118,7 @@ export const LocationSuggest = forwardRef<
         setPlaceholder('');
         onClear?.();
       }
-    }, [hirerId, onClear]);
+    }, [hirerId, onClear, previousSuggestVariables, selectedLocation]);
 
     const { data: initialLocation } = useQuery<
       LocationQuery,
