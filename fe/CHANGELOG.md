@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 9.2.1
+
+### Patch Changes
+
+- **LocationSuggest:** Fix bug preventing component from clearing on hirer change ([#1019](https://github.com/seek-oss/wingman/pull/1019))
+
 ## 9.2.0
 
 ### Minor Changes
