@@ -9,7 +9,7 @@
     "@graphql-codegen/typescript": "4.0.1",
     "@graphql-codegen/typescript-apollo-client-helpers": "2.2.6",
     "@graphql-codegen/typescript-operations": "4.0.1",
-    "@graphql-tools/utils": "10.0.6",
+    "@graphql-tools/utils": "10.0.7",
     "concurrently": "8.2.1",
     "graphql": "16.8.1",
     "sku": "12.4.1"
