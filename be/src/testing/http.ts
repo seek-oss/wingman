@@ -3,7 +3,9 @@ import type { Server } from 'http';
 import type Koa from 'koa';
 import request from 'supertest';
 
-export const createAgent = (createApp: () => Koa | Promise<Koa>) => {
+export const createAgent = <S, T>(
+  createApp: () => Koa | Promise<Koa<S, T>>,
+) => {
   let server: Server;
 
   let _agent: request.SuperTest<request.Test>;
