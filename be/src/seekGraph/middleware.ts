@@ -1,10 +1,9 @@
 /* eslint-disable new-cap */
 
-import {
-  ApolloServerPluginLandingPageDisabled,
-  ApolloServerPluginLandingPageGraphQLPlayground,
-} from 'apollo-server-core';
-import { ApolloServer } from 'apollo-server-koa';
+import { ApolloServer } from '@apollo/server';
+import { ApolloServerPluginLandingPageDisabled } from '@apollo/server/plugin/disabled';
+import { ApolloServerPluginLandingPageProductionDefault } from '@apollo/server/plugin/landingPage/default';
+import { koaMiddleware } from '@as-integrations/koa';
 import type { Middleware } from 'koa';
 
 import { createContext } from './context';
@@ -21,7 +20,6 @@ import type { SeekGraphMiddlewareOptions } from './types';
 export const createSeekGraphMiddleware = async ({
   getPartnerToken,
   debug,
-  path,
   userAgent,
   seekApiUrlOverride,
 }: SeekGraphMiddlewareOptions): Promise<Middleware> => {
@@ -32,12 +30,11 @@ export const createSeekGraphMiddleware = async ({
   });
 
   const server = new ApolloServer({
-    context: createContext,
     introspection: debug,
-    debug,
+    includeStacktraceInErrorResponses: debug,
     plugins: [
       debug
-        ? ApolloServerPluginLandingPageGraphQLPlayground()
+        ? ApolloServerPluginLandingPageProductionDefault()
         : ApolloServerPluginLandingPageDisabled(),
     ],
     schema,
@@ -45,5 +42,7 @@ export const createSeekGraphMiddleware = async ({
 
   await server.start();
 
-  return server.getMiddleware({ path });
+  return koaMiddleware(server, {
+    context: async ({ ctx }) => Promise.resolve(createContext(ctx)),
+  });
 };

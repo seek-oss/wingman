@@ -15,7 +15,6 @@ const createMiddleware = async () => {
   const seekGraphMiddleware = await createSeekGraphMiddleware({
     debug: true,
     getPartnerToken,
-    path: '/seek-graphql',
     userAgent: USER_AGENT,
   });
 

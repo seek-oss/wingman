@@ -1,9 +1,4 @@
-export {
-  ApolloError,
-  AuthenticationError,
-  ForbiddenError,
-  UserInputError,
-} from 'apollo-server-koa';
+export { AuthenticationError, ForbiddenError, UserInputError } from './errors';
 
 export { createBrowserTokenMiddleware } from './browserToken/middleware';
 export type { BrowserTokenMiddlewareOptions } from './browserToken/types';

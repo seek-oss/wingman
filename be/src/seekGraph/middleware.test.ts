@@ -1,8 +1,9 @@
-import { AuthenticationError } from 'apollo-server-koa';
+import Router from '@koa/router';
 import Koa from 'koa';
 import nock from 'nock';
 
 import { SEEK_API_BASE_URL, SEEK_API_PATH } from '../constants';
+import { AuthenticationError } from '../errors';
 import { INTROSPECTION_RESPONSE } from '../testing/graphql';
 import { createAgent } from '../testing/http';
 import { getPartnerToken } from '../testing/mock';
@@ -19,11 +20,14 @@ describe('createSeekGraphMiddleware', () => {
     const middleware = await createSeekGraphMiddleware({
       debug: false,
       getPartnerToken,
-      path: '/custom',
       userAgent: 'abc/1.2.3',
     });
 
-    return new Koa().use(middleware);
+    const graphRouter = new Router().post('/custom', middleware);
+    const app = new Koa()
+      .use(graphRouter.allowedMethods())
+      .use(graphRouter.routes());
+    return app;
   });
 
   beforeAll(agent.setup);
