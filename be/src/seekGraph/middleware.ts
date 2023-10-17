@@ -5,6 +5,8 @@ import { ApolloServerPluginLandingPageDisabled } from '@apollo/server/plugin/dis
 import { ApolloServerPluginLandingPageProductionDefault } from '@apollo/server/plugin/landingPage/default';
 import { koaMiddleware } from '@as-integrations/koa';
 import type { Middleware } from 'koa';
+import bodyParser from 'koa-bodyparser';
+import compose from 'koa-compose';
 
 import { createContext } from './context';
 import { createSchema } from './schema';
@@ -42,7 +44,10 @@ export const createSeekGraphMiddleware = async ({
 
   await server.start();
 
-  return koaMiddleware(server, {
-    context: async ({ ctx }) => Promise.resolve(createContext(ctx)),
-  });
+  return compose([
+    bodyParser({ enableTypes: ['json'] }),
+    koaMiddleware(server, {
+      context: async ({ ctx }) => Promise.resolve(createContext(ctx.request)),
+    }),
+  ]);
 };
