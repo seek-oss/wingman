@@ -47,7 +47,7 @@ export const createSeekGraphMiddleware = async ({
 
   const router = new Router().post(
     path,
-    bodyParser(),
+    bodyParser({ enableTypes: ['json'] }),
     koaMiddleware(server, {
       context: ({ ctx }) => Promise.resolve(createContext(ctx)),
     }),
