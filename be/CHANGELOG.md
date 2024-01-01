@@ -1,5 +1,11 @@
 # wingman-be
 
+## 0.8.1
+
+### Patch Changes
+
+- Add generic types to createSeekGraphMiddleware ([#1053](https://github.com/seek-oss/wingman/pull/1053))
+
 ## 0.8.0
 
 ### Minor Changes
