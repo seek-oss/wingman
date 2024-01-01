@@ -1,5 +1,12 @@
 # wingman-be
 
+## 0.8.0
+
+### Minor Changes
+
+- Update Apollo server to v4. ([#1051](https://github.com/seek-oss/wingman/pull/1051))
+  As a consequence, the following imports are removed: `ApolloError`, `AuthenticationError`, `ForbiddenError`, `UserInputError`.
+
 ## 0.7.0
 
 ### Minor Changes
