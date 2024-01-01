@@ -5,12 +5,10 @@ describe('createContext', () => {
     [
       'extracts accept-language header',
       {
-        ctx: {
-          request: {
-            header: {
-              authorization: 'Bearer in',
-              'accept-language': 'EN',
-            },
+        request: {
+          header: {
+            authorization: 'Bearer in',
+            'accept-language': 'EN',
           },
         },
       },
@@ -22,11 +20,9 @@ describe('createContext', () => {
     [
       'extracts a sole authorization header',
       {
-        ctx: {
-          request: {
-            header: {
-              authorization: 'Bearer in',
-            },
+        request: {
+          header: {
+            authorization: 'Bearer in',
           },
         },
       },
@@ -37,16 +33,14 @@ describe('createContext', () => {
     [
       'extracts an authorization header while ignoring other cruft',
       {
-        ctx: {
-          request: {
-            header: {
-              authorization: 'Bearer in',
-              'user-agent': 'my-service/1.2.3',
-            },
+        request: {
+          header: {
+            authorization: 'Bearer in',
+            'user-agent': 'my-service/1.2.3',
           },
-          response: {
-            status: 404,
-          },
+        },
+        response: {
+          status: 404,
         },
       },
       {
@@ -56,11 +50,9 @@ describe('createContext', () => {
     [
       'ignores another header',
       {
-        ctx: {
-          request: {
-            header: {
-              'user-agent': 'my-service/1.2.3',
-            },
+        request: {
+          header: {
+            'user-agent': 'my-service/1.2.3',
           },
         },
       },

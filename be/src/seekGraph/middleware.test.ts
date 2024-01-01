@@ -1,4 +1,4 @@
-import { AuthenticationError } from 'apollo-server-koa';
+import { GraphQLError } from 'graphql';
 import Koa from 'koa';
 import nock from 'nock';
 
@@ -23,7 +23,9 @@ describe('createSeekGraphMiddleware', () => {
       userAgent: 'abc/1.2.3',
     });
 
-    return new Koa().use(middleware);
+    const app = new Koa();
+    app.use(middleware);
+    return app;
   });
 
   beforeAll(agent.setup);
@@ -59,7 +61,9 @@ describe('createSeekGraphMiddleware', () => {
   it('blocks an unauthorised request', async () => {
     const message = 'no creds';
 
-    getPartnerToken.mockRejectedValue(new AuthenticationError(message));
+    getPartnerToken.mockRejectedValue(
+      new GraphQLError(message, { extensions: { code: 'UNAUTHENTICATED' } }),
+    );
 
     const response = await agent()
       .post('/custom')
