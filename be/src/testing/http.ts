@@ -6,7 +6,7 @@ import request from 'supertest';
 export const createAgent = (createApp: () => Koa | Promise<Koa>) => {
   let server: Server;
 
-  let _agent: request.SuperTest<request.Test>;
+  let _agent: ReturnType<typeof request.agent>;
 
   const agent = () => _agent;
 
