@@ -5,6 +5,7 @@ import { ApolloServerPluginLandingPageDisabled } from '@apollo/server/plugin/dis
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { koaMiddleware } from '@as-integrations/koa';
 import Router from '@koa/router';
+import type { DefaultContext, DefaultState } from 'koa';
 import bodyParser from 'koa-bodyparser';
 
 import { createContext } from './context';
@@ -18,13 +19,19 @@ import type { SeekGraphMiddlewareOptions } from './types';
  * authorised to act on behalf of a partner and retrieve a partner token. The
  * request is then forwarded to the SEEK API.
  */
-export const createSeekGraphMiddleware = async ({
+export const createSeekGraphMiddleware = async <
+  StateT = DefaultState,
+  ContextT = DefaultContext,
+  BodyT = unknown,
+>({
   getPartnerToken,
   debug,
   path,
   userAgent,
   seekApiUrlOverride,
-}: SeekGraphMiddlewareOptions): Promise<Router.Middleware> => {
+}: SeekGraphMiddlewareOptions): Promise<
+  Router.Middleware<StateT, ContextT, BodyT>
+> => {
   const schema = await createSchema({
     getPartnerToken,
     userAgent,
@@ -45,7 +52,7 @@ export const createSeekGraphMiddleware = async ({
 
   await server.start();
 
-  const router = new Router().post(
+  const router = new Router<StateT, ContextT>().post(
     path,
     bodyParser({ enableTypes: ['json'] }),
     koaMiddleware(server, {
