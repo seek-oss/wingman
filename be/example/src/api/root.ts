@@ -20,6 +20,6 @@ export const rootMiddleware: Middleware = async (ctx, next) => {
     }
 
     ctx.status = err.status;
-    ctx.body = (err.status < 500 && err.message) || '';
+    ctx.body = err.status < 500 ? err.message : '';
   }
 };
