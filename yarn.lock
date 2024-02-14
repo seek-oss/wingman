@@ -6774,10 +6774,10 @@ braces@^3.0.2, braces@~3.0.2:
   dependencies:
     fill-range "^7.0.1"
 
-braid-design-system@32.15.1:
-  version "32.15.1"
-  resolved "https://registry.yarnpkg.com/braid-design-system/-/braid-design-system-32.15.1.tgz#3da81e068754bdcd19ee7879cbd8f476877a1e1c"
-  integrity sha512-pau1UghJb9rR9RYRBe0fn9xyB1v2YGvjOWCMWBSzrRkco2HDwdN39gl9ckfldWbNh9kAMSx1ytQpIgDoOA+rww==
+braid-design-system@32.16.1:
+  version "32.16.1"
+  resolved "https://registry.yarnpkg.com/braid-design-system/-/braid-design-system-32.16.1.tgz#f9052d08a8cce38a250818d6a5d8748baff3553f"
+  integrity sha512-sAAdXZNL8VITLnCHFdcYg6jWyd7mJwvjtoz1JgIM5es7KgvUOLd2TY3NWVle1WSnUaAorQ/G8O9oMZJMiz0ngA==
   dependencies:
     "@capsizecss/core" "^3.1.0"
     "@capsizecss/metrics" "^1.1.1"
