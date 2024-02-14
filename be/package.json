@@ -61,6 +61,6 @@
     "entryPoint": "example/src/app.ts",
     "template": null,
     "type": "package",
-    "version": "3.7.3"
+    "version": "7.4.1"
   }
 }
