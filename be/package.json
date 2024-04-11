@@ -52,7 +52,7 @@
     "@types/lru-cache": "7.10.10",
     "@types/node-fetch": "2.6.11",
     "@types/supertest": "6.0.2",
-    "nock": "13.5.1",
+    "nock": "13.5.4",
     "skuba": "8.0.0",
     "skuba-dive": "2.0.0",
     "supertest": "6.3.4"
