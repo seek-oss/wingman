@@ -50,7 +50,7 @@ export const MockComponentActions = ({
           tone="brandAccent"
           variant="transparent"
         >
-          View on GitHub
+          Example code on GitHub
         </ButtonLink>
       </Actions>
     )}

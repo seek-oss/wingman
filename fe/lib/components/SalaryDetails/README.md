@@ -2,11 +2,10 @@
 
 A Salary Details component that contains information on the salary type, range and description.
 
-## Installation
+## Disclaimer
 
-```shell
-$ yarn add wingman-fe
-```
+While we publish Wingman components as packages on the public npm registry,
+they are not considered part of the public SEEK API and we don’t recommend their use in third-party production systems. We recommend its use for inspiration only. [Read more](/README.md#disclaimers).
 
 ### Validation
 

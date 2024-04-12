@@ -2,9 +2,10 @@
 
 [![npm package](https://img.shields.io/npm/v/wingman-be)](https://www.npmjs.com/package/wingman-be)
 
-```shell
-yarn add wingman-be
-```
+## Disclaimer
+
+While we publish Wingman components as packages on the public npm registry,
+they are not considered part of the public SEEK API and we don’t recommend their use in third-party production systems. We recommend its use for inspiration only. [Read more](/README.md#disclaimers).
 
 ## Example API
 

@@ -4,11 +4,10 @@ A JobCategory suggest component that provides a narrowed down list of SEEK job c
 
 Returns a `JobCategorySuggestionChoice` on selection of a suggestion. This includes a SEEK JobCategory with job category object identifier and a floating point confidence score.
 
-## Installation
+## Disclaimer
 
-```shell
-yarn add wingman-fe
-```
+While we publish Wingman components as packages on the public npm registry,
+they are not considered part of the public SEEK API and we don’t recommend their use in third-party production systems. We recommend its use for inspiration only. [Read more](/README.md#disclaimers).
 
 ## Job Category Suggest Widget
 
