@@ -2,11 +2,10 @@
 
 A Location component that can match on full words and substrings or detect the device's current location to resolve a SEEK location. Returns a Location with object identifier on location selection.
 
-## Installation
+## Disclaimer
 
-```shell
-yarn add wingman-fe
-```
+While we publish Wingman components as packages on the public npm registry,
+they are not considered part of the public SEEK API and we don’t recommend their use in third-party production systems. We recommend its use for inspiration only. [Read more](/README.md#disclaimers).
 
 ## Location Suggest Widget
 

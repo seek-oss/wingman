@@ -3,11 +3,10 @@
 A JobCategory select component that provides a full list of parent and child job categories for SEEK.
 Returns a JobCategory (parent or child) with object identifier on category selection.
 
-## Installation
+## Disclaimer
 
-```shell
-yarn add wingman-fe
-```
+While we publish Wingman components as packages on the public npm registry,
+they are not considered part of the public SEEK API and we don’t recommend their use in third-party production systems. We recommend its use for inspiration only. [Read more](/README.md#disclaimers).
 
 ## Job Category Select Widget
 

@@ -9,16 +9,59 @@ Reference implementation of a SEEK-integrated recruitment system.
 
 ## Table of contents
 
+- [Disclaimers](#disclaimers)
 - [Design](#design)
   - [Overview](#overview)
   - [Structure](#structure)
-  - [Disclaimers](#disclaimers)
 - [Usage](#usage)
   - [Prerequisites](#prerequisites)
   - [Run](#run)
 - [Meta](#meta)
   - [Related SEEK OSS](#related-seek-oss)
 - [Contributing](https://github.com/seek-oss/wingman/blob/master/CONTRIBUTING.md)
+
+## Disclaimers
+
+### Wingman packages are not for production use
+
+While we publish Wingman components as packages on the public npm registry,
+they are not considered part of the public SEEK API and we don’t recommend their use in third-party production systems.
+
+The primary goal of these packages is to maximise code reuse between SEEK-maintained implementations.
+We’re not aiming for a stable interface here, so expect frequent breaking changes.
+
+If you’re looking to integrate SEEK-specific features into your recruitment software without building an interface from scratch,
+we offer embeddable, themed _panels_ for certain features like [ad selection] and [questionnaires].
+
+### Wingman is not a substitute for documentation
+
+Wingman is meant to complement the documentation on our [developer site].
+The developer site is more comprehensive and should be considered the source of truth.
+
+Wingman may occasionally implement experimental features of the SEEK API that are not quite ready for third-party usage.
+Always double-check our [developer site] and contact our partner team before building onto a new feature.
+
+If there’s something in Wingman that doesn’t seem to match the documentation on the developer site, please [raise an issue].
+
+### Wingman is not a production system
+
+Wingman’s focus is on demonstrating the integration layer between a recruitment system and the SEEK API.
+It is cut down in several aspects:
+
+- It’s light on error handling 💥
+
+- It’s light on testing 🤠
+
+- It’s coupled to the SEEK API’s data structures.
+
+  A third-party recruitment system is expected to model its own domain concepts.
+
+- It runs almost entirely with partner-wide privileges.
+
+  A third-party recruitment system is expected to limit privileges to the currently logged-in hirer.
+
+[ad selection]: https://developer.seek.com/use-cases/job-posting/ad-selection
+[questionnaires]: https://developer.seek.com/use-cases/job-posting/questionnaires
 
 ## Design
 
@@ -56,49 +99,6 @@ This makes it easier for us to release changes across the frontend and backend.
 
 The frontend and backend contain components (under [/fe/lib](/fe/lib) and [/be/src](/be/src) respectively) that are packaged and published to npm.
 This allows us to share code between the public implementation of Wingman in this repo and SEEK’s own private implementation.
-
-### Disclaimers
-
-#### Wingman packages are not for production use
-
-While we publish Wingman components as packages on the public npm registry,
-they are not considered part of the public SEEK API and we don’t recommend their use in third-party production systems.
-
-The primary goal of these packages is to maximise code reuse between SEEK-maintained implementations.
-We’re not aiming for a stable interface here, so expect frequent breaking changes.
-
-If you’re looking to integrate SEEK-specific features into your recruitment software without building an interface from scratch,
-we offer embeddable, themed _panels_ for certain features like [ad selection] and [questionnaires].
-
-#### Wingman is not a substitute for documentation
-
-Wingman is meant to complement the documentation on our [developer site].
-The developer site is more comprehensive and should be considered the source of truth.
-
-Wingman may occasionally implement experimental features of the SEEK API that are not quite ready for third-party usage.
-Always double-check our [developer site] and contact our partner team before building onto a new feature.
-
-If there’s something in Wingman that doesn’t seem to match the documentation on the developer site, please [raise an issue].
-
-#### Wingman is not a production system
-
-Wingman’s focus is on demonstrating the integration layer between a recruitment system and the SEEK API.
-It is cut down in several aspects:
-
-- It’s light on error handling 💥
-
-- It’s light on testing 🤠
-
-- It’s coupled to the SEEK API’s data structures.
-
-  A third-party recruitment system is expected to model its own domain concepts.
-
-- It runs almost entirely with partner-wide privileges.
-
-  A third-party recruitment system is expected to limit privileges to the currently logged-in hirer.
-
-[ad selection]: https://developer.seek.com/use-cases/job-posting/ad-selection
-[questionnaires]: https://developer.seek.com/use-cases/job-posting/questionnaires
 
 ## Usage
 
