@@ -1,5 +1,11 @@
 # wingman-be
 
+## 0.8.2
+
+### Patch Changes
+
+- Clarify wingman ecosystem ([#1098](https://github.com/seek-oss/wingman/pull/1098))
+
 ## 0.8.1
 
 ### Patch Changes
