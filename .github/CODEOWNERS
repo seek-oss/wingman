@@ -1,7 +1,6 @@
 * @seek-oss/indirect
 
 # Configured by Renovate
-be/package.json
 fe/package.json
 package.json
 yarn.lock

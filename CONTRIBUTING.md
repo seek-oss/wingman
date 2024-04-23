@@ -29,7 +29,7 @@ so don't commit or post anything that isn't ready for the entire world to see.
 
 Wingman is documented through its [README](/README.md).
 We maintain changelogs and [release notes] on GitHub,
-and distribute underlying components as npm packages ([wingman-be], [wingman-fe]).
+and distribute underlying components as npm packages ([wingman-fe]).
 
 Frontend components can be previewed through a [Storybook].
 We plan to host the Wingman example stack publicly at some point ([#3](https://github.com/seek-oss/wingman/issues/3)).
@@ -53,7 +53,7 @@ This lets us evaluate whether the feature fits the direction of the project and 
 
 ### Prerequisites
 
-We depend on upstream tooling like **[sku]** and **[skuba]** that are predominantly tested on macOS and Linux.
+We depend on upstream tooling like **[sku]** that are predominantly tested on macOS and Linux.
 If you're on Windows, we recommend the [Windows Subsystem for Linux].
 
 First, some JavaScript tooling:
@@ -108,7 +108,6 @@ If all is well, they will merge your pull request into master.
 You may find it easier to develop alongside unit tests:
 
 ```shell
-yarn be test --watch
 yarn fe test --watch
 ```
 
@@ -131,7 +130,6 @@ yarn test
 Start local development servers:
 
 ```shell
-yarn be start
 yarn fe start
 ```
 
@@ -145,14 +143,14 @@ You'll see a 🦋 bot gliding around pull requests.
 You should write a changeset if you are changing the public Wingman interface,
 which includes:
 
-- Package code under [be/src](/be/src) and [fe/lib](/fe/lib)
+- Package code under [fe/lib](/fe/lib)
 - npm dependencies
 
 On the other hand,
 a changeset is not necessary for:
 
 - Documentation like the [README](/README.md)
-- Example code under [be/example](/be/example) and [fe/example](/fe/example)
+- Example code under [fe/example](/fe/example)
 - Internal refactoring that preserves the existing interface
 - npm dev dependencies
 
@@ -224,9 +222,7 @@ git push --set-upstream origin beta
 [seek api]: https://developer.seek.com/introduction
 [semantic versioning]: https://semver.org/
 [sku]: https://github.com/seek-oss/sku
-[skuba]: https://github.com/seek-oss/skuba
 [storybook]: https://seek-oss.github.io/wingman/
 [submit an issue]: https://github.com/seek-oss/wingman/issues/new/choose
 [windows subsystem for linux]: https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux
-[wingman-be]: https://www.npmjs.com/package/wingman-be
 [wingman-fe]: https://www.npmjs.com/package/wingman-fe
