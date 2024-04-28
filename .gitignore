@@ -13,8 +13,6 @@ tsconfig.json
 .ssl/
 node_modules/
 
-/be/lib/
-
 /tsconfig.json
 
 .DS_Store

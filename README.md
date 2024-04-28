@@ -3,7 +3,6 @@
 [![GitHub Release](https://github.com/seek-oss/wingman/workflows/Release/badge.svg?branch=master)](https://github.com/seek-oss/wingman/actions?query=workflow%3ARelease)
 [![GitHub Validate](https://github.com/seek-oss/wingman/workflows/Validate/badge.svg?branch=master)](https://github.com/seek-oss/wingman/actions?query=workflow%3AValidate)
 [![Node.js version](https://img.shields.io/badge/node-%3E%3D%2012-brightgreen)](https://nodejs.org/en/)
-[![Powered by skuba](https://img.shields.io/badge/🤿%20skuba-powered-009DC4)](https://github.com/seek-oss/skuba)
 
 Reference implementation of a SEEK-integrated recruitment system.
 
@@ -71,7 +70,6 @@ Wingman is a mock recruitment system that integrates with the [SEEK API] to post
 It comprises:
 
 - [A frontend React application](/fe)
-- [A backend Node.js GraphQL server](/be)
 
 Wingman serves as a practical reference for third-party developers integrating with the SEEK API,
 and complements the detailed documentation on our [developer site].
@@ -82,10 +80,6 @@ Internally, we maintain a private implementation to [dogfood] additions and chan
 ### Structure
 
 ```shell
-├── be
-│   ├── example
-│   ├── src
-│   └── ...
 ├── fe
 │   ├── example
 │   ├── lib
@@ -94,10 +88,7 @@ Internally, we maintain a private implementation to [dogfood] additions and chan
 └── README.md <- you are here
 ```
 
-Wingman is developed in a monorepo.
-This makes it easier for us to release changes across the frontend and backend.
-
-The frontend and backend contain components (under [/fe/lib](/fe/lib) and [/be/src](/be/src) respectively) that are packaged and published to npm.
+The frontend contains components (under [/fe/lib](/fe/lib)) that are packaged and published to npm.
 This allows us to share code between the public implementation of Wingman in this repo and SEEK’s own private implementation.
 
 ## Usage
@@ -123,7 +114,6 @@ yarn install
 Start local development servers:
 
 ```shell
-yarn be start
 yarn fe start
 ```
 
@@ -137,7 +127,6 @@ Wingman is built on a bunch of other stuff that we’ve open sourced:
 - [Koala], a collection of Koa add-ons
 - [Scoobie], a Braid component library
 - [sku](https://github.com/seek-oss/sku), a frontend development toolkit
-- [skuba], a backend development toolkit
 
 [braid]: https://github.com/seek-oss/braid-design-system
 [developer site]: https://developer.seek.com
@@ -147,6 +136,5 @@ Wingman is built on a bunch of other stuff that we’ve open sourced:
 [scoobie]: https://github.com/seek-oss/scoobie
 [seek api]: https://developer.seek.com/introduction
 [sku]: https://github.com/seek-oss/sku
-[skuba]: https://github.com/seek-oss/skuba
 [windows subsystem for linux]: https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux
 [yarn workspaces]: https://classic.yarnpkg.com/en/docs/workspaces/

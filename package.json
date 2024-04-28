@@ -16,12 +16,11 @@
   },
   "private": true,
   "scripts": {
-    "be": "yarn workspace wingman-be",
     "fe": "yarn workspace wingman-fe",
     "format": "yarn workspaces run format",
     "lint": "yarn workspaces run lint",
     "stage": "changeset version && yarn format",
-    "release": "yarn be build && changeset publish",
+    "release": "changeset publish",
     "test": "yarn workspaces run test",
     "test:ci": "yarn workspaces run test:ci",
     "codegen": "graphql-codegen --config codegen.yml",
@@ -30,11 +29,9 @@
   "version": "0.0.0",
   "workspaces": {
     "nohoist": [
-      "wingman-be/**",
       "wingman-fe/**"
     ],
     "packages": [
-      "be",
       "fe"
     ]
   }
