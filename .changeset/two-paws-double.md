@@ -1,5 +1,5 @@
 ---
-'wingman-fe': minor
+'wingman-fe': major
 ---
 
 Update map selection icon to be a globe
