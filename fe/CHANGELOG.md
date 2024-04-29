@@ -1,5 +1,12 @@
 # wingman-fe
 
+## 10.0.0
+
+### Major Changes
+
+- Update map selection icon to be a globe ([#1104](https://github.com/seek-oss/wingman/pull/1104))
+  Bump minimum braid-design-system version to 32.17.0
+
 ## 9.2.3
 
 ### Patch Changes
