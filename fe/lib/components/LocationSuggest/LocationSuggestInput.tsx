@@ -6,7 +6,7 @@ import {
   Column,
   Columns,
   Dialog,
-  IconLanguage,
+  IconGlobe,
   IconLocation,
   IconSearch,
   Text,
@@ -207,7 +207,7 @@ const LocationSuggestInput = ({
       </Column>
       <Column width="content">
         <Button
-          icon={<IconLanguage />}
+          icon={<IconGlobe />}
           onClick={() => setShowMapDialog(true)}
           tone={tone === 'critical' ? tone : undefined}
           variant="soft"
