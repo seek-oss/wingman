@@ -11,6 +11,10 @@
 
         // GraphQL majors first require support in Apollo and other tooling
         'graphql',
+
+        // Storybook majors first require support in sku
+        '@storybook/addon-essentials',
+        '@storybook/addons',
       ],
       matchUpdateTypes: ['major'],
 

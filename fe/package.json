@@ -15,7 +15,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "8.0.9",
+    "@storybook/addon-essentials": "7.6.17",
     "@storybook/addons": "7.6.17",
     "@testing-library/react": "15.0.5",
     "@types/content-disposition": "0.5.8",
