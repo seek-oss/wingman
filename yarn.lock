@@ -4848,17 +4848,17 @@
   resolved "https://registry.yarnpkg.com/@vanilla-extract/css-utils/-/css-utils-0.1.4.tgz#ea9c919109ce642f6ebdb0d11145187003d49758"
   integrity sha512-3WRxMGa/VQaL32jZqRUpnnoVFSws5iPIUpQr+XlT4jXhtMeKYcA20rFK2k2Amkg04sqrO84A8hNMeABWZQesEg==
 
-"@vanilla-extract/css@1.15.1", "@vanilla-extract/css@^1.15.1", "@vanilla-extract/css@^1.2.3", "@vanilla-extract/css@^1.9.2":
-  version "1.15.1"
-  resolved "https://registry.yarnpkg.com/@vanilla-extract/css/-/css-1.15.1.tgz#cf68cb95cdb521056af9ebf7907694806ae89228"
-  integrity sha512-puAfTKAUtsMr2+D+grQNjU5umsdw9zdVgQflUlbzS/tGORaAHdgaYz7jfKPmz1c4ZcpJ6uFNOiI50NDOAzzhyg==
+"@vanilla-extract/css@1.15.2", "@vanilla-extract/css@^1.15.1", "@vanilla-extract/css@^1.2.3", "@vanilla-extract/css@^1.9.2":
+  version "1.15.2"
+  resolved "https://registry.yarnpkg.com/@vanilla-extract/css/-/css-1.15.2.tgz#a6607be211197236e39b8213e0dba870e2a8f821"
+  integrity sha512-Bi61iCAtojCuqvV+FYaF5i69vBjuMQJpHPdpgKYyQvx+e2Hp79V0ELglyYOdcyg9Wh0k0MFwgCDipVd7EloTXQ==
   dependencies:
     "@emotion/hash" "^0.9.0"
-    "@vanilla-extract/private" "^1.0.4"
+    "@vanilla-extract/private" "^1.0.5"
     css-what "^6.1.0"
     cssesc "^3.0.0"
     csstype "^3.0.7"
-    dedent "^1.5.1"
+    dedent "^1.5.3"
     deep-object-diff "^1.1.9"
     deepmerge "^4.2.2"
     media-query-parser "^2.0.2"
@@ -4898,10 +4898,10 @@
     "@vanilla-extract/integration" "^7.0.0"
     esbuild "npm:esbuild@~0.17.6 || ~0.18.0 || ~0.19.0"
 
-"@vanilla-extract/private@^1.0.3", "@vanilla-extract/private@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@vanilla-extract/private/-/private-1.0.4.tgz#35946b917d6b9774a2b9bc725c63c9341049c79b"
-  integrity sha512-8FGD6AejeC/nXcblgNCM5rnZb9KXa4WNkR03HCWtdJBpANjTgjHEglNLFnhuvdQ78tC6afaxBPI+g7F2NX3tgg==
+"@vanilla-extract/private@^1.0.3", "@vanilla-extract/private@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@vanilla-extract/private/-/private-1.0.5.tgz#8c08ac4851f4cc89a3dcdb858d8938e69b1481c4"
+  integrity sha512-6YXeOEKYTA3UV+RC8DeAjFk+/okoNz/h88R+McnzA2zpaVqTR/Ep+vszkWYlGBcMNO7vEkqbq5nT/JMMvhi+tw==
 
 "@vanilla-extract/sprinkles@^1.5.1":
   version "1.6.1"
