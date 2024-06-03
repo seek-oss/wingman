@@ -18,6 +18,7 @@
     "@storybook/addon-essentials": "7.6.19",
     "@storybook/addons": "7.6.17",
     "@testing-library/react": "15.0.6",
+    "@types/autosuggest-highlight": "3.2.3",
     "@types/content-disposition": "0.5.8",
     "@types/faker": "5.5.9",
     "@types/react": "18.3.2",
