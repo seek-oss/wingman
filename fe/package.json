@@ -21,7 +21,7 @@
     "@types/autosuggest-highlight": "3.2.3",
     "@types/content-disposition": "0.5.8",
     "@types/faker": "5.5.9",
-    "@types/react": "18.3.2",
+    "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
     "@vanilla-extract/css": "1.15.2",
     "@vanilla-extract/css-utils": "0.1.4",
