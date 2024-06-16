@@ -58,13 +58,13 @@ If you're on Windows, we recommend the [Windows Subsystem for Linux].
 
 First, some JavaScript tooling:
 
-- Node.js 12+
-- Yarn 1.x
+- Node.js LTS
+- pnpm as per `package.json#packageManager`
 
 Next, install npm dependencies:
 
 ```shell
-yarn install
+pnpm install
 ```
 
 ### Git workflow
@@ -108,21 +108,21 @@ If all is well, they will merge your pull request into master.
 You may find it easier to develop alongside unit tests:
 
 ```shell
-yarn fe test --watch
+pnpm fe test --watch
 ```
 
 Format your code once you're happy with it:
 
 ```shell
-yarn format
+pnpm format
 ```
 
 We run linting and testing in CI,
 but consider running these commands locally for a faster feedback loop:
 
 ```shell
-yarn lint
-yarn test
+pnpm lint
+pnpm test
 ```
 
 ### Running locally
@@ -130,7 +130,7 @@ yarn test
 Start local development servers:
 
 ```shell
-yarn fe start
+pnpm fe start
 ```
 
 ## Releases
@@ -155,7 +155,7 @@ a changeset is not necessary for:
 - npm dev dependencies
 
 ```shell
-yarn changeset
+pnpm changeset
 ```
 
 The Changesets CLI is interactive and follows [semantic versioning]:
@@ -191,8 +191,8 @@ git switch beta
 git reset --hard origin/master
 
 # stage a beta release
-yarn changeset pre enter beta
-yarn changeset version
+pnpm changeset pre enter beta
+pnpm changeset version
 ```
 
 If previous betas have been released under the same semantic version,

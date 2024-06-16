@@ -12,9 +12,7 @@ Reference implementation of a SEEK-integrated recruitment system.
 - [Design](#design)
   - [Overview](#overview)
   - [Structure](#structure)
-- [Usage](#usage)
-  - [Prerequisites](#prerequisites)
-  - [Run](#run)
+- [Contributing](#contributing)
 - [Meta](#meta)
   - [Related SEEK OSS](#related-seek-oss)
 - [Contributing](https://github.com/seek-oss/wingman/blob/master/CONTRIBUTING.md)
@@ -91,31 +89,9 @@ Internally, we maintain a private implementation to [dogfood] additions and chan
 The frontend contains components (under [/fe/lib](/fe/lib)) that are packaged and published to npm.
 This allows us to share code between the public implementation of Wingman in this repo and SEEK’s own private implementation.
 
-## Usage
+## Contributing
 
-### Prerequisites
-
-We depend on upstream tooling like [sku] that are predominantly tested on macOS and Linux.
-If you’re on Windows, we recommend the [Windows Subsystem for Linux].
-
-First, some JavaScript tooling:
-
-- Node.js 12+
-- Yarn 1.x
-
-Next, install npm dependencies:
-
-```shell
-yarn install
-```
-
-### Run
-
-Start local development servers:
-
-```shell
-yarn fe start
-```
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for instructions on how to contribute to Wingman.
 
 ## Meta
 
@@ -137,4 +113,3 @@ Wingman is built on a bunch of other stuff that we’ve open sourced:
 [seek api]: https://developer.seek.com/introduction
 [sku]: https://github.com/seek-oss/sku
 [windows subsystem for linux]: https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux
-[yarn workspaces]: https://classic.yarnpkg.com/en/docs/workspaces/

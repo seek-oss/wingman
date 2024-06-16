@@ -29,19 +29,19 @@ jobs:
           node-version: 18.x
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Publish to npm
         uses: changesets/action@v1
         with:
-          publish: yarn release
-          version: yarn stage
+          publish: pnpm release
+          version: pnpm stage
         env:
           GITHUB_TOKEN: ${{ secrets.SEEK_OSS_CI_GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.SEEK_OSS_CI_NPM_TOKEN }}
 
       - name: Deploy to GitHub Pages
-        run: yarn deploy
+        run: pnpm deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           IS_GITHUB_PAGES: true

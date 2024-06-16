@@ -3,4 +3,4 @@
 # Configured by Renovate
 fe/package.json
 package.json
-yarn.lock
+pnpm-lock.yaml
