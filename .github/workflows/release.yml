@@ -28,6 +28,9 @@ jobs:
         with:
           node-version: 18.x
 
+      - name: Set up pnpm
+        run: corepack enable pnpm && corepack install
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
