@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 10.0.1
+
+### Patch Changes
+
+- Move @types/autosuggest-highlight to dependencies ([#1126](https://github.com/seek-oss/wingman/pull/1126))
+
 ## 10.0.0
 
 ### Major Changes
