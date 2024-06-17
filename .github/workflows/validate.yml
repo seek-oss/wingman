@@ -23,15 +23,18 @@ jobs:
         with:
           node-version: 18.x
 
+      - name: Set up pnpm
+        run: corepack enable pnpm && corepack install
+
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Test
-        run: yarn test:ci
+        run: pnpm test:ci
 
       - name: Lint
-        run: yarn lint
+        run: pnpm lint
 
       # sku lint does not dry run the build
       - name: Build fe
-        run: yarn fe build
+        run: pnpm fe build

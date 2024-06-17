@@ -6,7 +6,7 @@ echo '=> Building...'
 
 rm -rf dist
 
-yarn concurrently 'yarn fe build' 'yarn fe build-storybook'
+pnpm concurrently 'pnpm fe build' 'pnpm fe build-storybook'
 
 echo '=> Packaging...'
 

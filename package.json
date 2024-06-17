@@ -16,23 +16,16 @@
   },
   "private": true,
   "scripts": {
-    "fe": "yarn workspace wingman-fe",
-    "format": "yarn workspaces run format",
-    "lint": "yarn workspaces run lint",
-    "stage": "changeset version && yarn format",
+    "fe": "pnpm --filter wingman-fe",
+    "format": "pnpm -r format",
+    "lint": "pnpm -r lint",
+    "stage": "changeset version && pnpm format",
     "release": "changeset publish",
-    "test": "yarn workspaces run test",
-    "test:ci": "yarn workspaces run test:ci",
+    "test": "pnpm -r test",
+    "test:ci": "pnpm -r test:ci",
     "codegen": "graphql-codegen --config codegen.yml",
     "deploy": "scripts/deploy"
   },
   "version": "0.0.0",
-  "workspaces": {
-    "nohoist": [
-      "wingman-fe/**"
-    ],
-    "packages": [
-      "fe"
-    ]
-  }
+  "packageManager": "pnpm@9.3.0"
 }
