@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 10.0.2
+
+### Patch Changes
+
+- **deps:** uuid ^10.0.0 ([#1132](https://github.com/seek-oss/wingman/pull/1132))
+
 ## 10.0.1
 
 ### Patch Changes
