@@ -26,28 +26,28 @@ export interface Position {
 
 export const POSITIONS: Position[] = faker.custom
   .generate<Position>(() => {
-    const totalCandidates = faker.datatype.number(5)
-      ? faker.datatype.number({
+    const totalCandidates = faker.number.int(5)
+      ? faker.number.int({
           max: 200,
           min: 1,
         })
       : 0;
 
-    const newCandidates = faker.datatype.number({
+    const newCandidates = faker.number.int({
       max: totalCandidates,
       min: 0,
     });
 
     return {
-      id: `wingman:position:${faker.datatype.uuid()}`,
-      name: faker.name.jobTitle(),
+      id: `wingman:position:${faker.string.uuid()}`,
+      name: faker.person.jobTitle(),
       candidates: {
         new: newCandidates,
         total: totalCandidates,
       },
-      stage: faker.random.arrayElement(STAGES),
-      contact: faker.random.arrayElement(USERS),
-      lastUpdate: faker.date.recent(30),
+      stage: faker.helpers.arrayElement(STAGES),
+      contact: faker.helpers.arrayElement(USERS),
+      lastUpdate: faker.date.recent({ days: 30 }),
     };
   }, 25)
   .sort((a, b) => b.lastUpdate.getTime() - a.lastUpdate.getTime());

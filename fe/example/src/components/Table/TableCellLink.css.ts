@@ -1,4 +1,4 @@
-import { composeStyles, style } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 import { atoms, vars } from 'braid-design-system/css';
 
 export const linkRef = style({});
@@ -12,7 +12,7 @@ export const link = style({
   },
 });
 
-export const linkBox = composeStyles(
+export const linkBox = style([
   atoms({
     transition: 'touchable',
   }),
@@ -23,4 +23,4 @@ export const linkBox = composeStyles(
       },
     },
   }),
-);
+]);

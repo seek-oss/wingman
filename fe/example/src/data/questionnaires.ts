@@ -69,11 +69,11 @@ const componentGenerators: Record<ComponentType, () => FormComponent> = {
 
 export const QUESTIONNAIRES = faker.custom.generate<Questionnaire>(
   () => ({
-    id: faker.datatype.uuid(),
-    name: faker.random.words(),
+    id: faker.string.uuid(),
+    name: faker.word.words(),
     components: faker.custom.generate(
       () => {
-        const type = faker.random.arrayElement(COMPONENT_TYPES);
+        const type = faker.helpers.arrayElement(COMPONENT_TYPES);
 
         const generateComponent = componentGenerators[type];
 

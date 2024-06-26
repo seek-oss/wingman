@@ -74,7 +74,7 @@ const QUALIFICATION_NAMES = [
 ];
 
 export const generateQualification = (): Qualification => ({
-  date: faker.date.past(5, faker.custom.latestDate),
-  issuer: faker.random.arrayElement(QUALIFICATION_ISSUERS),
-  name: faker.random.arrayElement(QUALIFICATION_NAMES),
+  date: faker.date.past({ years: 5, refDate: faker.custom.latestDate }),
+  issuer: faker.helpers.arrayElement(QUALIFICATION_ISSUERS),
+  name: faker.helpers.arrayElement(QUALIFICATION_NAMES),
 });

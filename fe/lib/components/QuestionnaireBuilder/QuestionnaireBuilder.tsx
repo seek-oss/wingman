@@ -1,6 +1,7 @@
 import { Card, Column, Columns, Heading, Stack } from 'braid-design-system';
-import React, {
+import {
   Fragment,
+  type JSX,
   type ReactNode,
   useEffect,
   useMemo,
