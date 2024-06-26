@@ -141,8 +141,8 @@ export const CANDIDATES: Candidate[] = POSITIONS.map((position) =>
             text: faker.lorem.paragraphs(faker.number.int({ max: 3, min: 1 })),
             // TODO: candidate uploaded date
             date: faker.date.between({
-              from: new Date(),
-              to: faker.custom.latestDate,
+              from: faker.custom.latestDate,
+              to: new Date(),
             }),
           }),
           { max: 5 },
