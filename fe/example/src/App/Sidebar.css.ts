@@ -1,4 +1,4 @@
-import { composeStyles, style } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 import { atoms, vars } from 'braid-design-system/css';
 
 import { menuWidth } from '../styles.css';
@@ -10,7 +10,7 @@ export const link = style({
   whiteSpace: 'nowrap',
 });
 
-export const linkContainer = composeStyles(
+export const linkContainer = style([
   atoms({
     transition: 'touchable',
   }),
@@ -29,7 +29,7 @@ export const linkContainer = composeStyles(
       },
     },
   }),
-);
+]);
 
 export const sidebar = style({
   height: '100vh',

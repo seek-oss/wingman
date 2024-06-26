@@ -48,20 +48,20 @@ const CATEGORY = [
 ];
 
 const generateTitle = (positionName: string) =>
-  faker.random.arrayElement([
+  faker.helpers.arrayElement([
     positionName,
 
     faker.helpers.shuffle(positionName.split(' ')).join(' '),
 
-    `${positionName}${faker.random.arrayElement([
+    `${positionName}${faker.helpers.arrayElement([
       ' -',
       ' |',
       ':',
-    ])} ${faker.company.bsAdjective()} ${faker.company.bsNoun()}${faker.random.arrayElement(
+    ])} ${faker.company.buzzAdjective()} ${faker.company.buzzNoun()}${faker.helpers.arrayElement(
       ['!', '!!', '!!!'],
     )}`,
 
-    `${positionName} ${faker.random.arrayElement([
+    `${positionName} ${faker.helpers.arrayElement([
       'Copy Copy',
       'Copy',
       'Draft',
@@ -69,7 +69,7 @@ const generateTitle = (positionName: string) =>
       'FINAL',
     ])}`,
 
-    `${faker.random.arrayElement([
+    `${faker.helpers.arrayElement([
       'Are you the one we’ve been looking for?',
       'BIG BUX + BONUS!',
       'Career change friendly.',
@@ -80,24 +80,24 @@ const generateTitle = (positionName: string) =>
 export const ADS: Ad[] = POSITIONS.map((position) =>
   faker.custom.generate<Ad>(
     () => ({
-      id: `wingman:ad:${faker.datatype.uuid()}`,
+      id: `wingman:ad:${faker.string.uuid()}`,
       position: {
         id: position.id,
       },
       title: generateTitle(position.name),
-      location: faker.random.arrayElement(LOCATION),
-      workType: faker.name.jobTitle(),
-      category: faker.random.arrayElement(CATEGORY),
-      adProduct: faker.random.arrayElement(['Classic', 'StandOut', 'Premium']),
-      description: faker.random.arrayElement(AD_DESCRIPTIONS),
+      location: faker.helpers.arrayElement(LOCATION),
+      workType: faker.person.jobTitle(),
+      category: faker.helpers.arrayElement(CATEGORY),
+      adProduct: faker.helpers.arrayElement(['Classic', 'StandOut', 'Premium']),
+      description: faker.helpers.arrayElement(AD_DESCRIPTIONS),
       summary: `${faker.company.catchPhrase()}. ${faker.custom.titleCase(
-        faker.company.bsAdjective(),
-      )} ${faker.company.bsNoun()}!`,
-      bulletPoint1: faker.company.bsBuzz(),
-      bulletPoint2: faker.company.bsBuzz(),
-      bulletPoint3: faker.company.bsBuzz(),
+        faker.company.buzzAdjective(),
+      )} ${faker.company.buzzNoun()}!`,
+      bulletPoint1: faker.company.buzzVerb(),
+      bulletPoint2: faker.company.buzzVerb(),
+      bulletPoint3: faker.company.buzzVerb(),
       questionnaire: '',
-      status: faker.random.arrayElement(['Live', 'Draft', 'Expired']),
+      status: faker.helpers.arrayElement(['Live', 'Draft', 'Expired']),
     }),
     { max: 3, min: 0 },
   ),

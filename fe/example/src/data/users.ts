@@ -7,8 +7,8 @@ export interface User {
 
 export const USERS = faker.custom.generate<User>(
   () => ({
-    formattedName: `${faker.name.firstName()} ${faker.name.lastName()}`,
-    id: faker.datatype.uuid(),
+    formattedName: `${faker.person.firstName()} ${faker.person.lastName()}`,
+    id: faker.string.uuid(),
   }),
   5,
 );

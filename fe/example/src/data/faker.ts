@@ -1,4 +1,4 @@
-import baseFaker from 'faker';
+import { faker as baseFaker } from '@faker-js/faker';
 
 baseFaker.seed(100);
 
@@ -7,8 +7,7 @@ const custom = {
     generator: () => T,
     num: number | { max?: number; min?: number },
   ): T[] => {
-    const count =
-      typeof num === 'number' ? num : baseFaker.datatype.number(num);
+    const count = typeof num === 'number' ? num : baseFaker.number.int(num);
 
     return [...new Array(count)].map(() => generator());
   },
@@ -16,7 +15,7 @@ const custom = {
   latestDate: new Date(1593939249876),
 
   sample: <T>(options: T[], max: number = options.length): T[] => {
-    const count = baseFaker.datatype.number({ max });
+    const count = baseFaker.number.int({ max });
 
     const shuffled = baseFaker.helpers.shuffle(options);
 

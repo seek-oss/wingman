@@ -52,27 +52,27 @@ const SOURCES = ['Internal', 'SEEK application'] as const;
 
 const generateAttachmentFilename = () =>
   faker.system.commonFileName(
-    faker.random.arrayElement(['png', 'jpeg', 'pdf', 'doc', 'docx', 'rtf']),
+    faker.helpers.arrayElement(['png', 'jpeg', 'pdf', 'doc', 'docx', 'rtf']),
   );
 
 export const CANDIDATES: Candidate[] = POSITIONS.map((position) =>
   faker.custom.generate<Candidate>(() => {
-    const firstName = faker.name.firstName();
+    const firstName = faker.person.firstName();
 
-    const formattedName = faker.datatype.number(20)
-      ? `${firstName} ${faker.name.lastName()}`
+    const formattedName = faker.number.int(20)
+      ? `${firstName} ${faker.person.lastName()}`
       : firstName;
 
-    const id = `wingman:candidate:${faker.datatype.uuid()}`;
+    const id = `wingman:candidate:${faker.string.uuid()}`;
 
     return {
       id,
       formattedName,
 
       // Inflate our self-importance
-      source: faker.datatype.number(5)
+      source: faker.number.int(5)
         ? 'SEEK application'
-        : faker.random.arrayElement(SOURCES),
+        : faker.helpers.arrayElement(SOURCES),
 
       // TODO: seed candidates across multiple positions
       positions: [
@@ -98,16 +98,22 @@ export const CANDIDATES: Candidate[] = POSITIONS.map((position) =>
       roles: faker.custom
         .generate<Role>(
           () => {
-            const startDate = faker.date.past(5, faker.custom.latestDate);
-            const endDate = faker.datatype.number(3)
-              ? faker.date.between(startDate, faker.custom.latestDate)
+            const startDate = faker.date.past({
+              years: 5,
+              refDate: faker.custom.latestDate,
+            });
+            const endDate = faker.number.int(3)
+              ? faker.date.between({
+                  from: startDate,
+                  to: faker.custom.latestDate,
+                })
               : undefined;
 
             return {
-              company: faker.company.companyName(),
-              title: faker.name.jobTitle(),
+              company: faker.company.name(),
+              title: faker.person.jobTitle(),
               highlights: faker.lorem.paragraphs(
-                faker.datatype.number({ max: 3, min: 1 }),
+                faker.number.int({ max: 3, min: 1 }),
               ),
               startDate,
               endDate,
@@ -131,12 +137,13 @@ export const CANDIDATES: Candidate[] = POSITIONS.map((position) =>
       notes: faker.custom
         .generate<Note>(
           () => ({
-            author: faker.random.arrayElement(USERS),
-            text: faker.lorem.paragraphs(
-              faker.datatype.number({ max: 3, min: 1 }),
-            ),
+            author: faker.helpers.arrayElement(USERS),
+            text: faker.lorem.paragraphs(faker.number.int({ max: 3, min: 1 })),
             // TODO: candidate uploaded date
-            date: faker.date.between(new Date(), faker.custom.latestDate),
+            date: faker.date.between({
+              from: new Date(),
+              to: faker.custom.latestDate,
+            }),
           }),
           { max: 5 },
         )

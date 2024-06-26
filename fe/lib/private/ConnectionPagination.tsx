@@ -6,7 +6,7 @@ import {
   Text,
   TextLinkButton,
 } from 'braid-design-system';
-import React from 'react';
+import type { JSX } from 'react';
 
 import type { PageInfo } from '../types/seekApi.graphql';
 
