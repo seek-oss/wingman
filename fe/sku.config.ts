@@ -30,13 +30,10 @@ const config: SkuConfig = {
   dangerouslySetESLintConfig: (skuEslintConfig) => ({
     ...skuEslintConfig,
 
-    plugins: [...(skuEslintConfig.plugins ?? []), 'deprecation'],
-
     rules: {
       ...skuEslintConfig.rules,
 
       '@typescript-eslint/explicit-module-boundary-types': 'off',
-      'deprecation/deprecation': 'error',
 
       'no-use-before-define': 'off',
       'sort-imports': [
