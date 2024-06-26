@@ -97,9 +97,6 @@ importers:
       '@types/content-disposition':
         specifier: 0.5.8
         version: 0.5.8
-      '@types/faker':
-        specifier: 5.5.9
-        version: 5.5.9
       '@types/react':
         specifier: 18.3.3
         version: 18.3.3
@@ -124,9 +121,6 @@ importers:
       date-fns:
         specifier: 3.6.0
         version: 3.6.0
-      faker:
-        specifier: 5.5.3
-        version: 5.5.3
       graphql-tag:
         specifier: 2.12.6
         version: 2.12.6(graphql@16.8.2)
@@ -2800,9 +2794,6 @@ packages:
   '@types/express@4.17.21':
     resolution: {integrity: sha512-ejlPM315qwLpaQlQDTjPdsUFSc6ZsP4AN6AlWnogPjQ7CVi7PYF3YVz+CY3jE2pwYf7E/7HlDAN0rV2GxTG0HQ==}
 
-  '@types/faker@5.5.9':
-    resolution: {integrity: sha512-uCx6mP3UY5SIO14XlspxsGjgaemrxpssJI0Ol+GfhxtcKpv9pgRZYsS4eeKeHVLje6Qtc8lGszuBI461+gVZBA==}
-
   '@types/find-cache-dir@3.2.1':
     resolution: {integrity: sha512-frsJrz2t/CeGifcu/6uRo4b+SzAwT4NYCVPu1GN8IB9XTzrpPkGuV0tmh9mN+/L0PklAlsC3u5Fxt0ju00LXIw==}
 
@@ -4683,9 +4674,6 @@ packages:
   extract-zip@1.7.0:
     resolution: {integrity: sha512-xoh5G1W/PB0/27lXgMQyIhP5DSY/LhoCsOyZgb+6iMmRtCwVBo55uKaMoEYrDCKQhWvqEip5ZPKAc6eFNyf/MA==}
     hasBin: true
-
-  faker@5.5.3:
-    resolution: {integrity: sha512-wLTv2a28wjUyWkbnX7u/ABZBkUkIF2fCd73V6P2oFqEGEktDfzWx4UxrSqtPRw0xPRAcjeAOIiJWqZm3pP4u3g==}
 
   fast-decode-uri-component@1.0.1:
     resolution: {integrity: sha512-WKgKWg5eUxvRZGwW8FvfbaH7AXSh2cL+3j5fMGzUMCxWBJ3dV3a7Wz8y2f/uQ0e3B6WmodD3oS54jTQ9HVTIIg==}
@@ -12280,8 +12268,6 @@ snapshots:
       '@types/qs': 6.9.15
       '@types/serve-static': 1.15.7
 
-  '@types/faker@5.5.9': {}
-
   '@types/find-cache-dir@3.2.1': {}
 
   '@types/graceful-fs@4.1.9':
@@ -14741,8 +14727,6 @@ snapshots:
       yauzl: 2.10.0
     transitivePeerDependencies:
       - supports-color
-
-  faker@5.5.3: {}
 
   fast-decode-uri-component@1.0.1: {}
 
