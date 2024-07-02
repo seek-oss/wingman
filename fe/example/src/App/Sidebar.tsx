@@ -110,6 +110,7 @@ export const Sidebar = () => (
               <Box padding="gutter">
                 <Toggle
                   align="justify"
+                  bleedY={true}
                   id="devTools"
                   label="Dev tools"
                   on={preferences.devTools}
