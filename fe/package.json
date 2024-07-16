@@ -17,8 +17,10 @@
   },
   "devDependencies": {
     "@faker-js/faker": "8.4.1",
-    "@storybook/addon-essentials": "7.6.19",
-    "@storybook/addons": "7.6.17",
+    "@storybook/addon-essentials": "8.2.4",
+    "@storybook/addon-webpack5-compiler-babel": "3.0.3",
+    "@storybook/react": "8.2.4",
+    "@storybook/react-webpack5": "8.2.4",
     "@testing-library/react": "16.0.0",
     "@types/content-disposition": "0.5.8",
     "@types/react": "18.3.3",
@@ -36,6 +38,7 @@
     "react-dom": "18.3.1",
     "react-router-dom": "6.22.3",
     "scoobie": "15.3.0",
+    "storybook": "8.2.4",
     "ts-node": "10.9.2",
     "use-query-params": "2.2.1",
     "webpack-merge": "5.10.0"
@@ -60,13 +63,13 @@
   },
   "scripts": {
     "build": "sku build",
-    "build-storybook": "sku build-storybook",
+    "build-storybook": "storybook build",
     "format": "sku format",
     "lint": "sku lint && pnpm -s lint:codegen",
     "lint:codegen": "ts-node lib/types/seekApi.typeDefs.ts",
     "serve": "sku serve",
     "start": "sku start",
-    "start-storybook": "sku storybook",
+    "start-storybook": "storybook dev",
     "test": "sku test",
     "test:ci": "sku test --coverage"
   },
