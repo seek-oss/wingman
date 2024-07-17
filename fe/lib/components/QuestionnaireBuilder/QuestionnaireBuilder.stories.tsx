@@ -1,6 +1,6 @@
+import type { Meta, StoryObj } from '@storybook/react';
 import { Box } from 'braid-design-system';
-import React, { type ReactNode } from 'react';
-import type { Meta, StoryObj } from 'sku/@storybook/react';
+import type { ReactNode } from 'react';
 
 import { QuestionnaireBuilder as Component } from './QuestionnaireBuilder';
 

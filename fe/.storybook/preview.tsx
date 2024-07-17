@@ -6,7 +6,7 @@ import seekJobs from 'braid-design-system/themes/seekJobs';
 import wireframe from 'braid-design-system/themes/wireframe';
 import { Box, BraidProvider, ContentBlock } from 'braid-design-system';
 
-import type { Preview } from 'sku/@storybook/react';
+import type { Preview } from '@storybook/react';
 
 const THEMES = { seekJobs, docs, wireframe };
 
@@ -31,7 +31,7 @@ export const defaultArgTypes = {
     },
     options: ['undefined', 'critical', 'neutral', 'positive'],
   },
-};
+} as const;
 
 export default {
   globalTypes: {
