@@ -1,7 +1,7 @@
+import type { Meta, StoryObj } from '@storybook/react';
 import { Stack } from 'braid-design-system';
-import React, { type ComponentProps } from 'react';
+import type { ComponentProps } from 'react';
 import { CodeBlock } from 'scoobie';
-import type { Meta, StoryObj } from 'sku/@storybook/react';
 
 import { SeekApiResponse as SeekApiResponseComponent } from './SeekApiResponse';
 

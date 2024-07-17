@@ -23,9 +23,7 @@ const config: SkuConfig = {
   sites: [{ name: 'apac', host: 'dev.seek.com' }],
 
   compilePackages: ['scoobie'],
-  orderImports: true,
   rootResolution: false,
-  storybookAddons: ['@storybook/addon-essentials'],
 
   dangerouslySetESLintConfig: (skuEslintConfig) => ({
     ...skuEslintConfig,
@@ -80,6 +78,7 @@ const config: SkuConfig = {
         module: 'nodenext',
       },
     },
+    include: ['**/*', '.storybook/*'],
   }),
 };
 
