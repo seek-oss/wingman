@@ -64,7 +64,7 @@
   },
   "scripts": {
     "build": "sku build",
-    "build-storybook": "storybook build",
+    "build-storybook": "storybook build --output-dir dist-storybook",
     "format": "sku format",
     "lint": "sku lint && pnpm -s lint:codegen",
     "lint:codegen": "ts-node lib/types/seekApi.typeDefs.ts",
