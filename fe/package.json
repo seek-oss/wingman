@@ -38,7 +38,6 @@
     "react-dom": "18.3.1",
     "react-router-dom": "6.22.3",
     "scoobie": "15.3.0",
-    "sku": "13.0.1",
     "storybook": "8.2.4",
     "ts-node": "10.9.2",
     "use-query-params": "2.2.1",
