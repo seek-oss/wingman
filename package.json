@@ -6,12 +6,12 @@
   "devDependencies": {
     "@graphql-codegen/cli": "5.0.2",
     "@graphql-codegen/fragment-matcher": "5.0.2",
-    "@graphql-codegen/typescript": "4.0.7",
+    "@graphql-codegen/typescript": "4.0.9",
     "@graphql-codegen/typescript-apollo-client-helpers": "3.0.0",
-    "@graphql-codegen/typescript-operations": "4.2.1",
-    "@graphql-tools/utils": "10.2.2",
+    "@graphql-codegen/typescript-operations": "4.2.3",
+    "@graphql-tools/utils": "10.3.2",
     "concurrently": "8.2.2",
-    "graphql": "16.8.2",
+    "graphql": "16.9.0",
     "sku": "13.0.2"
   },
   "private": true,
