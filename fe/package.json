@@ -37,11 +37,11 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-router-dom": "6.22.3",
-    "scoobie": "15.3.0",
+    "scoobie": "16.0.0",
     "storybook": "8.2.6",
     "ts-node": "10.9.2",
     "use-query-params": "2.2.1",
-    "webpack-merge": "5.10.0"
+    "webpack-merge": "6.0.1"
   },
   "files": [
     "lib"
