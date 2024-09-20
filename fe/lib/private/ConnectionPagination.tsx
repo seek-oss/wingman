@@ -1,6 +1,7 @@
 import {
   Column,
   Columns,
+  Divider,
   IconChevron,
   Stack,
   Text,
@@ -23,7 +24,7 @@ export type OnClickHandler = (event: {
 }) => void;
 
 interface Props<T> {
-  children: (edges: T[]) => JSX.Element;
+  children: (edges: T) => JSX.Element;
   connection: Connection<T>;
   dividers?: true;
   onPagination: OnClickHandler;
@@ -40,49 +41,58 @@ export const ConnectionPagination = <T,>({
   onPagination,
   pageSize,
 }: Props<T>) => (
-  <Stack dividers={dividers} space="large">
-    {render(edges)}
+  <Stack space="large">
+    {/* {render(edges)} */}
+    {edges.map((edge, index) => (
+      <>
+        {index > 0 && dividers ? <Divider /> : null}
+        {render(edge)}
+      </>
+    ))}
 
     {hasPreviousPage || hasNextPage ? (
-      <Columns space="large">
-        {hasPreviousPage && startCursor ? (
-          <Column>
-            <Text align="left">
-              <TextLinkButton
-                onClick={() =>
-                  onPagination({
-                    after: null,
-                    before: startCursor,
-                    first: null,
-                    last: pageSize,
-                  })
-                }
-              >
-                <IconChevron direction="left" /> Previous
-              </TextLinkButton>
-            </Text>
-          </Column>
-        ) : null}
+      <>
+        {dividers ? <Divider /> : null}
+        <Columns space="large">
+          {hasPreviousPage && startCursor ? (
+            <Column>
+              <Text align="left">
+                <TextLinkButton
+                  onClick={() =>
+                    onPagination({
+                      after: null,
+                      before: startCursor,
+                      first: null,
+                      last: pageSize,
+                    })
+                  }
+                >
+                  <IconChevron direction="left" /> Previous
+                </TextLinkButton>
+              </Text>
+            </Column>
+          ) : null}
 
-        {hasNextPage && endCursor ? (
-          <Column>
-            <Text align="right">
-              <TextLinkButton
-                onClick={() =>
-                  onPagination({
-                    after: endCursor,
-                    before: null,
-                    first: pageSize,
-                    last: null,
-                  })
-                }
-              >
-                Next <IconChevron direction="right" />
-              </TextLinkButton>
-            </Text>
-          </Column>
-        ) : null}
-      </Columns>
+          {hasNextPage && endCursor ? (
+            <Column>
+              <Text align="right">
+                <TextLinkButton
+                  onClick={() =>
+                    onPagination({
+                      after: endCursor,
+                      before: null,
+                      first: pageSize,
+                      last: null,
+                    })
+                  }
+                >
+                  Next <IconChevron direction="right" />
+                </TextLinkButton>
+              </Text>
+            </Column>
+          ) : null}
+        </Columns>
+      </>
     ) : null}
   </Stack>
 );

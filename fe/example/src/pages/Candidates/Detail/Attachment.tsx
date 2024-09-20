@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   Card,
+  Divider,
   Heading,
   IconDownload,
   IconImage,
@@ -23,7 +24,7 @@ export const CandidateAttachment = ({ children: attachment }: Props) => {
 
   return (
     <Card key={attachment.id}>
-      <Stack dividers space="gutter">
+      <Stack space="gutter">
         <Box alignItems="center" display="flex" justifyContent="spaceBetween">
           <Heading level="4">{attachment.filename}</Heading>
           <Actions>
@@ -32,7 +33,7 @@ export const CandidateAttachment = ({ children: attachment }: Props) => {
             </Button>
           </Actions>
         </Box>
-
+        <Divider />
         <Box
           alignItems="center"
           background="neutralLight"

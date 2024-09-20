@@ -5,6 +5,7 @@ import {
   ButtonIcon,
   Column,
   Columns,
+  Divider,
   IconClear,
   Stack,
   Text,
@@ -91,7 +92,7 @@ export const LocationSelectMap = ({
 
   const NearestLocationsCards = () => (
     <Box borderRadius="standard" background="surface">
-      <Stack dividers space="none">
+      <Stack space="none">
         <Box
           paddingX={{ desktop: 'medium', tablet: 'none', mobile: 'none' }}
           paddingY={{ desktop: 'xsmall', tablet: 'medium', mobile: 'medium' }}
@@ -116,22 +117,25 @@ export const LocationSelectMap = ({
           </Columns>
         </Box>
         {nearestLocations?.map((location) => (
-          <Box
-            className={styles.card}
-            cursor="pointer"
-            paddingX={{ desktop: 'medium', tablet: 'none', mobile: 'none' }}
-            paddingY="medium"
-            key={location.id.value}
-            onClick={() => {
-              onLocationSelected(location);
-              setShowSuggestions(false);
-            }}
-          >
-            <Stack space="small">
-              <Text size="small">{location.contextualName}</Text>
-              <InlineCode>{location.id.value}</InlineCode>
-            </Stack>
-          </Box>
+          <>
+            <Divider />
+            <Box
+              className={styles.card}
+              cursor="pointer"
+              paddingX={{ desktop: 'medium', tablet: 'none', mobile: 'none' }}
+              paddingY="medium"
+              key={location.id.value}
+              onClick={() => {
+                onLocationSelected(location);
+                setShowSuggestions(false);
+              }}
+            >
+              <Stack space="small">
+                <Text size="small">{location.contextualName}</Text>
+                <InlineCode>{location.id.value}</InlineCode>
+              </Stack>
+            </Box>
+          </>
         ))}
       </Stack>
     </Box>
@@ -188,7 +192,7 @@ export const LocationSelectMap = ({
       {!isDesktopOrAbove && (
         <>
           {hasNearestLocations ? (
-            <Stack dividers space="none">
+            <Stack space="none">
               <NearestLocationsCards />
             </Stack>
           ) : (

@@ -1,4 +1,11 @@
-import { Card, Column, Columns, Heading, Stack } from 'braid-design-system';
+import {
+  Card,
+  Column,
+  Columns,
+  Divider,
+  Heading,
+  Stack,
+} from 'braid-design-system';
 import {
   Fragment,
   type JSX,
@@ -79,7 +86,7 @@ export const QuestionnaireBuilder = ({
   }, [wrapper]);
 
   return (
-    <Stack space="large" dividers>
+    <Stack space="large">
       <Columns collapseBelow="tablet" space="large">
         <Column width="1/2">
           <Wrapper>
@@ -100,16 +107,19 @@ export const QuestionnaireBuilder = ({
       </Columns>
 
       {showGraphqlOutput ? (
-        <Wrapper>
-          <Stack space="large">
-            <Heading level="3">GraphQL output</Heading>
+        <>
+          <Divider />
+          <Wrapper>
+            <Stack space="large">
+              <Heading level="3">GraphQL output</Heading>
 
-            <QuestionnaireQueryOutput
-              components={formBuilderState}
-              hirerId={hirerId}
-            />
-          </Stack>
-        </Wrapper>
+              <QuestionnaireQueryOutput
+                components={formBuilderState}
+                hirerId={hirerId}
+              />
+            </Stack>
+          </Wrapper>
+        </>
       ) : null}
     </Stack>
   );

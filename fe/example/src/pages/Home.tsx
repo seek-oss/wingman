@@ -1,15 +1,22 @@
-import { Box, ContentBlock, Heading, Stack, Text } from 'braid-design-system';
+import {
+  Box,
+  ContentBlock,
+  Divider,
+  Heading,
+  Stack,
+  Text,
+} from 'braid-design-system';
 import React from 'react';
 import { SmartTextLink } from 'scoobie';
 
 import { Header } from '../components/Header';
 
 export const HomePage = () => (
-  <Stack dividers space="none">
+  <Stack space="none">
     <Header>
       <Heading level="3">🚧</Heading>
     </Header>
-
+    <Divider />
     <ContentBlock>
       <Box padding="gutter">
         <Box

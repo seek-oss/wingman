@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   ContentBlock,
+  Divider,
   Heading,
   Stack,
 } from 'braid-design-system';
@@ -17,11 +18,11 @@ export const PositionQuestionnairePage = () => {
   const [selection, setSelection] = useState<Questionnaire>();
 
   return (
-    <Stack dividers space="none">
+    <Stack space="none">
       <Header>
         <Heading level="3">Questionnaires</Heading>
       </Header>
-
+      <Divider />
       <ContentBlock width="large">
         <Box padding="gutter">
           <Stack space="gutter">

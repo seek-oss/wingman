@@ -1,4 +1,11 @@
-import { Card, Checkbox, Heading, Stack, TextField } from 'braid-design-system';
+import {
+  Card,
+  Checkbox,
+  Divider,
+  Heading,
+  Stack,
+  TextField,
+} from 'braid-design-system';
 import React, { useState } from 'react';
 
 import { useClient } from '../../hooks/user';
@@ -10,9 +17,9 @@ export const User = () => {
 
   return (
     <Card>
-      <Stack dividers space="large">
+      <Stack space="large">
         <Heading level="3">User</Heading>
-
+        <Divider />
         <Stack space="large">
           <Checkbox
             checked={editMode}

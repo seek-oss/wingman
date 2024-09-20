@@ -1,4 +1,10 @@
-import { Box, ContentBlock, Heading, Stack } from 'braid-design-system';
+import {
+  Box,
+  ContentBlock,
+  Divider,
+  Heading,
+  Stack,
+} from 'braid-design-system';
 import React from 'react';
 
 import { ClientOnly } from '../../components/ClientOnly';
@@ -10,11 +16,11 @@ import { Version } from './Version';
 import { Webhook } from './Webhook';
 
 export const AdminPage = () => (
-  <Stack dividers space="none">
+  <Stack space="none">
     <Header>
       <Heading level="3">Admin</Heading>
     </Header>
-
+    <Divider />
     <ClientOnly>
       <ContentBlock width="large">
         <Box padding="gutter">

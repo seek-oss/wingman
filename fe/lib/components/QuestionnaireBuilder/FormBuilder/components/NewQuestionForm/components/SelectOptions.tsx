@@ -3,6 +3,7 @@ import {
   Button,
   Column,
   Columns,
+  Divider,
   FieldMessage,
   Stack,
   Text,
@@ -148,15 +149,18 @@ export default ({ options, setOptionList }: SelectOptionsProps) => {
         </Stack>
       )}
 
-      <Stack dividers space="small">
-        {options.map(({ text, preferredIndicator }) => (
-          <DisplayOption
-            key={text}
-            text={text}
-            preferredIndicator={preferredIndicator}
-            setPreferred={setPreferred}
-            removeItem={removeItem(text)}
-          />
+      <Stack space="small">
+        {options.map(({ text, preferredIndicator }, index) => (
+          <>
+            {index > 0 ? <Divider /> : null}
+            <DisplayOption
+              key={text}
+              text={text}
+              preferredIndicator={preferredIndicator}
+              setPreferred={setPreferred}
+              removeItem={removeItem(text)}
+            />
+          </>
         ))}
       </Stack>
     </Stack>

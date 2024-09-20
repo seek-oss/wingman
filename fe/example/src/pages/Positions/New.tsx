@@ -1,4 +1,10 @@
-import { Box, ContentBlock, Heading, Stack } from 'braid-design-system';
+import {
+  Box,
+  ContentBlock,
+  Divider,
+  Heading,
+  Stack,
+} from 'braid-design-system';
 import React from 'react';
 
 import { Breadcrumbs } from '../../components/Breadcrumbs';
@@ -7,7 +13,7 @@ import { Header } from '../../components/Header';
 import { NewPositionForm } from '../../widgets/NewPositionForm';
 
 export const PositionNewPage = () => (
-  <Stack dividers space="none">
+  <Stack space="none">
     <Header>
       <Heading level="3">
         <Breadcrumbs>
@@ -21,7 +27,7 @@ export const PositionNewPage = () => (
         </Breadcrumbs>
       </Heading>
     </Header>
-
+    <Divider />
     <ContentBlock width="large">
       <Box padding="gutter">
         <ClientOnly>
