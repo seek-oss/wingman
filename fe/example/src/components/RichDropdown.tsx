@@ -1,4 +1,4 @@
-import { Box, IconChevron, Stack } from 'braid-design-system';
+import { Box, Divider, IconChevron, Stack } from 'braid-design-system';
 import React, { type ReactNode, useState } from 'react';
 
 import * as styles from './RichDropdown.css';
@@ -55,11 +55,14 @@ export const RichDropdown = <T extends BaseT>({
   };
 
   return expanded ? (
-    <Stack dividers space="none">
-      {values.map((value) => (
-        <Item key={value.id} onClick={() => select(value)} value={value}>
-          {children}
-        </Item>
+    <Stack space="none">
+      {values.map((value, index) => (
+        <React.Fragment key={value.id}>
+          {index > 0 ? <Divider /> : null}
+          <Item onClick={() => select(value)} value={value}>
+            {children}
+          </Item>
+        </React.Fragment>
       ))}
     </Stack>
   ) : (

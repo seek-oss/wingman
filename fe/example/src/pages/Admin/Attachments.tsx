@@ -1,4 +1,4 @@
-import { Card, Heading, List, Stack, Text } from 'braid-design-system';
+import { Card, Divider, Heading, List, Stack, Text } from 'braid-design-system';
 import React from 'react';
 
 import { useBrowserToken } from '../../../../lib/hooks';
@@ -16,9 +16,9 @@ export const Attachments = () => {
 
   return (
     <Card>
-      <Stack dividers space="large">
+      <Stack space="large">
         <Heading level="3">Attachments</Heading>
-
+        <Divider />
         <List>
           <Text>
             <DownloadLink

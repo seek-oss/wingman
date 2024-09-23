@@ -2,6 +2,7 @@ import {
   Actions,
   Button,
   Card,
+  Divider,
   IconAdd,
   Inline,
   Stack,
@@ -41,17 +42,20 @@ export const CandidateNotes = ({ children: candidate }: Props) => {
 
       {candidate.notes.length ? (
         <Card>
-          <Stack dividers space="large">
+          <Stack space="large">
             {candidate.notes.map((note, index) => (
-              <Stack key={index} space="gutter">
-                <Inline space="small">
-                  <Text>
-                    <Strong>{note.author.formattedName}</Strong> ·{' '}
-                    <RelativeDate date={note.date} />
-                  </Text>
-                </Inline>
-                <Text>{note.text}</Text>
-              </Stack>
+              <React.Fragment key={index}>
+                {index > 0 ? <Divider /> : null}
+                <Stack space="gutter">
+                  <Inline space="small">
+                    <Text>
+                      <Strong>{note.author.formattedName}</Strong> ·{' '}
+                      <RelativeDate date={note.date} />
+                    </Text>
+                  </Inline>
+                  <Text>{note.text}</Text>
+                </Stack>
+              </React.Fragment>
             ))}
           </Stack>
         </Card>

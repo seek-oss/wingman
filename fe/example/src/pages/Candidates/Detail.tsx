@@ -1,6 +1,7 @@
 import {
   Box,
   ContentBlock,
+  Divider,
   Heading,
   IconDocument,
   IconNote,
@@ -158,7 +159,7 @@ const CandidateDetails = () => {
   ];
 
   return (
-    <Stack dividers space="none">
+    <Stack space="none">
       <Header>
         <Heading level="3">
           <Breadcrumbs>
@@ -172,7 +173,7 @@ const CandidateDetails = () => {
           </Breadcrumbs>
         </Heading>
       </Header>
-
+      <Divider />
       <Box background="surface" padding="gutter">
         <Stack space="gutter">
           {preferences.devTools ? (
@@ -185,7 +186,7 @@ const CandidateDetails = () => {
           </Text>
         </Stack>
       </Box>
-
+      <Divider />
       <TabsProvider id="candidate">
         <Box background="surface">
           <Tabs gutter="gutter" label="Candidate" reserveHitArea>

@@ -7,6 +7,7 @@ import {
   Card,
   Column,
   Columns,
+  Divider,
   Heading,
   IconAdd,
   IconEdit,
@@ -58,14 +59,14 @@ export const AdList = ({ ads }: Props) => {
             onClick={() => setSelectedAdId(ad.id)}
           >
             {editAds[index] ? (
-              <Stack dividers space="none">
+              <Stack space="none">
                 <Card>
                   <Heading level="4">Edit ad</Heading>
                 </Card>
-
+                <Divider />
                 {/* TODO: avoid sharing the same local storage state */}
                 <NewAdForm initial={ad} />
-
+                <Divider />
                 <Card>
                   {/* TODO: actually do something */}
                   <Actions>
@@ -144,14 +145,14 @@ export const AdList = ({ ads }: Props) => {
         ))}
 
         {newAd ? (
-          <Stack dividers space="none">
+          <Stack space="none">
             <Card>
               <Heading level="4">New ad</Heading>
             </Card>
-
+            <Divider />
             {/* TODO: avoid sharing the same local storage state */}
             <NewAdForm />
-
+            <Divider />
             <Card>
               {/* TODO: actually do something */}
               <Actions>

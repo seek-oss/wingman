@@ -1,5 +1,6 @@
 import { type ApolloClient, useLazyQuery } from '@apollo/client';
 import {
+  Divider,
   FieldMessage,
   Loader,
   Notice,
@@ -58,7 +59,7 @@ export const JobCategoryLookup = ({
   }, [jobCategoryLookup, debouncedJobCategoryId]);
 
   return (
-    <Stack dividers space="large">
+    <Stack space="large">
       <Stack space="medium">
         <TextField
           aria-label="Job category OID"
@@ -78,36 +79,47 @@ export const JobCategoryLookup = ({
           }
         />
       </Stack>
-
-      {categoryLoading && <Loader />}
+      {categoryLoading && (
+        <>
+          <Divider />
+          <Loader />
+        </>
+      )}
 
       {categoryError && (
-        <FieldMessage
-          id="jobCategoryLookupError"
-          message="Sorry, we couldn’t retrieve this job category. Please try again."
-          tone="critical"
-        />
+        <>
+          <Divider />
+          <FieldMessage
+            id="jobCategoryLookupError"
+            message="Sorry, we couldn’t retrieve this job category. Please try again."
+            tone="critical"
+          />
+        </>
       )}
 
       {categoryData &&
         (categoryData.jobCategory ? (
           <>
+            <Divider />
             <BreadCrumbsString
               segments={flattenResourceByKey(
                 categoryData.jobCategory,
                 'parent',
               ).map((x) => ({ name: x.name, key: x.id.value }))}
             />
-
+            <Divider />
             <SeekApiResponse
               data={categoryData.jobCategory}
               id="jobCategoryLookupSeekApiResponse"
             />
           </>
         ) : (
-          <Notice tone="info">
-            <Text>Hmm, we can’t find that job category.</Text>
-          </Notice>
+          <>
+            <Divider />
+            <Notice tone="info">
+              <Text>Hmm, we can’t find that job category.</Text>
+            </Notice>
+          </>
         ))}
     </Stack>
   );

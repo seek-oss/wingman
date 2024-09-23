@@ -3,6 +3,7 @@ import {
   Button,
   Column,
   Columns,
+  Divider,
   FieldMessage,
   Stack,
   Text,
@@ -148,15 +149,17 @@ export default ({ options, setOptionList }: SelectOptionsProps) => {
         </Stack>
       )}
 
-      <Stack dividers space="small">
-        {options.map(({ text, preferredIndicator }) => (
-          <DisplayOption
-            key={text}
-            text={text}
-            preferredIndicator={preferredIndicator}
-            setPreferred={setPreferred}
-            removeItem={removeItem(text)}
-          />
+      <Stack space="small">
+        {options.map(({ text, preferredIndicator }, index) => (
+          <React.Fragment key={text}>
+            {index > 0 ? <Divider /> : null}
+            <DisplayOption
+              text={text}
+              preferredIndicator={preferredIndicator}
+              setPreferred={setPreferred}
+              removeItem={removeItem(text)}
+            />
+          </React.Fragment>
         ))}
       </Stack>
     </Stack>
