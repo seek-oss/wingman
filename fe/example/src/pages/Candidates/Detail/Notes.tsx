@@ -44,9 +44,9 @@ export const CandidateNotes = ({ children: candidate }: Props) => {
         <Card>
           <Stack space="large">
             {candidate.notes.map((note, index) => (
-              <>
+              <React.Fragment key={index}>
                 {index > 0 ? <Divider /> : null}
-                <Stack key={index} space="gutter">
+                <Stack space="gutter">
                   <Inline space="small">
                     <Text>
                       <Strong>{note.author.formattedName}</Strong> ·{' '}
@@ -55,7 +55,7 @@ export const CandidateNotes = ({ children: candidate }: Props) => {
                   </Inline>
                   <Text>{note.text}</Text>
                 </Stack>
-              </>
+              </React.Fragment>
             ))}
           </Stack>
         </Card>

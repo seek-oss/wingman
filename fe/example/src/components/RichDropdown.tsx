@@ -57,12 +57,12 @@ export const RichDropdown = <T extends BaseT>({
   return expanded ? (
     <Stack space="none">
       {values.map((value, index) => (
-        <>
+        <React.Fragment key={value.id}>
           {index > 0 ? <Divider /> : null}
-          <Item key={value.id} onClick={() => select(value)} value={value}>
+          <Item onClick={() => select(value)} value={value}>
             {children}
           </Item>
-        </>
+        </React.Fragment>
       ))}
     </Stack>
   ) : (

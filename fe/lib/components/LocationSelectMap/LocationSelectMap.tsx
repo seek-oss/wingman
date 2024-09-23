@@ -117,14 +117,13 @@ export const LocationSelectMap = ({
           </Columns>
         </Box>
         {nearestLocations?.map((location) => (
-          <>
+          <React.Fragment key={location.id.value}>
             <Divider />
             <Box
               className={styles.card}
               cursor="pointer"
               paddingX={{ desktop: 'medium', tablet: 'none', mobile: 'none' }}
               paddingY="medium"
-              key={location.id.value}
               onClick={() => {
                 onLocationSelected(location);
                 setShowSuggestions(false);
@@ -135,7 +134,7 @@ export const LocationSelectMap = ({
                 <InlineCode>{location.id.value}</InlineCode>
               </Stack>
             </Box>
-          </>
+          </React.Fragment>
         ))}
       </Stack>
     </Box>

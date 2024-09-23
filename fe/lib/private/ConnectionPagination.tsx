@@ -7,7 +7,7 @@ import {
   Text,
   TextLinkButton,
 } from 'braid-design-system';
-import type { JSX } from 'react';
+import type { ReactElement } from 'react';
 
 import type { PageInfo } from '../types/seekApi.graphql';
 
@@ -24,7 +24,7 @@ export type OnClickHandler = (event: {
 }) => void;
 
 interface Props<T> {
-  children: (edges: T) => JSX.Element;
+  children: (edges: T[]) => ReactElement;
   connection: Connection<T>;
   dividers?: true;
   onPagination: OnClickHandler;
@@ -42,13 +42,7 @@ export const ConnectionPagination = <T,>({
   pageSize,
 }: Props<T>) => (
   <Stack space="large">
-    {/* {render(edges)} */}
-    {edges.map((edge, index) => (
-      <>
-        {index > 0 && dividers ? <Divider /> : null}
-        {render(edge)}
-      </>
-    ))}
+    {render(edges)}
 
     {hasPreviousPage || hasNextPage ? (
       <>

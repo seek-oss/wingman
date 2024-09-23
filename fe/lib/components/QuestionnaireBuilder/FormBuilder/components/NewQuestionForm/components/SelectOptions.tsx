@@ -151,16 +151,15 @@ export default ({ options, setOptionList }: SelectOptionsProps) => {
 
       <Stack space="small">
         {options.map(({ text, preferredIndicator }, index) => (
-          <>
+          <React.Fragment key={text}>
             {index > 0 ? <Divider /> : null}
             <DisplayOption
-              key={text}
               text={text}
               preferredIndicator={preferredIndicator}
               setPreferred={setPreferred}
               removeItem={removeItem(text)}
             />
-          </>
+          </React.Fragment>
         ))}
       </Stack>
     </Stack>

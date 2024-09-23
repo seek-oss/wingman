@@ -44,11 +44,15 @@ export const CandidateProfile = ({ children: candidate }: Props) => (
     <Card>
       <Stack space="large">
         <Heading level="4">Career history</Heading>
-        <Divider />
+
         {candidate.roles.length ? undefined : (
-          <Text tone="promote">
-            <IconPromote /> New to the workforce
-          </Text>
+          <>
+            <Divider />
+
+            <Text tone="promote">
+              <IconPromote /> New to the workforce
+            </Text>
+          </>
         )}
 
         {candidate.roles
@@ -57,10 +61,10 @@ export const CandidateProfile = ({ children: candidate }: Props) => (
             candidate.roles.length === MAX_ROLES ? MAX_ROLES : MAX_ROLES - 1,
           )
           .map((role, index) => (
-            <>
+            <React.Fragment key={index}>
               {index > 0 ? <Divider /> : null}
-              <RoleDetails key={index}>{role}</RoleDetails>
-            </>
+              <RoleDetails>{role}</RoleDetails>
+            </React.Fragment>
           ))}
 
         {candidate.roles.length > MAX_ROLES ? (
@@ -75,10 +79,10 @@ export const CandidateProfile = ({ children: candidate }: Props) => (
 
                 <Stack space="gutter">
                   {candidate.roles.slice(MAX_ROLES - 1).map((role, index) => (
-                    <>
+                    <React.Fragment key={index}>
                       {index > 0 ? <Divider /> : null}
-                      <RoleDetails key={index}>{role}</RoleDetails>
-                    </>
+                      <RoleDetails>{role}</RoleDetails>
+                    </React.Fragment>
                   ))}
                 </Stack>
               </Stack>
