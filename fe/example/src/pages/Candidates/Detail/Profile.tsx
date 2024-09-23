@@ -62,7 +62,7 @@ export const CandidateProfile = ({ children: candidate }: Props) => (
           )
           .map((role, index) => (
             <React.Fragment key={index}>
-              {index > 0 ? <Divider /> : null}
+              <Divider />
               <RoleDetails>{role}</RoleDetails>
             </React.Fragment>
           ))}
