@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 10.0.3
+
+### Patch Changes
+
+- Remove deprecated `dividers` in Braid components ([#1172](https://github.com/seek-oss/wingman/pull/1172))
+
 ## 10.0.2
 
 ### Patch Changes
