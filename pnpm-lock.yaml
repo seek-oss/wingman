@@ -34,8 +34,8 @@ importers:
         specifier: 10.5.4
         version: 10.5.4(graphql@16.9.0)
       concurrently:
-        specifier: 8.2.2
-        version: 8.2.2
+        specifier: 9.0.1
+        version: 9.0.1
       graphql:
         specifier: 16.9.0
         version: 16.9.0
@@ -83,8 +83,8 @@ importers:
         version: 10.0.0
     devDependencies:
       '@faker-js/faker':
-        specifier: 8.4.1
-        version: 8.4.1
+        specifier: 9.0.1
+        version: 9.0.1
       '@storybook/addon-essentials':
         specifier: 8.3.2
         version: 8.3.2(storybook@8.3.2)(webpack-sources@3.2.3)
@@ -125,8 +125,8 @@ importers:
         specifier: 0.5.4
         version: 0.5.4
       date-fns:
-        specifier: 3.6.0
-        version: 3.6.0
+        specifier: 4.1.0
+        version: 4.1.0
       graphql-tag:
         specifier: 2.12.6
         version: 2.12.6(graphql@16.9.0)
@@ -146,8 +146,8 @@ importers:
         specifier: 6.22.3
         version: 6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       scoobie:
-        specifier: 16.0.0
-        version: 16.0.0(hwtke4xmhxmj4xhvkz6vbulhee)
+        specifier: 17.2.0
+        version: 17.2.0(hwtke4xmhxmj4xhvkz6vbulhee)
       storybook:
         specifier: 8.3.2
         version: 8.3.2
@@ -1267,9 +1267,9 @@ packages:
     resolution: {integrity: sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
-  '@faker-js/faker@8.4.1':
-    resolution: {integrity: sha512-XQ3cU+Q8Uqmrbf2e0cIC/QN43sTBSC8KF12u29Mb47tWrt2hAgBXSgpZMj4Ao8Uk0iJcU99QsOCaIL8934obCg==}
-    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0, npm: '>=6.14.13'}
+  '@faker-js/faker@9.0.1':
+    resolution: {integrity: sha512-4mDeYIgM3By7X6t5E6eYwLAa+2h4DeZDF7thhzIg6XB76jeEvMwadYAMCFJL/R4AnEBcAUO9+gL0vhy3s+qvZA==}
+    engines: {node: '>=18.0.0', npm: '>=9.0.0'}
 
   '@formatjs/ecma402-abstract@2.0.0':
     resolution: {integrity: sha512-rRqXOqdFmk7RYvj4khklyqzcfQl9vEL/usogncBHRZfZBDOwMGuSRNFl02fu5KGHXdbinju+YXyuR+Nk8xlr/g==}
@@ -3170,9 +3170,9 @@ packages:
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
-  concurrently@8.2.2:
-    resolution: {integrity: sha512-1dP4gpXFhei8IOtlXRE/T/4H88ElHgTiUzh71YUmtjTEHMSRS2Z/fgOxHSxxusGHogsRfxNq1vyAwxSC+EVyDg==}
-    engines: {node: ^14.13.0 || >=16.0.0}
+  concurrently@9.0.1:
+    resolution: {integrity: sha512-wYKvCd/f54sTXJMSfV6Ln/B8UrfLBKOYa+lzc6CHay3Qek+LorVSBdMVfyewFhRbH0Rbabsk4D+3PL/VjQ5gzg==}
+    engines: {node: '>=18'}
     hasBin: true
 
   confbox@0.1.7:
@@ -3364,12 +3364,8 @@ packages:
   dataloader@2.2.2:
     resolution: {integrity: sha512-8YnDaaf7N3k/q5HnTJVuzSyLETjoZjVmHc4AeKAzOvKHEFQKcn64OKBfzHYtE9zGjctNM7V9I0MfnUVLpi7M5g==}
 
-  date-fns@2.30.0:
-    resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
-    engines: {node: '>=0.11'}
-
-  date-fns@3.6.0:
-    resolution: {integrity: sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww==}
+  date-fns@4.1.0:
+    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
 
   death@1.1.0:
     resolution: {integrity: sha512-vsV6S4KVHvTGxbEcij7hkWRv0It+sGGWVOM67dQde/o5Xjnr+KmLjxWJii2uEObIrt1CcM9w0Yaovx+iOlIL+w==}
@@ -3429,6 +3425,10 @@ packages:
 
   deep-object-diff@1.1.9:
     resolution: {integrity: sha512-Rn+RuwkmkDwCi2/oXOFS9Gsr5lJZu/yTGpK7wAaAIE75CC+LCGEZHpY6VQJa/RoJcrmaA/docWJZvYohlNkWPA==}
+
+  deepmerge-ts@7.1.0:
+    resolution: {integrity: sha512-q6bNsfNBtgr8ZOQqmZbl94MmYWm+QcDNIkqCxVWiw1vKvf+y/N2dZQKdnDXn4c5Ygt/y63tDof6OCN+2YwWVEg==}
+    engines: {node: '>=16.0.0'}
 
   deepmerge@4.3.1:
     resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
@@ -5872,8 +5872,8 @@ packages:
     resolution: {integrity: sha512-973driJZvxiGOQ5ONsFhOF/DtzPMOMtgC11kCpUrPGMTgqp2q/1gwzCquocrN33is0VZ5GFHXZYMM9l6h67v2Q==}
     engines: {node: '>=10'}
 
-  prism-react-renderer@2.3.1:
-    resolution: {integrity: sha512-Rdf+HzBLR7KYjzpJ1rSoxT9ioO85nZngQEoFIhL07XhtJHlCU3SOz0GJ6+qvMyQe0Se+BV3qpe6Yd/NmQF5Juw==}
+  prism-react-renderer@2.4.0:
+    resolution: {integrity: sha512-327BsVCD/unU4CNLZTWVHyUHKnsqcvj2qbPlQ8MiBE2eq2rgctjigPA1Gp9HLF83kZ20zNN6jgizHJeEsyFYOw==}
     peerDependencies:
       react: '>=16.0.0'
 
@@ -6309,20 +6309,20 @@ packages:
     resolution: {integrity: sha512-L0jRsrPpjdckP3oPug3/VxNKt2trR8TcabrM6FOAAlvC/9Phcmm+cuAgTlxBqdBR1WJx7Naj9WHw+aOmheSVbw==}
     engines: {node: '>= 12.13.0'}
 
-  scoobie@16.0.0:
-    resolution: {integrity: sha512-92IbyKNULkyrYohjhd0DUHevuUUgzjxS6LzqT/GLW+r2nEVyYGTVKH1jzy8JlcjHp7vUiPVLu3mVCsjdD5qufg==}
+  scoobie@17.2.0:
+    resolution: {integrity: sha512-oBIDe/SuFpMWI1OA3jHPI6psLwPcB0V/OwEBgUvMyzCJ10C7cdf4O731Ra+e2XN3Oow5Ah7mlqqRfhoTVXhOUA==}
     engines: {node: '>=18.18'}
     peerDependencies:
       '@mdx-js/loader': ^1.6.22
-      '@mermaid-js/mermaid-cli': '>= 8.13.7 < 11'
       braid-design-system: '>= 31.21.0'
+      mermaid-isomorphic: ^2.2.1
       react: '>= 17 < 19'
       react-router-dom: '>= 5.3.0'
       sku: '>= 13.0.0 < 14'
     peerDependenciesMeta:
       '@mdx-js/loader':
         optional: true
-      '@mermaid-js/mermaid-cli':
+      mermaid-isomorphic:
         optional: true
 
   scuid@1.1.0:
@@ -6492,9 +6492,6 @@ packages:
 
   space-separated-tokens@2.0.2:
     resolution: {integrity: sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q==}
-
-  spawn-command@0.0.2:
-    resolution: {integrity: sha512-zC8zGoGkmc8J9ndvml8Xksr1Amk9qBujgbF0JAIWO7kXr43w0h/0GJNM/Vustixu+YE8N/MTrQ7N31FvHUACxQ==}
 
   spawndamnit@2.0.0:
     resolution: {integrity: sha512-j4JKEcncSjFlqIwU5L/rp2N5SIPsdxaRsIv678+TZxZ0SRDJTm8JrxJMjE/XuiEZNEir3S8l0Fa3Ke339WI4qA==}
@@ -8673,7 +8670,7 @@ snapshots:
 
   '@eslint/js@8.57.0': {}
 
-  '@faker-js/faker@8.4.1': {}
+  '@faker-js/faker@9.0.1': {}
 
   '@formatjs/ecma402-abstract@2.0.0':
     dependencies:
@@ -11332,14 +11329,12 @@ snapshots:
 
   concat-map@0.0.1: {}
 
-  concurrently@8.2.2:
+  concurrently@9.0.1:
     dependencies:
       chalk: 4.1.2
-      date-fns: 2.30.0
       lodash: 4.17.21
       rxjs: 7.8.1
       shell-quote: 1.8.1
-      spawn-command: 0.0.2
       supports-color: 8.1.1
       tree-kill: 1.2.2
       yargs: 17.7.2
@@ -11578,11 +11573,7 @@ snapshots:
 
   dataloader@2.2.2: {}
 
-  date-fns@2.30.0:
-    dependencies:
-      '@babel/runtime': 7.25.6
-
-  date-fns@3.6.0: {}
+  date-fns@4.1.0: {}
 
   death@1.1.0: {}
 
@@ -11617,6 +11608,8 @@ snapshots:
   deep-is@0.1.4: {}
 
   deep-object-diff@1.1.9: {}
+
+  deepmerge-ts@7.1.0: {}
 
   deepmerge@4.3.1: {}
 
@@ -14441,7 +14434,7 @@ snapshots:
     dependencies:
       parse-ms: 2.1.0
 
-  prism-react-renderer@2.3.1(react@18.3.1):
+  prism-react-renderer@2.4.0(react@18.3.1):
     dependencies:
       '@types/prismjs': 1.26.4
       clsx: 2.1.1
@@ -14929,7 +14922,7 @@ snapshots:
       ajv-formats: 2.1.1(ajv@8.17.1)
       ajv-keywords: 5.1.0(ajv@8.17.1)
 
-  scoobie@16.0.0(hwtke4xmhxmj4xhvkz6vbulhee):
+  scoobie@17.2.0(hwtke4xmhxmj4xhvkz6vbulhee):
     dependencies:
       '@capsizecss/core': 4.1.2
       '@mdx-js/react': 1.6.22(react@18.3.1)
@@ -14939,11 +14932,12 @@ snapshots:
       babel-loader: 9.1.3(@babel/core@7.25.2)(webpack@5.94.0(@swc/core@1.7.24)(esbuild@0.23.1))
       braid-design-system: 32.24.1(@types/react@18.3.5)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sku@13.1.3(@storybook/react-webpack5@8.3.2(@swc/core@1.7.24)(esbuild@0.23.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.2)(typescript@5.5.4))(@types/node@22.5.4)(@types/react@18.3.5)(react@18.3.1)(terser@5.32.0)(ts-node@10.9.2(@swc/core@1.7.24)(@types/node@22.5.4)(typescript@5.5.4))(type-fest@2.19.0)(webpack-hot-middleware@2.26.1))
       clsx: 2.1.1
+      deepmerge-ts: 7.1.0
       find-up: 5.0.0
       fs-extra: 11.2.0
       jsonc-parser: 3.3.1
       polished: 4.3.1
-      prism-react-renderer: 2.3.1(react@18.3.1)
+      prism-react-renderer: 2.4.0(react@18.3.1)
       react: 18.3.1
       react-keyed-flatten-children: 3.0.2(react@18.3.1)
       react-router-dom: 6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -14953,8 +14947,10 @@ snapshots:
       svgo: 3.3.2
       svgo-loader: 4.0.0
       unist-util-visit: 2.0.3
+      unist-util-visit-parents: 3.1.1
       webpack-merge: 6.0.1
       which: 4.0.0
+      yaml: 2.5.1
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
@@ -15288,8 +15284,6 @@ snapshots:
   space-separated-tokens@1.1.5: {}
 
   space-separated-tokens@2.0.2: {}
-
-  spawn-command@0.0.2: {}
 
   spawndamnit@2.0.0:
     dependencies:
