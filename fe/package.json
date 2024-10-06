@@ -25,7 +25,7 @@
     "@types/content-disposition": "0.5.8",
     "@types/react": "18.3.8",
     "@types/react-dom": "18.3.0",
-    "@vanilla-extract/css": "1.15.5",
+    "@vanilla-extract/css": "1.16.0",
     "@vanilla-extract/css-utils": "0.1.4",
     "braid-design-system": "32.24.1",
     "clsx": "2.1.1",
