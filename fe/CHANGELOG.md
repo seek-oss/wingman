@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 10.0.4
+
+### Patch Changes
+
+- **LocationSelectMap:** Fix Braid 33 compatibility ([#1185](https://github.com/seek-oss/wingman/pull/1185))
+
 ## 10.0.3
 
 ### Patch Changes
