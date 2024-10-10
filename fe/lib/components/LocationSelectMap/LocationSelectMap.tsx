@@ -106,8 +106,7 @@ export const LocationSelectMap = ({
             {isDesktopOrAbove ? (
               <Column width="content">
                 <ButtonIcon
-                  icon={<IconClear />}
-                  tone="secondary"
+                  icon={<IconClear tone="secondary" />}
                   id="clear-nearest-suggestions-button"
                   label="Clear Suggestions"
                   onClick={() => setShowSuggestions(false)}
