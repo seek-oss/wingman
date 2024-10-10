@@ -1,10 +1,12 @@
 # sku generates non-compliant files
 
 # managed by sku
-*.less.d.ts
-.storybook/main.js
+.eslintcache
+.eslintrc
+.prettierrc
 coverage/
-dist-storybook/
 dist/
+pnpm-lock.yaml
 report/
+tsconfig.json
 # end managed by sku
