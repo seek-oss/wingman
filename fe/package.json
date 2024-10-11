@@ -56,6 +56,9 @@
     "react": ">= 17 < 19",
     "scoobie": ">= 14"
   },
+  "publishConfig": {
+    "provenance": true
+  },
   "repository": {
     "directory": "fe",
     "type": "git",

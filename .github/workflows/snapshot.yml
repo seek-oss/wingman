@@ -1,22 +1,16 @@
-name: Release
+name: Snapshot
 
-on:
-  push:
-    branches:
-      - main
+on: workflow_dispatch
 
 permissions: {}
 
 jobs:
-  release:
-    name: Publish & Deploy
+  publish:
+    name: Publish Snapshot
     permissions:
-      contents: write
       id-token: write
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    env:
-      SKU_TELEMETRY: false
     steps:
       - name: Check out repo
         uses: actions/checkout@v4
@@ -36,16 +30,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Publish to npm
-        uses: changesets/action@v1
-        with:
-          publish: pnpm release
-          version: pnpm stage
+        uses: seek-oss/changesets-snapshot@v0
         env:
           GITHUB_TOKEN: ${{ secrets.SEEK_OSS_CI_GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Deploy to GitHub Pages
-        run: pnpm run deploy
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          IS_GITHUB_PAGES: true
