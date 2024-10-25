@@ -1,4 +1,4 @@
-import { type ApolloClient, useLazyQuery } from '@apollo/client';
+import { type ApolloClient, useQuery } from '@apollo/client';
 import {
   Divider,
   FieldMessage,
@@ -8,7 +8,7 @@ import {
   Text,
   TextField,
 } from 'braid-design-system';
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { InlineCode } from 'scoobie';
 import { useDebounce } from 'use-debounce';
 
@@ -25,6 +25,7 @@ import { JOB_CATEGORY } from './queries';
 export interface JobCategoryLookupProps {
   schemeId: string;
   client?: ApolloClient<unknown>;
+  context?: Record<string, unknown>;
   initialJobCategoryId?: string;
   debounceDelay?: number;
 }
@@ -33,6 +34,7 @@ export const JobCategoryLookup = ({
   schemeId,
   initialJobCategoryId,
   debounceDelay = 250,
+  context,
   client,
 }: JobCategoryLookupProps) => {
   const [jobCategoryId, setJobCategoryId] = useState(
@@ -41,22 +43,18 @@ export const JobCategoryLookup = ({
 
   const [debouncedJobCategoryId] = useDebounce(jobCategoryId, debounceDelay);
 
-  const [
-    jobCategoryLookup,
-    { data: categoryData, error: categoryError, loading: categoryLoading },
-  ] = useLazyQuery<JobCategoryQuery, JobCategoryQueryVariables>(JOB_CATEGORY, {
+  const {
+    data: categoryData,
+    error: categoryError,
+    loading: categoryLoading,
+  } = useQuery<JobCategoryQuery, JobCategoryQueryVariables>(JOB_CATEGORY, {
     ...(client && { client }),
+    context,
+    variables: {
+      id: debouncedJobCategoryId,
+    },
+    skip: !debouncedJobCategoryId,
   });
-
-  useEffect(() => {
-    if (debouncedJobCategoryId) {
-      jobCategoryLookup({
-        variables: {
-          id: debouncedJobCategoryId,
-        },
-      });
-    }
-  }, [jobCategoryLookup, debouncedJobCategoryId]);
 
   return (
     <Stack space="large">
