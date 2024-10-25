@@ -37,6 +37,8 @@ export interface LocationSelectMapProps {
   onLocationSelected: (location: Location) => void;
   initialLocation: [number, number];
   client?: ApolloClient<unknown>;
+  context?: Record<string, unknown>;
+
   mapHeight?: {
     wide: number;
     desktop: number;
@@ -51,6 +53,7 @@ export const LocationSelectMap = ({
   onLocationSelected,
   initialLocation,
   client,
+  context,
   mapHeight = {
     wide: DEFAULT_MAP_HEIGHT,
     desktop: DEFAULT_MAP_HEIGHT,
@@ -77,6 +80,7 @@ export const LocationSelectMap = ({
         schemeId,
       },
       client,
+      context,
     },
   );
 

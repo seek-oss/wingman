@@ -24,6 +24,7 @@ type RadioProps = ComponentPropsWithRef<typeof RadioGroup>;
 export interface JobCategorySuggestProps
   extends Partial<Omit<RadioProps, 'id' | 'value'>> {
   client?: ApolloClient<unknown>;
+  context?: Record<string, unknown>;
   debounceDelay?: number;
   initialValue?: string;
   label?: string;
@@ -40,6 +41,7 @@ export const JobCategorySuggest = React.memo(
     (
       {
         client,
+        context,
         debounceDelay = 250,
         onSelect,
         positionProfile,
@@ -66,6 +68,7 @@ export const JobCategorySuggest = React.memo(
         loading: suggestLoading,
       } = useQuery<JobCategorySuggestQuery>(JOB_CATEGORY_SUGGEST, {
         client,
+        context,
         // Avoid polluting the Apollo cache with partial searches
         fetchPolicy: 'no-cache',
         variables: {
@@ -94,6 +97,7 @@ export const JobCategorySuggest = React.memo(
                 showConfidence={showConfidence}
                 tone={tone}
                 client={client}
+                context={context}
                 schemeId={schemeId}
                 positionProfile={{
                   positionLocation:

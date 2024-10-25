@@ -41,6 +41,7 @@ export const MAX_CHAR_LIMIT = 50;
 
 export interface SalaryDetailsProps {
   client?: ApolloClient<unknown>;
+  context?: Record<string, unknown>;
   currencyUsageTypeCode?: 'SEEKMarket' | 'All';
   errors?: SalaryError;
   initialCurrency?: string;
@@ -74,6 +75,7 @@ function useEffectfulState<T>(initialState: T) {
 
 export const SalaryDetails = ({
   client,
+  context,
   currencyUsageTypeCode = 'SEEKMarket',
   errors,
   initialCurrency = 'AUD',
@@ -92,6 +94,7 @@ export const SalaryDetails = ({
     PayTypesQueryVariables
   >(PAY_TYPES, {
     client,
+    context,
     fetchPolicy: 'cache-first',
     variables: { schemeId },
   });
@@ -101,6 +104,7 @@ export const SalaryDetails = ({
     CurrenciesQueryVariables
   >(CURRENCIES, {
     client,
+    context,
     fetchPolicy: 'cache-first',
     variables: { usageTypeCode: currencyUsageTypeCode },
   });

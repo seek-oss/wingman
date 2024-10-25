@@ -20,6 +20,7 @@ import { ADVERTISEMENT_BRANDINGS } from './queries';
 
 export interface BrandSelectProps {
   client?: ApolloClient<unknown>;
+  context?: Record<string, unknown>;
   hideLabel?: boolean;
   hirerId: string;
   initialBrandId?: string;
@@ -31,6 +32,7 @@ export interface BrandSelectProps {
 
 export const BrandSelect = ({
   client,
+  context,
   hideLabel,
   hirerId,
   initialBrandId,
@@ -61,6 +63,7 @@ export const BrandSelect = ({
     AdvertisementBrandingsQueryVariables
   >(ADVERTISEMENT_BRANDINGS, {
     ...(client && { client }),
+    context,
     variables,
   });
 

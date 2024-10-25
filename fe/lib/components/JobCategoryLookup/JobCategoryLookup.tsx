@@ -34,8 +34,8 @@ export const JobCategoryLookup = ({
   schemeId,
   initialJobCategoryId,
   debounceDelay = 250,
-  context,
   client,
+  context,
 }: JobCategoryLookupProps) => {
   const [jobCategoryId, setJobCategoryId] = useState(
     initialJobCategoryId ?? '',

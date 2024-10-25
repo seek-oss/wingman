@@ -29,6 +29,7 @@ interface Props {
     jobCategorySuggestionChoice: JobCategorySuggestionChoiceAttributesFragment,
   ) => void;
   client?: ApolloClient<unknown>;
+  context?: Record<string, unknown>;
   label?: string;
   name?: string;
   showConfidence?: boolean;
@@ -46,6 +47,7 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
   (
     {
       client,
+      context,
       schemeId,
       choices,
       name,
@@ -122,6 +124,7 @@ const JobCategorySuggestChoices = forwardRef<HTMLInputElement, Props>(
         {selectedJobCategory === 'Other' && (
           <JobCategorySelect
             client={client}
+            context={context}
             label="Category"
             id="job-category-suggest-select-other"
             initialValue={initialValue}

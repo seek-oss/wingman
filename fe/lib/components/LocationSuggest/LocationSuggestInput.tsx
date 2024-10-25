@@ -69,6 +69,7 @@ interface Props {
   schemeId: string;
   hirerId?: string;
   client?: ApolloClient<unknown>;
+  context?: Record<string, unknown>;
 }
 
 const LocationSuggestInput = ({
@@ -84,6 +85,7 @@ const LocationSuggestInput = ({
   initialLocation,
   schemeId,
   client,
+  context,
   hirerId,
   ...restProps
 }: Props) => {
@@ -242,6 +244,7 @@ const LocationSuggestInput = ({
               mobile: 600,
             }}
             client={client}
+            context={context}
           />
         </Dialog>
       </Column>
