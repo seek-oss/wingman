@@ -48,6 +48,9 @@ export const LocationLookup = ({
     ...(client && { client }),
     context,
     skip: !debouncedLocationId,
+    variables: {
+      id: debouncedLocationId,
+    },
   });
 
   return (
