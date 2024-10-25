@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 10.1.0
+
+### Minor Changes
+
+- Add support for passing in context into components ([#1192](https://github.com/seek-oss/wingman/pull/1192))
+
 ## 10.0.4
 
 ### Patch Changes
