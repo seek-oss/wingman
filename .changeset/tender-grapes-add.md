@@ -2,4 +2,4 @@
 'wingman-fe': minor
 ---
 
-JobCategoryLookup: Add support for passing in context
+Add support for passing in context into components
