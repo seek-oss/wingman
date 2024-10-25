@@ -1,7 +1,7 @@
 # 🛩 Wingman
 
-[![GitHub Release](https://github.com/seek-oss/wingman/workflows/Release/badge.svg?branch=master)](https://github.com/seek-oss/wingman/actions?query=workflow%3ARelease)
-[![GitHub Validate](https://github.com/seek-oss/wingman/workflows/Validate/badge.svg?branch=master)](https://github.com/seek-oss/wingman/actions?query=workflow%3AValidate)
+[![GitHub Release](https://github.com/seek-oss/wingman/workflows/Release/badge.svg?branch=main)](https://github.com/seek-oss/wingman/actions?query=workflow%3ARelease)
+[![GitHub Validate](https://github.com/seek-oss/wingman/workflows/Validate/badge.svg?branch=main)](https://github.com/seek-oss/wingman/actions?query=workflow%3AValidate)
 [![Node.js version](https://img.shields.io/badge/node-%3E%3D%2012-brightgreen)](https://nodejs.org/en/)
 
 Reference implementation of a SEEK-integrated recruitment system.
@@ -15,7 +15,7 @@ Reference implementation of a SEEK-integrated recruitment system.
 - [Contributing](#contributing)
 - [Meta](#meta)
   - [Related SEEK OSS](#related-seek-oss)
-- [Contributing](https://github.com/seek-oss/wingman/blob/master/CONTRIBUTING.md)
+- [Contributing](https://github.com/seek-oss/wingman/blob/main/CONTRIBUTING.md)
 
 ## Disclaimers
 
