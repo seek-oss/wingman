@@ -76,5 +76,5 @@
     "test": "sku test",
     "test:ci": "sku test --coverage"
   },
-  "version": "10.0.4"
+  "version": "10.1.0"
 }
