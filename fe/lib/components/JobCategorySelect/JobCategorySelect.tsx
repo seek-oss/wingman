@@ -24,6 +24,7 @@ type JobCategoryType = 'parent' | 'child';
 export interface JobCategorySelectProps
   extends Omit<FieldProps, 'value' | 'onChange' | 'children'> {
   client?: ApolloClient<unknown>;
+  context?: Record<string, unknown>;
   label?: string;
   onSelect?: (
     jobCategory: JobCategoryAttributesFragment,
@@ -42,6 +43,7 @@ export const JobCategorySelect = forwardRef<
   (
     {
       client,
+      context,
       onSelect,
       schemeId,
       positionProfile,
@@ -63,6 +65,7 @@ export const JobCategorySelect = forwardRef<
       JOB_CATEGORIES,
       {
         ...(client && { client }),
+        context,
         variables: {
           schemeId,
           positionProfile,
