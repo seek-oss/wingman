@@ -20,7 +20,7 @@ mv fe/dist-storybook/ dist/storybook/
 
 cd dist
 
-git init
+git init --initial-branch=main
 
 git add --all
 
