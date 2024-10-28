@@ -40,8 +40,8 @@ importers:
         specifier: 16.9.0
         version: 16.9.0
       sku:
-        specifier: 13.2.0
-        version: 13.2.0(@storybook/react-webpack5@8.3.6(@swc/core@1.7.26)(esbuild@0.24.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.6)(typescript@5.5.4))(@types/node@22.7.4)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.34.1)(ts-node@10.9.2(@swc/core@1.7.26)(@types/node@22.7.4)(typescript@5.5.4))(type-fest@2.19.0)(webpack-hot-middleware@2.26.1)
+        specifier: 13.2.1
+        version: 13.2.1(@storybook/react-webpack5@8.3.6(@swc/core@1.7.26)(esbuild@0.24.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.6)(typescript@5.5.4))(@types/node@22.7.4)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.34.1)(ts-node@10.9.2(@swc/core@1.7.26)(@types/node@22.7.4)(typescript@5.5.4))(type-fest@2.19.0)(webpack-hot-middleware@2.26.1)
 
   fe:
     dependencies:
@@ -147,7 +147,7 @@ importers:
         version: 6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       scoobie:
         specifier: 18.1.0
-        version: 18.1.0(babel-plugin-macros@3.1.0)(braid-design-system@33.0.0(@types/react@18.3.11)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(sku@13.2.0(@storybook/react-webpack5@8.3.6(@swc/core@1.7.26)(esbuild@0.23.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.6)(typescript@5.5.4))(@types/node@22.7.4)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.34.1)(ts-node@10.9.2(@swc/core@1.7.26)(@types/node@22.7.4)(typescript@5.5.4))(type-fest@2.19.0)(webpack-hot-middleware@2.26.1))
+        version: 18.1.0(babel-plugin-macros@3.1.0)(braid-design-system@33.0.0(@types/react@18.3.11)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(sku@13.2.1(@storybook/react-webpack5@8.3.6(@swc/core@1.7.26)(esbuild@0.23.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.6)(typescript@5.5.4))(@types/node@22.7.4)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.34.1)(ts-node@10.9.2(@swc/core@1.7.26)(@types/node@22.7.4)(typescript@5.5.4))(type-fest@2.19.0)(webpack-hot-middleware@2.26.1))
       storybook:
         specifier: 8.3.6
         version: 8.3.6
@@ -6532,8 +6532,8 @@ packages:
   sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
 
-  sku@13.2.0:
-    resolution: {integrity: sha512-ipU8ITbd8+z+uNhQ99B0X6RTU873i5tiOll5O9rmGNtH/pzRzixYeIaM8x5Ej4IHr2AgvavVdMKmAJ3cnGbI4Q==}
+  sku@13.2.1:
+    resolution: {integrity: sha512-XkntJgFtDKW2NsgQ6sK/WBmkFeM3/FHGat/Rbtc1H2ftN/5LTzFTB3i4+PDaZrqjT+AP3DgKRRXHYNOYVNuIiQ==}
     engines: {node: '>=18.20'}
     hasBin: true
     peerDependencies:
@@ -15278,7 +15278,7 @@ snapshots:
       ajv-formats: 2.1.1(ajv@8.17.1)
       ajv-keywords: 5.1.0(ajv@8.17.1)
 
-  scoobie@18.1.0(babel-plugin-macros@3.1.0)(braid-design-system@33.0.0(@types/react@18.3.11)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(sku@13.2.0(@storybook/react-webpack5@8.3.6(@swc/core@1.7.26)(esbuild@0.23.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.6)(typescript@5.5.4))(@types/node@22.7.4)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.34.1)(ts-node@10.9.2(@swc/core@1.7.26)(@types/node@22.7.4)(typescript@5.5.4))(type-fest@2.19.0)(webpack-hot-middleware@2.26.1)):
+  scoobie@18.1.0(babel-plugin-macros@3.1.0)(braid-design-system@33.0.0(@types/react@18.3.11)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(sku@13.2.1(@storybook/react-webpack5@8.3.6(@swc/core@1.7.26)(esbuild@0.23.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.6)(typescript@5.5.4))(@types/node@22.7.4)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.34.1)(ts-node@10.9.2(@swc/core@1.7.26)(@types/node@22.7.4)(typescript@5.5.4))(type-fest@2.19.0)(webpack-hot-middleware@2.26.1)):
     dependencies:
       '@capsizecss/core': 4.1.2
       '@vanilla-extract/css': 1.16.0(babel-plugin-macros@3.1.0)
@@ -15293,7 +15293,7 @@ snapshots:
       react-router-dom: 6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       refractor: 3.6.0
       remark-slug: 6.1.0
-      sku: 13.2.0(@storybook/react-webpack5@8.3.6(@swc/core@1.7.26)(esbuild@0.23.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.6)(typescript@5.5.4))(@types/node@22.7.4)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.34.1)(ts-node@10.9.2(@swc/core@1.7.26)(@types/node@22.7.4)(typescript@5.5.4))(type-fest@2.19.0)(webpack-hot-middleware@2.26.1)
+      sku: 13.2.1(@storybook/react-webpack5@8.3.6(@swc/core@1.7.26)(esbuild@0.23.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.6)(typescript@5.5.4))(@types/node@22.7.4)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.34.1)(ts-node@10.9.2(@swc/core@1.7.26)(@types/node@22.7.4)(typescript@5.5.4))(type-fest@2.19.0)(webpack-hot-middleware@2.26.1)
     transitivePeerDependencies:
       - babel-plugin-macros
 
@@ -15435,7 +15435,7 @@ snapshots:
 
   sisteransi@1.0.5: {}
 
-  sku@13.2.0(@storybook/react-webpack5@8.3.6(@swc/core@1.7.26)(esbuild@0.23.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.6)(typescript@5.5.4))(@types/node@22.7.4)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.34.1)(ts-node@10.9.2(@swc/core@1.7.26)(@types/node@22.7.4)(typescript@5.5.4))(type-fest@2.19.0)(webpack-hot-middleware@2.26.1):
+  sku@13.2.1(@storybook/react-webpack5@8.3.6(@swc/core@1.7.26)(esbuild@0.23.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.6)(typescript@5.5.4))(@types/node@22.7.4)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.34.1)(ts-node@10.9.2(@swc/core@1.7.26)(@types/node@22.7.4)(typescript@5.5.4))(type-fest@2.19.0)(webpack-hot-middleware@2.26.1):
     dependencies:
       '@babel/core': 7.25.2
       '@babel/plugin-transform-react-constant-elements': 7.25.1(@babel/core@7.25.2)
@@ -15562,7 +15562,7 @@ snapshots:
       - webpack-hot-middleware
       - webpack-plugin-serve
 
-  sku@13.2.0(@storybook/react-webpack5@8.3.6(@swc/core@1.7.26)(esbuild@0.24.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.6)(typescript@5.5.4))(@types/node@22.7.4)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.34.1)(ts-node@10.9.2(@swc/core@1.7.26)(@types/node@22.7.4)(typescript@5.5.4))(type-fest@2.19.0)(webpack-hot-middleware@2.26.1):
+  sku@13.2.1(@storybook/react-webpack5@8.3.6(@swc/core@1.7.26)(esbuild@0.24.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.6)(typescript@5.5.4))(@types/node@22.7.4)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.34.1)(ts-node@10.9.2(@swc/core@1.7.26)(@types/node@22.7.4)(typescript@5.5.4))(type-fest@2.19.0)(webpack-hot-middleware@2.26.1):
     dependencies:
       '@babel/core': 7.25.2
       '@babel/plugin-transform-react-constant-elements': 7.25.1(@babel/core@7.25.2)
