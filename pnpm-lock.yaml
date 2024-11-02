@@ -116,8 +116,8 @@ importers:
         specifier: 0.1.4
         version: 0.1.4
       braid-design-system:
-        specifier: 33.0.0
-        version: 33.0.0(@types/react@18.3.11)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 33.1.0
+        version: 33.1.0(@types/react@18.3.11)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       clsx:
         specifier: 2.1.1
         version: 2.1.1
@@ -147,7 +147,7 @@ importers:
         version: 6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       scoobie:
         specifier: 18.1.0
-        version: 18.1.0(babel-plugin-macros@3.1.0)(braid-design-system@33.0.0(@types/react@18.3.11)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(sku@13.2.1(@storybook/react-webpack5@8.3.6(@swc/core@1.7.26)(esbuild@0.23.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.6)(typescript@5.5.4))(@types/node@22.7.4)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.34.1)(ts-node@10.9.2(@swc/core@1.7.26)(@types/node@22.7.4)(typescript@5.5.4))(type-fest@2.19.0)(webpack-hot-middleware@2.26.1))
+        version: 18.1.0(babel-plugin-macros@3.1.0)(braid-design-system@33.1.0(@types/react@18.3.11)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(sku@13.2.1(@storybook/react-webpack5@8.3.6(@swc/core@1.7.26)(esbuild@0.23.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.6)(typescript@5.5.4))(@types/node@22.7.4)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.34.1)(ts-node@10.9.2(@swc/core@1.7.26)(@types/node@22.7.4)(typescript@5.5.4))(type-fest@2.19.0)(webpack-hot-middleware@2.26.1))
       storybook:
         specifier: 8.3.6
         version: 8.3.6
@@ -3041,8 +3041,8 @@ packages:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
     engines: {node: '>=8'}
 
-  braid-design-system@33.0.0:
-    resolution: {integrity: sha512-4UCFXiDv4hhfRiCxU3d/tUhKBXi1IYk+6eXKIH9YvX5AkHG+VazB1VikyRStL2W48LLHrHKHgV2VWML1wCFeEg==}
+  braid-design-system@33.1.0:
+    resolution: {integrity: sha512-hYuEto4WDAQ+LIpkqoU8fvnX1500zmkuLM+Y7GFWnxpSI2n8TKxW4e871+/AKfVHFBwvfCrE9BZEVPJyAt3AGg==}
     hasBin: true
     peerDependencies:
       react: ^18
@@ -5171,6 +5171,9 @@ packages:
   locate-path@7.2.0:
     resolution: {integrity: sha512-gvVijfZvn7R+2qyPX8mAuKcFGDf6Nc61GdvGafQsHL0sBIxfKzA+usWn4GFC/bk+QdwPUD4kWFJLhElipq+0VA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+
+  lodash.curry@4.1.1:
+    resolution: {integrity: sha512-/u14pXGviLaweY5JI0IUzgzF2J6Ne8INyzAZjImcryjgkZ+ebruBxy2/JaOOkTqScddcYtakjhSaeemV8lR0tA==}
 
   lodash.debounce@4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
@@ -11319,7 +11322,7 @@ snapshots:
     dependencies:
       fill-range: 7.1.1
 
-  braid-design-system@33.0.0(@types/react@18.3.11)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  braid-design-system@33.1.0(@types/react@18.3.11)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@capsizecss/core': 4.1.2
       '@capsizecss/metrics': 3.3.0
@@ -11335,7 +11338,8 @@ snapshots:
       dedent: 1.5.3(babel-plugin-macros@3.1.0)
       gradient-parser: 1.0.2
       is-mobile: 4.0.0
-      lodash: 4.17.21
+      lodash.curry: 4.1.1
+      lodash.merge: 4.6.2
       polished: 4.3.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -14032,6 +14036,8 @@ snapshots:
     dependencies:
       p-locate: 6.0.0
 
+  lodash.curry@4.1.1: {}
+
   lodash.debounce@4.0.8: {}
 
   lodash.deburr@4.1.0: {}
@@ -15278,12 +15284,12 @@ snapshots:
       ajv-formats: 2.1.1(ajv@8.17.1)
       ajv-keywords: 5.1.0(ajv@8.17.1)
 
-  scoobie@18.1.0(babel-plugin-macros@3.1.0)(braid-design-system@33.0.0(@types/react@18.3.11)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(sku@13.2.1(@storybook/react-webpack5@8.3.6(@swc/core@1.7.26)(esbuild@0.23.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.6)(typescript@5.5.4))(@types/node@22.7.4)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.34.1)(ts-node@10.9.2(@swc/core@1.7.26)(@types/node@22.7.4)(typescript@5.5.4))(type-fest@2.19.0)(webpack-hot-middleware@2.26.1)):
+  scoobie@18.1.0(babel-plugin-macros@3.1.0)(braid-design-system@33.1.0(@types/react@18.3.11)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(sku@13.2.1(@storybook/react-webpack5@8.3.6(@swc/core@1.7.26)(esbuild@0.23.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.6)(typescript@5.5.4))(@types/node@22.7.4)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.34.1)(ts-node@10.9.2(@swc/core@1.7.26)(@types/node@22.7.4)(typescript@5.5.4))(type-fest@2.19.0)(webpack-hot-middleware@2.26.1)):
     dependencies:
       '@capsizecss/core': 4.1.2
       '@vanilla-extract/css': 1.16.0(babel-plugin-macros@3.1.0)
       '@vanilla-extract/css-utils': 0.1.4
-      braid-design-system: 33.0.0(@types/react@18.3.11)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      braid-design-system: 33.1.0(@types/react@18.3.11)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       clsx: 2.1.1
       jsonc-parser: 3.3.1
       polished: 4.3.1
