@@ -76,8 +76,6 @@ const config: SkuConfig = {
     'ts-node': {
       compilerOptions: {
         module: 'nodenext',
-        moduleResolution: 'nodenext',
-        target: 'ESNext',
       },
     },
     include: ['**/*', '.storybook/*'],
