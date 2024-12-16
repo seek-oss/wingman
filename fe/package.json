@@ -39,7 +39,6 @@
     "react-router-dom": "6.22.3",
     "scoobie": "18.1.1",
     "storybook": "8.4.7",
-    "ts-node": "10.9.2",
     "use-query-params": "2.2.1",
     "webpack-merge": "6.0.1"
   },
@@ -68,8 +67,7 @@
     "build": "sku build",
     "build-storybook": "storybook build --output-dir dist-storybook",
     "format": "sku format",
-    "lint": "sku lint && pnpm -s lint:codegen",
-    "lint:codegen": "ts-node lib/types/seekApi.typeDefs.ts",
+    "lint": "sku lint",
     "serve": "sku serve",
     "start": "sku start",
     "start-storybook": "storybook dev",
