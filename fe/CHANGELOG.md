@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 10.1.1
+
+### Patch Changes
+
+- **deps:** pigeon-maps ^0.22.0 ([#1224](https://github.com/seek-oss/wingman/pull/1224))
+
 ## 10.1.0
 
 ### Minor Changes
