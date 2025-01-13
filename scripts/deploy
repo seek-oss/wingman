@@ -20,7 +20,7 @@ mv fe/dist-storybook/ dist/storybook/
 
 cd dist
 
-git init
+git init --initial-branch=main
 
 git add --all
 
@@ -41,7 +41,7 @@ echo '=> Deploying...'
     GIT_URL="https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/seek-oss/wingman.git"
   fi
 
-  git push --force --quiet "${GIT_URL}" 'master:gh-pages'
+  git push --force --quiet "${GIT_URL}" 'main:gh-pages'
 }
 
 cd ..

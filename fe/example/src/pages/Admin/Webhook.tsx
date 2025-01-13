@@ -2,6 +2,7 @@ import {
   Actions,
   Button,
   Card,
+  Divider,
   Heading,
   Stack,
   useToast,
@@ -57,9 +58,9 @@ export const Webhook = () => {
 
   return (
     <Card>
-      <Stack dividers space="large">
+      <Stack space="large">
         <Heading level="3">Webhook</Heading>
-
+        <Divider />
         <Stack space="medium">
           <Actions>
             <Button loading={loading} onClick={onClick}>

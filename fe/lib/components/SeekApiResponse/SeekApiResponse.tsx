@@ -37,6 +37,8 @@ export const SeekApiResponse = ({
     expandLabel={expandLabel ?? 'Show SEEK API response'}
     id={id}
   >
-    <CodeBlock language="json">{prettyPrintWithoutTypename(data)}</CodeBlock>
+    <CodeBlock label="Response" language="json">
+      {prettyPrintWithoutTypename(data)}
+    </CodeBlock>
   </Disclosure>
 );

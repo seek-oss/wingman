@@ -1,5 +1,6 @@
 import {
   Box,
+  Divider,
   Heading,
   IconEducation,
   IconHome,
@@ -65,18 +66,18 @@ const SidebarLink = ({ children, size, to }: SidebarLinkProps) => {
 
 export const Sidebar = () => (
   <Box className={styles.sidebar}>
-    <Stack dividers space="none">
+    <Stack space="none">
       <Box padding="gutter">
         <Heading level="3">🛩</Heading>
       </Box>
-
-      <Stack dividers space="none">
+      <Divider />
+      <Stack space="none">
         <Box paddingY="gutter">
           <SidebarLink to="/">
             <IconHome /> Home
           </SidebarLink>
         </Box>
-
+        <Divider />
         {/* TODO: rebuild from shared components. */}
         {/* <Box paddingY="gutter">
           <SidebarLink to="/positions">
@@ -110,6 +111,7 @@ export const Sidebar = () => (
               <Box padding="gutter">
                 <Toggle
                   align="justify"
+                  bleedY={true}
                   id="devTools"
                   label="Dev tools"
                   on={preferences.devTools}

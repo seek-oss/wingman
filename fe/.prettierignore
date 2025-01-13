@@ -1,5 +1,4 @@
 # sku generates non-compliant files
-tsconfig.json
 
 # managed by sku
 *.less.d.ts

@@ -23,9 +23,7 @@ const config: SkuConfig = {
   sites: [{ name: 'apac', host: 'dev.seek.com' }],
 
   compilePackages: ['scoobie'],
-  orderImports: true,
   rootResolution: false,
-  storybookAddons: ['@storybook/addon-essentials'],
 
   dangerouslySetESLintConfig: (skuEslintConfig) => ({
     ...skuEslintConfig,
@@ -73,13 +71,7 @@ const config: SkuConfig = {
       // under `browser` in package.json
       customConditions: ['browser'],
     },
-    // Override the compiler options when running ts-node
-    // to handling linting of typedefs
-    'ts-node': {
-      compilerOptions: {
-        module: 'nodenext',
-      },
-    },
+    include: ['**/*', '.storybook/*'],
   }),
 };
 

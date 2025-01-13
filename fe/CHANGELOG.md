@@ -1,5 +1,29 @@
 # wingman-fe
 
+## 10.1.1
+
+### Patch Changes
+
+- **deps:** pigeon-maps ^0.22.0 ([#1224](https://github.com/seek-oss/wingman/pull/1224))
+
+## 10.1.0
+
+### Minor Changes
+
+- Add support for passing in context into components ([#1192](https://github.com/seek-oss/wingman/pull/1192))
+
+## 10.0.4
+
+### Patch Changes
+
+- **LocationSelectMap:** Fix Braid 33 compatibility ([#1185](https://github.com/seek-oss/wingman/pull/1185))
+
+## 10.0.3
+
+### Patch Changes
+
+- Remove deprecated `dividers` in Braid components ([#1172](https://github.com/seek-oss/wingman/pull/1172))
+
 ## 10.0.2
 
 ### Patch Changes

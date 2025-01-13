@@ -1,5 +1,6 @@
-import { type ApolloClient, useLazyQuery } from '@apollo/client';
+import { type ApolloClient, useQuery } from '@apollo/client';
 import {
+  Divider,
   FieldMessage,
   Loader,
   Notice,
@@ -7,7 +8,7 @@ import {
   Text,
   TextField,
 } from 'braid-design-system';
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { InlineCode } from 'scoobie';
 import { useDebounce } from 'use-debounce';
 
@@ -24,6 +25,7 @@ import { JOB_CATEGORY } from './queries';
 export interface JobCategoryLookupProps {
   schemeId: string;
   client?: ApolloClient<unknown>;
+  context?: Record<string, unknown>;
   initialJobCategoryId?: string;
   debounceDelay?: number;
 }
@@ -33,6 +35,7 @@ export const JobCategoryLookup = ({
   initialJobCategoryId,
   debounceDelay = 250,
   client,
+  context,
 }: JobCategoryLookupProps) => {
   const [jobCategoryId, setJobCategoryId] = useState(
     initialJobCategoryId ?? '',
@@ -40,25 +43,21 @@ export const JobCategoryLookup = ({
 
   const [debouncedJobCategoryId] = useDebounce(jobCategoryId, debounceDelay);
 
-  const [
-    jobCategoryLookup,
-    { data: categoryData, error: categoryError, loading: categoryLoading },
-  ] = useLazyQuery<JobCategoryQuery, JobCategoryQueryVariables>(JOB_CATEGORY, {
+  const {
+    data: categoryData,
+    error: categoryError,
+    loading: categoryLoading,
+  } = useQuery<JobCategoryQuery, JobCategoryQueryVariables>(JOB_CATEGORY, {
     ...(client && { client }),
+    context,
+    variables: {
+      id: debouncedJobCategoryId,
+    },
+    skip: !debouncedJobCategoryId,
   });
 
-  useEffect(() => {
-    if (debouncedJobCategoryId) {
-      jobCategoryLookup({
-        variables: {
-          id: debouncedJobCategoryId,
-        },
-      });
-    }
-  }, [jobCategoryLookup, debouncedJobCategoryId]);
-
   return (
-    <Stack dividers space="large">
+    <Stack space="large">
       <Stack space="medium">
         <TextField
           aria-label="Job category OID"
@@ -78,36 +77,47 @@ export const JobCategoryLookup = ({
           }
         />
       </Stack>
-
-      {categoryLoading && <Loader />}
+      {categoryLoading && (
+        <>
+          <Divider />
+          <Loader />
+        </>
+      )}
 
       {categoryError && (
-        <FieldMessage
-          id="jobCategoryLookupError"
-          message="Sorry, we couldn’t retrieve this job category. Please try again."
-          tone="critical"
-        />
+        <>
+          <Divider />
+          <FieldMessage
+            id="jobCategoryLookupError"
+            message="Sorry, we couldn’t retrieve this job category. Please try again."
+            tone="critical"
+          />
+        </>
       )}
 
       {categoryData &&
         (categoryData.jobCategory ? (
           <>
+            <Divider />
             <BreadCrumbsString
               segments={flattenResourceByKey(
                 categoryData.jobCategory,
                 'parent',
               ).map((x) => ({ name: x.name, key: x.id.value }))}
             />
-
+            <Divider />
             <SeekApiResponse
               data={categoryData.jobCategory}
               id="jobCategoryLookupSeekApiResponse"
             />
           </>
         ) : (
-          <Notice tone="info">
-            <Text>Hmm, we can’t find that job category.</Text>
-          </Notice>
+          <>
+            <Divider />
+            <Notice tone="info">
+              <Text>Hmm, we can’t find that job category.</Text>
+            </Notice>
+          </>
         ))}
     </Stack>
   );

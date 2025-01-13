@@ -1,5 +1,6 @@
-import { type ApolloClient, useLazyQuery } from '@apollo/client';
+import { type ApolloClient, useQuery } from '@apollo/client';
 import {
+  Divider,
   FieldMessage,
   Loader,
   Notice,
@@ -7,7 +8,7 @@ import {
   Text,
   TextField,
 } from 'braid-design-system';
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { InlineCode } from 'scoobie';
 import { useDebounce } from 'use-debounce';
 
@@ -23,6 +24,7 @@ import { SeekApiResponse } from '../SeekApiResponse/SeekApiResponse';
 export interface LocationLookupProps {
   schemeId: string;
   client?: ApolloClient<unknown>;
+  context?: Record<string, unknown>;
   initialLocationId?: string;
   debounceDelay?: number;
 }
@@ -32,30 +34,27 @@ export const LocationLookup = ({
   initialLocationId,
   debounceDelay = 250,
   client,
+  context,
 }: LocationLookupProps) => {
   const [locationId, setLocationId] = useState(initialLocationId ?? '');
 
   const [debouncedLocationId] = useDebounce(locationId, debounceDelay);
 
-  const [
-    locationLookup,
-    { data: locationData, error: locationError, loading: locationLoading },
-  ] = useLazyQuery<LocationQuery, LocationQueryVariables>(LOCATION, {
+  const {
+    data: locationData,
+    error: locationError,
+    loading: locationLoading,
+  } = useQuery<LocationQuery, LocationQueryVariables>(LOCATION, {
     ...(client && { client }),
+    context,
+    skip: !debouncedLocationId,
+    variables: {
+      id: debouncedLocationId,
+    },
   });
 
-  useEffect(() => {
-    if (debouncedLocationId) {
-      locationLookup({
-        variables: {
-          id: debouncedLocationId,
-        },
-      });
-    }
-  }, [locationLookup, debouncedLocationId]);
-
   return (
-    <Stack dividers space="large">
+    <Stack space="large">
       <Stack space="medium">
         <TextField
           aria-label="Location OID"
@@ -76,35 +75,47 @@ export const LocationLookup = ({
         />
       </Stack>
 
-      {locationLoading && <Loader />}
+      {locationLoading && (
+        <>
+          <Divider />
+          <Loader />
+        </>
+      )}
 
       {locationError && (
-        <FieldMessage
-          id="locationLookupError"
-          message="Sorry, we couldn’t retrieve this location. Please try again."
-          tone="critical"
-        />
+        <>
+          <Divider />
+          <FieldMessage
+            id="locationLookupError"
+            message="Sorry, we couldn’t retrieve this location. Please try again."
+            tone="critical"
+          />
+        </>
       )}
 
       {locationData &&
         (locationData.location ? (
           <>
+            <Divider />
             <BreadCrumbsString
               segments={flattenResourceByKey(
                 locationData.location,
                 'parent',
               ).map((x) => ({ name: x.name, key: x.id.value }))}
             />
-
+            <Divider />
             <SeekApiResponse
               data={locationData.location}
               id="locationLookupSeekApiResponse"
             />
           </>
         ) : (
-          <Notice tone="info">
-            <Text>Hmm, we can’t find that location.</Text>
-          </Notice>
+          <>
+            <Divider />
+            <Notice tone="info">
+              <Text>Hmm, we can’t find that location.</Text>
+            </Notice>
+          </>
         ))}
     </Stack>
   );

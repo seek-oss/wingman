@@ -5,6 +5,7 @@ import {
   ButtonIcon,
   Column,
   Columns,
+  Divider,
   IconClear,
   Stack,
   Text,
@@ -36,6 +37,8 @@ export interface LocationSelectMapProps {
   onLocationSelected: (location: Location) => void;
   initialLocation: [number, number];
   client?: ApolloClient<unknown>;
+  context?: Record<string, unknown>;
+
   mapHeight?: {
     wide: number;
     desktop: number;
@@ -50,6 +53,7 @@ export const LocationSelectMap = ({
   onLocationSelected,
   initialLocation,
   client,
+  context,
   mapHeight = {
     wide: DEFAULT_MAP_HEIGHT,
     desktop: DEFAULT_MAP_HEIGHT,
@@ -76,6 +80,7 @@ export const LocationSelectMap = ({
         schemeId,
       },
       client,
+      context,
     },
   );
 
@@ -91,7 +96,7 @@ export const LocationSelectMap = ({
 
   const NearestLocationsCards = () => (
     <Box borderRadius="standard" background="surface">
-      <Stack dividers space="none">
+      <Stack space="none">
         <Box
           paddingX={{ desktop: 'medium', tablet: 'none', mobile: 'none' }}
           paddingY={{ desktop: 'xsmall', tablet: 'medium', mobile: 'medium' }}
@@ -105,8 +110,7 @@ export const LocationSelectMap = ({
             {isDesktopOrAbove ? (
               <Column width="content">
                 <ButtonIcon
-                  icon={<IconClear />}
-                  tone="secondary"
+                  icon={<IconClear tone="secondary" />}
                   id="clear-nearest-suggestions-button"
                   label="Clear Suggestions"
                   onClick={() => setShowSuggestions(false)}
@@ -116,22 +120,24 @@ export const LocationSelectMap = ({
           </Columns>
         </Box>
         {nearestLocations?.map((location) => (
-          <Box
-            className={styles.card}
-            cursor="pointer"
-            paddingX={{ desktop: 'medium', tablet: 'none', mobile: 'none' }}
-            paddingY="medium"
-            key={location.id.value}
-            onClick={() => {
-              onLocationSelected(location);
-              setShowSuggestions(false);
-            }}
-          >
-            <Stack space="small">
-              <Text size="small">{location.contextualName}</Text>
-              <InlineCode>{location.id.value}</InlineCode>
-            </Stack>
-          </Box>
+          <React.Fragment key={location.id.value}>
+            <Divider />
+            <Box
+              className={styles.card}
+              cursor="pointer"
+              paddingX={{ desktop: 'medium', tablet: 'none', mobile: 'none' }}
+              paddingY="medium"
+              onClick={() => {
+                onLocationSelected(location);
+                setShowSuggestions(false);
+              }}
+            >
+              <Stack space="small">
+                <Text size="small">{location.contextualName}</Text>
+                <InlineCode>{location.id.value}</InlineCode>
+              </Stack>
+            </Box>
+          </React.Fragment>
         ))}
       </Stack>
     </Box>
@@ -188,7 +194,7 @@ export const LocationSelectMap = ({
       {!isDesktopOrAbove && (
         <>
           {hasNearestLocations ? (
-            <Stack dividers space="none">
+            <Stack space="none">
               <NearestLocationsCards />
             </Stack>
           ) : (

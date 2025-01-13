@@ -71,11 +71,11 @@ pnpm install
 
 We use [GitHub flow](https://guides.github.com/introduction/flow/).
 
-Create a new branch off of the latest commit on master:
+Create a new branch off of the latest commit on main:
 
 ```shell
 git fetch origin
-git switch --create your-branch-name origin/master
+git switch --create your-branch-name origin/main
 ```
 
 Develop, [test](#testing) and commit your changes on this branch.
@@ -101,7 +101,7 @@ git push --set-upstream fork your-branch-name
 ```
 
 A maintainer will get to your pull request and review the changes.
-If all is well, they will merge your pull request into master.
+If all is well, they will merge your pull request into main.
 
 ### Testing
 
@@ -181,47 +181,23 @@ and our [release](/.github/workflows/release.yml) GitHub Actions workflow will p
 
 ### Publishing a prerelease
 
-We currently have limited support for prereleases on the `beta` [dist-tag].
-This can only be performed by a maintainer.
+Prereleases can be created on demand via [seek-oss/changesets-snapshot].
 
-```shell
-# revert beta branch to match master
-git fetch origin
-git switch beta
-git reset --hard origin/master
+Manually run the [Snapshot workflow] for the `main` branch in GitHub Actions to publish a new snapshot version to npm.
 
-# stage a beta release
-pnpm changeset pre enter beta
-pnpm changeset version
-```
-
-If previous betas have been released under the same semantic version,
-you will need to manually bump the version suffixes in the package.json(s):
-
-```diff
-- "version": "4.0.0-beta.1",
-+ "version": "4.0.0-beta.2",
-```
-
-Then, commit and push your changes:
-
-```shell
-git add --all
-git commit --message 'Publish v4.0.0-beta.2'
-git push --set-upstream origin beta
-```
+<https://www.npmjs.com/package/wingman-fe?activeTab=versions>
 
 [#indirect]: https://seekchat.slack.com/channels/indirect
 [changesets]: https://github.com/atlassian/changesets
 [create a pull request]: https://github.com/seek-oss/wingman/compare
 [developer site]: https://developer.seek.com
-[dist-tag]: https://docs.npmjs.com/cli/dist-tag
 [fork the repo]: https://github.com/seek-oss/wingman/fork
 [readme design section]: https://github.com/seek-oss/wingman#design
 [release notes]: https://github.com/seek-oss/wingman/releases
-[seek api]: https://developer.seek.com/introduction
+[seek-oss/changesets-snapshot]: https://github.com/seek-oss/changesets-snapshot
 [semantic versioning]: https://semver.org/
 [sku]: https://github.com/seek-oss/sku
+[Snapshot workflow]: https://github.com/seek-oss/wingman/actions/workflows/snapshot.yml
 [storybook]: https://seek-oss.github.io/wingman/
 [submit an issue]: https://github.com/seek-oss/wingman/issues/new/choose
 [windows subsystem for linux]: https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux

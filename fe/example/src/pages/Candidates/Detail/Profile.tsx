@@ -42,13 +42,17 @@ interface Props {
 export const CandidateProfile = ({ children: candidate }: Props) => (
   <Stack space="gutter">
     <Card>
-      <Stack dividers space="large">
+      <Stack space="large">
         <Heading level="4">Career history</Heading>
 
         {candidate.roles.length ? undefined : (
-          <Text tone="promote">
-            <IconPromote /> New to the workforce
-          </Text>
+          <>
+            <Divider />
+
+            <Text tone="promote">
+              <IconPromote /> New to the workforce
+            </Text>
+          </>
         )}
 
         {candidate.roles
@@ -57,33 +61,42 @@ export const CandidateProfile = ({ children: candidate }: Props) => (
             candidate.roles.length === MAX_ROLES ? MAX_ROLES : MAX_ROLES - 1,
           )
           .map((role, index) => (
-            <RoleDetails key={index}>{role}</RoleDetails>
+            <React.Fragment key={index}>
+              <Divider />
+              <RoleDetails>{role}</RoleDetails>
+            </React.Fragment>
           ))}
 
         {candidate.roles.length > MAX_ROLES ? (
-          <AccordionItem
-            id="roles"
-            label={`+${String(candidate.roles.length - MAX_ROLES)} more`}
-          >
-            <Stack space="gutter">
-              <Divider />
+          <>
+            <Divider />
+            <AccordionItem
+              id="roles"
+              label={`+${String(candidate.roles.length - MAX_ROLES)} more`}
+            >
+              <Stack space="gutter">
+                <Divider />
 
-              <Stack dividers space="gutter">
-                {candidate.roles.slice(MAX_ROLES - 1).map((role, index) => (
-                  <RoleDetails key={index}>{role}</RoleDetails>
-                ))}
+                <Stack space="gutter">
+                  {candidate.roles.slice(MAX_ROLES - 1).map((role, index) => (
+                    <React.Fragment key={index}>
+                      {index > 0 ? <Divider /> : null}
+                      <RoleDetails>{role}</RoleDetails>
+                    </React.Fragment>
+                  ))}
+                </Stack>
               </Stack>
-            </Stack>
-          </AccordionItem>
+            </AccordionItem>
+          </>
         ) : undefined}
       </Stack>
     </Card>
 
     {candidate.qualifications.length ? (
       <Card>
-        <Stack dividers space="large">
+        <Stack space="large">
           <Heading level="4">Education</Heading>
-
+          <Divider />
           <Stack space="gutter">
             {candidate.qualifications.map((qualification, index) => (
               <Inline key={index} space="gutter">
@@ -102,9 +115,9 @@ export const CandidateProfile = ({ children: candidate }: Props) => (
 
     {candidate.skills.length ? (
       <Card>
-        <Stack dividers space="large">
+        <Stack space="large">
           <Heading level="4">Skills</Heading>
-
+          <Divider />
           <Inline space="gutter">
             {candidate.skills.map((skill, index) => (
               <Tag key={index}>{skill.name}</Tag>

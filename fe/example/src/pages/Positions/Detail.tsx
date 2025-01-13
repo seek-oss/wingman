@@ -2,6 +2,7 @@ import {
   Badge,
   Box,
   ContentBlock,
+  Divider,
   Heading,
   IconPeople,
   IconVisibility,
@@ -154,7 +155,7 @@ const PositionDetails = () => {
   const candidates = CANDIDATES_BY_POSITION_ID[position.id];
 
   return (
-    <Stack dividers space="none">
+    <Stack space="none">
       <Header>
         <Heading level="3">
           <Breadcrumbs>
@@ -168,7 +169,7 @@ const PositionDetails = () => {
           </Breadcrumbs>
         </Heading>
       </Header>
-
+      <Divider />
       <Box background="surface" padding="gutter">
         <Stack space="medium">
           {preferences.devTools ? (
@@ -203,6 +204,7 @@ const PositionDetails = () => {
           </Text>
         </Stack>
       </Box>
+      <Divider />
       <PositionDetailTabs
         ads={ads}
         candidates={candidates}

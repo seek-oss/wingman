@@ -43,7 +43,7 @@ export const MockComponentActions = ({
         </ButtonLink>
 
         <ButtonLink
-          href={`https://github.com/seek-oss/wingman/tree/master/fe/${sourcePath}`}
+          href={`https://github.com/seek-oss/wingman/tree/main/fe/${sourcePath}`}
           icon={<IconSocialGitHub />}
           rel="noreferrer"
           target="_blank"

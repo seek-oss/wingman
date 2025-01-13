@@ -1,4 +1,11 @@
-import { Card, Heading, Loader, Stack, Text } from 'braid-design-system';
+import {
+  Card,
+  Divider,
+  Heading,
+  Loader,
+  Stack,
+  Text,
+} from 'braid-design-system';
 import React, { useEffect, useState } from 'react';
 
 import { querySeekGraph } from '../../api/seekGraph';
@@ -22,9 +29,9 @@ export const Version = () => {
 
   return (
     <Card>
-      <Stack dividers space="large">
+      <Stack space="large">
         <Heading level="3">Version</Heading>
-
+        <Divider />
         <Text>{typeof version === 'undefined' ? <Loader /> : version}</Text>
       </Stack>
     </Card>

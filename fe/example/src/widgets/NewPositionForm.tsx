@@ -4,6 +4,7 @@ import {
   Button,
   Card,
   Checkbox,
+  Divider,
   Heading,
   Notice,
   Stack,
@@ -30,7 +31,7 @@ export const NewPositionForm = () => {
   });
 
   return (
-    <Stack dividers space="none">
+    <Stack space="none">
       <Card>
         <Stack space="large">
           <TextField
@@ -59,7 +60,7 @@ export const NewPositionForm = () => {
           />
         </Stack>
       </Card>
-
+      <Divider />
       <Card>
         <Stack space="large">
           <Heading level="4">Advertise your position</Heading>
@@ -85,8 +86,13 @@ export const NewPositionForm = () => {
         </Stack>
       </Card>
 
-      {seekAd ? <NewAdForm initial={{ title: name }} /> : undefined}
-
+      {seekAd ? (
+        <>
+          <Divider />
+          <NewAdForm initial={{ title: name }} />
+        </>
+      ) : undefined}
+      <Divider />
       <Card>
         <Actions>
           <Button tone="brandAccent" type="submit">
