@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 10.1.2
+
+### Patch Changes
+
+- **deps:** scoobie 18.1.2 -> 19.0.0 ([#1230](https://github.com/seek-oss/wingman/pull/1230))
+
 ## 10.1.1
 
 ### Patch Changes
