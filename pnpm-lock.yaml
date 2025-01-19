@@ -40,8 +40,8 @@ importers:
         specifier: 16.10.0
         version: 16.10.0
       sku:
-        specifier: 13.3.0
-        version: 13.3.0(@storybook/react-webpack5@8.4.7(esbuild@0.24.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.7(prettier@2.8.8))(typescript@5.6.3))(@types/node@22.10.6)(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.37.0)(type-fest@2.19.0)(webpack-hot-middleware@2.26.1)
+        specifier: 13.4.0
+        version: 13.4.0(@storybook/react-webpack5@8.4.7(esbuild@0.24.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.7(prettier@2.8.8))(typescript@5.6.3))(@types/node@22.10.6)(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.37.0)(type-fest@2.19.0)(webpack-hot-middleware@2.26.1)
 
   fe:
     dependencies:
@@ -147,7 +147,7 @@ importers:
         version: 6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       scoobie:
         specifier: 19.0.0
-        version: 19.0.0(babel-plugin-macros@3.1.0)(braid-design-system@33.3.0(@types/react@18.3.16)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(sku@13.3.0(@storybook/react-webpack5@8.4.7(esbuild@0.24.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.7(prettier@2.8.8))(typescript@5.6.3))(@types/node@22.10.6)(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.37.0)(type-fest@2.19.0)(webpack-hot-middleware@2.26.1))
+        version: 19.0.0(babel-plugin-macros@3.1.0)(braid-design-system@33.3.0(@types/react@18.3.16)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(sku@13.4.0(@storybook/react-webpack5@8.4.7(esbuild@0.24.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.7(prettier@2.8.8))(typescript@5.6.3))(@types/node@22.10.6)(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.37.0)(type-fest@2.19.0)(webpack-hot-middleware@2.26.1))
       storybook:
         specifier: 8.4.7
         version: 8.4.7(prettier@2.8.8)
@@ -213,10 +213,6 @@ packages:
 
   '@babel/helper-annotate-as-pure@7.25.9':
     resolution: {integrity: sha512-gv7320KBUFJz1RnylIg5WWYPRXKZ884AGkYpgpWW02TH66Dl+HaC1t1CKd0z3R4b6hdYEcmrNZHUmfCP+1u3/g==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/helper-builder-react-jsx@7.25.9':
-    resolution: {integrity: sha512-jdB+SzneXsYS5aIrjJ0En39gVK2tieaet7Wa09c6oNRGeIBhWJ7MoTp0aTh3fx8SsFhcJBET9rwgi5qn3BbiXA==}
     engines: {node: '>=6.9.0'}
 
   '@babel/helper-compilation-targets@7.26.5':
@@ -709,12 +705,6 @@ packages:
 
   '@babel/plugin-transform-react-display-name@7.25.9':
     resolution: {integrity: sha512-KJfMlYIUxQB1CJfO3e0+h0ZHWOTLCPP115Awhaz8U0Zpq36Gl/cXlpoyMRnUWlhNUBAzldnCiAZNvCDj7CrKxQ==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-
-  '@babel/plugin-transform-react-inline-elements@7.25.9':
-    resolution: {integrity: sha512-9MtfGNQY8OFKtkY2IhMDhm7qTyyZkvnyM4hwsT8ouX/teyxrdfsNQkZAyKOX3USt1pwrSfbEb/pTNm+3E8pEXw==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -5238,6 +5228,9 @@ packages:
   magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
 
+  magicast@0.3.5:
+    resolution: {integrity: sha512-L0WhttDl+2BOsybvEOLK7fW3UA0OQ0IQ2d6Zl2x/a6vVRs3bAY0ECOSHHeL5jD+SbOpOCUEi0y1DgHEn9Qn1AQ==}
+
   make-dir@3.1.0:
     resolution: {integrity: sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==}
     engines: {node: '>=8'}
@@ -6580,8 +6573,8 @@ packages:
   sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
 
-  sku@13.3.0:
-    resolution: {integrity: sha512-dHmCwaYf4kbXXu5ndbt6Xp5qoCwKBhxwY/chd5bt6/yg7YzxdSWP8Fyixx9S8wXPr4rQuZYV02ZIPqkfAc7mDw==}
+  sku@13.4.0:
+    resolution: {integrity: sha512-bobK/1mgU4dilg8BQNEm+G8HYSxFx21wA9SU3xFzgdJByBvEzvw4awpyzjph7EfcPZpgKeEHmu8p0CvP9aHbTQ==}
     engines: {node: '>=18.20'}
     hasBin: true
     peerDependencies:
@@ -7592,11 +7585,6 @@ snapshots:
     dependencies:
       '@babel/types': 7.26.5
 
-  '@babel/helper-builder-react-jsx@7.25.9':
-    dependencies:
-      '@babel/helper-annotate-as-pure': 7.25.9
-      '@babel/types': 7.26.5
-
   '@babel/helper-compilation-targets@7.26.5':
     dependencies:
       '@babel/compat-data': 7.26.5
@@ -8140,12 +8128,6 @@ snapshots:
   '@babel/plugin-transform-react-display-name@7.25.9(@babel/core@7.26.0)':
     dependencies:
       '@babel/core': 7.26.0
-      '@babel/helper-plugin-utils': 7.26.5
-
-  '@babel/plugin-transform-react-inline-elements@7.25.9(@babel/core@7.26.0)':
-    dependencies:
-      '@babel/core': 7.26.0
-      '@babel/helper-builder-react-jsx': 7.25.9
       '@babel/helper-plugin-utils': 7.26.5
 
   '@babel/plugin-transform-react-jsx-development@7.25.9(@babel/core@7.26.0)':
@@ -13862,6 +13844,12 @@ snapshots:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.0
 
+  magicast@0.3.5:
+    dependencies:
+      '@babel/parser': 7.26.5
+      '@babel/types': 7.26.5
+      source-map-js: 1.2.1
+
   make-dir@3.1.0:
     dependencies:
       semver: 6.3.1
@@ -15054,7 +15042,7 @@ snapshots:
       ajv-formats: 2.1.1(ajv@8.17.1)
       ajv-keywords: 5.1.0(ajv@8.17.1)
 
-  scoobie@19.0.0(babel-plugin-macros@3.1.0)(braid-design-system@33.3.0(@types/react@18.3.16)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(sku@13.3.0(@storybook/react-webpack5@8.4.7(esbuild@0.24.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.7(prettier@2.8.8))(typescript@5.6.3))(@types/node@22.10.6)(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.37.0)(type-fest@2.19.0)(webpack-hot-middleware@2.26.1)):
+  scoobie@19.0.0(babel-plugin-macros@3.1.0)(braid-design-system@33.3.0(@types/react@18.3.16)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(sku@13.4.0(@storybook/react-webpack5@8.4.7(esbuild@0.24.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.7(prettier@2.8.8))(typescript@5.6.3))(@types/node@22.10.6)(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.37.0)(type-fest@2.19.0)(webpack-hot-middleware@2.26.1)):
     dependencies:
       '@capsizecss/core': 4.1.2
       '@vanilla-extract/css': 1.17.0(babel-plugin-macros@3.1.0)
@@ -15068,7 +15056,7 @@ snapshots:
       react-keyed-flatten-children: 3.0.2(react@18.3.1)
       react-router-dom: 6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       refractor: 3.6.0
-      sku: 13.3.0(@storybook/react-webpack5@8.4.7(esbuild@0.24.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.7(prettier@2.8.8))(typescript@5.6.3))(@types/node@22.10.6)(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.37.0)(type-fest@2.19.0)(webpack-hot-middleware@2.26.1)
+      sku: 13.4.0(@storybook/react-webpack5@8.4.7(esbuild@0.24.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.7(prettier@2.8.8))(typescript@5.6.3))(@types/node@22.10.6)(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.37.0)(type-fest@2.19.0)(webpack-hot-middleware@2.26.1)
     transitivePeerDependencies:
       - babel-plugin-macros
 
@@ -15230,16 +15218,16 @@ snapshots:
 
   sisteransi@1.0.5: {}
 
-  sku@13.3.0(@storybook/react-webpack5@8.4.7(esbuild@0.24.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.7(prettier@2.8.8))(typescript@5.6.3))(@types/node@22.10.6)(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.37.0)(type-fest@2.19.0)(webpack-hot-middleware@2.26.1):
+  sku@13.4.0(@storybook/react-webpack5@8.4.7(esbuild@0.24.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.7(prettier@2.8.8))(typescript@5.6.3))(@types/node@22.10.6)(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.37.0)(type-fest@2.19.0)(webpack-hot-middleware@2.26.1):
     dependencies:
       '@babel/core': 7.26.0
       '@babel/plugin-transform-react-constant-elements': 7.25.9(@babel/core@7.26.0)
-      '@babel/plugin-transform-react-inline-elements': 7.25.9(@babel/core@7.26.0)
       '@babel/plugin-transform-runtime': 7.25.9(@babel/core@7.26.0)
       '@babel/preset-env': 7.26.0(@babel/core@7.26.0)
       '@babel/preset-react': 7.26.3(@babel/core@7.26.0)
       '@babel/preset-typescript': 7.26.0(@babel/core@7.26.0)
       '@babel/runtime': 7.26.0
+      '@babel/types': 7.26.5
       '@loadable/babel-plugin': 5.16.1(@babel/core@7.26.0)
       '@loadable/component': 5.16.4(react@18.3.1)
       '@loadable/server': 5.16.5(@loadable/component@5.16.4(react@18.3.1))(react@18.3.1)
@@ -15298,6 +15286,7 @@ snapshots:
       jest-environment-jsdom: 29.7.0
       jest-watch-typeahead: 2.2.2(jest@29.7.0(@types/node@22.10.6)(babel-plugin-macros@3.1.0))
       lint-staged: 15.3.0
+      magicast: 0.3.5
       mini-css-extract-plugin: 2.9.2(webpack@5.97.1(@swc/core@1.10.7)(esbuild@0.24.2))
       minimist: 1.2.8
       nano-memoize: 3.0.16
