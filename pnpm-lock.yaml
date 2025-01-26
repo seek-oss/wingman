@@ -73,8 +73,8 @@ importers:
         specifier: ^7.0.0
         version: 7.54.2(react@18.3.1)
       runtypes:
-        specifier: ^6.5.0
-        version: 6.7.0
+        specifier: ^7.0.0
+        version: 7.0.1
       use-debounce:
         specifier: ^10.0.0
         version: 10.0.4(react@18.3.1)
@@ -6406,8 +6406,8 @@ packages:
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
-  runtypes@6.7.0:
-    resolution: {integrity: sha512-3TLdfFX8YHNFOhwHrSJza6uxVBmBrEjnNQlNXvXCdItS0Pdskfg5vVXUTWIN+Y23QR09jWpSl99UHkA83m4uWA==}
+  runtypes@7.0.1:
+    resolution: {integrity: sha512-MlAgiLes/VV9baFS067FTgF7VoRRcTos9f2vZOCK38KUW7Q7jLX2IHnKRMpin9gjGDT1WiVZSi6N7Zgsvd25vQ==}
 
   rxjs@7.8.1:
     resolution: {integrity: sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==}
@@ -14990,7 +14990,7 @@ snapshots:
     dependencies:
       queue-microtask: 1.2.3
 
-  runtypes@6.7.0: {}
+  runtypes@7.0.1: {}
 
   rxjs@7.8.1:
     dependencies:
