@@ -28,7 +28,7 @@ const fetchNewBrowserToken = async (
 
   const body = (await response.json()) as unknown;
 
-  const result = BrowserTokenResponse.validate(body);
+  const result = BrowserTokenResponse.inspect(body);
 
   if (!result.success) {
     throw Error('Browser token endpoint returned unexpected body');

@@ -22,11 +22,11 @@ const ResponseTypeCode = t.Union(
   t.Literal('MultiSelect'),
 );
 
-const WebUrl = t.Record({
+const WebUrl = t.Object({
   url: t.String,
 });
 
-const PrivacyConsent = t.Record({
+const PrivacyConsent = t.Object({
   value: t.String,
   privacyPolicyUrl: WebUrl,
   componentTypeCode: t.Literal('PrivacyConsent'),
@@ -43,18 +43,18 @@ const baseQuestionFields = {
   componentTypeCode: t.Literal('Question'),
 };
 
-const FreeTextQuestion = t.Record({
+const FreeTextQuestion = t.Object({
   ...baseQuestionFields,
   responseTypeCode: t.Literal('FreeText'),
 });
 
-const ResponseChoice = t.Record({
+const ResponseChoice = t.Object({
   text: t.String,
   value: t.String,
   preferredIndicator: t.Boolean,
 });
 
-const SelectionQuestion = t.Record({
+const SelectionQuestion = t.Object({
   ...baseQuestionFields,
   responseTypeCode: t.Union(
     t.Literal('SingleSelect'),
@@ -66,11 +66,11 @@ const SelectionQuestion = t.Record({
 const Question = t.Union(FreeTextQuestion, SelectionQuestion);
 
 export const GraphqlComponentInput = t.Union(
-  t.Record({
+  t.Object({
     componentTypeCode: t.Literal('PrivacyConsent'),
     privacyConsent: PrivacyConsent,
   }),
-  t.Record({
+  t.Object({
     componentTypeCode: t.Literal('Question'),
     question: Question,
   }),
@@ -78,9 +78,9 @@ export const GraphqlComponentInput = t.Union(
 
 export type GraphqlComponentInput = t.Static<typeof GraphqlComponentInput>;
 
-const QuestionnaireMutationVariableInput = t.Record({
-  input: t.Record({
-    applicationQuestionnaire: t.Record({
+const QuestionnaireMutationVariableInput = t.Object({
+  input: t.Object({
+    applicationQuestionnaire: t.Object({
       hirerId: t.String,
       components: t.Array(GraphqlComponentInput),
     }),
