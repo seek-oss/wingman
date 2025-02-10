@@ -42,9 +42,7 @@ export interface Role {
   endDate?: Date;
 }
 
-type AttachmentType = (typeof ATTACHMENT_TYPES)[number];
-
-const ATTACHMENT_TYPES = ['Resume', 'Cover letter'] as const;
+type AttachmentType = 'Resume' | 'Cover letter';
 
 type Source = (typeof SOURCES)[number];
 
