@@ -13,10 +13,13 @@ const transformValues = <K extends string, I, O = I>(
   obj: Record<K, I>,
   fn: (value: I) => O,
 ) =>
-  Object.entries<I>(obj).reduce((acc, [key, value]) => {
-    acc[key as K] = fn(value);
-    return acc;
-  }, {} as Record<K, O>);
+  Object.entries<I>(obj).reduce(
+    (acc, [key, value]) => {
+      acc[key as K] = fn(value);
+      return acc;
+    },
+    {} as Record<K, O>,
+  );
 
 interface FieldConfig {
   initialValue?: string;

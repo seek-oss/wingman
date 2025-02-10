@@ -7,8 +7,8 @@ const config: SkuConfig = {
   clientEntry: './example/src/client.tsx',
   renderEntry: './example/src/render.tsx',
   srcPaths: ['./example/src', './lib'],
-
   publicPath: isGitHubPages ? '/wingman/static/' : '/',
+
   routes: [
     '/',
     '/accounts',
@@ -20,34 +20,20 @@ const config: SkuConfig = {
     '/positions/new',
     '/positions/questionnaires',
   ],
-  sites: [{ name: 'apac', host: 'dev.seek.com' }],
 
+  sites: [{ name: 'apac', host: 'dev.seek.com' }],
   compilePackages: ['scoobie'],
   rootResolution: false,
 
-  dangerouslySetESLintConfig: (skuEslintConfig) => ({
+  dangerouslySetESLintConfig: (skuEslintConfig) => [
     ...skuEslintConfig,
-
-    rules: {
-      ...skuEslintConfig.rules,
-
-      '@typescript-eslint/explicit-module-boundary-types': 'off',
-
-      'no-use-before-define': 'off',
-      'sort-imports': [
-        'error',
-        {
-          ignoreDeclarationSort: true,
-        },
-      ],
-    },
-
-    settings: {
-      react: {
-        version: 'detect',
+    {
+      rules: {
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
+        'no-use-before-define': 'off',
       },
     },
-  }),
+  ],
 
   dangerouslySetWebpackConfig: (skuWebpackConfig) =>
     merge(skuWebpackConfig, {
@@ -63,6 +49,7 @@ const config: SkuConfig = {
         },
       },
     }),
+
   dangerouslySetTSConfig: (tsConfig) => ({
     ...tsConfig,
     compilerOptions: {
@@ -73,6 +60,8 @@ const config: SkuConfig = {
     },
     include: ['**/*', '.storybook/*'],
   }),
+
+  eslintIgnore: ['**/*.less.d.ts', '.storybook/main.js', '**/dist-storybook/'],
 };
 
 export default config;
