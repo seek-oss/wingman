@@ -1,14 +1,13 @@
 import { style } from '@vanilla-extract/css';
 import { calc } from '@vanilla-extract/css-utils';
-import { vars } from 'braid-design-system/css';
+import { colorModeStyle, vars } from 'braid-design-system/css';
+
+import { colorModeStyleWithSelector } from '../../utils/colorMode';
 
 const coverImageProps = style({
   borderTopLeftRadius: vars.borderRadius.large,
   borderTopRightRadius: vars.borderRadius.large,
   height: calc.multiply(vars.grid, 40),
-  paddingLeft: vars.borderWidth.large,
-  paddingRight: vars.borderWidth.large,
-  paddingTop: vars.borderWidth.large,
   selectors: {
     // Firefox has a flash of unstyled alt text while loading images as of v93.
     '&:-moz-loading': {
@@ -16,9 +15,6 @@ const coverImageProps = style({
     },
   },
 });
-
-const CHECKERED_IMAGE =
-  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAAF0lEQVQoz2NgQANXGlAhwwhRMFL9jQYAcVGqAVQXe6gAAAAASUVORK5CYII=';
 
 export const coverImage = style([
   coverImageProps,
@@ -30,8 +26,27 @@ export const coverImage = style([
 export const missingCoverImage = style([
   coverImageProps,
   {
-    backgroundImage: `url(${CHECKERED_IMAGE})`,
+    backgroundSize: '20px 20px',
+    backgroundPosition: '0 0, 10px 0, 10px -10px, 0 10px',
   },
+  colorModeStyle({
+    darkMode: {
+      backgroundImage: `
+        linear-gradient(45deg, ${vars.backgroundColor.neutral} 26%, transparent 26%), 
+        linear-gradient(135deg, ${vars.backgroundColor.neutral} 26%, transparent 26%),
+        linear-gradient(45deg, transparent 75%, ${vars.backgroundColor.neutral} 75%),
+        linear-gradient(135deg, transparent 75%, ${vars.backgroundColor.neutral} 75%)
+      `,
+    },
+    lightMode: {
+      backgroundImage: `
+        linear-gradient(45deg, ${vars.backgroundColor.brandAccent} 26%, transparent 26%), 
+        linear-gradient(135deg, ${vars.backgroundColor.brandAccent} 26%, transparent 26%),
+        linear-gradient(45deg, transparent 75%, ${vars.backgroundColor.brandAccent} 75%),
+        linear-gradient(135deg, transparent 75%, ${vars.backgroundColor.brandAccent} 75%)
+      `,
+    },
+  }),
 ]);
 
 export const originalLogo = style({
@@ -46,18 +61,37 @@ export const originalLogo = style({
   },
 });
 
-export const brand = style({
+export const brandBase = style({
+  transition: 'box-shadow 0.2s ease-out',
+});
+
+export const brand = style(
+  colorModeStyle({
+    darkMode: {
+      /**
+       * {@link https://github.com/seek-oss/braid-design-system/blob/v30.4.2/lib/css/atoms/atomicProperties.ts#L13}
+       */
+      boxShadow: `inset 0 0 0 ${vars.borderWidth.large} ${vars.borderColor.neutral}`,
+    },
+    lightMode: {
+      /**
+       * {@link https://github.com/seek-oss/braid-design-system/blob/v30.4.2/lib/css/atoms/atomicProperties.ts#L13}
+       */
+      boxShadow: `inset 0 0 0 ${vars.borderWidth.large} ${vars.borderColor.neutralLight}`,
+    },
+  }),
+);
+
+const hoverStyle = {
   /**
    * {@link https://github.com/seek-oss/braid-design-system/blob/v30.4.2/lib/css/atoms/atomicProperties.ts#L13}
    */
-  boxShadow: `inset 0 0 0 ${vars.borderWidth.large} ${vars.borderColor.neutralLight}`,
-});
+  boxShadow: `inset 0 0 0 ${vars.borderWidth.large} ${vars.borderColor.field}`,
+};
 
-export const selectableBrand = style({
-  ':hover': {
-    /**
-     * {@link https://github.com/seek-oss/braid-design-system/blob/v30.4.2/lib/css/atoms/atomicProperties.ts#L13}
-     */
-    boxShadow: `inset 0 0 0 ${vars.borderWidth.large} ${vars.borderColor.field}`,
-  },
-});
+export const selectableBrand = style(
+  colorModeStyleWithSelector('&:hover', {
+    darkMode: hoverStyle,
+    lightMode: hoverStyle,
+  }),
+);
