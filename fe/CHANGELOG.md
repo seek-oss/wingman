@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 10.2.0
+
+### Minor Changes
+
+- **BrandSelect, LocationSelectMap:** Add experimental support for color modes ([#1249](https://github.com/seek-oss/wingman/pull/1249))
+
 ## 10.1.2
 
 ### Patch Changes
