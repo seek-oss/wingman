@@ -4,12 +4,6 @@ import { colorModeStyle, vars } from 'braid-design-system/css';
 
 import { colorModeStyleWithSelector } from '../../utils/colorMode';
 
-export const coverContainer = style({
-  paddingLeft: vars.borderWidth.large,
-  paddingRight: vars.borderWidth.large,
-  paddingTop: vars.borderWidth.large,
-});
-
 const coverImageProps = style({
   borderTopLeftRadius: vars.borderRadius.large,
   borderTopRightRadius: vars.borderRadius.large,
@@ -67,10 +61,11 @@ export const originalLogo = style({
   },
 });
 
-export const brand = style([
-  {
-    transition: 'box-shadow 0.2s ease-out',
-  },
+export const brandBase = style({
+  transition: 'box-shadow 0.2s ease-out',
+});
+
+export const brand = style(
   colorModeStyle({
     darkMode: {
       /**
@@ -85,7 +80,7 @@ export const brand = style([
       boxShadow: `inset 0 0 0 ${vars.borderWidth.large} ${vars.borderColor.neutralLight}`,
     },
   }),
-]);
+);
 
 const hoverStyle = {
   /**
