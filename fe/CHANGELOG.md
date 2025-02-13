@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 10.2.1
+
+### Patch Changes
+
+- **LocationSelectionMap:** Fix location ID text styling ([#1251](https://github.com/seek-oss/wingman/pull/1251))
+
 ## 10.2.0
 
 ### Minor Changes
