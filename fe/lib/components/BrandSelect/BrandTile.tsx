@@ -22,27 +22,29 @@ const CoverImage = ({
 }: {
   image?: AdvertisementBrandingImage;
   brandName: string;
-}) =>
-  image?.url ? (
-    <Box
-      alt={`${brandName} cover image`}
-      className={styles.coverImage}
-      component="img"
-      display="block"
-      src={image.url}
-      width="full"
-    />
-  ) : (
-    <Box
-      alignItems="center"
-      className={styles.missingCoverImage}
-      display="flex"
-      justifyContent="center"
-      width="full"
-    >
-      <Text>No cover image</Text>
-    </Box>
-  );
+}) => (
+  <Box className={styles.coverContainer}>
+    {image?.url ? (
+      <Box
+        alt={`${brandName} cover image`}
+        className={styles.coverImage}
+        component="img"
+        display="block"
+        src={image.url}
+        width="full"
+      />
+    ) : (
+      <Box
+        alignItems="center"
+        className={styles.missingCoverImage}
+        display="flex"
+        justifyContent="center"
+      >
+        <Text>No cover image</Text>
+      </Box>
+    )}
+  </Box>
+);
 
 const OriginalLogo = ({
   image,
