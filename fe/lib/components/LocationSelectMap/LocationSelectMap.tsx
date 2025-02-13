@@ -134,7 +134,9 @@ export const LocationSelectMap = ({
             >
               <Stack space="small">
                 <Text size="small">{location.contextualName}</Text>
-                <InlineCode>{location.id.value}</InlineCode>
+                <Text size="small">
+                  <InlineCode>{location.id.value}</InlineCode>
+                </Text>
               </Stack>
             </Box>
           </React.Fragment>
