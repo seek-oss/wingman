@@ -40,8 +40,8 @@ importers:
         specifier: 16.10.0
         version: 16.10.0
       sku:
-        specifier: 14.0.3
-        version: 14.0.3(@storybook/react-webpack5@8.5.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.5.3(prettier@3.5.0))(typescript@5.6.3))(@types/node@22.13.1)(@types/react@18.3.18)(@typescript-eslint/eslint-plugin@8.24.0(@typescript-eslint/parser@8.24.0(eslint@9.20.0(jiti@2.4.2))(typescript@5.6.3))(eslint@9.20.0(jiti@2.4.2))(typescript@5.6.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@2.19.0)(webpack-hot-middleware@2.26.1)
+        specifier: 14.0.4
+        version: 14.0.4(@storybook/react-webpack5@8.5.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.5.3(prettier@3.5.0))(typescript@5.6.3))(@types/node@22.13.1)(@types/react@18.3.18)(@typescript-eslint/eslint-plugin@8.24.0(@typescript-eslint/parser@8.24.0(eslint@9.20.0(jiti@2.4.2))(typescript@5.6.3))(eslint@9.20.0(jiti@2.4.2))(typescript@5.6.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@2.19.0)(webpack-hot-middleware@2.26.1)
 
   fe:
     dependencies:
@@ -6126,8 +6126,8 @@ packages:
   sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
 
-  sku@14.0.3:
-    resolution: {integrity: sha512-c/GI6lVig7Pw3Tv+bZ+AgUOAsMM91jE+Rx5L78gzFGLQRh9b2di3labXr/3YPVZKywc8kkBKQC4eSHvIPD5FWg==}
+  sku@14.0.4:
+    resolution: {integrity: sha512-XqXoM5QmSkExGNGetmfWYK4FmPiHQpGt4OTgbRUElh6Df32y4oAxmbWdgGaQTxUlWOYfsv+WhwcyrgsZJh6z8w==}
     engines: {node: '>=20.15'}
     hasBin: true
     peerDependencies:
@@ -8997,7 +8997,7 @@ snapshots:
       lodash: 4.17.21
       react: 18.3.1
 
-  '@loadable/webpack-plugin@5.15.2(webpack@5.97.1)':
+  '@loadable/webpack-plugin@5.15.2(webpack@5.97.1(@swc/core@1.10.15))':
     dependencies:
       make-dir: 3.1.0
       webpack: 5.97.1(@swc/core@1.10.15)
@@ -9038,7 +9038,7 @@ snapshots:
 
   '@nolyfill/is-core-module@1.0.39': {}
 
-  '@pmmmwh/react-refresh-webpack-plugin@0.5.15(react-refresh@0.14.2)(type-fest@2.19.0)(webpack-dev-server@5.2.0(debug@4.4.0)(webpack@5.97.1))(webpack-hot-middleware@2.26.1)(webpack@5.97.1)':
+  '@pmmmwh/react-refresh-webpack-plugin@0.5.15(react-refresh@0.14.2)(type-fest@2.19.0)(webpack-dev-server@5.2.0(debug@4.4.0)(webpack@5.97.1))(webpack-hot-middleware@2.26.1)(webpack@5.97.1(@swc/core@1.10.15))':
     dependencies:
       ansi-html: 0.0.9
       core-js-pure: 3.40.0
@@ -9861,7 +9861,7 @@ snapshots:
     dependencies:
       '@vanilla-extract/css': 1.17.1(babel-plugin-macros@3.1.0)
 
-  '@vanilla-extract/webpack-plugin@2.3.17(babel-plugin-macros@3.1.0)(webpack@5.97.1)':
+  '@vanilla-extract/webpack-plugin@2.3.17(babel-plugin-macros@3.1.0)(webpack@5.97.1(@swc/core@1.10.15))':
     dependencies:
       '@vanilla-extract/integration': 8.0.0(babel-plugin-macros@3.1.0)
       debug: 4.4.0
@@ -9897,7 +9897,7 @@ snapshots:
 
   '@vocab/pseudo-localize@1.0.1': {}
 
-  '@vocab/webpack@1.2.10(webpack@5.97.1)':
+  '@vocab/webpack@1.2.10(webpack@5.97.1(@swc/core@1.10.15))':
     dependencies:
       '@vocab/core': 1.6.3
       cjs-module-lexer: 1.4.3
@@ -10243,19 +10243,19 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  babel-loader@9.2.1(@babel/core@7.26.8)(webpack@5.97.1(@swc/core@1.10.15)):
+    dependencies:
+      '@babel/core': 7.26.8
+      find-cache-dir: 4.0.0
+      schema-utils: 4.3.0
+      webpack: 5.97.1(@swc/core@1.10.15)
+
   babel-loader@9.2.1(@babel/core@7.26.8)(webpack@5.97.1(esbuild@0.24.2)):
     dependencies:
       '@babel/core': 7.26.8
       find-cache-dir: 4.0.0
       schema-utils: 4.3.0
       webpack: 5.97.1(esbuild@0.24.2)
-
-  babel-loader@9.2.1(@babel/core@7.26.8)(webpack@5.97.1):
-    dependencies:
-      '@babel/core': 7.26.8
-      find-cache-dir: 4.0.0
-      schema-utils: 4.3.0
-      webpack: 5.97.1(@swc/core@1.10.15)
 
   babel-plugin-istanbul@6.1.1:
     dependencies:
@@ -13251,7 +13251,7 @@ snapshots:
 
   min-indent@1.0.1: {}
 
-  mini-css-extract-plugin@2.9.2(webpack@5.97.1):
+  mini-css-extract-plugin@2.9.2(webpack@5.97.1(@swc/core@1.10.15)):
     dependencies:
       schema-utils: 4.3.0
       tapable: 2.2.1
@@ -13703,7 +13703,7 @@ snapshots:
     dependencies:
       postcss: 8.5.2
 
-  postcss-loader@8.1.1(postcss@8.5.2)(typescript@5.6.3)(webpack@5.97.1):
+  postcss-loader@8.1.1(postcss@8.5.2)(typescript@5.6.3)(webpack@5.97.1(@swc/core@1.10.15)):
     dependencies:
       cosmiconfig: 9.0.0(typescript@5.6.3)
       jiti: 1.21.7
@@ -14495,7 +14495,7 @@ snapshots:
 
   sisteransi@1.0.5: {}
 
-  sku@14.0.3(@storybook/react-webpack5@8.5.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.5.3(prettier@3.5.0))(typescript@5.6.3))(@types/node@22.13.1)(@types/react@18.3.18)(@typescript-eslint/eslint-plugin@8.24.0(@typescript-eslint/parser@8.24.0(eslint@9.20.0(jiti@2.4.2))(typescript@5.6.3))(eslint@9.20.0(jiti@2.4.2))(typescript@5.6.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@2.19.0)(webpack-hot-middleware@2.26.1):
+  sku@14.0.4(@storybook/react-webpack5@8.5.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.5.3(prettier@3.5.0))(typescript@5.6.3))(@types/node@22.13.1)(@types/react@18.3.18)(@typescript-eslint/eslint-plugin@8.24.0(@typescript-eslint/parser@8.24.0(eslint@9.20.0(jiti@2.4.2))(typescript@5.6.3))(eslint@9.20.0(jiti@2.4.2))(typescript@5.6.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@2.19.0)(webpack-hot-middleware@2.26.1):
     dependencies:
       '@babel/core': 7.26.8
       '@babel/plugin-transform-react-constant-elements': 7.25.9(@babel/core@7.26.8)
@@ -14509,8 +14509,8 @@ snapshots:
       '@loadable/babel-plugin': 5.16.1(@babel/core@7.26.8)
       '@loadable/component': 5.16.4(react@18.3.1)
       '@loadable/server': 5.16.5(@loadable/component@5.16.4(react@18.3.1))(react@18.3.1)
-      '@loadable/webpack-plugin': 5.15.2(webpack@5.97.1)
-      '@pmmmwh/react-refresh-webpack-plugin': 0.5.15(react-refresh@0.14.2)(type-fest@2.19.0)(webpack-dev-server@5.2.0(debug@4.4.0)(webpack@5.97.1))(webpack-hot-middleware@2.26.1)(webpack@5.97.1)
+      '@loadable/webpack-plugin': 5.15.2(webpack@5.97.1(@swc/core@1.10.15))
+      '@pmmmwh/react-refresh-webpack-plugin': 0.5.15(react-refresh@0.14.2)(type-fest@2.19.0)(webpack-dev-server@5.2.0(debug@4.4.0)(webpack@5.97.1))(webpack-hot-middleware@2.26.1)(webpack@5.97.1(@swc/core@1.10.15))
       '@swc/core': 1.10.15
       '@types/eslint': 9.6.1
       '@types/express': 4.17.21
@@ -14519,15 +14519,15 @@ snapshots:
       '@types/loadable__server': 5.12.11
       '@types/react': 18.3.18
       '@vanilla-extract/jest-transform': 1.1.13(babel-plugin-macros@3.1.0)
-      '@vanilla-extract/webpack-plugin': 2.3.17(babel-plugin-macros@3.1.0)(webpack@5.97.1)
+      '@vanilla-extract/webpack-plugin': 2.3.17(babel-plugin-macros@3.1.0)(webpack@5.97.1(@swc/core@1.10.15))
       '@vocab/core': 1.6.3
       '@vocab/phrase': 2.0.2
       '@vocab/pseudo-localize': 1.0.1
-      '@vocab/webpack': 1.2.10(webpack@5.97.1)
+      '@vocab/webpack': 1.2.10(webpack@5.97.1(@swc/core@1.10.15))
       '@zendesk/babel-plugin-react-displayname': https://codeload.github.com/zendesk/babel-plugin-react-displayname/tar.gz/7a837f2(@babel/core@7.26.8)(@babel/preset-react@7.26.3(@babel/core@7.26.8))
       autoprefixer: 10.4.20(postcss@8.5.2)
       babel-jest: 29.7.0(@babel/core@7.26.8)
-      babel-loader: 9.2.1(@babel/core@7.26.8)(webpack@5.97.1)
+      babel-loader: 9.2.1(@babel/core@7.26.8)(webpack@5.97.1(@swc/core@1.10.15))
       babel-plugin-macros: 3.1.0
       babel-plugin-module-resolver: 5.0.2
       babel-plugin-transform-react-remove-prop-types: 0.4.24
@@ -14566,7 +14566,7 @@ snapshots:
       jiti: 2.4.2
       lint-staged: 15.4.3
       magicast: 0.3.5
-      mini-css-extract-plugin: 2.9.2(webpack@5.97.1)
+      mini-css-extract-plugin: 2.9.2(webpack@5.97.1(@swc/core@1.10.15))
       nano-memoize: 3.0.16
       node-html-parser: 6.1.13
       open: 7.4.2
@@ -14574,7 +14574,7 @@ snapshots:
       path-to-regexp: 6.3.0
       picomatch: 3.0.1
       postcss: 8.5.2
-      postcss-loader: 8.1.1(postcss@8.5.2)(typescript@5.6.3)(webpack@5.97.1)
+      postcss-loader: 8.1.1(postcss@8.5.2)(typescript@5.6.3)(webpack@5.97.1(@swc/core@1.10.15))
       prettier: 3.5.0
       pretty-ms: 7.0.1
       react: 18.3.1
