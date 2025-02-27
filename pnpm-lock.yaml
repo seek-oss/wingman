@@ -40,8 +40,8 @@ importers:
         specifier: 16.10.0
         version: 16.10.0
       sku:
-        specifier: 14.0.4
-        version: 14.0.4(@storybook/react-webpack5@8.5.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.5.3(prettier@3.5.0))(typescript@5.6.3))(@types/node@22.13.1)(@types/react@18.3.18)(@typescript-eslint/eslint-plugin@8.24.0(@typescript-eslint/parser@8.24.0(eslint@9.20.0(jiti@2.4.2))(typescript@5.6.3))(eslint@9.20.0(jiti@2.4.2))(typescript@5.6.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@2.19.0)(webpack-hot-middleware@2.26.1)
+        specifier: 14.0.5
+        version: 14.0.5(@storybook/react-webpack5@8.5.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.5.3(prettier@3.5.0))(typescript@5.6.3))(@types/node@22.13.1)(@types/react@18.3.18)(@typescript-eslint/eslint-plugin@8.24.0(@typescript-eslint/parser@8.24.0(eslint@9.20.0(jiti@2.4.2))(typescript@5.6.3))(eslint@9.20.0(jiti@2.4.2))(typescript@5.6.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@2.19.0)(webpack-hot-middleware@2.26.1)
 
   fe:
     dependencies:
@@ -6127,8 +6127,8 @@ packages:
   sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
 
-  sku@14.0.4:
-    resolution: {integrity: sha512-XqXoM5QmSkExGNGetmfWYK4FmPiHQpGt4OTgbRUElh6Df32y4oAxmbWdgGaQTxUlWOYfsv+WhwcyrgsZJh6z8w==}
+  sku@14.0.5:
+    resolution: {integrity: sha512-gU7oMWpaK9Xt3lS1bx0QSfD0iee/pVLaM0pYCgHl+JsaKAZVPlTSBN3+Po7ewzajmZCSj+XWXwUhthcUPP2l/w==}
     engines: {node: '>=20.15'}
     hasBin: true
     peerDependencies:
@@ -14496,7 +14496,7 @@ snapshots:
 
   sisteransi@1.0.5: {}
 
-  sku@14.0.4(@storybook/react-webpack5@8.5.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.5.3(prettier@3.5.0))(typescript@5.6.3))(@types/node@22.13.1)(@types/react@18.3.18)(@typescript-eslint/eslint-plugin@8.24.0(@typescript-eslint/parser@8.24.0(eslint@9.20.0(jiti@2.4.2))(typescript@5.6.3))(eslint@9.20.0(jiti@2.4.2))(typescript@5.6.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@2.19.0)(webpack-hot-middleware@2.26.1):
+  sku@14.0.5(@storybook/react-webpack5@8.5.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.5.3(prettier@3.5.0))(typescript@5.6.3))(@types/node@22.13.1)(@types/react@18.3.18)(@typescript-eslint/eslint-plugin@8.24.0(@typescript-eslint/parser@8.24.0(eslint@9.20.0(jiti@2.4.2))(typescript@5.6.3))(eslint@9.20.0(jiti@2.4.2))(typescript@5.6.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@2.19.0)(webpack-hot-middleware@2.26.1):
     dependencies:
       '@babel/core': 7.26.8
       '@babel/plugin-transform-react-constant-elements': 7.25.9(@babel/core@7.26.8)
