@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 10.2.2
+
+### Patch Changes
+
+- **BrandSelect:** Fix OID copying ([#1266](https://github.com/seek-oss/wingman/pull/1266))
+
 ## 10.2.1
 
 ### Patch Changes
