@@ -66,7 +66,11 @@ export const BrandTile = ({
   onSelect,
   showCopyableOid,
 }: Props) => (
-  <Box position="relative">
+  <Box
+    cursor={onSelect ? 'pointer' : 'default'}
+    onClick={() => onSelect?.(brand)}
+    position="relative"
+  >
     <CoverImage
       image={brand.images.find((image) => image.typeCode === 'CoverImage')}
       brandName={brand.name}
@@ -95,8 +99,7 @@ export const BrandTile = ({
         [styles.brand]: !isSelected,
         [styles.selectableBrand]: onSelect && !isSelected,
       }}
-      cursor={onSelect ? 'pointer' : 'default'}
-      onClick={() => onSelect?.(brand)}
+      pointerEvents="none"
       position="absolute"
       top={0}
       bottom={0}
