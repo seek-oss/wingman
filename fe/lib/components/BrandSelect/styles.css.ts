@@ -40,10 +40,10 @@ export const missingCoverImage = style([
     },
     lightMode: {
       backgroundImage: `
-        linear-gradient(45deg, ${vars.backgroundColor.brandAccent} 26%, transparent 26%), 
-        linear-gradient(135deg, ${vars.backgroundColor.brandAccent} 26%, transparent 26%),
-        linear-gradient(45deg, transparent 75%, ${vars.backgroundColor.brandAccent} 75%),
-        linear-gradient(135deg, transparent 75%, ${vars.backgroundColor.brandAccent} 75%)
+        linear-gradient(45deg, ${vars.backgroundColor.neutralLight} 26%, transparent 26%), 
+        linear-gradient(135deg, ${vars.backgroundColor.neutralLight} 26%, transparent 26%),
+        linear-gradient(45deg, transparent 75%, ${vars.backgroundColor.neutralLight} 75%),
+        linear-gradient(135deg, transparent 75%, ${vars.backgroundColor.neutralLight} 75%)
       `,
     },
   }),
@@ -90,7 +90,7 @@ const hoverStyle = {
 };
 
 export const selectableBrand = style(
-  colorModeStyleWithSelector('&:hover', {
+  colorModeStyleWithSelector(':hover > &', {
     darkMode: hoverStyle,
     lightMode: hoverStyle,
   }),
