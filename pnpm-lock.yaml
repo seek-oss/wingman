@@ -83,8 +83,8 @@ importers:
         version: 11.0.5
     devDependencies:
       '@faker-js/faker':
-        specifier: 9.6.0
-        version: 9.6.0
+        specifier: 9.7.0
+        version: 9.7.0
       '@storybook/addon-essentials':
         specifier: 8.6.12
         version: 8.6.12(@types/react@18.3.18)(storybook@8.6.12(prettier@3.5.0))
@@ -146,8 +146,8 @@ importers:
         specifier: 6.22.3
         version: 6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       scoobie:
-        specifier: 20.0.1
-        version: 20.0.1(babel-plugin-macros@3.1.0)(braid-design-system@33.6.0(@types/react@18.3.18)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
+        specifier: 20.0.2
+        version: 20.0.2(babel-plugin-macros@3.1.0)(braid-design-system@33.6.0(@types/react@18.3.18)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       storybook:
         specifier: 8.6.12
         version: 8.6.12(prettier@3.5.0)
@@ -1292,8 +1292,8 @@ packages:
     resolution: {integrity: sha512-lB05FkqEdUg2AA0xEbUz0SnkXT1LcCTa438W4IWTUh4hdOnVbQyOJ81OrDXsJk/LSiJHubgGEFoR5EHq1NsH1A==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@faker-js/faker@9.6.0':
-    resolution: {integrity: sha512-3vm4by+B5lvsFPSyep3ELWmZfE3kicDtmemVpuwl1yH7tqtnHdsA6hG8fbXedMVdkzgtvzWoRgjSB4Q+FHnZiw==}
+  '@faker-js/faker@9.7.0':
+    resolution: {integrity: sha512-aozo5vqjCmDoXLNUJarFZx2IN/GgGaogY4TMJ6so/WLZOWpSV7fvj2dmrV6sEAnUm1O7aCrhTibjpzeDFgNqbg==}
     engines: {node: '>=18.0.0', npm: '>=9.0.0'}
 
   '@formatjs/ecma402-abstract@2.3.3':
@@ -6392,8 +6392,8 @@ packages:
     resolution: {integrity: sha512-Gf9qqc58SpCA/xdziiHz35F4GNIWYWZrEshUc/G/r5BnLph6xpKuLeoJoQuj5WfBIx/eQLf+hmVPYHaxJu7V2g==}
     engines: {node: '>= 10.13.0'}
 
-  scoobie@20.0.1:
-    resolution: {integrity: sha512-MmQgjf9VQaP5YuEtoEpgeCCzQqZoMjS2+mnWYnti2Vhj9U2JhMZZMpH5NGmuPkHTAw49L9FXdHfRWqAzPxK2Bw==}
+  scoobie@20.0.2:
+    resolution: {integrity: sha512-wqUNwcEtvg8ttEG+shjboNFBwOY9f1Kkkbp+H5F7dsG8pDGcAs96DZmlLwzV7W6Tgo8rAucI8rkrczhkHRDSbg==}
     engines: {node: '>=18.18'}
     peerDependencies:
       braid-design-system: '>= 31.21.0'
@@ -8720,7 +8720,7 @@ snapshots:
       '@eslint/core': 0.10.0
       levn: 0.4.1
 
-  '@faker-js/faker@9.6.0': {}
+  '@faker-js/faker@9.7.0': {}
 
   '@formatjs/ecma402-abstract@2.3.3':
     dependencies:
@@ -15120,7 +15120,7 @@ snapshots:
       ajv-formats: 2.1.1(ajv@8.17.1)
       ajv-keywords: 5.1.0(ajv@8.17.1)
 
-  scoobie@20.0.1(babel-plugin-macros@3.1.0)(braid-design-system@33.6.0(@types/react@18.3.18)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1):
+  scoobie@20.0.2(babel-plugin-macros@3.1.0)(braid-design-system@33.6.0(@types/react@18.3.18)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1):
     dependencies:
       '@capsizecss/core': 4.1.2
       '@vanilla-extract/css': 1.17.1(babel-plugin-macros@3.1.0)
