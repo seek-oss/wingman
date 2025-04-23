@@ -27,5 +27,5 @@
     "deploy": "scripts/deploy"
   },
   "version": "0.0.0",
-  "packageManager": "pnpm@10.7.1"
+  "packageManager": "pnpm@10.8.1"
 }
