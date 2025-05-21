@@ -116,8 +116,8 @@ importers:
         specifier: 0.1.4
         version: 0.1.4
       braid-design-system:
-        specifier: 33.6.0
-        version: 33.6.0(@types/react@18.3.20)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 33.7.0
+        version: 33.7.0(@types/react@18.3.20)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       clsx:
         specifier: 2.1.1
         version: 2.1.1
@@ -147,7 +147,7 @@ importers:
         version: 6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       scoobie:
         specifier: 20.0.2
-        version: 20.0.2(babel-plugin-macros@3.1.0)(braid-design-system@33.6.0(@types/react@18.3.20)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
+        version: 20.0.2(babel-plugin-macros@3.1.0)(braid-design-system@33.7.0(@types/react@18.3.20)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       storybook:
         specifier: 8.6.12
         version: 8.6.12(prettier@3.5.3)
@@ -2882,8 +2882,8 @@ packages:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
     engines: {node: '>=8'}
 
-  braid-design-system@33.6.0:
-    resolution: {integrity: sha512-crfy1RzyiBPaqPsCl9ySp0RZgwPZdx6o96mAn8hxPDnZab4pOfC4CAWk6RznJvD9VFFFA6eJB8ykLLC70n/A/g==}
+  braid-design-system@33.7.0:
+    resolution: {integrity: sha512-sRa+ocKsXs0wORrCYF1hkER9Q+guTHCrd3iKVdNxMKwwSrs4cyd4kfwBNXIL0LRnJZhH5txcEMURhmF8wYzXhA==}
     hasBin: true
     peerDependencies:
       react: ^18
@@ -10926,7 +10926,7 @@ snapshots:
     dependencies:
       fill-range: 7.1.1
 
-  braid-design-system@33.6.0(@types/react@18.3.20)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  braid-design-system@33.7.0(@types/react@18.3.20)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@capsizecss/core': 4.1.2
       '@capsizecss/metrics': 3.5.0
@@ -10953,7 +10953,6 @@ snapshots:
       react-remove-scroll: 2.7.0(@types/react@18.3.20)(react@18.3.1)
       throttle-debounce: 5.0.2
       utility-types: 3.11.0
-      uuid: 8.3.2
     transitivePeerDependencies:
       - '@types/react'
       - babel-plugin-macros
@@ -14806,12 +14805,12 @@ snapshots:
       ajv-formats: 2.1.1(ajv@8.17.1)
       ajv-keywords: 5.1.0(ajv@8.17.1)
 
-  scoobie@20.0.2(babel-plugin-macros@3.1.0)(braid-design-system@33.6.0(@types/react@18.3.20)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1):
+  scoobie@20.0.2(babel-plugin-macros@3.1.0)(braid-design-system@33.7.0(@types/react@18.3.20)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1):
     dependencies:
       '@capsizecss/core': 4.1.2
       '@vanilla-extract/css': 1.17.2(babel-plugin-macros@3.1.0)
       '@vanilla-extract/css-utils': 0.1.4
-      braid-design-system: 33.6.0(@types/react@18.3.20)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      braid-design-system: 33.7.0(@types/react@18.3.20)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       clsx: 2.1.1
       jsonc-parser: 3.3.1
       polished: 4.3.1
