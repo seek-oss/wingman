@@ -16,11 +16,11 @@
     "uuid": "^11.0.0"
   },
   "devDependencies": {
-    "@faker-js/faker": "9.7.0",
-    "@storybook/addon-essentials": "8.6.12",
+    "@faker-js/faker": "9.8.0",
+    "@storybook/addon-essentials": "8.6.14",
     "@storybook/addon-webpack5-compiler-babel": "3.0.6",
-    "@storybook/react": "8.6.12",
-    "@storybook/react-webpack5": "8.6.12",
+    "@storybook/react": "8.6.14",
+    "@storybook/react-webpack5": "8.6.14",
     "@testing-library/react": "16.3.0",
     "@types/content-disposition": "0.5.8",
     "@types/react": "18.3.20",
@@ -38,7 +38,7 @@
     "react-dom": "18.3.1",
     "react-router-dom": "6.22.3",
     "scoobie": "20.0.2",
-    "storybook": "8.6.12",
+    "storybook": "8.6.14",
     "use-query-params": "2.2.1",
     "webpack-merge": "6.0.1"
   },
