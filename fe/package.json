@@ -36,7 +36,7 @@
     "query-string": "7.1.3",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "react-router-dom": "6.22.3",
+    "react-router": "7.6.1",
     "scoobie": "21.0.1",
     "storybook": "8.6.14",
     "use-query-params": "2.2.1",
@@ -51,9 +51,9 @@
   "name": "wingman-fe",
   "peerDependencies": {
     "braid-design-system": ">= 32.17.0",
-    "graphql": ">= 15 < 17",
-    "react": ">= 17 < 19",
-    "scoobie": ">= 14"
+    "graphql": "16",
+    "react": "18 || 19",
+    "scoobie": ">= 21"
   },
   "publishConfig": {
     "provenance": true

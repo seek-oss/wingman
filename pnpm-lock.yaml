@@ -142,12 +142,12 @@ importers:
       react-dom:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
-      react-router-dom:
-        specifier: 6.22.3
-        version: 6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-router:
+        specifier: 7.6.1
+        version: 7.6.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       scoobie:
         specifier: 21.0.1
-        version: 21.0.1(babel-plugin-macros@3.1.0)(braid-design-system@33.7.0(@types/react@18.3.20)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router@6.22.3(react@18.3.1))(react@18.3.1)
+        version: 21.0.1(babel-plugin-macros@3.1.0)(braid-design-system@33.7.0(@types/react@18.3.20)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router@7.6.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       storybook:
         specifier: 8.6.14
         version: 8.6.14(prettier@3.5.3)
@@ -3171,6 +3171,10 @@ packages:
     resolution: {integrity: sha512-6DnInpx7SJ2AK3+CTUE/ZM0vWTUboZCegxhC2xiIydHR9jNuTAASBrfEpHhiGOZw/nX51bHt6YQl8jsGo4y/0w==}
     engines: {node: '>= 0.6'}
 
+  cookie@1.0.2:
+    resolution: {integrity: sha512-9Kr/j4O16ISv8zBBhJoi4bXOYNTkFLOqSL3UDB0njXxCXNezjeyVrJyGOWtgfs/q2km1gwBcfH8q1yEGoMYunA==}
+    engines: {node: '>=18'}
+
   core-js-compat@3.42.0:
     resolution: {integrity: sha512-bQasjMfyDGyaeWKBIu33lHh9qlSR0MFE/Nmc6nMjf/iU9b3rSMdAYz1Baxrv4lPdGUsTqZudHA4jIGSJy0SWZQ==}
 
@@ -6030,6 +6034,16 @@ packages:
     peerDependencies:
       react: '>=16.8'
 
+  react-router@7.6.1:
+    resolution: {integrity: sha512-hPJXXxHJZEsPFNVbtATH7+MMX43UDeOauz+EAU4cgqTn7ojdI9qQORqS8Z0qmDlL1TclO/6jLRYUEtbWidtdHQ==}
+    engines: {node: '>=20.0.0'}
+    peerDependencies:
+      react: '>=18'
+      react-dom: '>=18'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+
   react-style-singleton@2.2.3:
     resolution: {integrity: sha512-b6jSvxvVnyptAiLjbkWLE/lOnR4lfTtDAl+eUC7RZy+QQWc6wRzIV2CE6xBuMmDxc2qIihtDCZD5NPOFl7fRBQ==}
     engines: {node: '>=10'}
@@ -6305,6 +6319,9 @@ packages:
 
   set-blocking@2.0.0:
     resolution: {integrity: sha512-KiKBS8AnWGEyLzofFfmvKwpdPzqiy16LvQfK3yv/fVH7Bj13/wl3JSR1J+rfgRE9q7xUJK4qvgS8raSOeLUehw==}
+
+  set-cookie-parser@2.7.1:
+    resolution: {integrity: sha512-IOc8uWeOZgnb3ptbCURJWNjWUPcO3ZnTTdzsurqERrP6nPyv+paC55vJM0LpOlT2ne+Ix+9+CRG1MNLlyZ4GjQ==}
 
   set-function-length@1.2.2:
     resolution: {integrity: sha512-pgRc4hJ4/sNjWCSS9AmnS40x3bNMDTknHgL5UaMBTMyJnU90EgWh1Rz+MC9eFu4BuN/UwZjKQuY/1v3rM7HMfg==}
@@ -9296,7 +9313,7 @@ snapshots:
       lodash: 4.17.21
       react: 18.3.1
 
-  '@loadable/webpack-plugin@5.15.2(webpack@5.99.9)':
+  '@loadable/webpack-plugin@5.15.2(webpack@5.99.9(@swc/core@1.11.24))':
     dependencies:
       make-dir: 3.1.0
       webpack: 5.99.9(@swc/core@1.11.24)
@@ -9370,7 +9387,7 @@ snapshots:
 
   '@oxc-project/types@0.36.0': {}
 
-  '@pmmmwh/react-refresh-webpack-plugin@0.5.16(react-refresh@0.14.2)(type-fest@0.21.3)(webpack-dev-server@5.2.1(debug@4.4.1)(webpack@5.99.9))(webpack-hot-middleware@2.26.1)(webpack@5.99.9)':
+  '@pmmmwh/react-refresh-webpack-plugin@0.5.16(react-refresh@0.14.2)(type-fest@0.21.3)(webpack-dev-server@5.2.1(debug@4.4.1)(webpack@5.99.9))(webpack-hot-middleware@2.26.1)(webpack@5.99.9(@swc/core@1.11.24))':
     dependencies:
       ansi-html: 0.0.9
       core-js-pure: 3.42.0
@@ -9390,7 +9407,8 @@ snapshots:
 
   '@popperjs/core@2.11.8': {}
 
-  '@remix-run/router@1.15.3': {}
+  '@remix-run/router@1.15.3':
+    optional: true
 
   '@repeaterjs/repeater@3.0.6': {}
 
@@ -10333,7 +10351,7 @@ snapshots:
       - tsx
       - yaml
 
-  '@vanilla-extract/webpack-plugin@2.3.19(babel-plugin-macros@3.1.0)(webpack@5.99.9)':
+  '@vanilla-extract/webpack-plugin@2.3.19(babel-plugin-macros@3.1.0)(webpack@5.99.9(@swc/core@1.11.24))':
     dependencies:
       '@vanilla-extract/integration': 8.0.2(babel-plugin-macros@3.1.0)
       debug: 4.4.1
@@ -10376,7 +10394,7 @@ snapshots:
 
   '@vocab/pseudo-localize@1.0.1': {}
 
-  '@vocab/webpack@1.2.10(webpack@5.99.9)':
+  '@vocab/webpack@1.2.10(webpack@5.99.9(@swc/core@1.11.24))':
     dependencies:
       '@vocab/core': 1.6.3
       cjs-module-lexer: 1.4.3
@@ -10728,19 +10746,19 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  babel-loader@9.2.1(@babel/core@7.27.1)(webpack@5.99.9(@swc/core@1.11.24)):
+    dependencies:
+      '@babel/core': 7.27.1
+      find-cache-dir: 4.0.0
+      schema-utils: 4.3.2
+      webpack: 5.99.9(@swc/core@1.11.24)
+
   babel-loader@9.2.1(@babel/core@7.27.1)(webpack@5.99.9(esbuild@0.25.4)):
     dependencies:
       '@babel/core': 7.27.1
       find-cache-dir: 4.0.0
       schema-utils: 4.3.2
       webpack: 5.99.9(esbuild@0.25.4)
-
-  babel-loader@9.2.1(@babel/core@7.27.1)(webpack@5.99.9):
-    dependencies:
-      '@babel/core': 7.27.1
-      find-cache-dir: 4.0.0
-      schema-utils: 4.3.2
-      webpack: 5.99.9(@swc/core@1.11.24)
 
   babel-plugin-istanbul@6.1.1:
     dependencies:
@@ -11247,6 +11265,8 @@ snapshots:
   cookie-signature@1.0.6: {}
 
   cookie@0.7.1: {}
+
+  cookie@1.0.2: {}
 
   core-js-compat@3.42.0:
     dependencies:
@@ -13710,7 +13730,7 @@ snapshots:
 
   min-indent@1.0.1: {}
 
-  mini-css-extract-plugin@2.9.2(webpack@5.99.9):
+  mini-css-extract-plugin@2.9.2(webpack@5.99.9(@swc/core@1.11.24)):
     dependencies:
       schema-utils: 4.3.2
       tapable: 2.2.2
@@ -14177,7 +14197,7 @@ snapshots:
     dependencies:
       postcss: 8.5.3
 
-  postcss-loader@8.1.1(postcss@8.5.3)(typescript@5.8.3)(webpack@5.99.9):
+  postcss-loader@8.1.1(postcss@8.5.3)(typescript@5.8.3)(webpack@5.99.9(@swc/core@1.11.24)):
     dependencies:
       cosmiconfig: 9.0.0(typescript@5.8.3)
       jiti: 1.21.7
@@ -14538,11 +14558,21 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       react-router: 6.22.3(react@18.3.1)
+    optional: true
 
   react-router@6.22.3(react@18.3.1):
     dependencies:
       '@remix-run/router': 1.15.3
       react: 18.3.1
+    optional: true
+
+  react-router@7.6.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      cookie: 1.0.2
+      react: 18.3.1
+      set-cookie-parser: 2.7.1
+    optionalDependencies:
+      react-dom: 18.3.1(react@18.3.1)
 
   react-style-singleton@2.2.3(@types/react@18.3.20)(react@18.3.1):
     dependencies:
@@ -14805,7 +14835,7 @@ snapshots:
       ajv-formats: 2.1.1(ajv@8.17.1)
       ajv-keywords: 5.1.0(ajv@8.17.1)
 
-  scoobie@21.0.1(babel-plugin-macros@3.1.0)(braid-design-system@33.7.0(@types/react@18.3.20)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router@6.22.3(react@18.3.1))(react@18.3.1):
+  scoobie@21.0.1(babel-plugin-macros@3.1.0)(braid-design-system@33.7.0(@types/react@18.3.20)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router@7.6.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1):
     dependencies:
       '@capsizecss/core': 4.1.2
       '@vanilla-extract/css': 1.17.2(babel-plugin-macros@3.1.0)
@@ -14816,7 +14846,7 @@ snapshots:
       polished: 4.3.1
       prism-react-renderer: 2.4.1(react@18.3.1)
       react: 18.3.1
-      react-router: 6.22.3(react@18.3.1)
+      react-router: 7.6.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     transitivePeerDependencies:
       - babel-plugin-macros
 
@@ -14895,6 +14925,8 @@ snapshots:
       - supports-color
 
   set-blocking@2.0.0: {}
+
+  set-cookie-parser@2.7.1: {}
 
   set-function-length@1.2.2:
     dependencies:
@@ -15001,8 +15033,8 @@ snapshots:
       '@loadable/babel-plugin': 5.16.1(@babel/core@7.27.1)
       '@loadable/component': 5.16.7(react@18.3.1)
       '@loadable/server': 5.16.7(@loadable/component@5.16.7(react@18.3.1))(react@18.3.1)
-      '@loadable/webpack-plugin': 5.15.2(webpack@5.99.9)
-      '@pmmmwh/react-refresh-webpack-plugin': 0.5.16(react-refresh@0.14.2)(type-fest@0.21.3)(webpack-dev-server@5.2.1(debug@4.4.1)(webpack@5.99.9))(webpack-hot-middleware@2.26.1)(webpack@5.99.9)
+      '@loadable/webpack-plugin': 5.15.2(webpack@5.99.9(@swc/core@1.11.24))
+      '@pmmmwh/react-refresh-webpack-plugin': 0.5.16(react-refresh@0.14.2)(type-fest@0.21.3)(webpack-dev-server@5.2.1(debug@4.4.1)(webpack@5.99.9))(webpack-hot-middleware@2.26.1)(webpack@5.99.9(@swc/core@1.11.24))
       '@swc/core': 1.11.24
       '@types/eslint': 9.6.1
       '@types/express': 4.17.22
@@ -15013,16 +15045,16 @@ snapshots:
       '@vanilla-extract/integration': 8.0.2(babel-plugin-macros@3.1.0)
       '@vanilla-extract/jest-transform': 1.1.15(babel-plugin-macros@3.1.0)
       '@vanilla-extract/vite-plugin': 5.0.2(@types/node@22.15.19)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(terser@5.39.2)(vite@6.3.5(@types/node@22.15.19)(jiti@2.4.2)(terser@5.39.2)(yaml@2.8.0))(yaml@2.8.0)
-      '@vanilla-extract/webpack-plugin': 2.3.19(babel-plugin-macros@3.1.0)(webpack@5.99.9)
+      '@vanilla-extract/webpack-plugin': 2.3.19(babel-plugin-macros@3.1.0)(webpack@5.99.9(@swc/core@1.11.24))
       '@vitejs/plugin-react-swc': 3.9.0(vite@6.3.5(@types/node@22.15.19)(jiti@2.4.2)(terser@5.39.2)(yaml@2.8.0))
       '@vocab/core': 1.6.3
       '@vocab/phrase': 2.1.0
       '@vocab/pseudo-localize': 1.0.1
-      '@vocab/webpack': 1.2.10(webpack@5.99.9)
+      '@vocab/webpack': 1.2.10(webpack@5.99.9(@swc/core@1.11.24))
       '@zendesk/babel-plugin-react-displayname': https://codeload.github.com/zendesk/babel-plugin-react-displayname/tar.gz/7a837f2(@babel/core@7.27.1)(@babel/preset-react@7.27.1(@babel/core@7.27.1))
       autoprefixer: 10.4.21(postcss@8.5.3)
       babel-jest: 29.7.0(@babel/core@7.27.1)
-      babel-loader: 9.2.1(@babel/core@7.27.1)(webpack@5.99.9)
+      babel-loader: 9.2.1(@babel/core@7.27.1)(webpack@5.99.9(@swc/core@1.11.24))
       babel-plugin-macros: 3.1.0
       babel-plugin-module-resolver: 5.0.2
       babel-plugin-transform-react-remove-prop-types: 0.4.24
@@ -15062,7 +15094,7 @@ snapshots:
       jiti: 2.4.2
       lint-staged: 15.5.2
       magicast: 0.3.5
-      mini-css-extract-plugin: 2.9.2(webpack@5.99.9)
+      mini-css-extract-plugin: 2.9.2(webpack@5.99.9(@swc/core@1.11.24))
       nano-memoize: 3.0.16
       node-html-parser: 6.1.13
       open: 7.4.2
@@ -15070,7 +15102,7 @@ snapshots:
       path-to-regexp: 6.3.0
       picomatch: 3.0.1
       postcss: 8.5.3
-      postcss-loader: 8.1.1(postcss@8.5.3)(typescript@5.8.3)(webpack@5.99.9)
+      postcss-loader: 8.1.1(postcss@8.5.3)(typescript@5.8.3)(webpack@5.99.9(@swc/core@1.11.24))
       prettier: 3.5.3
       pretty-ms: 7.0.1
       react: 18.3.1

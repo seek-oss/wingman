@@ -18,7 +18,7 @@ import {
   TextDropdown,
 } from 'braid-design-system';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { StringParam, useQueryParam } from 'use-query-params';
 
 import { Breadcrumbs } from '../../components/Breadcrumbs';
