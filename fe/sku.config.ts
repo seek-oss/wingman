@@ -61,6 +61,11 @@ const config: SkuConfig = {
     include: ['**/*', '.storybook/*'],
   }),
 
+  dangerouslySetJestConfig: (jestConfig) => ({
+    ...jestConfig,
+    setupFiles: [...(jestConfig.setupFiles ?? []), '<rootDir>/jest.setup.ts'],
+  }),
+
   eslintIgnore: ['**/*.less.d.ts', '.storybook/main.js', '**/dist-storybook/'],
 };
 
