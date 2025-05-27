@@ -1,5 +1,18 @@
 # wingman-fe
 
+## 11.0.0
+
+### Major Changes
+
+- Adjust peer dependency ranges: ([#1274](https://github.com/seek-oss/wingman/pull/1274))
+
+  - `react` 18 and 19 are supported, with 17 no longer supported
+  - `scoobie` 21 or higher is supported, previously set at 14
+
+- Drop MockAdSelectionFallback and AdSelectionFallback components ([#1280](https://github.com/seek-oss/wingman/pull/1280))
+
+  These components relate to a previous version of the [Ad Selection Panel](https://developer.seek.com/use-cases/job-posting/ad-selection/v2/panel).
+
 ## 10.2.2
 
 ### Patch Changes
