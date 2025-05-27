@@ -1,7 +1,7 @@
 import 'braid-design-system/reset';
 
 import React from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router';
 
 import { AdminPage } from '../pages/Admin/Admin';
 import { CandidateDetailPage } from '../pages/Candidates/Detail';

@@ -13,12 +13,5 @@
 
       enabled: false,
     },
-    {
-      matchManagers: ['npm'],
-      matchPackageNames: ['react-router-dom'],
-
-      // pbeshai/use-query-params#108
-      allowedVersions: '< 6',
-    },
   ],
 }
