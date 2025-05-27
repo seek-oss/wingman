@@ -1,8 +1,5 @@
 export { ApolloMockProvider } from './components/ApolloMockProvider/ApolloMockProvider';
 
-export { AdSelectionFallback } from './components/AdSelectionFallback/AdSelectionFallback';
-export { MockAdSelectionFallback } from './components/AdSelectionFallback/AdSelectionFallback.mock';
-
 export { BrandSelect } from './components/BrandSelect/BrandSelect';
 export { MockBrandSelect } from './components/BrandSelect/BrandSelect.mock';
 
