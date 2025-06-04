@@ -11,10 +11,7 @@ export default {
       },
     },
   },
-  addons: [
-    '@storybook/addon-webpack5-compiler-babel',
-    '@storybook/addon-essentials',
-  ],
+  addons: ['@storybook/addon-webpack5-compiler-babel'],
   babel,
   webpackFinal,
 } satisfies StorybookConfig;
