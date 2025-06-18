@@ -40,8 +40,8 @@ importers:
         specifier: 16.11.0
         version: 16.11.0
       sku:
-        specifier: 14.4.0
-        version: 14.4.0(@types/node@24.0.3)(@types/react@18.3.23)(@typescript-eslint/eslint-plugin@8.34.1(@typescript-eslint/parser@8.34.1(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/utils@8.34.1(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.43.0)(type-fest@0.21.3)(webpack-hot-middleware@2.26.1)(yaml@2.8.0)
+        specifier: 14.5.0
+        version: 14.5.0(@types/node@24.0.3)(@types/react@18.3.23)(@typescript-eslint/eslint-plugin@8.34.1(@typescript-eslint/parser@8.34.1(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/utils@8.34.1(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.43.0)(type-fest@0.21.3)(webpack-hot-middleware@2.26.1)(yaml@2.8.0)
 
   fe:
     dependencies:
@@ -1839,6 +1839,14 @@ packages:
 
   '@sinonjs/fake-timers@10.3.0':
     resolution: {integrity: sha512-V4BG07kuYSUkTCSBHG8G8TNhM+F19jXFWnQtzj+we8DrkpSBCee9Z3Ms8yiGer/dlmhe35/Xdgyo3/0rQKg7YA==}
+
+  '@sku-lib/vite@0.1.0':
+    resolution: {integrity: sha512-+Smwc7Q7gJqRF52i8DYMH0tsJ9ecHUEnW9FeDzaGGdSbQgTgRpLoEeWVLS9ciGO0HhmJdoKQa+1GAKSCpzHwLw==}
+    engines: {node: '>=20.15'}
+    peerDependencies:
+      '@types/react': ^18.0.0
+      react: ^18.0.0
+      vite: ^6.1.0
 
   '@storybook/addon-webpack5-compiler-babel@3.0.6':
     resolution: {integrity: sha512-J4uVxEfkd2iAxPxcT90iebt5wuLSd0EYuMJa94t1jVUGlvZZAvnmqXAqscRITNU37nOr0c9yZ2YVS/sFOZyOVw==}
@@ -6343,8 +6351,8 @@ packages:
   sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
 
-  sku@14.4.0:
-    resolution: {integrity: sha512-OYDrzApblTQKdNfITAraPPRJRNBv3oqczsvP7Oj1vKlqSakJI7pchMb60XCFxxdRlH1qEejxH5es7h3KSF+XhQ==}
+  sku@14.5.0:
+    resolution: {integrity: sha512-Ke3XgJ9ynEOkdvkI/ykIFsbUv3Ch/kGMdw4vFPsVN2EyGW5G02rbPkaXWsD44x2AE+cr7hXAiSK7xL9jTGdznw==}
     engines: {node: '>=20.15'}
     hasBin: true
     peerDependencies:
@@ -9288,7 +9296,7 @@ snapshots:
       lodash: 4.17.21
       react: 18.3.1
 
-  '@loadable/webpack-plugin@5.15.2(webpack@5.99.9)':
+  '@loadable/webpack-plugin@5.15.2(webpack@5.99.9(@swc/core@1.12.1))':
     dependencies:
       make-dir: 3.1.0
       webpack: 5.99.9(@swc/core@1.12.1)
@@ -9354,7 +9362,7 @@ snapshots:
 
   '@oxc-project/types@0.36.0': {}
 
-  '@pmmmwh/react-refresh-webpack-plugin@0.6.0(react-refresh@0.17.0)(type-fest@0.21.3)(webpack-dev-server@5.2.2(debug@4.4.1)(webpack@5.99.9))(webpack-hot-middleware@2.26.1)(webpack@5.99.9)':
+  '@pmmmwh/react-refresh-webpack-plugin@0.6.0(react-refresh@0.17.0)(type-fest@0.21.3)(webpack-dev-server@5.2.2(debug@4.4.1)(webpack@5.99.9))(webpack-hot-middleware@2.26.1)(webpack@5.99.9(@swc/core@1.12.1))':
     dependencies:
       anser: 2.3.2
       core-js-pure: 3.43.0
@@ -9446,6 +9454,15 @@ snapshots:
   '@sinonjs/fake-timers@10.3.0':
     dependencies:
       '@sinonjs/commons': 3.0.1
+
+  '@sku-lib/vite@0.1.0(@types/react@18.3.23)(react@18.3.1)(vite@6.3.5(@types/node@24.0.3)(jiti@2.4.2)(terser@5.43.0)(yaml@2.8.0))':
+    dependencies:
+      '@types/react': 18.3.23
+      debug: 4.4.1
+      react: 18.3.1
+      vite: 6.3.5(@types/node@24.0.3)(jiti@2.4.2)(terser@5.43.0)(yaml@2.8.0)
+    transitivePeerDependencies:
+      - supports-color
 
   '@storybook/addon-webpack5-compiler-babel@3.0.6(webpack@5.99.9(esbuild@0.25.5))':
     dependencies:
@@ -10100,7 +10117,7 @@ snapshots:
       - tsx
       - yaml
 
-  '@vanilla-extract/webpack-plugin@2.3.22(babel-plugin-macros@3.1.0)(webpack@5.99.9)':
+  '@vanilla-extract/webpack-plugin@2.3.22(babel-plugin-macros@3.1.0)(webpack@5.99.9(@swc/core@1.12.1))':
     dependencies:
       '@vanilla-extract/integration': 8.0.4(babel-plugin-macros@3.1.0)
       debug: 4.4.1
@@ -10184,7 +10201,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vocab/webpack@1.2.11(webpack@5.99.9)':
+  '@vocab/webpack@1.2.11(webpack@5.99.9(@swc/core@1.12.1))':
     dependencies:
       '@vocab/core': 1.6.4
       cjs-module-lexer: 1.4.3
@@ -10542,7 +10559,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  babel-loader@10.0.0(@babel/core@7.27.4)(webpack@5.99.9):
+  babel-loader@10.0.0(@babel/core@7.27.4)(webpack@5.99.9(@swc/core@1.12.1)):
     dependencies:
       '@babel/core': 7.27.4
       find-up: 5.0.0
@@ -11143,7 +11160,7 @@ snapshots:
     optionalDependencies:
       webpack: 5.99.9(esbuild@0.25.5)
 
-  css-loader@7.1.2(webpack@5.99.9):
+  css-loader@7.1.2(webpack@5.99.9(@swc/core@1.12.1)):
     dependencies:
       icss-utils: 5.1.0(postcss@8.5.6)
       postcss: 8.5.6
@@ -13481,7 +13498,7 @@ snapshots:
 
   min-indent@1.0.1: {}
 
-  mini-css-extract-plugin@2.9.2(webpack@5.99.9):
+  mini-css-extract-plugin@2.9.2(webpack@5.99.9(@swc/core@1.12.1)):
     dependencies:
       schema-utils: 4.3.2
       tapable: 2.2.2
@@ -13938,7 +13955,7 @@ snapshots:
     dependencies:
       postcss: 8.5.6
 
-  postcss-loader@8.1.1(postcss@8.5.6)(typescript@5.8.3)(webpack@5.99.9):
+  postcss-loader@8.1.1(postcss@8.5.6)(typescript@5.8.3)(webpack@5.99.9(@swc/core@1.12.1)):
     dependencies:
       cosmiconfig: 9.0.0(typescript@5.8.3)
       jiti: 1.21.7
@@ -14736,7 +14753,7 @@ snapshots:
 
   sisteransi@1.0.5: {}
 
-  sku@14.4.0(@types/node@24.0.3)(@types/react@18.3.23)(@typescript-eslint/eslint-plugin@8.34.1(@typescript-eslint/parser@8.34.1(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/utils@8.34.1(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.43.0)(type-fest@0.21.3)(webpack-hot-middleware@2.26.1)(yaml@2.8.0):
+  sku@14.5.0(@types/node@24.0.3)(@types/react@18.3.23)(@typescript-eslint/eslint-plugin@8.34.1(@typescript-eslint/parser@8.34.1(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/utils@8.34.1(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.43.0)(type-fest@0.21.3)(webpack-hot-middleware@2.26.1)(yaml@2.8.0):
     dependencies:
       '@babel/core': 7.27.4
       '@babel/generator': 7.27.5
@@ -14754,8 +14771,9 @@ snapshots:
       '@loadable/babel-plugin': 5.16.1(@babel/core@7.27.4)
       '@loadable/component': 5.16.7(react@18.3.1)
       '@loadable/server': 5.16.7(@loadable/component@5.16.7(react@18.3.1))(react@18.3.1)
-      '@loadable/webpack-plugin': 5.15.2(webpack@5.99.9)
-      '@pmmmwh/react-refresh-webpack-plugin': 0.6.0(react-refresh@0.17.0)(type-fest@0.21.3)(webpack-dev-server@5.2.2(debug@4.4.1)(webpack@5.99.9))(webpack-hot-middleware@2.26.1)(webpack@5.99.9)
+      '@loadable/webpack-plugin': 5.15.2(webpack@5.99.9(@swc/core@1.12.1))
+      '@pmmmwh/react-refresh-webpack-plugin': 0.6.0(react-refresh@0.17.0)(type-fest@0.21.3)(webpack-dev-server@5.2.2(debug@4.4.1)(webpack@5.99.9))(webpack-hot-middleware@2.26.1)(webpack@5.99.9(@swc/core@1.12.1))
+      '@sku-lib/vite': 0.1.0(@types/react@18.3.23)(react@18.3.1)(vite@6.3.5(@types/node@24.0.3)(jiti@2.4.2)(terser@5.43.0)(yaml@2.8.0))
       '@swc/core': 1.12.1
       '@types/eslint': 9.6.1
       '@types/express': 4.17.23
@@ -14766,18 +14784,18 @@ snapshots:
       '@vanilla-extract/integration': 8.0.4(babel-plugin-macros@3.1.0)
       '@vanilla-extract/jest-transform': 1.1.17(babel-plugin-macros@3.1.0)
       '@vanilla-extract/vite-plugin': 5.0.6(@types/node@24.0.3)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(terser@5.43.0)(vite@6.3.5(@types/node@24.0.3)(jiti@2.4.2)(terser@5.43.0)(yaml@2.8.0))(yaml@2.8.0)
-      '@vanilla-extract/webpack-plugin': 2.3.22(babel-plugin-macros@3.1.0)(webpack@5.99.9)
+      '@vanilla-extract/webpack-plugin': 2.3.22(babel-plugin-macros@3.1.0)(webpack@5.99.9(@swc/core@1.12.1))
       '@vitejs/plugin-basic-ssl': 2.0.0(vite@6.3.5(@types/node@24.0.3)(jiti@2.4.2)(terser@5.43.0)(yaml@2.8.0))
       '@vitejs/plugin-react': 4.5.2(vite@6.3.5(@types/node@24.0.3)(jiti@2.4.2)(terser@5.43.0)(yaml@2.8.0))
       '@vocab/core': 1.6.4
       '@vocab/phrase': 2.1.1
       '@vocab/pseudo-localize': 1.0.1
       '@vocab/vite': 0.2.2(vite@6.3.5(@types/node@24.0.3)(jiti@2.4.2)(terser@5.43.0)(yaml@2.8.0))
-      '@vocab/webpack': 1.2.11(webpack@5.99.9)
+      '@vocab/webpack': 1.2.11(webpack@5.99.9(@swc/core@1.12.1))
       '@zendesk/babel-plugin-react-displayname': https://codeload.github.com/zendesk/babel-plugin-react-displayname/tar.gz/7a837f2(@babel/core@7.27.4)(@babel/preset-react@7.27.1(@babel/core@7.27.4))
       autoprefixer: 10.4.21(postcss@8.5.6)
       babel-jest: 29.7.0(@babel/core@7.27.4)
-      babel-loader: 10.0.0(@babel/core@7.27.4)(webpack@5.99.9)
+      babel-loader: 10.0.0(@babel/core@7.27.4)(webpack@5.99.9(@swc/core@1.12.1))
       babel-plugin-macros: 3.1.0
       babel-plugin-module-resolver: 5.0.2
       babel-plugin-transform-react-remove-prop-types: 0.4.24
@@ -14789,7 +14807,7 @@ snapshots:
       commander: 12.1.0
       compression: 1.8.0
       cross-spawn: 7.0.6
-      css-loader: 7.1.2(webpack@5.99.9)
+      css-loader: 7.1.2(webpack@5.99.9(@swc/core@1.12.1))
       cssnano: 7.0.7(postcss@8.5.6)
       death: 1.1.0
       debug: 4.4.1
@@ -14816,7 +14834,7 @@ snapshots:
       jiti: 2.4.2
       lint-staged: 16.1.2
       magicast: 0.3.5
-      mini-css-extract-plugin: 2.9.2(webpack@5.99.9)
+      mini-css-extract-plugin: 2.9.2(webpack@5.99.9(@swc/core@1.12.1))
       nano-memoize: 3.0.16
       node-html-parser: 6.1.13
       open: 10.1.2
@@ -14824,7 +14842,7 @@ snapshots:
       path-to-regexp: 6.3.0
       picomatch: 3.0.1
       postcss: 8.5.6
-      postcss-loader: 8.1.1(postcss@8.5.6)(typescript@5.8.3)(webpack@5.99.9)
+      postcss-loader: 8.1.1(postcss@8.5.6)(typescript@5.8.3)(webpack@5.99.9(@swc/core@1.12.1))
       prettier: 3.5.3
       pretty-ms: 9.2.0
       prompts: 2.4.2
