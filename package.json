@@ -4,13 +4,13 @@
     "@changesets/get-github-info": "0.6.0"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "5.0.6",
+    "@graphql-codegen/cli": "5.0.7",
     "@graphql-codegen/fragment-matcher": "5.1.0",
     "@graphql-codegen/typescript": "4.1.6",
     "@graphql-codegen/typescript-apollo-client-helpers": "3.0.1",
     "@graphql-codegen/typescript-operations": "4.6.1",
     "@graphql-tools/utils": "10.8.6",
-    "concurrently": "9.1.2",
+    "concurrently": "9.2.0",
     "graphql": "16.11.0",
     "sku": "14.6.0"
   },
