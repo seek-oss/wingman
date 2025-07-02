@@ -40,8 +40,8 @@ importers:
         specifier: 16.11.0
         version: 16.11.0
       sku:
-        specifier: 14.6.0
-        version: 14.6.0(@types/node@24.0.3)(@types/react@18.3.23)(@typescript-eslint/eslint-plugin@8.34.1(@typescript-eslint/parser@8.34.1(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/utils@8.34.1(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.43.0)(type-fest@0.21.3)(webpack-hot-middleware@2.26.1)(yaml@2.8.0)
+        specifier: 14.7.0
+        version: 14.7.0(@storybook/react-webpack5@9.0.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.3))(typescript@5.8.3))(@types/node@24.0.3)(@types/react@18.3.23)(@typescript-eslint/eslint-plugin@8.34.1(@typescript-eslint/parser@8.34.1(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/utils@8.34.1(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.43.0)(type-fest@0.21.3)(webpack-hot-middleware@2.26.1)(yaml@2.8.0)
 
   fe:
     dependencies:
@@ -1837,8 +1837,8 @@ packages:
   '@sinonjs/fake-timers@10.3.0':
     resolution: {integrity: sha512-V4BG07kuYSUkTCSBHG8G8TNhM+F19jXFWnQtzj+we8DrkpSBCee9Z3Ms8yiGer/dlmhe35/Xdgyo3/0rQKg7YA==}
 
-  '@sku-lib/vite@0.1.0':
-    resolution: {integrity: sha512-+Smwc7Q7gJqRF52i8DYMH0tsJ9ecHUEnW9FeDzaGGdSbQgTgRpLoEeWVLS9ciGO0HhmJdoKQa+1GAKSCpzHwLw==}
+  '@sku-lib/vite@0.1.1':
+    resolution: {integrity: sha512-54cnbiWiXxJc3MI3qo+KRA948EzUqfF5d+uiA9reHLpP1/b234gHF9WuRJvMEJj9Rq666ULpXJgryLf+ZxJAjg==}
     engines: {node: '>=20.15'}
     peerDependencies:
       '@types/react': ^18.0.0
@@ -6340,13 +6340,13 @@ packages:
   sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
 
-  sku@14.6.0:
-    resolution: {integrity: sha512-u3VdmzsCrduTmJC2rz8y38TcFLfxjhBrIrXjW7cwxTKNKPz0SBUMKlHIlxfnitViJDtj/IPUS7ekCCh8cj2D+g==}
+  sku@14.7.0:
+    resolution: {integrity: sha512-ORr69u3sAQ03DAWqVq0gPqzfAYtHsVXHxi6K/bFy3nIofHal80Nl0uP/xQSoLoHFSCYJI8ciopDe5FDawE7H9Q==}
     engines: {node: '>=20.15'}
     hasBin: true
     peerDependencies:
       '@sku-lib/vitest': '*'
-      '@storybook/react-webpack5': ^7.0.0 || ^8.0.0
+      '@storybook/react-webpack5': ^7.0.0 || ^8.0.0 || ^9.0.0
       '@types/react': ^18.0.0
       react: ^18.0.0
       react-dom: ^18.0.0
@@ -9439,7 +9439,7 @@ snapshots:
     dependencies:
       '@sinonjs/commons': 3.0.1
 
-  '@sku-lib/vite@0.1.0(@types/react@18.3.23)(react@18.3.1)(vite@6.3.5(@types/node@24.0.3)(jiti@2.4.2)(terser@5.43.0)(yaml@2.8.0))':
+  '@sku-lib/vite@0.1.1(@types/react@18.3.23)(react@18.3.1)(vite@6.3.5(@types/node@24.0.3)(jiti@2.4.2)(terser@5.43.0)(yaml@2.8.0))':
     dependencies:
       '@types/react': 18.3.23
       debug: 4.4.1
@@ -9483,6 +9483,34 @@ snapshots:
       - uglify-js
       - webpack-cli
 
+  '@storybook/builder-webpack5@9.0.14(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.3))(typescript@5.8.3)':
+    dependencies:
+      '@storybook/core-webpack': 9.0.14(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.3))
+      case-sensitive-paths-webpack-plugin: 2.4.0
+      cjs-module-lexer: 1.4.3
+      css-loader: 6.11.0(webpack@5.99.9)
+      es-module-lexer: 1.7.0
+      fork-ts-checker-webpack-plugin: 8.0.0(typescript@5.8.3)(webpack@5.99.9)
+      html-webpack-plugin: 5.6.3(webpack@5.99.9)
+      magic-string: 0.30.17
+      storybook: 9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.3)
+      style-loader: 3.3.4(webpack@5.99.9)
+      terser-webpack-plugin: 5.3.14(@swc/core@1.12.1)(webpack@5.99.9)
+      ts-dedent: 2.2.0
+      webpack: 5.99.9(@swc/core@1.12.1)
+      webpack-dev-middleware: 6.1.3(webpack@5.99.9)
+      webpack-hot-middleware: 2.26.1
+      webpack-virtual-modules: 0.6.2
+    optionalDependencies:
+      typescript: 5.8.3
+    transitivePeerDependencies:
+      - '@rspack/core'
+      - '@swc/core'
+      - esbuild
+      - uglify-js
+      - webpack-cli
+    optional: true
+
   '@storybook/core-webpack@9.0.14(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.3))':
     dependencies:
       storybook: 9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.3)
@@ -9514,6 +9542,31 @@ snapshots:
       - uglify-js
       - webpack-cli
 
+  '@storybook/preset-react-webpack@9.0.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.3))(typescript@5.8.3)':
+    dependencies:
+      '@storybook/core-webpack': 9.0.14(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.3))
+      '@storybook/react-docgen-typescript-plugin': 1.0.6--canary.9.0c3f3b7.0(typescript@5.8.3)(webpack@5.99.9)
+      '@types/semver': 7.7.0
+      find-up: 7.0.0
+      magic-string: 0.30.17
+      react: 18.3.1
+      react-docgen: 7.1.1
+      react-dom: 18.3.1(react@18.3.1)
+      resolve: 1.22.10
+      semver: 7.7.2
+      storybook: 9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.3)
+      tsconfig-paths: 4.2.0
+      webpack: 5.99.9(@swc/core@1.12.1)
+    optionalDependencies:
+      typescript: 5.8.3
+    transitivePeerDependencies:
+      - '@swc/core'
+      - esbuild
+      - supports-color
+      - uglify-js
+      - webpack-cli
+    optional: true
+
   '@storybook/react-docgen-typescript-plugin@1.0.6--canary.9.0c3f3b7.0(typescript@5.8.3)(webpack@5.99.9(esbuild@0.25.5))':
     dependencies:
       debug: 4.4.1
@@ -9527,6 +9580,21 @@ snapshots:
       webpack: 5.99.9(esbuild@0.25.5)
     transitivePeerDependencies:
       - supports-color
+
+  '@storybook/react-docgen-typescript-plugin@1.0.6--canary.9.0c3f3b7.0(typescript@5.8.3)(webpack@5.99.9)':
+    dependencies:
+      debug: 4.4.1
+      endent: 2.1.0
+      find-cache-dir: 3.3.2
+      flat-cache: 3.2.0
+      micromatch: 4.0.8
+      react-docgen-typescript: 2.4.0(typescript@5.8.3)
+      tslib: 2.8.1
+      typescript: 5.8.3
+      webpack: 5.99.9(@swc/core@1.12.1)
+    transitivePeerDependencies:
+      - supports-color
+    optional: true
 
   '@storybook/react-dom-shim@9.0.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.3))':
     dependencies:
@@ -9551,6 +9619,25 @@ snapshots:
       - supports-color
       - uglify-js
       - webpack-cli
+
+  '@storybook/react-webpack5@9.0.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.3))(typescript@5.8.3)':
+    dependencies:
+      '@storybook/builder-webpack5': 9.0.14(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.3))(typescript@5.8.3)
+      '@storybook/preset-react-webpack': 9.0.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.3))(typescript@5.8.3)
+      '@storybook/react': 9.0.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.3))(typescript@5.8.3)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      storybook: 9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.3)
+    optionalDependencies:
+      typescript: 5.8.3
+    transitivePeerDependencies:
+      - '@rspack/core'
+      - '@swc/core'
+      - esbuild
+      - supports-color
+      - uglify-js
+      - webpack-cli
+    optional: true
 
   '@storybook/react@9.0.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.3))(typescript@5.8.3)':
     dependencies:
@@ -11150,6 +11237,20 @@ snapshots:
     optionalDependencies:
       webpack: 5.99.9(esbuild@0.25.5)
 
+  css-loader@6.11.0(webpack@5.99.9):
+    dependencies:
+      icss-utils: 5.1.0(postcss@8.5.6)
+      postcss: 8.5.6
+      postcss-modules-extract-imports: 3.1.0(postcss@8.5.6)
+      postcss-modules-local-by-default: 4.2.0(postcss@8.5.6)
+      postcss-modules-scope: 3.2.1(postcss@8.5.6)
+      postcss-modules-values: 4.0.0(postcss@8.5.6)
+      postcss-value-parser: 4.2.0
+      semver: 7.7.2
+    optionalDependencies:
+      webpack: 5.99.9(@swc/core@1.12.1)
+    optional: true
+
   css-loader@7.1.2(webpack@5.99.9):
     dependencies:
       icss-utils: 5.1.0(postcss@8.5.6)
@@ -12107,6 +12208,24 @@ snapshots:
       typescript: 5.8.3
       webpack: 5.99.9(esbuild@0.25.5)
 
+  fork-ts-checker-webpack-plugin@8.0.0(typescript@5.8.3)(webpack@5.99.9):
+    dependencies:
+      '@babel/code-frame': 7.27.1
+      chalk: 4.1.2
+      chokidar: 3.6.0
+      cosmiconfig: 7.1.0
+      deepmerge: 4.3.1
+      fs-extra: 10.1.0
+      memfs: 3.5.3
+      minimatch: 3.1.2
+      node-abort-controller: 3.1.1
+      schema-utils: 3.3.0
+      semver: 7.7.2
+      tapable: 2.2.2
+      typescript: 5.8.3
+      webpack: 5.99.9(@swc/core@1.12.1)
+    optional: true
+
   form-data@4.0.3:
     dependencies:
       asynckit: 0.4.0
@@ -12396,6 +12515,17 @@ snapshots:
       tapable: 2.2.2
     optionalDependencies:
       webpack: 5.99.9(esbuild@0.25.5)
+
+  html-webpack-plugin@5.6.3(webpack@5.99.9):
+    dependencies:
+      '@types/html-minifier-terser': 6.1.0
+      html-minifier-terser: 6.1.0
+      lodash: 4.17.21
+      pretty-error: 4.0.0
+      tapable: 2.2.2
+    optionalDependencies:
+      webpack: 5.99.9(@swc/core@1.12.1)
+    optional: true
 
   htmlparser2@6.1.0:
     dependencies:
@@ -14727,7 +14857,7 @@ snapshots:
 
   sisteransi@1.0.5: {}
 
-  sku@14.6.0(@types/node@24.0.3)(@types/react@18.3.23)(@typescript-eslint/eslint-plugin@8.34.1(@typescript-eslint/parser@8.34.1(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/utils@8.34.1(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.43.0)(type-fest@0.21.3)(webpack-hot-middleware@2.26.1)(yaml@2.8.0):
+  sku@14.7.0(@storybook/react-webpack5@9.0.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.3))(typescript@5.8.3))(@types/node@24.0.3)(@types/react@18.3.23)(@typescript-eslint/eslint-plugin@8.34.1(@typescript-eslint/parser@8.34.1(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/utils@8.34.1(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.43.0)(type-fest@0.21.3)(webpack-hot-middleware@2.26.1)(yaml@2.8.0):
     dependencies:
       '@babel/core': 7.27.4
       '@babel/generator': 7.27.5
@@ -14747,7 +14877,7 @@ snapshots:
       '@loadable/server': 5.16.7(@loadable/component@5.16.7(react@18.3.1))(react@18.3.1)
       '@loadable/webpack-plugin': 5.15.2(webpack@5.99.9)
       '@pmmmwh/react-refresh-webpack-plugin': 0.6.0(react-refresh@0.17.0)(type-fest@0.21.3)(webpack-dev-server@5.2.2(debug@4.4.1)(webpack@5.99.9))(webpack-hot-middleware@2.26.1)(webpack@5.99.9)
-      '@sku-lib/vite': 0.1.0(@types/react@18.3.23)(react@18.3.1)(vite@6.3.5(@types/node@24.0.3)(jiti@2.4.2)(terser@5.43.0)(yaml@2.8.0))
+      '@sku-lib/vite': 0.1.1(@types/react@18.3.23)(react@18.3.1)(vite@6.3.5(@types/node@24.0.3)(jiti@2.4.2)(terser@5.43.0)(yaml@2.8.0))
       '@swc/core': 1.12.1
       '@types/eslint': 9.6.1
       '@types/express': 4.17.23
@@ -14841,6 +14971,7 @@ snapshots:
       webpack-node-externals: 3.0.0
       wrap-ansi: 9.0.0
     optionalDependencies:
+      '@storybook/react-webpack5': 9.0.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@9.0.14(@testing-library/dom@10.4.0)(prettier@3.5.3))(typescript@5.8.3)
       react-dom: 18.3.1(react@18.3.1)
     transitivePeerDependencies:
       - '@rspack/core'
@@ -15110,6 +15241,11 @@ snapshots:
   style-loader@3.3.4(webpack@5.99.9(esbuild@0.25.5)):
     dependencies:
       webpack: 5.99.9(esbuild@0.25.5)
+
+  style-loader@3.3.4(webpack@5.99.9):
+    dependencies:
+      webpack: 5.99.9(@swc/core@1.12.1)
+    optional: true
 
   stylehacks@7.0.5(postcss@8.5.6):
     dependencies:
@@ -15593,6 +15729,17 @@ snapshots:
       schema-utils: 4.3.2
     optionalDependencies:
       webpack: 5.99.9(esbuild@0.25.5)
+
+  webpack-dev-middleware@6.1.3(webpack@5.99.9):
+    dependencies:
+      colorette: 2.0.20
+      memfs: 3.5.3
+      mime-types: 2.1.35
+      range-parser: 1.2.1
+      schema-utils: 4.3.2
+    optionalDependencies:
+      webpack: 5.99.9(@swc/core@1.12.1)
+    optional: true
 
   webpack-dev-middleware@7.4.2(webpack@5.99.9):
     dependencies:
