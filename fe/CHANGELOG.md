@@ -5,7 +5,6 @@
 ### Major Changes
 
 - Adjust peer dependency ranges: ([#1274](https://github.com/seek-oss/wingman/pull/1274))
-
   - `react` 18 and 19 are supported, with 17 no longer supported
   - `scoobie` 21 or higher is supported, previously set at 14
 
@@ -137,7 +136,6 @@
 - **SalaryDetails:** Query pay types and currencies ([#959](https://github.com/seek-oss/wingman/pull/959))
 
   Breaking changes:
-
   1. `SalaryDetails` now requires `schemeId` to be passed in
   2. The `onBlur` prop will now return `basisCode` and `intervalCode` for the key `payType` instead of `basis`, `interval` and `payType`
 
@@ -474,7 +472,6 @@
 ### Minor Changes
 
 - ca3d0a5: Update **BrandSelect** props
-
   - Change `onSelect` to optional
   - Add `onBrandingQueryResponse` callback to return SEEK API Response
   - Add `showCopyableOid` flag
@@ -514,7 +511,6 @@
 - df243ea: **apolloTypePolicies:**: Disable infinite scrolling opinions by default
 
   Our Apollo type policy was imported from an internal repository that consistently uses infinitely scrolled lists to display paginated data. However, this makes a number of assumptions about how the data is used:
-
   1. It assumes that the data should be flipped in reverse pagination so the oldest data appears first. When paginating forwards and backwards using a fixed page size this causes the data to flip when paginating backwards which is unexpected.
 
   2. It expects data to always be appended in the same direction which isn't true for page-based pagination.
@@ -987,7 +983,6 @@
 
 - ef8b000: Align Privacy Consent render with candidate
 - 41d63fc: Remove hirer ID from questionnaire builder
-
   - Consumers must now supply a `hirerId` prop to `<QuestionnaireBuilder/>`
   - `graphqlInput` is now takes an array of components
 
@@ -1079,7 +1074,6 @@
 ### Minor Changes
 
 - dd07791: Adds JobCategorySuggest component
-
   - Abstracts the `jobCategorySuggestions` query on SEEK API and provides a list of suggested job categories for a position profile input.
 
 ### Patch Changes
