@@ -2,4 +2,4 @@
 'wingman-fe': major
 ---
 
-Migrate to Apollo Client v4
+Migrate to @apollo/client 4
