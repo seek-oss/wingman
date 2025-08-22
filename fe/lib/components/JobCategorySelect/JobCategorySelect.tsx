@@ -1,5 +1,5 @@
-import { type ApolloClient } from '@apollo/client';
-import { useQuery } from "@apollo/client/react";
+import type { ApolloClient } from '@apollo/client';
+import { useQuery } from '@apollo/client/react';
 import {
   type Dropdown,
   FieldMessage,

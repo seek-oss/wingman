@@ -1,4 +1,4 @@
-import { type ApolloClient } from '@apollo/client';
+import type { ApolloClient } from '@apollo/client';
 import { useLazyQuery, useQuery } from '@apollo/client/react';
 import { FieldMessage, Stack, type TextField } from 'braid-design-system';
 import React, {
