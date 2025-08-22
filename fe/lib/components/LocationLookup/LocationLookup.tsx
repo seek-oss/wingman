@@ -1,4 +1,5 @@
-import { type ApolloClient, useQuery } from '@apollo/client';
+import { type ApolloClient } from '@apollo/client';
+import { useQuery } from "@apollo/client/react";
 import {
   Divider,
   FieldMessage,
@@ -23,7 +24,7 @@ import { SeekApiResponse } from '../SeekApiResponse/SeekApiResponse';
 
 export interface LocationLookupProps {
   schemeId: string;
-  client?: ApolloClient<unknown>;
+  client?: ApolloClient;
   context?: Record<string, unknown>;
   initialLocationId?: string;
   debounceDelay?: number;

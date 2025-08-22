@@ -1,4 +1,5 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloProvider } from "@apollo/client/react";
 import { SchemaLink } from '@apollo/client/link/schema';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import React, { type ReactNode } from 'react';

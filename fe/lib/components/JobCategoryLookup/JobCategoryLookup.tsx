@@ -1,4 +1,5 @@
-import { type ApolloClient, useQuery } from '@apollo/client';
+import { type ApolloClient } from '@apollo/client';
+import { useQuery } from "@apollo/client/react";
 import {
   Divider,
   FieldMessage,
@@ -24,7 +25,7 @@ import { JOB_CATEGORY } from './queries';
 
 export interface JobCategoryLookupProps {
   schemeId: string;
-  client?: ApolloClient<unknown>;
+  client?: ApolloClient;
   context?: Record<string, unknown>;
   initialJobCategoryId?: string;
   debounceDelay?: number;

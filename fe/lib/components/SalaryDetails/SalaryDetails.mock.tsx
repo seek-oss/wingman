@@ -1,4 +1,4 @@
-import { useApolloClient } from '@apollo/client';
+import { useApolloClient } from "@apollo/client/react";
 import React from 'react';
 
 import { MockComponentActions } from '../../private/MockComponentActions/MockComponentActions';

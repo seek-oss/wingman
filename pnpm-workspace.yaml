@@ -1,2 +1,11 @@
 packages:
-  - 'fe'
+  - fe
+
+ignoredBuiltDependencies:
+  - '@swc/core'
+  - core-js-pure
+  - esbuild
+  - unrs-resolver
+
+onlyBuiltDependencies:
+  - sku

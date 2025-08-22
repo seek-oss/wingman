@@ -1,4 +1,5 @@
-import { type ApolloClient, useQuery } from '@apollo/client';
+import { type ApolloClient } from '@apollo/client';
+import { useQuery } from "@apollo/client/react";
 import {
   FieldMessage,
   Loader,
@@ -23,7 +24,7 @@ type RadioProps = ComponentPropsWithRef<typeof RadioGroup>;
 
 export interface JobCategorySuggestProps
   extends Partial<Omit<RadioProps, 'id' | 'value'>> {
-  client?: ApolloClient<unknown>;
+  client?: ApolloClient;
   context?: Record<string, unknown>;
   debounceDelay?: number;
   initialValue?: string;
