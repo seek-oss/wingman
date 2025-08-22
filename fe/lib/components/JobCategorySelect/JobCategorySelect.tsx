@@ -1,4 +1,5 @@
-import { type ApolloClient, useQuery } from '@apollo/client';
+import type { ApolloClient } from '@apollo/client';
+import { useQuery } from '@apollo/client/react';
 import {
   type Dropdown,
   FieldMessage,
@@ -23,7 +24,7 @@ type JobCategoryType = 'parent' | 'child';
 
 export interface JobCategorySelectProps
   extends Omit<FieldProps, 'value' | 'onChange' | 'children'> {
-  client?: ApolloClient<unknown>;
+  client?: ApolloClient;
   context?: Record<string, unknown>;
   label?: string;
   onSelect?: (
