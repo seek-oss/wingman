@@ -19,7 +19,7 @@ jobs:
       SKU_TELEMETRY: false
     steps:
       - name: Check out repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
