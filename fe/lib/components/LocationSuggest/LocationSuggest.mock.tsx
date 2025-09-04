@@ -1,4 +1,5 @@
-import { type ApolloClient, useApolloClient } from '@apollo/client';
+import type { ApolloClient } from '@apollo/client';
+import { useApolloClient } from '@apollo/client/react';
 import React, { forwardRef } from 'react';
 
 import { MockComponentActions } from '../../private/MockComponentActions/MockComponentActions';
@@ -9,7 +10,7 @@ import { mockLocationSuggest } from './__fixtures__/locationSuggest';
 import { mockNearestLocations } from './__fixtures__/nearestLocations';
 
 interface Props extends Omit<LocationSuggestProps, 'client'> {
-  client?: ApolloClient<unknown>;
+  client?: ApolloClient;
   showStorybookAction?: boolean;
 }
 

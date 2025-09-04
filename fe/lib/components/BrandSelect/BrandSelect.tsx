@@ -1,4 +1,5 @@
-import { type ApolloClient, useQuery } from '@apollo/client';
+import type { ApolloClient } from '@apollo/client';
+import { useQuery } from '@apollo/client/react';
 import {
   FieldMessage,
   Heading,
@@ -19,7 +20,7 @@ import { PaginatedBrands } from './PaginatedBrands';
 import { ADVERTISEMENT_BRANDINGS } from './queries';
 
 export interface BrandSelectProps {
-  client?: ApolloClient<unknown>;
+  client?: ApolloClient;
   context?: Record<string, unknown>;
   hideLabel?: boolean;
   hirerId: string;

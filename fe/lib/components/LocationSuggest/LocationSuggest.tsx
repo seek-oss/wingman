@@ -1,4 +1,5 @@
-import { type ApolloClient, useLazyQuery, useQuery } from '@apollo/client';
+import type { ApolloClient } from '@apollo/client';
+import { useLazyQuery, useQuery } from '@apollo/client/react';
 import { FieldMessage, Stack, type TextField } from 'braid-design-system';
 import React, {
   type ComponentPropsWithRef,
@@ -28,7 +29,7 @@ type FieldProps = ComponentPropsWithRef<typeof TextField>;
 
 export interface LocationSuggestProps
   extends Omit<FieldProps, 'value' | 'onChange'> {
-  client?: ApolloClient<unknown>;
+  client?: ApolloClient;
   context?: Record<string, unknown>;
   debounceDelay?: number;
   first?: number;
@@ -98,15 +99,6 @@ export const LocationSuggest = forwardRef<
         context,
         // Avoid polluting the Apollo cache with partial searches
         fetchPolicy: 'no-cache',
-        onCompleted: (data) => {
-          if (
-            data.locationSuggestions?.length &&
-            Boolean(detectLocationError)
-          ) {
-            // Reset any errors on a successful location search
-            setDetectLocationError('');
-          }
-        },
       },
     );
 
@@ -129,7 +121,7 @@ export const LocationSuggest = forwardRef<
       },
     ] = useLazyQuery<NearestLocationsQuery, NearestLocationsQueryVariables>(
       NEAREST_LOCATIONS,
-      { client, context },
+      { client },
     );
 
     const handleLocationSelect = (value?: Location) => {
@@ -147,8 +139,19 @@ export const LocationSuggest = forwardRef<
           schemeId,
           geoLocation: input,
         },
+        context,
       });
     };
+
+    useEffect(() => {
+      if (
+        suggestData?.locationSuggestions?.length &&
+        Boolean(detectLocationError)
+      ) {
+        // Reset any errors on a successful location search
+        setDetectLocationError('');
+      }
+    }, [suggestData?.locationSuggestions, detectLocationError]);
 
     useEffect(() => {
       if (nearestLocationsData?.nearestLocations) {
