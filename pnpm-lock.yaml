@@ -113,8 +113,8 @@ importers:
         specifier: 0.1.6
         version: 0.1.6
       braid-design-system:
-        specifier: 33.11.3
-        version: 33.11.3(@types/react@18.3.23)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 33.11.4
+        version: 33.11.4(@types/react@18.3.23)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       clsx:
         specifier: 2.1.1
         version: 2.1.1
@@ -144,7 +144,7 @@ importers:
         version: 7.8.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       scoobie:
         specifier: 21.0.1
-        version: 21.0.1(babel-plugin-macros@3.1.0)(braid-design-system@33.11.3(@types/react@18.3.23)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router@7.8.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
+        version: 21.0.1(babel-plugin-macros@3.1.0)(braid-design-system@33.11.4(@types/react@18.3.23)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router@7.8.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       storybook:
         specifier: 9.1.1
         version: 9.1.1(@testing-library/dom@10.4.0)(prettier@3.6.2)(vite@7.1.2(@types/node@24.0.14)(jiti@2.4.2)(terser@5.43.1)(yaml@2.8.0))
@@ -2993,8 +2993,8 @@ packages:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
     engines: {node: '>=8'}
 
-  braid-design-system@33.11.3:
-    resolution: {integrity: sha512-lDNmVAWv8t7Dy5dH2WUEZh/G/RoIkxN1h0vA0Ge/7yOIMkD9N9l4L11Z7h36qG4eXQ8ORRCrrTWRR9EVAp5cMw==}
+  braid-design-system@33.11.4:
+    resolution: {integrity: sha512-e7hEy3aqXNUCxeOaeRHJkG9Gjyarbt/4OU5JO8THCjqDA0vOQJLPaiSgb8jpl1mpaxacqshS/POrmNOkmdh3iw==}
     peerDependencies:
       react: ^18 || ^19
       react-dom: ^18 || ^19
@@ -11005,7 +11005,7 @@ snapshots:
     dependencies:
       fill-range: 7.1.1
 
-  braid-design-system@33.11.3(@types/react@18.3.23)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  braid-design-system@33.11.4(@types/react@18.3.23)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@capsizecss/core': 4.1.2
       '@capsizecss/metrics': 3.5.0
@@ -14760,12 +14760,12 @@ snapshots:
       ajv-formats: 2.1.1(ajv@8.17.1)
       ajv-keywords: 5.1.0(ajv@8.17.1)
 
-  scoobie@21.0.1(babel-plugin-macros@3.1.0)(braid-design-system@33.11.3(@types/react@18.3.23)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router@7.8.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1):
+  scoobie@21.0.1(babel-plugin-macros@3.1.0)(braid-design-system@33.11.4(@types/react@18.3.23)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router@7.8.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1):
     dependencies:
       '@capsizecss/core': 4.1.2
       '@vanilla-extract/css': 1.17.4(babel-plugin-macros@3.1.0)
       '@vanilla-extract/css-utils': 0.1.6
-      braid-design-system: 33.11.3(@types/react@18.3.23)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      braid-design-system: 33.11.4(@types/react@18.3.23)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       clsx: 2.1.1
       jsonc-parser: 3.3.1
       polished: 4.3.1
