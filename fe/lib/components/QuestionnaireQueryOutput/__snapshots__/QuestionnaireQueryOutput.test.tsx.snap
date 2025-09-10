@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`convertComponentsToMutationVariables when converting components to mutation variables should return as an application questionnaire and return as valid if it meets the conditions 1`] = `
 {
