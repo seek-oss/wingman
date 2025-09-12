@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 12.0.0
+
+### Major Changes
+
+- Migrate to @apollo/client 4 ([#1318](https://github.com/seek-oss/wingman/pull/1318))
+
 ## 11.0.0
 
 ### Major Changes
