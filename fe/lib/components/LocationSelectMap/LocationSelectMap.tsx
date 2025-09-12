@@ -1,4 +1,5 @@
-import { type ApolloClient, useQuery } from '@apollo/client';
+import type { ApolloClient } from '@apollo/client';
+import { useQuery } from '@apollo/client/react';
 import {
   Alert,
   Box,
@@ -36,7 +37,7 @@ export interface LocationSelectMapProps {
   schemeId: string;
   onLocationSelected: (location: Location) => void;
   initialLocation: [number, number];
-  client?: ApolloClient<unknown>;
+  client?: ApolloClient;
   context?: Record<string, unknown>;
 
   mapHeight?: {

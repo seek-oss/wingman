@@ -68,7 +68,7 @@ interface Props {
   initialLocation?: Location;
   schemeId: string;
   hirerId?: string;
-  client?: ApolloClient<unknown>;
+  client?: ApolloClient;
   context?: Record<string, unknown>;
 }
 
