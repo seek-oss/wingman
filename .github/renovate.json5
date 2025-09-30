@@ -8,6 +8,7 @@
         '@types/node-fetch',
         'node-fetch',
         'query-string',
+        'uuid',
       ],
       matchUpdateTypes: ['major'],
 
