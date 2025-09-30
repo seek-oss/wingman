@@ -28,7 +28,7 @@ interface Props {
   onSelect: (
     jobCategorySuggestionChoice: JobCategorySuggestionChoiceAttributesFragment,
   ) => void;
-  client?: ApolloClient<unknown>;
+  client?: ApolloClient;
   context?: Record<string, unknown>;
   label?: string;
   name?: string;

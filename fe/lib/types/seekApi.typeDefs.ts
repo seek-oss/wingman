@@ -2119,7 +2119,7 @@ export const typeDefs = gql`
   The response from the \`createCandidateProcessHistoryItem\` mutation.
   """
   union CreateCandidateProcessHistoryItemPayload =
-      CreateCandidateProcessHistoryItemPayload_Conflict
+    | CreateCandidateProcessHistoryItemPayload_Conflict
     | CreateCandidateProcessHistoryItemPayload_Success
 
   """
@@ -2441,7 +2441,7 @@ export const typeDefs = gql`
   The response from the \`createWebhookSubscription\` mutation.
   """
   union CreateWebhookSubscriptionPayload =
-      CreateWebhookSubscriptionPayload_Conflict
+    | CreateWebhookSubscriptionPayload_Conflict
     | CreateWebhookSubscriptionPayload_Success
 
   """
@@ -4352,7 +4352,7 @@ export const typeDefs = gql`
   The response from the \`postPosition\` mutation.
   """
   union PostPositionPayload =
-      PostPositionPayload_Conflict
+    | PostPositionPayload_Conflict
     | PostPositionPayload_Success
 
   """
@@ -4402,7 +4402,7 @@ export const typeDefs = gql`
   The response from the \`postPositionProfileForOpening\` mutation.
   """
   union PostPositionProfileForOpeningPayload =
-      PostPositionProfileForOpeningPayload_Conflict
+    | PostPositionProfileForOpeningPayload_Conflict
     | PostPositionProfileForOpeningPayload_Success
 
   """
@@ -7336,7 +7336,7 @@ export const typeDefs = gql`
   The response from the \`updateUploadedCandidatePerson\` mutation.
   """
   union UpdateUploadedCandidatePersonPayload =
-      UpdateUploadedCandidatePersonPayload_Conflict
+    | UpdateUploadedCandidatePersonPayload_Conflict
     | UpdateUploadedCandidatePersonPayload_Success
 
   """
@@ -7523,7 +7523,7 @@ export const typeDefs = gql`
   The response from the \`updateWebhookSubscriptionDeliveryConfiguration\` mutation.
   """
   union UpdateWebhookSubscriptionDeliveryConfigurationPayload =
-      UpdateWebhookSubscriptionDeliveryConfigurationPayload_Conflict
+    | UpdateWebhookSubscriptionDeliveryConfigurationPayload_Conflict
     | UpdateWebhookSubscriptionDeliveryConfigurationPayload_Success
 
   """
@@ -7646,7 +7646,7 @@ export const typeDefs = gql`
   The response from the \`uploadCandidate\` mutation.
   """
   union UploadCandidatePayload =
-      UploadCandidatePayload_Conflict
+    | UploadCandidatePayload_Conflict
     | UploadCandidatePayload_Success
 
   """

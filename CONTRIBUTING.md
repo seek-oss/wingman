@@ -71,11 +71,11 @@ pnpm install
 
 We use [GitHub flow](https://guides.github.com/introduction/flow/).
 
-Create a new branch off of the latest commit on master:
+Create a new branch off of the latest commit on main:
 
 ```shell
 git fetch origin
-git switch --create your-branch-name origin/master
+git switch --create your-branch-name origin/main
 ```
 
 Develop, [test](#testing) and commit your changes on this branch.
@@ -101,7 +101,7 @@ git push --set-upstream fork your-branch-name
 ```
 
 A maintainer will get to your pull request and review the changes.
-If all is well, they will merge your pull request into master.
+If all is well, they will merge your pull request into main.
 
 ### Testing
 

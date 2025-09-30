@@ -38,7 +38,6 @@ const CoverImage = ({
       className={styles.missingCoverImage}
       display="flex"
       justifyContent="center"
-      width="full"
     >
       <Text>No cover image</Text>
     </Box>
@@ -68,14 +67,9 @@ export const BrandTile = ({
   showCopyableOid,
 }: Props) => (
   <Box
-    borderRadius="large"
-    boxShadow={isSelected ? 'borderFormAccentLarge' : undefined}
     cursor={onSelect ? 'pointer' : 'default'}
-    className={{
-      [styles.brand]: !isSelected,
-      [styles.selectableBrand]: onSelect && !isSelected,
-    }}
     onClick={() => onSelect?.(brand)}
+    position="relative"
   >
     <CoverImage
       image={brand.images.find((image) => image.typeCode === 'CoverImage')}
@@ -96,5 +90,21 @@ export const BrandTile = ({
         )}
       </Stack>
     </Box>
+
+    <Box
+      borderRadius="large"
+      boxShadow={isSelected ? 'borderFormAccentLarge' : undefined}
+      className={{
+        [styles.brandBase]: true,
+        [styles.brand]: !isSelected,
+        [styles.selectableBrand]: onSelect && !isSelected,
+      }}
+      pointerEvents="none"
+      position="absolute"
+      top={0}
+      bottom={0}
+      left={0}
+      right={0}
+    />
   </Box>
 );

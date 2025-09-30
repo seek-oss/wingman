@@ -107,7 +107,9 @@ const renderVariablesPane = (components: FormComponent[], hirerId: string) => {
       <Stack space="medium">
         <Text>For the variables of the mutation, use:</Text>
 
-        <CodeBlock language="json">{variablesString}</CodeBlock>
+        <CodeBlock label="Request Variables" language="json">
+          {variablesString}
+        </CodeBlock>
       </Stack>
     );
   }
@@ -153,7 +155,9 @@ export const QuestionnaireQueryOutput = ({
             require are up to you.
           </Text>
 
-          <CodeBlock language="graphql">{graphqlMutation}</CodeBlock>
+          <CodeBlock label="Request Body" language="graphql">
+            {graphqlMutation}
+          </CodeBlock>
         </Stack>
       )}
 

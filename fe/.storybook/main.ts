@@ -1,5 +1,5 @@
-import { babel, webpackFinal } from 'sku/config/storybook';
 import type { StorybookConfig } from '@storybook/react-webpack5';
+import { babel, webpackFinal } from 'sku/config/storybook';
 
 export default {
   stories: ['../lib/**/*.stories.tsx'],
@@ -11,10 +11,7 @@ export default {
       },
     },
   },
-  addons: [
-    '@storybook/addon-webpack5-compiler-babel',
-    '@storybook/addon-essentials',
-  ],
+  addons: ['@storybook/addon-webpack5-compiler-babel'],
   babel,
   webpackFinal,
 } satisfies StorybookConfig;

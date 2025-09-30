@@ -14,6 +14,7 @@ export default {
     pageSize: 4,
   },
   argTypes: {
+    showCopyableOid: { control: 'boolean' },
     showStorybookAction: defaultArgTypes.showStorybookAction,
   },
 } satisfies Meta<typeof Component>;

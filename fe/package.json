@@ -3,31 +3,31 @@
     "url": "https://github.com/seek-oss/wingman/issues"
   },
   "dependencies": {
-    "@apollo/client": "^3.5.6",
+    "@apollo/client": "^4.0.0",
     "@graphql-tools/schema": "^10.0.0",
     "@types/autosuggest-highlight": "^3.2.3",
     "@types/uuid": "^10.0.0",
     "autosuggest-highlight": "^3.2.0",
-    "pigeon-maps": "^0.21.3",
+    "pigeon-maps": "^0.22.0",
     "react-fast-compare": "^3.2.0",
     "react-hook-form": "^7.0.0",
-    "runtypes": "^6.5.0",
+    "runtypes": "^7.0.0",
     "use-debounce": "^10.0.0",
-    "uuid": "^10.0.0"
+    "uuid": "^13.0.0",
+    "rxjs": "^7.8.2"
   },
   "devDependencies": {
-    "@faker-js/faker": "9.0.3",
-    "@storybook/addon-essentials": "8.3.6",
-    "@storybook/addon-webpack5-compiler-babel": "3.0.3",
-    "@storybook/react": "8.3.6",
-    "@storybook/react-webpack5": "8.3.6",
-    "@testing-library/react": "16.0.1",
-    "@types/content-disposition": "0.5.8",
-    "@types/react": "18.3.11",
-    "@types/react-dom": "18.3.1",
-    "@vanilla-extract/css": "1.16.0",
-    "@vanilla-extract/css-utils": "0.1.4",
-    "braid-design-system": "33.0.0",
+    "@faker-js/faker": "9.9.0",
+    "@storybook/addon-webpack5-compiler-babel": "3.0.6",
+    "@storybook/react": "9.1.1",
+    "@storybook/react-webpack5": "9.1.1",
+    "@testing-library/react": "16.3.0",
+    "@types/content-disposition": "0.5.9",
+    "@types/react": "18.3.24",
+    "@types/react-dom": "18.3.7",
+    "@vanilla-extract/css": "1.17.4",
+    "@vanilla-extract/css-utils": "0.1.6",
+    "braid-design-system": "33.11.5",
     "clsx": "2.1.1",
     "content-disposition": "0.5.4",
     "date-fns": "4.1.0",
@@ -36,10 +36,9 @@
     "query-string": "7.1.3",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "react-router-dom": "6.22.3",
-    "scoobie": "18.1.0",
-    "storybook": "8.3.6",
-    "ts-node": "10.9.2",
+    "react-router": "7.8.0",
+    "scoobie": "21.0.1",
+    "storybook": "9.1.1",
     "use-query-params": "2.2.1",
     "webpack-merge": "6.0.1"
   },
@@ -52,9 +51,9 @@
   "name": "wingman-fe",
   "peerDependencies": {
     "braid-design-system": ">= 32.17.0",
-    "graphql": ">= 15 < 17",
-    "react": ">= 17 < 19",
-    "scoobie": ">= 14"
+    "graphql": "16",
+    "react": "18 || 19",
+    "scoobie": ">= 21"
   },
   "publishConfig": {
     "provenance": true
@@ -68,13 +67,12 @@
     "build": "sku build",
     "build-storybook": "storybook build --output-dir dist-storybook",
     "format": "sku format",
-    "lint": "sku lint && pnpm -s lint:codegen",
-    "lint:codegen": "ts-node lib/types/seekApi.typeDefs.ts",
+    "lint": "sku lint",
     "serve": "sku serve",
     "start": "sku start",
     "start-storybook": "storybook dev",
     "test": "sku test",
     "test:ci": "sku test --coverage"
   },
-  "version": "10.0.4"
+  "version": "12.0.0"
 }

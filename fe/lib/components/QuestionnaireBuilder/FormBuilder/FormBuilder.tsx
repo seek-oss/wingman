@@ -62,7 +62,6 @@ export const FormBuilder = ({
       const creator = actionCreators.import;
       creator(dispatch)(externalFormState);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [externalFormState]);
 
   useEffect(() => {

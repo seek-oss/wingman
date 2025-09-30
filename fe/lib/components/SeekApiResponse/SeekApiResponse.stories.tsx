@@ -7,7 +7,9 @@ import { SeekApiResponse as SeekApiResponseComponent } from './SeekApiResponse';
 
 const Component = (args: ComponentProps<typeof SeekApiResponseComponent>) => (
   <Stack space="large">
-    <CodeBlock language="json">{JSON.stringify(args.data, null, 2)}</CodeBlock>
+    <CodeBlock label="Response" language="json">
+      {JSON.stringify(args.data, null, 2)}
+    </CodeBlock>
     <SeekApiResponseComponent {...args} />
   </Stack>
 );
