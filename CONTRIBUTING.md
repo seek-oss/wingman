@@ -177,13 +177,13 @@ The changesets are used to infer the next semantic version and to update the cha
 
 This PR may be left open to collate multiple changes into the next version.
 A maintainer will merge it once ready,
-and our [release](/.github/workflows/release.yml) GitHub Actions workflow will publish the associated GitHub release and npm package version.
+and our [release workflow] will publish the associated GitHub release and npm package version.
 
 ### Publishing a prerelease
 
 Prereleases can be created on demand via [seek-oss/changesets-snapshot].
 
-Manually run the [Snapshot workflow] for the `main` branch in GitHub Actions to publish a new snapshot version to npm.
+Manually run the [release workflow] on any branch in GitHub Actions to publish a new snapshot version to npm.
 
 <https://www.npmjs.com/package/wingman-fe?activeTab=versions>
 
@@ -194,10 +194,10 @@ Manually run the [Snapshot workflow] for the `main` branch in GitHub Actions to 
 [fork the repo]: https://github.com/seek-oss/wingman/fork
 [readme design section]: https://github.com/seek-oss/wingman#design
 [release notes]: https://github.com/seek-oss/wingman/releases
+[release workflow]: https://github.com/seek-oss/wingman/actions/workflows/release.yml
 [seek-oss/changesets-snapshot]: https://github.com/seek-oss/changesets-snapshot
 [semantic versioning]: https://semver.org/
 [sku]: https://github.com/seek-oss/sku
-[Snapshot workflow]: https://github.com/seek-oss/wingman/actions/workflows/snapshot.yml
 [storybook]: https://seek-oss.github.io/wingman/
 [submit an issue]: https://github.com/seek-oss/wingman/issues/new/choose
 [windows subsystem for linux]: https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux
