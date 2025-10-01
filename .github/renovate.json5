@@ -7,7 +7,7 @@
         // ESM only
         '@types/node-fetch',
         'node-fetch',
-        'query-string'
+        'query-string',
       ],
       matchUpdateTypes: ['major'],
 
