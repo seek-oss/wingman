@@ -6,14 +6,12 @@
     "@apollo/client": "^4.0.0",
     "@graphql-tools/schema": "^10.0.0",
     "@types/autosuggest-highlight": "^3.2.3",
-    "@types/uuid": "^10.0.0",
     "autosuggest-highlight": "^3.2.0",
     "pigeon-maps": "^0.22.0",
     "react-fast-compare": "^3.2.0",
     "react-hook-form": "^7.0.0",
     "runtypes": "^7.0.0",
     "use-debounce": "^10.0.0",
-    "uuid": "^13.0.0",
     "rxjs": "^7.8.2"
   },
   "devDependencies": {
