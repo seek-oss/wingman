@@ -2,4 +2,4 @@
 'wingman-fe': minor
 ---
 
-Drop `uuid`
+Drop `uuid` dependency 
