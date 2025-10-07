@@ -1,5 +1,3 @@
-import { randomUUID } from 'crypto';
-
 import React from 'react';
 
 import type {
@@ -36,7 +34,7 @@ const createAddPrivacyConsentAction =
   (dispatch: React.Dispatch<AddComponentAction>) =>
   (descriptionHtml: string, url: string) => {
     const newValue: PrivacyConsent = {
-      value: randomUUID(),
+      value: window.crypto.randomUUID(),
       privacyPolicyUrl: {
         url,
       },
@@ -49,7 +47,7 @@ const createAddPrivacyConsentAction =
 const createAddFreeTextQuestionAction =
   (dispatch: React.Dispatch<AddComponentAction>) => (questionText: string) => {
     const newValue: FreeTextQuestion = {
-      value: randomUUID(),
+      value: window.crypto.randomUUID(),
       questionHtml: questionText,
       responseTypeCode: 'FreeText',
       componentTypeCode: 'Question',
@@ -67,7 +65,7 @@ const createAddSelectQuestionAction =
       value: text.replace(/ /g, '').toLowerCase(),
     }));
     const newValue: SelectionQuestion = {
-      value: randomUUID(),
+      value: window.crypto.randomUUID(),
       componentTypeCode: 'Question',
       questionHtml: questionText,
       responseTypeCode: questionType,
