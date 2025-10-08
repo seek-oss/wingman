@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 12.1.0
+
+### Minor Changes
+
+- Drop `uuid` dependency ([#1344](https://github.com/seek-oss/wingman/pull/1344))
+
 ## 12.0.0
 
 ### Major Changes
