@@ -5,6 +5,7 @@
       matchManagers: ['npm'],
       matchPackageNames: [
         // ESM only
+        '@faker-js/faker',
         '@types/node-fetch',
         'node-fetch',
         'query-string',
