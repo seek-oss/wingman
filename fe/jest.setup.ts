@@ -1,3 +1,3 @@
 import { TextEncoder } from 'node:util';
 
-global.TextEncoder = TextEncoder;
+(global as any).TextEncoder = TextEncoder;
