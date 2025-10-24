@@ -1,5 +1,4 @@
 import type { ApolloClient } from '@apollo/client';
-import matchHighlights from 'autosuggest-highlight/match';
 import {
   Autosuggest,
   Button,
@@ -45,14 +44,6 @@ const mapLocationsToSuggestions = (
         value: location.id.value,
       }))
     : [];
-
-const createHighlights = (string: string, input: string) => {
-  const matched = matchHighlights(string, input);
-  return (matched as number[][]).map(([start, end]) => ({
-    start,
-    end,
-  }));
-};
 
 interface Props {
   label: string;
@@ -116,11 +107,6 @@ const LocationSuggestInput = ({
 
   const mappedSuggestions = mapLocationsToSuggestions(locationSuggestions);
 
-  const highlightedSuggestions = mappedSuggestions.map((suggestion) => ({
-    ...suggestion,
-    highlights: createHighlights(suggestion.text, locationSuggest.text),
-  }));
-
   const handleClear = useCallback(() => {
     setLocationSuggest(initialLocationSuggest);
     onClear();
@@ -148,12 +134,13 @@ const LocationSuggestInput = ({
   const handleChange = ({ text, value = '' }: Suggestion) => {
     setLocationSuggest({ text, value });
 
-    if (text !== '') {
-      onChange(text);
-    }
-
     if (value) {
       handleSelect(value);
+      return;
+    }
+
+    if (text !== '') {
+      onChange(text);
     }
   };
 
@@ -202,9 +189,10 @@ const LocationSuggestInput = ({
           automaticSelection={false}
           onClear={handleClear}
           onChange={handleChange}
-          suggestions={highlightedSuggestions}
+          suggestions={mappedSuggestions}
           tone={tone}
           value={locationSuggest}
+          suggestionHighlight="matching"
         />
       </Column>
       <Column width="content">
