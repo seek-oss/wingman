@@ -2,4 +2,4 @@
 'wingman-fe': minor
 ---
 
-Let Autosuggest do the suggestion matching, fetch once"
+LocationSuggestInput: Delegate suggestion matching to Braid, remove redundant fetch
