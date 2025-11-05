@@ -9629,7 +9629,7 @@ snapshots:
       lodash: 4.17.21
       react: 18.3.1
 
-  '@loadable/webpack-plugin@5.15.2(webpack@5.102.0(@swc/core@1.13.5)(esbuild@0.25.10))':
+  '@loadable/webpack-plugin@5.15.2(webpack@5.102.0(esbuild@0.25.10))':
     dependencies:
       make-dir: 3.1.0
       webpack: 5.102.0(@swc/core@1.13.5)(esbuild@0.25.10)
@@ -9730,7 +9730,7 @@ snapshots:
 
   '@pkgr/core@0.2.9': {}
 
-  '@pmmmwh/react-refresh-webpack-plugin@0.6.1(react-refresh@0.17.0)(type-fest@0.21.3)(webpack-dev-server@5.2.0(debug@4.4.3)(webpack@5.102.0(esbuild@0.25.10)))(webpack-hot-middleware@2.26.1)(webpack@5.102.0(@swc/core@1.13.5)(esbuild@0.25.10))':
+  '@pmmmwh/react-refresh-webpack-plugin@0.6.1(react-refresh@0.17.0)(type-fest@0.21.3)(webpack-dev-server@5.2.0(debug@4.4.3)(webpack@5.102.0(esbuild@0.25.10)))(webpack-hot-middleware@2.26.1)(webpack@5.102.0(esbuild@0.25.10))':
     dependencies:
       anser: 2.3.2
       core-js-pure: 3.45.1
@@ -10513,7 +10513,7 @@ snapshots:
       - tsx
       - yaml
 
-  '@vanilla-extract/webpack-plugin@2.3.22(babel-plugin-macros@3.1.0)(webpack@5.102.0(@swc/core@1.13.5)(esbuild@0.25.10))':
+  '@vanilla-extract/webpack-plugin@2.3.22(babel-plugin-macros@3.1.0)(webpack@5.102.0(esbuild@0.25.10))':
     dependencies:
       '@vanilla-extract/integration': 8.0.4(babel-plugin-macros@3.1.0)
       debug: 4.4.3
@@ -10606,7 +10606,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vocab/webpack@1.2.12(webpack@5.102.0(@swc/core@1.13.5)(esbuild@0.25.10))':
+  '@vocab/webpack@1.2.12(webpack@5.102.0(esbuild@0.25.10))':
     dependencies:
       '@vocab/core': 1.6.4
       cjs-module-lexer: 2.1.0
@@ -10944,7 +10944,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  babel-loader@10.0.0(@babel/core@7.28.4)(webpack@5.102.0(@swc/core@1.13.5)(esbuild@0.25.10)):
+  babel-loader@10.0.0(@babel/core@7.28.4)(webpack@5.102.0(esbuild@0.25.10)):
     dependencies:
       '@babel/core': 7.28.4
       find-up: 5.0.0
@@ -11498,7 +11498,7 @@ snapshots:
     optionalDependencies:
       webpack: 5.102.0(esbuild@0.25.10)
 
-  css-loader@7.1.2(webpack@5.102.0(@swc/core@1.13.5)(esbuild@0.25.10)):
+  css-loader@7.1.2(webpack@5.102.0(esbuild@0.25.10)):
     dependencies:
       icss-utils: 5.1.0(postcss@8.5.6)
       postcss: 8.5.6
@@ -13742,7 +13742,7 @@ snapshots:
 
   min-indent@1.0.1: {}
 
-  mini-css-extract-plugin@2.9.4(webpack@5.102.0(@swc/core@1.13.5)(esbuild@0.25.10)):
+  mini-css-extract-plugin@2.9.4(webpack@5.102.0(esbuild@0.25.10)):
     dependencies:
       schema-utils: 4.3.3
       tapable: 2.3.0
@@ -14188,7 +14188,7 @@ snapshots:
     dependencies:
       postcss: 8.5.6
 
-  postcss-loader@8.2.0(postcss@8.5.6)(typescript@5.9.3)(webpack@5.102.0(@swc/core@1.13.5)(esbuild@0.25.10)):
+  postcss-loader@8.2.0(postcss@8.5.6)(typescript@5.9.3)(webpack@5.102.0(esbuild@0.25.10)):
     dependencies:
       cosmiconfig: 9.0.0(typescript@5.9.3)
       jiti: 2.6.1
@@ -14978,8 +14978,8 @@ snapshots:
       '@loadable/babel-plugin': 5.16.1(@babel/core@7.28.4)
       '@loadable/component': 5.16.7(react@18.3.1)
       '@loadable/server': 5.16.7(@loadable/component@5.16.7(react@18.3.1))(react@18.3.1)
-      '@loadable/webpack-plugin': 5.15.2(webpack@5.102.0(@swc/core@1.13.5)(esbuild@0.25.10))
-      '@pmmmwh/react-refresh-webpack-plugin': 0.6.1(react-refresh@0.17.0)(type-fest@0.21.3)(webpack-dev-server@5.2.0(debug@4.4.3)(webpack@5.102.0(esbuild@0.25.10)))(webpack-hot-middleware@2.26.1)(webpack@5.102.0(@swc/core@1.13.5)(esbuild@0.25.10))
+      '@loadable/webpack-plugin': 5.15.2(webpack@5.102.0(esbuild@0.25.10))
+      '@pmmmwh/react-refresh-webpack-plugin': 0.6.1(react-refresh@0.17.0)(type-fest@0.21.3)(webpack-dev-server@5.2.0(debug@4.4.3)(webpack@5.102.0(esbuild@0.25.10)))(webpack-hot-middleware@2.26.1)(webpack@5.102.0(esbuild@0.25.10))
       '@sku-lib/utils': 1.1.0
       '@sku-lib/vite': 1.0.0(@types/react@18.3.25)(react@18.3.1)(vite@7.1.9(@types/node@24.7.0)(jiti@2.6.1)(terser@5.44.0)(yaml@2.8.1))
       '@swc/core': 1.13.5
@@ -14992,18 +14992,18 @@ snapshots:
       '@vanilla-extract/integration': 8.0.4(babel-plugin-macros@3.1.0)
       '@vanilla-extract/jest-transform': 1.1.17(babel-plugin-macros@3.1.0)
       '@vanilla-extract/vite-plugin': 5.1.1(@types/node@24.7.0)(babel-plugin-macros@3.1.0)(jiti@2.6.1)(terser@5.44.0)(vite@7.1.9(@types/node@24.7.0)(jiti@2.6.1)(terser@5.44.0)(yaml@2.8.1))(yaml@2.8.1)
-      '@vanilla-extract/webpack-plugin': 2.3.22(babel-plugin-macros@3.1.0)(webpack@5.102.0(@swc/core@1.13.5)(esbuild@0.25.10))
+      '@vanilla-extract/webpack-plugin': 2.3.22(babel-plugin-macros@3.1.0)(webpack@5.102.0(esbuild@0.25.10))
       '@vitejs/plugin-basic-ssl': 2.1.0(vite@7.1.9(@types/node@24.7.0)(jiti@2.6.1)(terser@5.44.0)(yaml@2.8.1))
       '@vitejs/plugin-react': 4.7.0(vite@7.1.9(@types/node@24.7.0)(jiti@2.6.1)(terser@5.44.0)(yaml@2.8.1))
       '@vocab/core': 1.6.4
       '@vocab/phrase': 2.1.1
       '@vocab/pseudo-localize': 1.0.1
       '@vocab/vite': 0.2.4(vite@7.1.9(@types/node@24.7.0)(jiti@2.6.1)(terser@5.44.0)(yaml@2.8.1))
-      '@vocab/webpack': 1.2.12(webpack@5.102.0(@swc/core@1.13.5)(esbuild@0.25.10))
+      '@vocab/webpack': 1.2.12(webpack@5.102.0(esbuild@0.25.10))
       '@zendesk/babel-plugin-react-displayname': https://codeload.github.com/zendesk/babel-plugin-react-displayname/tar.gz/7a837f2(@babel/core@7.28.4)(@babel/preset-react@7.27.1(@babel/core@7.28.4))
       autoprefixer: 10.4.21(postcss@8.5.6)
       babel-jest: 30.2.0(@babel/core@7.28.4)
-      babel-loader: 10.0.0(@babel/core@7.28.4)(webpack@5.102.0(@swc/core@1.13.5)(esbuild@0.25.10))
+      babel-loader: 10.0.0(@babel/core@7.28.4)(webpack@5.102.0(esbuild@0.25.10))
       babel-plugin-macros: 3.1.0
       babel-plugin-module-resolver: 5.0.2
       babel-plugin-transform-react-remove-prop-types: 0.4.24
@@ -15015,7 +15015,7 @@ snapshots:
       commander: 14.0.1
       compression: 1.8.1
       cross-spawn: 7.0.6
-      css-loader: 7.1.2(webpack@5.102.0(@swc/core@1.13.5)(esbuild@0.25.10))
+      css-loader: 7.1.2(webpack@5.102.0(esbuild@0.25.10))
       cssnano: 7.1.1(postcss@8.5.6)
       death: 1.1.0
       debug: 4.4.3
@@ -15042,7 +15042,7 @@ snapshots:
       jiti: 2.6.1
       lint-staged: 16.2.3
       magicast: 0.3.5
-      mini-css-extract-plugin: 2.9.4(webpack@5.102.0(@swc/core@1.13.5)(esbuild@0.25.10))
+      mini-css-extract-plugin: 2.9.4(webpack@5.102.0(esbuild@0.25.10))
       nano-memoize: 3.0.16
       node-html-parser: 7.0.1
       open: 10.2.0
@@ -15050,7 +15050,7 @@ snapshots:
       path-to-regexp: 6.3.0
       picomatch: 4.0.3
       postcss: 8.5.6
-      postcss-loader: 8.2.0(postcss@8.5.6)(typescript@5.9.3)(webpack@5.102.0(@swc/core@1.13.5)(esbuild@0.25.10))
+      postcss-loader: 8.2.0(postcss@8.5.6)(typescript@5.9.3)(webpack@5.102.0(esbuild@0.25.10))
       prettier: 3.6.2
       pretty-ms: 9.3.0
       prompts: 2.4.2
