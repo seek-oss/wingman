@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 12.2.0
+
+### Minor Changes
+
+- **LocationSuggestInput:** Delegate suggestion matching to Braid, remove redundant fetch ([#1351](https://github.com/seek-oss/wingman/pull/1351))
+
 ## 12.1.0
 
 ### Minor Changes
