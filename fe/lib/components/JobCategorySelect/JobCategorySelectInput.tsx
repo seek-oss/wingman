@@ -1,7 +1,7 @@
 import { calc } from '@vanilla-extract/css-utils';
 import { Box, Dropdown, Stack } from 'braid-design-system';
 import { vars } from 'braid-design-system/css';
-import React, { type ComponentProps, useEffect, useRef, useState } from 'react';
+import { type ComponentProps, useMemo, useState } from 'react';
 
 import type {
   JobCategoriesQuery,
@@ -31,10 +31,48 @@ const JobCategorySelectInput = ({
   label = 'Category',
   ...restProps
 }: Props) => {
-  const [selectedParentCategoryId, setSelectedParentCategoryId] = useState('');
-  const [selectedChildCategoryId, setSelectedChildCategoryId] = useState('');
-  const [childCategories, setChildCategories] = useState<AnyJobCategory[]>();
-  const parentRef = useRef<HTMLSelectElement>(null);
+  const initialState = useMemo(() => {
+    if (!initialValue) {
+      return { parentId: '', childId: '', children: undefined };
+    }
+
+    for (const parentCategory of jobCategories) {
+      if (!parentCategory.children) {
+        continue;
+      }
+
+      if (parentCategory.id.value === initialValue) {
+        return {
+          parentId: parentCategory.id.value,
+          childId: '',
+          children: parentCategory.children,
+        };
+      }
+
+      for (const childCategory of parentCategory.children) {
+        if (childCategory.id.value === initialValue) {
+          return {
+            parentId: parentCategory.id.value,
+            childId: childCategory.id.value,
+            children: parentCategory.children,
+          };
+        }
+      }
+    }
+
+    return { parentId: '', childId: '', children: undefined };
+  }, [initialValue, jobCategories]);
+
+  const [selectedParentCategoryId, setSelectedParentCategoryId] = useState(
+    initialState.parentId,
+  );
+  const [selectedChildCategoryId, setSelectedChildCategoryId] = useState(
+    initialState.childId,
+  );
+  const [childCategories, setChildCategories] = useState<AnyJobCategory[]>(
+    initialState.children ?? [],
+  );
+  const [dropDownHeight, setDropDownHeight] = useState<number>();
 
   const handleParentCategorySelect = (parentCategoryId: string) => {
     const parentCategory = findObjectByOid(jobCategories, parentCategoryId);
@@ -58,33 +96,6 @@ const JobCategorySelectInput = ({
     }
   };
 
-  useEffect(() => {
-    if (initialValue) {
-      for (const parentCategory of jobCategories) {
-        if (!parentCategory.children) {
-          continue;
-        }
-
-        if (parentCategory.id.value === initialValue) {
-          setChildCategories(parentCategory.children);
-          setSelectedParentCategoryId(parentCategory.id.value);
-          return;
-        }
-
-        for (const childCategory of parentCategory.children) {
-          if (childCategory.id.value === initialValue) {
-            setChildCategories(parentCategory.children);
-            setSelectedParentCategoryId(parentCategory.id.value);
-            setSelectedChildCategoryId(childCategory.id.value);
-            return;
-          }
-        }
-      }
-    }
-  }, [initialValue, jobCategories]);
-
-  const dropDownHeight = parentRef.current?.clientHeight;
-
   const categoryLinkHeight = dropDownHeight
     ? calc.add(
         vars.space.small, // Padding associated to parent `Box`
@@ -97,7 +108,11 @@ const JobCategorySelectInput = ({
     <Stack space="none">
       <Dropdown
         {...restProps}
-        ref={parentRef}
+        ref={(node) => {
+          if (node && !dropDownHeight) {
+            setDropDownHeight(node.clientHeight);
+          }
+        }}
         aria-label="Category"
         id="jobCategoriesSelect"
         label={hideLabel ? undefined : label}
