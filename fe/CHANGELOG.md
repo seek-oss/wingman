@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 12.2.1
+
+### Patch Changes
+
+- **JobCategorySelect:** Refactor to remove an unnecessary useEffect ([#1357](https://github.com/seek-oss/wingman/pull/1357))
+
 ## 12.2.0
 
 ### Minor Changes
