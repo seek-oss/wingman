@@ -128,6 +128,7 @@ export default ({ options, setOptionList }: SelectOptionsProps) => {
                     onClear={() => setValue('option', '')}
                     ref={optionInputRef}
                     tone={errors.option ? 'critical' : undefined}
+                    value={field.value ?? ''}
                   />
                 )}
               />

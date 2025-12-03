@@ -103,6 +103,7 @@ export default ({
               message={errors.url?.message}
               onChange={(event) => field.onChange(event.currentTarget.value)}
               tone={errors.url ? 'critical' : undefined}
+              value={field.value ?? ''}
             />
           )}
           control={control}
@@ -118,6 +119,7 @@ export default ({
               message={errors.description?.message}
               onChange={(event) => field.onChange(event.currentTarget.value)}
               tone={errors.description ? 'critical' : undefined}
+              value={field.value ?? ''}
             />
           )}
           control={control}
