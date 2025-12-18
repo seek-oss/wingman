@@ -33,9 +33,7 @@ interface WrapperProps {
   children: ReactNode;
 }
 
-const RoundedCard = ({ children }: WrapperProps) => (
-  <Card roundedAbove="mobile">{children}</Card>
-);
+const RoundedCard = ({ children }: WrapperProps) => <Card>{children}</Card>;
 
 export interface QuestionnaireBuilderProps {
   hirerId: string;
