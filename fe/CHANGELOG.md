@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 12.2.2
+
+### Patch Changes
+
+- Update braid-design-system to 34.0.0 version ([#1379](https://github.com/seek-oss/wingman/pull/1379))
+
 ## 12.2.1
 
 ### Patch Changes
