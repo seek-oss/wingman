@@ -35,7 +35,7 @@
     "react-dom": "18.3.1",
     "react-router": "7.10.1",
     "scoobie": "21.1.0",
-    "storybook": "10.1.8",
+    "storybook": "10.1.10",
     "use-query-params": "2.2.2",
     "webpack-merge": "6.0.1"
   },
