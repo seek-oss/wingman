@@ -1,5 +1,5 @@
 import { Box, IconChevron, Strong, Text } from 'braid-design-system';
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 
 interface Props {
   segments: Array<{ name: string; key: string }>;

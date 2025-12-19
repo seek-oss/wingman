@@ -12,7 +12,7 @@ import {
   Text,
   TextField,
 } from 'braid-design-system';
-import React, { useEffect, useId, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 
 import type {
   CurrenciesQuery,

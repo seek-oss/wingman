@@ -1,5 +1,4 @@
 import { Text } from 'braid-design-system';
-import React from 'react';
 
 import { RichDropdown } from '../components/RichDropdown';
 import { QUESTIONNAIRES, type Questionnaire } from '../data/questionnaires';

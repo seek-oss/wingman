@@ -1,5 +1,5 @@
 import { Box } from 'braid-design-system';
-import React, { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;

@@ -1,5 +1,5 @@
 import { Box, Text } from 'braid-design-system';
-import React, { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import type { Align } from './Table';
 import { TableCellLink } from './TableCellLink';

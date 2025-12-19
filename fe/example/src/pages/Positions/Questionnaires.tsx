@@ -7,7 +7,7 @@ import {
   Heading,
   Stack,
 } from 'braid-design-system';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { QuestionnaireForm } from '../../../../lib/components/QuestionnaireForm/QuestionnaireForm';
 import { Header } from '../../components/Header';

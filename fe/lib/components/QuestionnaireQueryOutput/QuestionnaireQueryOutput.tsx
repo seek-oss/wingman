@@ -5,7 +5,7 @@ import {
   Text,
   TextLink,
 } from 'braid-design-system';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { CodeBlock } from 'scoobie';
 
 import { MAX_NUMBER_OF_COMPONENTS } from '../../private/questionnaires/constants';

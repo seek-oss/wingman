@@ -17,7 +17,7 @@ import {
   Text,
   TextDropdown,
 } from 'braid-design-system';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { StringParam, useQueryParam } from 'use-query-params';
 

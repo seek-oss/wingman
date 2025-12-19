@@ -4,7 +4,6 @@ import {
   MenuItem,
   OverflowMenu,
 } from 'braid-design-system';
-import React from 'react';
 
 interface QuestionEntryMenuProps {
   onClickEdit: () => void;

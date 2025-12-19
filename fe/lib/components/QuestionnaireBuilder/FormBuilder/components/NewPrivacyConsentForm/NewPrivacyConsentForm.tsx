@@ -6,7 +6,7 @@ import {
   Stack,
   TextField,
 } from 'braid-design-system';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import type {

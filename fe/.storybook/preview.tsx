@@ -5,7 +5,6 @@ import { Box, BraidProvider, ContentBlock } from 'braid-design-system';
 import docs from 'braid-design-system/themes/docs';
 import seekJobs from 'braid-design-system/themes/seekJobs';
 import wireframe from 'braid-design-system/themes/wireframe';
-import React from 'react';
 
 const THEMES = { seekJobs, docs, wireframe };
 

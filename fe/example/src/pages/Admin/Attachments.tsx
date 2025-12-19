@@ -1,5 +1,4 @@
 import { Card, Divider, Heading, List, Stack, Text } from 'braid-design-system';
-import React from 'react';
 
 import { useBrowserToken } from '../../../../lib/hooks';
 import { DOWNLOAD_ATTACHMENT_SCOPE } from '../../api/browserToken';

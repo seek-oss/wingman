@@ -11,7 +11,7 @@ import {
   Text,
   TextField,
 } from 'braid-design-system';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { USERS } from '../data/users';
 import { useClient } from '../hooks/user';

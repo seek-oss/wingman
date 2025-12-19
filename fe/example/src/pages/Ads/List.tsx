@@ -18,7 +18,7 @@ import {
   Stack,
   Text,
 } from 'braid-design-system';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { StringParam, useQueryParam } from 'use-query-params';
 
 import type { Ad } from '../../data/ads';
