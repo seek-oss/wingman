@@ -6,7 +6,7 @@ import {
   Heading,
   Stack,
 } from 'braid-design-system';
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import type {

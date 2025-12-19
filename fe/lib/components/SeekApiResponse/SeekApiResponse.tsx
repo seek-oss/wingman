@@ -1,5 +1,4 @@
 import { Disclosure } from 'braid-design-system';
-import React from 'react';
 import { CodeBlock } from 'scoobie';
 
 import { prettyPrintWithoutTypename } from './prettyPrintWithoutTypename';

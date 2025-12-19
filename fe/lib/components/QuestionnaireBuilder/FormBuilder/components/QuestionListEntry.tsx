@@ -1,5 +1,5 @@
 import { Column, Columns, Stack, Text } from 'braid-design-system';
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 
 import type {
   FreeTextQuestion,

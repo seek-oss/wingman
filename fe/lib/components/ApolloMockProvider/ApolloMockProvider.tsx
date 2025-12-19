@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { SchemaLink } from '@apollo/client/link/schema';
 import { ApolloProvider } from '@apollo/client/react';
 import { makeExecutableSchema } from '@graphql-tools/schema';
-import React, { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { apolloTypePolicies } from '../../types/apolloTypePolicies';
 import { typeDefs } from '../../types/seekApi.typeDefs';

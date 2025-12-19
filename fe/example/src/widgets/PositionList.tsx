@@ -8,7 +8,7 @@ import {
   Stack,
   Text,
 } from 'braid-design-system';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { RelativeDate } from '../components/RelativeDate';
 import { SearchField } from '../components/SearchField';

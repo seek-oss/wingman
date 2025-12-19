@@ -1,6 +1,6 @@
 import type { ApolloClient } from '@apollo/client';
 import { useApolloClient } from '@apollo/client/react';
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 
 import { MockComponentActions } from '../../private/MockComponentActions/MockComponentActions';
 import { ApolloMockProvider } from '../ApolloMockProvider/ApolloMockProvider';

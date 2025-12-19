@@ -1,5 +1,4 @@
 import { Box, Stack, Text } from 'braid-design-system';
-import React from 'react';
 
 import { CopyableOid } from '../../private/CopyableOid';
 import type {

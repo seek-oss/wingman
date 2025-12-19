@@ -6,7 +6,7 @@ import {
   Stack,
   Text,
 } from 'braid-design-system';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { querySeekGraph } from '../../api/seekGraph';
 

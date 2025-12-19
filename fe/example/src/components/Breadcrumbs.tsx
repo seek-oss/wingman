@@ -1,5 +1,5 @@
 import { IconChevron } from 'braid-design-system';
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import { SmartTextLink } from 'scoobie';
 
 type Crumb =

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { MockComponentActions } from '../../private/MockComponentActions/MockComponentActions';
 import type { LocationQueryVariables } from '../../types/seekApi.graphql';
 import { ApolloMockProvider } from '../ApolloMockProvider/ApolloMockProvider';

@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 
 import { MockComponentActions } from '../../private/MockComponentActions/MockComponentActions';
 import { ApolloMockProvider } from '../ApolloMockProvider/ApolloMockProvider';

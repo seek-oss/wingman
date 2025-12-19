@@ -11,7 +11,7 @@ import {
   Strong,
   Text,
 } from 'braid-design-system';
-import React, { Fragment, useState } from 'react';
+import { Fragment, useState } from 'react';
 
 import { SearchField } from '../components/SearchField';
 import { Table, type TableColumn } from '../components/Table';

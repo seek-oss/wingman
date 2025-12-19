@@ -1,6 +1,6 @@
 import { Box, Text } from 'braid-design-system';
 import clsx from 'clsx';
-import React, { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Link } from 'react-router';
 
 import type { Align } from './Table';

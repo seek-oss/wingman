@@ -1,5 +1,4 @@
 import { Tiles } from 'braid-design-system';
-import React from 'react';
 
 import type {
   AdvertisementBrandingEdgeFieldsFragment,

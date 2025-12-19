@@ -1,4 +1,4 @@
-import React, { type ComponentProps } from 'react';
+import type { ComponentProps } from 'react';
 import { CopyableText } from 'scoobie';
 
 type Props = Pick<ComponentProps<typeof CopyableText>, 'children' | 'size'>;

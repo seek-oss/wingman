@@ -5,7 +5,6 @@ import {
   Heading,
   Stack,
 } from 'braid-design-system';
-import React from 'react';
 
 import { ClientOnly } from '../../components/ClientOnly';
 import { Header } from '../../components/Header';

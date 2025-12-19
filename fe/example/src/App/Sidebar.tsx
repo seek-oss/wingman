@@ -11,7 +11,7 @@ import {
   Text,
   Toggle,
 } from 'braid-design-system';
-import React, { Fragment, type ReactNode } from 'react';
+import { Fragment, type ReactNode } from 'react';
 import { InternalLink } from 'scoobie';
 
 import { ClientOnly } from '../components/ClientOnly';

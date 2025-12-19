@@ -5,7 +5,7 @@ import {
   Text,
   TextLink,
 } from 'braid-design-system';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import type { PrivacyConsent } from '../../../private/questionnaires/types';
 

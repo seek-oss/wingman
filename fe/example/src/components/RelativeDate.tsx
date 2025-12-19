@@ -1,5 +1,5 @@
 import { formatDistance } from 'date-fns';
-import React, { Fragment, useState } from 'react';
+import { Fragment, useState } from 'react';
 
 interface Props {
   date: Date;

@@ -11,7 +11,6 @@ import {
   TextDropdown,
   TextField,
 } from 'braid-design-system';
-import React from 'react';
 
 import { useFields } from '../../hooks/Fields/Fields';
 import type { SpecifiedPersonInput } from '../../types/seekApi.graphql';

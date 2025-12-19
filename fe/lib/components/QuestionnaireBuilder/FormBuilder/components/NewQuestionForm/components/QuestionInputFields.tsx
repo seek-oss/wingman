@@ -1,5 +1,4 @@
 import { Stack, TextField } from 'braid-design-system';
-import React from 'react';
 
 import type {
   QuestionType,

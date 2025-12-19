@@ -7,7 +7,7 @@ import {
   Text,
   Tiles,
 } from 'braid-design-system';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { AD_PRODUCTS, type AdProductName } from '../data/adProducts';
 

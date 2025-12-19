@@ -6,7 +6,6 @@ import {
   Stack,
   Text,
 } from 'braid-design-system';
-import React from 'react';
 import { SmartTextLink } from 'scoobie';
 
 import { Header } from '../components/Header';

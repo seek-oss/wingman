@@ -1,5 +1,4 @@
 import { Divider, Heading, Stack } from 'braid-design-system';
-import React from 'react';
 
 import { Header } from '../../components/Header';
 import { POSITIONS } from '../../data/positions';

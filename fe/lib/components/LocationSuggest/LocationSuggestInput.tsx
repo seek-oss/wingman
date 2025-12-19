@@ -11,7 +11,7 @@ import {
   Text,
   type TextField,
 } from 'braid-design-system';
-import React, {
+import {
   type ComponentProps,
   useCallback,
   useEffect,

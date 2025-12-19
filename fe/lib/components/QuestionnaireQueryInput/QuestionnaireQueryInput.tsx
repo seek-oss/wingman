@@ -6,7 +6,7 @@ import {
   Text,
   Textarea,
 } from 'braid-design-system';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import {
   type MutationVariableInput,

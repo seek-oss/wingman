@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { MockComponentActions } from '../../private/MockComponentActions/MockComponentActions';
 import type { AdvertisementBrandingsQueryVariables } from '../../types/seekApi.graphql';
 import { createCursorConnection } from '../../utils/createCursorConnection';
