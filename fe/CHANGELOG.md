@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 12.2.3
+
+### Patch Changes
+
+- Bump storybook, sku, vanilla-extract and braid dependancies ([`751bfe1`](https://github.com/seek-oss/wingman/commit/751bfe14c8e47d96dbd5e0a70a3c6e21120cb73d))
+
 ## 12.2.2
 
 ### Patch Changes
