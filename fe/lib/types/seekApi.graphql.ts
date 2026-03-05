@@ -558,8 +558,7 @@ export interface ApplicationMethodInput {
  *
  * The privacy policy consent component presents the candidate with a 'Yes' or 'No' choice.
  */
-export interface ApplicationPrivacyConsent
-  extends ApplicationQuestionnaireComponent {
+export interface ApplicationPrivacyConsent extends ApplicationQuestionnaireComponent {
   __typename?: 'ApplicationPrivacyConsent';
   /**
    * The type of the component.
@@ -625,8 +624,7 @@ export interface ApplicationPrivacyConsentInput {
 }
 
 /** A candidate's response to a privacy policy consent component in the questionnaire. */
-export interface ApplicationPrivacyConsentResponse
-  extends ApplicationQuestionnaireComponentResponse {
+export interface ApplicationPrivacyConsentResponse extends ApplicationQuestionnaireComponentResponse {
   __typename?: 'ApplicationPrivacyConsentResponse';
   /** The privacy consent component this is responding to. */
   component: ApplicationPrivacyConsent;
@@ -843,8 +841,7 @@ export interface ApplicationQuestionInput {
 }
 
 /** A candidate's response to a question in the questionnaire. */
-export interface ApplicationQuestionResponse
-  extends ApplicationQuestionnaireComponentResponse {
+export interface ApplicationQuestionResponse extends ApplicationQuestionnaireComponentResponse {
   __typename?: 'ApplicationQuestionResponse';
   /**
    * The answers provided by the candidate.
@@ -6945,8 +6942,7 @@ export interface WebhookSubscriptionReplay {
 }
 
 /** The event ID criteria used to determine which events will be replayed. */
-export interface WebhookSubscriptionReplayByIdRequest
-  extends WebhookSubscriptionReplayRequest {
+export interface WebhookSubscriptionReplayByIdRequest extends WebhookSubscriptionReplayRequest {
   __typename?: 'WebhookSubscriptionReplayByIdRequest';
   /** The list of `Event.id` values to replay. */
   eventIds: Array<Scalars['String']>;
@@ -6959,8 +6955,7 @@ export interface WebhookSubscriptionReplayByIdRequest
 }
 
 /** The date range criteria used to determine which events will be replayed. */
-export interface WebhookSubscriptionReplayByRangeRequest
-  extends WebhookSubscriptionReplayRequest {
+export interface WebhookSubscriptionReplayByRangeRequest extends WebhookSubscriptionReplayRequest {
   __typename?: 'WebhookSubscriptionReplayByRangeRequest';
   /** The earliest event to include. */
   afterDateTime: Scalars['DateTime'];

@@ -22,8 +22,10 @@ import { JOB_CATEGORIES } from './queries';
 type FieldProps = ComponentPropsWithRef<typeof Dropdown>;
 type JobCategoryType = 'parent' | 'child';
 
-export interface JobCategorySelectProps
-  extends Omit<FieldProps, 'value' | 'onChange' | 'children'> {
+export interface JobCategorySelectProps extends Omit<
+  FieldProps,
+  'value' | 'onChange' | 'children'
+> {
   client?: ApolloClient;
   context?: Record<string, unknown>;
   label?: string;
