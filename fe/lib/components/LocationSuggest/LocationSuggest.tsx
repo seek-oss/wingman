@@ -27,8 +27,10 @@ import { LOCATION, LOCATION_SUGGEST, NEAREST_LOCATIONS } from './queries';
 
 type FieldProps = ComponentPropsWithRef<typeof TextField>;
 
-export interface LocationSuggestProps
-  extends Omit<FieldProps, 'value' | 'onChange'> {
+export interface LocationSuggestProps extends Omit<
+  FieldProps,
+  'value' | 'onChange'
+> {
   client?: ApolloClient;
   context?: Record<string, unknown>;
   debounceDelay?: number;

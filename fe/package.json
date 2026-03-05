@@ -1,6 +1,30 @@
 {
+  "name": "wingman-fe",
+  "version": "12.2.3",
+  "homepage": "https://github.com/seek-oss/wingman#readme",
   "bugs": {
     "url": "https://github.com/seek-oss/wingman/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seek-oss/wingman.git",
+    "directory": "fe"
+  },
+  "license": "MIT",
+  "main": "lib/index.ts",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "sku build",
+    "build-storybook": "storybook build --output-dir dist-storybook",
+    "format": "sku format",
+    "lint": "sku lint",
+    "serve": "sku serve",
+    "start": "sku start",
+    "start-storybook": "storybook dev",
+    "test": "sku test",
+    "test:ci": "sku test --coverage"
   },
   "dependencies": {
     "@apollo/client": "^4.0.0",
@@ -9,8 +33,8 @@
     "react-fast-compare": "^3.2.0",
     "react-hook-form": "^7.0.0",
     "runtypes": "^7.0.0",
-    "use-debounce": "^10.0.0",
-    "rxjs": "^7.8.2"
+    "rxjs": "^7.8.2",
+    "use-debounce": "^10.0.0"
   },
   "devDependencies": {
     "@faker-js/faker": "9.9.0",
@@ -39,13 +63,6 @@
     "use-query-params": "2.2.2",
     "webpack-merge": "6.0.1"
   },
-  "files": [
-    "lib"
-  ],
-  "homepage": "https://github.com/seek-oss/wingman#readme",
-  "license": "MIT",
-  "main": "lib/index.ts",
-  "name": "wingman-fe",
   "peerDependencies": {
     "braid-design-system": ">= 32.17.0",
     "graphql": "16",
@@ -54,22 +71,5 @@
   },
   "publishConfig": {
     "provenance": true
-  },
-  "repository": {
-    "directory": "fe",
-    "type": "git",
-    "url": "git+https://github.com/seek-oss/wingman.git"
-  },
-  "scripts": {
-    "build": "sku build",
-    "build-storybook": "storybook build --output-dir dist-storybook",
-    "format": "sku format",
-    "lint": "sku lint",
-    "serve": "sku serve",
-    "start": "sku start",
-    "start-storybook": "storybook dev",
-    "test": "sku test",
-    "test:ci": "sku test --coverage"
-  },
-  "version": "12.2.3"
+  }
 }

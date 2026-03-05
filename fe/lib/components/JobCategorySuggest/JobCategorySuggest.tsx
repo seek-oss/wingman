@@ -22,8 +22,9 @@ import { JOB_CATEGORY_SUGGEST } from './queries';
 
 type RadioProps = ComponentPropsWithRef<typeof RadioGroup>;
 
-export interface JobCategorySuggestProps
-  extends Partial<Omit<RadioProps, 'id' | 'value'>> {
+export interface JobCategorySuggestProps extends Partial<
+  Omit<RadioProps, 'id' | 'value'>
+> {
   client?: ApolloClient;
   context?: Record<string, unknown>;
   debounceDelay?: number;
