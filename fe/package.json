@@ -45,7 +45,7 @@
     "@types/content-disposition": "0.5.9",
     "@types/react": "18.3.28",
     "@types/react-dom": "18.3.7",
-    "@vanilla-extract/css": "1.19.0",
+    "@vanilla-extract/css": "1.19.1",
     "@vanilla-extract/css-utils": "0.1.6",
     "braid-design-system": "34.0.4",
     "buffer": "6.0.3",
