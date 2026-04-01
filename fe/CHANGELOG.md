@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 12.2.4
+
+### Patch Changes
+
+- Upgrade `@types/react` to v19 ([#1433](https://github.com/seek-oss/wingman/pull/1433))
+
 ## 12.2.3
 
 ### Patch Changes
