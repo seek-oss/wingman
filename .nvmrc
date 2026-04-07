@@ -1,7 +1,1 @@
-22.22.1
-# Pinned to avoid npm regression on Node 22.22.2:
-# "Install latest npm" fails with MODULE_NOT_FOUND: 'promise-retry'.
-# Temporary pin so CI can run reliably.
-# Relevant issues:
-# - https://github.com/nodejs/node/issues/62425
-# - https://github.com/npm/cli/issues/9151
+24
