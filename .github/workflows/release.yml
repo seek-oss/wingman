@@ -47,7 +47,7 @@ jobs:
         run: npm install -g npm@latest
 
       - name: Build
-        run: pnpm build
+        run: pnpm fe build
 
       - name: Publish to npm
         uses: changesets/action@v1
@@ -94,7 +94,7 @@ jobs:
         run: npm install -g npm@latest
 
       - name: Build
-        run: pnpm build
+        run: pnpm fe build
 
       - name: Publish to npm
         uses: seek-oss/changesets-snapshot@v0
