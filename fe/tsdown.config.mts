@@ -9,10 +9,7 @@ export default defineConfig({
   platform: 'browser',
   dts: true,
   publint: true,
-  attw: {
-    // node10 resolution does not support subpath exports
-    excludeEntrypoints: ['./typography'],
-  },
+  attw: true,
   unbundle: true,
   plugins: [
     vanillaExtractPlugin({
