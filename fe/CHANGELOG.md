@@ -1,5 +1,11 @@
 # wingman-fe
 
+## 12.2.5
+
+### Patch Changes
+
+- Fix useRef TypeScript lint errors (React 19) ([#1440](https://github.com/seek-oss/wingman/pull/1440))
+
 ## 12.2.4
 
 ### Patch Changes
