@@ -40,8 +40,8 @@ importers:
         specifier: 16.13.2
         version: 16.13.2
       sku:
-        specifier: 15.13.0
-        version: 15.13.0(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@storybook/react-webpack5@10.3.3(esbuild@0.28.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(storybook@10.3.3(@testing-library/dom@10.4.1)(prettier@3.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@5.9.3))(@types/node@25.5.2)(@types/react@19.2.14)(@typescript-eslint/eslint-plugin@8.58.0(@typescript-eslint/parser@8.58.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(@typescript-eslint/utils@8.58.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(esbuild@0.28.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(terser@5.46.1)(tslib@2.8.1)(type-fest@0.21.3)(webpack-hot-middleware@2.26.1)(yaml@2.8.3)
+        specifier: 15.14.0
+        version: 15.14.0(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@storybook/react-webpack5@10.3.3(esbuild@0.28.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(storybook@10.3.3(@testing-library/dom@10.4.1)(prettier@3.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@5.9.3))(@types/node@25.5.2)(@types/react@19.2.14)(@typescript-eslint/eslint-plugin@8.58.0(@typescript-eslint/parser@8.58.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(@typescript-eslint/utils@8.58.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(esbuild@0.28.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(terser@5.46.1)(tslib@2.8.1)(type-fest@0.21.3)(webpack-hot-middleware@2.26.1)(yaml@2.8.3)
 
   fe:
     dependencies:
@@ -2985,8 +2985,8 @@ packages:
   '@vocab/pseudo-localize@1.0.2':
     resolution: {integrity: sha512-W9NzX0zrznGX7ghNz0VDi5nj+CLyBdpde4fXfwFwUdsS0p/ApvxZ+8jZ7Dn0W/VavKzjnknyNQO2H7IoYNQQZw==}
 
-  '@vocab/vite@1.0.1':
-    resolution: {integrity: sha512-cfE0hpqL5j2NkuT5/F1EzmKHMUcBtLfy2fc6XXQy7+rzoUezJqfwVcOf8R6va3WQPejK9pdiTVC7RbvqGZddOg==}
+  '@vocab/vite@1.0.3':
+    resolution: {integrity: sha512-w7h1x/+mqW/EWDJM5OB9pkWDFtgX8yn8yWvj/ww+AbAQrqkHVsk7MTercrvBYIbI/QBn6rJQ2GiUwNMbYHPLvg==}
     peerDependencies:
       vite: ^6.0.0 || ^7.0.0 || ^8.0.0
 
@@ -6753,8 +6753,8 @@ packages:
     resolution: {integrity: sha512-2wcC/oGxHis/BoHkkPwldgiPSYcpZK3JU28WoMVv55yHJgcZ8rlXvuG9iZggz+sU1d4bRgIGASwyWqjxu3FM0g==}
     engines: {node: '>=18'}
 
-  sku@15.13.0:
-    resolution: {integrity: sha512-IZICNIYfHW76Nt0eXEdx4SZu1+IC5oJnGJv0+5Hm8li7G2rs975kLLA1YxITrttOr4DVxxgYup9R6YsBaVBFtQ==}
+  sku@15.14.0:
+    resolution: {integrity: sha512-v6jlDTo5vYXq6dYlUta2TcxYL6RokRVRP073Y/BZ3G/650VX9iYpSig6xBfpHEi48Tm1I1jdy34T3IuU5QeN3g==}
     engines: {node: '>=22.19.0'}
     hasBin: true
     peerDependencies:
@@ -10908,7 +10908,7 @@ snapshots:
 
   '@vocab/pseudo-localize@1.0.2': {}
 
-  '@vocab/vite@1.0.1(vite@8.0.6(@types/node@25.5.2)(esbuild@0.28.0)(jiti@2.6.1)(terser@5.46.1)(yaml@2.8.3))':
+  '@vocab/vite@1.0.3(vite@8.0.6(@types/node@25.5.2)(esbuild@0.28.0)(jiti@2.6.1)(terser@5.46.1)(yaml@2.8.3))':
     dependencies:
       '@vocab/core': 1.8.1
       cjs-module-lexer: 2.2.0
@@ -15240,7 +15240,7 @@ snapshots:
       mrmime: 2.0.1
       totalist: 3.0.1
 
-  sku@15.13.0(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@storybook/react-webpack5@10.3.3(esbuild@0.28.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(storybook@10.3.3(@testing-library/dom@10.4.1)(prettier@3.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@5.9.3))(@types/node@25.5.2)(@types/react@19.2.14)(@typescript-eslint/eslint-plugin@8.58.0(@typescript-eslint/parser@8.58.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(@typescript-eslint/utils@8.58.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(esbuild@0.28.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(terser@5.46.1)(tslib@2.8.1)(type-fest@0.21.3)(webpack-hot-middleware@2.26.1)(yaml@2.8.3):
+  sku@15.14.0(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@storybook/react-webpack5@10.3.3(esbuild@0.28.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(storybook@10.3.3(@testing-library/dom@10.4.1)(prettier@3.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@5.9.3))(@types/node@25.5.2)(@types/react@19.2.14)(@typescript-eslint/eslint-plugin@8.58.0(@typescript-eslint/parser@8.58.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(@typescript-eslint/utils@8.58.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(esbuild@0.28.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(terser@5.46.1)(tslib@2.8.1)(type-fest@0.21.3)(webpack-hot-middleware@2.26.1)(yaml@2.8.3):
     dependencies:
       '@babel/core': 7.29.0
       '@babel/generator': 7.29.1
@@ -15277,7 +15277,7 @@ snapshots:
       '@vocab/core': 1.8.1
       '@vocab/phrase': 2.2.2
       '@vocab/pseudo-localize': 1.0.2
-      '@vocab/vite': 1.0.1(vite@8.0.6(@types/node@25.5.2)(esbuild@0.28.0)(jiti@2.6.1)(terser@5.46.1)(yaml@2.8.3))
+      '@vocab/vite': 1.0.3(vite@8.0.6(@types/node@25.5.2)(esbuild@0.28.0)(jiti@2.6.1)(terser@5.46.1)(yaml@2.8.3))
       '@vocab/webpack': 1.2.24(webpack@5.105.4(esbuild@0.28.0))
       autoprefixer: 10.4.27(postcss@8.5.8)
       babel-jest: 30.3.0(@babel/core@7.29.0)
