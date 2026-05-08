@@ -1,18 +1,18 @@
 {
   "dependencies": {
-    "@changesets/cli": "2.30.0",
+    "@changesets/cli": "2.31.0",
     "@changesets/get-github-info": "0.8.0"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "6.2.1",
-    "@graphql-codegen/fragment-matcher": "6.0.0",
-    "@graphql-codegen/typescript": "5.0.9",
-    "@graphql-codegen/typescript-apollo-client-helpers": "4.0.0",
-    "@graphql-codegen/typescript-operations": "5.0.9",
-    "@graphql-tools/utils": "11.0.0",
+    "@graphql-codegen/cli": "7.0.0",
+    "@graphql-codegen/fragment-matcher": "7.0.0",
+    "@graphql-codegen/typescript": "6.0.0",
+    "@graphql-codegen/typescript-apollo-client-helpers": "4.0.1",
+    "@graphql-codegen/typescript-operations": "6.0.0",
+    "@graphql-tools/utils": "11.1.0",
     "concurrently": "9.2.1",
     "graphql": "16.13.2",
-    "sku": "15.13.0"
+    "sku": "15.14.1"
   },
   "private": true,
   "scripts": {
@@ -27,5 +27,5 @@
     "deploy": "scripts/deploy"
   },
   "version": "0.0.0",
-  "packageManager": "pnpm@10.33.0"
+  "packageManager": "pnpm@10.33.2"
 }
