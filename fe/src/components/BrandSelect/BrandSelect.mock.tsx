@@ -37,7 +37,7 @@ export const MockBrandSelect = ({
       space="medium"
       showStorybookAction={showStorybookAction}
       storybookPath={`/story/job-posting-branding-brandselect--${variant}`}
-      sourcePath="lib/components/BrandSelect"
+      sourcePath="src/components/BrandSelect"
     >
       <BrandSelect {...props} pageSize={pageSize} />
     </MockComponentActions>

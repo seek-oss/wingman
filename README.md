@@ -80,13 +80,13 @@ Internally, we maintain a private implementation to [dogfood] additions and chan
 ```shell
 ├── fe
 │   ├── example
-│   ├── lib
+│   ├── src
 │   └── ...
 ├── ...
 └── README.md <- you are here
 ```
 
-The frontend contains components (under [/fe/lib](/fe/lib)) that are packaged and published to npm.
+The frontend contains components (under [/fe/src](/fe/src)) that are packaged and published to npm.
 This allows us to share code between the public implementation of Wingman in this repo and SEEK’s own private implementation.
 
 ## Contributing

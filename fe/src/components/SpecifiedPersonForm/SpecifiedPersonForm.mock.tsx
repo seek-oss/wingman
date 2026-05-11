@@ -17,7 +17,7 @@ export const MockSpecifiedPersonForm = ({
     space="large"
     showStorybookAction={showStorybookAction}
     storybookPath="/story/job-posting-position-openings-specifiedpersonform--specified-person-form"
-    sourcePath="lib/components/SpecifiedPersonForm"
+    sourcePath="src/components/SpecifiedPersonForm"
   >
     <SpecifiedPersonForm {...props} />
   </MockComponentActions>

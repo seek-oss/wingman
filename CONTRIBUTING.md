@@ -143,7 +143,7 @@ You'll see a 🦋 bot gliding around pull requests.
 You should write a changeset if you are changing the public Wingman interface,
 which includes:
 
-- Package code under [fe/lib](/fe/lib)
+- Package code under [fe/src](/fe/src)
 - npm dependencies
 
 On the other hand,
