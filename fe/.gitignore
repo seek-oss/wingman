@@ -10,3 +10,5 @@ eslint.config.mjs
 report/
 tsconfig.json
 # end managed by sku
+
+lib/

@@ -14,16 +14,16 @@
   "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
+      "require": "./lib/index.cjs",
+      "import": "./lib/index.js"
     },
     "./package.json": "./package.json"
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.cts",
+  "main": "./lib/index.cjs",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.cts",
   "files": [
-    "dist"
+    "lib"
   ],
   "scripts": {
     "build": "tsdown",
@@ -73,8 +73,8 @@
     "react-dom": "19.2.5",
     "react-router": "7.14.2",
     "scoobie": "21.2.0",
-    "tsdown": "0.21.10",
     "storybook": "10.3.6",
+    "tsdown": "0.21.10",
     "use-query-params": "2.2.2",
     "webpack-merge": "6.0.1"
   },

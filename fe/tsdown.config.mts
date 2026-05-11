@@ -5,7 +5,7 @@ export default defineConfig({
   failOnWarn: true,
   entry: ['src/index.ts'],
   format: ['esm', 'cjs'],
-  outDir: 'dist',
+  outDir: 'lib',
   platform: 'browser',
   dts: true,
   publint: true,

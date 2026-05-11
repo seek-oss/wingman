@@ -6,7 +6,7 @@ echo '=> Building...'
 
 rm -rf dist
 
-pnpm concurrently 'pnpm fe build' 'pnpm fe build-storybook'
+pnpm concurrently 'pnpm fe build' 'pnpm fe build-storybook' 'pnpm --filter wingman-fe exec sku build'
 
 echo '=> Packaging...'
 
