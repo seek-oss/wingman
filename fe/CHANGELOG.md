@@ -1,5 +1,15 @@
 # wingman-fe
 
+## 13.0.0
+
+### Major Changes
+
+- Build the package with tsdown, shipping compiled ESM and CJS output instead of raw TypeScript source. ([#1443](https://github.com/seek-oss/wingman/pull/1443))
+
+  Export `BreadCrumbsString`
+
+  Deps add `@vanilla-extract/css`
+
 ## 12.2.5
 
 ### Patch Changes
