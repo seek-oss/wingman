@@ -32,19 +32,19 @@ commit \
 --message 'Deploy to GitHub Pages' \
 --quiet
 
-echo '=> Deploying...'
+# echo '=> Deploying...'
 
-{
-  GIT_URL="git@github.com:seek-oss/wingman.git"
+# {
+#   GIT_URL="git@github.com:seek-oss/wingman.git"
 
-  if [ "${IS_GITHUB_PAGES:-}" = 'true' ]; then
-    GIT_URL="https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/seek-oss/wingman.git"
-  fi
+#   if [ "${IS_GITHUB_PAGES:-}" = 'true' ]; then
+#     GIT_URL="https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/seek-oss/wingman.git"
+#   fi
 
-  git push --force --quiet "${GIT_URL}" 'main:gh-pages'
-}
+#   git push --force --quiet "${GIT_URL}" 'main:gh-pages'
+# }
 
-cd ..
-rm -rf dist
+# cd ..
+# rm -rf dist
 
 echo "=> Deployed: https://seek-oss.github.io/wingman"

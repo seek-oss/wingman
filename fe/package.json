@@ -14,16 +14,16 @@
   "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
+      "require": "./lib/index.cjs",
+      "import": "./lib/index.js"
     },
     "./package.json": "./package.json"
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.cts",
+  "main": "./lib/index.cjs",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.cts",
   "files": [
-    "dist"
+    "lib"
   ],
   "scripts": {
     "build": "tsdown",
