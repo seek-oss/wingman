@@ -28,7 +28,7 @@ export const MockLocationLookup = ({
       space="medium"
       showStorybookAction={showStorybookAction}
       storybookPath="/story/job-posting-locations-locationlookup--location-lookup"
-      sourcePath="lib/components/LocationLookup"
+      sourcePath="src/components/LocationLookup"
     >
       <LocationLookup {...props} />
     </MockComponentActions>

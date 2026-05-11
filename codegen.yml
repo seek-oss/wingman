@@ -1,8 +1,8 @@
 schema: https://graphql.seek.com/graphql
 
 generates:
-  ./fe/lib/types/seekApi.graphql.ts:
-    documents: fe/lib/components/**/queries.ts
+  ./fe/src/types/seekApi.graphql.ts:
+    documents: fe/src/components/**/queries.ts
     plugins:
       - typescript
       - typescript-operations
@@ -14,11 +14,11 @@ generates:
         HistoryDate: string
       skipTypeNameForRoot: true
 
-  ./fe/lib/types/seekApi.typeDefs.ts:
+  ./fe/src/types/seekApi.typeDefs.ts:
     plugins:
       - typescript-typedefs.js
 
-  ./fe/lib/types/apolloHelpers.ts:
+  ./fe/src/types/apolloHelpers.ts:
     plugins:
       - typescript-apollo-client-helpers
     config:

@@ -6,7 +6,7 @@ const isGitHubPages = Boolean(process.env.IS_GITHUB_PAGES);
 const config: SkuConfig = {
   clientEntry: './example/src/client.tsx',
   renderEntry: './example/src/render.tsx',
-  srcPaths: ['./example/src', './lib'],
+  srcPaths: ['./example/src', './src'],
   publicPath: isGitHubPages ? '/wingman/static/' : '/',
 
   routes: [

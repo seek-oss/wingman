@@ -31,7 +31,7 @@ export const MockJobCategoryLookup = ({
       space="medium"
       showStorybookAction={showStorybookAction}
       storybookPath="/story/job-posting-job-categories-jobcategorylookup--job-category-lookup"
-      sourcePath="lib/components/JobCategoryLookup"
+      sourcePath="src/components/JobCategoryLookup"
     >
       <JobCategoryLookup {...props} />
     </MockComponentActions>
