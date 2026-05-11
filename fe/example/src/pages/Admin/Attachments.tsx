@@ -1,6 +1,6 @@
 import { Card, Divider, Heading, List, Stack, Text } from 'braid-design-system';
 
-import { useBrowserToken } from '../../../../lib/hooks';
+import { useBrowserToken } from '../../../../src/hooks';
 import { DOWNLOAD_ATTACHMENT_SCOPE } from '../../api/browserToken';
 import { DownloadLink } from '../../components/DownloadLink/DownloadLink';
 

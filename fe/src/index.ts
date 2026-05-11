@@ -31,3 +31,5 @@ export { SeekApiResponse } from './components/SeekApiResponse/SeekApiResponse';
 export { prettyPrintWithoutTypename } from './components/SeekApiResponse/prettyPrintWithoutTypename';
 
 export { apolloTypePolicies } from './types/apolloTypePolicies';
+
+export { BreadCrumbsString } from './components/BreadCrumbsString/BreadCrumbsString';

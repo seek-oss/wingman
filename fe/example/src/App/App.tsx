@@ -9,7 +9,7 @@ import {
   type QueryParamAdapterComponent,
 } from 'use-query-params';
 
-import { BrowserTokenProvider } from '../../../lib/hooks';
+import { BrowserTokenProvider } from '../../../src/hooks';
 import { BE_BASE_URL } from '../api/constants';
 
 import { Router } from './Router';
