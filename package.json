@@ -9,7 +9,7 @@
     "@graphql-codegen/typescript": "6.0.0",
     "@graphql-codegen/typescript-apollo-client-helpers": "4.0.1",
     "@graphql-codegen/typescript-operations": "6.0.0",
-    "@skuba-lib/changesets-changelog": "1.0.0",
+    "@skuba-lib/changesets-changelog": "1.0.1",
     "@graphql-tools/utils": "11.1.0",
     "concurrently": "9.2.1",
     "graphql": "16.13.2",
