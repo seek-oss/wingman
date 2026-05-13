@@ -1,9 +1,0 @@
----
-'wingman-fe': major
----
-
-Build the package with tsdown, shipping compiled ESM and CJS output instead of raw TypeScript source.
-
-Export `BreadCrumbsString`
-
-Deps add `@vanilla-extract/css`
