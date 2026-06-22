@@ -80,7 +80,7 @@
   },
   "peerDependencies": {
     "braid-design-system": ">= 32.17.0",
-    "graphql": "16",
+    "graphql": "16 || 17",
     "react": "18 || 19",
     "scoobie": ">= 21"
   },

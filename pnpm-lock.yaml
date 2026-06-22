@@ -58,7 +58,7 @@ importers:
         specifier: ^1.2.3
         version: 1.20.1(babel-plugin-macros@3.1.0)
       graphql:
-        specifier: '16'
+        specifier: 16 || 17
         version: 16.14.0
       pigeon-maps:
         specifier: ^0.22.0
