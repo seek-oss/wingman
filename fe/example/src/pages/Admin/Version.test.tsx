@@ -1,5 +1,6 @@
 import { render, waitFor } from '@testing-library/react';
 import { BraidTestProvider } from 'braid-design-system/test';
+import { describe, expect, it, vi } from 'vitest';
 
 import * as seekGraph from '../../api/seekGraph';
 
@@ -7,9 +8,9 @@ import { Version } from './Version';
 
 describe('Version', () => {
   it('loads in version information', () => {
-    jest
-      .spyOn(seekGraph, 'querySeekGraph')
-      .mockResolvedValue({ version: 'SUPER_UNIQUE_VERSION' });
+    vi.spyOn(seekGraph, 'querySeekGraph').mockResolvedValue({
+      version: 'SUPER_UNIQUE_VERSION',
+    });
 
     const { queryByText } = render(
       <BraidTestProvider>

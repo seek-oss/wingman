@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`prettyPrintWithoutTypename empty object 1`] = `"{}"`;
+exports[`prettyPrintWithoutTypename > 'empty object' 1`] = `"{}"`;
 
-exports[`prettyPrintWithoutTypename object with nested __typenames 1`] = `
+exports[`prettyPrintWithoutTypename > 'object with nested __typenames' 1`] = `
 "{
   "id": {
     "value": 123
@@ -10,7 +10,7 @@ exports[`prettyPrintWithoutTypename object with nested __typenames 1`] = `
 }"
 `;
 
-exports[`prettyPrintWithoutTypename object without __typenames 1`] = `
+exports[`prettyPrintWithoutTypename > 'object without __typenames' 1`] = `
 "{
   "id": {
     "value": 123

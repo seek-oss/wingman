@@ -1,6 +1,7 @@
 import { render, waitFor } from '@testing-library/react';
 import { ToastProvider } from 'braid-design-system';
 import { BraidTestProvider } from 'braid-design-system/test';
+import { describe, expect, it, vi } from 'vitest';
 
 import { BrowserTokenProvider } from '../../../../src/hooks';
 import * as seekGraph from '../../api/seekGraph';
@@ -10,9 +11,9 @@ import { AdminPage } from './Admin';
 
 describe('AdminPage', () => {
   it('mentions a resume', () => {
-    jest
-      .spyOn(seekGraph, 'querySeekGraph')
-      .mockResolvedValue({ version: 'SUPER_UNIQUE_VERSION' });
+    vi.spyOn(seekGraph, 'querySeekGraph').mockResolvedValue({
+      version: 'SUPER_UNIQUE_VERSION',
+    });
 
     const { queryByText } = render(
       <UserProvider server={false}>

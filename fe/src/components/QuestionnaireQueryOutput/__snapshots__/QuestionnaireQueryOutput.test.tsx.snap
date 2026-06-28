@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`convertComponentsToMutationVariables when converting components to mutation variables should return as an application questionnaire and return as valid if it meets the conditions 1`] = `
+exports[`convertComponentsToMutationVariables > when converting components to mutation variables > should return as an application questionnaire and return as valid if it meets the conditions 1`] = `
 {
   "valid": true,
   "variables": {
