@@ -11,8 +11,8 @@
     "@graphql-codegen/typescript-operations": "6.0.4",
     "@skuba-lib/changesets-changelog": "1.0.1",
     "@graphql-tools/utils": "11.1.0",
-    "concurrently": "9.2.3",
-    "graphql": "16.14.2",
+    "concurrently": "10.0.3",
+    "graphql": "17.0.1",
     "sku": "15.15.4"
   },
   "private": true,
