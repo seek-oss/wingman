@@ -1,6 +1,9 @@
 packages:
   - fe
 
+configDependencies:
+  pnpm-plugin-sku: '0.1.0+sha512-brDwXaOAUEzjoCnijKhgyJZhSRtkl6jWC2crbF1i6BsvVvJ/jT4TQGnz+8ZqXK9OwPudOq7C37qGVMfe0Xszzg=='
+
 ignoredBuiltDependencies:
   - '@swc/core'
   - core-js-pure

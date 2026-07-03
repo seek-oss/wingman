@@ -33,8 +33,8 @@
     "serve": "sku serve",
     "start": "sku start",
     "start-storybook": "storybook dev",
-    "test": "sku test",
-    "test:ci": "sku test --coverage"
+    "test": "sku test --run",
+    "test:ci": "sku test --coverage --run"
   },
   "dependencies": {
     "@apollo/client": "^4.0.0",
@@ -60,23 +60,23 @@
     "@vanilla-extract/css": "1.20.1",
     "@vanilla-extract/css-utils": "0.1.6",
     "@vanilla-extract/rollup-plugin": "1.5.3",
+    "@vitest/coverage-v8": "4.1.9",
     "braid-design-system": "34.3.0",
     "buffer": "6.0.3",
     "clsx": "2.1.1",
-    "content-disposition": "1.1.0",
+    "content-disposition": "2.0.1",
     "date-fns": "4.4.0",
     "graphql-tag": "2.12.7",
-    "path-browserify": "1.0.1",
     "publint": "0.3.21",
     "query-string": "7.1.3",
     "react": "19.2.7",
     "react-dom": "19.2.7",
-    "react-router": "7.18.0",
-    "scoobie": "21.2.0",
+    "react-router": "8.0.1",
+    "scoobie": "23.0.0",
     "storybook": "10.4.6",
     "tsdown": "0.22.3",
     "use-query-params": "2.2.2",
-    "webpack-merge": "6.0.1"
+    "vitest": "4.1.9"
   },
   "peerDependencies": {
     "braid-design-system": ">= 32.17.0",
