@@ -1,3 +1,5 @@
+import { describe, expect, it } from 'vitest';
+
 import type { FormComponent } from '../../private/questionnaires/types';
 
 import { convertComponentsToMutationVariables } from './QuestionnaireQueryOutput';

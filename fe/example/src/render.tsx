@@ -1,4 +1,3 @@
-import ReactDOM from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import type { Render } from 'sku';
 
@@ -12,12 +11,12 @@ interface RenderContext {
 }
 
 const skuRender: Render<RenderContext> = {
-  renderApp: ({ SkuProvider, route }) => {
+  renderApp: async ({ SkuProvider, route, renderToStringAsync }) => {
     const isGitHubPages = Boolean(process.env.IS_GITHUB_PAGES);
 
     const basename = isGitHubPages ? 'wingman' : '';
 
-    const html = ReactDOM.renderToString(
+    const html = await renderToStringAsync(
       <SkuProvider>
         <UserProvider server={true}>
           <StaticRouter basename={basename} location={route}>

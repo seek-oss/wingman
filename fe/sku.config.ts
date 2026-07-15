@@ -1,12 +1,13 @@
 import type { SkuConfig } from 'sku';
-import { merge } from 'webpack-merge';
 
 const isGitHubPages = Boolean(process.env.IS_GITHUB_PAGES);
 
 const config: SkuConfig = {
+  bundler: 'vite',
+  testRunner: 'vitest',
+
   clientEntry: './example/src/client.tsx',
   renderEntry: './example/src/render.tsx',
-  srcPaths: ['./example/src', './src'],
   publicPath: isGitHubPages ? '/wingman/static/' : '/',
 
   routes: [
@@ -23,7 +24,7 @@ const config: SkuConfig = {
 
   sites: [{ name: 'apac', host: 'dev.seek.com' }],
   compilePackages: ['scoobie'],
-  rootResolution: false,
+  __UNSAFE_EXPERIMENTAL__cjsInteropDependencies: ['use-query-params'],
 
   dangerouslySetESLintConfig: (skuEslintConfig) => [
     ...skuEslintConfig,
@@ -34,21 +35,6 @@ const config: SkuConfig = {
       },
     },
   ],
-
-  dangerouslySetWebpackConfig: (skuWebpackConfig) =>
-    merge(skuWebpackConfig, {
-      resolve: {
-        fallback: {
-          /**
-           * We don't have a reasonable browser-compatible package for parsing
-           * `Content-Disposition` headers 😞.
-           *
-           * {@link https://github.com/jshttp/content-disposition}
-           */
-          path: require.resolve('path-browserify'),
-        },
-      },
-    }),
 
   dangerouslySetTSConfig: (tsConfig) => ({
     ...tsConfig,
@@ -61,12 +47,12 @@ const config: SkuConfig = {
     include: ['**/*', '.storybook/*'],
   }),
 
-  dangerouslySetJestConfig: (jestConfig) => ({
-    ...jestConfig,
-    setupFiles: [...(jestConfig.setupFiles ?? []), '<rootDir>/jest.setup.ts'],
-  }),
-
-  eslintIgnore: ['**/*.less.d.ts', '.storybook/main.js', '**/dist-storybook/'],
+  eslintIgnore: [
+    '**/*.less.d.ts',
+    '.storybook/main.js',
+    '**/dist-storybook/',
+    'lib/**',
+  ],
 };
 
 export default config;
