@@ -61,7 +61,7 @@
     "@vanilla-extract/css-utils": "0.1.6",
     "@vanilla-extract/rollup-plugin": "1.5.3",
     "@vitest/coverage-v8": "4.1.9",
-    "braid-design-system": "34.3.0",
+    "braid-design-system": "34.4.0",
     "buffer": "6.0.3",
     "clsx": "2.1.1",
     "content-disposition": "2.0.1",
