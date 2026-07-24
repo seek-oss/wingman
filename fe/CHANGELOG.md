@@ -1,5 +1,13 @@
 # wingman-fe
 
+## 13.0.1
+
+### Patch Changes
+
+- Migrate build and test tooling to ESM with Vite and Vitest ([#1472](https://github.com/seek-oss/wingman/pull/1472))
+
+  The package now bundles with Vite and tests with Vitest instead of webpack and Jest. The browser bundle no longer relies on `path-browserify` or `webpack-merge`, and dev dependencies (`react-router`, `scoobie`, `content-disposition`) have been bumped. There is no change to the published API.
+
 ## 13.0.0
 
 ### Major Changes
