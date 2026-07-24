@@ -118,8 +118,8 @@ importers:
         specifier: 4.1.9
         version: 4.1.9(vitest@4.1.9)
       braid-design-system:
-        specifier: 34.4.0
-        version: 34.4.0(@types/react@19.2.14)(babel-plugin-macros@3.1.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        specifier: 34.5.0
+        version: 34.5.0(@types/react@19.2.14)(babel-plugin-macros@3.1.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       buffer:
         specifier: 6.0.3
         version: 6.0.3
@@ -152,7 +152,7 @@ importers:
         version: 8.0.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       scoobie:
         specifier: 23.0.0
-        version: 23.0.0(babel-plugin-macros@3.1.0)(braid-design-system@34.4.0(@types/react@19.2.14)(babel-plugin-macros@3.1.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-router@8.0.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)
+        version: 23.0.0(babel-plugin-macros@3.1.0)(braid-design-system@34.5.0(@types/react@19.2.14)(babel-plugin-macros@3.1.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-router@8.0.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)
       storybook:
         specifier: 10.4.6
         version: 10.4.6(@testing-library/dom@10.4.1)(@types/react@19.2.14)(prettier@3.8.3)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
@@ -877,9 +877,6 @@ packages:
 
   '@capsizecss/core@4.1.3':
     resolution: {integrity: sha512-d2sTTBwKuVioYxpwpU4URMp8VkFK+GI1VNGNawQcF8HBMHzCDa1FLcbeXJSzb5AJik7ZGv3aFVCTs7IS9MhvHg==}
-
-  '@capsizecss/metrics@4.0.0':
-    resolution: {integrity: sha512-GlazGWqxc+7ZJX0jGFTdolzKqP6X3dWXyjFmMzqTslsdqHCctkKV5eHxyMD9njrWqjQOYEeTFlE1lq8+1DClug==}
 
   '@capsizecss/vanilla-extract@2.0.4':
     resolution: {integrity: sha512-KImqHutsYyeA718+3Fqg7Bw/RCSKgu+FESsMitWt9u4/KpBpB+s7cW4DWJyC6N5AzOoahYB7Jnu0hKB3HW+X6A==}
@@ -3882,8 +3879,8 @@ packages:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
     engines: {node: '>=8'}
 
-  braid-design-system@34.4.0:
-    resolution: {integrity: sha512-2Av1ImkTUts2FobiJ1XI1LDp+59jUsdEddRPpf3JZWfNq4IMREsxUfQOpj+4k2JVzB0YxKEF2C5TZ+ZfKGeHcA==}
+  braid-design-system@34.5.0:
+    resolution: {integrity: sha512-eNrqWoJkQcf86SE1aa3VyTpQGZNgoiqENE4j3LB4C0o8ELh8r/oFIqvLvskdUGu3R0+q2QI5T2trbee/RwxfGg==}
     peerDependencies:
       react: ^18 || ^19
       react-dom: ^18 || ^19
@@ -9287,8 +9284,6 @@ snapshots:
     dependencies:
       csstype: 3.2.3
 
-  '@capsizecss/metrics@4.0.0': {}
-
   '@capsizecss/vanilla-extract@2.0.4(@vanilla-extract/css@1.20.1(babel-plugin-macros@3.1.0))':
     dependencies:
       '@capsizecss/core': 4.1.3
@@ -12547,10 +12542,9 @@ snapshots:
     dependencies:
       fill-range: 7.1.1
 
-  braid-design-system@34.4.0(@types/react@19.2.14)(babel-plugin-macros@3.1.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
+  braid-design-system@34.5.0(@types/react@19.2.14)(babel-plugin-macros@3.1.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
     dependencies:
       '@capsizecss/core': 4.1.3
-      '@capsizecss/metrics': 4.0.0
       '@capsizecss/vanilla-extract': 2.0.4(@vanilla-extract/css@1.20.1(babel-plugin-macros@3.1.0))
       '@floating-ui/react-dom': 2.1.8(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@vanilla-extract/css': 1.20.1(babel-plugin-macros@3.1.0)
@@ -16383,12 +16377,12 @@ snapshots:
       ajv-formats: 2.1.1(ajv@8.18.0)
       ajv-keywords: 5.1.0(ajv@8.18.0)
 
-  scoobie@23.0.0(babel-plugin-macros@3.1.0)(braid-design-system@34.4.0(@types/react@19.2.14)(babel-plugin-macros@3.1.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-router@8.0.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7):
+  scoobie@23.0.0(babel-plugin-macros@3.1.0)(braid-design-system@34.5.0(@types/react@19.2.14)(babel-plugin-macros@3.1.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-router@8.0.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7):
     dependencies:
       '@capsizecss/core': 4.1.3
       '@vanilla-extract/css': 1.20.1(babel-plugin-macros@3.1.0)
       '@vanilla-extract/css-utils': 0.1.6
-      braid-design-system: 34.4.0(@types/react@19.2.14)(babel-plugin-macros@3.1.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      braid-design-system: 34.5.0(@types/react@19.2.14)(babel-plugin-macros@3.1.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       clsx: 2.1.1
       jsonc-parser: 3.3.1
       polished: 4.3.1
