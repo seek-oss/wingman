@@ -3,6 +3,7 @@ import type { SkuConfig } from 'sku';
 const isGitHubPages = Boolean(process.env.IS_GITHUB_PAGES);
 
 const config: SkuConfig = {
+  pathAliases: { '#src/*': './src/*' },
   bundler: 'vite',
   testRunner: 'vitest',
 

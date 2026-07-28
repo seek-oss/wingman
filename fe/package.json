@@ -12,6 +12,9 @@
   },
   "license": "MIT",
   "type": "module",
+  "imports": {
+    "#src/*": "./src/*"
+  },
   "exports": {
     ".": {
       "require": "./lib/index.cjs",
