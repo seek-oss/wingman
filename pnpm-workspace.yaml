@@ -12,3 +12,6 @@ ignoredBuiltDependencies:
 
 onlyBuiltDependencies:
   - sku
+
+overrides:
+  'webpack': '5.108.1'
