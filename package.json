@@ -1,32 +1,30 @@
 {
-  "dependencies": {
-    "@changesets/cli": "2.31.0",
-    "@changesets/get-github-info": "0.8.0"
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "codegen": "graphql-codegen --config codegen.yml",
+    "deploy": "scripts/deploy",
+    "fe": "pnpm --filter wingman-fe",
+    "format": "pnpm -r format",
+    "lint": "pnpm -r lint",
+    "release": "changeset publish",
+    "stage": "changeset version && pnpm format",
+    "test": "pnpm -r test",
+    "test:ci": "pnpm -r test:ci"
   },
   "devDependencies": {
+    "@changesets/cli": "2.31.0",
+    "@changesets/get-github-info": "0.8.0",
     "@graphql-codegen/cli": "7.1.3",
     "@graphql-codegen/fragment-matcher": "7.0.1",
     "@graphql-codegen/typescript": "6.0.2",
     "@graphql-codegen/typescript-apollo-client-helpers": "4.0.1",
     "@graphql-codegen/typescript-operations": "6.0.4",
-    "@skuba-lib/changesets-changelog": "1.0.1",
     "@graphql-tools/utils": "11.1.0",
+    "@skuba-lib/changesets-changelog": "1.0.1",
     "concurrently": "10.0.3",
     "graphql": "17.0.1",
-    "sku": "15.15.5"
+    "sku": "16.0.0"
   },
-  "private": true,
-  "scripts": {
-    "fe": "pnpm --filter wingman-fe",
-    "format": "pnpm -r format",
-    "lint": "pnpm -r lint",
-    "stage": "changeset version && pnpm format",
-    "release": "changeset publish",
-    "test": "pnpm -r test",
-    "test:ci": "pnpm -r test:ci",
-    "codegen": "graphql-codegen --config codegen.yml",
-    "deploy": "scripts/deploy"
-  },
-  "version": "0.0.0",
   "packageManager": "pnpm@10.34.5"
 }

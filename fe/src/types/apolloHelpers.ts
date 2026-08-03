@@ -560,8 +560,7 @@ export type CreateCandidateProcessHistoryItemPayloadConflictKeySpecifier =
 export interface CreateCandidateProcessHistoryItemPayloadConflictFieldPolicy {
   candidateProfile?: FieldPolicy<any> | FieldReadFunction<any>;
   conflictingCandidateProcessHistoryItem?:
-    | FieldPolicy<any>
-    | FieldReadFunction<any>;
+    FieldPolicy<any> | FieldReadFunction<any>;
 }
 export type CreateCandidateProcessHistoryItemPayloadSuccessKeySpecifier = Array<
   | 'candidateProcessHistoryItem'
@@ -851,8 +850,7 @@ export interface MutationFieldPolicy {
   createCandidateProcessHistoryItem?: FieldPolicy<any> | FieldReadFunction<any>;
   createPositionOpening?: FieldPolicy<any> | FieldReadFunction<any>;
   createUnpostedPositionProfileForOpening?:
-    | FieldPolicy<any>
-    | FieldReadFunction<any>;
+    FieldPolicy<any> | FieldReadFunction<any>;
   createWebhookSubscription?: FieldPolicy<any> | FieldReadFunction<any>;
   deleteCandidateProcessHistoryItem?: FieldPolicy<any> | FieldReadFunction<any>;
   deletePositionOpening?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -864,27 +862,21 @@ export interface MutationFieldPolicy {
   replayWebhookSubscription?: FieldPolicy<any> | FieldReadFunction<any>;
   updateCandidateProcessHistoryItem?: FieldPolicy<any> | FieldReadFunction<any>;
   updatePositionOpeningPersonContacts?:
-    | FieldPolicy<any>
-    | FieldReadFunction<any>;
+    FieldPolicy<any> | FieldReadFunction<any>;
   updatePositionOpeningStatus?: FieldPolicy<any> | FieldReadFunction<any>;
   updatePostedPositionProfile?: FieldPolicy<any> | FieldReadFunction<any>;
   updateUnpostedPositionProfile?: FieldPolicy<any> | FieldReadFunction<any>;
   updateUploadedCandidatePerson?: FieldPolicy<any> | FieldReadFunction<any>;
   updateUploadedCandidateProfileActions?:
-    | FieldPolicy<any>
-    | FieldReadFunction<any>;
+    FieldPolicy<any> | FieldReadFunction<any>;
   updateUploadedCandidateProfileDates?:
-    | FieldPolicy<any>
-    | FieldReadFunction<any>;
+    FieldPolicy<any> | FieldReadFunction<any>;
   updateUploadedCandidateProfilePositionPreferences?:
-    | FieldPolicy<any>
-    | FieldReadFunction<any>;
+    FieldPolicy<any> | FieldReadFunction<any>;
   updateWebhookSubscriptionDeliveryConfiguration?:
-    | FieldPolicy<any>
-    | FieldReadFunction<any>;
+    FieldPolicy<any> | FieldReadFunction<any>;
   updateWebhookSubscriptionSigningConfiguration?:
-    | FieldPolicy<any>
-    | FieldReadFunction<any>;
+    FieldPolicy<any> | FieldReadFunction<any>;
   uploadCandidate?: FieldPolicy<any> | FieldReadFunction<any>;
 }
 export type ObjectIdentifierKeySpecifier = Array<
@@ -917,8 +909,7 @@ export type PartnerOrganizationKeySpecifier = Array<
 >;
 export interface PartnerOrganizationFieldPolicy {
   credentialSelfServiceApprovedIndicator?:
-    | FieldPolicy<any>
-    | FieldReadFunction<any>;
+    FieldPolicy<any> | FieldReadFunction<any>;
   name?: FieldPolicy<any> | FieldReadFunction<any>;
 }
 export type PayTypeKeySpecifier = Array<
@@ -1298,8 +1289,7 @@ export interface QueryFieldPolicy {
   advertisementBrandings?: FieldPolicy<any> | FieldReadFunction<any>;
   advertisementProducts?: FieldPolicy<any> | FieldReadFunction<any>;
   applicationLibraryQuestionSuggestions?:
-    | FieldPolicy<any>
-    | FieldReadFunction<any>;
+    FieldPolicy<any> | FieldReadFunction<any>;
   applicationQuestionnaire?: FieldPolicy<any> | FieldReadFunction<any>;
   candidate?: FieldPolicy<any> | FieldReadFunction<any>;
   candidateProcessHistoryItem?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1323,14 +1313,11 @@ export interface QueryFieldPolicy {
   postedPositionProfilePreview?: FieldPolicy<any> | FieldReadFunction<any>;
   seekAnzAdvertiser?: FieldPolicy<any> | FieldReadFunction<any>;
   seekAnzHirerAdvertisementCreationProducts?:
-    | FieldPolicy<any>
-    | FieldReadFunction<any>;
+    FieldPolicy<any> | FieldReadFunction<any>;
   seekAnzHirerAdvertisementModificationProducts?:
-    | FieldPolicy<any>
-    | FieldReadFunction<any>;
+    FieldPolicy<any> | FieldReadFunction<any>;
   seekAnzHirerAdvertisementModificationProductsAlt?:
-    | FieldPolicy<any>
-    | FieldReadFunction<any>;
+    FieldPolicy<any> | FieldReadFunction<any>;
   self?: FieldPolicy<any> | FieldReadFunction<any>;
   version?: FieldPolicy<any> | FieldReadFunction<any>;
   webhookAttemptsForEvent?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1805,9 +1792,7 @@ export interface WebhookSubscriptionsConnectionFieldPolicy {
 export interface StrictTypedTypePolicies {
   Address?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:
-      | false
-      | AddressKeySpecifier
-      | (() => undefined | AddressKeySpecifier);
+      false | AddressKeySpecifier | (() => undefined | AddressKeySpecifier);
     fields?: AddressFieldPolicy;
   };
   AddressComponent?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
@@ -2037,8 +2022,7 @@ export interface StrictTypedTypePolicies {
       | false
       | ApplicationQuestionnaireComponentResponseKeySpecifier
       | (() =>
-          | undefined
-          | ApplicationQuestionnaireComponentResponseKeySpecifier);
+          undefined | ApplicationQuestionnaireComponentResponseKeySpecifier);
     fields?: ApplicationQuestionnaireComponentResponseFieldPolicy;
   };
   ApplicationQuestionnaireSubmission?: Omit<
@@ -2067,9 +2051,7 @@ export interface StrictTypedTypePolicies {
   };
   Candidate?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:
-      | false
-      | CandidateKeySpecifier
-      | (() => undefined | CandidateKeySpecifier);
+      false | CandidateKeySpecifier | (() => undefined | CandidateKeySpecifier);
     fields?: CandidateFieldPolicy;
   };
   CandidateApplicationCreatedEvent?: Omit<
@@ -2252,8 +2234,7 @@ export interface StrictTypedTypePolicies {
       | false
       | CreateWebhookSubscriptionPayloadConflictKeySpecifier
       | (() =>
-          | undefined
-          | CreateWebhookSubscriptionPayloadConflictKeySpecifier);
+          undefined | CreateWebhookSubscriptionPayloadConflictKeySpecifier);
     fields?: CreateWebhookSubscriptionPayloadConflictFieldPolicy;
   };
   CreateWebhookSubscriptionPayload_Success?: Omit<
@@ -2268,9 +2249,7 @@ export interface StrictTypedTypePolicies {
   };
   Currency?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:
-      | false
-      | CurrencyKeySpecifier
-      | (() => undefined | CurrencyKeySpecifier);
+      false | CurrencyKeySpecifier | (() => undefined | CurrencyKeySpecifier);
     fields?: CurrencyFieldPolicy;
   };
   CurrencyMinorUnit?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
@@ -2288,8 +2267,7 @@ export interface StrictTypedTypePolicies {
       | false
       | DeleteCandidateProcessHistoryItemPayloadKeySpecifier
       | (() =>
-          | undefined
-          | DeleteCandidateProcessHistoryItemPayloadKeySpecifier);
+          undefined | DeleteCandidateProcessHistoryItemPayloadKeySpecifier);
     fields?: DeleteCandidateProcessHistoryItemPayloadFieldPolicy;
   };
   DeletePositionOpeningPayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
@@ -2356,9 +2334,7 @@ export interface StrictTypedTypePolicies {
   };
   Email?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:
-      | false
-      | EmailKeySpecifier
-      | (() => undefined | EmailKeySpecifier);
+      false | EmailKeySpecifier | (() => undefined | EmailKeySpecifier);
     fields?: EmailFieldPolicy;
   };
   EmployerHistory?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
@@ -2370,16 +2346,12 @@ export interface StrictTypedTypePolicies {
   };
   Event?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:
-      | false
-      | EventKeySpecifier
-      | (() => undefined | EventKeySpecifier);
+      false | EventKeySpecifier | (() => undefined | EventKeySpecifier);
     fields?: EventFieldPolicy;
   };
   EventEdge?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:
-      | false
-      | EventEdgeKeySpecifier
-      | (() => undefined | EventEdgeKeySpecifier);
+      false | EventEdgeKeySpecifier | (() => undefined | EventEdgeKeySpecifier);
     fields?: EventEdgeFieldPolicy;
   };
   EventsConnection?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
@@ -2450,9 +2422,7 @@ export interface StrictTypedTypePolicies {
   };
   Location?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:
-      | false
-      | LocationKeySpecifier
-      | (() => undefined | LocationKeySpecifier);
+      false | LocationKeySpecifier | (() => undefined | LocationKeySpecifier);
     fields?: LocationFieldPolicy;
   };
   LocationSuggestion?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
@@ -2464,9 +2434,7 @@ export interface StrictTypedTypePolicies {
   };
   Mutation?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:
-      | false
-      | MutationKeySpecifier
-      | (() => undefined | MutationKeySpecifier);
+      false | MutationKeySpecifier | (() => undefined | MutationKeySpecifier);
     fields?: MutationFieldPolicy;
   };
   ObjectIdentifier?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
@@ -2485,9 +2453,7 @@ export interface StrictTypedTypePolicies {
   };
   PageInfo?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:
-      | false
-      | PageInfoKeySpecifier
-      | (() => undefined | PageInfoKeySpecifier);
+      false | PageInfoKeySpecifier | (() => undefined | PageInfoKeySpecifier);
     fields?: PageInfoFieldPolicy;
   };
   PartnerOrganization?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
@@ -2499,9 +2465,7 @@ export interface StrictTypedTypePolicies {
   };
   PayType?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:
-      | false
-      | PayTypeKeySpecifier
-      | (() => undefined | PayTypeKeySpecifier);
+      false | PayTypeKeySpecifier | (() => undefined | PayTypeKeySpecifier);
     fields?: PayTypeFieldPolicy;
   };
   PersonCompetency?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
@@ -2520,9 +2484,7 @@ export interface StrictTypedTypePolicies {
   };
   Phone?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:
-      | false
-      | PhoneKeySpecifier
-      | (() => undefined | PhoneKeySpecifier);
+      false | PhoneKeySpecifier | (() => undefined | PhoneKeySpecifier);
     fields?: PhoneFieldPolicy;
   };
   PositionFormattedDescription?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
@@ -2634,8 +2596,7 @@ export interface StrictTypedTypePolicies {
       | false
       | PostPositionProfileForOpeningPayloadConflictKeySpecifier
       | (() =>
-          | undefined
-          | PostPositionProfileForOpeningPayloadConflictKeySpecifier);
+          undefined | PostPositionProfileForOpeningPayloadConflictKeySpecifier);
     fields?: PostPositionProfileForOpeningPayloadConflictFieldPolicy;
   };
   PostPositionProfileForOpeningPayload_Success?: Omit<
@@ -2646,8 +2607,7 @@ export interface StrictTypedTypePolicies {
       | false
       | PostPositionProfileForOpeningPayloadSuccessKeySpecifier
       | (() =>
-          | undefined
-          | PostPositionProfileForOpeningPayloadSuccessKeySpecifier);
+          undefined | PostPositionProfileForOpeningPayloadSuccessKeySpecifier);
     fields?: PostPositionProfileForOpeningPayloadSuccessFieldPolicy;
   };
   PostPositionProfileForOpening_PositionProfilePayload?: Omit<
@@ -2704,8 +2664,7 @@ export interface StrictTypedTypePolicies {
       | false
       | PostedPositionProfileAdvertisementProductKeySpecifier
       | (() =>
-          | undefined
-          | PostedPositionProfileAdvertisementProductKeySpecifier);
+          undefined | PostedPositionProfileAdvertisementProductKeySpecifier);
     fields?: PostedPositionProfileAdvertisementProductFieldPolicy;
   };
   PostingInstruction?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
@@ -2731,9 +2690,7 @@ export interface StrictTypedTypePolicies {
   };
   Query?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:
-      | false
-      | QueryKeySpecifier
-      | (() => undefined | QueryKeySpecifier);
+      false | QueryKeySpecifier | (() => undefined | QueryKeySpecifier);
     fields?: QueryFieldPolicy;
   };
   RemunerationAmount?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
@@ -2824,9 +2781,7 @@ export interface StrictTypedTypePolicies {
   };
   SeekVideo?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:
-      | false
-      | SeekVideoKeySpecifier
-      | (() => undefined | SeekVideoKeySpecifier);
+      false | SeekVideoKeySpecifier | (() => undefined | SeekVideoKeySpecifier);
     fields?: SeekVideoFieldPolicy;
   };
   SelfOrganizations?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
@@ -2858,8 +2813,7 @@ export interface StrictTypedTypePolicies {
       | false
       | UpdateCandidateProcessHistoryItemPayloadKeySpecifier
       | (() =>
-          | undefined
-          | UpdateCandidateProcessHistoryItemPayloadKeySpecifier);
+          undefined | UpdateCandidateProcessHistoryItemPayloadKeySpecifier);
     fields?: UpdateCandidateProcessHistoryItemPayloadFieldPolicy;
   };
   UpdatePositionOpeningPersonContactsPayload?: Omit<
@@ -2870,8 +2824,7 @@ export interface StrictTypedTypePolicies {
       | false
       | UpdatePositionOpeningPersonContactsPayloadKeySpecifier
       | (() =>
-          | undefined
-          | UpdatePositionOpeningPersonContactsPayloadKeySpecifier);
+          undefined | UpdatePositionOpeningPersonContactsPayloadKeySpecifier);
     fields?: UpdatePositionOpeningPersonContactsPayloadFieldPolicy;
   };
   UpdatePositionOpeningStatusPayload?: Omit<
@@ -2924,8 +2877,7 @@ export interface StrictTypedTypePolicies {
       | false
       | UpdateUploadedCandidatePersonPayloadConflictKeySpecifier
       | (() =>
-          | undefined
-          | UpdateUploadedCandidatePersonPayloadConflictKeySpecifier);
+          undefined | UpdateUploadedCandidatePersonPayloadConflictKeySpecifier);
     fields?: UpdateUploadedCandidatePersonPayloadConflictFieldPolicy;
   };
   UpdateUploadedCandidatePersonPayload_Success?: Omit<
@@ -2936,8 +2888,7 @@ export interface StrictTypedTypePolicies {
       | false
       | UpdateUploadedCandidatePersonPayloadSuccessKeySpecifier
       | (() =>
-          | undefined
-          | UpdateUploadedCandidatePersonPayloadSuccessKeySpecifier);
+          undefined | UpdateUploadedCandidatePersonPayloadSuccessKeySpecifier);
     fields?: UpdateUploadedCandidatePersonPayloadSuccessFieldPolicy;
   };
   UpdateUploadedCandidateProfileActionsPayload?: Omit<
@@ -2948,8 +2899,7 @@ export interface StrictTypedTypePolicies {
       | false
       | UpdateUploadedCandidateProfileActionsPayloadKeySpecifier
       | (() =>
-          | undefined
-          | UpdateUploadedCandidateProfileActionsPayloadKeySpecifier);
+          undefined | UpdateUploadedCandidateProfileActionsPayloadKeySpecifier);
     fields?: UpdateUploadedCandidateProfileActionsPayloadFieldPolicy;
   };
   UpdateUploadedCandidateProfileDatesPayload?: Omit<
@@ -2960,8 +2910,7 @@ export interface StrictTypedTypePolicies {
       | false
       | UpdateUploadedCandidateProfileDatesPayloadKeySpecifier
       | (() =>
-          | undefined
-          | UpdateUploadedCandidateProfileDatesPayloadKeySpecifier);
+          undefined | UpdateUploadedCandidateProfileDatesPayloadKeySpecifier);
     fields?: UpdateUploadedCandidateProfileDatesPayloadFieldPolicy;
   };
   UpdateUploadedCandidateProfilePositionPreferencesPayload?: Omit<
@@ -3028,9 +2977,7 @@ export interface StrictTypedTypePolicies {
   };
   WebUrl?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:
-      | false
-      | WebUrlKeySpecifier
-      | (() => undefined | WebUrlKeySpecifier);
+      false | WebUrlKeySpecifier | (() => undefined | WebUrlKeySpecifier);
     fields?: WebUrlFieldPolicy;
   };
   WebhookAttempt?: Omit<TypePolicy, 'fields' | 'keyFields'> & {

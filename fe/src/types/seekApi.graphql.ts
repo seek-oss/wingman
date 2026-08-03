@@ -3771,8 +3771,7 @@ export interface PostPositionInput {
 
 /** The response from the `postPosition` mutation. */
 export type PostPositionPayload =
-  | PostPositionPayloadConflict
-  | PostPositionPayloadSuccess;
+  PostPositionPayloadConflict | PostPositionPayloadSuccess;
 
 /**
  * The conflict result for the `postPosition` mutation.
@@ -6479,8 +6478,7 @@ export interface UploadCandidateInput {
 
 /** The response from the `uploadCandidate` mutation. */
 export type UploadCandidatePayload =
-  | UploadCandidatePayloadConflict
-  | UploadCandidatePayloadSuccess;
+  UploadCandidatePayloadConflict | UploadCandidatePayloadSuccess;
 
 /** The conflict result for the `uploadCandidate` mutation. */
 export interface UploadCandidatePayloadConflict {

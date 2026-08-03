@@ -27,7 +27,7 @@ export const MockLocationSelectMap = ({
       space="medium"
       showStorybookAction={showStorybookAction}
       storybookPath="/story/job-posting-locations-locationselectmap--location-select-map"
-      sourcePath="src/components/LocationSelectMap"
+      sourcePath="#src/components/LocationSelectMap"
     >
       <LocationSelectMap {...props} />
     </MockComponentActions>
