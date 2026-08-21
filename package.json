@@ -24,7 +24,7 @@
     "@skuba-lib/changesets-changelog": "1.0.1",
     "concurrently": "10.0.3",
     "graphql": "17.0.1",
-    "sku": "16.0.0"
+    "sku": "16.1.1"
   },
   "packageManager": "pnpm@10.34.5"
 }
