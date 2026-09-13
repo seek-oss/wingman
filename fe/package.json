@@ -79,7 +79,7 @@
     "storybook": "10.4.6",
     "tsdown": "0.22.3",
     "use-query-params": "2.2.2",
-    "vitest": "4.1.9"
+    "vitest": "4.1.11"
   },
   "peerDependencies": {
     "braid-design-system": ">= 32.17.0",
