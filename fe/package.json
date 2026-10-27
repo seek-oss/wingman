@@ -29,7 +29,7 @@
     "lib"
   ],
   "scripts": {
-    "build": "tsdown",
+    "build": "sku configure && tsdown",
     "build-storybook": "storybook build --output-dir dist-storybook",
     "format": "sku format",
     "lint": "sku lint",
