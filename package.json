@@ -21,7 +21,7 @@
     "@graphql-codegen/typescript-apollo-client-helpers": "4.0.1",
     "@graphql-codegen/typescript-operations": "6.1.10",
     "@graphql-tools/utils": "12.1.0",
-    "@skuba-lib/changesets-changelog": "1.0.1",
+    "@skuba-lib/changesets-changelog": "2.0.0",
     "concurrently": "10.0.6",
     "graphql": "17.0.2",
     "sku": "16.5.0"
