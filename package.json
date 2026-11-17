@@ -26,5 +26,5 @@
     "graphql": "17.0.2",
     "sku": "16.5.0"
   },
-  "packageManager": "pnpm@10.34.5"
+  "packageManager": "pnpm@12.21.0"
 }
