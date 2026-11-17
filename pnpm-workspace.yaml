@@ -3,12 +3,23 @@ packages:
 
 configDependencies:
   pnpm-plugin-sku: '0.1.0+sha512-brDwXaOAUEzjoCnijKhgyJZhSRtkl6jWC2crbF1i6BsvVvJ/jT4TQGnz+8ZqXK9OwPudOq7C37qGVMfe0Xszzg=='
-
-ignoredBuiltDependencies:
-  - '@swc/core'
-  - core-js-pure
+publicHoistPattern:
+  - '@types*'
+  - '*eslint*'
+  - '*prettier*'
   - esbuild
-  - unrs-resolver
-
-onlyBuiltDependencies:
-  - sku
+  - jest
+  - tsconfig-seek
+allowBuilds:
+  sku: true
+  '@swc/core': false
+  core-js-pure: false
+  esbuild: false
+  unrs-resolver: false
+blockExoticSubdeps: true
+minimumReleaseAge: 4320
+pmOnFail: error
+strictDepBuilds: true
+trustPolicy: no-downgrade
+trustPolicyExclude:
+  - chokidar@4.0.3
